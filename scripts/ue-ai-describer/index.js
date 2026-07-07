@@ -124,6 +124,7 @@ async function main() {
   const dryRun = hasFlag('dry-run');
   const daily = parseInt(getArg('daily') || '0');
   const limit = parseInt(getArg('limit') || '0');
+  const offset = parseInt(getArg('offset') || '0');
   const resumeFailed = hasFlag('retry-failed');
   const headless = hasFlag('headless') || process.env.CI === 'true';
   const userDataDir = process.env.UE_AI_USER_DATA_DIR || path.join(__dirname, '.playwright-user-data');
@@ -136,6 +137,7 @@ async function main() {
   console.log(`State file: ${STATE_FILE}`);
   if (daily) console.log(`Daily mode: ${daily} per day`);
   if (limit) console.log(`Limit: ${limit}`);
+  if (offset) console.log(`Offset: ${offset}`);
   if (resumeFailed) console.log(`Retry failed: true`);
 
   console.log('\nScanning for markdown files...');
@@ -162,6 +164,11 @@ async function main() {
   if (toProcess.length === 0) {
     console.log('All items processed!');
     return;
+  }
+
+  if (offset > 0) {
+    toProcess = toProcess.slice(offset);
+    console.log(`Offset applied: starting from item ${offset}, ${toProcess.length} remaining`);
   }
 
   const batchSize = daily || limit;

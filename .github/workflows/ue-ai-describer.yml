@@ -2,6 +2,7 @@ name: UE AI Plugin Describer (Daily)
 
 # 在公有仓库 ue6pages 中运行，操作本仓库的 gh-pages 分支。
 # 通过 Playwright 访问 Epic Developer Assistant 为插件/模块生成 AI 描述。
+# 使用 matrix 并行策略切分为多个 job 加速处理。
 
 on:
   schedule:
@@ -9,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       count:
-        description: 'Number of plugins to process'
+        description: 'Number of plugins to process per job'
         required: false
         default: '20'
       dry_run:
@@ -24,10 +25,19 @@ concurrency:
   group: ue-ai-describer
   cancel-in-progress: false
 
+env:
+  BATCH_SIZE: 20
+  NUM_JOBS: 3
+
 jobs:
   describe-plugins:
+    name: AI Describer (batch ${{ matrix.batch }})
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        batch: [0, 1, 2]
 
     steps:
       - name: Checkout public repo (scripts)
@@ -69,18 +79,21 @@ jobs:
         uses: actions/cache@v5
         with:
           path: public-repo/scripts/ue-ai-describer/.playwright-user-data
-          key: ${{ runner.os }}-playwright-userdata-${{ github.run_id }}
+          key: ${{ runner.os }}-playwright-userdata-${{ github.run_id }}-${{ matrix.batch }}
           restore-keys: |
             ${{ runner.os }}-playwright-userdata-
 
-      - name: Determine daily count
-        id: params
+      - name: Compute batch offset
+        id: batch
         run: |
           COUNT="${{ github.event.inputs.count }}"
           if [ -z "$COUNT" ]; then
-            COUNT="20"
+            COUNT="$BATCH_SIZE"
           fi
+          OFFSET=$(( ${{ matrix.batch }} * COUNT ))
+          echo "offset=$OFFSET" >> $GITHUB_OUTPUT
           echo "count=$COUNT" >> $GITHUB_OUTPUT
+          echo "Batch ${{ matrix.batch }}: offset=$OFFSET, count=$COUNT"
 
           DRY_RUN="${{ github.event.inputs.dry_run }}"
           if [ "$DRY_RUN" = "true" ]; then
@@ -94,8 +107,9 @@ jobs:
         run: |
           xvfb-run -a node index.js \
             "$GITHUB_WORKSPACE/ghpages" \
-            --daily=${{ steps.params.outputs.count }} \
-            ${{ steps.params.outputs.dry_run }}
+            --limit=${{ steps.batch.outputs.count }} \
+            --offset=${{ steps.batch.outputs.offset }} \
+            ${{ steps.batch.outputs.dry_run }}
         env:
           UE_AI_STATE_FILE: ${{ github.workspace }}/ghpages/.ue-ai-describer-state.json
           CI: false
@@ -105,24 +119,50 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v5
         with:
-          name: debug-screenshots
+          name: debug-screenshots-batch-${{ matrix.batch }}
           path: public-repo/scripts/ue-ai-describer/debug-screenshots/
           if-no-files-found: ignore
 
-      - name: Check for changes
-        id: git-check
+      - name: Pull latest gh-pages before push (rebase)
+        if: github.event.inputs.dry_run != 'true'
         working-directory: ghpages
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          git fetch origin gh-pages
+          git rebase origin/gh-pages || {
+            echo "Rebase conflict, attempting to resolve state file..."
+            # If state file conflicts, take the union of both processed lists
+            if ls .ue-ai-describer-state.json 2>/dev/null && ls .git/rebase-merge 2>/dev/null; then
+              echo "State file conflict detected, merging..."
+              git show HEAD:.ue-ai-describer-state.json > /tmp/state-ours.json
+              git show origin/gh-pages:.ue-ai-describer-state.json > /tmp/state-theirs.json
+              node -e "
+                const ours = JSON.parse(require('fs').readFileSync('/tmp/state-ours.json','utf8'));
+                const theirs = JSON.parse(require('fs').readFileSync('/tmp/state-theirs.json','utf8'));
+                const merged = {
+                  processed: [...new Set([...ours.processed, ...theirs.processed])],
+                  failed: [...(theirs.failed || []), ...(ours.failed || [])]
+                };
+                require('fs').writeFileSync('.ue-ai-describer-state.json', JSON.stringify(merged, null, 2));
+              "
+              git add .ue-ai-describer-state.json
+              git rebase --continue || true
+            fi
+          }
 
+      - name: Check for changes
+        id: git-check
+        if: github.event.inputs.dry_run != 'true'
+        working-directory: ghpages
+        run: |
           git add -A
           if git diff --cached --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No changes detected"
+            echo "No changes detected for batch ${{ matrix.batch }}"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Changes detected:"
+            echo "Changes detected for batch ${{ matrix.batch }}:"
             git diff --cached --stat
           fi
 
@@ -130,9 +170,22 @@ jobs:
         if: steps.git-check.outputs.has_changes == 'true' && github.event.inputs.dry_run != 'true'
         working-directory: ghpages
         run: |
-          git commit -m "chore: update module/plugin descriptions with AI (daily batch)
+          git commit -m "chore: update AI descriptions (batch ${{ matrix.batch }}, daily)
 
           Automated update by UE AI Plugin Describer workflow.
           Generated from Epic Developer Assistant."
 
-          git push origin gh-pages
+          # Retry push with pull --rebase in case another job pushed first
+          for i in 1 2 3; do
+            if git push origin gh-pages; then
+              echo "Push succeeded on attempt $i"
+              exit 0
+            fi
+            echo "Push failed (attempt $i), pulling latest..."
+            git pull --rebase origin gh-pages || {
+              echo "Pull rebase failed, trying again..."
+              continue
+            }
+          done
+          echo "Push failed after 3 attempts"
+          exit 1
