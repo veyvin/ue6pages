@@ -1,0 +1,113 @@
+name: Generate UE Docs
+
+# 在公有仓库 ue6pages 中运行，负责生成 Unreal Engine 插件/模块文档并推回私有仓库的 gh-pages 分支。
+# 配合私有仓库的 sync-and-deploy.yml 使用：私有仓库只保留 sync-fork 和 deploy-pages。
+
+on:
+  schedule:
+    # 07:00 UTC every day (比私有仓库的 sync 晚 1 小时，确保同步完成后再生成文档)
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+    inputs:
+      force_regenerate:
+        description: 'Regenerate every doc even if it already exists on gh-pages'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  AI_MODEL: ${{ vars.AI_MODEL || 'openai/gpt-4o-mini' }}
+  AI_WORKERS: ${{ vars.AI_WORKERS || '8' }}
+  AI_ENABLED: ${{ vars.AI_ENABLED || 'true' }}
+  TRANSLATE_ENABLED: ${{ vars.TRANSLATE_ENABLED || 'true' }}
+
+jobs:
+  generate-docs:
+    name: Generate plugin / module docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout public repo (scripts)
+        uses: actions/checkout@v5
+        with:
+          path: public-repo
+
+      - name: Checkout private repo source (sparse)
+        uses: actions/checkout@v5
+        with:
+          repository: veyvin/UnrealEngine
+          ref: ue6-main
+          fetch-depth: 1
+          sparse-checkout: |
+            Engine/Plugins
+            Engine/Source
+          token: ${{ secrets.PRIVATE_REPO_PAT }}
+          path: engine-repo
+
+      - name: Checkout private repo gh-pages
+        uses: actions/checkout@v5
+        with:
+          repository: veyvin/UnrealEngine
+          ref: gh-pages
+          fetch-depth: 1
+          token: ${{ secrets.PRIVATE_REPO_PAT }}
+          path: ghpages
+
+      - name: Ensure gh-pages directories exist
+        run: |
+          mkdir -p ghpages/plugins ghpages/modules
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate docs
+        env:
+          GH_TOKEN: ${{ secrets.PRIVATE_REPO_PAT }}
+          AI_MODEL: ${{ env.AI_MODEL }}
+          AI_WORKERS: ${{ env.AI_WORKERS }}
+          AI_ENABLED: ${{ env.AI_ENABLED }}
+          TRANSLATE_ENABLED: ${{ env.TRANSLATE_ENABLED }}
+          FORCE_REGEN: ${{ github.event.inputs.force_regenerate || 'false' }}
+        run: |
+          NO_AI_FLAG=""
+          if [ "$AI_ENABLED" != "true" ]; then
+            NO_AI_FLAG="--no-ai"
+          fi
+          TRANSLATE_FLAG=""
+          if [ "$TRANSLATE_ENABLED" = "true" ]; then
+            TRANSLATE_FLAG="--translate"
+          fi
+          python public-repo/scripts/generate_docs.py \
+            --engine-root engine-repo \
+            --docs-root ghpages \
+            --model     "$AI_MODEL" \
+            --workers   "$AI_WORKERS" \
+            --force     "$FORCE_REGEN" \
+            $NO_AI_FLAG \
+            $TRANSLATE_FLAG
+
+      - name: Commit & push gh-pages
+        run: |
+          set -euo pipefail
+          cd ghpages
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.PRIVATE_REPO_PAT }}@github.com/veyvin/UnrealEngine.git
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No new docs to publish."
+            echo "### Docs generation" >> "$GITHUB_STEP_SUMMARY"
+            echo "Nothing new to publish — every plugin/module was already documented." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          ADDED=$(git diff --cached --name-only --diff-filter=A | wc -l | tr -d ' ')
+          MODS=$(git diff --cached --name-only --diff-filter=M | wc -l | tr -d ' ')
+          git commit -q -m "docs: ${ADDED} new + ${MODS} updated plugin/module intros"
+          git push origin gh-pages
+          echo "### Docs generation" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- new files: ${ADDED}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- updated files: ${MODS}" >> "$GITHUB_STEP_SUMMARY"

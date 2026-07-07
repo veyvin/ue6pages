@@ -1,0 +1,103 @@
+name: Sync Fork & Deploy Pages
+
+# 精简版：只保留 sync-fork 和 deploy-pages。
+# generate-docs 已移到公有仓库 ue6pages 中运行。
+
+on:
+  schedule:
+    # 06:00 UTC every day
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # merge-upstream
+  pages: write      # deploy-pages
+  id-token: write   # deploy-pages OIDC
+
+concurrency:
+  group: sync-and-deploy-pages
+  cancel-in-progress: false
+
+env:
+  UPSTREAM_BRANCH: ${{ vars.UPSTREAM_BRANCH || github.ref_name }}
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+jobs:
+  sync-fork:
+    name: Sync fork from upstream
+    runs-on: ubuntu-latest
+    outputs:
+      new_commits: ${{ steps.sync.outputs.new_commits }}
+      sync_sha: ${{ steps.sync.outputs.sync_sha }}
+    steps:
+      - name: Sync via merge-upstream API
+        id: sync
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          BEFORE=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${GITHUB_REF_NAME}" --jq .object.sha)
+          PAYLOAD=$(jq -nc --arg b "$UPSTREAM_BRANCH" '{branch:$b}')
+          echo "POST /repos/${GITHUB_REPOSITORY}/merge-upstream  body=$PAYLOAD"
+          gh api -X POST \
+                 -H "Accept: application/vnd.github+json" \
+                 "/repos/${GITHUB_REPOSITORY}/merge-upstream" \
+                 --input - <<<"$PAYLOAD" \
+            && echo "merge-upstream OK" \
+            || echo "merge-upstream failed (non-fork or rate-limited); continuing"
+
+          AFTER=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${GITHUB_REF_NAME}" --jq .object.sha)
+          echo "before_sha=$BEFORE"  >> "$GITHUB_OUTPUT"
+          echo "sync_sha=$AFTER"     >> "$GITHUB_OUTPUT"
+          if [ "$BEFORE" != "$AFTER" ]; then
+            echo "new_commits=true"  >> "$GITHUB_OUTPUT"
+          else
+            echo "new_commits=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Summary
+        run: |
+          echo "### Sync result" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- before: \`${{ steps.sync.outputs.before_sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- after:  \`${{ steps.sync.outputs.sync_sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- new commits from upstream: \`${{ steps.sync.outputs.new_commits }}\`" >> "$GITHUB_STEP_SUMMARY"
+
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    needs: sync-fork
+    if: always() && needs.sync-fork.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build site with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: './'
+          destination: './_site'
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './_site'
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
