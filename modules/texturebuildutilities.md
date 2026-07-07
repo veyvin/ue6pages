@@ -1,0 +1,14 @@
+---
+layout: default
+title: TextureBuildUtilities
+---
+
+<!-- ai-generation-failed -->
+
+<h1>TextureBuildUtilities</h1>
+
+<div class="info-card">
+  <ul>
+    <li><span class="label">文件</span><span class="value"><code>Engine/Source/Developer/TextureBuildUtilities/TextureBuildUtilities.Build.cs</code></span></li><li><span class="label">基类</span><span class="value"><code>ModuleRules</code></span></li><li><span class="label">依赖</span><span class="value">Core, ImageCore, TextureFormat</span></li>
+  </ul>
+</div>

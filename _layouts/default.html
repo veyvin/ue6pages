@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="{{ '/' | relative_url }}">
+        UE 插件与模块文档
+      </a>
+      <div class="header-right">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="搜索插件或模块..." oninput="filterItems()">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </div>
+        <nav class="site-nav">
+          <a href="{{ '/' | relative_url }}#plugins">插件</a>
+          <a href="{{ '/' | relative_url }}#modules">模块</a>
+        </nav>
+        <button class="lang-switch" onclick="toggleGlobalLang()" id="langSwitch">
+          中文
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="container">
+    {{ content }}
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>Auto-generated daily from Unreal Engine source</p>
+    </div>
+  </footer>
+  <script src="{{ '/assets/main.js' | relative_url }}"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+scripts/ue-ai-describer/node_modules/
+scripts/ue-ai-describer/.playwright-user-data/
+scripts/ue-ai-describer/debug-screenshots/
+.ue-ai-describer-state.json
