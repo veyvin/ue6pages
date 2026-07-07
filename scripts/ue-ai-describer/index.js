@@ -1,102 +1,223 @@
 const fs = require('fs');
 const path = require('path');
-const { chromium } = require('playwright');
+const UEAIClient = require('./ue-ai-client');
+const { findMdFiles, readMdFile, updateMdDescription, hasAIDescription } = require('./scanner');
 
-const STATE_FILE = '.ue-ai-describer-state.json';
-const TARGET_DIR = process.argv[2] || '.';
+const STATE_FILE = process.env.UE_AI_STATE_FILE || path.join(__dirname, '..', '..', '.ue-ai-describer-state.json');
+const DEFAULT_ROOT = '/workspace';
+const AI_DELIMITER = '\n\n---\n\n### AI Description & Usage Tips\n\n';
+const MAX_RETRIES = 3;
 
-async function loadState() {
-  const statePath = path.join(TARGET_DIR, STATE_FILE);
-  if (fs.existsSync(statePath)) {
-    return JSON.parse(fs.readFileSync(statePath, 'utf8'));
-  }
-  return { processed: [], lastRun: null };
-}
-
-async function saveState(state) {
-  const statePath = path.join(TARGET_DIR, STATE_FILE);
-  fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
-}
-
-async function findMarkdownFiles(dir) {
-  const files = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
-      files.push(...await findMarkdownFiles(fullPath));
-    } else if (entry.isFile() && entry.name.endsWith('.md')) {
-      files.push(fullPath);
+function loadState() {
+  if (fs.existsSync(STATE_FILE)) {
+    try {
+      return JSON.parse(fs.readFileSync(STATE_FILE, 'utf-8'));
+    } catch (e) {
+      console.warn('Failed to parse state file, starting fresh');
     }
   }
-  return files;
+  return { processed: [], failed: [] };
 }
 
-async function generateDescription(browser, filePath, content) {
-  // TODO: 填入具体的 AI 服务交互逻辑
-  // 从原私有仓库的脚本中复制实际的 Playwright 自动化逻辑到这里
-  //
-  // 示例框架：
-  // const page = await browser.newPage();
-  // await page.goto('https://your-ai-service.com');
-  // ... 填入登录、输入内容、获取描述等操作 ...
-  // const description = await page.locator('.result').textContent();
-  // await page.close();
-  // return description;
+function saveState(state) {
+  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf-8');
+}
 
-  console.warn('Warning: generateDescription() is not implemented. Please fill in the AI service interaction logic.');
-  return 'AI generated description placeholder';
+function buildQuestion(itemName, category) {
+  const typeName = category === 'plugins' ? 'plugin' : 'module';
+  return `Introduce the Unreal Engine "${itemName}" ${typeName}. Give a brief description (what it is, what it's used for), then list 5-8 practical usage tips or best practices. Format as markdown with clear headings. Be concise and practical.`;
+}
+
+async function askWithRetry(client, question, maxRetries = MAX_RETRIES) {
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const answer = await client.ask(question, { timeout: 120000 });
+      if (answer && answer.length > 50) {
+        return answer;
+      }
+      lastError = new Error('Answer too short or empty');
+    } catch (e) {
+      lastError = e;
+      console.log(`    Attempt ${attempt} failed: ${e.message}`);
+
+      if (e.message.includes('403') || e.message.includes('Forbidden')) {
+        console.log('    Cloudflare detected, reloading page...');
+        try {
+          await client.page.reload({ waitUntil: 'domcontentloaded' });
+          await client._waitForReady();
+        } catch (reloadErr) {
+          console.log('    Reload failed');
+        }
+      }
+    }
+
+    if (attempt < maxRetries) {
+      const waitMs = 5000 * attempt;
+      console.log(`    Waiting ${waitMs / 1000}s before retry...`);
+      await new Promise(r => setTimeout(r, waitMs));
+    }
+  }
+
+  throw lastError;
+}
+
+async function processItem(client, item, state, dryRun = false) {
+  const name = item.name;
+  const category = item.category;
+  console.log(`\n========================================`);
+  console.log(`Processing: ${name} (${category})`);
+  console.log(`Path: ${item.relativePath}`);
+
+  try {
+    const content = readMdFile(item.path);
+
+    if (hasAIDescription(content) && state.processed.includes(item.path)) {
+      console.log('  Already processed, skipping.');
+      return 'skipped';
+    }
+
+    const question = buildQuestion(name, category);
+    console.log('  Asking AI...');
+
+    const answer = await askWithRetry(client, question);
+    const aiContent = answer.trim();
+    console.log(`  Answer length: ${aiContent.length} chars`);
+
+    if (!dryRun) {
+      const newLen = updateMdDescription(item.path, aiContent);
+      console.log(`  Description updated! New length: ${newLen} chars`);
+    } else {
+      console.log('  [DRY RUN] Would update description');
+      console.log(`  Preview:\n${aiContent.substring(0, 300)}...`);
+    }
+
+    if (!state.processed.includes(item.path)) {
+      state.processed.push(item.path);
+    }
+    saveState(state);
+    return 'success';
+  } catch (e) {
+    console.error(`  Error: ${e.message}`);
+    state.failed = state.failed.filter(f => f.path !== item.path);
+    state.failed.push({ path: item.path, error: e.message, time: Date.now() });
+    saveState(state);
+    return 'failed';
+  }
 }
 
 async function main() {
-  console.log('Starting UE AI Describer...');
-  console.log('Target directory:', path.resolve(TARGET_DIR));
+  const args = process.argv.slice(2);
 
-  const state = await loadState();
-  const files = await findMarkdownFiles(TARGET_DIR);
-
-  console.log(`Found ${files.length} markdown files`);
-
-  const browser = await chromium.launch({ headless: true });
-
-  try {
-    for (const file of files) {
-      const relativePath = path.relative(TARGET_DIR, file);
-      if (state.processed.includes(relativePath)) {
-        console.log(`Skipping already processed: ${relativePath}`);
-        continue;
-      }
-
-      console.log(`Processing: ${relativePath}`);
-      const content = fs.readFileSync(file, 'utf8');
-
-      // 检查是否已有 AI 描述
-      if (content.includes('<!-- AI_DESCRIPTION -->')) {
-        console.log(`Already has AI description: ${relativePath}`);
-        state.processed.push(relativePath);
-        continue;
-      }
-
-      try {
-        const description = await generateDescription(browser, file, content);
-        const updatedContent = content + '\n\n<!-- AI_DESCRIPTION -->\n' + description + '\n<!-- /AI_DESCRIPTION -->\n';
-        fs.writeFileSync(file, updatedContent);
-        state.processed.push(relativePath);
-        console.log(`Updated: ${relativePath}`);
-      } catch (error) {
-        console.error(`Failed to process ${relativePath}:`, error.message);
-      }
-
-      // 增量保存状态
-      await saveState(state);
-    }
-  } finally {
-    await browser.close();
+  function getArg(name) {
+    const full = `--${name}=`;
+    const found = args.find(a => a.startsWith(full));
+    return found ? found.substring(full.length) : null;
   }
 
-  state.lastRun = new Date().toISOString();
-  await saveState(state);
-  console.log('Done!');
+  function hasFlag(name) {
+    return args.includes(`--${name}`);
+  }
+
+  const rootDir = args[0] || DEFAULT_ROOT;
+  const dryRun = hasFlag('dry-run');
+  const daily = parseInt(getArg('daily') || '0');
+  const limit = parseInt(getArg('limit') || '0');
+  const resumeFailed = hasFlag('retry-failed');
+  const headless = hasFlag('headless') || process.env.CI === 'true';
+  const userDataDir = process.env.UE_AI_USER_DATA_DIR || path.join(__dirname, '.playwright-user-data');
+
+  console.log('UE AI Plugin/Module Describer');
+  console.log('=============================');
+  console.log(`Root: ${rootDir}`);
+  console.log(`Dry run: ${dryRun}`);
+  console.log(`Headless: ${headless}`);
+  console.log(`State file: ${STATE_FILE}`);
+  if (daily) console.log(`Daily mode: ${daily} per day`);
+  if (limit) console.log(`Limit: ${limit}`);
+  if (resumeFailed) console.log(`Retry failed: true`);
+
+  console.log('\nScanning for markdown files...');
+  const items = findMdFiles(rootDir);
+  console.log(`Found ${items.length} items (modules + plugins)`);
+
+  if (items.length === 0) {
+    console.log('No items found. Exiting.');
+    return;
+  }
+
+  const state = loadState();
+  console.log(`State: ${state.processed.length} processed, ${state.failed.length} failed`);
+
+  let toProcess;
+  if (resumeFailed) {
+    toProcess = items.filter(p => state.failed.some(f => f.path === p.path));
+    console.log(`Retrying ${toProcess.length} failed items`);
+  } else {
+    toProcess = items.filter(p => !state.processed.includes(p.path));
+    console.log(`Pending: ${toProcess.length}`);
+  }
+
+  if (toProcess.length === 0) {
+    console.log('All items processed!');
+    return;
+  }
+
+  const batchSize = daily || limit;
+  if (batchSize > 0) {
+    toProcess = toProcess.slice(0, batchSize);
+    console.log(`Processing batch of ${toProcess.length} items`);
+  }
+
+  console.log('\nInitializing AI client...');
+  const client = new UEAIClient({
+    headless: headless,
+    userDataDir: userDataDir,
+  });
+
+  try {
+    await client.init();
+    console.log('AI client ready!');
+
+    let success = 0;
+    let failed = 0;
+    let skipped = 0;
+
+    for (let i = 0; i < toProcess.length; i++) {
+      const item = toProcess[i];
+      console.log(`\n[${i + 1}/${toProcess.length}]`);
+      const result = await processItem(client, item, state, dryRun);
+
+      if (result === 'success') success++;
+      else if (result === 'failed') failed++;
+      else skipped++;
+
+      console.log(`Progress: ${success} ok, ${failed} fail, ${skipped} skip`);
+
+      if (i < toProcess.length - 1) {
+        const delay = 3000 + Math.random() * 2000;
+        console.log(`  Waiting ${Math.round(delay / 1000)}s...`);
+        await new Promise(r => setTimeout(r, delay));
+      }
+    }
+
+    console.log('\n========================================');
+    console.log('Done!');
+    console.log(`  Success: ${success}`);
+    console.log(`  Failed:  ${failed}`);
+    console.log(`  Skipped: ${skipped}`);
+    console.log(`  Total:   ${toProcess.length}`);
+    console.log(`  State:   ${state.processed.length} total processed`);
+
+    process.exit(failed > 0 && success === 0 ? 1 : 0);
+  } catch (e) {
+    console.error('Fatal error:', e.message);
+    console.error(e.stack);
+    process.exit(2);
+  } finally {
+    await client.close();
+  }
 }
 
-main().catch(console.error);
+main();

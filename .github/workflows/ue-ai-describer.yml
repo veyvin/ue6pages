@@ -1,31 +1,51 @@
-name: UE AI Describer
+name: UE AI Plugin Describer (Daily)
+
+# 在公有仓库 ue6pages 中运行，操作本仓库的 gh-pages 分支。
+# 通过 Playwright 访问 Epic Developer Assistant 为插件/模块生成 AI 描述。
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 1 * * *'
   workflow_dispatch:
+    inputs:
+      count:
+        description: 'Number of plugins to process'
+        required: false
+        default: '20'
+      dry_run:
+        description: 'Dry run (do not modify files)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ue-ai-describer
+  cancel-in-progress: false
 
 jobs:
-  generate:
+  describe-plugins:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
+
     steps:
       - name: Checkout public repo (scripts)
         uses: actions/checkout@v5
         with:
           path: public-repo
 
-      - name: Checkout private repo (gh-pages)
+      - name: Checkout gh-pages branch
         uses: actions/checkout@v5
         with:
-          repository: veyvin/UnrealEngine
           ref: gh-pages
-          token: ${{ secrets.PRIVATE_REPO_PAT }}
-          path: private-repo
+          fetch-depth: 1
+          path: ghpages
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
           cache-dependency-path: public-repo/scripts/ue-ai-describer/package-lock.json
 
@@ -35,19 +55,84 @@ jobs:
 
       - name: Install Playwright browsers
         working-directory: public-repo/scripts/ue-ai-describer
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install chromium
 
-      - name: Run AI Describer
-        working-directory: public-repo/scripts/ue-ai-describer
-        env:
-          TARGET_DIR: ${{ github.workspace }}/private-repo
-        run: node index.js "$TARGET_DIR"
+      - name: Install Playwright system dependencies
+        run: npx playwright install-deps chromium
 
-      - name: Commit and push changes to private repo
-        working-directory: private-repo
+      - name: Install xvfb
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Update AI descriptions [skip ci]" || exit 0
-          git push https://x-access-token:${{ secrets.PRIVATE_REPO_PAT }}@github.com/veyvin/UnrealEngine.git gh-pages
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
+      - name: Cache Playwright user data
+        uses: actions/cache@v5
+        with:
+          path: public-repo/scripts/ue-ai-describer/.playwright-user-data
+          key: ${{ runner.os }}-playwright-userdata-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-userdata-
+
+      - name: Determine daily count
+        id: params
+        run: |
+          COUNT="${{ github.event.inputs.count }}"
+          if [ -z "$COUNT" ]; then
+            COUNT="20"
+          fi
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+
+          DRY_RUN="${{ github.event.inputs.dry_run }}"
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "dry_run=--dry-run" >> $GITHUB_OUTPUT
+          else
+            echo "dry_run=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run AI describer
+        working-directory: public-repo/scripts/ue-ai-describer
+        run: |
+          xvfb-run -a node index.js \
+            "$GITHUB_WORKSPACE/ghpages" \
+            --daily=${{ steps.params.outputs.count }} \
+            ${{ steps.params.outputs.dry_run }}
+        env:
+          UE_AI_STATE_FILE: ${{ github.workspace }}/ghpages/.ue-ai-describer-state.json
+          CI: false
+        continue-on-error: true
+
+      - name: Upload debug screenshots
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: debug-screenshots
+          path: public-repo/scripts/ue-ai-describer/debug-screenshots/
+          if-no-files-found: ignore
+
+      - name: Check for changes
+        id: git-check
+        working-directory: ghpages
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected:"
+            git diff --cached --stat
+          fi
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.has_changes == 'true' && github.event.inputs.dry_run != 'true'
+        working-directory: ghpages
+        run: |
+          git commit -m "chore: update module/plugin descriptions with AI (daily batch)
+
+          Automated update by UE AI Plugin Describer workflow.
+          Generated from Epic Developer Assistant."
+
+          git push origin gh-pages
