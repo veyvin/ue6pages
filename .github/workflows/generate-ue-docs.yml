@@ -1,7 +1,9 @@
-name: Generate UE Docs
+name: Generate & Deploy UE Docs
 
-# 在公有仓库 ue6pages 中运行，负责生成 Unreal Engine 插件/模块文档并推回私有仓库的 gh-pages 分支。
-# 配合私有仓库的 sync-and-deploy.yml 使用：私有仓库只保留 sync-fork 和 deploy-pages。
+# 在公有仓库 ue6pages 中运行：
+#   1. 从私有仓库 veyvin/UnrealEngine 拉取 UE 源码（sparse checkout）
+#   2. 生成插件/模块文档到本仓库的 gh-pages 分支
+#   3. 部署到本仓库的 GitHub Pages
 
 on:
   schedule:
@@ -10,12 +12,22 @@ on:
   workflow_dispatch:
     inputs:
       force_regenerate:
-        description: 'Regenerate every doc even if it already exists on gh-pages'
+        description: 'Regenerate every doc even if it already exists'
+        type: boolean
+        default: false
+      seed_from_private:
+        description: 'Seed gh-pages from private repo (only needed on first run)'
         type: boolean
         default: false
 
 permissions:
-  contents: read
+  contents: write   # push to gh-pages
+  pages: write      # deploy-pages
+  id-token: write   # deploy-pages OIDC
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 env:
   AI_MODEL: ${{ vars.AI_MODEL || 'openai/gpt-4o-mini' }}
@@ -45,18 +57,35 @@ jobs:
           token: ${{ secrets.PRIVATE_REPO_PAT }}
           path: engine-repo
 
-      - name: Checkout private repo gh-pages
-        uses: actions/checkout@v5
-        with:
-          repository: veyvin/UnrealEngine
-          ref: gh-pages
-          fetch-depth: 1
-          token: ${{ secrets.PRIVATE_REPO_PAT }}
-          path: ghpages
-
-      - name: Ensure gh-pages directories exist
+      - name: Checkout or init gh-pages
         run: |
-          mkdir -p ghpages/plugins ghpages/modules
+          set -euo pipefail
+          REPO_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git ls-remote --exit-code --heads "$REPO_URL" gh-pages >/dev/null 2>&1; then
+            echo "gh-pages exists -> cloning"
+            git clone --quiet --branch gh-pages --depth 1 "$REPO_URL" /tmp/ghpages
+          else
+            echo "gh-pages does not exist -> initialising"
+            mkdir -p /tmp/ghpages
+            cd /tmp/ghpages
+            git init -q -b gh-pages
+            git remote add origin "$REPO_URL"
+          fi
+          mkdir -p /tmp/ghpages/plugins /tmp/ghpages/modules
+
+      - name: Seed from private repo gh-pages (optional)
+        if: github.event.inputs.seed_from_private == 'true'
+        run: |
+          set -euo pipefail
+          PRIVATE_URL="https://x-access-token:${{ secrets.PRIVATE_REPO_PAT }}@github.com/veyvin/UnrealEngine.git"
+          echo "Cloning private repo gh-pages as seed..."
+          git clone --quiet --branch gh-pages --depth 1 "$PRIVATE_URL" /tmp/private-ghpages || {
+            echo "Private repo gh-pages not found, skipping seed."
+            exit 0
+          }
+          # Copy everything except .git into our gh-pages worktree
+          rsync -a --delete --exclude='.git' /tmp/private-ghpages/ /tmp/ghpages/
+          echo "Seed complete."
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -82,7 +111,7 @@ jobs:
           fi
           python public-repo/scripts/generate_docs.py \
             --engine-root engine-repo \
-            --docs-root ghpages \
+            --docs-root /tmp/ghpages \
             --model     "$AI_MODEL" \
             --workers   "$AI_WORKERS" \
             --force     "$FORCE_REGEN" \
@@ -92,10 +121,9 @@ jobs:
       - name: Commit & push gh-pages
         run: |
           set -euo pipefail
-          cd ghpages
+          cd /tmp/ghpages
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.PRIVATE_REPO_PAT }}@github.com/veyvin/UnrealEngine.git
           git add -A
           if git diff --cached --quiet; then
             echo "No new docs to publish."
@@ -106,8 +134,46 @@ jobs:
           ADDED=$(git diff --cached --name-only --diff-filter=A | wc -l | tr -d ' ')
           MODS=$(git diff --cached --name-only --diff-filter=M | wc -l | tr -d ' ')
           git commit -q -m "docs: ${ADDED} new + ${MODS} updated plugin/module intros"
-          git push origin gh-pages
+          git push -u origin gh-pages
           echo "### Docs generation" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "- new files: ${ADDED}" >> "$GITHUB_STEP_SUMMARY"
           echo "- updated files: ${MODS}" >> "$GITHUB_STEP_SUMMARY"
+
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    needs: generate-docs
+    if: always() && needs.generate-docs.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          fetch-depth: 1
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build site with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: './'
+          destination: './_site'
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './_site'
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
