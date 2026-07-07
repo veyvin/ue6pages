@@ -3,7 +3,6 @@ layout: default
 title: 动画变形 / Animation Warping
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>动画变形 / Animation Warping</h1>
 

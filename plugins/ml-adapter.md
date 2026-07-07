@@ -3,7 +3,6 @@ layout: default
 title: 机器学习适配器 / ML Adapter
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>机器学习适配器 / ML Adapter</h1>
 

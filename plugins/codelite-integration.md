@@ -3,7 +3,6 @@ layout: default
 title: CodeLite 集成 / CodeLite Integration
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>CodeLite 集成 / CodeLite Integration</h1>
 

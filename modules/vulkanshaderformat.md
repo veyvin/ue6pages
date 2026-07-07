@@ -3,6 +3,7 @@ layout: default
 title: VulkanShaderFormat
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>VulkanShaderFormat</h1>
 

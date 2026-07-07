@@ -3,7 +3,6 @@ layout: default
 title: 发现信标接收器 / Discovery Beacon Receiver
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>发现信标接收器 / Discovery Beacon Receiver</h1>
 
