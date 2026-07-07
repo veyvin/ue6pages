@@ -125,6 +125,7 @@ async function main() {
   const daily = parseInt(getArg('daily') || '0');
   const limit = parseInt(getArg('limit') || '0');
   const offset = parseInt(getArg('offset') || '0');
+  const step = parseInt(getArg('step') || '0');
   const resumeFailed = hasFlag('retry-failed');
   const headless = hasFlag('headless') || process.env.CI === 'true';
   const userDataDir = process.env.UE_AI_USER_DATA_DIR || path.join(__dirname, '.playwright-user-data');
@@ -166,7 +167,10 @@ async function main() {
     return;
   }
 
-  if (offset > 0) {
+  if (step > 1) {
+    toProcess = toProcess.filter((_, i) => i % step === offset);
+    console.log(`Step mode: step=${step}, offset=${offset}, assigned ${toProcess.length} items`);
+  } else if (offset > 0) {
     toProcess = toProcess.slice(offset);
     console.log(`Offset applied: starting from item ${offset}, ${toProcess.length} remaining`);
   }

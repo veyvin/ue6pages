@@ -10,9 +10,9 @@ on:
   workflow_dispatch:
     inputs:
       count:
-        description: 'Number of plugins to process per job'
+        description: 'Number of plugins to process per job (leave empty for no limit)'
         required: false
-        default: '20'
+        default: ''
       dry_run:
         description: 'Dry run (do not modify files)'
         required: false
@@ -26,14 +26,13 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  BATCH_SIZE: 20
   NUM_JOBS: 3
 
 jobs:
   describe-plugins:
     name: AI Describer (batch ${{ matrix.batch }})
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 360
     strategy:
       fail-fast: false
       matrix:
@@ -83,17 +82,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-playwright-userdata-
 
-      - name: Compute batch offset
+      - name: Compute batch parameters
         id: batch
         run: |
           COUNT="${{ github.event.inputs.count }}"
-          if [ -z "$COUNT" ]; then
-            COUNT="$BATCH_SIZE"
-          fi
-          OFFSET=$(( ${{ matrix.batch }} * COUNT ))
+          STEP="$NUM_JOBS"
+          OFFSET="${{ matrix.batch }}"
+
+          echo "step=$STEP" >> $GITHUB_OUTPUT
           echo "offset=$OFFSET" >> $GITHUB_OUTPUT
-          echo "count=$COUNT" >> $GITHUB_OUTPUT
-          echo "Batch ${{ matrix.batch }}: offset=$OFFSET, count=$COUNT"
+          echo "Batch ${{ matrix.batch }}: step=$STEP, offset=$OFFSET"
+
+          if [ -n "$COUNT" ] && [ "$COUNT" -gt 0 ] 2>/dev/null; then
+            echo "limit=$COUNT" >> $GITHUB_OUTPUT
+            echo "Limit per job: $COUNT"
+          else
+            echo "limit=" >> $GITHUB_OUTPUT
+            echo "No limit — processing all assigned items"
+          fi
 
           DRY_RUN="${{ github.event.inputs.dry_run }}"
           if [ "$DRY_RUN" = "true" ]; then
@@ -105,10 +111,15 @@ jobs:
       - name: Run AI describer
         working-directory: public-repo/scripts/ue-ai-describer
         run: |
+          LIMIT_ARG=""
+          if [ -n "${{ steps.batch.outputs.limit }}" ]; then
+            LIMIT_ARG="--limit=${{ steps.batch.outputs.limit }}"
+          fi
           xvfb-run -a node index.js \
             "$GITHUB_WORKSPACE/ghpages" \
-            --limit=${{ steps.batch.outputs.count }} \
+            --step=${{ steps.batch.outputs.step }} \
             --offset=${{ steps.batch.outputs.offset }} \
+            $LIMIT_ARG \
             ${{ steps.batch.outputs.dry_run }}
         env:
           UE_AI_STATE_FILE: ${{ github.workspace }}/ghpages/.ue-ai-describer-state.json
