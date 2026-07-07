@@ -26,7 +26,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  NUM_JOBS: 3
+  NUM_JOBS: 5
 
 jobs:
   describe-plugins:
@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        batch: [0, 1, 2]
+        batch: [0, 1, 2, 3, 4]
 
     steps:
       - name: Checkout public repo (scripts)
