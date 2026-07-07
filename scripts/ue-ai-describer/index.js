@@ -126,6 +126,7 @@ async function main() {
   const limit = parseInt(getArg('limit') || '0');
   const offset = parseInt(getArg('offset') || '0');
   const step = parseInt(getArg('step') || '0');
+  const maxRuntime = parseInt(getArg('max-runtime-minutes') || '0');
   const resumeFailed = hasFlag('retry-failed');
   const headless = hasFlag('headless') || process.env.CI === 'true';
   const userDataDir = process.env.UE_AI_USER_DATA_DIR || path.join(__dirname, '.playwright-user-data');
@@ -139,6 +140,8 @@ async function main() {
   if (daily) console.log(`Daily mode: ${daily} per day`);
   if (limit) console.log(`Limit: ${limit}`);
   if (offset) console.log(`Offset: ${offset}`);
+  if (step > 1) console.log(`Step: ${step}`);
+  if (maxRuntime) console.log(`Max runtime: ${maxRuntime} minutes`);
   if (resumeFailed) console.log(`Retry failed: true`);
 
   console.log('\nScanning for markdown files...');
@@ -194,8 +197,16 @@ async function main() {
     let success = 0;
     let failed = 0;
     let skipped = 0;
+    const startTime = Date.now();
+    const maxRuntimeMs = maxRuntime * 60 * 1000;
 
     for (let i = 0; i < toProcess.length; i++) {
+      if (maxRuntime > 0 && (Date.now() - startTime) >= maxRuntimeMs) {
+        console.log(`\nMax runtime (${maxRuntime} min) reached, stopping gracefully.`);
+        console.log(`Processed ${i} of ${toProcess.length} items in this batch.`);
+        break;
+      }
+
       const item = toProcess[i];
       console.log(`\n[${i + 1}/${toProcess.length}]`);
       const result = await processItem(client, item, state, dryRun);

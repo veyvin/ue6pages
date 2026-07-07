@@ -32,7 +32,7 @@ jobs:
   describe-plugins:
     name: AI Describer (batch ${{ matrix.batch }})
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 240
     strategy:
       fail-fast: false
       matrix:
@@ -119,6 +119,7 @@ jobs:
             "$GITHUB_WORKSPACE/ghpages" \
             --step=${{ steps.batch.outputs.step }} \
             --offset=${{ steps.batch.outputs.offset }} \
+            --max-runtime-minutes=220 \
             $LIMIT_ARG \
             ${{ steps.batch.outputs.dry_run }}
         env:
