@@ -1,0 +1,12 @@
+{
+  "name": "ue-ai-describer",
+  "version": "1.0.0",
+  "description": "AI description generator for Unreal Engine modules/plugins",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}
