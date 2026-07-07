@@ -3,6 +3,7 @@ layout: default
 title: InternationalizationSettings
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>InternationalizationSettings</h1>
 

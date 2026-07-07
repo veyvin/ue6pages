@@ -3,7 +3,6 @@ layout: default
 title: IOSTargetPlatform
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>IOSTargetPlatform</h1>
 

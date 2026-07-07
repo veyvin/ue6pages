@@ -3,7 +3,6 @@ layout: default
 title: 控制装置模块 / Control Rig Modules
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>控制装置模块 / Control Rig Modules</h1>
 

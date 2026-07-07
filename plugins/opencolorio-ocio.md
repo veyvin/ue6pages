@@ -3,7 +3,6 @@ layout: default
 title: OpenColorIO（休闲） / OpenColorIO (OCIO)
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>OpenColorIO（休闲） / OpenColorIO (OCIO)</h1>
 

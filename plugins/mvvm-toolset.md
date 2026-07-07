@@ -1,11 +1,11 @@
 ---
 layout: default
-title: MVVM Toolset / MVVM Toolset
+title: MVVM 工具集 / MVVM Toolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>MVVM Toolset / MVVM Toolset</h1>
+<h1>MVVM 工具集 / MVVM Toolset</h1>
 
 <div class="info-card">
   <ul>

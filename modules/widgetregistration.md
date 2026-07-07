@@ -3,7 +3,6 @@ layout: default
 title: WidgetRegistration
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>WidgetRegistration</h1>
 

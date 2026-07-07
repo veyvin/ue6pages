@@ -3,7 +3,6 @@ layout: default
 title: ProfileVisualizer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>ProfileVisualizer</h1>
 

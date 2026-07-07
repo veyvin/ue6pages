@@ -3,7 +3,6 @@ layout: default
 title: 涂鸦纹理 / Oodle Texture
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>涂鸦纹理 / Oodle Texture</h1>
 

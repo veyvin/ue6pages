@@ -3,7 +3,6 @@ layout: default
 title: SharedSettingsWidgets
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>SharedSettingsWidgets</h1>
 

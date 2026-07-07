@@ -3,7 +3,6 @@ layout: default
 title: 纸二维 / Paper2D
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>纸二维 / Paper2D</h1>
 

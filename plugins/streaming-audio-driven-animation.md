@@ -3,7 +3,6 @@ layout: default
 title: 流式音频驱动动画 / Streaming Audio Driven Animation
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>流式音频驱动动画 / Streaming Audio Driven Animation</h1>
 

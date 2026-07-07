@@ -3,7 +3,6 @@ layout: default
 title: 音乐会共享石板 / Concert Shared Slate
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>音乐会共享石板 / Concert Shared Slate</h1>
 
