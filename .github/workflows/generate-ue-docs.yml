@@ -60,7 +60,7 @@ jobs:
       - name: Checkout or init gh-pages
         run: |
           set -euo pipefail
-          REPO_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          REPO_URL="https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git"
           if git ls-remote --exit-code --heads "$REPO_URL" gh-pages >/dev/null 2>&1; then
             echo "gh-pages exists -> cloning"
             git clone --quiet --branch gh-pages --depth 1 "$REPO_URL" /tmp/ghpages
