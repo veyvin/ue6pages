@@ -1,6 +1,6 @@
 # ue6pages
 
-> 🇺🇸 English | 🇨🇳 中文
+> [🇺🇸 English](#overview-english) | [🇨🇳 中文](#概述-中文)
 
 ## 🌐 Generated Documentation
 
