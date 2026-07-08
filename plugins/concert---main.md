@@ -3,7 +3,6 @@ layout: default
 title: 音乐会 - 主要 / Concert - Main
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>音乐会 - 主要 / Concert - Main</h1>
 

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 现场通知跟踪 / Field Notification Trace
+title: 现场通知追踪 / Field Notification Trace
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>现场通知跟踪 / Field Notification Trace</h1>
+<h1>现场通知追踪 / Field Notification Trace</h1>
 
 <div class="info-card">
   <ul>

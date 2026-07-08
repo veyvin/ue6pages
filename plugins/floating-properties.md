@@ -3,7 +3,6 @@ layout: default
 title: 浮动属性 / Floating Properties
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>浮动属性 / Floating Properties</h1>
 

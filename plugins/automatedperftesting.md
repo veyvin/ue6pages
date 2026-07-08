@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 自动化性能测试 / AutomatedPerfTesting
+title: AutomatedPerfTesting / AutomatedPerfTesting
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>自动化性能测试 / AutomatedPerfTesting</h1>
+<h1>AutomatedPerfTesting / AutomatedPerfTesting</h1>
 
 <div class="info-card">
   <ul>

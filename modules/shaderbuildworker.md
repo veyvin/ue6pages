@@ -3,7 +3,6 @@ layout: default
 title: ShaderBuildWorker
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>ShaderBuildWorker</h1>
 

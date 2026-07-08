@@ -3,7 +3,6 @@ layout: default
 title: GeometryCore
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>GeometryCore</h1>
 

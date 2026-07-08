@@ -3,7 +3,6 @@ layout: default
 title: 动画曲线表达式 / Animation Curve Expressions
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>动画曲线表达式 / Animation Curve Expressions</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 控制装置样条线 / Control Rig Spline
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>控制装置样条线 / Control Rig Spline</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 石板即时通讯软件 / SlateIM
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>石板即时通讯软件 / SlateIM</h1>
 

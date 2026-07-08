@@ -14,4 +14,4 @@ title: DNACalib 插件 / DNACalib Plugin
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">DNA 校准工具插件</div><div class="lang-content">DNA Calibration tool plugin</div></div>
+<p>DNA Calibration tool plugin</p>

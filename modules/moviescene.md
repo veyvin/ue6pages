@@ -3,7 +3,6 @@ layout: default
 title: MovieScene
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>MovieScene</h1>
 

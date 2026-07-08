@@ -3,7 +3,6 @@ layout: default
 title: 控制装置 / Control Rig
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>控制装置 / Control Rig</h1>
 

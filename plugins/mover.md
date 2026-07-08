@@ -3,7 +3,6 @@ layout: default
 title: 搬运工 / Mover
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>搬运工 / Mover</h1>
 

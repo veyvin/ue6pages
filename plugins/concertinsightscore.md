@@ -3,7 +3,6 @@ layout: default
 title: 音乐会洞察核心 / ConcertInsightsCore
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>音乐会洞察核心 / ConcertInsightsCore</h1>
 

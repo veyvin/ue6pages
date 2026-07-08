@@ -3,7 +3,6 @@ layout: default
 title: RDG 见解 / RDG Insights
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>RDG 见解 / RDG Insights</h1>
 

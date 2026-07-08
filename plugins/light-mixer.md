@@ -3,7 +3,6 @@ layout: default
 title: 混光器 / Light Mixer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混光器 / Light Mixer</h1>
 

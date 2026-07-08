@@ -3,7 +3,6 @@ layout: default
 title: 捕获管理器应用程序 / Capture Manager Application
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>捕获管理器应用程序 / Capture Manager Application</h1>
 

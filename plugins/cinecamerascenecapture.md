@@ -3,7 +3,6 @@ layout: default
 title: 电影摄像机场景捕捉 / CineCameraSceneCapture
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>电影摄像机场景捕捉 / CineCameraSceneCapture</h1>
 

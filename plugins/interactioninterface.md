@@ -3,7 +3,6 @@ layout: default
 title: 交互界面 / InteractionInterface
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>交互界面 / InteractionInterface</h1>
 
