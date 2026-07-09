@@ -3,7 +3,6 @@ layout: default
 title: 命令链接服务器 / Command Link Server
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>命令链接服务器 / Command Link Server</h1>
 

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Editor DataflowGraph / Editor DataflowGraph
+title: 编辑数据流图 / Editor DataflowGraph
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Editor DataflowGraph / Editor DataflowGraph</h1>
+<h1>编辑数据流图 / Editor DataflowGraph</h1>
 
 <div class="info-card">
   <ul>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: OpenCV Lens Distortion / OpenCV Lens Distortion
+title: OpenCV 镜头畸变 / OpenCV Lens Distortion
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>OpenCV Lens Distortion / OpenCV Lens Distortion</h1>
+<h1>OpenCV 镜头畸变 / OpenCV Lens Distortion</h1>
 
 <div class="info-card">
   <ul>

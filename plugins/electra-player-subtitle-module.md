@@ -14,4 +14,4 @@ title: Electra Player 字幕模块 / Electra Player Subtitle Module
 </div>
 
 <h2>Description / 描述</h2>
-<p>Subtitle Decoder Module for Electra Player Media Playback</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于 Electra Player 媒体播放的字幕解码器模块</div><div class="lang-content">Subtitle Decoder Module for Electra Player Media Playback</div></div>

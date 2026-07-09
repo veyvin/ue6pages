@@ -3,7 +3,6 @@ layout: default
 title: MQTT / MQTT
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>MQTT / MQTT</h1>
 

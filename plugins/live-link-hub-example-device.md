@@ -3,7 +3,6 @@ layout: default
 title: Live Link Hub 示例设备 / Live Link Hub Example Device
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Live Link Hub 示例设备 / Live Link Hub Example Device</h1>
 

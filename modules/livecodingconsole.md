@@ -3,7 +3,6 @@ layout: default
 title: LiveCodingConsole
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>LiveCodingConsole</h1>
 

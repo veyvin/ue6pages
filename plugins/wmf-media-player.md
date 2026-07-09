@@ -14,4 +14,4 @@ title: WMF 媒体播放器 / WMF Media Player
 </div>
 
 <h2>Description / 描述</h2>
-<p>Implements a media player using the Windows Media Foundation framework.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用 Windows Media Foundation 框架实现媒体播放器。</div><div class="lang-content">Implements a media player using the Windows Media Foundation framework.</div></div>

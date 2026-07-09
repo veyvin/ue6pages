@@ -3,7 +3,6 @@ layout: default
 title: 常见对话 / Common Conversation
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>常见对话 / Common Conversation</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 性能捕捉核心 / Performance Capture Core
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>性能捕捉核心 / Performance Capture Core</h1>
 

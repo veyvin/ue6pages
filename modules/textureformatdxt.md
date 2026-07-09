@@ -3,7 +3,6 @@ layout: default
 title: TextureFormatDXT
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>TextureFormatDXT</h1>
 

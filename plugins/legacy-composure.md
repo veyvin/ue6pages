@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Legacy Composure / Legacy Composure
+title: 传统的沉着 / Legacy Composure
 ---
 
-<!-- ai-generation-failed -->
 
-<h1>Legacy Composure / Legacy Composure</h1>
+<h1>传统的沉着 / Legacy Composure</h1>
 
 <div class="info-card">
   <ul>

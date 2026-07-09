@@ -3,7 +3,6 @@ layout: default
 title: 克隆人和效应器 / Cloners and Effectors
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>克隆人和效应器 / Cloners and Effectors</h1>
 

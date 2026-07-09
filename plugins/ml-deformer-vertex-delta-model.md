@@ -3,7 +3,6 @@ layout: default
 title: ML Deformer 顶点增量模型 / ML Deformer Vertex Delta Model
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>ML Deformer 顶点增量模型 / ML Deformer Vertex Delta Model</h1>
 

@@ -14,4 +14,4 @@ title: 图像板 / Image Plate
 </div>
 
 <h2>Description / 描述</h2>
-<p>Actor and component types that provide a camera-aligned image plate</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">提供相机对齐图像板的参与者和组件类型</div><div class="lang-content">Actor and component types that provide a camera-aligned image plate</div></div>

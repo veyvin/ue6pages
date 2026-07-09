@@ -3,7 +3,6 @@ layout: default
 title: 冷静 共享 / Composure Shared
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>冷静 共享 / Composure Shared</h1>
 

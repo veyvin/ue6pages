@@ -3,7 +3,6 @@ layout: default
 title: 捕获管理器编辑器 / Capture Manager Editor
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>捕获管理器编辑器 / Capture Manager Editor</h1>
 

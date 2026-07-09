@@ -3,7 +3,6 @@ layout: default
 title: 复合核心 / CompositeCore
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>复合核心 / CompositeCore</h1>
 

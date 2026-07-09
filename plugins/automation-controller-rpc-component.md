@@ -3,7 +3,6 @@ layout: default
 title: 自动化控制器 RPC 组件 / Automation Controller RPC Component
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>自动化控制器 RPC 组件 / Automation Controller RPC Component</h1>
 
