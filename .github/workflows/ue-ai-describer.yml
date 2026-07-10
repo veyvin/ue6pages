@@ -6,7 +6,7 @@ name: UE AI Plugin Describer (Daily)
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    # - cron: '0 1 * * *'
   workflow_dispatch:
     inputs:
       count:
