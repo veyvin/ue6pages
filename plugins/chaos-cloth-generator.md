@@ -3,7 +3,6 @@ layout: default
 title: 混沌布料发生器 / Chaos Cloth Generator
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌布料发生器 / Chaos Cloth Generator</h1>
 

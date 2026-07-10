@@ -3,7 +3,6 @@ layout: default
 title: 混沌血肉生成器 / Chaos Flesh Generator
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌血肉生成器 / Chaos Flesh Generator</h1>
 

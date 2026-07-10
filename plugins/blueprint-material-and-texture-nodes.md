@@ -3,7 +3,6 @@ layout: default
 title: 蓝图材质和纹理节点 / Blueprint Material and Texture Nodes
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>蓝图材质和纹理节点 / Blueprint Material and Texture Nodes</h1>
 

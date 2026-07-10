@@ -3,7 +3,6 @@ layout: default
 title: WindowsTargetPlatformControls
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>WindowsTargetPlatformControls</h1>
 

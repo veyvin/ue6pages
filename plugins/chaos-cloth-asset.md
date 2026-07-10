@@ -3,7 +3,6 @@ layout: default
 title: 混沌布料资产 / Chaos Cloth Asset
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌布料资产 / Chaos Cloth Asset</h1>
 

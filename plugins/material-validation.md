@@ -3,7 +3,6 @@ layout: default
 title: 材料验证 / Material Validation
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>材料验证 / Material Validation</h1>
 

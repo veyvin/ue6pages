@@ -3,7 +3,6 @@ layout: default
 title: 全局配置数据 / Global Configuration Data
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>全局配置数据 / Global Configuration Data</h1>
 

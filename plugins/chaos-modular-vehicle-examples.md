@@ -3,7 +3,6 @@ layout: default
 title: 混沌模块化车辆示例 / Chaos Modular Vehicle Examples
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌模块化车辆示例 / Chaos Modular Vehicle Examples</h1>
 

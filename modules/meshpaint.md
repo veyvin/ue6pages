@@ -3,7 +3,6 @@ layout: default
 title: MeshPaint
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>MeshPaint</h1>
 

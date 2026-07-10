@@ -3,7 +3,6 @@ layout: default
 title: DerivedDataWidgets
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>DerivedDataWidgets</h1>
 

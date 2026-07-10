@@ -3,7 +3,6 @@ layout: default
 title: TEDS：编辑器数据存储 / TEDS: Editor Data Storage
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>TEDS：编辑器数据存储 / TEDS: Editor Data Storage</h1>
 

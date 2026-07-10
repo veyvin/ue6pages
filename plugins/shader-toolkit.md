@@ -3,7 +3,6 @@ layout: default
 title: 着色器工具包 / Shader Toolkit
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>着色器工具包 / Shader Toolkit</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 选择器 / Chooser
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>选择器 / Chooser</h1>
 

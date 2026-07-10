@@ -3,7 +3,6 @@ layout: default
 title: DerivedDataCache
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>DerivedDataCache</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: Voronoi
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Voronoi</h1>
 

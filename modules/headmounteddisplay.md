@@ -3,7 +3,6 @@ layout: default
 title: HeadMountedDisplay
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>HeadMountedDisplay</h1>
 

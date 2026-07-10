@@ -3,7 +3,6 @@ layout: default
 title: 基材 / BaseMaterial
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>基材 / BaseMaterial</h1>
 

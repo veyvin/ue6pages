@@ -3,7 +3,6 @@ layout: default
 title: 变体管理器内容 / Variant Manager Content
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>变体管理器内容 / Variant Manager Content</h1>
 

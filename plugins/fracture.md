@@ -3,7 +3,6 @@ layout: default
 title: 断裂 / Fracture
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>断裂 / Fracture</h1>
 

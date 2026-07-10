@@ -3,7 +3,6 @@ layout: default
 title: 混沌布 / Chaos Cloth
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌布 / Chaos Cloth</h1>
 
