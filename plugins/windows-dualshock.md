@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Windows 双冲击 / Windows DualShock
+title: Windows 双震 / Windows DualShock
 ---
 
-<!-- ai-generation-failed -->
 
-<h1>Windows 双冲击 / Windows DualShock</h1>
+<h1>Windows 双震 / Windows DualShock</h1>
 
 <div class="info-card">
   <ul>

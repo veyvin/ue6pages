@@ -3,7 +3,6 @@ layout: default
 title: 目录占位符 / Directory Placeholder
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>目录占位符 / Directory Placeholder</h1>
 

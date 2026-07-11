@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 波函数塌陷（实验） / Wave Function Collapse (Experimental)
+title: 波函数塌缩（实验） / Wave Function Collapse (Experimental)
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>波函数塌陷（实验） / Wave Function Collapse (Experimental)</h1>
+<h1>波函数塌缩（实验） / Wave Function Collapse (Experimental)</h1>
 
 <div class="info-card">
   <ul>

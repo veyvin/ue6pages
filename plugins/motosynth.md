@@ -3,7 +3,6 @@ layout: default
 title: 摩托合成器 / MotoSynth
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>摩托合成器 / MotoSynth</h1>
 

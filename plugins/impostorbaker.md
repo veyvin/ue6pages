@@ -3,7 +3,6 @@ layout: default
 title: 冒充贝克 / ImpostorBaker
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>冒充贝克 / ImpostorBaker</h1>
 

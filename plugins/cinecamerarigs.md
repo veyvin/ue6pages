@@ -3,7 +3,6 @@ layout: default
 title: 电影摄像机装备 / CineCameraRigs
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>电影摄像机装备 / CineCameraRigs</h1>
 

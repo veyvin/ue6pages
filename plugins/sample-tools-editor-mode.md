@@ -14,4 +14,4 @@ title: 示例工具编辑器模式 / Sample Tools Editor Mode
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">示例工具模式包括一组演示交互式工具框架功能的示例工具</div><div class="lang-content">Sample Tools Mode includes a set of sample Tools demonstrating capabilities of the Interactive Tools Framework</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">示例工具模式包括一组示例工具，展示了交互式工具框架的功能</div><div class="lang-content">Sample Tools Mode includes a set of sample Tools demonstrating capabilities of the Interactive Tools Framework</div></div>

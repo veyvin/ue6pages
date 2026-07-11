@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Json 蓝图实用程序 / Json Blueprint Utilities
+title: Json Blueprint Utilities / Json Blueprint Utilities
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Json 蓝图实用程序 / Json Blueprint Utilities</h1>
+<h1>Json Blueprint Utilities / Json Blueprint Utilities</h1>
 
 <div class="info-card">
   <ul>

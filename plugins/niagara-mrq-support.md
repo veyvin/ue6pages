@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 尼亚加拉 MRQ 支持 / Niagara MRQ Support
+title: Niagara MRQ Support / Niagara MRQ Support
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>尼亚加拉 MRQ 支持 / Niagara MRQ Support</h1>
+<h1>Niagara MRQ Support / Niagara MRQ Support</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 尼亚加拉 MRQ 支持 / Niagara MRQ Support
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">包含一个数据接口，可用于读取 Niagara 模拟中的电影渲染队列信息。</div><div class="lang-content">Contains a data interface that can be used to read Movie Render Queue information in Niagara simulations.</div></div>
+<p>Contains a data interface that can be used to read Movie Render Queue information in Niagara simulations.</p>

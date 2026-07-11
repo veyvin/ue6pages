@@ -1,11 +1,11 @@
 ---
 layout: default
-title: LightWeightInstancesEditor（已弃用） / LightWeightInstancesEditor (DEPRECATED)
+title: LightWeightInstancesEditor (DEPRECATED) / LightWeightInstancesEditor (DEPRECATED)
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>LightWeightInstancesEditor（已弃用） / LightWeightInstancesEditor (DEPRECATED)</h1>
+<h1>LightWeightInstancesEditor (DEPRECATED) / LightWeightInstancesEditor (DEPRECATED)</h1>
 
 <div class="info-card">
   <ul>

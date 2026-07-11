@@ -3,7 +3,6 @@ layout: default
 title: Electra 的 NVDEC 硬件解码器支持 / NVDEC hardware decoder support for Electra
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Electra 的 NVDEC 硬件解码器支持 / NVDEC hardware decoder support for Electra</h1>
 

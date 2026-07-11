@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 交换框架 / Interchange Framework
+title: Interchange Framework / Interchange Framework
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>交换框架 / Interchange Framework</h1>
+<h1>Interchange Framework / Interchange Framework</h1>
 
 <div class="info-card">
   <ul>

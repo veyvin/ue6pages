@@ -3,7 +3,6 @@ layout: default
 title: Niagara 示例自定义数据接口 / Niagara Example Custom DataInterface
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Niagara 示例自定义数据接口 / Niagara Example Custom DataInterface</h1>
 

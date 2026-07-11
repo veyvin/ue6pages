@@ -1,11 +1,11 @@
 ---
 layout: default
-title: UMG 小部件预览 / UMG Widget Preview
+title: UMG 小工具预览 / UMG Widget Preview
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>UMG 小部件预览 / UMG Widget Preview</h1>
+<h1>UMG 小工具预览 / UMG Widget Preview</h1>
 
 <div class="info-card">
   <ul>

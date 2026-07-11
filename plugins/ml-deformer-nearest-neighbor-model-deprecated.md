@@ -3,7 +3,6 @@ layout: default
 title: ML Deformer 最近邻模型（已弃用） / ML Deformer Nearest Neighbor Model (DEPRECATED)
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>ML Deformer 最近邻模型（已弃用） / ML Deformer Nearest Neighbor Model (DEPRECATED)</h1>
 

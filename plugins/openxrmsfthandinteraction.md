@@ -3,7 +3,6 @@ layout: default
 title: OpenXRMsftHandInteraction / OpenXRMsftHandInteraction
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>OpenXRMsftHandInteraction / OpenXRMsftHandInteraction</h1>
 
