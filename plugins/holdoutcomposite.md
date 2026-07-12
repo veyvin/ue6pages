@@ -3,7 +3,6 @@ layout: default
 title: 坚持复合 / HoldoutComposite
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>坚持复合 / HoldoutComposite</h1>
 

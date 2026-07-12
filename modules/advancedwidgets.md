@@ -3,7 +3,6 @@ layout: default
 title: AdvancedWidgets
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>AdvancedWidgets</h1>
 

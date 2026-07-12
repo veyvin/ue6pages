@@ -3,7 +3,6 @@ layout: default
 title: 层次结构表动画 / Hierarchy Table Animation
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>层次结构表动画 / Hierarchy Table Animation</h1>
 

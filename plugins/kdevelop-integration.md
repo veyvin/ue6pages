@@ -3,7 +3,6 @@ layout: default
 title: 开发集成 / KDevelop Integration
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>开发集成 / KDevelop Integration</h1>
 

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: LiveLink 输入设备 / LiveLinkInputDevice
+title: LiveLink输入设备 / LiveLinkInputDevice
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>LiveLink 输入设备 / LiveLinkInputDevice</h1>
+<h1>LiveLink输入设备 / LiveLinkInputDevice</h1>
 
 <div class="info-card">
   <ul>

@@ -3,6 +3,7 @@ layout: default
 title: SparseVolumeTexture
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>SparseVolumeTexture</h1>
 

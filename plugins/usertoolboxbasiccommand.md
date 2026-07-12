@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 用户工具箱基本命令 / UserToolBoxBasicCommand
+title: UserToolBoxBasicCommand / UserToolBoxBasicCommand
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>用户工具箱基本命令 / UserToolBoxBasicCommand</h1>
+<h1>UserToolBoxBasicCommand / UserToolBoxBasicCommand</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 用户工具箱基本命令 / UserToolBoxBasicCommand
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于填充自定义编辑器选项卡的基本命令集</div><div class="lang-content">Basic set of command to populate a custom editor tab</div></div>
+<p>Basic set of command to populate a custom editor tab</p>

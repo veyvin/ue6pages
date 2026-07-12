@@ -1,11 +1,11 @@
 ---
 layout: default
-title: MotionJPEG Decoder for Electra / MotionJPEG Decoder for Electra
+title: Electra 的 MotionJPEG 解码器 / MotionJPEG Decoder for Electra
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>MotionJPEG Decoder for Electra / MotionJPEG Decoder for Electra</h1>
+<h1>Electra 的 MotionJPEG 解码器 / MotionJPEG Decoder for Electra</h1>
 
 <div class="info-card">
   <ul>

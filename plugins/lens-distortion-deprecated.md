@@ -3,7 +3,6 @@ layout: default
 title: 镜头畸变（已弃用） / Lens Distortion (Deprecated)
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>镜头畸变（已弃用） / Lens Distortion (Deprecated)</h1>
 

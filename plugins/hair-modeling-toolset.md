@@ -14,4 +14,4 @@ title: 头发造型工具箱 / Hair Modeling Toolset
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">在建模工具模式中添加了一组新郎/头发建模工具</div><div class="lang-content">Adds a set of tools for Groom/Hair Modeling to Modeling Tools Mode</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">在建模工具模式中添加了一组用于新郎/头发建模的工具</div><div class="lang-content">Adds a set of tools for Groom/Hair Modeling to Modeling Tools Mode</div></div>

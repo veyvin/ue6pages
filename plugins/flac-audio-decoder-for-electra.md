@@ -1,11 +1,11 @@
 ---
 layout: default
-title: FLAC audio decoder for Electra / FLAC audio decoder for Electra
+title: Electra 的 FLAC 音频解码器 / FLAC audio decoder for Electra
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>FLAC audio decoder for Electra / FLAC audio decoder for Electra</h1>
+<h1>Electra 的 FLAC 音频解码器 / FLAC audio decoder for Electra</h1>
 
 <div class="info-card">
   <ul>

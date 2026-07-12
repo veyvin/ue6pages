@@ -3,7 +3,6 @@ layout: default
 title: 音乐会同步 - 测试 / Concert Sync - Test
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>音乐会同步 - 测试 / Concert Sync - Test</h1>
 

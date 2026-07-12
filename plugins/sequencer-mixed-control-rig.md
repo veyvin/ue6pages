@@ -3,7 +3,6 @@ layout: default
 title: 音序器混合控制装置 / Sequencer Mixed Control Rig
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>音序器混合控制装置 / Sequencer Mixed Control Rig</h1>
 

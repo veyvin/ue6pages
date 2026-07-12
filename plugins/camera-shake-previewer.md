@@ -3,7 +3,6 @@ layout: default
 title: 相机抖动预览器 / Camera Shake Previewer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>相机抖动预览器 / Camera Shake Previewer</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 桥 / Bridge
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>桥 / Bridge</h1>
 

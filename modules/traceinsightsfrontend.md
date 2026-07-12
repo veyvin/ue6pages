@@ -3,6 +3,7 @@ layout: default
 title: TraceInsightsFrontend
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>TraceInsightsFrontend</h1>
 

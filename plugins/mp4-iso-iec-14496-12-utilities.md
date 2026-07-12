@@ -14,4 +14,4 @@ title: MP4 (ISO/IEC 14496-12) 实用程序 / MP4 (ISO/IEC 14496-12) utilities
 </div>
 
 <h2>Description / 描述</h2>
-<p>Provides helpers to work with mp4 files</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">提供处理 mp4 文件的帮助程序</div><div class="lang-content">Provides helpers to work with mp4 files</div></div>

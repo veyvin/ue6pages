@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Electra Codecs / Electra Codecs
+title: 伊莱克特拉编解码器 / Electra Codecs
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Electra Codecs / Electra Codecs</h1>
+<h1>伊莱克特拉编解码器 / Electra Codecs</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Electra Codecs / Electra Codecs
 </div>
 
 <h2>Description / 描述</h2>
-<p>Codecs for use with Electra player.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于 Electra 播放器的编解码器。</div><div class="lang-content">Codecs for use with Electra player.</div></div>
