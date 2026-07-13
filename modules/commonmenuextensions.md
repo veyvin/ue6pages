@@ -3,7 +3,6 @@ layout: default
 title: CommonMenuExtensions
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>CommonMenuExtensions</h1>
 

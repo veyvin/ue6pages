@@ -3,7 +3,6 @@ layout: default
 title: StandaloneRenderer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>StandaloneRenderer</h1>
 

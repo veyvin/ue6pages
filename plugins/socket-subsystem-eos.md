@@ -3,7 +3,6 @@ layout: default
 title: EOS 套接字子系统 / Socket Subsystem EOS
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>EOS 套接字子系统 / Socket Subsystem EOS</h1>
 

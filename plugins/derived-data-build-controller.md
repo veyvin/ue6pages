@@ -3,7 +3,6 @@ layout: default
 title: 派生数据构建控制器 / Derived Data Build Controller
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>派生数据构建控制器 / Derived Data Build Controller</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 终端 / Terminal
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>终端 / Terminal</h1>
 

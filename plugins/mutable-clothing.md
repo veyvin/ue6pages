@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 可变的服装 / Mutable Clothing
+title: 可变服装 / Mutable Clothing
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>可变的服装 / Mutable Clothing</h1>
+<h1>可变服装 / Mutable Clothing</h1>
 
 <div class="info-card">
   <ul>

@@ -3,7 +3,6 @@ layout: default
 title: AndroidDeviceDetection
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>AndroidDeviceDetection</h1>
 

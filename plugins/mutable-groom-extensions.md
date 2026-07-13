@@ -3,7 +3,6 @@ layout: default
 title: 可变新郎扩展 / Mutable Groom Extensions
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>可变新郎扩展 / Mutable Groom Extensions</h1>
 

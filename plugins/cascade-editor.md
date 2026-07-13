@@ -14,4 +14,4 @@ title: 级联编辑器 / Cascade Editor
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">（旧）级联效果系统的编辑器。禁用此插件后，级联资源仍然可以在游戏中运行。</div><div class="lang-content">Editor for (legacy) Cascade effect systems. Cascade assets can still run in a game with this plugin disabled.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Editor for (legacy) Cascade effect systems.禁用此插件后，级联资源仍然可以在游戏中运行。</div><div class="lang-content">Editor for (legacy) Cascade effect systems. Cascade assets can still run in a game with this plugin disabled.</div></div>

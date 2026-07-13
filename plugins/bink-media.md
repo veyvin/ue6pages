@@ -3,7 +3,6 @@ layout: default
 title: 宾克媒体 / Bink Media
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>宾克媒体 / Bink Media</h1>
 

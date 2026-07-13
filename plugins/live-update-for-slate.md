@@ -3,7 +3,6 @@ layout: default
 title: Slate 实时更新 / Live Update for Slate
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Slate 实时更新 / Live Update for Slate</h1>
 

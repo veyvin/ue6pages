@@ -14,4 +14,4 @@ title: DMX 灯具 / DMX Fixtures
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">DMX 灯具蓝图</div><div class="lang-content">DMX Light Fixtures Blueprints</div></div>
+<p>DMX Light Fixtures Blueprints</p>

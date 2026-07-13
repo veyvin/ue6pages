@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Datasmith FBX 导入器 / Datasmith FBX Importer
+title: Datasmith FBX Importer / Datasmith FBX Importer
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Datasmith FBX 导入器 / Datasmith FBX Importer</h1>
+<h1>Datasmith FBX Importer / Datasmith FBX Importer</h1>
 
 <div class="info-card">
   <ul>

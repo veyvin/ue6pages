@@ -3,7 +3,6 @@ layout: default
 title: 批量重命名器 / Batch Renamer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>批量重命名器 / Batch Renamer</h1>
 

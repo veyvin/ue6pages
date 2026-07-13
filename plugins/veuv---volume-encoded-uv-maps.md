@@ -3,7 +3,6 @@ layout: default
 title: VEUV - 体积编码 UV 贴图 / VEUV - Volume Encoded UV Maps
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>VEUV - 体积编码 UV 贴图 / VEUV - Volume Encoded UV Maps</h1>
 

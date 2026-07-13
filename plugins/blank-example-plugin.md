@@ -3,7 +3,6 @@ layout: default
 title: 空白示例插件 / Blank Example Plugin
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>空白示例插件 / Blank Example Plugin</h1>
 

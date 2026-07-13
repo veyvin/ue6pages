@@ -3,7 +3,6 @@ layout: default
 title: 示例CharacterFXEditor / ExampleCharacterFXEditor
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>示例CharacterFXEditor / ExampleCharacterFXEditor</h1>
 

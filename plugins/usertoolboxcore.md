@@ -1,11 +1,11 @@
 ---
 layout: default
-title: UserToolBoxCore / UserToolBoxCore
+title: 用户工具箱核心 / UserToolBoxCore
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>UserToolBoxCore / UserToolBoxCore</h1>
+<h1>用户工具箱核心 / UserToolBoxCore</h1>
 
 <div class="info-card">
   <ul>

@@ -3,7 +3,6 @@ layout: default
 title: 游戏消息 / Gameplay Messages
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>游戏消息 / Gameplay Messages</h1>
 
