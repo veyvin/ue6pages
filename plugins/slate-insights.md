@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 石板见解 / Slate Insights
+title: 板岩见解 / Slate Insights
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>石板见解 / Slate Insights</h1>
+<h1>板岩见解 / Slate Insights</h1>
 
 <div class="info-card">
   <ul>

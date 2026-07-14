@@ -14,4 +14,4 @@ title: 绘制调试库 / Draw Debug Library
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">常用调试绘图函数库。</div><div class="lang-content">A library of common debug drawing functions.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">常见调试绘图函数库。</div><div class="lang-content">A library of common debug drawing functions.</div></div>

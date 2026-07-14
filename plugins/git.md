@@ -3,7 +3,6 @@ layout: default
 title: git / Git
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>git / Git</h1>
 

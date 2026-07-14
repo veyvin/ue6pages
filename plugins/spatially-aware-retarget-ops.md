@@ -14,4 +14,4 @@ title: 空间感知重定向操作 / Spatially Aware Retarget Ops
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于保留重定向动画的空间关系的重定向操作集合</div><div class="lang-content">A collection of Retarget Ops for preserving spatial relationships on retargeted animations</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于保留重定向动画上的空间关系的重定向操作集合</div><div class="lang-content">A collection of Retarget Ops for preserving spatial relationships on retargeted animations</div></div>

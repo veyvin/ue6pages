@@ -3,7 +3,6 @@ layout: default
 title: 程序内容生成框架 (PCG) 水互操作 / Procedural Content Generation Framework (PCG) Water Interop
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>程序内容生成框架 (PCG) 水互操作 / Procedural Content Generation Framework (PCG) Water Interop</h1>
 

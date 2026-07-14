@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 舞台监听 / Stage Monitor
+title: 舞台监听器 / Stage Monitor
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>舞台监听 / Stage Monitor</h1>
+<h1>舞台监听器 / Stage Monitor</h1>
 
 <div class="info-card">
   <ul>

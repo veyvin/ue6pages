@@ -3,7 +3,6 @@ layout: default
 title: 音乐会洞察可视化工具 / ConcertInsightsVisualizer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>音乐会洞察可视化工具 / ConcertInsightsVisualizer</h1>
 

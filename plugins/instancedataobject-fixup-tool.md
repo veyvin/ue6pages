@@ -1,11 +1,11 @@
 ---
 layout: default
-title: InstanceDataObject 修复工具 / InstanceDataObject Fixup Tool
+title: 实例数据对象修复工具 / InstanceDataObject Fixup Tool
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>InstanceDataObject 修复工具 / InstanceDataObject Fixup Tool</h1>
+<h1>实例数据对象修复工具 / InstanceDataObject Fixup Tool</h1>
 
 <div class="info-card">
   <ul>

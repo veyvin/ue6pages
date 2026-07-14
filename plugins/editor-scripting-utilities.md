@@ -14,4 +14,4 @@ title: 编辑器脚本实用程序 / Editor Scripting Utilities
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Helper 的功能是使用蓝图或其他脚本工具编写您自己的 UE 编辑器功能。</div><div class="lang-content">Helper functions to script your own UE editor functionalities with Blueprint or other scripting tools.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Helper 功能可使用蓝图或其他脚本工具编写您自己的 UE 编辑器功能的脚本。</div><div class="lang-content">Helper functions to script your own UE editor functionalities with Blueprint or other scripting tools.</div></div>

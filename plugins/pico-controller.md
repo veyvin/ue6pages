@@ -3,7 +3,6 @@ layout: default
 title: PICO控制器 / PICO Controller
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>PICO控制器 / PICO Controller</h1>
 

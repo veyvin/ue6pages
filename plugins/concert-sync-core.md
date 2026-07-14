@@ -3,7 +3,6 @@ layout: default
 title: 音乐会同步核心 / Concert Sync Core
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>音乐会同步核心 / Concert Sync Core</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: OpenCV 镜头畸变 / OpenCV Lens Distortion
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>OpenCV 镜头畸变 / OpenCV Lens Distortion</h1>
 

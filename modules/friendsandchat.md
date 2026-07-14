@@ -3,7 +3,6 @@ layout: default
 title: FriendsAndChat
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>FriendsAndChat</h1>
 
