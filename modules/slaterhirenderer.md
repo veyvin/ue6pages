@@ -3,7 +3,6 @@ layout: default
 title: SlateRHIRenderer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>SlateRHIRenderer</h1>
 

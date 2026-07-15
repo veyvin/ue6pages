@@ -14,4 +14,4 @@ title: 声音提示模板 / Sound Cue Templates
 </div>
 
 <h2>Description / 描述</h2>
-<p>Collection of SoundCue Templates, which provide rapid design of common audio design workflows.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">SoundCue 模板集合，提供常见音频设计工作流程的快速设计。</div><div class="lang-content">Collection of SoundCue Templates, which provide rapid design of common audio design workflows.</div></div>

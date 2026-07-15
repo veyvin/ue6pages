@@ -3,7 +3,6 @@ layout: default
 title: 音乐会同步 - 服务器 / Concert Sync - Server
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>音乐会同步 - 服务器 / Concert Sync - Server</h1>
 

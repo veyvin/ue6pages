@@ -3,7 +3,6 @@ layout: default
 title: SubmitToolCore
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>SubmitToolCore</h1>
 

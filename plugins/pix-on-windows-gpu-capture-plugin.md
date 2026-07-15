@@ -3,7 +3,6 @@ layout: default
 title: Windows 上的 PIX GPU 捕获插件 / PIX on Windows GPU Capture Plugin
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Windows 上的 PIX GPU 捕获插件 / PIX on Windows GPU Capture Plugin</h1>
 

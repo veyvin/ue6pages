@@ -3,7 +3,6 @@ layout: default
 title: 资产登记导出 / Asset Registry Export
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>资产登记导出 / Asset Registry Export</h1>
 

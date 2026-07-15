@@ -3,7 +3,6 @@ layout: default
 title: 塑料单片机 / Plastic SCM
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>塑料单片机 / Plastic SCM</h1>
 

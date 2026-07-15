@@ -3,7 +3,6 @@ layout: default
 title: RenderDoc
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>RenderDoc</h1>
 

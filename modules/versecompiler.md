@@ -3,7 +3,6 @@ layout: default
 title: VerseCompiler
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>VerseCompiler</h1>
 

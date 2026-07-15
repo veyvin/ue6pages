@@ -3,7 +3,6 @@ layout: default
 title: 一个天空 / OneSky
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>一个天空 / OneSky</h1>
 

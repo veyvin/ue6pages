@@ -3,7 +3,6 @@ layout: default
 title: 渲染文档插件 / RenderDoc Plugin
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>渲染文档插件 / RenderDoc Plugin</h1>
 

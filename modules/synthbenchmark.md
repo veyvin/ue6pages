@@ -3,7 +3,6 @@ layout: default
 title: SynthBenchmark
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>SynthBenchmark</h1>
 

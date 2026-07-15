@@ -3,7 +3,6 @@ layout: default
 title: 手写笔和平板电脑插件 / Stylus & Tablet Plugin
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>手写笔和平板电脑插件 / Stylus & Tablet Plugin</h1>
 

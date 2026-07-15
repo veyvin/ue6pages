@@ -14,4 +14,4 @@ title: 属性动画师 / Property Animator
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">可重用行为来激活一个或多个属性的值</div><div class="lang-content">Re-usable behaviors to animate the value of one or more properties</div></div>
+<p>Re-usable behaviors to animate the value of one or more properties</p>

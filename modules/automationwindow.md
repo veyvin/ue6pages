@@ -3,6 +3,7 @@ layout: default
 title: AutomationWindow
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>AutomationWindow</h1>
 

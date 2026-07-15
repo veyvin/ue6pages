@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 可变群体 / MutablePopulation
+title: 可变种群 / MutablePopulation
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>可变群体 / MutablePopulation</h1>
+<h1>可变种群 / MutablePopulation</h1>
 
 <div class="info-card">
   <ul>

@@ -3,7 +3,6 @@ layout: default
 title: 资产引用限制 / Asset Referencing Restrictions
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>资产引用限制 / Asset Referencing Restrictions</h1>
 
