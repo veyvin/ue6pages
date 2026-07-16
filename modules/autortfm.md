@@ -3,7 +3,6 @@ layout: default
 title: AutoRTFM
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>AutoRTFM</h1>
 

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Image Sequence Media Player / Image Sequence Media Player
+title: 图像序列媒体播放器 / Image Sequence Media Player
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Image Sequence Media Player / Image Sequence Media Player</h1>
+<h1>图像序列媒体播放器 / Image Sequence Media Player</h1>
 
 <div class="info-card">
   <ul>

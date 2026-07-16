@@ -3,7 +3,6 @@ layout: default
 title: Alembic 新郎进口商 / Alembic Groom Importer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Alembic 新郎进口商 / Alembic Groom Importer</h1>
 
@@ -14,4 +13,4 @@ title: Alembic 新郎进口商 / Alembic Groom Importer
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">从 Alembic 文件导入发丝</div><div class="lang-content">Import Hair Strands from Alembic file</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">从 Alembic 文件导入发束</div><div class="lang-content">Import Hair Strands from Alembic file</div></div>

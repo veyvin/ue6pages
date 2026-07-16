@@ -3,7 +3,6 @@ layout: default
 title: CollisionAnalyzer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>CollisionAnalyzer</h1>
 

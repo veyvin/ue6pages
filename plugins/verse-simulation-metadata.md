@@ -3,7 +3,6 @@ layout: default
 title: 诗歌模拟元数据 / Verse Simulation Metadata
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>诗歌模拟元数据 / Verse Simulation Metadata</h1>
 

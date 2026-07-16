@@ -3,7 +3,6 @@ layout: default
 title: EditorSettingsViewer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>EditorSettingsViewer</h1>
 

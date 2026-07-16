@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 纹理分享 / Texture Share
+title: 纹理共享 / Texture Share
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>纹理分享 / Texture Share</h1>
+<h1>纹理共享 / Texture Share</h1>
 
 <div class="info-card">
   <ul>

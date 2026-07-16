@@ -3,7 +3,6 @@ layout: default
 title: 可本地化的消息 / Localizable Message
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>可本地化的消息 / Localizable Message</h1>
 

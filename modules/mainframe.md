@@ -3,7 +3,6 @@ layout: default
 title: MainFrame
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>MainFrame</h1>
 

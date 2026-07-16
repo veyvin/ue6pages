@@ -3,7 +3,6 @@ layout: default
 title: 自定义网格组件 / Custom Mesh Component
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>自定义网格组件 / Custom Mesh Component</h1>
 

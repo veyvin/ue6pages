@@ -3,7 +3,6 @@ layout: default
 title: Slate屏幕阅​​读器 / SlateScreenReader
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Slate屏幕阅​​读器 / SlateScreenReader</h1>
 
