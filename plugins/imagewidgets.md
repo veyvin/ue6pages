@@ -3,7 +3,6 @@ layout: default
 title: 图像小部件 / ImageWidgets
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>图像小部件 / ImageWidgets</h1>
 

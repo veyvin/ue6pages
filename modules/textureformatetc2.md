@@ -3,7 +3,6 @@ layout: default
 title: TextureFormatETC2
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>TextureFormatETC2</h1>
 

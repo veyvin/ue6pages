@@ -3,7 +3,6 @@ layout: default
 title: 混沌求解器 / Chaos Solver
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌求解器 / Chaos Solver</h1>
 

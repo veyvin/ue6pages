@@ -3,7 +3,6 @@ layout: default
 title: 混沌布料编辑器（已弃用） / Chaos Cloth Editor (Deprecated)
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌布料编辑器（已弃用） / Chaos Cloth Editor (Deprecated)</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 移动包装场景向导 / Wizard for mobile packaging scenarios
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>移动包装场景向导 / Wizard for mobile packaging scenarios</h1>
 

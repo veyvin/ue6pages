@@ -3,7 +3,6 @@ layout: default
 title: Mac 图形切换 / Mac Graphics Switching
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Mac 图形切换 / Mac Graphics Switching</h1>
 

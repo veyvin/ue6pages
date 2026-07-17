@@ -3,7 +3,6 @@ layout: default
 title: Zen
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Zen</h1>
 

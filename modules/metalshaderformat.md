@@ -3,6 +3,7 @@ layout: default
 title: MetalShaderFormat
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>MetalShaderFormat</h1>
 

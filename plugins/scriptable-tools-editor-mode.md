@@ -3,7 +3,6 @@ layout: default
 title: 可编写脚本的工具编辑器模式 / Scriptable Tools Editor Mode
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>可编写脚本的工具编辑器模式 / Scriptable Tools Editor Mode</h1>
 

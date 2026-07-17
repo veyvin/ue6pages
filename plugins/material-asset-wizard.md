@@ -3,7 +3,6 @@ layout: default
 title: 材料资产向导 / Material Asset Wizard
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>材料资产向导 / Material Asset Wizard</h1>
 

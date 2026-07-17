@@ -3,6 +3,7 @@ layout: default
 title: MacMenu
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>MacMenu</h1>
 

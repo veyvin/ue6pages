@@ -3,7 +3,6 @@ layout: default
 title: 层次结构表 / Hierarchy Table
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>层次结构表 / Hierarchy Table</h1>
 

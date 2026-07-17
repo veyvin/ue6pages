@@ -3,7 +3,6 @@ layout: default
 title: 游戏图 / Gameplay Graph
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>游戏图 / Gameplay Graph</h1>
 
