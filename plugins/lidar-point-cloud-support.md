@@ -3,7 +3,6 @@ layout: default
 title: 激光雷达点云支持 / LiDAR Point Cloud Support
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>激光雷达点云支持 / LiDAR Point Cloud Support</h1>
 

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Audio Synesthesia / Audio Synesthesia
+title: 音频联觉 / Audio Synesthesia
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Audio Synesthesia / Audio Synesthesia</h1>
+<h1>音频联觉 / Audio Synesthesia</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Audio Synesthesia / Audio Synesthesia
 </div>
 
 <h2>Description / 描述</h2>
-<p>A variety of offline analyzers for integrating exposing extracted audio metadata to blueprints.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">各种离线分析器，用于将提取的音频元数据集成到蓝图中。</div><div class="lang-content">A variety of offline analyzers for integrating exposing extracted audio metadata to blueprints.</div></div>

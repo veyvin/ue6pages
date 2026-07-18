@@ -3,7 +3,6 @@ layout: default
 title: LocalizationService
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>LocalizationService</h1>
 

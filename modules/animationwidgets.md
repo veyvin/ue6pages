@@ -3,7 +3,6 @@ layout: default
 title: AnimationWidgets
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>AnimationWidgets</h1>
 

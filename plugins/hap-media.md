@@ -3,7 +3,6 @@ layout: default
 title: 哈普媒体 / HAP Media
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>哈普媒体 / HAP Media</h1>
 

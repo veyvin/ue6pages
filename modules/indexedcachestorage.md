@@ -3,7 +3,6 @@ layout: default
 title: IndexedCacheStorage
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>IndexedCacheStorage</h1>
 

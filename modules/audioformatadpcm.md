@@ -3,7 +3,6 @@ layout: default
 title: AudioFormatADPCM
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>AudioFormatADPCM</h1>
 
