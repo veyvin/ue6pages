@@ -3,7 +3,6 @@ layout: default
 title: 波形编辑器 / Waveform Editor
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>波形编辑器 / Waveform Editor</h1>
 

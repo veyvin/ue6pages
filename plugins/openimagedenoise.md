@@ -14,4 +14,4 @@ title: 开放图像降噪 / OpenImageDenoise
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">基于 Intel 的 OpenImageDenoise 库的 Unreal Path Tracer 去噪引擎。</div><div class="lang-content">Denoising engine for the Unreal Path Tracer based on Intel's OpenImageDenoise library.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">基于英特尔 OpenImageDenoise 库的 Unreal Path Tracer 去噪引擎。</div><div class="lang-content">Denoising engine for the Unreal Path Tracer based on Intel's OpenImageDenoise library.</div></div>

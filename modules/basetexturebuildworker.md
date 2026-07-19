@@ -3,6 +3,7 @@ layout: default
 title: BaseTextureBuildWorker
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>BaseTextureBuildWorker</h1>
 

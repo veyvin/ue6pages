@@ -3,7 +3,6 @@ layout: default
 title: AudioCaptureWasapi
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>AudioCaptureWasapi</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: DesktopPlatform
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>DesktopPlatform</h1>
 

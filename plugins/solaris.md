@@ -3,7 +3,6 @@ layout: default
 title: 索拉里斯 / Solaris
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>索拉里斯 / Solaris</h1>
 

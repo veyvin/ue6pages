@@ -3,6 +3,7 @@ layout: default
 title: DesktopWidgets
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>DesktopWidgets</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 电影装配工具 (CAT) / Cinematic Assembly Tools (CAT)
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>电影装配工具 (CAT) / Cinematic Assembly Tools (CAT)</h1>
 

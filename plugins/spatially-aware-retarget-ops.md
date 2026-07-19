@@ -3,7 +3,6 @@ layout: default
 title: 空间感知重定向操作 / Spatially Aware Retarget Ops
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>空间感知重定向操作 / Spatially Aware Retarget Ops</h1>
 
