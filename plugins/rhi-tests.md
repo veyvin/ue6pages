@@ -3,7 +3,6 @@ layout: default
 title: RHI 测试 / RHI Tests
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>RHI 测试 / RHI Tests</h1>
 

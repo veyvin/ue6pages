@@ -3,7 +3,6 @@ layout: default
 title: uLangDAP
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>uLangDAP</h1>
 

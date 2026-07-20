@@ -3,7 +3,6 @@ layout: default
 title: CADKernel
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>CADKernel</h1>
 

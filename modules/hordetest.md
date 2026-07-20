@@ -3,7 +3,6 @@ layout: default
 title: HordeTest
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>HordeTest</h1>
 

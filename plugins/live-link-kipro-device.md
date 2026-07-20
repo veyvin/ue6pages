@@ -3,7 +3,6 @@ layout: default
 title: Live Link KiPro 设备 / Live Link KiPro Device
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Live Link KiPro 设备 / Live Link KiPro Device</h1>
 

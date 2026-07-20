@@ -3,7 +3,6 @@ layout: default
 title: SoundTouchZ
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>SoundTouchZ</h1>
 

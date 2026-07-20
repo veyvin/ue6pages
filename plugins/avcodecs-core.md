@@ -3,7 +3,6 @@ layout: default
 title: AVCodecs核心 / AVCodecs Core
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>AVCodecs核心 / AVCodecs Core</h1>
 

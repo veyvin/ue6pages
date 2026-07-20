@@ -3,7 +3,6 @@ layout: default
 title: 谷歌PAD / GooglePAD
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>谷歌PAD / GooglePAD</h1>
 

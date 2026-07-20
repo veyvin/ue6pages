@@ -3,7 +3,6 @@ layout: default
 title: 擎天柱 / Optimus
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>擎天柱 / Optimus</h1>
 
