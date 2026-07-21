@@ -3,6 +3,7 @@ layout: default
 title: ForsythTriOptimizer
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>ForsythTriOptimizer</h1>
 

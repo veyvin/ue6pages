@@ -3,7 +3,6 @@ layout: default
 title: 混沌尼亚加拉 / Chaos Niagara
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌尼亚加拉 / Chaos Niagara</h1>
 

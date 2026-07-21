@@ -3,7 +3,6 @@ layout: default
 title: 相机标定核心 / Camera Calibration Core
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>相机标定核心 / Camera Calibration Core</h1>
 

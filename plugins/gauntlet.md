@@ -3,7 +3,6 @@ layout: default
 title: 挑战 / Gauntlet
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>挑战 / Gauntlet</h1>
 

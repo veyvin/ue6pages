@@ -3,7 +3,6 @@ layout: default
 title: Android后台服务 / Android Background Service
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Android后台服务 / Android Background Service</h1>
 

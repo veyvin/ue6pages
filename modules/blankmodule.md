@@ -3,7 +3,6 @@ layout: default
 title: BlankModule
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>BlankModule</h1>
 

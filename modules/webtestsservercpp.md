@@ -3,7 +3,6 @@ layout: default
 title: WebTestsServerCpp
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>WebTestsServerCpp</h1>
 

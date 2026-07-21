@@ -3,7 +3,6 @@ layout: default
 title: 蓝图捕捉节点原型 / Blueprint Snap Nodes Prototype
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>蓝图捕捉节点原型 / Blueprint Snap Nodes Prototype</h1>
 

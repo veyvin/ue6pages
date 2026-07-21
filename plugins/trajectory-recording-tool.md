@@ -3,7 +3,6 @@ layout: default
 title: 轨迹记录工具 / Trajectory Recording Tool
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>轨迹记录工具 / Trajectory Recording Tool</h1>
 

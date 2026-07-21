@@ -3,7 +3,6 @@ layout: default
 title: 混沌移动者 / Chaos Mover
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌移动者 / Chaos Mover</h1>
 

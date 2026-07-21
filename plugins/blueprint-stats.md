@@ -3,7 +3,6 @@ layout: default
 title: 蓝图统计 / Blueprint Stats
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>蓝图统计 / Blueprint Stats</h1>
 

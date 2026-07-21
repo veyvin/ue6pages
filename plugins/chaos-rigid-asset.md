@@ -3,7 +3,6 @@ layout: default
 title: 混沌刚性资产 / Chaos Rigid Asset
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌刚性资产 / Chaos Rigid Asset</h1>
 

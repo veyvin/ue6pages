@@ -3,7 +3,6 @@ layout: default
 title: 混沌模块化车辆 / Chaos Modular Vehicle
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌模块化车辆 / Chaos Modular Vehicle</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 直接网格控制 / Direct Mesh Control
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>直接网格控制 / Direct Mesh Control</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: AutomationController
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>AutomationController</h1>
 
