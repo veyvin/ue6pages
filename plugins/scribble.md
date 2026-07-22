@@ -3,7 +3,6 @@ layout: default
 title: 涂 / Scribble
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>涂 / Scribble</h1>
 

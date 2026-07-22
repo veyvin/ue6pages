@@ -3,7 +3,6 @@ layout: default
 title: 默认安装包管理器 / Default Install Bundle Manager
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>默认安装包管理器 / Default Install Bundle Manager</h1>
 

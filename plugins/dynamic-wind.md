@@ -3,7 +3,6 @@ layout: default
 title: 动态风 / Dynamic Wind
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>动态风 / Dynamic Wind</h1>
 

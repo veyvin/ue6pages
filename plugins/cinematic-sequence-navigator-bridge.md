@@ -3,7 +3,6 @@ layout: default
 title: 电影序列导航桥 / Cinematic Sequence Navigator Bridge
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>电影序列导航桥 / Cinematic Sequence Navigator Bridge</h1>
 

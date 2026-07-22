@@ -3,7 +3,6 @@ layout: default
 title: 旧版 - 线性时间码读取器 / Legacy - Linear Timecode Reader
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>旧版 - 线性时间码读取器 / Legacy - Linear Timecode Reader</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 角色AI / CharacterAI
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>角色AI / CharacterAI</h1>
 

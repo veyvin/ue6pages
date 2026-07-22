@@ -3,7 +3,6 @@ layout: default
 title: 控制钻机动力学 / ControlRigDynamics
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>控制钻机动力学 / ControlRigDynamics</h1>
 

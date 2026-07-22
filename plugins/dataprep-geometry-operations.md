@@ -3,7 +3,6 @@ layout: default
 title: Dataprep 几何操作 / Dataprep Geometry Operations
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Dataprep 几何操作 / Dataprep Geometry Operations</h1>
 

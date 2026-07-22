@@ -3,6 +3,7 @@ layout: default
 title: SessionFrontend
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>SessionFrontend</h1>
 

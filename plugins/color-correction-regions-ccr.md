@@ -3,7 +3,6 @@ layout: default
 title: 色彩校正区域 (CCR) / Color Correction Regions (CCR)
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>色彩校正区域 (CCR) / Color Correction Regions (CCR)</h1>
 

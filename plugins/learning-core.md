@@ -3,7 +3,6 @@ layout: default
 title: 学习核心 / Learning Core
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>学习核心 / Learning Core</h1>
 

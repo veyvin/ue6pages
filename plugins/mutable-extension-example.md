@@ -3,7 +3,6 @@ layout: default
 title: 可变扩展示例 / Mutable Extension Example
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>可变扩展示例 / Mutable Extension Example</h1>
 

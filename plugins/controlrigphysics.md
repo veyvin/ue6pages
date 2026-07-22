@@ -3,7 +3,6 @@ layout: default
 title: 物理控制装置 / ControlRigPhysics
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>物理控制装置 / ControlRigPhysics</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 编辑遥测 / Editor Telemetry
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>编辑遥测 / Editor Telemetry</h1>
 

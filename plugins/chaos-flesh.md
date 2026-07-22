@@ -3,7 +3,6 @@ layout: default
 title: 混沌血肉 / Chaos Flesh
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>混沌血肉 / Chaos Flesh</h1>
 
