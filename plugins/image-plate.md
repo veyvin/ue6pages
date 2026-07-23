@@ -3,7 +3,6 @@ layout: default
 title: 图像板 / Image Plate
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>图像板 / Image Plate</h1>
 

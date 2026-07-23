@@ -3,7 +3,6 @@ layout: default
 title: 插件模板工具 / Plugin Template Tool
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>插件模板工具 / Plugin Template Tool</h1>
 

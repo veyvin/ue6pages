@@ -3,7 +3,6 @@ layout: default
 title: 几何学 / Geometry
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>几何学 / Geometry</h1>
 

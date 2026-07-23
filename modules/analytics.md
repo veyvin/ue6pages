@@ -3,6 +3,7 @@ layout: default
 title: Analytics
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>Analytics</h1>
 

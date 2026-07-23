@@ -3,7 +3,6 @@ layout: default
 title: CookOnTheFlyNetServer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>CookOnTheFlyNetServer</h1>
 

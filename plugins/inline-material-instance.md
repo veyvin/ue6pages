@@ -3,7 +3,6 @@ layout: default
 title: 内联材质实例 / Inline Material Instance
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>内联材质实例 / Inline Material Instance</h1>
 

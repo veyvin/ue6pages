@@ -1,11 +1,10 @@
 ---
 layout: default
-title: PCG 生物群落核心 / PCG Biome Core
+title: PCG 生物群系核心 / PCG Biome Core
 ---
 
-<!-- ai-generation-failed -->
 
-<h1>PCG 生物群落核心 / PCG Biome Core</h1>
+<h1>PCG 生物群系核心 / PCG Biome Core</h1>
 
 <div class="info-card">
   <ul>

@@ -3,7 +3,6 @@ layout: default
 title: 巅峰毁灭 / Apex Destruction
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>巅峰毁灭 / Apex Destruction</h1>
 

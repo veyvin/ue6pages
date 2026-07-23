@@ -3,7 +3,6 @@ layout: default
 title: 游戏捕获接口 / Gameplay Capture Interfaces
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>游戏捕获接口 / Gameplay Capture Interfaces</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 鸢尾花 / Iris
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>鸢尾花 / Iris</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: CollectionManager
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>CollectionManager</h1>
 

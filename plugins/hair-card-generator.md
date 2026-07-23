@@ -3,7 +3,6 @@ layout: default
 title: 发卡生成器 / Hair Card Generator
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>发卡生成器 / Hair Card Generator</h1>
 

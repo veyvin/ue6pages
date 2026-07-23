@@ -3,7 +3,6 @@ layout: default
 title: 人工智能行为 / AI Behaviors
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>人工智能行为 / AI Behaviors</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 瞄准系统 / Targeting System
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>瞄准系统 / Targeting System</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: GPU 光量 / GPU Lightmass
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>GPU 光量 / GPU Lightmass</h1>
 
