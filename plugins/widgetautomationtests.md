@@ -3,7 +3,6 @@ layout: default
 title: Widget自动化测试 / WidgetAutomationTests
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Widget自动化测试 / WidgetAutomationTests</h1>
 

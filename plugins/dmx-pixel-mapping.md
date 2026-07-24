@@ -3,7 +3,6 @@ layout: default
 title: DMX 像素映射 / DMX Pixel Mapping
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>DMX 像素映射 / DMX Pixel Mapping</h1>
 

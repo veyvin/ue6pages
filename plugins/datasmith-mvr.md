@@ -14,4 +14,4 @@ title: 数据匠MVR / Datasmith MVR
 </div>
 
 <h2>Description / 描述</h2>
-<p>Enabled support to import .udatasmith files with MVR content.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">支持导入包含 MVR 内容的 .udatasmith 文件。</div><div class="lang-content">Enabled support to import .udatasmith files with MVR content.</div></div>

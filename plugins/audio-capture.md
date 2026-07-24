@@ -3,7 +3,6 @@ layout: default
 title: 音频捕捉 / Audio Capture
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>音频捕捉 / Audio Capture</h1>
 

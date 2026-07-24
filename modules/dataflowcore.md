@@ -3,7 +3,6 @@ layout: default
 title: DataflowCore
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>DataflowCore</h1>
 

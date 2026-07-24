@@ -3,7 +3,6 @@ layout: default
 title: Alembic 文件中的几何缓存（实验） / Geometry Cache from Alembic File(Experimental)
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Alembic 文件中的几何缓存（实验） / Geometry Cache from Alembic File(Experimental)</h1>
 

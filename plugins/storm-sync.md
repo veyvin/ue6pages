@@ -3,7 +3,6 @@ layout: default
 title: 风暴同步 / Storm Sync
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>风暴同步 / Storm Sync</h1>
 

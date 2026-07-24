@@ -3,6 +3,7 @@ layout: default
 title: SourceControlWindowExtender
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>SourceControlWindowExtender</h1>
 

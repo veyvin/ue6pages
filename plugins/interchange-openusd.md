@@ -3,7 +3,6 @@ layout: default
 title: 兑换开放美元 / Interchange OpenUSD
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>兑换开放美元 / Interchange OpenUSD</h1>
 

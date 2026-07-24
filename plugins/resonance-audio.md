@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 共振音频 / Resonance Audio
+title: 共鸣音频 / Resonance Audio
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>共振音频 / Resonance Audio</h1>
+<h1>共鸣音频 / Resonance Audio</h1>
 
 <div class="info-card">
   <ul>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: PropertyBindingUtils / PropertyBindingUtils
+title: 属性绑定实用程序 / PropertyBindingUtils
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>PropertyBindingUtils / PropertyBindingUtils</h1>
+<h1>属性绑定实用程序 / PropertyBindingUtils</h1>
 
 <div class="info-card">
   <ul>

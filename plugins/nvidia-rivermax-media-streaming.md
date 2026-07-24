@@ -1,11 +1,11 @@
 ---
 layout: default
-title: NVIDIA Rivermax Media Streaming / NVIDIA Rivermax Media Streaming
+title: NVIDIA Rivermax 媒体流 / NVIDIA Rivermax Media Streaming
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>NVIDIA Rivermax Media Streaming / NVIDIA Rivermax Media Streaming</h1>
+<h1>NVIDIA Rivermax 媒体流 / NVIDIA Rivermax Media Streaming</h1>
 
 <div class="info-card">
   <ul>
