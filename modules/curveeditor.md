@@ -3,6 +3,7 @@ layout: default
 title: CurveEditor
 ---
 
+<!-- ai-generation-failed -->
 
 <h1>CurveEditor</h1>
 

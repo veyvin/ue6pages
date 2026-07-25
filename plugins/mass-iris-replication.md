@@ -3,7 +3,6 @@ layout: default
 title: 大规模虹膜复制 / Mass Iris Replication
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>大规模虹膜复制 / Mass Iris Replication</h1>
 

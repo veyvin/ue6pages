@@ -3,7 +3,6 @@ layout: default
 title: 大众人物 / MassCharacters
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>大众人物 / MassCharacters</h1>
 

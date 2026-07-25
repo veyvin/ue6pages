@@ -3,7 +3,6 @@ layout: default
 title: 消息总线测试仪 / MessageBus Tester
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>消息总线测试仪 / MessageBus Tester</h1>
 

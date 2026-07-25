@@ -3,7 +3,6 @@ layout: default
 title: 可变的服装 / Mutable Clothing
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>可变的服装 / Mutable Clothing</h1>
 

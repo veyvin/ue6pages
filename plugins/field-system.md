@@ -3,7 +3,6 @@ layout: default
 title: 现场系统 / Field System
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>现场系统 / Field System</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: Slate 模型视图视图模型 / Slate Model View Viewmodel
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Slate 模型视图视图模型 / Slate Model View Viewmodel</h1>
 

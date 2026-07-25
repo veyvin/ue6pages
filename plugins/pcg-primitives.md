@@ -3,7 +3,6 @@ layout: default
 title: PCG 基元 / PCG Primitives
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>PCG 基元 / PCG Primitives</h1>
 

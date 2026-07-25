@@ -3,7 +3,6 @@ layout: default
 title: 像素捕捉 / Pixel Capture
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>像素捕捉 / Pixel Capture</h1>
 

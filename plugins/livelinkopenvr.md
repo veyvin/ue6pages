@@ -3,7 +3,6 @@ layout: default
 title: LiveLinkOpenVR / LiveLinkOpenVR
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>LiveLinkOpenVR / LiveLinkOpenVR</h1>
 

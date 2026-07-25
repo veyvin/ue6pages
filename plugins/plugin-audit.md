@@ -3,7 +3,6 @@ layout: default
 title: 插件审核 / Plugin Audit
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>插件审核 / Plugin Audit</h1>
 
