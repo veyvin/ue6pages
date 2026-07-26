@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Online Subsystem Google / Online Subsystem Google
+title: 谷歌在线子系统 / Online Subsystem Google
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Online Subsystem Google / Online Subsystem Google</h1>
+<h1>谷歌在线子系统 / Online Subsystem Google</h1>
 
 <div class="info-card">
   <ul>

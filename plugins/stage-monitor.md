@@ -14,4 +14,4 @@ title: 舞台监听器 / Stage Monitor
 </div>
 
 <h2>Description / 描述</h2>
-<p>Plugin enabling monitoring in the context of a virtual production stage where multiple machines are in operation</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">插件可在多台机器运行的虚拟生产阶段进行监控</div><div class="lang-content">Plugin enabling monitoring in the context of a virtual production stage where multiple machines are in operation</div></div>

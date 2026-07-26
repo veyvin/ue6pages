@@ -3,7 +3,6 @@ layout: default
 title: FakeIt
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>FakeIt</h1>
 

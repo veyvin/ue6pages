@@ -3,7 +3,6 @@ layout: default
 title: 实时链接控制装置 / Live Link Control Rig
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>实时链接控制装置 / Live Link Control Rig</h1>
 

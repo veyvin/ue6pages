@@ -3,7 +3,6 @@ layout: default
 title: MotorSimOutputMotoSynth / MotorSimOutputMotoSynth
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>MotorSimOutputMotoSynth / MotorSimOutputMotoSynth</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: LiveLinkXR / LiveLinkXR
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>LiveLinkXR / LiveLinkXR</h1>
 

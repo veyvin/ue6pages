@@ -3,7 +3,6 @@ layout: default
 title: FAISS
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>FAISS</h1>
 
