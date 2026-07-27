@@ -14,4 +14,4 @@ title: 交换架构 / Interchange Framework
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">交换框架插件提供了一个可定制的导入和导出系统，以及一组可扩展的管道用于处理常见文件类型。</div><div class="lang-content">The Interchange Framework plugin offers a customizable import and export system, with an extensible set of pipelines for handling common file types.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Interchange Framework 插件提供了可自定义的导入和导出系统，以及一组可扩展的管道用于处理常见文件类型。</div><div class="lang-content">The Interchange Framework plugin offers a customizable import and export system, with an extensible set of pipelines for handling common file types.</div></div>

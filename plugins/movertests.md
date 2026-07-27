@@ -3,7 +3,6 @@ layout: default
 title: 移动测试 / MoverTests
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>移动测试 / MoverTests</h1>
 

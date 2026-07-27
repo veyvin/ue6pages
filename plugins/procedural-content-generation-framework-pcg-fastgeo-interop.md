@@ -3,7 +3,6 @@ layout: default
 title: 程序内容生成框架 (PCG) FastGeo Interop / Procedural Content Generation Framework (PCG) FastGeo Interop
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>程序内容生成框架 (PCG) FastGeo Interop / Procedural Content Generation Framework (PCG) FastGeo Interop</h1>
 

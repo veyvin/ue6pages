@@ -3,7 +3,6 @@ layout: default
 title: 可变资产用户数据 / Mutable Asset User Data
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>可变资产用户数据 / Mutable Asset User Data</h1>
 

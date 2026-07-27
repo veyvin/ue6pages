@@ -3,7 +3,6 @@ layout: default
 title: Apple ARKit 人脸支持 / Apple ARKit Face Support
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Apple ARKit 人脸支持 / Apple ARKit Face Support</h1>
 

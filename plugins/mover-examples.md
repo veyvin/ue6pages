@@ -3,7 +3,6 @@ layout: default
 title: 动子示例 / Mover Examples
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>动子示例 / Mover Examples</h1>
 

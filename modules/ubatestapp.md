@@ -3,7 +3,6 @@ layout: default
 title: UbaTestApp
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>UbaTestApp</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: ViewportSnapping
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>ViewportSnapping</h1>
 

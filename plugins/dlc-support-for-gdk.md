@@ -3,7 +3,6 @@ layout: default
 title: GDK 的 DLC 支持 / DLC Support for GDK
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>GDK 的 DLC 支持 / DLC Support for GDK</h1>
 
