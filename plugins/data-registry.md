@@ -3,7 +3,6 @@ layout: default
 title: 数据登记处 / Data Registry
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>数据登记处 / Data Registry</h1>
 

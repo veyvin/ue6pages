@@ -3,7 +3,6 @@ layout: default
 title: 定序器脚本 / Sequencer Scripting
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>定序器脚本 / Sequencer Scripting</h1>
 

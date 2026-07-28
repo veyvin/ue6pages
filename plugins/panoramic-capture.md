@@ -3,7 +3,6 @@ layout: default
 title: 全景拍摄 / Panoramic Capture
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>全景拍摄 / Panoramic Capture</h1>
 

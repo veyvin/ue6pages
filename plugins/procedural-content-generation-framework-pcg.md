@@ -3,7 +3,6 @@ layout: default
 title: 程序内容生成框架 (PCG) / Procedural Content Generation Framework (PCG)
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>程序内容生成框架 (PCG) / Procedural Content Generation Framework (PCG)</h1>
 

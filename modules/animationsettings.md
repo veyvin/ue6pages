@@ -3,7 +3,6 @@ layout: default
 title: AnimationSettings
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>AnimationSettings</h1>
 

@@ -3,7 +3,6 @@ layout: default
 title: 几何脚本 / Geometry Script
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>几何脚本 / Geometry Script</h1>
 

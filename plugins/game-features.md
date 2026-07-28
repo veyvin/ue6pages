@@ -3,7 +3,6 @@ layout: default
 title: 游戏特色 / Game Features
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>游戏特色 / Game Features</h1>
 

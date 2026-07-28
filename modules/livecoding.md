@@ -3,7 +3,6 @@ layout: default
 title: LiveCoding
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>LiveCoding</h1>
 

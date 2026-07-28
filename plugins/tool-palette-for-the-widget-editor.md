@@ -3,7 +3,6 @@ layout: default
 title: 小部件编辑器的工具选项板 / Tool Palette for the Widget Editor
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>小部件编辑器的工具选项板 / Tool Palette for the Widget Editor</h1>
 

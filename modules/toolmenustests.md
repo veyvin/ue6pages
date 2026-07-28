@@ -3,7 +3,6 @@ layout: default
 title: ToolMenusTests
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>ToolMenusTests</h1>
 

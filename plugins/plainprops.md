@@ -3,7 +3,6 @@ layout: default
 title: 普通道具 / PlainProps
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>普通道具 / PlainProps</h1>
 
