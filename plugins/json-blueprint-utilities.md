@@ -14,4 +14,4 @@ title: Json 蓝图实用程序 / Json Blueprint Utilities
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">蓝图的 Json 功能。</div><div class="lang-content">Json functionality for Blueprint.</div></div>
+<p>Json functionality for Blueprint.</p>

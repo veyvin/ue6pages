@@ -14,4 +14,4 @@ title: 尼亚加拉洞察 / Niagara Insights
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Niagara Unreal Insights 调试和性能</div><div class="lang-content">Niagara Unreal Insights Debugging and Performance</div></div>
+<p>Niagara Unreal Insights Debugging and Performance</p>

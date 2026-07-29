@@ -3,7 +3,6 @@ layout: default
 title: Razer Chroma 幻彩设备 / Razer Chroma Devices
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Razer Chroma 幻彩设备 / Razer Chroma Devices</h1>
 

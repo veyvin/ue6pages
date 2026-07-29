@@ -3,7 +3,6 @@ layout: default
 title: 插件参考查看器 / Plugin Reference Viewer
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>插件参考查看器 / Plugin Reference Viewer</h1>
 

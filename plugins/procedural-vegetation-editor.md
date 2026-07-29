@@ -3,7 +3,6 @@ layout: default
 title: 程序植被编辑器 / Procedural Vegetation Editor
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>程序植被编辑器 / Procedural Vegetation Editor</h1>
 

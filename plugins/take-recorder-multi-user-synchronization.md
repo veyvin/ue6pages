@@ -3,7 +3,6 @@ layout: default
 title: Take Recorder多用户同步 / Take Recorder Multi-User synchronization
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>Take Recorder多用户同步 / Take Recorder Multi-User synchronization</h1>
 
