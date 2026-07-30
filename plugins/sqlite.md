@@ -3,7 +3,6 @@ layout: default
 title: SQLite / SQLite
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>SQLite / SQLite</h1>
 

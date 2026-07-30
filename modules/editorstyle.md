@@ -3,7 +3,6 @@ layout: default
 title: EditorStyle
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>EditorStyle</h1>
 

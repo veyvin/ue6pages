@@ -3,7 +3,6 @@ layout: default
 title: ImageCore
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>ImageCore</h1>
 

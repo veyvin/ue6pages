@@ -3,7 +3,6 @@ layout: default
 title: 神经渲染 / Neural Rendering
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>神经渲染 / Neural Rendering</h1>
 

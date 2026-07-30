@@ -3,7 +3,6 @@ layout: default
 title: 远程控制组件 / Remote Control Components
 ---
 
-<!-- ai-generation-failed -->
 
 <h1>远程控制组件 / Remote Control Components</h1>
 

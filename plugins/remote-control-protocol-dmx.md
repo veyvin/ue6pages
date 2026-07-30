@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Remote Control Protocol DMX / Remote Control Protocol DMX
+title: 远程控制协议DMX / Remote Control Protocol DMX
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Remote Control Protocol DMX / Remote Control Protocol DMX</h1>
+<h1>远程控制协议DMX / Remote Control Protocol DMX</h1>
 
 <div class="info-card">
   <ul>
