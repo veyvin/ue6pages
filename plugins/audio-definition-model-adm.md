@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Audio Definition Model (ADM) / Audio Definition Model (ADM)
+title: 音频定义模型 (ADM) / Audio Definition Model (ADM)
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Audio Definition Model (ADM) / Audio Definition Model (ADM)</h1>
+<h1>音频定义模型 (ADM) / Audio Definition Model (ADM)</h1>
 
 <div class="info-card">
   <ul>

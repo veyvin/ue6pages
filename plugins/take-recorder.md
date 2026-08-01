@@ -14,4 +14,4 @@ title: 录音机 / Take Recorder
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">一套工具和界面，设计用于在虚拟制作环境中录制、审阅和回放片段。</div><div class="lang-content">A suite of tools and interfaces designed for recording, reviewing and playing back takes in a virtual production environment.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">一套工具和界面，专为在虚拟制作环境中录制、审查和回放而设计。</div><div class="lang-content">A suite of tools and interfaces designed for recording, reviewing and playing back takes in a virtual production environment.</div></div>

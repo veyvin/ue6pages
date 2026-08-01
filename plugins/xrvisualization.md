@@ -14,4 +14,4 @@ title: XR可视化 / XRVisualization
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">XR HMD 和控制器的可视化库</div><div class="lang-content">Visualization Library for XR HMDs and controllers</div></div>
+<p>Visualization Library for XR HMDs and controllers</p>
