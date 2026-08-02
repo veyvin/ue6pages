@@ -1,11 +1,11 @@
 ---
 layout: default
-title: World Conditions / World Conditions
+title: 世界状况 / World Conditions
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>World Conditions / World Conditions</h1>
+<h1>世界状况 / World Conditions</h1>
 
 <div class="info-card">
   <ul>
