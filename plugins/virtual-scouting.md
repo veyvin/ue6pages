@@ -14,4 +14,4 @@ title: 虚拟侦察 / Virtual Scouting
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚拟侦察可以让电影制作者在虚拟现实中侦察数字环境。</div><div class="lang-content">Virtual Scouting lets filmmakers scout a digital environment in virtual reality.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚拟侦察让电影制作者能够在虚拟现实中侦察数字环境。</div><div class="lang-content">Virtual Scouting lets filmmakers scout a digital environment in virtual reality.</div></div>
