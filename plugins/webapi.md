@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 网络应用程序接口 / WebAPI
+title: 网页应用程序接口 / WebAPI
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>网络应用程序接口 / WebAPI</h1>
+<h1>网页应用程序接口 / WebAPI</h1>
 
 <div class="info-card">
   <ul>

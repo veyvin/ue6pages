@@ -14,4 +14,4 @@ title: LED 墙校准 / Led Wall Calibration
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">LED 墙校准工具</div><div class="lang-content">Tools for Led Wall calibration</div></div>
+<p>Tools for Led Wall calibration</p>

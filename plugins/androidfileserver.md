@@ -14,4 +14,4 @@ title: Android文件服务器 / AndroidFileServer
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">向 Android 项目添加对远程文件管理的支持。</div><div class="lang-content">Adds support for remote file management to Android projects.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">添加对 Android 项目的远程文件管理的支持。</div><div class="lang-content">Adds support for remote file management to Android projects.</div></div>
