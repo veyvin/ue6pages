@@ -14,4 +14,4 @@ title: 合成和 DSP 效果 / Synthesis and DSP Effects
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">各种实时合成器和 DSP 源和子混合效果。</div><div class="lang-content">A variety of realtime synthesizers and DSP source and submix effects.</div></div>
+<p>A variety of realtime synthesizers and DSP source and submix effects.</p>
