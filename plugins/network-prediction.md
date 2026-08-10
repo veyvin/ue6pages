@@ -14,4 +14,4 @@ title: 网络预测 / Network Prediction
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于编写网络预测友好游戏系统的通用框架</div><div class="lang-content">Generalized framework for writing network prediction friendly gameplay systems</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于编写网络预测友好的游戏系统的通用框架</div><div class="lang-content">Generalized framework for writing network prediction friendly gameplay systems</div></div>
