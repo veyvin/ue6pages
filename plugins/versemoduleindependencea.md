@@ -1,11 +1,11 @@
 ---
 layout: default
-title: VerseModuleIndependenceA / VerseModuleIndependenceA
+title: VerseModule独立A / VerseModuleIndependenceA
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>VerseModuleIndependenceA / VerseModuleIndependenceA</h1>
+<h1>VerseModule独立A / VerseModuleIndependenceA</h1>
 
 <div class="info-card">
   <ul>
