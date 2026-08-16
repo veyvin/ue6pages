@@ -1,11 +1,11 @@
 ---
 layout: default
-title: GDK网络驱动程序 / GDK Net Driver
+title: GDK Net Driver / GDK Net Driver
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>GDK网络驱动程序 / GDK Net Driver</h1>
+<h1>GDK Net Driver / GDK Net Driver</h1>
 
 <div class="info-card">
   <ul>
