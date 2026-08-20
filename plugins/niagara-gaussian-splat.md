@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 尼亚加拉高斯斑点 / Niagara Gaussian Splat
+title: Niagara Gaussian Splat / Niagara Gaussian Splat
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>尼亚加拉高斯斑点 / Niagara Gaussian Splat</h1>
+<h1>Niagara Gaussian Splat / Niagara Gaussian Splat</h1>
 
 <div class="info-card">
   <ul>

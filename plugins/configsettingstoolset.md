@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 配置设置工具集 / ConfigSettingsToolset
+title: ConfigSettingsToolset / ConfigSettingsToolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>配置设置工具集 / ConfigSettingsToolset</h1>
+<h1>ConfigSettingsToolset / ConfigSettingsToolset</h1>
 
 <div class="info-card">
   <ul>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 尼亚加拉 MRQ 支持 / Niagara MRQ Support
+title: Niagara MRQ Support / Niagara MRQ Support
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>尼亚加拉 MRQ 支持 / Niagara MRQ Support</h1>
+<h1>Niagara MRQ Support / Niagara MRQ Support</h1>
 
 <div class="info-card">
   <ul>

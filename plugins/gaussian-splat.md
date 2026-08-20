@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 高斯分布 / Gaussian Splat
+title: Gaussian Splat / Gaussian Splat
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>高斯分布 / Gaussian Splat</h1>
+<h1>Gaussian Splat / Gaussian Splat</h1>
 
 <div class="info-card">
   <ul>
