@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Online Subsystem EOS / Online Subsystem EOS
+title: 在线子系统EOS / Online Subsystem EOS
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Online Subsystem EOS / Online Subsystem EOS</h1>
+<h1>在线子系统EOS / Online Subsystem EOS</h1>
 
 <div class="info-card">
   <ul>

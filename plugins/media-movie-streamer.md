@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Media Movie Streamer / Media Movie Streamer
+title: 媒体电影流媒体 / Media Movie Streamer
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Media Movie Streamer / Media Movie Streamer</h1>
+<h1>媒体电影流媒体 / Media Movie Streamer</h1>
 
 <div class="info-card">
   <ul>

@@ -14,4 +14,4 @@ title: 混合现实捕捉框架 / Mixed Reality Capture Framework
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">一个简单的框架，为用户提供了一种将混合现实捕获集成到其 VR 项目中的方法。</div><div class="lang-content">A simple framework that provides users a way to integrate mixed reality capture into their VR projects.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">一个简单的框架，为用户提供了一种将混合现实捕捉集成到其 VR 项目中的方法。</div><div class="lang-content">A simple framework that provides users a way to integrate mixed reality capture into their VR projects.</div></div>

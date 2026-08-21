@@ -14,4 +14,4 @@ title: 电影场景文本轨道 / MovieSceneTextTrack
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Deprecated plugin.文本支持移至电影场景轨道（内置）。</div><div class="lang-content">Deprecated plugin. Text support moved to Movie Scene Tracks (built-in).</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">已弃用的插件。文本支持移至电影场景轨道（内置）。</div><div class="lang-content">Deprecated plugin. Text support moved to Movie Scene Tracks (built-in).</div></div>
