@@ -14,4 +14,4 @@ title: 脚本插件 / Script Plugin
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">脚本插件的示例。这可以作为创建您自己的插件的起点。</div><div class="lang-content">An example of a script plugin. This can be used as a starting point when creating your own plugin.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">脚本插件的示例。这可以用作创建您自己的插件的起点。</div><div class="lang-content">An example of a script plugin. This can be used as a starting point when creating your own plugin.</div></div>

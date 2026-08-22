@@ -14,4 +14,4 @@ title: Web 浏览器到本机代理 / Web Browser to Native Proxying
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">维护浏览器到本机代理并提供用于注册 UObjects 绑定的钩子</div><div class="lang-content">Maintains the browser to native proxy and provides hooks for registering UObjects bindings</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">维护浏览器到本机代理并提供用于注册 UObjects 绑定的挂钩</div><div class="lang-content">Maintains the browser to native proxy and provides hooks for registering UObjects bindings</div></div>
