@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 世界流媒体洞察 / World Streaming Insights
+title: World Streaming Insights / World Streaming Insights
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>世界流媒体洞察 / World Streaming Insights</h1>
+<h1>World Streaming Insights / World Streaming Insights</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 世界流媒体洞察 / World Streaming Insights
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于分析、调试和监控虚幻引擎中世界流媒体各个方面的工具套件。</div><div class="lang-content">Suite of tools to profile, debug, and monitor aspects of world streaming in the Unreal Engine.</div></div>
+<p>Suite of tools to profile, debug, and monitor aspects of world streaming in the Unreal Engine.</p>

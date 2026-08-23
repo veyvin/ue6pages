@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 远程控制网络界面 / Remote Control Web Interface
+title: Remote Control Web Interface / Remote Control Web Interface
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>远程控制网络界面 / Remote Control Web Interface</h1>
+<h1>Remote Control Web Interface / Remote Control Web Interface</h1>
 
 <div class="info-card">
   <ul>
