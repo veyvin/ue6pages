@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Interchange Tests / Interchange Tests
+title: 互换测试 / Interchange Tests
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Interchange Tests / Interchange Tests</h1>
+<h1>互换测试 / Interchange Tests</h1>
 
 <div class="info-card">
   <ul>
