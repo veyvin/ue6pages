@@ -14,4 +14,4 @@ title: TestFramework / TestFramework
 </div>
 
 <h2>Description / 描述</h2>
-<p>(no description)</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div>
