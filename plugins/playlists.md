@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Playlists / Playlists
+title: 播放列表 / Playlists
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Playlists / Playlists</h1>
+<h1>播放列表 / Playlists</h1>
 
 <div class="info-card">
   <ul>

@@ -14,4 +14,4 @@ title: Timed Data Monitor / Timed Data Monitor
 </div>
 
 <h2>Description / 描述</h2>
-<p>Utilities to monitor inputs that can be time synchronized.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于监视可进行时间同步的输入的实用程序。</div><div class="lang-content">Utilities to monitor inputs that can be time synchronized.</div></div>

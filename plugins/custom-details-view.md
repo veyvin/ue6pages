@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Custom Details View / Custom Details View
+title: 定制详情查看 / Custom Details View
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Custom Details View / Custom Details View</h1>
+<h1>定制详情查看 / Custom Details View</h1>
 
 <div class="info-card">
   <ul>

@@ -14,4 +14,4 @@ title: DMX 控制台 / DMX Control Console
 </div>
 
 <h2>Description / 描述</h2>
-<p>Console that can be patched from DMX Libraries and sends DMX to Output Ports</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">可以从 DMX 库修补并将 DMX 发送到输出端口的控制台</div><div class="lang-content">Console that can be patched from DMX Libraries and sends DMX to Output Ports</div></div>
