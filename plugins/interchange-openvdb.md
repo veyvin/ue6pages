@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 交换OpenVDB / Interchange OpenVDB
+title: Interchange OpenVDB / Interchange OpenVDB
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>交换OpenVDB / Interchange OpenVDB</h1>
+<h1>Interchange OpenVDB / Interchange OpenVDB</h1>
 
 <div class="info-card">
   <ul>

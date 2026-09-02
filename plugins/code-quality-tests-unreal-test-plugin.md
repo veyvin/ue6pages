@@ -14,4 +14,4 @@ title: 代码质量测试虚幻测试插件 / Code Quality Tests Unreal Test Plu
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">CQTest 虚幻引擎模块的测试</div><div class="lang-content">Tests for the CQTest Unreal Engine module</div></div>
+<p>Tests for the CQTest Unreal Engine module</p>

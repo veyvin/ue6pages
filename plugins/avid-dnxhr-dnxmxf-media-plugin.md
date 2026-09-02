@@ -14,4 +14,4 @@ title: Avid DNxHR/DNxMXF 媒体插件 / Avid DNxHR/DNxMXF Media Plugin
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用 Avid DNx 编解码器实现视频导出。</div><div class="lang-content">Implements video export using Avid DNx Codecs.</div></div>
+<p>Implements video export using Avid DNx Codecs.</p>

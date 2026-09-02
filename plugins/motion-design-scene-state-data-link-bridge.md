@@ -14,4 +14,4 @@ title: Motion Design Scene State Data Link Bridge / Motion Design Scene State Da
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">执行数据链接图的场景状态任务</div><div class="lang-content">Scene State Tasks that execute Data Link Graphs</div></div>
+<p>Scene State Tasks that execute Data Link Graphs</p>

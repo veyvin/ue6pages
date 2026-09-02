@@ -1,11 +1,11 @@
 ---
 layout: default
-title: XR基地 / XRBase
+title: XRBase / XRBase
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>XR基地 / XRBase</h1>
+<h1>XRBase / XRBase</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: XR基地 / XRBase
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">XR 基本功能实现。  （通常这个插件会被另一个需要它的插件自动启用。）</div><div class="lang-content">XR Base Feature Implementations.  (Generally this plugin will be automatically enabled by another plugin that requires it.)</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">XR 基本功能实现。  (Generally this plugin will be automatically enabled by another plugin that requires it.)</div><div class="lang-content">XR Base Feature Implementations.  (Generally this plugin will be automatically enabled by another plugin that requires it.)</div></div>

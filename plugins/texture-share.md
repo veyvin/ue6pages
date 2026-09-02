@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 纹理分享 / Texture Share
+title: Texture Share / Texture Share
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>纹理分享 / Texture Share</h1>
+<h1>Texture Share / Texture Share</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 纹理分享 / Texture Share
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">在进程之间共享纹理和数据</div><div class="lang-content">Share textures and data between processes</div></div>
+<p>Share textures and data between processes</p>

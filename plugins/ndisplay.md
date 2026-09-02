@@ -14,4 +14,4 @@ title: 显示器 / nDisplay
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">支持使用多台 PC 以单声道或立体声进行同步集群渲染</div><div class="lang-content">Support for synchronized clustered rendering using multiple PCs in mono or stereo</div></div>
+<p>Support for synchronized clustered rendering using multiple PCs in mono or stereo</p>

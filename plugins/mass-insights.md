@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 大众洞察 / Mass Insights
+title: Mass Insights / Mass Insights
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>大众洞察 / Mass Insights</h1>
+<h1>Mass Insights / Mass Insights</h1>
 
 <div class="info-card">
   <ul>

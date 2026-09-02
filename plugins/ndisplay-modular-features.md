@@ -1,11 +1,11 @@
 ---
 layout: default
-title: nDisplay 模块化功能 / nDisplay Modular Features
+title: nDisplay Modular Features / nDisplay Modular Features
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>nDisplay 模块化功能 / nDisplay Modular Features</h1>
+<h1>nDisplay Modular Features / nDisplay Modular Features</h1>
 
 <div class="info-card">
   <ul>

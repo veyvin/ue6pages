@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 运动设计场景状态 / Motion Design Scene State
+title: Motion Design Scene State / Motion Design Scene State
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>运动设计场景状态 / Motion Design Scene State</h1>
+<h1>Motion Design Scene State / Motion Design Scene State</h1>
 
 <div class="info-card">
   <ul>
