@@ -14,4 +14,4 @@ title: Enhanced Input Code Quality Unreal Test Plugin / Enhanced Input Code Qual
 </div>
 
 <h2>Description / 描述</h2>
-<p>Simplified testing of the Enhanced Input for Unreal Engine</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚幻引擎增强输入的简化测试</div><div class="lang-content">Simplified testing of the Enhanced Input for Unreal Engine</div></div>
