@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Verse Experimental / Verse Experimental
+title: 实验性诗歌 / Verse Experimental
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Verse Experimental / Verse Experimental</h1>
+<h1>实验性诗歌 / Verse Experimental</h1>
 
 <div class="info-card">
   <ul>

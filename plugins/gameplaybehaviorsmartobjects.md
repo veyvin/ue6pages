@@ -14,4 +14,4 @@ title: 游戏行为智能对象 / GameplayBehaviorSmartObjects
 </div>
 
 <h2>Description / 描述</h2>
-<p>Plugins for SmartObjects using GameplayBehavior as their default runtime behavior</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用 GameplayBehavior 作为默认运行时行为的 SmartObjects 插件</div><div class="lang-content">Plugins for SmartObjects using GameplayBehavior as their default runtime behavior</div></div>

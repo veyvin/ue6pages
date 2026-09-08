@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Slate Scripting / Slate Scripting
+title: 石板脚本 / Slate Scripting
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Slate Scripting / Slate Scripting</h1>
+<h1>石板脚本 / Slate Scripting</h1>
 
 <div class="info-card">
   <ul>

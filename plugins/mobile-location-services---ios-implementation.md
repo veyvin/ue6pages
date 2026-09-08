@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Mobile Location Services - IOS Implementation / Mobile Location Services - IOS Implementation
+title: 移动定位服务 - IOS 实施 / Mobile Location Services - IOS Implementation
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Mobile Location Services - IOS Implementation / Mobile Location Services - IOS Implementation</h1>
+<h1>移动定位服务 - IOS 实施 / Mobile Location Services - IOS Implementation</h1>
 
 <div class="info-card">
   <ul>
