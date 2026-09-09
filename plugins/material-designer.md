@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Material Designer / Material Designer
+title: 材质设计师 / Material Designer
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Material Designer / Material Designer</h1>
+<h1>材质设计师 / Material Designer</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Material Designer / Material Designer
 </div>
 
 <h2>Description / 描述</h2>
-<p>Compact dynamic material creator and editor, similar in style to other DDCs.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">紧凑的动态材质创建器和编辑器，风格与其他 DDC 类似。</div><div class="lang-content">Compact dynamic material creator and editor, similar in style to other DDCs.</div></div>

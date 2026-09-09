@@ -1,11 +1,11 @@
 ---
 layout: default
-title: UBA Controller / UBA Controller
+title: UBA控制器 / UBA Controller
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>UBA Controller / UBA Controller</h1>
+<h1>UBA控制器 / UBA Controller</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: UBA Controller / UBA Controller
 </div>
 
 <h2>Description / 描述</h2>
-<p>Adds support for shader compiling distribution using UnrealBuildAccelerator (UBA)</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">添加对使用 UnrealBuildAccelerator (UBA) 的着色器编译分发的支持</div><div class="lang-content">Adds support for shader compiling distribution using UnrealBuildAccelerator (UBA)</div></div>

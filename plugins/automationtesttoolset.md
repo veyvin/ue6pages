@@ -1,11 +1,11 @@
 ---
 layout: default
-title: AutomationTestToolset / AutomationTestToolset
+title: 自动化测试工具集 / AutomationTestToolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>AutomationTestToolset / AutomationTestToolset</h1>
+<h1>自动化测试工具集 / AutomationTestToolset</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: AutomationTestToolset / AutomationTestToolset
 </div>
 
 <h2>Description / 描述</h2>
-<p>Automation test discovery and execution tools.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">自动化测试发现和执行工具。</div><div class="lang-content">Automation test discovery and execution tools.</div></div>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: LevelSnapshots / LevelSnapshots
+title: 关卡快照 / LevelSnapshots
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>LevelSnapshots / LevelSnapshots</h1>
+<h1>关卡快照 / LevelSnapshots</h1>
 
 <div class="info-card">
   <ul>
