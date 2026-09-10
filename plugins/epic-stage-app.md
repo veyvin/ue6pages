@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Epic Stage App / Epic Stage App
+title: 史诗舞台应用程序 / Epic Stage App
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Epic Stage App / Epic Stage App</h1>
+<h1>史诗舞台应用程序 / Epic Stage App</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Epic Stage App / Epic Stage App
 </div>
 
 <h2>Description / 描述</h2>
-<p>Enables remote connections from the Epic Stage App</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">启用来自 Epic Stage 应用程序的远程连接</div><div class="lang-content">Enables remote connections from the Epic Stage App</div></div>

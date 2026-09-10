@@ -1,11 +1,11 @@
 ---
 layout: default
-title: ICVFXTesting / ICVFXTesting
+title: ICVFX测试 / ICVFXTesting
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>ICVFXTesting / ICVFXTesting</h1>
+<h1>ICVFX测试 / ICVFXTesting</h1>
 
 <div class="info-card">
   <ul>

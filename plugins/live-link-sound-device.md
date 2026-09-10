@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Live Link Sound Device / Live Link Sound Device
+title: Live Link 声音设备 / Live Link Sound Device
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Live Link Sound Device / Live Link Sound Device</h1>
+<h1>Live Link 声音设备 / Live Link Sound Device</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Live Link Sound Device / Live Link Sound Device
 </div>
 
 <h2>Description / 描述</h2>
-<p>Sound Devices recorder support for Live Link Hub with recording and connection capabilities</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">声音设备录音机支持 Live Link Hub，具有录音和连接功能</div><div class="lang-content">Sound Devices recorder support for Live Link Hub with recording and connection capabilities</div></div>

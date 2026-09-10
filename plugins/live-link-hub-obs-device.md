@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Live Link Hub OBS Device / Live Link Hub OBS Device
+title: Live Link Hub OBS 设备 / Live Link Hub OBS Device
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Live Link Hub OBS Device / Live Link Hub OBS Device</h1>
+<h1>Live Link Hub OBS 设备 / Live Link Hub OBS Device</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Live Link Hub OBS Device / Live Link Hub OBS Device
 </div>
 
 <h2>Description / 描述</h2>
-<p>Live Link Hub device for controlling OBS Studio recording and ingesting recorded video as mono takes via the OBS WebSocket v5 protocol.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Live Link Hub 设备，用于通过 OBS WebSocket v5 协议控制 OBS Studio 录制和以单声道形式摄取录制的视频。</div><div class="lang-content">Live Link Hub device for controlling OBS Studio recording and ingesting recorded video as mono takes via the OBS WebSocket v5 protocol.</div></div>

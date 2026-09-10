@@ -14,4 +14,4 @@ title: 捕获管理器核心 / Capture Manager Core
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Capture Manager Core 插件包含在 Capture Manager App 插件和 Capture Manager Editor 插件之间共享的实用程序模块。</div><div class="lang-content">The Capture Manager Core plugin contains utility modules that are shared between Capture Manager App plugin and Capture Manager Editor plugin.</div></div>
+<p>The Capture Manager Core plugin contains utility modules that are shared between Capture Manager App plugin and Capture Manager Editor plugin.</p>
