@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 几何缓存 / Geometry Cache
+title: Geometry Cache / Geometry Cache
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>几何缓存 / Geometry Cache</h1>
+<h1>Geometry Cache / Geometry Cache</h1>
 
 <div class="info-card">
   <ul>

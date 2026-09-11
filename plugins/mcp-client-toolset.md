@@ -1,11 +1,11 @@
 ---
 layout: default
-title: MCP 客户端工具集 / MCP Client Toolset
+title: MCP Client Toolset / MCP Client Toolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>MCP 客户端工具集 / MCP Client Toolset</h1>
+<h1>MCP Client Toolset / MCP Client Toolset</h1>
 
 <div class="info-card">
   <ul>

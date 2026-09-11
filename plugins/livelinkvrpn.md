@@ -1,11 +1,11 @@
 ---
 layout: default
-title: LiveLink VRPN / LiveLinkVRPN
+title: LiveLinkVRPN / LiveLinkVRPN
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>LiveLink VRPN / LiveLinkVRPN</h1>
+<h1>LiveLinkVRPN / LiveLinkVRPN</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: LiveLink VRPN / LiveLinkVRPN
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">VRPN 协议的 Live Link 插件</div><div class="lang-content">Live Link plugin for the VRPN protocol</div></div>
+<p>Live Link plugin for the VRPN protocol</p>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 消息调试器 / Messaging Debugger
+title: Messaging Debugger / Messaging Debugger
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>消息调试器 / Messaging Debugger</h1>
+<h1>Messaging Debugger / Messaging Debugger</h1>
 
 <div class="info-card">
   <ul>

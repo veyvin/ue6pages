@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 重播曲目（实验性） / Replay Tracks (Experimental)
+title: 重播曲目（实验） / Replay Tracks (Experimental)
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>重播曲目（实验性） / Replay Tracks (Experimental)</h1>
+<h1>重播曲目（实验） / Replay Tracks (Experimental)</h1>
 
 <div class="info-card">
   <ul>
