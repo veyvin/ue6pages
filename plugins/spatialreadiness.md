@@ -1,11 +1,11 @@
 ---
 layout: default
-title: SpatialReadiness / SpatialReadiness
+title: 空间准备度 / SpatialReadiness
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>SpatialReadiness / SpatialReadiness</h1>
+<h1>空间准备度 / SpatialReadiness</h1>
 
 <div class="info-card">
   <ul>
