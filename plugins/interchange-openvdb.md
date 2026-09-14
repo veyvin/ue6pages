@@ -14,4 +14,4 @@ title: 交换OpenVDB / Interchange OpenVDB
 </div>
 
 <h2>Description / 描述</h2>
-<p>Allows translation of OpenVDB files via the Interchange framework</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许通过 Interchange 框架翻译 OpenVDB 文件</div><div class="lang-content">Allows translation of OpenVDB files via the Interchange framework</div></div>

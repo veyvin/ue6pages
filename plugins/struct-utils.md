@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Struct Utils / Struct Utils
+title: 结构实用程序 / Struct Utils
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Struct Utils / Struct Utils</h1>
+<h1>结构实用程序 / Struct Utils</h1>
 
 <div class="info-card">
   <ul>

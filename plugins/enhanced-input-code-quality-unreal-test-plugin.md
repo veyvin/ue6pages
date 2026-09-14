@@ -14,4 +14,4 @@ title: 增强的输入代码质量虚幻测试插件 / Enhanced Input Code Quali
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚幻引擎增强输入的简化测试</div><div class="lang-content">Simplified testing of the Enhanced Input for Unreal Engine</div></div>
+<p>Simplified testing of the Enhanced Input for Unreal Engine</p>

@@ -14,4 +14,4 @@ title: 提交工具编辑器覆盖 / Submit Tool Editor Override
 </div>
 
 <h2>Description / 描述</h2>
-<p>Sets up Submit Tool to be launched by the editor</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">设置由编辑器启动的提交工具</div><div class="lang-content">Sets up Submit Tool to be launched by the editor</div></div>
