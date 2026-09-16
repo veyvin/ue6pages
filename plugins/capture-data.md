@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Capture Data / Capture Data
+title: 捕获数据 / Capture Data
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Capture Data / Capture Data</h1>
+<h1>捕获数据 / Capture Data</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Capture Data / Capture Data
 </div>
 
 <h2>Description / 描述</h2>
-<p>Classes releated to captured data</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">与捕获数据相关的类</div><div class="lang-content">Classes releated to captured data</div></div>
