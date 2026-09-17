@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Property Animator Core / Property Animator Core
+title: 属性动画核心 / Property Animator Core
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Property Animator Core / Property Animator Core</h1>
+<h1>属性动画核心 / Property Animator Core</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Property Animator Core / Property Animator Core
 </div>
 
 <h2>Description / 描述</h2>
-<p>Re-usable behaviors to control properties at runtime and in editor</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">在运行时和编辑器中控制属性的可重用行为</div><div class="lang-content">Re-usable behaviors to control properties at runtime and in editor</div></div>

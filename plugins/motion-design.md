@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Motion Design / Motion Design
+title: 运动设计 / Motion Design
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Motion Design / Motion Design</h1>
+<h1>运动设计 / Motion Design</h1>
 
 <div class="info-card">
   <ul>
@@ -14,6 +14,8 @@ title: Motion Design / Motion Design
 </div>
 
 <h2>Description / 描述</h2>
-<p>Compositing, designer and broadcasting tool.
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">合成、设计和广播工具。
 
-Plugin Dependencies: Advanced Renamer, Custom Details View, Dynamic Material, Geometry Cache, Geometry Scripting, Media Compositing, Media IO Framework, Mesh Modeling Toolset Exp, Remote Control, SVG Importer, Text3D and ActorModifierCore.</p>
+插件依赖项：高级重命名器、自定义详细信息视图、动态材质、几何缓存、几何脚本、媒体合成、媒体 IO 框架、网格建模工具集 Exp、远程控制、SVG 导入器、Text3D 和 ActorModifierCore。</div><div class="lang-content">Compositing, designer and broadcasting tool.
+
+Plugin Dependencies: Advanced Renamer, Custom Details View, Dynamic Material, Geometry Cache, Geometry Scripting, Media Compositing, Media IO Framework, Mesh Modeling Toolset Exp, Remote Control, SVG Importer, Text3D and ActorModifierCore.</div></div>

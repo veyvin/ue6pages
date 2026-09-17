@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Remote Control Web Interface / Remote Control Web Interface
+title: 远程控制网络界面 / Remote Control Web Interface
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Remote Control Web Interface / Remote Control Web Interface</h1>
+<h1>远程控制网络界面 / Remote Control Web Interface</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Remote Control Web Interface / Remote Control Web Interface
 </div>
 
 <h2>Description / 描述</h2>
-<p>Provides a web interface to control unreal engine via presets, requires nodejs to be installed</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">提供Web界面通过预设控制虚幻引擎，需要安装nodejs</div><div class="lang-content">Provides a web interface to control unreal engine via presets, requires nodejs to be installed</div></div>
