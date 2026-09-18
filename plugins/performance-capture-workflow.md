@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Performance Capture Workflow / Performance Capture Workflow
+title: 绩效捕获工作流程 / Performance Capture Workflow
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Performance Capture Workflow / Performance Capture Workflow</h1>
+<h1>绩效捕获工作流程 / Performance Capture Workflow</h1>
 
 <div class="info-card">
   <ul>

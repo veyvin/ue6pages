@@ -14,4 +14,4 @@ title: 算子栈 / Operator Stack
 </div>
 
 <h2>Description / 描述</h2>
-<p>Allows you to display linked objects in a container with an intuitive UI</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许您使用直观的 UI 显示容器中的链接对象</div><div class="lang-content">Allows you to display linked objects in a container with an intuitive UI</div></div>

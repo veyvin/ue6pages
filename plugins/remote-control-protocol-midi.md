@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Remote Control Protocol MIDI / Remote Control Protocol MIDI
+title: 远程控制协议 MIDI / Remote Control Protocol MIDI
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Remote Control Protocol MIDI / Remote Control Protocol MIDI</h1>
+<h1>远程控制协议 MIDI / Remote Control Protocol MIDI</h1>
 
 <div class="info-card">
   <ul>

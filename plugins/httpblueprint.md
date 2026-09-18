@@ -1,11 +1,11 @@
 ---
 layout: default
-title: HttpBlueprint / HttpBlueprint
+title: Http蓝图 / HttpBlueprint
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>HttpBlueprint / HttpBlueprint</h1>
+<h1>Http蓝图 / HttpBlueprint</h1>
 
 <div class="info-card">
   <ul>
