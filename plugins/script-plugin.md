@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 脚本插件 / Script Plugin
+title: Script Plugin / Script Plugin
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>脚本插件 / Script Plugin</h1>
+<h1>Script Plugin / Script Plugin</h1>
 
 <div class="info-card">
   <ul>

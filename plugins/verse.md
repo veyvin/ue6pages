@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 诗 / Verse
+title: Verse / Verse
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>诗 / Verse</h1>
+<h1>Verse / Verse</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 诗 / Verse
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">诗</div><div class="lang-content">Verse</div></div>
+<p>Verse</p>
