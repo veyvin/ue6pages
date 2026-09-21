@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Steam共享模块 / Steam Shared Module
+title: Steam 共享模块 / Steam Shared Module
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Steam共享模块 / Steam Shared Module</h1>
+<h1>Steam 共享模块 / Steam Shared Module</h1>
 
 <div class="info-card">
   <ul>

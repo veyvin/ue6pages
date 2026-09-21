@@ -14,4 +14,4 @@ title: nDisplay 模块化功能 / nDisplay Modular Features
 </div>
 
 <h2>Description / 描述</h2>
-<p>Modular Features for nDisplay</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">nDisplay 的模块化功能</div><div class="lang-content">Modular Features for nDisplay</div></div>

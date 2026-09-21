@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 太阳位置计算器 / Sun Position Calculator
+title: Sun Position Calculator / Sun Position Calculator
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>太阳位置计算器 / Sun Position Calculator</h1>
+<h1>Sun Position Calculator / Sun Position Calculator</h1>
 
 <div class="info-card">
   <ul>

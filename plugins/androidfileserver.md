@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Android文件服务器 / AndroidFileServer
+title: AndroidFileServer / AndroidFileServer
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Android文件服务器 / AndroidFileServer</h1>
+<h1>AndroidFileServer / AndroidFileServer</h1>
 
 <div class="info-card">
   <ul>

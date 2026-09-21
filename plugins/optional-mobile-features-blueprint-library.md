@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 可选的移动功能蓝图库 / Optional Mobile Features Blueprint Library
+title: Optional Mobile Features Blueprint Library / Optional Mobile Features Blueprint Library
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>可选的移动功能蓝图库 / Optional Mobile Features Blueprint Library</h1>
+<h1>Optional Mobile Features Blueprint Library / Optional Mobile Features Blueprint Library</h1>
 
 <div class="info-card">
   <ul>
