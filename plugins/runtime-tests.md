@@ -14,4 +14,4 @@ title: 运行时测试 / Runtime Tests
 </div>
 
 <h2>Description / 描述</h2>
-<p>Automated tests for runtime code used in both editor and cooked builds</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">对编辑器和熟构建中使用的运行时代码进行自动测试</div><div class="lang-content">Automated tests for runtime code used in both editor and cooked builds</div></div>

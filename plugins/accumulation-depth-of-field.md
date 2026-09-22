@@ -14,4 +14,4 @@ title: Accumulation Depth of Field / Accumulation Depth of Field
 </div>
 
 <h2>Description / 描述</h2>
-<p>Thin-lens aperture-sampled depth of field for production rendering</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于生产渲染的薄透镜孔径采样景深</div><div class="lang-content">Thin-lens aperture-sampled depth of field for production rendering</div></div>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: GDK 虚拟键盘 / GDK Virtual Keyboard
+title: GDK Virtual Keyboard / GDK Virtual Keyboard
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>GDK 虚拟键盘 / GDK Virtual Keyboard</h1>
+<h1>GDK Virtual Keyboard / GDK Virtual Keyboard</h1>
 
 <div class="info-card">
   <ul>

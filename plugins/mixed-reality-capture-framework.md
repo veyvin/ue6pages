@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 混合现实捕捉框架 / Mixed Reality Capture Framework
+title: Mixed Reality Capture Framework / Mixed Reality Capture Framework
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>混合现实捕捉框架 / Mixed Reality Capture Framework</h1>
+<h1>Mixed Reality Capture Framework / Mixed Reality Capture Framework</h1>
 
 <div class="info-card">
   <ul>

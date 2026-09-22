@@ -1,11 +1,11 @@
 ---
 layout: default
-title: GDK 包块安装程序 / GDK Package Chunk Installer
+title: GDK Package Chunk Installer / GDK Package Chunk Installer
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>GDK 包块安装程序 / GDK Package Chunk Installer</h1>
+<h1>GDK Package Chunk Installer / GDK Package Chunk Installer</h1>
 
 <div class="info-card">
   <ul>

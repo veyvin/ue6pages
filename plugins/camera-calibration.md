@@ -14,4 +14,4 @@ title: Camera Calibration / Camera Calibration
 </div>
 
 <h2>Description / 描述</h2>
-<p>Framework to support lens distortion and camera calibration in engine.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">支持引擎中镜头畸变和相机校准的框架。</div><div class="lang-content">Framework to support lens distortion and camera calibration in engine.</div></div>
