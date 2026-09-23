@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Online Subsystem Amazon / Online Subsystem Amazon
+title: 亚马逊在线子系统 / Online Subsystem Amazon
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Online Subsystem Amazon / Online Subsystem Amazon</h1>
+<h1>亚马逊在线子系统 / Online Subsystem Amazon</h1>
 
 <div class="info-card">
   <ul>

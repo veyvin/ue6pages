@@ -14,4 +14,4 @@ title: 在线服务 空 / Online Services Null
 </div>
 
 <h2>Description / 描述</h2>
-<p>Online Services implementation without an external service.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">无需外部服务即可实现在线服务。</div><div class="lang-content">Online Services implementation without an external service.</div></div>
