@@ -14,4 +14,4 @@ title: 影片渲染队列 / Movie Render Queue
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">高级电影渲染管道，用于创建渲染过场动画或其他多媒体创作。</div><div class="lang-content">Advanced movie rendering pipeline for use in creating rendered cinematics or other multi-media creation.</div></div>
+<p>Advanced movie rendering pipeline for use in creating rendered cinematics or other multi-media creation.</p>

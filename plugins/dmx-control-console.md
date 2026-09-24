@@ -1,11 +1,11 @@
 ---
 layout: default
-title: DMX 控制台 / DMX Control Console
+title: DMX Control Console / DMX Control Console
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>DMX 控制台 / DMX Control Console</h1>
+<h1>DMX Control Console / DMX Control Console</h1>
 
 <div class="info-card">
   <ul>

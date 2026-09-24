@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Linux 设备配置文件选择器 / Linux Device Profile Selector
+title: Linux Device Profile Selector / Linux Device Profile Selector
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Linux 设备配置文件选择器 / Linux Device Profile Selector</h1>
+<h1>Linux Device Profile Selector / Linux Device Profile Selector</h1>
 
 <div class="info-card">
   <ul>
