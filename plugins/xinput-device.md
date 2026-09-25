@@ -14,4 +14,4 @@ title: X输入设备 / XInput Device
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">XInput 是适用于 Windows 的游戏控制器 API。</div><div class="lang-content">XInput is a Game Controller API for Windows.</div></div>
+<p>XInput is a Game Controller API for Windows.</p>
