@@ -1,11 +1,11 @@
 ---
 layout: default
-title: MVVM 工具集 / MVVM Toolset
+title: MVVM Toolset / MVVM Toolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>MVVM 工具集 / MVVM Toolset</h1>
+<h1>MVVM Toolset / MVVM Toolset</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: MVVM 工具集 / MVVM Toolset
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于通过 AI 工具集注册表创建和管理 MVVM 数据的工具集。</div><div class="lang-content">Toolset for creating and managing MVVM data via the AI Toolset Registry.</div></div>
+<p>Toolset for creating and managing MVVM data via the AI Toolset Registry.</p>

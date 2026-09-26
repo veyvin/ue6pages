@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 纹理图 / TextureGraph
+title: TextureGraph / TextureGraph
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>纹理图 / TextureGraph</h1>
+<h1>TextureGraph / TextureGraph</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 纹理图 / TextureGraph
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用图表的纹理创建工具。</div><div class="lang-content">Texture creation tool using graphs.</div></div>
+<p>Texture creation tool using graphs.</p>

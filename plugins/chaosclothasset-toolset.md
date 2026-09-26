@@ -14,4 +14,4 @@ title: ChaosClothAsset 工具集 / ChaosClothAsset Toolset
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于创建 ChaosClothAsset 服装并将其分配给骨架网格物体的 AI 代理工具。</div><div class="lang-content">AI agent tools for creating and assigning ChaosClothAsset clothing to skeletal meshes.</div></div>
+<p>AI agent tools for creating and assigning ChaosClothAsset clothing to skeletal meshes.</p>

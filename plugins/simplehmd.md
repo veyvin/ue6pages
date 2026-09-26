@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 简单头显 / SimpleHMD
+title: SimpleHMD / SimpleHMD
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>简单头显 / SimpleHMD</h1>
+<h1>SimpleHMD / SimpleHMD</h1>
 
 <div class="info-card">
   <ul>

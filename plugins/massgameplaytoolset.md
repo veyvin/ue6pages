@@ -1,11 +1,11 @@
 ---
 layout: default
-title: MassGameplay工具集 / MassGameplayToolset
+title: MassGameplayToolset / MassGameplayToolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>MassGameplay工具集 / MassGameplayToolset</h1>
+<h1>MassGameplayToolset / MassGameplayToolset</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: MassGameplay工具集 / MassGameplayToolset
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于通过 AI 工具集注册表导航质量实体配置资产及其特征的工具集。</div><div class="lang-content">Toolset for navigating Mass entity config assets and their traits via the AI Toolset Registry.</div></div>
+<p>Toolset for navigating Mass entity config assets and their traits via the AI Toolset Registry.</p>
