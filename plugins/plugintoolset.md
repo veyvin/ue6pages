@@ -1,11 +1,11 @@
 ---
 layout: default
-title: PluginToolset / PluginToolset
+title: 插件工具集 / PluginToolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>PluginToolset / PluginToolset</h1>
+<h1>插件工具集 / PluginToolset</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: PluginToolset / PluginToolset
 </div>
 
 <h2>Description / 描述</h2>
-<p>Toolset for listing, inspecting, and creating Plugins via the AI Toolset Registry.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于通过 AI 工具集注册表列出、检查和创建插件的工具集。</div><div class="lang-content">Toolset for listing, inspecting, and creating Plugins via the AI Toolset Registry.</div></div>
