@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Motion Design Data Link / Motion Design Data Link
+title: 运动设计数据链路 / Motion Design Data Link
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Motion Design Data Link / Motion Design Data Link</h1>
+<h1>运动设计数据链路 / Motion Design Data Link</h1>
 
 <div class="info-card">
   <ul>

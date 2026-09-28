@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Geometry Mask / Geometry Mask
+title: 几何蒙版 / Geometry Mask
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Geometry Mask / Geometry Mask</h1>
+<h1>几何蒙版 / Geometry Mask</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Geometry Mask / Geometry Mask
 </div>
 
 <h2>Description / 描述</h2>
-<p>(no description)</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Actor Modifier / Actor Modifier
+title: 演员修改器 / Actor Modifier
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Actor Modifier / Actor Modifier</h1>
+<h1>演员修改器 / Actor Modifier</h1>
 
 <div class="info-card">
   <ul>

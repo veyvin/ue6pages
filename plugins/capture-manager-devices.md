@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Capture Manager Devices / Capture Manager Devices
+title: 捕获管理器设备 / Capture Manager Devices
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Capture Manager Devices / Capture Manager Devices</h1>
+<h1>捕获管理器设备 / Capture Manager Devices</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Capture Manager Devices / Capture Manager Devices
 </div>
 
 <h2>Description / 描述</h2>
-<p>The Capture Manager Devices contains devices that can be used from the Capture Manager layout of the LiveLink Hub</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">捕获管理器设备包含可从 LiveLink Hub 的捕获管理器布局中使用的设备</div><div class="lang-content">The Capture Manager Devices contains devices that can be used from the Capture Manager layout of the LiveLink Hub</div></div>
