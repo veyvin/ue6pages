@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Steam 在线子系统 / Online Subsystem Steam
+title: Online Subsystem Steam / Online Subsystem Steam
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Steam 在线子系统 / Online Subsystem Steam</h1>
+<h1>Online Subsystem Steam / Online Subsystem Steam</h1>
 
 <div class="info-card">
   <ul>
