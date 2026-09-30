@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Epic Games 引擎受限 / Epic Games Engine Restricted
+title: Epic Games Engine Restricted / Epic Games Engine Restricted
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Epic Games 引擎受限 / Epic Games Engine Restricted</h1>
+<h1>Epic Games Engine Restricted / Epic Games Engine Restricted</h1>
 
 <div class="info-card">
   <ul>

@@ -14,4 +14,4 @@ title: 火力基地 / Firebase
 </div>
 
 <h2>Description / 描述</h2>
-<p>Support for remote notifications using Firebase</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">支持使用 Firebase 进行远程通知</div><div class="lang-content">Support for remote notifications using Firebase</div></div>
