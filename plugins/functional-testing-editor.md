@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 功能测试编辑器 / Functional Testing Editor
+title: Functional Testing Editor / Functional Testing Editor
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>功能测试编辑器 / Functional Testing Editor</h1>
+<h1>Functional Testing Editor / Functional Testing Editor</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 功能测试编辑器 / Functional Testing Editor
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div>
+<p>(no description)</p>

@@ -14,4 +14,4 @@ title: Electra 的 AV1 软件解码器 / AV1 software decoder for Electra
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许使用 Electra 媒体播放器解码 AV1 编码的视频</div><div class="lang-content">Enables decoding of AV1 encoded videos with the Electra media player</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许使用 Electra 媒体播放器解码 AV1 编码的视频。仅软件解决方案，性能会因平台而异。</div><div class="lang-content">Enables decoding of AV1 encoded videos with the Electra media player. Software solution only, performance will vary per platform.</div></div>

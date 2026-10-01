@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 骨骼合并 / Skeletal Merging
+title: Skeletal Merging / Skeletal Merging
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>骨骼合并 / Skeletal Merging</h1>
+<h1>Skeletal Merging / Skeletal Merging</h1>
 
 <div class="info-card">
   <ul>

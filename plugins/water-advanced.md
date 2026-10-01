@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 水高级 / Water Advanced
+title: Water Advanced / Water Advanced
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>水高级 / Water Advanced</h1>
+<h1>Water Advanced / Water Advanced</h1>
 
 <div class="info-card">
   <ul>

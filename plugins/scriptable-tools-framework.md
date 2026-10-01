@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 脚本化工具框架 / Scriptable Tools Framework
+title: Scriptable Tools Framework / Scriptable Tools Framework
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>脚本化工具框架 / Scriptable Tools Framework</h1>
+<h1>Scriptable Tools Framework / Scriptable Tools Framework</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 脚本化工具框架 / Scriptable Tools Framework
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">交互式工具框架的蓝图脚本扩展</div><div class="lang-content">Blueprint-Scriptable extension to the Interactive Tools Framework</div></div>
+<p>Blueprint-Scriptable extension to the Interactive Tools Framework</p>

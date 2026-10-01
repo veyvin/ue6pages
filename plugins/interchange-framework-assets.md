@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 交换框架资产 / Interchange Framework Assets
+title: Interchange Framework Assets / Interchange Framework Assets
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>交换框架资产 / Interchange Framework Assets</h1>
+<h1>Interchange Framework Assets / Interchange Framework Assets</h1>
 
 <div class="info-card">
   <ul>

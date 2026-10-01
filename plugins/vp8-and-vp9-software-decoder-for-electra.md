@@ -14,4 +14,4 @@ title: 适用于 Electra 的 VP8 和 VP9 软件解码器 / VP8 and VP9 software 
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">在台式机上使用 Electra 媒体播放器实现 VP8 和 VP9 播放</div><div class="lang-content">Implements VP8 and VP9 playback with the Electra media player on desktop machines</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许使用 Electra 媒体播放器解码 VP8 和 VP9 编码的视频。软件解决方案仅适用于没有本机支持的平台，性能会有所不同。</div><div class="lang-content">Enables decoding of VP8 and VP9 encoded videos with the Electra media player. Software solution only for platforms without native support, performance will vary.</div></div>

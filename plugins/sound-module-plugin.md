@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 声音模块插件 / Sound Module Plugin
+title: Sound Module Plugin / Sound Module Plugin
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>声音模块插件 / Sound Module Plugin</h1>
+<h1>Sound Module Plugin / Sound Module Plugin</h1>
 
 <div class="info-card">
   <ul>
