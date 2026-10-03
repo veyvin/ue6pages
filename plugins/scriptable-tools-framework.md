@@ -14,4 +14,4 @@ title: Scriptable Tools Framework / Scriptable Tools Framework
 </div>
 
 <h2>Description / 描述</h2>
-<p>Blueprint-Scriptable extension to the Interactive Tools Framework</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">交互式工具框架的蓝图脚本扩展</div><div class="lang-content">Blueprint-Scriptable extension to the Interactive Tools Framework</div></div>

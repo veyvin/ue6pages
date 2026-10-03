@@ -1,17 +1,17 @@
 ---
 layout: default
-title: ConsoleToolset / ConsoleToolset
+title: 控制台工具集 / ConsoleToolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>ConsoleToolset / ConsoleToolset</h1>
+<h1>控制台工具集 / ConsoleToolset</h1>
 
 <div class="info-card">
   <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/Toolsets/ConsoleToolset/ConsoleToolset.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value">Other</span></li><li><span class="label">模块</span><span class="value">ConsoleToolset</span></li>
+    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/Toolsets/ConsoleToolset/ConsoleToolset.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">其他</div><div class="lang-content">Other</div></div></span></li><li><span class="label">模块</span><span class="value">ConsoleToolset</span></li>
   </ul>
 </div>
 
 <h2>Description / 描述</h2>
-<p>Toolsets for driving the engine's console subsystem (CVars and Exec commands) via the AI Toolset Registry.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于通过 AI 工具集注册表驱动引擎的控制台子系统（CVar 和 Exec 命令）的工具集。</div><div class="lang-content">Toolsets for driving the engine's console subsystem (CVars and Exec commands) via the AI Toolset Registry.</div></div>

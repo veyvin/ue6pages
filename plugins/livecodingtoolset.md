@@ -1,11 +1,11 @@
 ---
 layout: default
-title: LiveCodingToolset / LiveCodingToolset
+title: 实时编码工具集 / LiveCodingToolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>LiveCodingToolset / LiveCodingToolset</h1>
+<h1>实时编码工具集 / LiveCodingToolset</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: LiveCodingToolset / LiveCodingToolset
 </div>
 
 <h2>Description / 描述</h2>
-<p>Live Coding compile toolset.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">实时编码编译工具集。</div><div class="lang-content">Live Coding compile toolset.</div></div>
