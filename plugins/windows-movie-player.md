@@ -14,4 +14,4 @@ title: Windows Movie Player / Windows Movie Player
 </div>
 
 <h2>Description / 描述</h2>
-<p>Windows Specific Movie Player using Media Foundation</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用 Media Foundation 的 Windows 特定电影播放器</div><div class="lang-content">Windows Specific Movie Player using Media Foundation</div></div>
