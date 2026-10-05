@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 在线子系统 / Online Subsystem
+title: Online Subsystem / Online Subsystem
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>在线子系统 / Online Subsystem</h1>
+<h1>Online Subsystem / Online Subsystem</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 在线子系统 / Online Subsystem
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于交互在线子系统实现的共享代码。</div><div class="lang-content">Shared code for interacting online subsystem implementations.</div></div>
+<p>Shared code for interacting online subsystem implementations.</p>
