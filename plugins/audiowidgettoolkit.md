@@ -1,11 +1,11 @@
 ---
 layout: default
-title: AudioWidget工具包 / AudioWidgetToolkit
+title: AudioWidgetToolkit / AudioWidgetToolkit
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>AudioWidget工具包 / AudioWidgetToolkit</h1>
+<h1>AudioWidgetToolkit / AudioWidgetToolkit</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: AudioWidget工具包 / AudioWidgetToolkit
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于构建与音频相关数据和系统交互的小部件的工具包。</div><div class="lang-content">Toolkit for building widgets that interact with audio-related data and systems.</div></div>
+<p>Toolkit for building widgets that interact with audio-related data and systems.</p>

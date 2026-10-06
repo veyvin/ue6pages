@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 意义经理 / Significance Manager
+title: Significance Manager / Significance Manager
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>意义经理 / Significance Manager</h1>
+<h1>Significance Manager / Significance Manager</h1>
 
 <div class="info-card">
   <ul>

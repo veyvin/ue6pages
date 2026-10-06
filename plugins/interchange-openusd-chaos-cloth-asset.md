@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 兑换 OpenUSD Chaos Cloth 资产 / Interchange OpenUSD Chaos Cloth Asset
+title: Interchange OpenUSD Chaos Cloth Asset / Interchange OpenUSD Chaos Cloth Asset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>兑换 OpenUSD Chaos Cloth 资产 / Interchange OpenUSD Chaos Cloth Asset</h1>
+<h1>Interchange OpenUSD Chaos Cloth Asset / Interchange OpenUSD Chaos Cloth Asset</h1>
 
 <div class="info-card">
   <ul>

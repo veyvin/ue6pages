@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Mesh Modeling Toolset / Mesh Modeling Toolset
+title: 网格建模工具集 / Mesh Modeling Toolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Mesh Modeling Toolset / Mesh Modeling Toolset</h1>
+<h1>网格建模工具集 / Mesh Modeling Toolset</h1>
 
 <div class="info-card">
   <ul>
