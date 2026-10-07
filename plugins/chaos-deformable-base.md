@@ -14,4 +14,4 @@ title: 混沌变形底座 / Chaos Deformable Base
 </div>
 
 <h2>Description / 描述</h2>
-<p>Shared base asset class for Chaos cloth and deformable simulation assets.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">混沌布料和可变形模拟资产的共享基础资产类别。</div><div class="lang-content">Shared base asset class for Chaos cloth and deformable simulation assets.</div></div>
