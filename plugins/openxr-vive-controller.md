@@ -1,11 +1,11 @@
 ---
 layout: default
-title: OpenXR Vive 控制器 / OpenXR Vive Controller
+title: OpenXR Vive Controller / OpenXR Vive Controller
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>OpenXR Vive 控制器 / OpenXR Vive Controller</h1>
+<h1>OpenXR Vive Controller / OpenXR Vive Controller</h1>
 
 <div class="info-card">
   <ul>

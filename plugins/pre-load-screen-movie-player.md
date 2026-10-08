@@ -14,4 +14,4 @@ title: 预加载屏幕电影播放器 / Pre-Load Screen Movie Player
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">处理使用预加载屏幕显示引擎加载影片的默认实现。</div><div class="lang-content">Handles a default implementation of using a Pre-Load screen to display an engine loading movie.</div></div>
+<p>Handles a default implementation of using a Pre-Load screen to display an engine loading movie.</p>
