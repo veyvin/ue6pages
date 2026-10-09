@@ -14,4 +14,4 @@ title: 和谐 / Harmonix
 </div>
 
 <h2>Description / 描述</h2>
-<p>A package of Harmonix music related audio functionality.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Harmonix 音乐相关音频功能包。</div><div class="lang-content">A package of Harmonix music related audio functionality.</div></div>

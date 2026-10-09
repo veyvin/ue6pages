@@ -1,11 +1,11 @@
 ---
 layout: default
-title: OpenXR Spatial Entities / OpenXR Spatial Entities
+title: OpenXR 空间实体 / OpenXR Spatial Entities
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>OpenXR Spatial Entities / OpenXR Spatial Entities</h1>
+<h1>OpenXR 空间实体 / OpenXR Spatial Entities</h1>
 
 <div class="info-card">
   <ul>

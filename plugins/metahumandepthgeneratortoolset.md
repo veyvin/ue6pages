@@ -14,4 +14,4 @@ title: MetaHumanDepthGenerator工具集 / MetaHumanDepthGeneratorToolset
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">工具集向 AI 助手提供用于镜头捕捉数据的 MetaHuman 立体深度生成。</div><div class="lang-content">Toolset exposing MetaHuman stereo depth generation for footage capture data to the AI Assistant.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">工具集将 MetaHuman 立体深度生成功能提供给 AI 助手，以生成镜头捕捉数据。</div><div class="lang-content">Toolset exposing MetaHuman stereo depth generation for footage capture data to the AI Assistant.</div></div>

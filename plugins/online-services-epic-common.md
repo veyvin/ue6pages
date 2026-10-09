@@ -14,4 +14,4 @@ title: 在线服务 Epic Common / Online Services Epic Common
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Epic 帐户服务和 Epic 游戏服务之间具有共享功能的通用在线服务实施。</div><div class="lang-content">Common Online Services implementation with shared funcionality between Epic Account Services and Epic Game Services.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">通用在线服务实施，在 Epic 帐户服务和 Epic 游戏服务之间共享功能。</div><div class="lang-content">Common Online Services implementation with shared funcionality between Epic Account Services and Epic Game Services.</div></div>

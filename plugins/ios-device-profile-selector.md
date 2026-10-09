@@ -1,11 +1,11 @@
 ---
 layout: default
-title: IOS Device Profile Selector / IOS Device Profile Selector
+title: IOS 设备配置文件选择器 / IOS Device Profile Selector
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>IOS Device Profile Selector / IOS Device Profile Selector</h1>
+<h1>IOS 设备配置文件选择器 / IOS Device Profile Selector</h1>
 
 <div class="info-card">
   <ul>

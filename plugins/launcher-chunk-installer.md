@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Launcher Chunk Installer / Launcher Chunk Installer
+title: 启动器块安装程序 / Launcher Chunk Installer
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Launcher Chunk Installer / Launcher Chunk Installer</h1>
+<h1>启动器块安装程序 / Launcher Chunk Installer</h1>
 
 <div class="info-card">
   <ul>

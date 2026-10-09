@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 媒体基础媒体播放器 / Media Foundation Media Player
+title: Media Foundation Media Player / Media Foundation Media Player
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>媒体基础媒体播放器 / Media Foundation Media Player</h1>
+<h1>Media Foundation Media Player / Media Foundation Media Player</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: 媒体基础媒体播放器 / Media Foundation Media Player
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用 Microsoft Media Foundation 框架实现媒体播放器。需要 Xbox One 或 Windows 7 及更高版本。</div><div class="lang-content">Implements a media player using the Microsoft Media Foundation framework. Requires Xbox One or Windows 7 and higher.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Implements a media player using the Microsoft Media Foundation framework.需要 Xbox One 或 Windows 7 及更高版本。</div><div class="lang-content">Implements a media player using the Microsoft Media Foundation framework. Requires Xbox One or Windows 7 and higher.</div></div>
