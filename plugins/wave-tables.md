@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Wave Tables / Wave Tables
+title: 波表 / Wave Tables
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Wave Tables / Wave Tables</h1>
+<h1>波表 / Wave Tables</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Wave Tables / Wave Tables
 </div>
 
 <h2>Description / 描述</h2>
-<p>Default implementation of WaveTable support within the Unreal Audio Engine.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚幻音频引擎中 WaveTable 支持的默认实现。</div><div class="lang-content">Default implementation of WaveTable support within the Unreal Audio Engine.</div></div>

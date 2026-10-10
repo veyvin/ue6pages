@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Spatialization / Spatialization
+title: 空间化 / Spatialization
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Spatialization / Spatialization</h1>
+<h1>空间化 / Spatialization</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Spatialization / Spatialization
 </div>
 
 <h2>Description / 描述</h2>
-<p>Plugin featuring a variety of basic audio spatialization solutions.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">插件具有各种基本的音频空间化解决方案。</div><div class="lang-content">Plugin featuring a variety of basic audio spatialization solutions.</div></div>
