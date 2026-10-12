@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Pippen / Pippen
+title: 皮蓬 / Pippen
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Pippen / Pippen</h1>
+<h1>皮蓬 / Pippen</h1>
 
 <div class="info-card">
   <ul>
