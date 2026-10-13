@@ -14,4 +14,4 @@ title: 在线子系统实用程序 / Online Subsystem Utils
 </div>
 
 <h2>Description / 描述</h2>
-<p>Shared code for interacting online service and online subsystem implementations.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于交互在线服务和在线子系统实现的共享代码。</div><div class="lang-content">Shared code for interacting online service and online subsystem implementations.</div></div>
