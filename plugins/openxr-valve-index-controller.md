@@ -1,11 +1,11 @@
 ---
 layout: default
-title: OpenXR 阀门索引控制器 / OpenXR Valve Index Controller
+title: OpenXR Valve Index Controller / OpenXR Valve Index Controller
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>OpenXR 阀门索引控制器 / OpenXR Valve Index Controller</h1>
+<h1>OpenXR Valve Index Controller / OpenXR Valve Index Controller</h1>
 
 <div class="info-card">
   <ul>
