@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Windows 混合现实控制器按键 / Windows Mixed Reality Controller Keys
+title: Windows Mixed Reality Controller Keys / Windows Mixed Reality Controller Keys
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Windows 混合现实控制器按键 / Windows Mixed Reality Controller Keys</h1>
+<h1>Windows Mixed Reality Controller Keys / Windows Mixed Reality Controller Keys</h1>
 
 <div class="info-card">
   <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/MixedRealityControllerKeys/MixedRealityControllerKeys.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚拟现实</div><div class="lang-content">Virtual Reality</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">MixedRealityControllerKeys</span></li>
+    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/MixedRealityControllerKeys/MixedRealityControllerKeys.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value">Virtual Reality</span></li><li><span class="label">作者</span><span class="value">Epic Games, Inc.</span></li><li><span class="label">模块</span><span class="value">MixedRealityControllerKeys</span></li>
   </ul>
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Windows Mixed Reality 控制器的输入键 (MixedReality_* FKeys)。仅取决于 InputCore，因此无需 OpenXR 映射到这些键的模块（例如 Pixel Streaming）可以引用它们。</div><div class="lang-content">Input keys for the Windows Mixed Reality controller (MixedReality_* FKeys). Depends on InputCore only, so modules that map to these keys without OpenXR (for example Pixel Streaming) can reference them.</div></div>
+<p>Input keys for the Windows Mixed Reality controller (MixedReality_* FKeys). Depends on InputCore only, so modules that map to these keys without OpenXR (for example Pixel Streaming) can reference them.</p>

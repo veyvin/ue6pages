@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 声音实用程序 / Sound Utilities
+title: Sound Utilities / Sound Utilities
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>声音实用程序 / Sound Utilities</h1>
+<h1>Sound Utilities / Sound Utilities</h1>
 
 <div class="info-card">
   <ul>
