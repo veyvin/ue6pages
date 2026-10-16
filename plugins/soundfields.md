@@ -1,11 +1,11 @@
 ---
 layout: default
-title: SoundFields / SoundFields
+title: 声场 / SoundFields
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>SoundFields / SoundFields</h1>
+<h1>声场 / SoundFields</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: SoundFields / SoundFields
 </div>
 
 <h2>Description / 描述</h2>
-<p>Plugin featuring a variety of basic audio SoundFields solutions.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">具有各种基本音频 SoundFields 解决方案的插件。</div><div class="lang-content">Plugin featuring a variety of basic audio SoundFields solutions.</div></div>
