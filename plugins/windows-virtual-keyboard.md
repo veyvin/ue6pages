@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Windows Virtual Keyboard / Windows Virtual Keyboard
+title: Windows 虚拟键盘 / Windows Virtual Keyboard
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Windows Virtual Keyboard / Windows Virtual Keyboard</h1>
+<h1>Windows 虚拟键盘 / Windows Virtual Keyboard</h1>
 
 <div class="info-card">
   <ul>

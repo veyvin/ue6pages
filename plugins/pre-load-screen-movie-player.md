@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Pre-Load Screen Movie Player / Pre-Load Screen Movie Player
+title: 预加载屏幕电影播放器 / Pre-Load Screen Movie Player
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Pre-Load Screen Movie Player / Pre-Load Screen Movie Player</h1>
+<h1>预加载屏幕电影播放器 / Pre-Load Screen Movie Player</h1>
 
 <div class="info-card">
   <ul>
