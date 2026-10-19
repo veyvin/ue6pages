@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 移动定位服务 - Android 实现 / Mobile Location Services - Android Implementation
+title: Mobile Location Services - Android Implementation / Mobile Location Services - Android Implementation
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>移动定位服务 - Android 实现 / Mobile Location Services - Android Implementation</h1>
+<h1>Mobile Location Services - Android Implementation / Mobile Location Services - Android Implementation</h1>
 
 <div class="info-card">
   <ul>
