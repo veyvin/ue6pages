@@ -14,4 +14,4 @@ title: 渲染网格 / Render Grid
 </div>
 
 <h2>Description / 描述</h2>
-<p>Advanced pipeline for use in creating rendered cinematics.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于创建渲染过场动画的高级管道。</div><div class="lang-content">Advanced pipeline for use in creating rendered cinematics.</div></div>

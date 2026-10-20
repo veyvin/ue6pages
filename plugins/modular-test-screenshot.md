@@ -14,4 +14,4 @@ title: 模块化测试截图 / Modular Test Screenshot
 </div>
 
 <h2>Description / 描述</h2>
-<p>Optional screenshot capture and comparison utilities for the Modular Test Framework. Test companions that need to capture or compare a client viewport should depend on this.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于模块化测试框架的可选屏幕截图捕获和比较实用程序。需要捕获或比较客户端视口的测试伙伴应该依赖于此。</div><div class="lang-content">Optional screenshot capture and comparison utilities for the Modular Test Framework. Test companions that need to capture or compare a client viewport should depend on this.</div></div>
