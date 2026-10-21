@@ -14,4 +14,4 @@ title: Steam Controller Plugin / Steam Controller Plugin
 </div>
 
 <h2>Description / 描述</h2>
-<p>InputDevice plugin for Steam controller</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Steam 控制器的 InputDevice 插件</div><div class="lang-content">InputDevice plugin for Steam controller</div></div>

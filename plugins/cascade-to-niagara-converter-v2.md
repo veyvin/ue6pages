@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 级联至 Niagara 转换器 V2 / Cascade To Niagara Converter V2
+title: 级联到 Niagara 转换器 V2 / Cascade To Niagara Converter V2
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>级联至 Niagara 转换器 V2 / Cascade To Niagara Converter V2</h1>
+<h1>级联到 Niagara 转换器 V2 / Cascade To Niagara Converter V2</h1>
 
 <div class="info-card">
   <ul>

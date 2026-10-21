@@ -14,4 +14,4 @@ title: 导航走廊 / NavCorridor
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">实验导航走廊</div><div class="lang-content">Experimental Navigation Corridor</div></div>
+<p>Experimental Navigation Corridor</p>

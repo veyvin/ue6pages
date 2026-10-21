@@ -14,4 +14,4 @@ title: 自动化性能测试 / AutomatedPerfTesting
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">该插件提供 Gauntlet 测试控制器以促进自动性能测试。</div><div class="lang-content">This plugin provides Gauntlet Test Controllers to facilitate automatic performance testing.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">该插件提供 Gauntlet 测试控制器以方便自动性能测试。</div><div class="lang-content">This plugin provides Gauntlet Test Controllers to facilitate automatic performance testing.</div></div>
