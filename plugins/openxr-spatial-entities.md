@@ -14,4 +14,4 @@ title: OpenXR 空间实体 / OpenXR Spatial Entities
 </div>
 
 <h2>Description / 描述</h2>
-<p>Implements the OpenXR XR_EXT_spatial_entity family (base, anchor, persistence, persistence_operations) for cross-vendor persistent spatial anchors.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">为跨供应商持久空间锚点实现 OpenXR XR_EXT_spatial_entity 系列（基础、锚点、持久性、持久性操作）。</div><div class="lang-content">Implements the OpenXR XR_EXT_spatial_entity family (base, anchor, persistence, persistence_operations) for cross-vendor persistent spatial anchors.</div></div>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: PICO Neo3 Controller / PICO Neo3 Controller
+title: PICO Neo3 控制器 / PICO Neo3 Controller
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>PICO Neo3 Controller / PICO Neo3 Controller</h1>
+<h1>PICO Neo3 控制器 / PICO Neo3 Controller</h1>
 
 <div class="info-card">
   <ul>

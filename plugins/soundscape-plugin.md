@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 音景插件 / Soundscape Plugin
+title: Soundscape Plugin / Soundscape Plugin
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>音景插件 / Soundscape Plugin</h1>
+<h1>Soundscape Plugin / Soundscape Plugin</h1>
 
 <div class="info-card">
   <ul>

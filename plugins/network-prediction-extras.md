@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 网络预测附加功能 / Network Prediction Extras
+title: Network Prediction Extras / Network Prediction Extras
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>网络预测附加功能 / Network Prediction Extras</h1>
+<h1>Network Prediction Extras / Network Prediction Extras</h1>
 
 <div class="info-card">
   <ul>

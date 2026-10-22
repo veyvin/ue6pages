@@ -14,4 +14,4 @@ title: 皮蓬 / Pippen
 </div>
 
 <h2>Description / 描述</h2>
-<p>Pippen plugin</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">皮蓬插件</div><div class="lang-content">Pippen plugin</div></div>

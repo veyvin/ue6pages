@@ -1,11 +1,11 @@
 ---
 layout: default
-title: OpenXR Render Model / OpenXR Render Model
+title: OpenXR 渲染模型 / OpenXR Render Model
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>OpenXR Render Model / OpenXR Render Model</h1>
+<h1>OpenXR 渲染模型 / OpenXR Render Model</h1>
 
 <div class="info-card">
   <ul>

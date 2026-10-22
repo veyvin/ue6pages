@@ -14,4 +14,4 @@ title: Sound Module Plugin / Sound Module Plugin
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">支持播放 ProTracker (MOD)、Scream Tracker 3 (S3M)、Fast Tracker II (XM) 和 Impulse Tracker (IT) 文件。</div><div class="lang-content">Supports playback of ProTracker (MOD),  Scream Tracker 3 (S3M), Fast Tracker II (XM), and Impulse Tracker (IT) files.</div></div>
+<p>Supports playback of ProTracker (MOD),  Scream Tracker 3 (S3M), Fast Tracker II (XM), and Impulse Tracker (IT) files.</p>
