@@ -14,4 +14,4 @@ title: 捕获管理器工具集 / Capture Manager Toolset
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于通过 AI 助手摄取 Capture Manager 镜头（单声道/立体声视频、LiveLink Face、镜头存档、校准）的工具集。</div><div class="lang-content">Toolset for ingesting Capture Manager takes (mono/stereo video, LiveLink Face, take archives, calibration) via the AI Assistant.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于通过 AI Assistant 检查 Capture Manager 镜头和 FootageCaptureData 资产的工具集。采集和设备工具由 Capture Manager Editor 插件提供。</div><div class="lang-content">Toolset for inspecting Capture Manager takes and FootageCaptureData assets via the AI Assistant. Ingest and device tools are provided by the Capture Manager Editor plugin.</div></div>

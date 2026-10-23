@@ -14,4 +14,4 @@ title: 可选的移动功能蓝图库 / Optional Mobile Features Blueprint Libra
 </div>
 
 <h2>Description / 描述</h2>
-<p>Gives blueprint access to Sound Volume, Battery Charge Level, and System Temperature for Android and iOS devices</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">为 Android 和 iOS 设备提供对音量、电池电量和系统温度的蓝图访问</div><div class="lang-content">Gives blueprint access to Sound Volume, Battery Charge Level, and System Temperature for Android and iOS devices</div></div>

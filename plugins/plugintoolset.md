@@ -1,11 +1,11 @@
 ---
 layout: default
-title: PluginToolset / PluginToolset
+title: 插件工具集 / PluginToolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>PluginToolset / PluginToolset</h1>
+<h1>插件工具集 / PluginToolset</h1>
 
 <div class="info-card">
   <ul>

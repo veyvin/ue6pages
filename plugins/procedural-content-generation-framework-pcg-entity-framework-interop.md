@@ -14,4 +14,4 @@ title: 程序内容生成框架 (PCG) 实体框架互操作 / Procedural Content
 </div>
 
 <h2>Description / 描述</h2>
-<p>Extra plugin for Procedural Content Generation Framework interacting with Scene Graph entities and Verse tags.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于与场景图实体和 Verse 标签交互的程序内容生成框架的额外插件。</div><div class="lang-content">Extra plugin for Procedural Content Generation Framework interacting with Scene Graph entities and Verse tags.</div></div>

@@ -14,4 +14,4 @@ title: OpenXRViveTracker / OpenXRViveTracker
 </div>
 
 <h2>Description / 描述</h2>
-<p>OpenXR Vive Tracker provides XR_HTCX_vive_tracker_interaction.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">OpenXR Vive Tracker 提供 XR_HTCX_vive_tracker_interaction。</div><div class="lang-content">OpenXR Vive Tracker provides XR_HTCX_vive_tracker_interaction.</div></div>

@@ -14,4 +14,4 @@ title: 套接字子系统 Steam (IP) / Socket Subsystem Steam (IP)
 </div>
 
 <h2>Description / 描述</h2>
-<p>Responsible for Steam net connections between users. Does NOT use NAT punchthrough, use the SteamSockets plugin for P2P support</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">负责用户之间的 Steam 网络连接。不使用 NAT 穿透，使用 SteamSockets 插件来支持 P2P</div><div class="lang-content">Responsible for Steam net connections between users. Does NOT use NAT punchthrough, use the SteamSockets plugin for P2P support</div></div>
