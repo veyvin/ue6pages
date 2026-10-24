@@ -14,4 +14,4 @@ title: 媒体工具集 / Media Toolset
 </div>
 
 <h2>Description / 描述</h2>
-<p>Tools for reading images and sampling video files, and the shared video reader and writer other toolsets record with.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于读取图像和采样视频文件的工具，以及共享视频读取器和写入器其他工具集记录。</div><div class="lang-content">Tools for reading images and sampling video files, and the shared video reader and writer other toolsets record with.</div></div>

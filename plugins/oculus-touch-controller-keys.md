@@ -14,4 +14,4 @@ title: Oculus Touch 控制器按键 / Oculus Touch Controller Keys
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Oculus Touch 控制器的输入键 (OculusTouch_* FKeys)。仅取决于 InputCore，因此无需 OpenXR 映射到这些键的模块（例如 Pixel Streaming）可以引用它们。</div><div class="lang-content">Input keys for the Oculus Touch controller (OculusTouch_* FKeys). Depends on InputCore only, so modules that map to these keys without OpenXR (for example Pixel Streaming) can reference them.</div></div>
+<p>Input keys for the Oculus Touch controller (OculusTouch_* FKeys). Depends on InputCore only, so modules that map to these keys without OpenXR (for example Pixel Streaming) can reference them.</p>
