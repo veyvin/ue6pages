@@ -1,11 +1,11 @@
 ---
 layout: default
-title: PICO Neo3 Controller Keys / PICO Neo3 Controller Keys
+title: PICO Neo3 控制器按键 / PICO Neo3 Controller Keys
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>PICO Neo3 Controller Keys / PICO Neo3 Controller Keys</h1>
+<h1>PICO Neo3 控制器按键 / PICO Neo3 Controller Keys</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: PICO Neo3 Controller Keys / PICO Neo3 Controller Keys
 </div>
 
 <h2>Description / 描述</h2>
-<p>Input keys for the PICO Neo3 controller (PICONeo3_* FKeys). Depends on InputCore only, so modules that map to these keys without OpenXR (for example Pixel Streaming) can reference them.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">PICO Neo3 控制器的输入键 (PICONeo3_* FKeys)。仅取决于 InputCore，因此无需 OpenXR 映射到这些键的模块（例如 Pixel Streaming）可以引用它们。</div><div class="lang-content">Input keys for the PICO Neo3 controller (PICONeo3_* FKeys). Depends on InputCore only, so modules that map to these keys without OpenXR (for example Pixel Streaming) can reference them.</div></div>
