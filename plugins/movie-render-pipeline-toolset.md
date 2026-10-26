@@ -14,4 +14,4 @@ title: 影片渲染管线工具集 / Movie Render Pipeline Toolset
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">通过 Python 使用影片渲染队列 (MRQ) 和影片渲染图 (MRG) 以及编辑其关联的预设和图表的代理技能。</div><div class="lang-content">Agent skills for using Movie Render Queue (MRQ) and Movie Render Graph (MRG), and editing their associated presets and graphs, through Python.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用影片渲染队列 (MRQ) 和影片渲染图 (MRG) 以及通过 Python 编辑其关联预设和图表的代理技能。</div><div class="lang-content">Agent skills for using Movie Render Queue (MRQ) and Movie Render Graph (MRG), and editing their associated presets and graphs, through Python.</div></div>

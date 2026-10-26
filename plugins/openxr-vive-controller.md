@@ -14,4 +14,4 @@ title: OpenXR Vive 控制器 / OpenXR Vive Controller
 </div>
 
 <h2>Description / 描述</h2>
-<p>HTC Vive controller support for OpenXR: the /interaction_profiles/htc/vive_controller interaction profile and its controller mesh.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">HTC Vive 控制器对 OpenXR 的支持：/interaction_profiles/htc/vive_controller 交互配置文件及其控制器网格。</div><div class="lang-content">HTC Vive controller support for OpenXR: the /interaction_profiles/htc/vive_controller interaction profile and its controller mesh.</div></div>
