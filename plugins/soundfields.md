@@ -1,11 +1,11 @@
 ---
 layout: default
-title: SoundFields / SoundFields
+title: 声场 / SoundFields
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>SoundFields / SoundFields</h1>
+<h1>声场 / SoundFields</h1>
 
 <div class="info-card">
   <ul>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Web Browser / Web Browser
+title: 网页浏览器 / Web Browser
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Web Browser / Web Browser</h1>
+<h1>网页浏览器 / Web Browser</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Web Browser / Web Browser
 </div>
 
 <h2>Description / 描述</h2>
-<p>Allows the user to create a Web Browser Widget</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许用户创建 Web 浏览器小部件</div><div class="lang-content">Allows the user to create a Web Browser Widget</div></div>

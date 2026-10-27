@@ -14,4 +14,4 @@ title: EntityFramework 姿势搜索 / EntityFramework Pose Search
 </div>
 
 <h2>Description / 描述</h2>
-<p>Pose Search integration for EntityFramework.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">EntityFramework 的姿势搜索集成。</div><div class="lang-content">Pose Search integration for EntityFramework.</div></div>

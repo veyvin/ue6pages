@@ -14,4 +14,4 @@ title: World Conditions / World Conditions
 </div>
 
 <h2>Description / 描述</h2>
-<p>General purpose cached conditions</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">通用缓存条件</div><div class="lang-content">General purpose cached conditions</div></div>

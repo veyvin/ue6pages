@@ -14,4 +14,4 @@ title: 远程过程调用库 / Remote Procedure Calls Base
 </div>
 
 <h2>Description / 描述</h2>
-<p>RPC base framework that client applications can use to implement RPC libraries.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">客户端应用程序可以使用 RPC 基础框架来实现 RPC 库。</div><div class="lang-content">RPC base framework that client applications can use to implement RPC libraries.</div></div>

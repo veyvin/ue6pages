@@ -14,4 +14,4 @@ title: 交换框架资产 / Interchange Framework Assets
 </div>
 
 <h2>Description / 描述</h2>
-<p>The Interchange Framework Assets plugin exposes the assets used by the Interchange import framework.</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Interchange Framework Assets 插件公开了 Interchange 导入框架使用的资源。</div><div class="lang-content">The Interchange Framework Assets plugin exposes the assets used by the Interchange import framework.</div></div>

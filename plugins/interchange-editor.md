@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Interchange Editor / Interchange Editor
+title: 交换编辑器 / Interchange Editor
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Interchange Editor / Interchange Editor</h1>
+<h1>交换编辑器 / Interchange Editor</h1>
 
 <div class="info-card">
   <ul>
