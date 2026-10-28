@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 晶圆厂工具集 / FabToolset
+title: Fab工具集 / FabToolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>晶圆厂工具集 / FabToolset</h1>
+<h1>Fab工具集 / FabToolset</h1>
 
 <div class="info-card">
   <ul>

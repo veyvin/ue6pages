@@ -1,11 +1,11 @@
 ---
 layout: default
-title: AI模块工具集 / AIModuleToolset
+title: AIModuleToolset / AIModuleToolset
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>AI模块工具集 / AIModuleToolset</h1>
+<h1>AIModuleToolset / AIModuleToolset</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: AI模块工具集 / AIModuleToolset
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">AIModule 系统工具集</div><div class="lang-content">Toolset for AIModule Systems</div></div>
+<p>Toolset for AIModule Systems</p>

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 资产标签 / Asset Tags
+title: Asset Tags / Asset Tags
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>资产标签 / Asset Tags</h1>
+<h1>Asset Tags / Asset Tags</h1>
 
 <div class="info-card">
   <ul>
