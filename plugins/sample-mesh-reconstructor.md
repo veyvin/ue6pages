@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Sample Mesh Reconstructor / Sample Mesh Reconstructor
+title: 网格重建器示例 / Sample Mesh Reconstructor
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Sample Mesh Reconstructor / Sample Mesh Reconstructor</h1>
+<h1>网格重建器示例 / Sample Mesh Reconstructor</h1>
 
 <div class="info-card">
   <ul>
@@ -14,4 +14,4 @@ title: Sample Mesh Reconstructor / Sample Mesh Reconstructor
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Sample of how to drive mesh reconstruction.生成虚拟几何体以演示 API 用法。</div><div class="lang-content">Sample of how to drive mesh reconstruction. Generates dummy geometry to demonstrate API usage.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">如何驱动网格重建的示例。生成虚拟几何体以演示 API 用法。</div><div class="lang-content">Sample of how to drive mesh reconstruction. Generates dummy geometry to demonstrate API usage.</div></div>

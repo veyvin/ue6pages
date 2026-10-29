@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Oculus Touch Controller Keys / Oculus Touch Controller Keys
+title: Oculus Touch 控制器按键 / Oculus Touch Controller Keys
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Oculus Touch Controller Keys / Oculus Touch Controller Keys</h1>
+<h1>Oculus Touch 控制器按键 / Oculus Touch Controller Keys</h1>
 
 <div class="info-card">
   <ul>

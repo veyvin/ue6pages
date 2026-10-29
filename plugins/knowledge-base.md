@@ -14,4 +14,4 @@ title: 知识库 / Knowledge Base
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">从实时引擎状态派生或从磁盘上的降价读取的知识库的查询接口。</div><div class="lang-content">Query interface over knowledge bases derived from live engine state or read from markdown on disk.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">知识库的查询接口源自实时引擎状态或从磁盘上的降价读取。</div><div class="lang-content">Query interface over knowledge bases derived from live engine state or read from markdown on disk.</div></div>

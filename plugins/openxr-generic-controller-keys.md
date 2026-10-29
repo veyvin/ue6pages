@@ -1,11 +1,11 @@
 ---
 layout: default
-title: OpenXR Generic Controller Keys / OpenXR Generic Controller Keys
+title: OpenXR 通用控制器按键 / OpenXR Generic Controller Keys
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>OpenXR Generic Controller Keys / OpenXR Generic Controller Keys</h1>
+<h1>OpenXR 通用控制器按键 / OpenXR Generic Controller Keys</h1>
 
 <div class="info-card">
   <ul>

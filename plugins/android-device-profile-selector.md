@@ -14,4 +14,4 @@ title: Android 设备配置文件选择器 / Android Device Profile Selector
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Android 设备配置文件选择器用于显示硬件上设备配置文件的选择</div><div class="lang-content">Android Device Profile Selector used show selection of device profiles on hardware</div></div>
+<p>Android Device Profile Selector used show selection of device profiles on hardware</p>
