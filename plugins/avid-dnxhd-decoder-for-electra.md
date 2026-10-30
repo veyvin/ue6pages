@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Avid DNxHD® decoder for Electra / Avid DNxHD® decoder for Electra
+title: 适用于 Electra 的 Avid DNxHD® 解码器 / Avid DNxHD® decoder for Electra
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>Avid DNxHD® decoder for Electra / Avid DNxHD® decoder for Electra</h1>
+<h1>适用于 Electra 的 Avid DNxHD® 解码器 / Avid DNxHD® decoder for Electra</h1>
 
 <div class="info-card">
   <ul>

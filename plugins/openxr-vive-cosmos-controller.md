@@ -1,11 +1,11 @@
 ---
 layout: default
-title: OpenXR Vive Cosmos Controller / OpenXR Vive Cosmos Controller
+title: OpenXR Vive Cosmos 控制器 / OpenXR Vive Cosmos Controller
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>OpenXR Vive Cosmos Controller / OpenXR Vive Cosmos Controller</h1>
+<h1>OpenXR Vive Cosmos 控制器 / OpenXR Vive Cosmos Controller</h1>
 
 <div class="info-card">
   <ul>

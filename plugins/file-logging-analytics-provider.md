@@ -14,4 +14,4 @@ title: 文件记录分析提供商 / File Logging Analytics Provider
 </div>
 
 <h2>Description / 描述</h2>
-<p>Writes analytic API calls to local disk for debugging or local use</p>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">将分析 API 调用写入本地磁盘以供调试或本地使用</div><div class="lang-content">Writes analytic API calls to local disk for debugging or local use</div></div>
