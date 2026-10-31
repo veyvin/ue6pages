@@ -14,4 +14,4 @@ title: 物理异步输入 / Physics Async Input
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许您直接在物理线程上绑定到增强输入委托。对于物理驱动的游戏很有用，可以减少延迟。</div><div class="lang-content">Allows you to bind to Enhanced Input delegates directly on the physics thread. Useful for very physics driven games to reduce latency.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许您直接在物理线程上绑定到增强输入委托。对于物理驱动的游戏非常有用，可以减少延迟。</div><div class="lang-content">Allows you to bind to Enhanced Input delegates directly on the physics thread. Useful for very physics driven games to reduce latency.</div></div>

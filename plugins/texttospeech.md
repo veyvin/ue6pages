@@ -14,4 +14,4 @@ title: 文字转语音 / TextToSpeech
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">一种文本转语音系统，可用于在给定输入字符串的情况下发出听觉语音通知。</div><div class="lang-content">A text to speech system that can be used to make auditory speech announcements given input strings.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">文本转语音系统，可用于在给定输入字符串的情况下发出听觉语音通知。</div><div class="lang-content">A text to speech system that can be used to make auditory speech announcements given input strings.</div></div>
