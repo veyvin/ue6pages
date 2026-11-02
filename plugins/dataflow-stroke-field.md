@@ -14,4 +14,4 @@ title: 数据流笔划字段 / Dataflow Stroke Field
 </div>
 
 <h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">数据流图的手绘方向、重量和弧长字段，通过在构造视口上绘图来创作。</div><div class="lang-content">Hand drawn direction, weight and arc length fields for Dataflow graphs, authored by drawing over the construction viewport.</div></div>
+<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">数据流图的手绘方向、权重和弧长字段，通过在构造视口上绘图来创作。</div><div class="lang-content">Hand drawn direction, weight and arc length fields for Dataflow graphs, authored by drawing over the construction viewport.</div></div>

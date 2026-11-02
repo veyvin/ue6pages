@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 远程数据库支持 / Remote Database Support
+title: Remote Database Support / Remote Database Support
 ---
 
 <!-- ai-generation-failed -->
 
-<h1>远程数据库支持 / Remote Database Support</h1>
+<h1>Remote Database Support / Remote Database Support</h1>
 
 <div class="info-card">
   <ul>
