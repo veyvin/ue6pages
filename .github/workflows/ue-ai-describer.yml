@@ -5,7 +5,7 @@ name: UE AI Plugin Describer (Daily)
 # 使用 matrix 并行策略切分为多个 job 加速处理。
 
 on:
-  schedule:
+  #schedule:
     # - cron: '0 1 * * *'
   workflow_dispatch:
     inputs:
