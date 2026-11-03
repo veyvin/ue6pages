@@ -3,12 +3,53 @@ layout: default
 title: LevelEditor
 ---
 
-<!-- ai-generation-failed -->
 
-<h1>LevelEditor</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">文件</span><span class="value"><code>Engine/Source/Editor/LevelEditor/LevelEditor.Build.cs</code></span></li><li><span class="label">基类</span><span class="value"><code>ModuleRules</code></span></li><li><span class="label">依赖</span><span class="value">ActionableMessage, ActorPickerMode, Analytics, AppFramework, ApplicationCore, BlueprintGraph, CommonMenuExtensions, ContentBrowser, Core, CoreUObject, DataLayerEditor, DerivedDataEditor, DerivedDataWidgets, DesktopPlatform, DeveloperSettings, DeveloperToolSettings, DeviceProfileServices, EditorFramework, EditorInteractiveToolsFramework, EditorSubsystem, EditorViewport, EditorWidgets, Engine, EngineSettings, EnvironmentLightingViewer, Foliage, HierarchicalLODUtilities, InputCore, InteractiveToolsFramework, Json, JsonUtilities, KismetWidgets, LauncherPlatform, LevelSequence, MaterialShaderQualitySettings, MessageLog, Projects, PropertyEditor, PropertyEditorToolkit, RHI, RenderCore, SceneOutliner, Slate, SlateCore, SourceControl, SourceControlWindows, StatusBar, SubobjectDataInterface, SubobjectEditor, ToolMenus, ToolWidgets, TypedElementFramework, TypedElementRuntime, UncontrolledChangelists, UnrealEd, UnsavedAssetsTracker, ZenEditor</span></li>
-  </ul>
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge" style="background:linear-gradient(135deg,#8A5CF6 0%,#B08BF9 100%);">
+      <span>L</span>
+    </div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Module / C++ Build Rule</div>
+      <div class="hero-title mono">LevelEditor</div>
+      <div class="hero-tags">
+        <span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Module</span>
+        <span class="chip">extends <span class="mono">ModuleRules</span></span>
+        <span class="chip">57 dependencies</span>
+      </div>
+    </div>
+  </div>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value mono">Module</div></div>
+    <div class="meta-item"><div class="meta-label">Base</div><div class="meta-value mono">ModuleRules</div></div>
+    <div class="meta-item"><div class="meta-label">Dependencies</div><div class="meta-value mono">57</div></div>
+    <div class="meta-item"><div class="meta-label">Language</div><div class="meta-value">C# (Build.cs)</div></div>
+    <div class="meta-item file-col"><div class="meta-label">File</div><div class="file-path mono">Editor/LevelEditor/LevelEditor.Build.cs</div></div>
+  </div>
+</div>
+
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
+      <div class="desc-body">
+<p>This module depends on 57 other module(s): ActionableMessage, ActorPickerMode, Analytics, AppFramework, ApplicationCore, BlueprintGraph, CommonMenuExtensions, ContentBrowser, Core, CoreUObject, DataLayerEditor, DerivedDataEditor, DerivedDataWidgets, DesktopPlatform, DeveloperSettings, DeveloperToolSettings, DeviceProfileServices, EditorFramework, EditorInteractiveToolsFramework, EditorSubsystem, EditorViewport, EditorWidgets, Engine, EngineSettings, EnvironmentLightingViewer, Foliage, HierarchicalLODUtilities, InputCore, InteractiveToolsFramework, Json, JsonUtilities, KismetWidgets, LauncherPlatform, LevelSequence, MaterialShaderQualitySettings, MessageLog, Projects, PropertyEditor, PropertyEditorToolkit, RHI, RenderCore, SceneOutliner, Slate, SlateCore, SourceControl, SourceControlWindows, StatusBar, SubobjectDataInterface, SubobjectEditor, ToolMenus, ToolWidgets, TypedElementFramework, TypedElementRuntime, UncontrolledChangelists, UnrealEd, UnsavedAssetsTracker, ZenEditor.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Dependencies (57)</div>
+      <div class="module-item"><span class="dot"></span><span class="name mono">ActionableMessage</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ActorPickerMode</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Analytics</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AppFramework</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ApplicationCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">BlueprintGraph</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CommonMenuExtensions</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ContentBrowser</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Core</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CoreUObject</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DataLayerEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DerivedDataEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DerivedDataWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DesktopPlatform</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DeveloperSettings</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DeveloperToolSettings</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DeviceProfileServices</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorFramework</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorInteractiveToolsFramework</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorSubsystem</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorViewport</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Engine</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EngineSettings</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EnvironmentLightingViewer</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Foliage</span></div><div class="module-item"><span class="dot"></span><span class="name mono">HierarchicalLODUtilities</span></div><div class="module-item"><span class="dot"></span><span class="name mono">InputCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">InteractiveToolsFramework</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Json</span></div><div class="module-item"><span class="dot"></span><span class="name mono">JsonUtilities</span></div><div class="module-item"><span class="dot"></span><span class="name mono">KismetWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LauncherPlatform</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LevelSequence</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MaterialShaderQualitySettings</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MessageLog</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Projects</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PropertyEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PropertyEditorToolkit</span></div><div class="module-item"><span class="dot"></span><span class="name mono">RHI</span></div><div class="module-item"><span class="dot"></span><span class="name mono">RenderCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SceneOutliner</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Slate</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SlateCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SourceControl</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SourceControlWindows</span></div><div class="module-item"><span class="dot"></span><span class="name mono">StatusBar</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SubobjectDataInterface</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SubobjectEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ToolMenus</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ToolWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">TypedElementFramework</span></div><div class="module-item"><span class="dot"></span><span class="name mono">TypedElementRuntime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">UncontrolledChangelists</span></div><div class="module-item"><span class="dot"></span><span class="name mono">UnrealEd</span></div><div class="module-item"><span class="dot"></span><span class="name mono">UnsavedAssetsTracker</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ZenEditor</span></div>
+    </div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Build rule file</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        <span class="mono">Editor/LevelEditor/LevelEditor.Build.cs</span>
+      </div>
+    </div>
+  </aside>
 </div>

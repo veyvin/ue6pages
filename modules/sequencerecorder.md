@@ -3,12 +3,53 @@ layout: default
 title: SequenceRecorder
 ---
 
-<!-- ai-generation-failed -->
 
-<h1>SequenceRecorder</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">文件</span><span class="value"><code>Engine/Source/Editor/SequenceRecorder/SequenceRecorder.Build.cs</code></span></li><li><span class="label">基类</span><span class="value"><code>ModuleRules</code></span></li><li><span class="label">依赖</span><span class="value">AssetRegistry, CinematicCamera, ContentBrowserData, Core, CoreUObject, EditorFramework, EditorStyle, EditorWidgets, Engine, InputCore, Kismet, LevelEditor, LevelSequence, LiveLinkInterface, MovieScene, MovieSceneTracks, NetworkReplayStreaming, Projects, PropertyEditor, SceneOutliner, SequenceRuntimeRecorder, Sequencer, SerializedRecorderInterface, Slate, SlateCore, TimeManagement, UnrealEd, WorkspaceMenuStructure</span></li>
-  </ul>
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge" style="background:linear-gradient(135deg,#8A5CF6 0%,#B08BF9 100%);">
+      <span>S</span>
+    </div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Module / C++ Build Rule</div>
+      <div class="hero-title mono">SequenceRecorder</div>
+      <div class="hero-tags">
+        <span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Module</span>
+        <span class="chip">extends <span class="mono">ModuleRules</span></span>
+        <span class="chip">28 dependencies</span>
+      </div>
+    </div>
+  </div>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value mono">Module</div></div>
+    <div class="meta-item"><div class="meta-label">Base</div><div class="meta-value mono">ModuleRules</div></div>
+    <div class="meta-item"><div class="meta-label">Dependencies</div><div class="meta-value mono">28</div></div>
+    <div class="meta-item"><div class="meta-label">Language</div><div class="meta-value">C# (Build.cs)</div></div>
+    <div class="meta-item file-col"><div class="meta-label">File</div><div class="file-path mono">Editor/SequenceRecorder/SequenceRecorder.Build.cs</div></div>
+  </div>
+</div>
+
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
+      <div class="desc-body">
+<p>This module depends on 28 other module(s): AssetRegistry, CinematicCamera, ContentBrowserData, Core, CoreUObject, EditorFramework, EditorStyle, EditorWidgets, Engine, InputCore, Kismet, LevelEditor, LevelSequence, LiveLinkInterface, MovieScene, MovieSceneTracks, NetworkReplayStreaming, Projects, PropertyEditor, SceneOutliner, SequenceRuntimeRecorder, Sequencer, SerializedRecorderInterface, Slate, SlateCore, TimeManagement, UnrealEd, WorkspaceMenuStructure.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Dependencies (28)</div>
+      <div class="module-item"><span class="dot"></span><span class="name mono">AssetRegistry</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CinematicCamera</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ContentBrowserData</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Core</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CoreUObject</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorFramework</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorStyle</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Engine</span></div><div class="module-item"><span class="dot"></span><span class="name mono">InputCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Kismet</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LevelEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LevelSequence</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LiveLinkInterface</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MovieScene</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MovieSceneTracks</span></div><div class="module-item"><span class="dot"></span><span class="name mono">NetworkReplayStreaming</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Projects</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PropertyEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SceneOutliner</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SequenceRuntimeRecorder</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Sequencer</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SerializedRecorderInterface</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Slate</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SlateCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">TimeManagement</span></div><div class="module-item"><span class="dot"></span><span class="name mono">UnrealEd</span></div><div class="module-item"><span class="dot"></span><span class="name mono">WorkspaceMenuStructure</span></div>
+    </div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Build rule file</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        <span class="mono">Editor/SequenceRecorder/SequenceRecorder.Build.cs</span>
+      </div>
+    </div>
+  </aside>
 </div>

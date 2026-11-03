@@ -3,12 +3,53 @@ layout: default
 title: NetworkCacheStores
 ---
 
-<!-- ai-generation-failed -->
 
-<h1>NetworkCacheStores</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">文件</span><span class="value"><code>Engine/Source/Developer/NetworkCacheStores/NetworkCacheStores.Build.cs</code></span></li><li><span class="label">基类</span><span class="value"><code>ModuleRules</code></span></li><li><span class="label">依赖</span><span class="value">Core, DerivedDataCache, DesktopPlatform, DevHttp, Json, SSL, Zen</span></li>
-  </ul>
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge" style="background:linear-gradient(135deg,#8A5CF6 0%,#B08BF9 100%);">
+      <span>N</span>
+    </div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Module / C++ Build Rule</div>
+      <div class="hero-title mono">NetworkCacheStores</div>
+      <div class="hero-tags">
+        <span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Module</span>
+        <span class="chip">extends <span class="mono">ModuleRules</span></span>
+        <span class="chip">7 dependencies</span>
+      </div>
+    </div>
+  </div>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value mono">Module</div></div>
+    <div class="meta-item"><div class="meta-label">Base</div><div class="meta-value mono">ModuleRules</div></div>
+    <div class="meta-item"><div class="meta-label">Dependencies</div><div class="meta-value mono">7</div></div>
+    <div class="meta-item"><div class="meta-label">Language</div><div class="meta-value">C# (Build.cs)</div></div>
+    <div class="meta-item file-col"><div class="meta-label">File</div><div class="file-path mono">Developer/NetworkCacheStores/NetworkCacheStores.Build.cs</div></div>
+  </div>
+</div>
+
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
+      <div class="desc-body">
+<p>This module depends on 7 other module(s): Core, DerivedDataCache, DesktopPlatform, DevHttp, Json, SSL, Zen.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Dependencies (7)</div>
+      <div class="module-item"><span class="dot"></span><span class="name mono">Core</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DerivedDataCache</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DesktopPlatform</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DevHttp</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Json</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SSL</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Zen</span></div>
+    </div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Build rule file</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        <span class="mono">Developer/NetworkCacheStores/NetworkCacheStores.Build.cs</span>
+      </div>
+    </div>
+  </aside>
 </div>

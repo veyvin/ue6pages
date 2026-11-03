@@ -3,12 +3,53 @@ layout: default
 title: DetailCustomizations
 ---
 
-<!-- ai-generation-failed -->
 
-<h1>DetailCustomizations</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">文件</span><span class="value"><code>Engine/Source/Editor/DetailCustomizations/DetailCustomizations.Build.cs</code></span></li><li><span class="label">基类</span><span class="value"><code>ModuleRules</code></span></li><li><span class="label">依赖</span><span class="value">AIModule, AdvancedPreviewScene, AdvancedWidgets, AnimGraph, AppFramework, ApplicationCore, AudioEditor, AudioSettingsEditor, BlueprintGraph, CinematicCamera, ClassViewer, ComponentVisualizers, ContentBrowser, Core, CoreUObject, DataTableEditor, DesktopPlatform, DesktopWidgets, DeveloperToolSettings, EditorFramework, EditorViewport, EditorWidgets, Engine, ExternalImagePicker, GraphEditor, HardwareTargeting, HeadMountedDisplay, InputCore, InternationalizationSettings, Json, JsonUtilities, Kismet, KismetWidgets, Landscape, LevelEditor, LevelSequence, MaterialEditor, MoviePlayer, MovieScene, MovieSceneCapture, MovieSceneTools, MovieSceneTracks, NavigationSystem, PhysicsCore, PropertyEditor, RHI, RenderCore, Sequencer, SettingsEditor, ShaderPlatformConfigEditor, SharedSettingsWidgets, SkeletonEditor, Slate, SlateCore, SourceCodeAccess, SourceControl, TargetPlatform, TimeManagement, ToolMenus, ToolWidgets, UnrealEd, VirtualTexturingEditor</span></li>
-  </ul>
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge" style="background:linear-gradient(135deg,#8A5CF6 0%,#B08BF9 100%);">
+      <span>D</span>
+    </div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Module / C++ Build Rule</div>
+      <div class="hero-title mono">DetailCustomizations</div>
+      <div class="hero-tags">
+        <span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Module</span>
+        <span class="chip">extends <span class="mono">ModuleRules</span></span>
+        <span class="chip">62 dependencies</span>
+      </div>
+    </div>
+  </div>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value mono">Module</div></div>
+    <div class="meta-item"><div class="meta-label">Base</div><div class="meta-value mono">ModuleRules</div></div>
+    <div class="meta-item"><div class="meta-label">Dependencies</div><div class="meta-value mono">62</div></div>
+    <div class="meta-item"><div class="meta-label">Language</div><div class="meta-value">C# (Build.cs)</div></div>
+    <div class="meta-item file-col"><div class="meta-label">File</div><div class="file-path mono">Editor/DetailCustomizations/DetailCustomizations.Build.cs</div></div>
+  </div>
+</div>
+
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
+      <div class="desc-body">
+<p>This module depends on 62 other module(s): AIModule, AdvancedPreviewScene, AdvancedWidgets, AnimGraph, AppFramework, ApplicationCore, AudioEditor, AudioSettingsEditor, BlueprintGraph, CinematicCamera, ClassViewer, ComponentVisualizers, ContentBrowser, Core, CoreUObject, DataTableEditor, DesktopPlatform, DesktopWidgets, DeveloperToolSettings, EditorFramework, EditorViewport, EditorWidgets, Engine, ExternalImagePicker, GraphEditor, HardwareTargeting, HeadMountedDisplay, InputCore, InternationalizationSettings, Json, JsonUtilities, Kismet, KismetWidgets, Landscape, LevelEditor, LevelSequence, MaterialEditor, MoviePlayer, MovieScene, MovieSceneCapture, MovieSceneTools, MovieSceneTracks, NavigationSystem, PhysicsCore, PropertyEditor, RHI, RenderCore, Sequencer, SettingsEditor, ShaderPlatformConfigEditor, SharedSettingsWidgets, SkeletonEditor, Slate, SlateCore, SourceCodeAccess, SourceControl, TargetPlatform, TimeManagement, ToolMenus, ToolWidgets, UnrealEd, VirtualTexturingEditor.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Dependencies (62)</div>
+      <div class="module-item"><span class="dot"></span><span class="name mono">AIModule</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AdvancedPreviewScene</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AdvancedWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AnimGraph</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AppFramework</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ApplicationCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AudioEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AudioSettingsEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">BlueprintGraph</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CinematicCamera</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ClassViewer</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ComponentVisualizers</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ContentBrowser</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Core</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CoreUObject</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DataTableEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DesktopPlatform</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DesktopWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DeveloperToolSettings</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorFramework</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorViewport</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EditorWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Engine</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ExternalImagePicker</span></div><div class="module-item"><span class="dot"></span><span class="name mono">GraphEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">HardwareTargeting</span></div><div class="module-item"><span class="dot"></span><span class="name mono">HeadMountedDisplay</span></div><div class="module-item"><span class="dot"></span><span class="name mono">InputCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">InternationalizationSettings</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Json</span></div><div class="module-item"><span class="dot"></span><span class="name mono">JsonUtilities</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Kismet</span></div><div class="module-item"><span class="dot"></span><span class="name mono">KismetWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Landscape</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LevelEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LevelSequence</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MaterialEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MoviePlayer</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MovieScene</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MovieSceneCapture</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MovieSceneTools</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MovieSceneTracks</span></div><div class="module-item"><span class="dot"></span><span class="name mono">NavigationSystem</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PhysicsCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PropertyEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">RHI</span></div><div class="module-item"><span class="dot"></span><span class="name mono">RenderCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Sequencer</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SettingsEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ShaderPlatformConfigEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SharedSettingsWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SkeletonEditor</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Slate</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SlateCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SourceCodeAccess</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SourceControl</span></div><div class="module-item"><span class="dot"></span><span class="name mono">TargetPlatform</span></div><div class="module-item"><span class="dot"></span><span class="name mono">TimeManagement</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ToolMenus</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ToolWidgets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">UnrealEd</span></div><div class="module-item"><span class="dot"></span><span class="name mono">VirtualTexturingEditor</span></div>
+    </div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Build rule file</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        <span class="mono">Editor/DetailCustomizations/DetailCustomizations.Build.cs</span>
+      </div>
+    </div>
+  </aside>
 </div>

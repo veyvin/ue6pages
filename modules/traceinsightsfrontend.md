@@ -3,12 +3,53 @@ layout: default
 title: TraceInsightsFrontend
 ---
 
-<!-- ai-generation-failed -->
 
-<h1>TraceInsightsFrontend</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">文件</span><span class="value"><code>Engine/Source/Developer/TraceInsightsFrontend/TraceInsightsFrontend.Build.cs</code></span></li><li><span class="label">基类</span><span class="value"><code>ModuleRules</code></span></li><li><span class="label">依赖</span><span class="value">AppFramework, ApplicationCore, AutomationController, AutomationDriver, AutomationWindow, AutomationWorker, Core, CoreUObject, DesktopPlatform, Engine, InputCore, SessionServices, Slate, SlateCore, Sockets, TraceAnalysis, TraceInsightsCore, TraceServices, WorkspaceMenuStructure</span></li>
-  </ul>
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge" style="background:linear-gradient(135deg,#8A5CF6 0%,#B08BF9 100%);">
+      <span>T</span>
+    </div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Module / C++ Build Rule</div>
+      <div class="hero-title mono">TraceInsightsFrontend</div>
+      <div class="hero-tags">
+        <span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Module</span>
+        <span class="chip">extends <span class="mono">ModuleRules</span></span>
+        <span class="chip">19 dependencies</span>
+      </div>
+    </div>
+  </div>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value mono">Module</div></div>
+    <div class="meta-item"><div class="meta-label">Base</div><div class="meta-value mono">ModuleRules</div></div>
+    <div class="meta-item"><div class="meta-label">Dependencies</div><div class="meta-value mono">19</div></div>
+    <div class="meta-item"><div class="meta-label">Language</div><div class="meta-value">C# (Build.cs)</div></div>
+    <div class="meta-item file-col"><div class="meta-label">File</div><div class="file-path mono">Developer/TraceInsightsFrontend/TraceInsightsFrontend.Build.cs</div></div>
+  </div>
+</div>
+
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
+      <div class="desc-body">
+<p>This module depends on 19 other module(s): AppFramework, ApplicationCore, AutomationController, AutomationDriver, AutomationWindow, AutomationWorker, Core, CoreUObject, DesktopPlatform, Engine, InputCore, SessionServices, Slate, SlateCore, Sockets, TraceAnalysis, TraceInsightsCore, TraceServices, WorkspaceMenuStructure.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Dependencies (19)</div>
+      <div class="module-item"><span class="dot"></span><span class="name mono">AppFramework</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ApplicationCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AutomationController</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AutomationDriver</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AutomationWindow</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AutomationWorker</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Core</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CoreUObject</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DesktopPlatform</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Engine</span></div><div class="module-item"><span class="dot"></span><span class="name mono">InputCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SessionServices</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Slate</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SlateCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">Sockets</span></div><div class="module-item"><span class="dot"></span><span class="name mono">TraceAnalysis</span></div><div class="module-item"><span class="dot"></span><span class="name mono">TraceInsightsCore</span></div><div class="module-item"><span class="dot"></span><span class="name mono">TraceServices</span></div><div class="module-item"><span class="dot"></span><span class="name mono">WorkspaceMenuStructure</span></div>
+    </div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Build rule file</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        <span class="mono">Developer/TraceInsightsFrontend/TraceInsightsFrontend.Build.cs</span>
+      </div>
+    </div>
+  </aside>
 </div>
