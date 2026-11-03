@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accumulation Depth of Field — UE Plugin Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     UE Plugin Docs — Detail Page
+     Same design system as index.html
+     ========================================================= */
+
+  :root {
+    --page: #F6F4EF;
+    --surface: #F6F4EF;
+    --surface-bright: #FFFFFF;
+    --surface-container: #EFECE4;
+    --surface-container-highest: #E6E3DA;
+
+    --primary: #2F6FEB;
+    --primary-on: #FFFFFF;
+    --secondary: #5C6B7A;
+    --tertiary: #8A6A40;
+
+    --on-surface: #1C1B1A;
+    --on-surface-variant: #5C5A55;
+    --outline: #8C8A84;
+
+    --success: #3E8B54;
+    --warning: #C5872A;
+    --error: #C0463A;
+
+    --shadow-soft: 0 1px 2px rgba(28,27,26,0.04),
+                   0 8px 24px rgba(28,27,26,0.06);
+
+    --r-card: 28px;
+    --r-card-sm: 20px;
+    --r-chip: 14px;
+    --r-pill: 999px;
+    --r-icon: 16px;
+  }
+
+  [data-theme="dark"] {
+    --page: #141415;
+    --surface: #141415;
+    --surface-bright: #1E1E20;
+    --surface-container: #252528;
+    --surface-container-highest: #2E2E31;
+
+    --primary: #6E9FFF;
+    --primary-on: #141415;
+    --secondary: #B3BCC6;
+    --tertiary: #E0C59F;
+
+    --on-surface: #E6E1DA;
+    --on-surface-variant: #A8A49D;
+    --outline: #7B7872;
+
+    --success: #7FC890;
+    --warning: #E8B065;
+    --error: #F28B82;
+
+    --shadow-soft: 0 1px 2px rgba(0,0,0,0.3),
+                   0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    background: var(--page);
+    color: var(--on-surface);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+    transition: background 300ms ease, color 300ms ease;
+    min-height: 100vh;
+  }
+
+  .mono, .num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-feature-settings: "tnum";
+  }
+
+  /* ---------- Top nav (sticky) ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(246,244,239,0.82);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid rgba(140,138,132,0.10);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  [data-theme="dark"] .topbar {
+    background: rgba(20,20,21,0.82);
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-logo {
+    width: 32px; height: 32px;
+    background: var(--primary);
+    border-radius: var(--r-icon);
+    display: grid; place-items: center;
+    color: var(--primary-on);
+    font-weight: 700; font-size: 13px;
+  }
+  .brand-text { font-weight: 600; font-size: 14px; letter-spacing: -0.01em; }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--on-surface-variant);
+  }
+  .breadcrumb a {
+    color: var(--on-surface-variant);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { color: var(--outline); }
+  .breadcrumb .current { color: var(--on-surface); font-weight: 500; }
+
+  .topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .icon-btn {
+    width: 40px; height: 40px;
+    border-radius: var(--r-pill);
+    background: var(--surface-container);
+    display: grid; place-items: center;
+    cursor: pointer;
+    border: none;
+    color: var(--on-surface);
+    transition: transform 150ms ease, background 200ms ease;
+  }
+  .icon-btn:hover { background: var(--surface-container-highest); transform: scale(1.04); }
+
+  .primary-btn {
+    height: 40px;
+    padding: 0 20px;
+    border-radius: var(--r-pill);
+    background: var(--primary);
+    color: var(--primary-on);
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 150ms ease, box-shadow 200ms ease;
+  }
+  .primary-btn:hover { transform: scale(1.03); box-shadow: 0 8px 20px rgba(47,111,235,0.30); }
+
+  /* ---------- Container ---------- */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+  }
+
+  /* ---------- Hero card ---------- */
+  .hero {
+    background: var(--surface-bright);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-soft);
+    padding: 36px 40px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(47,111,235,0.14) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .hero-badge {
+    width: 88px; height: 88px;
+    border-radius: var(--r-icon);
+    background: linear-gradient(135deg, #2F6FEB 0%, #5B8DF5 100%);
+    display: grid; place-items: center;
+    color: white;
+    font-weight: 700;
+    font-size: 34px;
+    letter-spacing: -0.03em;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(47,111,235,0.25);
+  }
+
+  .hero-info { flex: 1; min-width: 0; }
+
+  .hero-subtitle {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--on-surface-variant);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .hero-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--on-surface);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .hero-title-cn {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--on-surface-variant);
+    margin-bottom: 16px;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: var(--r-pill);
+    background: var(--surface-container);
+    color: var(--on-surface-variant);
+  }
+  .chip-primary { background: rgba(47,111,235,0.12); color: var(--primary); }
+  .chip-success  { background: rgba(62,139,84,0.14); color: var(--success); }
+  .chip-warning  { background: rgba(197,135,42,0.14); color: var(--warning); }
+  .chip-error    { background: rgba(192,70,58,0.14); color: var(--error); }
+
+  /* ---------- Meta grid (inside hero) ---------- */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(140,138,132,0.12);
+  }
+
+  .meta-item {
+    background: var(--surface-container);
+    border-radius: var(--r-card-sm);
+    padding: 14px 16px;
+  }
+  .meta-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--on-surface-variant);
+    margin-bottom: 6px;
+  }
+  .meta-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--on-surface);
+    line-height: 1.35;
+  }
+  .meta-value.mono { font-size: 13px; word-break: break-all; }
+  .meta-value.link { color: var(--primary); cursor: pointer; }
+  .meta-value.link:hover { text-decoration: underline; }
+
+  /* ---------- Content grid (description + sidebar) ---------- */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 24px;
+  }
+
+  /* Description card */
+  .card {
+    background: var(--surface-bright);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-soft);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .card-title-cn {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--on-surface-variant);
+  }
+  .card-title-sep {
+    width: 3px; height: 18px;
+    background: var(--primary);
+    border-radius: 2px;
+    margin-right: 4px;
+  }
+
+  .desc-body {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--on-surface);
+    padding-top: 12px;
+  }
+  .desc-body p { margin-bottom: 14px; }
+  .desc-body p:last-child { margin-bottom: 0; }
+  .desc-body code {
+    background: var(--surface-container);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .desc-body h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    color: var(--on-surface);
+  }
+
+  .desc-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  .desc-body ul li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--on-surface);
+  }
+  .desc-body ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 9px;
+    width: 6px; height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .detail-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sidebar-card {
+    background: var(--surface-bright);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-soft);
+    padding: 22px;
+  }
+
+  .sidebar-card-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--on-surface-variant);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Module list */
+  .module-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--r-card-sm);
+    background: var(--surface-container);
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .module-item:last-child { margin-bottom: 0; }
+  .module-item .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--primary); flex-shrink: 0;
+  }
+  .module-item .name {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    color: var(--on-surface);
+    flex: 1;
+  }
+  .module-item .tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+    background: var(--surface-bright);
+    color: var(--on-surface-variant);
+  }
+  .module-item .tag.editor { color: var(--warning); }
+  .module-item .tag.runtime { color: var(--success); }
+
+  /* Related plugins */
+  .related-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: transform 150ms ease;
+  }
+  .related-item:hover { transform: translateX(2px); }
+  .related-item .rb {
+    width: 36px; height: 36px;
+    border-radius: 12px;
+    background: var(--surface-container);
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 14px;
+    color: var(--primary); flex-shrink: 0;
+  }
+  .related-item .info { flex: 1; min-width: 0; }
+  .related-item .info .n {
+    font-size: 13px; font-weight: 500;
+    color: var(--on-surface);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .related-item .info .d {
+    font-size: 11px; color: var(--on-surface-variant); margin-top: 1px;
+  }
+
+  /* File path display */
+  .file-path {
+    background: var(--surface-container);
+    border-radius: var(--r-card-sm);
+    padding: 14px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--on-surface);
+    word-break: break-all;
+    line-height: 1.6;
+    position: relative;
+  }
+  .file-path .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--on-surface-variant);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  /* ---------- Theme toggle ---------- */
+  .theme-toggle {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 52px; height: 52px;
+    border-radius: var(--r-pill);
+    background: var(--surface-bright);
+    box-shadow: var(--shadow-soft);
+    border: none;
+    cursor: pointer;
+    display: grid; place-items: center;
+    z-index: 100;
+    transition: transform 200ms ease;
+  }
+  .theme-toggle:hover { transform: scale(1.06); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .meta-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .topbar { padding: 12px 16px; }
+    .container { padding: 24px 16px 64px; }
+    .hero { padding: 28px 24px; }
+    .hero-top { flex-direction: column; }
+    .hero-badge { width: 64px; height: 64px; font-size: 26px; }
+    .hero-title { font-size: 26px; }
+    .meta-grid { grid-template-columns: 1fr; }
+    .card { padding: 22px 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  .fade-in { animation: fadeIn 400ms cubic-bezier(0.22, 1, 0.36, 1); }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<!-- Top nav -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">
+      <div class="brand-logo">UE</div>
+      <div class="brand-text">UE Plugin Docs</div>
+    </a>
+    <div class="breadcrumb">
+      <a href="index.html">Plugins</a>
+      <span class="sep">/</span>
+      <span class="current">Accumulation Depth of Field</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <button class="icon-btn" title="Copy link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    </button>
+    <button class="icon-btn" title="Edit on GitHub">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+    </button>
+    <button class="primary-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download .uplugin
+    </button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero fade-in">
+    <div class="hero-top">
+      <div class="hero-badge">A</div>
+      <div class="hero-info">
+        <div class="hero-subtitle">Plugin / 插件</div>
+        <div class="hero-title">Accumulation Depth of Field</div>
+        <div class="hero-title-cn">累积景深 · 生产级光圈采样薄透镜景深</div>
+        <div class="hero-tags">
+          <span class="chip chip-primary">Virtual Production</span>
+          <span class="chip chip-success">
+            <span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;"></span>
+            Built-in
+          </span>
+          <span class="chip mono">Epic Games</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meta grid -->
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Version / 版本</div>
+        <div class="meta-value mono">1.0</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Author / 作者</div>
+        <div class="meta-value">Epic Games</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Engine / 引擎</div>
+        <div class="meta-value mono">UE 5.4+</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Category / 分类</div>
+        <div class="meta-value">Virtual Production</div>
+      </div>
+      <div class="meta-item" style="grid-column: span 4;">
+        <div class="meta-label">Plugin File / 插件文件</div>
+        <div class="file-path" style="padding:12px 16px;font-size:12px;margin-top:4px;">
+          Engine/Plugins/VirtualProduction/AccumulationDOF/AccumulationDOF.uplugin
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content grid -->
+  <div class="content-grid fade-in" style="animation-delay:80ms;">
+
+    <!-- Left: description -->
+    <div>
+
+      <!-- Description card -->
+      <div class="card">
+        <div class="card-title">
+          <span class="card-title-sep"></span>
+          Description
+          <span class="card-title-cn">描述</span>
+        </div>
+        <div class="desc-body">
+          <p>
+            <strong>Accumulation Depth of Field</strong> is a high-quality, thin-lens aperture-sampled depth of field effect designed for production rendering in Unreal Engine. It uses a physically-based lens model that traces rays through a simulated camera aperture, accumulating samples to produce natural, film-like bokeh.
+          </p>
+          <p>
+            该插件实现了基于薄透镜模型的景深效果，通过对相机光圈进行采样和累积，生成接近真实电影镜头的焦外成像（bokeh）。支持多种光圈形状、焦平面过渡以及基于距离的后景/前景模糊控制。
+          </p>
+
+          <h3 style="display:flex;align-items:center;gap:6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--primary);"><polyline points="20 6 9 17 4 12"/></svg>
+            Key Features / 核心特性
+          </h3>
+          <ul>
+            <li>Physically-based thin-lens sampling without costly ray tracing passes</li>
+            <li>Configurable aperture shape (circular, hexagonal, octal) and aperture blade count</li>
+            <li>Foreground and background blur are independently controllable with falloff curves</li>
+            <li>Integrates with Movie Render Queue for path-traced offline renders at any quality level</li>
+            <li>Exposure compensation and chromatic aberration simulation for cinematic realism</li>
+          </ul>
+
+          <h3 style="display:flex;align-items:center;gap:6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--success);"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Performance / 性能
+          </h3>
+          <p>
+            On a modern GPU, real-time usage typically costs <code>0.8–1.4 ms</code> at 1080p depending on blur radius and sample count. Movie Render Queue accumulation scales sub-linearly with sample count — 128 samples for near-noiseless output.
+          </p>
+        </div>
+      </div>
+
+      <!-- Use cases card -->
+      <div class="card">
+        <div class="card-title">
+          <span class="card-title-sep"></span>
+          Use Cases
+          <span class="card-title-cn">适用场景</span>
+        </div>
+        <div class="desc-body">
+          <p>
+            Most commonly used in <strong>Virtual Production</strong> workflows to replicate real-camera characteristics in LED volume shoots, and in <strong>cinematic pre-render</strong> pipelines for trailers and film sequences. Also suited for architectural visualization and high-end automotive renders.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right sidebar -->
+    <aside class="detail-sidebar">
+
+      <!-- Modules -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Modules (2)
+        </div>
+        <div class="module-item">
+          <span class="dot"></span>
+          <span class="name mono">AccumulationDOF</span>
+          <span class="tag runtime">Runtime</span>
+        </div>
+        <div class="module-item">
+          <span class="dot" style="background:var(--warning);"></span>
+          <span class="name mono">AccumulationDOFEditor</span>
+          <span class="tag editor">Editor</span>
+        </div>
+      </div>
+
+      <!-- Engine -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          Engine Compatibility
+        </div>
+        <div style="font-size:13px;line-height:1.6;color:var(--on-surface);">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span>UE 5.4</span>
+            <span style="color:var(--success);font-weight:600;">✓ Supported</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span>UE 5.3</span>
+            <span style="color:var(--success);font-weight:600;">✓ Supported</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span>UE 5.2</span>
+            <span style="color:var(--warning);font-weight:600;">△ Backport</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;">
+            <span>UE 4.x</span>
+            <span style="color:var(--on-surface-variant);">✗ Not available</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related plugins -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Related Plugins
+        </div>
+        <div class="related-item">
+          <div class="rb">L</div>
+          <div class="info">
+            <div class="n">Lumen</div>
+            <div class="d">Global Illumination · Rendering</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--outline);"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="related-item">
+          <div class="rb">C</div>
+          <div class="info">
+            <div class="n">Color Grading</div>
+            <div class="d">Post-process · Virtual Production</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--outline);"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="related-item">
+          <div class="rb">M</div>
+          <div class="info">
+            <div class="n">Movie Render Queue</div>
+            <div class="d">Offline Rendering</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--outline);"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="related-item">
+          <div class="rb">R</div>
+          <div class="info">
+            <div class="n">Ray Tracing</div>
+            <div class="d">Hardware RT support</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--outline);"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <!-- Sync info -->
+      <div class="sidebar-card" style="background:var(--surface-container);">
+        <div class="sidebar-card-title" style="color:var(--on-surface-variant);">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Auto-generated
+        </div>
+        <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+          This document was generated automatically from Unreal Engine source on
+          <strong style="color:var(--on-surface);">Nov 3, 2026</strong>.
+          Source: <span class="mono" style="color:var(--on-surface-variant);">Engine v5.4.3</span>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+</div>
+
+<!-- Theme toggle -->
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+  <svg id="ft-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  <svg id="ft-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<script>
+  function toggleTheme() {
+    const body = document.body;
+    const isDark = body.dataset.theme === 'dark';
+    body.dataset.theme = isDark ? 'light' : 'dark';
+    document.getElementById('ft-sun').style.display = isDark ? 'block' : 'none';
+    document.getElementById('ft-moon').style.display = isDark ? 'none' : 'block';
+  }
+</script>
+
+</body>
+</html>
