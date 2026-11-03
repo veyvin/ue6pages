@@ -5,8 +5,9 @@ name: UE AI Plugin Describer (Daily)
 # 使用 matrix 并行策略切分为多个 job 加速处理。
 
 on:
-  schedule:
-    # - cron: '0 1 * * *'
+  # 定时任务已暂停；恢复时取消下面两行注释即可
+  # schedule:
+  #   - cron: '0 1 * * *'
   workflow_dispatch:
     inputs:
       count:
@@ -21,8 +22,10 @@ on:
 permissions:
   contents: write
 
+# 与 generate-ue-docs.yml 共用同一个组，串行写 gh-pages。
+# 注意：生成文档的定时任务可能要等正在运行的 describer 结束（最长约 4 小时）后才开始。
 concurrency:
-  group: ue-ai-describer
+  group: gh-pages
   cancel-in-progress: false
 
 env:
@@ -74,13 +77,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y xvfb
 
+      # 每次运行保存一份新缓存（key 含 run_id），恢复时只取同一 batch 的最新一份，
+      # 避免不同 batch 的浏览器配置互相覆盖。
       - name: Cache Playwright user data
         uses: actions/cache@v5
         with:
           path: public-repo/scripts/ue-ai-describer/.playwright-user-data
-          key: ${{ runner.os }}-playwright-userdata-${{ github.run_id }}-${{ matrix.batch }}
+          key: ${{ runner.os }}-playwright-userdata-${{ matrix.batch }}-${{ github.run_id }}
           restore-keys: |
-            ${{ runner.os }}-playwright-userdata-
+            ${{ runner.os }}-playwright-userdata-${{ matrix.batch }}-
 
       - name: Compute batch parameters
         id: batch
@@ -108,7 +113,9 @@ jobs:
             echo "dry_run=" >> $GITHUB_OUTPUT
           fi
 
+      # 失败不会中断后续步骤：已完成的进度仍会被提交，最后由 "Report failure" 把 job 标红
       - name: Run AI describer
+        id: describe
         working-directory: public-repo/scripts/ue-ai-describer
         run: |
           LIMIT_ARG=""
@@ -125,7 +132,6 @@ jobs:
         env:
           UE_AI_STATE_FILE: ${{ github.workspace }}/ghpages/.ue-ai-describer-state.json
           CI: false
-        continue-on-error: true
 
       - name: Upload debug screenshots
         if: always()
@@ -135,37 +141,9 @@ jobs:
           path: public-repo/scripts/ue-ai-describer/debug-screenshots/
           if-no-files-found: ignore
 
-      - name: Pull latest gh-pages before push (rebase)
-        if: github.event.inputs.dry_run != 'true'
-        working-directory: ghpages
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git fetch origin gh-pages
-          git rebase origin/gh-pages || {
-            echo "Rebase conflict, attempting to resolve state file..."
-            # If state file conflicts, take the union of both processed lists
-            if ls .ue-ai-describer-state.json 2>/dev/null && ls .git/rebase-merge 2>/dev/null; then
-              echo "State file conflict detected, merging..."
-              git show HEAD:.ue-ai-describer-state.json > /tmp/state-ours.json
-              git show origin/gh-pages:.ue-ai-describer-state.json > /tmp/state-theirs.json
-              node -e "
-                const ours = JSON.parse(require('fs').readFileSync('/tmp/state-ours.json','utf8'));
-                const theirs = JSON.parse(require('fs').readFileSync('/tmp/state-theirs.json','utf8'));
-                const merged = {
-                  processed: [...new Set([...ours.processed, ...theirs.processed])],
-                  failed: [...(theirs.failed || []), ...(ours.failed || [])]
-                };
-                require('fs').writeFileSync('.ue-ai-describer-state.json', JSON.stringify(merged, null, 2));
-              "
-              git add .ue-ai-describer-state.json
-              git rebase --continue || true
-            fi
-          }
-
       - name: Check for changes
         id: git-check
-        if: github.event.inputs.dry_run != 'true'
+        if: ${{ !cancelled() && steps.describe.conclusion != 'skipped' && github.event.inputs.dry_run != 'true' }}
         working-directory: ghpages
         run: |
           git add -A
@@ -178,26 +156,60 @@ jobs:
             git diff --cached --stat
           fi
 
+      # 先提交本批次结果，再同步远端：此时工作区是干净的，rebase 才能正常进行。
+      # 远端有新提交时 rebase；只有 state 文件冲突会被自动合并，其他冲突直接失败。
       - name: Commit and push changes
-        if: steps.git-check.outputs.has_changes == 'true' && github.event.inputs.dry_run != 'true'
+        if: ${{ !cancelled() && steps.git-check.outputs.has_changes == 'true' }}
         working-directory: ghpages
         run: |
-          git commit -m "chore: update AI descriptions (batch ${{ matrix.batch }}, daily)
+          set -uo pipefail
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -q -m "chore: update AI descriptions (batch ${{ matrix.batch }}, daily)" \
+            -m "Automated update by UE AI Plugin Describer workflow. Generated from Epic Developer Assistant."
 
-          Automated update by UE AI Plugin Describer workflow.
-          Generated from Epic Developer Assistant."
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin gh-pages
+            if ! git rebase --quiet origin/gh-pages; then
+              conflicts="$(git diff --name-only --diff-filter=U)"
+              if [ "$conflicts" != ".ue-ai-describer-state.json" ]; then
+                echo "::error::Unexpected rebase conflicts: $conflicts"
+                git rebase --abort || true
+                exit 1
+              fi
+              git show "origin/gh-pages:.ue-ai-describer-state.json" > /tmp/state-upstream.json 2>/dev/null || echo '{}' > /tmp/state-upstream.json
+              git show "REBASE_HEAD:.ue-ai-describer-state.json" > /tmp/state-ours.json 2>/dev/null || echo '{}' > /tmp/state-ours.json
+              node -e "
+                const fs = require('fs');
+                const load = (p) => { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { return {}; } };
+                const up = load('/tmp/state-upstream.json');
+                const mine = load('/tmp/state-ours.json');
+                const processed = [...new Set([...(up.processed || []), ...(mine.processed || [])])];
+                const done = new Set(processed);
+                const byPath = new Map();
+                for (const f of [...(up.failed || []), ...(mine.failed || [])]) {
+                  if (done.has(f.path)) continue;
+                  const prev = byPath.get(f.path);
+                  if (!prev || (f.time || 0) >= (prev.time || 0)) byPath.set(f.path, f);
+                }
+                fs.writeFileSync('.ue-ai-describer-state.json', JSON.stringify({ processed, failed: [...byPath.values()] }, null, 2));
+              "
+              git add .ue-ai-describer-state.json
+              GIT_EDITOR=true git rebase --continue || { git rebase --abort || true; echo "::error::rebase --continue failed"; exit 1; }
+            fi
 
-          # Retry push with pull --rebase in case another job pushed first
-          for i in 1 2 3; do
-            if git push origin gh-pages; then
-              echo "Push succeeded on attempt $i"
+            if git push --quiet origin HEAD:gh-pages; then
+              echo "Push succeeded on attempt $attempt"
               exit 0
             fi
-            echo "Push failed (attempt $i), pulling latest..."
-            git pull --rebase origin gh-pages || {
-              echo "Pull rebase failed, trying again..."
-              continue
-            }
+            echo "Push rejected (attempt $attempt), retrying..."
+            sleep $((attempt * 5))
           done
-          echo "Push failed after 3 attempts"
+          echo "::error::Push failed after 5 attempts"
+          exit 1
+
+      - name: Report describer failure
+        if: ${{ always() && steps.describe.outcome == 'failure' }}
+        run: |
+          echo "::error::AI describer failed for batch ${{ matrix.batch }}. Progress made before the failure has been committed."
           exit 1

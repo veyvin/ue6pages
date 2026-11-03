@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ItemsAPI } from '../api/client.js'
+import { ItemsAPI, errMsg } from '../api/client.js'
 
 export const useItemsStore = defineStore('items', {
   state: () => ({
@@ -8,11 +8,30 @@ export const useItemsStore = defineStore('items', {
     modules: [],
     loading: false,
     loaded: false,
+    error: '',
+    query: '',
+    category: '',
   }),
 
   getters: {
     categories(state) {
       return [...new Set(state.plugins.map(p => p.category).filter(Boolean))].sort()
+    },
+
+    filteredPlugins(state) {
+      const q = state.query.trim().toLowerCase()
+      return state.plugins.filter(p => {
+        if (state.category && p.category !== state.category) return false
+        if (!q) return true
+        return [p.name, p.description, p.category].some(v => (v || '').toLowerCase().includes(q))
+      })
+    },
+
+    filteredModules(state) {
+      const q = state.query.trim().toLowerCase()
+      if (!q) return state.modules
+      return state.modules.filter(m =>
+        m.name.toLowerCase().includes(q) || m.path.toLowerCase().includes(q))
     },
   },
 
@@ -20,6 +39,7 @@ export const useItemsStore = defineStore('items', {
     async loadAll(force = false) {
       if (this.loaded && !force) return
       this.loading = true
+      this.error = ''
       try {
         const [stats, plugins, modules] = await Promise.all([
           ItemsAPI.getStats(),
@@ -30,15 +50,18 @@ export const useItemsStore = defineStore('items', {
         this.plugins = plugins
         this.modules = modules
         this.loaded = true
+      } catch (err) {
+        this.error = errMsg(err)
       } finally {
         this.loading = false
       }
     },
 
     async reload() {
-      await ItemsAPI.rescan()
+      const result = await ItemsAPI.rescan()
       this.loaded = false
       await this.loadAll(true)
+      return result
     },
   },
 })

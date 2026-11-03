@@ -1,4 +1,7 @@
-/** SSE 流式调用 AI —— Fetch + ReadableStream，事件回调驱动。 */
+/**
+ * SSE 流式调用 AI —— Fetch + ReadableStream，事件回调驱动。
+ * 后端每帧为 `data: <JSON 字符串>`，结束帧为 `data: [DONE]`。
+ */
 export async function streamAiChat({ kind, slug, message, history = [] }, callbacks = {}) {
   const { onChunk, onDone, onError } = callbacks
 
@@ -21,25 +24,21 @@ export async function streamAiChat({ kind, slug, message, history = [] }, callba
     while (true) {
       const { value, done } = await reader.read()
       if (done) break
-      buf += decoder.decode(value, { stream: true })
+      buf += decoder.decode(value, { stream: true }).replace(/\r\n/g, '\n')
 
-      // 按 SSE 的 \n\n 切 frame
       let sepIdx
       while ((sepIdx = buf.indexOf('\n\n')) !== -1) {
         const frame = buf.slice(0, sepIdx)
         buf = buf.slice(sepIdx + 2)
 
-        const lines = frame.split('\n')
-        for (const line of lines) {
+        for (const line of frame.split('\n')) {
           if (!line.startsWith('data:')) continue
-          const data = line.slice(5).trim()
+          const data = line.slice(5).replace(/^ /, '')
           if (data === '[DONE]') {
             onDone?.()
             return
           }
-          // 把后端转义的 \n 还原
-          const piece = data.replace(/\\n/g, '\n')
-          onChunk?.(piece)
+          onChunk?.(JSON.parse(data))
         }
       }
     }

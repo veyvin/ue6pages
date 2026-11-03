@@ -1,6 +1,12 @@
 <script setup>
+import { onMounted } from 'vue'
 import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
+import { useItemsStore } from './stores/items.js'
+
+const store = useItemsStore()
+
+onMounted(() => store.loadAll())
 </script>
 
 <template>
@@ -9,9 +15,11 @@ import Topbar from './components/Topbar.vue'
     <div class="main-wrap">
       <Topbar />
       <main class="content">
-        <router-view v-slot="{ Component }">
+        <router-view v-slot="{ Component, route }">
           <transition name="page" mode="out-in">
-            <component :is="Component" />
+            <div :key="route.fullPath" class="route-view">
+              <component :is="Component" />
+            </div>
           </transition>
         </router-view>
       </main>

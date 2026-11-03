@@ -1,10 +1,16 @@
-"""路由层：/api/plugins · /api/modules · /api/ai/stream"""
+"""路由层：/api/plugins · /api/modules · /api/config · /api/ai/stream"""
 from __future__ import annotations
+
+import json
+import os
+from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
+from pydantic import ValidationError
 
-from .ai_service import stream_chat
+from .ai_service import stream_chat, test_connection
+from .config import CONFIG, config_path, public_config, save_config
 from .scanner import scan_all, invalidate_cache
 from .schemas import (
     PluginInfo, PluginSummary, ModuleInfo, ModuleSummary,
@@ -88,7 +94,36 @@ def rescan() -> dict:
     return {"ok": True, "plugins": len(plugins), "modules": len(modules)}
 
 
+# ---------- 配置 ----------
+@router.get("/config")
+def get_config() -> dict:
+    return {
+        "config": public_config(),
+        "path": str(config_path()),
+        "engine_exists": Path(CONFIG.engine_root).exists(),
+        "env_api_key": bool(os.environ.get("UE_AI_API_KEY")),
+    }
+
+
+@router.put("/config")
+def put_config(payload: dict) -> dict:
+    try:
+        save_config(payload)
+    except ValidationError as e:
+        raise HTTPException(422, detail=str(e))
+    invalidate_cache()
+    return get_config()
+
+
 # ---------- AI ----------
+@router.post("/ai/test")
+async def ai_test() -> dict:
+    try:
+        reply = await test_connection()
+    except Exception as exc:
+        raise HTTPException(502, detail=str(exc))
+    return {"ok": True, "model": CONFIG.ai.model, "reply": reply}
+
 @router.post("/ai/stream")
 async def ai_stream(req: AiChatRequest) -> StreamingResponse:
     plugins, modules = scan_all()
@@ -106,9 +141,8 @@ async def ai_stream(req: AiChatRequest) -> StreamingResponse:
 
     async def sse_body():
         async for piece in stream_chat(req.kind, item, req.message, req.history):
-            # SSE 协议：每条 message 以 data: 开头，空行分隔
-            safe = piece.replace("\n", "\\n")
-            yield f"data: {safe}\n\n"
+            # 每帧数据用 JSON 编码，保留换行与首尾空格；空行分隔帧
+            yield f"data: {json.dumps(piece, ensure_ascii=False)}\n\n"
         yield "data: [DONE]\n\n"
 
     return StreamingResponse(

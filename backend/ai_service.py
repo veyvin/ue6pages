@@ -66,6 +66,10 @@ async def _stream_chat(
     user_message: str,
     history: list[tuple[str, str]],
 ) -> AsyncIterator[str]:
+    if not CONFIG.ai.enabled:
+        yield "⚠ AI 已在设置中关闭。"
+        return
+
     if not CONFIG.ai.api_key:
         yield f"⚠ AI API key not configured. Set `ai.api_key` in config.yaml or env `UE_AI_API_KEY`.\n\n(Dev mode — here is the context I would have sent)\n\n```\n{context}\n```"
         return
@@ -128,3 +132,28 @@ async def stream_chat(
 
     async for piece in _stream_chat(system, ctx, user_message, history):
         yield piece
+
+
+async def test_connection() -> str:
+    """用当前已保存的配置发一条极短请求，返回模型回复；失败抛 RuntimeError。"""
+    if not CONFIG.ai.api_key:
+        raise RuntimeError("未配置 API Key：请在设置中填写，或设置环境变量 UE_AI_API_KEY")
+
+    url = f"{CONFIG.ai.endpoint.rstrip('/')}/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {CONFIG.ai.api_key}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": CONFIG.ai.model,
+        "messages": [{"role": "user", "content": "Reply with the single word: OK"}],
+    }
+    async with httpx.AsyncClient(timeout=CONFIG.ai.timeout) as client:
+        resp = await client.post(url, headers=headers, json=payload)
+
+    if resp.status_code != 200:
+        raise RuntimeError(f"HTTP {resp.status_code}: {resp.text[:300]}")
+    try:
+        return str(resp.json()["choices"][0]["message"]["content"]).strip()[:200]
+    except (KeyError, IndexError, TypeError, ValueError):
+        raise RuntimeError(f"响应格式异常: {resp.text[:300]}")

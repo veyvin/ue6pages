@@ -25,8 +25,9 @@ permissions:
   pages: write      # deploy-pages
   id-token: write   # deploy-pages OIDC
 
+# 与 ue-ai-describer.yml 共用同一个组：两者都会写 gh-pages 分支，串行执行避免推送冲突
 concurrency:
-  group: pages
+  group: gh-pages
   cancel-in-progress: false
 
 env:

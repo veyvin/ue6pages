@@ -1,48 +1,45 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useTheme } from '../composables/useTheme.js'
-import { ItemsAPI } from '../api/client.js'
+import { useItemsStore } from '../stores/items.js'
+import { errMsg } from '../api/client.js'
 
 const route = useRoute()
+const router = useRouter()
+const store = useItemsStore()
 const { theme, toggle } = useTheme()
-const search = ref('')
 
-// 顶栏标题根据路由自动切换
 const title = computed(() => {
   if (route.name === 'home') return 'Unreal Engine 插件与模块'
-  if (route.name === 'plugin') return route.params.slug.replace(/-/g, ' ')
-  if (route.name === 'module') return route.params.slug
+  if (route.name === 'plugin') {
+    return store.plugins.find(p => p.slug === route.params.slug)?.name || route.params.slug
+  }
+  if (route.name === 'module') {
+    return store.modules.find(m => m.slug === route.params.slug)?.name || route.params.slug
+  }
+  if (route.name === 'settings') return '设置'
   return ''
 })
 
-// 搜索联动：home 时直接过滤插件；detail 时跳回 home 并搜索
-async function onSearch(e) {
-  const q = e.target.value.trim()
-  if (route.name !== 'home') {
-    // 不做全局 store 搜索过滤，简单起见：搜索在 home 生效
-    return
-  }
-  // 通过 URL query 触发 Home view 的响应
-  const url = new URL(window.location.href)
-  if (q) url.searchParams.set('q', q)
-  else url.searchParams.delete('q')
-  window.history.replaceState({}, '', url.toString())
-  window.dispatchEvent(new CustomEvent('ue-search', { detail: q }))
+// 搜索在任意页面可输入；不在首页时自动跳到首页查看结果
+function onSearch(e) {
+  store.query = e.target.value
+  if (route.name !== 'home') router.push({ name: 'home', hash: '#plugins' })
 }
 
-function onRescan() {
-  ItemsAPI.rescan().then(r => {
-    window.dispatchEvent(new CustomEvent('ue-rescan'))
+async function onRescan() {
+  try {
+    const r = await store.reload()
     alert(`✅ 已重扫：${r.plugins} 插件，${r.modules} 模块`)
-  }).catch(err => alert('❌ 重扫失败：' + err.message))
+  } catch (err) {
+    alert('❌ 重扫失败：' + errMsg(err))
+  }
 }
 
-// 汉堡按钮切换（窄屏）
-const sidebar = ref(null)
-import { onMounted } from 'vue'
-onMounted(() => { sidebar.value = document.getElementById('sidebar') })
-function toggleSidebar() { sidebar.value?.classList.toggle('open') }
+function toggleSidebar() {
+  document.getElementById('sidebar')?.classList.toggle('open')
+}
 </script>
 
 <template>
@@ -55,7 +52,7 @@ function toggleSidebar() { sidebar.value?.classList.toggle('open') }
 
     <div class="search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--on-surface-variant)"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input v-model="search" type="text" placeholder="Search plugins or modules…" @input="onSearch" />
+      <input :value="store.query" type="text" placeholder="Search plugins or modules…" @input="onSearch" />
     </div>
 
     <button class="icon-btn" @click="onRescan" title="重新扫描 UE 源码">
