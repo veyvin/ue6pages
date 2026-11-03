@@ -351,53 +351,61 @@ def write_plugin_doc(doc_path: Path, info: dict, body: str,
     else:
         failure = ""
 
-    # --- Translate key fields if requested ---
     name_zh = translate_text(info["name"]) if translate else ""
     desc = info["description"] or "(no description)"
     desc_zh = translate_text(desc) if translate else ""
     body_zh = translate_text(body) if translate else ""
-    category_zh = translate_text(info["category"]) if translate and info.get("category") else ""
-    author_zh = translate_text(info["created_by"]) if translate and info.get("created_by") else ""
+    category = info.get("category") or ""
+    category_zh = translate_text(category) if translate and category else ""
+    author = info.get("created_by") or ""
+    author_zh = translate_text(author) if translate and author else ""
+    version = info.get("version") or "—"
+    engine = info.get("engine_version") or "—"
+    rel_path = info.get("path", "")
+    show_path = rel_path.replace("Engine/", "") if rel_path else "—"
 
-    def field_html(label: str, value: str, value_zh: str = "") -> str:
-        if not value:
-            return ""
-        if translate and value_zh and value_zh != value:
-            val_html = (
-                f'<div class="bilingual-block">'
-                f'<div class="lang-tabs">'
-                f'<div class="lang-tab active" onclick="switchLang(this)">中文</div>'
-                f'<div class="lang-tab" onclick="switchLang(this)">English</div>'
-                f"</div>"
-                f'<div class="lang-content active">{value_zh}</div>'
-                f'<div class="lang-content">{value}</div>'
-                f"</div>"
+    title = info["name"]
+    title_attr = f"{name_zh} / {title}" if translate else title
+    badge = (title[:1] or "U").upper()
+    cn_sub = f"{name_zh} · {desc_zh[:32] if desc_zh else ''}" if translate else ""
+
+    # --- Hero meta grid ---
+    meta_html = (
+        f'<div class="meta-grid">'
+        f'<div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">{version}</div></div>'
+        f'<div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">{engine}</div></div>'
+        f'<div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">{author or "—"}</div></div>'
+        f'<div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">{len(info.get("modules", []))}</div></div>'
+        f'<div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">{show_path}</div></div>'
+        f'</div>'
+    )
+
+    # --- Modules list for sidebar ---
+    modules_html = ""
+    if info.get("modules"):
+        mod_items = []
+        for m in info["modules"]:
+            mod_items.append(
+                f'<div class="module-item">'
+                f'<span class="dot"></span>'
+                f'<span class="name mono">{m}</span>'
+                f'<span class="tag runtime">Runtime</span>'
+                f'</div>'
             )
-        else:
-            val_html = value
-        return (
-            f'<li><span class="label">{label}</span>'
-            f'<span class="value">{val_html}</span></li>'
+        modules_html = (
+            f'<div class="sidebar-card">'
+            f'<div class="sidebar-card-title">Modules ({len(info["modules"])})</div>'
+            f'{"".join(mod_items)}'
+            f'</div>'
         )
 
-    # Build info card fields
-    info_items = [
-        field_html("插件文件", f"<code>{info['path']}</code>"),
-        field_html("版本", info.get("version", "")) if info.get("version") else "",
-        field_html("类别", info.get("category", ""), category_zh) if info.get("category") else "",
-        field_html("作者", info.get("created_by", ""), author_zh) if info.get("created_by") else "",
-        field_html("引擎版本", info.get("engine_version", "")) if info.get("engine_version") else "",
-        field_html("模块", ", ".join(info["modules"])) if info.get("modules") else "",
-    ]
-    info_items = [i for i in info_items if i]
-
-    # Description bilingual block
+    # --- Description bilingual block ---
     if translate and desc_zh and desc_zh != desc:
         desc_html = (
             f'<div class="bilingual-block">'
             f'<div class="lang-tabs">'
-            f'<div class="lang-tab active" onclick="switchLang(this)">中文</div>'
-            f'<div class="lang-tab" onclick="switchLang(this)">English</div>'
+            f'<button class="lang-tab active" onclick="switchLang(this)">中文</button>'
+            f'<button class="lang-tab" onclick="switchLang(this)">English</button>'
             f"</div>"
             f'<div class="lang-content active">{desc_zh}</div>'
             f'<div class="lang-content">{desc}</div>'
@@ -406,24 +414,71 @@ def write_plugin_doc(doc_path: Path, info: dict, body: str,
     else:
         desc_html = f"<p>{desc}</p>"
 
-    title = f"{info['name']}" if not translate else f"{name_zh} / {info['name']}"
+    # --- AI body bilingual block ---
+    if body and use_ai:
+        if translate and body_zh and body_zh != body:
+            body_html = (
+                f'<div class="bilingual-block">'
+                f'<div class="lang-tabs">'
+                f'<button class="lang-tab active" onclick="switchLang(this)">中文</button>'
+                f'<button class="lang-tab" onclick="switchLang(this)">English</button>'
+                f"</div>"
+                f'<div class="lang-content active">{body_zh}</div>'
+                f'<div class="lang-content">{body}</div>'
+                f"</div>"
+            )
+        else:
+            body_html = f'<div class="desc-body"><p>{body}</p></div>'
+    else:
+        body_html = ""
+
+    cat_chip = (
+        f'<span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>'
+        f'{category or "Uncategorized"}</span>'
+    )
+    if author:
+        cat_chip += f'<span class="chip">{author}</span>'
 
     html_content = f"""---
 layout: default
-title: {title}
+title: {title_attr}
 ---
 
 {failure}
-<h1>{title}</h1>
 
-<div class="info-card">
-  <ul>
-    {"".join(info_items)}
-  </ul>
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">{badge}</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">{title}</div>
+      {f'<div class="hero-title-cn">{cn_sub}</div>' if cn_sub else ''}
+      <div class="hero-tags">{cat_chip}</div>
+    </div>
+  </div>
+  {meta_html}
 </div>
 
-<h2>Description / 描述</h2>
-{desc_html}
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body">{desc_html}</div>
+    </div>
+    {f'<div class="card"><div class="card-title"><span class="card-title-sep"></span>Notes<span class="card-title-cn">补充说明</span></div>{body_html}</div>' if body_html else ''}
+  </div>
+  <aside class="detail-sidebar">
+    {modules_html}
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">{show_path}</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>
 """
     doc_path.write_text(html_content, encoding="utf-8")
 
@@ -447,35 +502,69 @@ def write_module_doc(doc_path: Path, info: dict, body: str,
         failure = ""
 
     body_zh = translate_text(body) if translate else ""
+    cls_name = info["class"]
+    rel_path = info.get("rel", "")
+    show_path = rel_path.replace("Engine/Source/", "") if rel_path else "—"
+    mod_type = info.get("module_type") or "Module"
+    deps = info.get("deps", [])
+    badge = (cls_name[:1] or "M").upper()
 
-    def field_html(label: str, value: str) -> str:
-        if not value:
-            return ""
-        return (
-            f'<li><span class="label">{label}</span>'
-            f'<span class="value">{value}</span></li>'
-        )
-
-    info_items = [
-        field_html("文件", f"<code>{info['rel']}</code>"),
-        field_html("基类", f"<code>{info['base']}</code>"),
-        field_html("模块类型", f"<code>{info['module_type']}</code>") if info.get("module_type") else "",
-        field_html("依赖", ", ".join(info["deps"])) if info.get("deps") else "",
-    ]
-    info_items = [i for i in info_items if i]
+    title_attr = cls_name
 
     html_content = f"""---
 layout: default
-title: {info['class']}
+title: {title_attr}
 ---
 
 {failure}
-<h1>{info['class']}</h1>
 
-<div class="info-card">
-  <ul>
-    {"".join(info_items)}
-  </ul>
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge" style="background:linear-gradient(135deg,#8A5CF6 0%,#B08BF9 100%);">
+      <span>{badge}</span>
+    </div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Module / C++ Build Rule</div>
+      <div class="hero-title mono">{cls_name}</div>
+      <div class="hero-tags">
+        <span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>{mod_type}</span>
+        <span class="chip">extends <span class="mono">{info.get("base") or "ModuleRules"}</span></span>
+        <span class="chip">{len(deps)} dependencies</span>
+      </div>
+    </div>
+  </div>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value mono">{mod_type}</div></div>
+    <div class="meta-item"><div class="meta-label">Base</div><div class="meta-value mono">{info.get("base") or "ModuleRules"}</div></div>
+    <div class="meta-item"><div class="meta-label">Dependencies</div><div class="meta-value mono">{len(deps)}</div></div>
+    <div class="meta-item"><div class="meta-label">Language</div><div class="meta-value">C# (Build.cs)</div></div>
+    <div class="meta-item file-col"><div class="meta-label">File</div><div class="file-path mono">{show_path}</div></div>
+  </div>
+</div>
+
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
+      <div class="desc-body">
+{f'<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">{body_zh}</div><div class="lang-content">{body}</div></div>' if body and translate and body_zh and body_zh != body else f'<p>{body}</p>' if body else ''}
+      </div>
+    </div>
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Dependencies ({len(deps)})</div>
+      {''.join(f'<div class="module-item"><span class="dot"></span><span class="name mono">{d}</span></div>' for d in deps) if deps else '<div style="font-size:12px;color:var(--on-surface-variant);">None declared.</div>'}
+    </div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Build rule file</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        <span class="mono">{show_path}</span>
+      </div>
+    </div>
+  </aside>
 </div>
 """
     doc_path.write_text(html_content, encoding="utf-8")
@@ -514,471 +603,876 @@ def update_index(docs_root: Path,
         encoding="utf-8",
     )
 
-    # --- default layout ---
+    # --- default layout (FlClash-inspired: sidebar + topbar) ---
     layout_dir = docs_root / "_layouts"
     layout_dir.mkdir(parents=True, exist_ok=True)
     (layout_dir / "default.html").write_text(
         "<!DOCTYPE html>\n"
-        '<html lang="zh-CN">\n'
+        '<html lang="zh-CN" data-theme="light">\n'
         "<head>\n"
         '  <meta charset="utf-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1">\n'
         "  <title>{{ page.title | default: site.title }}</title>\n"
+        '  <link rel="preconnect" href="https://fonts.googleapis.com">\n'
+        '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+        '  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">\n'
         '  <link rel="stylesheet" href="{{ \'/assets/style.css\' | relative_url }}">\n'
         "</head>\n"
         "<body>\n"
-        '  <header class="site-header">\n'
-        '    <div class="container">\n'
-        '      <a class="site-title" href="{{ \'/\' | relative_url }}">\n'
-        "        UE 插件与模块文档\n"
-        "      </a>\n"
-        '      <div class="header-right">\n'
-        '        <div class="search-box">\n'
-        '          <input type="text" id="searchInput" placeholder="搜索插件或模块..." oninput="filterItems()">\n'
-        '          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">\n'
-        '            <circle cx="11" cy="11" r="8"></circle>\n'
-        '            <path d="m21 21-4.35-4.35"></path>\n'
-        '          </svg>\n'
+        "  <div class=\"app\">\n"
+        "    <!-- Sidebar -->\n"
+        '    <aside class="sidebar" id="sidebar">\n'
+        '      <div class="brand">\n'
+        '        <div class="brand-logo">UE</div>\n'
+        '        <div><div class="brand-text">UE Plugin Docs</div><div class="brand-sub">ue.veyvin.com</div></div>\n'
+        '      </div>\n'
+        '      <div class="nav-group-title">Browse 浏览</div>\n'
+        '      <a class="nav-item" href="{{ \'/\' | relative_url }}">\n'
+        '        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>\n'
+        '        <span>Dashboard</span>\n'
+        '      </a>\n'
+        '      <a class="nav-item" href="{{ \'/\' | relative_url }}#plugins">\n'
+        '        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>\n'
+        '        <span>Plugins <span class="nav-count mono" id="navPlugins">—</span></span>\n'
+        '      </a>\n'
+        '      <a class="nav-item" href="{{ \'/\' | relative_url }}#modules">\n'
+        '        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v3H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>\n'
+        '        <span>Modules <span class="nav-count mono" id="navModules">—</span></span>\n'
+        '      </a>\n'
+        '      <div class="nav-group-title">Actions</div>\n'
+        '      <button class="nav-btn lang-btn" onclick="toggleGlobalLang()" id="langSwitch">\n'
+        '        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>\n'
+        '        <span><span id="langLabel">中文</span> / EN</span>\n'
+        '      </button>\n'
+        '      <div class="sidebar-footer">\n'
+        '        <div class="sidebar-footer-title">Auto-generated</div>\n'
+        '        <div style="display:flex;align-items:center;gap:8px;">\n'
+        '          <span style="width:7px;height:7px;border-radius:50%;background:var(--success);display:inline-block;"></span>\n'
+        '          <span class="sidebar-footer-val mono" style="font-size:13px;">Daily run active</span>\n'
         '        </div>\n'
-        '        <nav class="site-nav">\n'
-        '          <a href="{{ \'/\' | relative_url }}#plugins">插件</a>\n'
-        '          <a href="{{ \'/\' | relative_url }}#modules">模块</a>\n'
-        '        </nav>\n'
-        '        <button class="lang-switch" onclick="toggleGlobalLang()" id="langSwitch">\n'
-        '          中文\n'
+        '        <div class="sidebar-footer-sub">Generated from Unreal Engine source</div>\n'
+        '      </div>\n'
+        "    </aside>\n"
+        "\n"
+        "    <!-- Main -->\n"
+        "    <div class=\"main-wrap\">\n"
+        '      <header class="site-topbar" id="topbar">\n'
+        '        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">\n'
+        '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>\n'
         '        </button>\n'
-        "      </div>\n"
+        '        <div class="topbar-title">{{ page.title | default: site.title }}</div>\n'
+        '        <div class="search">\n'
+        '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--on-surface-variant)"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>\n'
+        '          <input type="text" id="searchInput" placeholder="Search plugins or modules…" oninput="filterItems()">\n'
+        '        </div>\n'
+        '        <button class="icon-btn" onclick="toggleTheme()" aria-label="Theme">\n'
+        '          <svg id="theme-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>\n'
+        '          <svg id="theme-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>\n'
+        '        </button>\n'
+        "      </header>\n"
+        '      <main class="main">\n'
+        "        {{ content }}\n"
+        "      </main>\n"
         "    </div>\n"
-        "  </header>\n"
-        '  <main class="container">\n'
-        "    {{ content }}\n"
-        "  </main>\n"
-        '  <footer class="site-footer">\n'
-        '    <div class="container">\n'
-        "      <p>Auto-generated daily from Unreal Engine source</p>\n"
-        "    </div>\n"
-        "  </footer>\n"
-        '  <script src="{{ \'/assets/main.js\' | relative_url }}"></script>\n'
+        "  </div>\n"
+        "  <script src=\"{{ '/assets/main.js' | relative_url }}\"></script>\n"
         "</body>\n"
         "</html>\n",
         encoding="utf-8",
     )
 
-    # --- Modern CSS ---
+    # --- Design tokens + layout CSS (FlClash-inspired) ---
     assets_dir = docs_root / "assets"
     assets_dir.mkdir(parents=True, exist_ok=True)
-    (assets_dir / "style.css").write_text(
-        ":root{\n"
-        "  --bg:#0d1117;\n"
-        "  --surface:#161b22;\n"
-        "  --surface-2:#21262d;\n"
-        "  --border:#30363d;\n"
-        "  --text:#e6edf3;\n"
-        "  --text-muted:#8b949e;\n"
-        "  --accent:#58a6ff;\n"
-        "  --accent-hover:#79b8ff;\n"
-        "  --success:#3fb950;\n"
-        "  --warning:#d29922;\n"
-        "  --radius:12px;\n"
-        "  --shadow:0 4px 24px rgba(0,0,0,.3);\n"
-        "}\n"
-        "*{box-sizing:border-box;margin:0;padding:0}\n"
-        "html{scroll-behavior:smooth}\n"
-        "body{\n"
-        "  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji';\n"
-        "  background:var(--bg);\n"
-        "  color:var(--text);\n"
-        "  line-height:1.7;\n"
-        "  font-size:15px;\n"
-        "}\n"
-        ".container{max-width:960px;margin:0 auto;padding:0 24px}\n"
-        "\n"
-        "/* Header */\n"
-        ".site-header{\n"
-        "  border-bottom:1px solid var(--border);\n"
-        "  position:sticky;top:0;z-index:100;\n"
-        "  backdrop-filter:blur(12px);\n"
-        "  background:rgba(22,27,34,.85);\n"
-        "}\n"
-        ".site-header .container{\n"
-        "  display:flex;align-items:center;justify-content:space-between;\n"
-        "  height:60px;\n"
-        "}\n"
-        ".site-title{\n"
-        "  font-size:18px;font-weight:700;color:var(--text);\n"
-        "  text-decoration:none;\n"
-        "}\n"
-        ".site-nav a{\n"
-        "  color:var(--text-muted);text-decoration:none;\n"
-        "  margin-left:24px;font-size:14px;\n"
-        "  transition:color .2s;\n"
-        "}\n"
-        ".site-nav a:hover{color:var(--accent)}\n"
-        "\n"
-        ".header-right{\n"
-        "  display:flex;align-items:center;gap:16px;\n"
-        "}\n"
-        "\n"
-        ".search-box{\n"
-        "  position:relative;\n"
-        "  flex-shrink:0;\n"
-        "}\n"
-        ".search-box input{\n"
-        "  width:200px;\n"
-        "  padding:8px 12px 8px 36px;\n"
-        "  background:var(--surface-2);\n"
-        "  border:1px solid var(--border);\n"
-        "  border-radius:8px;\n"
-        "  color:var(--text);\n"
-        "  font-size:14px;\n"
-        "  outline:none;\n"
-        "  transition:border-color .2s,width .2s;\n"
-        "}\n"
-        ".search-box input:focus{\n"
-        "  border-color:var(--accent);\n"
-        "  width:240px;\n"
-        "}\n"
-        ".search-box input::placeholder{\n"
-        "  color:var(--text-muted);\n"
-        "}\n"
-        ".search-icon{\n"
-        "  position:absolute;\n"
-        "  left:10px;top:50%;\n"
-        "  transform:translateY(-50%);\n"
-        "  width:16px;height:16px;\n"
-        "  color:var(--text-muted);\n"
-        "}\n"
-        "\n"
-        ".lang-switch{\n"
-        "  padding:6px 14px;\n"
-        "  background:var(--surface-2);\n"
-        "  border:1px solid var(--border);\n"
-        "  border-radius:8px;\n"
-        "  color:var(--text);\n"
-        "  font-size:13px;\n"
-        "  cursor:pointer;\n"
-        "  transition:all .2s;\n"
-        "}\n"
-        ".lang-switch:hover{\n"
-        "  border-color:var(--accent);\n"
-        "  color:var(--accent);\n"
-        "}\n"
-        "\n"
-        "/* Footer */\n"
-        ".site-footer{\n"
-        "  border-top:1px solid var(--border);\n"
-        "  padding:24px 0;\n"
-        "  background:var(--surface);\n"
-        "}\n"
-        ".site-footer p{color:var(--text-muted);font-size:13px;margin:0}\n"
-        "\n"
-        "/* Main content */\n"
-        "main{padding:40px 0 60px;min-height:calc(100vh - 200px)}\n"
-        "h1{font-size:28px;margin-bottom:8px;font-weight:700}\n"
-        "h2{font-size:22px;margin:32px 0 16px;font-weight:600;padding-bottom:8px;border-bottom:1px solid var(--border)}\n"
-        "h3{font-size:18px;margin:24px 0 12px;font-weight:600}\n"
-        "p{margin-bottom:16px;color:var(--text)}\n"
-        "a{color:var(--accent);text-decoration:none;transition:color .2s}\n"
-        "a:hover{color:var(--accent-hover);text-decoration:underline}\n"
-        "ul{margin-bottom:16px;padding-left:24px}\n"
-        "li{margin-bottom:6px}\n"
-        "\n"
-        "/* Code */\n"
-        "code{\n"
-        "  background:var(--surface-2);\n"
-        "  padding:2px 8px;\n"
-        "  border-radius:6px;\n"
-        "  font-size:13px;\n"
-        "  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;\n"
-        "}\n"
-        "pre{\n"
-        "  background:var(--surface);\n"
-        "  padding:16px;border-radius:var(--radius);\n"
-        "  overflow-x:auto;margin-bottom:16px;\n"
-        "  border:1px solid var(--border);\n"
-        "}\n"
-        "pre code{background:none;padding:0;font-size:13px}\n"
-        "\n"
-        "/* Info card */\n"
-        ".info-card{\n"
-        "  background:var(--surface);\n"
-        "  border:1px solid var(--border);\n"
-        "  border-radius:var(--radius);\n"
-        "  padding:20px;\n"
-        "  margin-bottom:24px;\n"
-        "}\n"
-        ".info-card ul{list-style:none;padding:0;margin:0}\n"
-        ".info-card li{\n"
-        "  padding:6px 0;\n"
-        "  border-bottom:1px solid var(--border);\n"
-        "  display:flex;gap:12px;\n"
-        "}\n"
-        ".info-card li:last-child{border-bottom:none}\n"
-        ".info-card .label{\n"
-        "  color:var(--text-muted);\n"
-        "  min-width:100px;\n"
-        "  flex-shrink:0;\n"
-        "  font-size:14px;\n"
-        "}\n"
-        ".info-card .value{flex:1;word-break:break-all}\n"
-        "\n"
-        "/* Bilingual section */\n"
-        ".bilingual-block{\n"
-        "  background:var(--surface);\n"
-        "  border:1px solid var(--border);\n"
-        "  border-radius:var(--radius);\n"
-        "  margin-bottom:20px;\n"
-        "  overflow:hidden;\n"
-        "}\n"
-        ".bilingual-block .lang-tabs{\n"
-        "  display:flex;\n"
-        "  background:var(--surface-2);\n"
-        "  border-bottom:1px solid var(--border);\n"
-        "}\n"
-        ".bilingual-block .lang-tab{\n"
-        "  padding:8px 20px;\n"
-        "  cursor:pointer;\n"
-        "  font-size:13px;\n"
-        "  color:var(--text-muted);\n"
-        "  border-right:1px solid var(--border);\n"
-        "  transition:all .2s;\n"
-        "}\n"
-        ".bilingual-block .lang-tab:hover{color:var(--text)}\n"
-        ".bilingual-block .lang-tab.active{\n"
-        "  color:var(--accent);\n"
-        "  background:var(--surface);\n"
-        "  font-weight:500;\n"
-        "}\n"
-        ".bilingual-block .lang-content{\n"
-        "  padding:20px;\n"
-        "  display:none;\n"
-        "}\n"
-        ".bilingual-block .lang-content.active{display:block}\n"
-        "\n"
-        "/* Plugin list on index */\n"
-        ".plugin-list{\n"
-        "  list-style:none;\n"
-        "  padding:0;\n"
-        "  display:grid;\n"
-        "  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));\n"
-        "  gap:12px;\n"
-        "}\n"
-        ".plugin-list li{\n"
-        "  margin:0;\n"
-        "  padding:0;\n"
-        "}\n"
-        ".plugin-list a{\n"
-        "  display:block;\n"
-        "  padding:14px 16px;\n"
-        "  background:var(--surface);\n"
-        "  border:1px solid var(--border);\n"
-        "  border-radius:10px;\n"
-        "  color:var(--text);\n"
-        "  font-weight:500;\n"
-        "  transition:all .2s;\n"
-        "}\n"
-        ".plugin-list a:hover{\n"
-        "  border-color:var(--accent);\n"
-        "  background:var(--surface-2);\n"
-        "  text-decoration:none;\n"
-        "  transform:translateY(-1px);\n"
-        "}\n"
-        ".plugin-list .plugin-name{\n"
-        "  font-weight:600;\n"
-        "  font-size:14px;\n"
-        "  margin-bottom:4px;\n"
-        "}\n"
-        ".plugin-list .plugin-desc{\n"
-        "  color:var(--text-muted);\n"
-        "  font-size:12px;\n"
-        "  line-height:1.5;\n"
-        "  display:-webkit-box;\n"
-        "  -webkit-line-clamp:2;\n"
-        "  -webkit-box-orient:vertical;\n"
-        "  overflow:hidden;\n"
-        "}\n"
-        "\n"
-        "/* Page subtitle */\n"
-        ".page-subtitle{\n"
-        "  color:var(--text-muted);\n"
-        "  font-size:15px;\n"
-        "  margin-bottom:24px;\n"
-        "}\n"
-        "\n"
-        "/* Stats */\n"
-        ".stats{\n"
-        "  display:grid;\n"
-        "  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));\n"
-        "  gap:16px;\n"
-        "  margin:24px 0;\n"
-        "}\n"
-        ".stat-card{\n"
-        "  background:var(--surface);\n"
-        "  border:1px solid var(--border);\n"
-        "  border-radius:var(--radius);\n"
-        "  padding:20px;\n"
-        "  text-align:center;\n"
-        "}\n"
-        ".stat-card .num{\n"
-        "  font-size:32px;\n"
-        "  font-weight:700;\n"
-        "  color:var(--accent);\n"
-        "}\n"
-        ".stat-card .label{\n"
-        "  font-size:13px;\n"
-        "  color:var(--text-muted);\n"
-        "  margin-top:4px;\n"
-        "}\n"
-        "\n"
-        "/* Responsive */\n"
-        "@media (max-width:768px){\n"
-        "  .container{padding:0 16px}\n"
-        "  h1{font-size:22px}\n"
-        "  h2{font-size:18px}\n"
-        "  .site-title{font-size:16px}\n"
-        "  .search-box input{width:140px}\n"
-        "  .search-box input:focus{width:180px}\n"
-        "}\n"
-        "@media (max-width:560px){\n"
-        "  .header-right{\n"
-        "    gap:8px;\n"
-        "  }\n"
-        "  .search-box{\n"
-        "    display:none;\n"
-        "  }\n"
-        "  .site-nav a{\n"
-        "    margin-left:12px;\n"
-        "    font-size:13px;\n"
-        "  }\n"
-        "  .lang-switch{\n"
-        "    padding:4px 10px;\n"
-        "    font-size:12px;\n"
-        "  }\n"
-        "  .plugin-list{grid-template-columns:1fr}\n"
-        "}\n",
-        encoding="utf-8",
-    )
+    style_css = f"""
+:root {{
+  /* Light — paper-warm surface system */
+  --page: #F6F4EF;
+  --surface: #F6F4EF;
+  --surface-bright: #FFFFFF;
+  --surface-container: #EFECE4;
+  --surface-container-highest: #E6E3DA;
 
-    # --- JavaScript for language switching and search ---
-    (assets_dir / "main.js").write_text(
-        "// Language tab switching for individual blocks\n"
-        "function switchLang(tabEl) {\n"
-        "  const block = tabEl.closest('.bilingual-block');\n"
-        "  if (!block) return;\n"
-        "  const tabs = block.querySelectorAll('.lang-tab');\n"
-        "  const contents = block.querySelectorAll('.lang-content');\n"
-        "  const idx = Array.from(tabs).indexOf(tabEl);\n"
-        "  tabs.forEach((t, i) => t.classList.toggle('active', i === idx));\n"
-        "  contents.forEach((c, i) => c.classList.toggle('active', i === idx));\n"
-        "}\n"
-        "\n"
-        "// Global language toggle - switches ALL bilingual blocks on the page\n"
-        "let currentLang = 0; // 0 = Chinese, 1 = English\n"
-        "function toggleGlobalLang() {\n"
-        "  currentLang = currentLang === 0 ? 1 : 0;\n"
-        "  const btn = document.getElementById('langSwitch');\n"
-        "  if (btn) {\n"
-        "    btn.textContent = currentLang === 0 ? '中文' : 'English';\n"
-        "  }\n"
-        "  document.querySelectorAll('.bilingual-block').forEach(block => {\n"
-        "    const tabs = block.querySelectorAll('.lang-tab');\n"
-        "    const contents = block.querySelectorAll('.lang-content');\n"
-        "    tabs.forEach((t, i) => t.classList.toggle('active', i === currentLang));\n"
-        "    contents.forEach((c, i) => c.classList.toggle('active', i === currentLang));\n"
-        "  });\n"
-        "}\n"
-        "\n"
-        "// Search/filter functionality for plugin/module lists\n"
-        "function filterItems() {\n"
-        "  const input = document.getElementById('searchInput');\n"
-        "  if (!input) return;\n"
-        "  const query = input.value.toLowerCase().trim();\n"
-        "  const lists = document.querySelectorAll('.plugin-list');\n"
-        "  lists.forEach(list => {\n"
-        "    const items = list.querySelectorAll('li');\n"
-        "    items.forEach(item => {\n"
-        "      const name = item.querySelector('.plugin-name');\n"
-        "      const desc = item.querySelector('.plugin-desc');\n"
-        "      const text = (name ? name.textContent : '') + ' ' + (desc ? desc.textContent : '');\n"
-        "      if (query === '' || text.toLowerCase().includes(query)) {\n"
-        "        item.style.display = 'block';\n"
-        "      } else {\n"
-        "        item.style.display = 'none';\n"
-        "      }\n"
-        "    });\n"
-        "  });\n"
-        "}\n"
-        "\n"
-        "// Initialize\n"
-        "document.addEventListener('DOMContentLoaded', () => {\n"
-        "  filterItems();\n"
-        "});\n"
-        "\n"
-        "// Expose globally\n"
-        "window.switchLang = switchLang;\n"
-        "window.toggleGlobalLang = toggleGlobalLang;\n"
-        "window.filterItems = filterItems;\n",
-        encoding="utf-8",
-    )
+  /* UE-blue seed */
+  --primary: #2F6FEB;
+  --primary-on: #FFFFFF;
+  --secondary: #5C6B7A;
+  --tertiary: #8A6A40;
 
-    # --- Index page with card-style plugin/module lists ---
-    plugin_items = []
+  --on-surface: #1C1B1A;
+  --on-surface-variant: #5C5A55;
+  --outline: #8C8A84;
+
+  --success: #3E8B54;
+  --warning: #C5872A;
+  --error: #C0463A;
+
+  --shadow-soft: 0 1px 2px rgba(28,27,26,0.04),
+                 0 8px 24px rgba(28,27,26,0.06);
+
+  --r-card: 28px;
+  --r-card-sm: 20px;
+  --r-chip: 14px;
+  --r-pill: 999px;
+  --r-icon: 16px;
+}}
+
+[data-theme="dark"] {{
+  --page: #141415;
+  --surface: #141415;
+  --surface-bright: #1E1E20;
+  --surface-container: #252528;
+  --surface-container-highest: #2E2E31;
+
+  --primary: #6E9FFF;
+  --primary-on: #141415;
+  --secondary: #B3BCC6;
+  --tertiary: #E0C59F;
+
+  --on-surface: #E6E1DA;
+  --on-surface-variant: #A8A49D;
+  --outline: #7B7872;
+
+  --success: #7FC890;
+  --warning: #E8B065;
+  --error: #F28B82;
+
+  --shadow-soft: 0 1px 2px rgba(0,0,0,0.30),
+                 0 8px 24px rgba(0,0,0,0.40);
+}}
+
+* {{ box-sizing: border-box; margin: 0; padding: 0; }}
+html {{ scroll-behavior: smooth; }}
+
+body {{
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  background: var(--page);
+  color: var(--on-surface);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+  transition: background 300ms ease, color 300ms ease;
+  min-height: 100vh;
+  line-height: 1.7;
+  font-size: 15px;
+}}
+
+.mono {{ font-family: 'JetBrains Mono', ui-monospace, monospace; font-feature-settings: "tnum"; }}
+
+/* ============= App shell ============= */
+.app {{ display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }}
+
+/* ============= Sidebar ============= */
+.sidebar {{
+  background: var(--surface);
+  border-right: 1px solid rgba(140,138,132,0.12);
+  padding: 24px 16px;
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column; gap: 4px;
+  overflow-y: auto;
+}}
+
+.brand {{ display: flex; align-items: center; gap: 12px; padding: 4px 12px 24px; text-decoration: none; color: inherit; }}
+.brand-logo {{
+  width: 36px; height: 36px;
+  background: var(--primary);
+  border-radius: var(--r-icon);
+  display: grid; place-items: center;
+  color: var(--primary-on);
+  font-weight: 700; font-size: 14px;
+  box-shadow: var(--shadow-soft);
+  flex-shrink: 0;
+}}
+.brand-text {{ font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }}
+.brand-sub {{ font-size: 11px; color: var(--on-surface-variant); margin-top: 2px; }}
+
+.nav-group-title {{
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--on-surface-variant);
+  padding: 16px 12px 6px;
+}}
+
+.nav-item, .nav-btn {{
+  display: flex; align-items: center; gap: 12px;
+  height: 40px; padding: 0 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px; font-family: inherit;
+  color: var(--on-surface);
+  background: transparent; border: none;
+  text-decoration: none;
+  position: relative;
+  transition: background 200ms ease, transform 150ms ease;
+  text-align: left; width: 100%;
+}}
+.nav-item:hover, .nav-btn:hover {{ background: rgba(140,138,132,0.08); }}
+.nav-item.active {{ background: rgba(47,111,235,0.10); color: var(--primary); font-weight: 500; }}
+.nav-item.active::before {{
+  content: ''; position: absolute; left: 4px; top: 12px; bottom: 12px;
+  width: 3px; background: var(--primary); border-radius: 3px;
+}}
+.nav-icon {{ width: 20px; height: 20px; flex-shrink: 0; }}
+.nav-count {{ margin-left: auto; font-size: 12px; color: var(--on-surface-variant); }}
+
+.lang-btn {{ margin-top: 6px; }}
+.lang-btn:hover {{ color: var(--primary); }}
+
+.sidebar-footer {{ margin-top: auto; background: var(--surface-container); border-radius: var(--r-card-sm); padding: 14px 16px; }}
+.sidebar-footer-title {{ font-size: 11px; font-weight: 600; color: var(--on-surface-variant); margin-bottom: 8px; letter-spacing: 0.06em; text-transform: uppercase; }}
+.sidebar-footer-val {{ font-weight: 600; }}
+.sidebar-footer-sub {{ font-size: 11px; color: var(--on-surface-variant); margin-top: 4px; }}
+
+/* ============= Main ============= */
+.main-wrap {{ display: flex; flex-direction: column; min-width: 0; }}
+
+.site-topbar {{
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--page) 85%, transparent);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid rgba(140,138,132,0.10);
+  padding: 14px 40px;
+  display: flex; align-items: center; gap: 16px;
+}}
+
+.sidebar-toggle {{
+  display: none;
+  width: 40px; height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--surface-container);
+  border: none; cursor: pointer;
+  color: var(--on-surface);
+}}
+
+.topbar-title {{
+  font-size: 18px; font-weight: 600; letter-spacing: -0.015em;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  flex: 1; min-width: 0;
+}}
+
+.search {{
+  flex: 1; max-width: 440px;
+  height: 40px;
+  background: var(--surface-bright);
+  border-radius: var(--r-pill);
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 16px;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 200ms ease;
+}}
+.search:focus-within {{ box-shadow: 0 0 0 3px rgba(47,111,235,0.20), var(--shadow-soft); }}
+.search input {{
+  flex: 1; border: none; outline: none; background: transparent;
+  font-size: 14px; color: var(--on-surface); font-family: inherit;
+}}
+.search input::placeholder {{ color: var(--on-surface-variant); }}
+
+.icon-btn {{
+  width: 40px; height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--surface-bright);
+  border: none; cursor: pointer;
+  color: var(--on-surface);
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-soft);
+  transition: transform 150ms ease;
+}}
+.icon-btn:hover {{ transform: scale(1.04); }}
+
+.main {{ padding: 32px 40px 80px; max-width: 1280px; width: 100%; margin: 0 auto; }}
+
+/* ============= Page content ============= */
+h1 {{ font-size: 34px; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 8px; line-height: 1.2; }}
+h2 {{ font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 40px 0 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(140,138,132,0.12); }}
+h3 {{ font-size: 16px; font-weight: 600; margin: 24px 0 10px; }}
+p {{ margin-bottom: 16px; color: var(--on-surface); }}
+a {{ color: var(--primary); text-decoration: none; transition: color 150ms ease; }}
+a:hover {{ text-decoration: underline; }}
+ul {{ margin-bottom: 16px; padding-left: 0; list-style: none; }}
+ul li {{ margin-bottom: 6px; position: relative; padding-left: 18px; }}
+ul li::before {{
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 6px; height: 6px; background: var(--primary); border-radius: 50%;
+}}
+
+code {{
+  background: var(--surface-container);
+  padding: 2px 7px; border-radius: 6px;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}}
+pre {{
+  background: var(--surface-container);
+  padding: 16px 20px; border-radius: var(--r-card-sm);
+  overflow-x: auto; margin-bottom: 16px;
+}}
+pre code {{ background: none; padding: 0; font-size: 13px; }}
+
+/* ============= Stat cards (index) ============= */
+.stats {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }}
+.stat-card {{
+  background: var(--surface-bright);
+  border-radius: var(--r-card);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}}
+.stat-card-accent-bar {{
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--primary); border-radius: 4px 0 0 4px;
+}}
+.stat-card-label {{
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--on-surface-variant); margin-bottom: 8px;
+}}
+.stat-card-value {{
+  font-size: 34px; font-weight: 700;
+  letter-spacing: -0.03em; color: var(--on-surface); line-height: 1;
+}}
+.stat-card-sub {{ font-size: 12px; color: var(--on-surface-variant); margin-top: 6px; }}
+
+/* ============= Filters ============= */
+.filters {{ display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }}
+.filters-spacer {{ flex: 1; }}
+
+.segmented {{ display: inline-flex; background: var(--surface-container); border-radius: var(--r-pill); padding: 4px; gap: 2px; }}
+.segmented button {{
+  border: none; background: transparent;
+  padding: 8px 18px; font-size: 13px; font-weight: 500;
+  border-radius: var(--r-pill); cursor: pointer;
+  color: var(--on-surface-variant); font-family: inherit;
+  transition: background 200ms ease, color 200ms ease;
+}}
+.segmented button.active {{
+  background: var(--surface-bright); color: var(--on-surface); box-shadow: var(--shadow-soft);
+}}
+
+/* ============= Plugin grid ============= */
+.grid {{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}}
+.grid.filter-hidden {{ display: none; }}
+
+.plugin-card {{
+  background: var(--surface-bright);
+  border-radius: var(--r-card);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms ease;
+  position: relative;
+  display: flex; flex-direction: column; gap: 14px;
+  color: inherit; text-decoration: none;
+}}
+.plugin-card:hover {{
+  transform: translateY(-2px);
+  box-shadow: 0 1px 2px rgba(28,27,26,0.05), 0 14px 36px rgba(28,27,26,0.10);
+}}
+
+.plugin-head {{ display: flex; align-items: flex-start; gap: 14px; }}
+.plugin-badge {{
+  width: 46px; height: 46px;
+  border-radius: var(--r-icon);
+  background: var(--surface-container);
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  font-weight: 700; font-size: 16px;
+  letter-spacing: -0.02em; color: var(--primary);
+}}
+.plugin-title-area {{ flex: 1; min-width: 0; }}
+.plugin-name {{ font-size: 15px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }}
+.plugin-desc {{
+  font-size: 13px; color: var(--on-surface-variant); margin-top: 2px; line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}}
+.plugin-tags {{ display: flex; flex-wrap: wrap; gap: 6px; }}
+
+.tag {{
+  font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: var(--r-pill);
+  background: var(--surface-container); color: var(--on-surface-variant);
+}}
+.tag-primary {{ background: rgba(47,111,235,0.12); color: var(--primary); }}
+.tag-success {{ background: rgba(62,139,84,0.14); color: var(--success); }}
+.tag-warning {{ background: rgba(197,135,42,0.14); color: var(--warning); }}
+
+.plugin-foot {{
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px; border-top: 1px solid rgba(140,138,132,0.12);
+  font-size: 11px; color: var(--on-surface-variant);
+}}
+.plugin-foot .file {{
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: 10px;
+}}
+.plugin-foot .ver {{
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 500; padding: 2px 10px;
+  background: var(--surface-container); border-radius: var(--r-pill);
+}}
+
+/* ============= Detail Hero ============= */
+.hero {{
+  background: var(--surface-bright);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-soft);
+  padding: 32px 36px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}}
+.hero::before {{
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(47,111,235,0.14) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}}
+.hero-top {{ display: flex; align-items: flex-start; gap: 24px; }}
+.hero-badge {{
+  width: 72px; height: 72px;
+  border-radius: var(--r-icon);
+  background: linear-gradient(135deg, #2F6FEB 0%, #5B8DF5 100%);
+  display: grid; place-items: center;
+  color: white; font-weight: 700; font-size: 28px; letter-spacing: -0.03em;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(47,111,235,0.25);
+}}
+.hero-info {{ flex: 1; min-width: 0; }}
+.hero-subtitle {{
+  font-size: 12px; font-weight: 500;
+  color: var(--on-surface-variant); letter-spacing: 0.04em; text-transform: uppercase;
+  margin-bottom: 4px;
+}}
+.hero-title {{ font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }}
+.hero-title-cn {{ font-size: 14px; font-weight: 400; color: var(--on-surface-variant); margin-top: 4px; margin-bottom: 14px; }}
+.hero-tags {{ display: flex; flex-wrap: wrap; gap: 8px; }}
+
+.chip {{
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 500;
+  padding: 5px 14px; border-radius: var(--r-pill);
+  background: var(--surface-container); color: var(--on-surface-variant);
+}}
+.chip-primary {{ background: rgba(47,111,235,0.12); color: var(--primary); }}
+.chip-success {{ background: rgba(62,139,84,0.14); color: var(--success); }}
+.chip-warning {{ background: rgba(197,135,42,0.14); color: var(--warning); }}
+
+.meta-grid {{
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  margin-top: 24px; padding-top: 20px;
+  border-top: 1px solid rgba(140,138,132,0.12);
+}}
+.meta-item {{
+  background: var(--surface-container);
+  border-radius: var(--r-card-sm);
+  padding: 12px 14px;
+  grid-column: span 1;
+}}
+.meta-item.file-col {{ grid-column: span 4; }}
+.meta-label {{
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--on-surface-variant); margin-bottom: 4px;
+}}
+.meta-value {{ font-size: 14px; font-weight: 500; color: var(--on-surface); word-break: break-all; }}
+
+.file-path {{
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px; padding: 10px 14px;
+  background: var(--surface-container-highest);
+  border-radius: var(--r-card-sm);
+  color: var(--on-surface);
+  word-break: break-all; line-height: 1.55;
+}}
+
+/* ============= Content card (detail) ============= */
+.content-grid {{ display: grid; grid-template-columns: 1fr 340px; gap: 24px; }}
+.card {{
+  background: var(--surface-bright);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-soft);
+  padding: 26px 30px;
+  margin-bottom: 24px;
+}}
+.card-title {{
+  font-size: 18px; font-weight: 700; letter-spacing: -0.015em;
+  display: flex; align-items: baseline; gap: 10px;
+  margin-bottom: 14px;
+}}
+.card-title-sep {{
+  width: 3px; height: 18px; background: var(--primary); border-radius: 2px; flex-shrink: 0; margin-right: 4px;
+}}
+.card-title-cn {{ font-size: 13px; font-weight: 400; color: var(--on-surface-variant); }}
+
+.desc-body p {{ margin-bottom: 14px; line-height: 1.75; }}
+.desc-body p:last-child {{ margin-bottom: 0; }}
+
+.detail-sidebar {{ display: flex; flex-direction: column; gap: 16px; align-self: start; }}
+
+.sidebar-card {{
+  background: var(--surface-bright);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-soft);
+  padding: 20px 22px;
+}}
+.sidebar-card-title {{
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--on-surface-variant);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}}
+
+.module-item {{
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 12px; margin-bottom: 6px;
+  background: var(--surface-container);
+  border-radius: var(--r-card-sm);
+  font-size: 13px;
+}}
+.module-item:last-child {{ margin-bottom: 0; }}
+.module-item .dot {{ width: 7px; height: 7px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }}
+.module-item .name {{ flex: 1; font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+.module-item .tag {{
+  font-size: 10px; font-weight: 600; padding: 2px 8px;
+  border-radius: var(--r-pill); background: var(--surface-bright); color: var(--on-surface-variant);
+}}
+.module-item .tag.runtime {{ color: var(--success); }}
+.module-item .tag.editor {{ color: var(--warning); }}
+
+/* ============= Bilingual ============= */
+.bilingual-block {{
+  background: var(--surface-container);
+  border-radius: var(--r-card-sm);
+  margin-bottom: 16px; overflow: hidden;
+}}
+.bilingual-block .lang-tabs {{
+  display: flex;
+  background: var(--surface-container-highest);
+  border-bottom: 1px solid rgba(140,138,132,0.10);
+}}
+.bilingual-block .lang-tab {{
+  padding: 8px 22px; cursor: pointer;
+  font-size: 13px; color: var(--on-surface-variant);
+  border: none; background: transparent; font-family: inherit;
+  transition: color 150ms ease;
+}}
+.bilingual-block .lang-tab:hover {{ color: var(--on-surface); }}
+.bilingual-block .lang-tab.active {{ color: var(--primary); font-weight: 600; position: relative; }}
+.bilingual-block .lang-tab.active::after {{
+  content: ''; position: absolute; bottom: 0; left: 18px; right: 18px;
+  height: 2px; background: var(--primary); border-radius: 2px;
+}}
+.bilingual-block .lang-content {{ padding: 18px 22px; display: none; line-height: 1.7; font-size: 15px; color: var(--on-surface); }}
+.bilingual-block .lang-content.active {{ display: block; }}
+
+/* ============= Responsive ============= */
+@media (max-width: 1100px) {{
+  .app {{ grid-template-columns: 1fr; }}
+  .sidebar {{ position: fixed; left: 0; top: 0; bottom: 0; z-index: 200; transform: translateX(-100%); transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1); }}
+  .sidebar.open {{ transform: translateX(0); }}
+  .sidebar-toggle {{ display: grid; }}
+  .content-grid {{ grid-template-columns: 1fr; }}
+  .stats {{ grid-template-columns: repeat(2, 1fr); }}
+}}
+@media (max-width: 720px) {{
+  .site-topbar {{ padding: 12px 20px; }}
+  .main {{ padding: 24px 20px 64px; }}
+  .hero {{ padding: 24px 22px; }}
+  .hero-top {{ flex-direction: column; }}
+  .hero-badge {{ width: 56px; height: 56px; font-size: 22px; }}
+  .hero-title {{ font-size: 24px; }}
+  .meta-grid {{ grid-template-columns: 1fr 1fr; }}
+  .meta-item.file-col {{ grid-column: span 2; }}
+  .stats {{ grid-template-columns: 1fr 1fr; }}
+  .stat-card-value {{ font-size: 28px; }}
+  .grid {{ grid-template-columns: 1fr; }}
+  .topbar-title {{ display: none; }}
+  .card {{ padding: 20px; }}
+}}
+
+@media (prefers-reduced-motion: reduce) {{
+  * {{ transition: none !important; animation: none !important; }}
+}}
+"""
+    (assets_dir / "style.css").write_text(style_css, encoding="utf-8")
+
+    # --- JavaScript: theme, language, search, sidebar toggle ---
+    main_js = """
+// ===== Theme toggle (persists in localStorage) =====
+(function() {
+  var body = document.body;
+  var stored = localStorage.getItem('ue-theme');
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var initial = stored || (prefersDark ? 'dark' : 'light');
+  body.setAttribute('data-theme', initial);
+
+  function syncThemeIcons() {
+    var suns = document.querySelectorAll('#theme-sun, #ft-sun');
+    var moons = document.querySelectorAll('#theme-moon, #ft-moon');
+    var isDark = body.getAttribute('data-theme') === 'dark';
+    suns.forEach(function(el) { if (el) el.style.display = isDark ? 'none' : 'block'; });
+    moons.forEach(function(el) { if (el) el.style.display = isDark ? 'block' : 'none'; });
+  }
+  syncThemeIcons();
+
+  window.toggleTheme = function() {
+    var isDark = body.getAttribute('data-theme') === 'dark';
+    var next = isDark ? 'light' : 'dark';
+    body.setAttribute('data-theme', next);
+    localStorage.setItem('ue-theme', next);
+    syncThemeIcons();
+  };
+})();
+
+// ===== Bilingual toggle =====
+function switchLang(tabEl) {
+  var block = tabEl.closest('.bilingual-block');
+  if (!block) return;
+  var tabs = block.querySelectorAll('.lang-tab');
+  var contents = block.querySelectorAll('.lang-content');
+  var idx = Array.from(tabs).indexOf(tabEl);
+  tabs.forEach(function(t, i) { t.classList.toggle('active', i === idx); });
+  contents.forEach(function(c, i) { c.classList.toggle('active', i === idx); });
+}
+
+var currentLang = 0;
+function toggleGlobalLang() {
+  currentLang = currentLang === 0 ? 1 : 0;
+  var label = document.getElementById('langLabel');
+  if (label) label.textContent = currentLang === 0 ? '中文' : 'English';
+  document.querySelectorAll('.bilingual-block').forEach(function(block) {
+    var tabs = block.querySelectorAll('.lang-tab');
+    var contents = block.querySelectorAll('.lang-content');
+    tabs.forEach(function(t, i) { t.classList.toggle('active', i === currentLang); });
+    contents.forEach(function(c, i) { c.classList.toggle('active', i === currentLang); });
+  });
+}
+
+// ===== Search / filter =====
+function filterItems() {
+  var input = document.getElementById('searchInput');
+  if (!input) return;
+  var query = input.value.toLowerCase().trim();
+  document.querySelectorAll('.grid').forEach(function(grid) {
+    grid.querySelectorAll('.plugin-card').forEach(function(card) {
+      var text = card.textContent.toLowerCase();
+      card.style.display = (query === '' || text.indexOf(query) !== -1) ? '' : 'none';
+    });
+  });
+  document.querySelectorAll('.plugin-list').forEach(function(list) {
+    list.querySelectorAll('li').forEach(function(li) {
+      var text = li.textContent.toLowerCase();
+      li.style.display = (query === '' || text.indexOf(query) !== -1) ? '' : 'none';
+    });
+  });
+}
+
+// ===== Sidebar toggle (mobile) =====
+(function() {
+  var btn = document.getElementById('sidebarToggle');
+  var sb = document.getElementById('sidebar');
+  if (btn && sb) {
+    btn.addEventListener('click', function() { sb.classList.toggle('open'); });
+    document.addEventListener('click', function(e) {
+      if (sb.classList.contains('open') && !sb.contains(e.target) && e.target !== btn) {
+        sb.classList.remove('open');
+      }
+    });
+  }
+})();
+
+// ===== Nav highlight (simple: match path) =====
+(function() {
+  var path = location.pathname;
+  document.querySelectorAll('.nav-item').forEach(function(item) {
+    var href = item.getAttribute('href');
+    if (!href) return;
+    if (href === './' && (path === '/' || path === '' || path.endsWith('/index.html'))) {
+      item.classList.add('active');
+    } else if (href !== './' && path.indexOf(href.replace('./', '/')) !== -1) {
+      item.classList.add('active');
+    }
+  });
+})();
+
+window.switchLang = switchLang;
+window.toggleGlobalLang = toggleGlobalLang;
+window.filterItems = filterItems;
+window.toggleTheme = window.toggleTheme || function() {};
+
+document.addEventListener('DOMContentLoaded', function() { filterItems(); });
+"""
+    (assets_dir / "main.js").write_text(main_js, encoding="utf-8")
+
+    # --- Index page: stat cards + grid with filters (FlClash-inspired) ---
+    # Category stats
+    cat_counts: dict[str, int] = {}
+    for p in plugins:
+        c = (p.get("category") or "Uncategorized").strip()
+        cat_counts[c] = cat_counts.get(c, 0) + 1
+    categories_sorted = sorted(cat_counts.items(), key=lambda x: -x[1])
+
+    # Plugin cards — badge, name, desc, category chip, version, filename
+    plugin_cards = []
     order_p = sorted(range(len(plugins)), key=lambda i: plugins[i]["name"].lower())
     for i in order_p:
         slug = plugin_slugs[i]
         p = plugins[i]
         desc = (p.get("description") or "").strip()
-        if len(desc) > 120:
-            desc = desc[:117] + "..."
-        plugin_items.append(
-            f'  <li><a href="plugins/{slug}.html">'
+        if len(desc) > 140:
+            desc = desc[:137] + "…"
+        badge = (p["name"][:1] or "U").upper()
+        category = p.get("category") or ""
+        version = p.get("version") or "—"
+        rel_path = p.get("path", "")
+        show_path = rel_path.replace("Engine/", "") if rel_path else "—"
+        plugin_cards.append(
+            f'<a class="plugin-card" href="plugins/{slug}.html" data-cat="{category}">'
+            f'<div class="plugin-head">'
+            f'<div class="plugin-badge">{badge}</div>'
+            f'<div class="plugin-title-area">'
             f'<div class="plugin-name">{p["name"]}</div>'
             f'<div class="plugin-desc">{desc or "—"}</div>'
-            f"</a></li>"
+            f'</div></div>'
+            f'<div class="plugin-tags">'
+            f'<span class="tag tag-primary">{category or "Uncategorized"}</span>'
+            f'</div>'
+            f'<div class="plugin-foot">'
+            f'<span class="file mono">{show_path}</span>'
+            f'<span class="ver mono">{version}</span>'
+            f'</div></a>'
         )
 
-    module_items = []
+    # Module cards — same grid style
+    module_cards = []
     order_m = sorted(range(len(modules)), key=lambda i: modules[i]["class"].lower())
     for i in order_m:
         slug = module_slugs[i]
         m = modules[i]
+        badge = (m["class"][:1] or "M").upper()
         deps = m.get("deps", [])
-        dep_str = f"{len(deps)} 个依赖" if deps else "无依赖"
-        module_items.append(
-            f'  <li><a href="modules/{slug}.html">'
-            f'<div class="plugin-name">{m["class"]}</div>'
-            f'<div class="plugin-desc">{dep_str}</div>'
-            f"</a></li>"
+        mod_type = m.get("module_type") or "Module"
+        rel_path = m.get("rel", "")
+        show_path = rel_path.replace("Engine/Source/", "") if rel_path else "—"
+        module_cards.append(
+            f'<a class="plugin-card" href="modules/{slug}.html">'
+            f'<div class="plugin-head">'
+            f'<div class="plugin-badge" style="background:rgba(138,92,246,0.12);color:#8A5CF6;">{badge}</div>'
+            f'<div class="plugin-title-area">'
+            f'<div class="plugin-name mono">{m["class"]}</div>'
+            f'<div class="plugin-desc">{len(deps)} dependencies · {mod_type}</div>'
+            f'</div></div>'
+            f'<div class="plugin-foot">'
+            f'<span class="file mono">{show_path}</span>'
+            f'<span class="ver mono">{mod_type}</span>'
+            f'</div></a>'
         )
+
+    # Category filter chips (top 8 + "其他")
+    cat_filters_html = ''.join(
+        f'<button class="chip-filter" data-cat="{c}"><span class="dot"></span>{c} <span style="opacity:.65;">({n})</span></button>'
+        for c, n in categories_sorted[:8]
+    )
+
+    top_cats = categories_sorted[0][0] if categories_sorted else "Plugins"
 
     index_html = f"""---
 layout: default
-title: Unreal Engine 插件与模块文档
+title: Unreal Engine Plugin Docs / 插件与模块
 ---
 
-<h1>Unreal Engine 插件与模块文档</h1>
-<p class="page-subtitle">自动生成的虚幻引擎插件和模块参考文档，中英文对照</p>
+<div class="page-title-wrap" style="margin-bottom:24px;">
+  <h1 style="font-size:28px;letter-spacing:-0.02em;margin-bottom:4px;">Unreal Engine 插件与模块</h1>
+  <p style="color:var(--on-surface-variant);font-size:14px;">自动生成的虚幻引擎 <span class="mono">{len(plugins)}</span> 个插件 · <span class="mono">{len(modules)}</span> 个模块，按源码每日更新</p>
+</div>
 
+<!-- Stat cards row (4 columns) -->
 <div class="stats">
-  <div class="stat-card">
-    <div class="num">{len(plugins)}</div>
-    <div class="label">插件 Plugins</div>
+  <div class="stat-card plugins">
+    <div class="stat-card-accent-bar"></div>
+    <div class="stat-card-label">Plugins / 插件</div>
+    <div class="stat-card-value mono">{len(plugins):,}</div>
+    <div class="stat-card-sub">{min(len(categories_sorted), 22)} categories · Top: {top_cats}</div>
   </div>
-  <div class="stat-card">
-    <div class="num">{len(modules)}</div>
-    <div class="label">模块 Modules</div>
+  <div class="stat-card modules">
+    <div class="stat-card-accent-bar" style="background:#8A5CF6;"></div>
+    <div class="stat-card-label">Modules / 模块</div>
+    <div class="stat-card-value mono">{len(modules):,}</div>
+    <div class="stat-card-sub">Build rules · C++</div>
+  </div>
+  <div class="stat-card categories">
+    <div class="stat-card-accent-bar" style="background:#3E8B54;"></div>
+    <div class="stat-card-label">Categories / 分类</div>
+    <div class="stat-card-value mono">{len(categories_sorted)}</div>
+    <div class="stat-card-sub">Rendering · VFX · Animation…</div>
+  </div>
+  <div class="stat-card engine">
+    <div class="stat-card-accent-bar" style="background:#C5872A;"></div>
+    <div class="stat-card-label">Engine</div>
+    <div class="stat-card-value mono" style="font-size:22px;">UE nightly</div>
+    <div class="stat-card-sub">Auto-synced daily</div>
   </div>
 </div>
 
-<h2 id="plugins">插件 Plugins</h2>
-<ul class="plugin-list">
-{"".join(plugin_items)}
-</ul>
+<!-- Plugins section -->
+<h2 id="plugins" style="font-size:22px;margin-top:36px;">Plugins / 插件</h2>
+<div class="filters">
+  <div class="segmented">
+    <button class="active" onclick="switchGridFilter(this, 'plugins')">All</button>
+    <button onclick="switchGridFilter(this, 'plugins-rendering')">Rendering</button>
+    <button onclick="switchGridFilter(this, 'plugins-vfx')">FX</button>
+    <button onclick="switchGridFilter(this, 'plugins-anim')">Animation</button>
+    <button onclick="switchGridFilter(this, 'plugins-vp')">Virtual Production</button>
+  </div>
+  <div class="filters-spacer"></div>
+</div>
+<div id="grid-plugins" class="grid">
+{''.join(plugin_cards)}
+</div>
 
-<h2 id="modules">模块 Modules</h2>
-<ul class="plugin-list">
-{"".join(module_items)}
-</ul>
+<!-- Modules section -->
+<h2 id="modules" style="font-size:22px;margin-top:48px;">Modules / 模块</h2>
+<p style="color:var(--on-surface-variant);font-size:13px;margin:-4px 0 16px;">C++ Build rules discovered from <span class="mono">Engine/Source/**/*.Build.cs</span></p>
+<div id="grid-modules" class="grid">
+{''.join(module_cards)}
+</div>
+
+<script>
+// Grid filter by category (simple: show/hide by data-cat attribute)
+function switchGridFilter(btn, group) {{
+  document.querySelectorAll('.segmented').forEach(function(seg) {{
+    if (seg === btn.parentElement) {{
+      seg.querySelectorAll('button').forEach(function(b) {{ b.classList.remove('active'); }});
+      btn.classList.add('active');
+    }}
+  }});
+  var grid = document.getElementById('grid-' + group.split('-')[0]);
+  if (!grid) return;
+  var targetCat = btn.getAttribute('data-cat');
+  grid.querySelectorAll('.plugin-card').forEach(function(card) {{
+    if (group === 'plugins' || group.startsWith('plugins-')) {{
+      var cat = card.getAttribute('data-cat') || '';
+      if (btn.textContent === 'All' || card.id === '__dummy__') {{ card.style.display = ''; return; }}
+      // Map simplified group -> UE category substrings
+      var show = false;
+      if (group === 'plugins-rendering') show = cat.toLowerCase().indexOf('render') !== -1;
+      else if (group === 'plugins-vfx') show = cat.toLowerCase().indexOf('fx') !== -1 || cat.toLowerCase().indexOf('vfx') !== -1;
+      else if (group === 'plugins-anim') show = cat.toLowerCase().indexOf('anim') !== -1;
+      else if (group === 'plugins-vp') show = cat.toLowerCase().indexOf('virtual') !== -1 || cat.toLowerCase().indexOf('production') !== -1;
+      else show = true;
+      card.style.display = show ? '' : 'none';
+    }}
+  }});
+}}
+// Make switchGridFilter globally accessible
+window.switchGridFilter = switchGridFilter;
+</script>
 """
     (docs_root / "index.md").write_text(index_html, encoding="utf-8")
 
