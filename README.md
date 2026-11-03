@@ -17,7 +17,6 @@ This repository automates the generation of documentation for Unreal Engine plug
 - **GitHub Actions** for static discovery — plugin/module catalog pages, no AI in CI
 - **Google Translate** for Chinese translations
 - **Local backend AI** (any OpenAI-compatible API, configured in backend Settings) for《使用方法》(usage) docs, batch-generated on demand
-- **Epic Developer Assistant** (Playwright) for detailed AI descriptions — currently paused
 
 ### 🏗️ Architecture
 
@@ -30,16 +29,11 @@ This repository automates the generation of documentation for Unreal Engine plug
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │  Public Repo: veyvin/ue6pages (this one)                       │
-│  ├── Generate & Deploy UE Docs (daily 07:00 UTC)               │
-│  │   ├─ Pull UE source (sparse checkout)                       │
-│  │   ├─ Generate plugin/module static docs (no AI)             │
-│  │   ├─ Translate to Chinese                                   │
-│  │   └── Deploy to GitHub Pages                                │
-│  │                                                              │
-│  └── UE AI Plugin Describer (daily 01:00 UTC)                  │
-│      ├─ 5 parallel jobs (Playwright + Epic Developer Assistant)│
-│      ├─ Max 4 hours per job                                    │
-│      └── Round-robin distribution                              │
+│  └── Generate & Deploy UE Docs (daily 07:00 UTC)               │
+│      ├─ Pull UE source (sparse checkout)                       │
+│      ├─ Generate plugin/module static docs (no AI)             │
+│      ├─ Translate to Chinese                                   │
+│      └── Deploy to GitHub Pages                                │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -67,7 +61,6 @@ your OpenAI-compatible endpoint in the frontend Settings page, then use
 **Manual Trigger Options**
 
 - **Generate & Deploy UE Docs**: `force_regenerate`, `seed_from_private`
-- **UE AI Plugin Describer**: `count`, `dry_run`
 
 ### 🚀 Getting Started
 
@@ -81,7 +74,6 @@ your OpenAI-compatible endpoint in the frontend Settings page, then use
 | Workflow | Parallel | Time Limit | Daily Capacity |
 |----------|----------|-----------|---------------|
 | Generate UE Docs | 8 threads | 6h | ~1800 docs |
-| UE AI Describer | 5 jobs | 4h/job | ~350-600 descriptions |
 
 ---
 
@@ -94,7 +86,6 @@ your OpenAI-compatible endpoint in the frontend Settings page, then use
 - **后端 AI（任意 OpenAI-compatible API，在前端设置页配置）** 批量生成《使用方法》文档
 - **Google Translate** 用于中文翻译
 - **GitHub Actions** 每日自动跑静态发现（CI 不调用任何 AI）
-- **Epic Developer Assistant**（Playwright）用于详细 AI 描述 —— 当前已暂停
 
 ### 🏗️ 架构
 
@@ -107,16 +98,11 @@ your OpenAI-compatible endpoint in the frontend Settings page, then use
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │  公有仓库: veyvin/ue6pages (本仓库)                             │
-│  ├── Generate & Deploy UE Docs (每日 07:00 UTC)                 │
-│  │   ├─ 拉取 UE 源码 (sparse checkout)                         │
-│  │   ├─ 静态生成插件/模块目录（无 AI）                       │
-│  │   ├─ 翻译为中文                                             │
-│  │   └── 部署到 GitHub Pages                                   │
-│  │                                                              │
-│  └── UE AI Plugin Describer (每日 01:00 UTC)                   │
-│      ├─ 5 个并行 job (Playwright + Epic Developer Assistant)    │
-│      ├─ 每个 job 最长 4 小时                                    │
-│      └── 轮询分配                                               │
+│  └── Generate & Deploy UE Docs (每日 07:00 UTC)                 │
+│      ├─ 拉取 UE 源码 (sparse checkout)                         │
+│      ├─ 静态生成插件/模块目录（无 AI）                       │
+│      ├─ 翻译为中文                                             │
+│      └── 部署到 GitHub Pages                                   │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -143,7 +129,6 @@ OpenAI-compatible 接口，然后使用「AI 批量生成」。
 **手动触发选项**
 
 - **Generate & Deploy UE Docs**: `force_regenerate`（强制重新生成）, `seed_from_private`（从私有仓库初始化）
-- **UE AI Plugin Describer**: `count`（数量限制）, `dry_run`（预览模式）
 
 ### 🚀 快速开始
 
@@ -157,7 +142,6 @@ OpenAI-compatible 接口，然后使用「AI 批量生成」。
 | Workflow | 并行数 | 时间限制 | 每日处理能力 |
 |----------|--------|---------|-------------|
 | Generate UE Docs | 8 线程 | 6 小时 | ~1800 文档 |
-| UE AI Describer | 5 个 job | 4 小时/job | ~350-600 描述 |
 
 ---
 
@@ -165,15 +149,9 @@ OpenAI-compatible 接口，然后使用「AI 批量生成」。
 
 ```
 ├── .github/workflows/
-│   ├── generate-ue-docs.yml    # Main doc generation workflow
-│   └── ue-ai-describer.yml     # AI description enhancement
+│   └── generate-ue-docs.yml    # Main doc generation workflow
 ├── scripts/
 │   ├── generate_docs.py        # Python doc generator
-│   ├── ue-ai-describer/        # Node.js Playwright scripts
-│   │   ├── index.js            # Main entry
-│   │   ├── scanner.js          # Markdown file scanner
-│   │   ├── ue-ai-client.js     # Playwright AI client
-│   │   └── package.json
 │   └── sync-and-deploy-minimal.yml  # Private repo workflow reference
 └── README.md
 ```
