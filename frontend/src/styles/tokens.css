@@ -1,0 +1,135 @@
+/* =======================================================================
+   FlClash-inspired design tokens
+   - Material You 表面色阶（4 级，无硬边框、靠色差分层）
+   - 连续曲率超椭圆 (squircle) 圆角
+   - 暖低饱和纸感底色（chroma ≈ 2–3 的中性色）
+   - 所有字号、间距都集中在这里
+   ======================================================================= */
+
+:root {
+  /* ----- 主色种子 ----- */
+  --primary:        #2F6FEB;   /* UE 蓝 */
+  --primary-hover:  #3C7BF7;
+  --primary-soft:   rgba(47, 111, 235, 0.10);
+
+  /* ----- 语义 ----- */
+  --success: #2FAE6B;
+  --warning: #C5872A;
+  --error:   #D94848;
+  --info:    #6E7D99;
+
+  /* ----- 表面（浅色模式 / 纸感） ----- */
+  /* surface (page) → surfaceContainer → surfaceContainerHigh → surfaceContainerHighest */
+  --surface:                 #F6F4EF;   /* 页面底色 暖灰 */
+  --surface-dim:             #EEEBE5;   /* 最底层 */
+  --surface-bright:          #FFFFFF;   /* 卡片：近白（表面光） */
+  --surface-container:       #F1EEE7;   /* 卡片内嵌块：深一档 */
+  --surface-container-high:  #E7E4DB;   /* 更深一档 */
+  --surface-container-highest: #DDD9CF; /* 最深嵌套 */
+  --surface-tint:            rgba(47,111,235,0.04);
+
+  /* ----- On-surface ----- */
+  --on-surface:              #1B1B1B;
+  --on-surface-variant:      #606068;
+  --on-surface-muted:        #9A9A9A;
+
+  /* ----- 边框替代：用阴影 ----- */
+  --shadow-card:   0 0.5px 0.5px rgba(0,0,0,0.04),
+                   0 2px 6px rgba(0,0,0,0.05),
+                   0 12px 24px rgba(0,0,0,0.03);
+  --shadow-float:  0 0.5px 0.5px rgba(0,0,0,0.06),
+                   0 2px 8px rgba(0,0,0,0.07),
+                   0 16px 40px rgba(0,0,0,0.06);
+
+  /* ----- 圆角（连续曲率 squircle，嵌套同心） ----- */
+  --radius-lg:    28px;   /* 大卡片 */
+  --radius-md:    20px;   /* 内嵌块 */
+  --radius-sm:    14px;   /* 小容器 / 徽标 */
+  --radius-xs:    12px;   /* 表头 */
+  --radius-pill:  999px;  /* 按钮、开关、芯片 */
+
+  /* ----- 间距 ----- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* ----- 字号（SF Pro dynamic type 比例） ----- */
+  --fs-display:       40px;  /* 仪表盘大数字 */
+  --fs-lg-title:      34px;
+  --fs-page-title:    24px;
+  --fs-title1:        22px;
+  --fs-title2:        20px;
+  --fs-title3:        18px;
+  --fs-headline:      17px;
+  --fs-body:          15px;
+  --fs-subhead:       13px;
+  --fs-footnote:      12px;
+  --fs-caption:       11px;
+
+  --lh-dense: 1.2;
+  --lh-body:  1.5;
+
+  /* ----- 字重 ----- */
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold: 600;
+  --fw-bold:    700;
+
+  /* ----- 字距（大数字收紧） ----- */
+  --tracking-tight: -0.02em;
+  --tracking:        0em;
+  --tracking-wide:   0.02em;
+
+  /* ----- 动效 ----- */
+  --dur-fast: 200ms;
+  --dur-base: 300ms;
+  --dur-slow: 500ms;
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ----- 布局 ----- */
+  --sidebar-w: 248px;
+  --topbar-h: 64px;
+  --content-max: 1440px;
+}
+
+/* ===== 深色模式（surface 逐级提亮，绝不回退） ===== */
+[data-theme="dark"] {
+  --surface:                   #0E0F10;
+  --surface-dim:               #08090A;
+  --surface-bright:            #1E2022;
+  --surface-container:         #16181A;
+  --surface-container-high:    #1F2124;
+  --surface-container-highest: #2A2C2F;
+  --surface-tint:              rgba(124, 158, 255, 0.06);
+
+  --on-surface:              #E8E8EA;
+  --on-surface-variant:      #9B9BA3;
+  --on-surface-muted:        #6A6A72;
+
+  --shadow-card:  0 0.5px 1px rgba(0,0,0,0.5),
+                  0 4px 12px rgba(0,0,0,0.4),
+                  0 16px 32px rgba(0,0,0,0.3);
+  --shadow-float: 0 1px 2px rgba(0,0,0,0.6),
+                  0 8px 24px rgba(0,0,0,0.5),
+                  0 24px 60px rgba(0,0,0,0.4);
+
+  --primary:        #7C9EFF;
+  --primary-hover:  #91AEFF;
+  --primary-soft:   rgba(124, 158, 255, 0.15);
+}
+
+/* ===== 尊重系统 reduced-motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+    --ease-spring: linear;
+  }
+}
