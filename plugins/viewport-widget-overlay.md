@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Viewport Widget Overlay / Viewport Widget Overlay
+title: 视口小部件叠加 / Viewport Widget Overlay
 ---
 
 
@@ -12,7 +12,7 @@ title: Viewport Widget Overlay / Viewport Widget Overlay
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Viewport Widget Overlay</div>
-      <div class="hero-title-cn">Viewport Widget Overlay · Adds a utility for overlaying a </div>
+      <div class="hero-title-cn">视口小部件叠加 · 添加用于在视口中覆盖小部件的实用程序。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Misc</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Viewport Widget Overlay / Viewport Widget Overlay
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Adds a utility for overlaying a widget in the viewport.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">添加用于在视口中覆盖小部件的实用程序。</div><div class="lang-content">Adds a utility for overlaying a widget in the viewport.</div></div></div>
     </div>
     
   </div>

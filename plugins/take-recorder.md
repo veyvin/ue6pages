@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Take Recorder / Take Recorder
+title: 录音机 / Take Recorder
 ---
 
 
@@ -12,7 +12,7 @@ title: Take Recorder / Take Recorder
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Take Recorder</div>
-      <div class="hero-title-cn">Take Recorder · A suite of tools and interfaces </div>
+      <div class="hero-title-cn">录音机 · 一套工具和界面，专为在虚拟制作环境中录制、审查和回放而设计。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Take Recorder / Take Recorder
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>A suite of tools and interfaces designed for recording, reviewing and playing back takes in a virtual production environment.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">一套工具和界面，专为在虚拟制作环境中录制、审查和回放而设计。</div><div class="lang-content">A suite of tools and interfaces designed for recording, reviewing and playing back takes in a virtual production environment.</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SmartObjects / SmartObjects
+title: 智能对象 / SmartObjects
 ---
 
 
@@ -12,7 +12,7 @@ title: SmartObjects / SmartObjects
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">SmartObjects</div>
-      <div class="hero-title-cn">SmartObjects · Support for ambient life populat</div>
+      <div class="hero-title-cn">智能对象 · 支持游戏世界中的环境生活</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Gameplay</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: SmartObjects / SmartObjects
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Support for ambient life populating the game world</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">支持游戏世界中的环境生活</div><div class="lang-content">Support for ambient life populating the game world</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Steam Controller Plugin / Steam Controller Plugin
+title: Steam 控制器插件 / Steam Controller Plugin
 ---
 
 
@@ -12,7 +12,7 @@ title: Steam Controller Plugin / Steam Controller Plugin
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Steam Controller Plugin</div>
-      <div class="hero-title-cn">Steam Controller Plugin · InputDevice plugin for Steam con</div>
+      <div class="hero-title-cn">Steam 控制器插件 · Steam 控制器的 InputDevice 插件</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Input Devices</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Steam Controller Plugin / Steam Controller Plugin
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>InputDevice plugin for Steam controller</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Steam 控制器的 InputDevice 插件</div><div class="lang-content">InputDevice plugin for Steam controller</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenXR Vive Controller / OpenXR Vive Controller
+title: OpenXR Vive 控制器 / OpenXR Vive Controller
 ---
 
 
@@ -12,7 +12,7 @@ title: OpenXR Vive Controller / OpenXR Vive Controller
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OpenXR Vive Controller</div>
-      <div class="hero-title-cn">OpenXR Vive Controller · HTC Vive controller support for </div>
+      <div class="hero-title-cn">OpenXR Vive 控制器 · HTC Vive 控制器对 OpenXR 的支持：/intera</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: OpenXR Vive Controller / OpenXR Vive Controller
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>HTC Vive controller support for OpenXR: the /interaction_profiles/htc/vive_controller interaction profile and its controller mesh.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">HTC Vive 控制器对 OpenXR 的支持：/interaction_profiles/htc/vive_controller 交互配置文件及其控制器网格。</div><div class="lang-content">HTC Vive controller support for OpenXR: the /interaction_profiles/htc/vive_controller interaction profile and its controller mesh.</div></div></div>
     </div>
     
   </div>

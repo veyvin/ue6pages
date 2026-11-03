@@ -1,6 +1,6 @@
 ---
 layout: default
-title: DMX Modular Features / DMX Modular Features
+title: DMX 模块化功能 / DMX Modular Features
 ---
 
 
@@ -12,7 +12,7 @@ title: DMX Modular Features / DMX Modular Features
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">DMX Modular Features</div>
-      <div class="hero-title-cn">DMX Modular Features · Modular Features for DMX</div>
+      <div class="hero-title-cn">DMX 模块化功能 · DMX 的模块化功能</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Misc</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: DMX Modular Features / DMX Modular Features
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Modular Features for DMX</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">DMX 的模块化功能</div><div class="lang-content">Modular Features for DMX</div></div></div>
     </div>
     
   </div>

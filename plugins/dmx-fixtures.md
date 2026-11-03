@@ -1,6 +1,6 @@
 ---
 layout: default
-title: DMX Fixtures / DMX Fixtures
+title: DMX 灯具 / DMX Fixtures
 ---
 
 
@@ -12,7 +12,7 @@ title: DMX Fixtures / DMX Fixtures
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">DMX Fixtures</div>
-      <div class="hero-title-cn">DMX Fixtures · DMX Light Fixtures Blueprints</div>
+      <div class="hero-title-cn">DMX 灯具 · DMX 灯具蓝图</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: DMX Fixtures / DMX Fixtures
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>DMX Light Fixtures Blueprints</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">DMX 灯具蓝图</div><div class="lang-content">DMX Light Fixtures Blueprints</div></div></div>
     </div>
     
   </div>

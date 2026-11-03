@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Timed Data Monitor / Timed Data Monitor
+title: 定时数据监控 / Timed Data Monitor
 ---
 
 
@@ -12,7 +12,7 @@ title: Timed Data Monitor / Timed Data Monitor
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Timed Data Monitor</div>
-      <div class="hero-title-cn">Timed Data Monitor · Utilities to monitor inputs that</div>
+      <div class="hero-title-cn">定时数据监控 · 用于监视可同步时间的输入的实用程序。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Timed Data Monitor / Timed Data Monitor
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Utilities to monitor inputs that can be time synchronized.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于监视可同步时间的输入的实用程序。</div><div class="lang-content">Utilities to monitor inputs that can be time synchronized.</div></div></div>
     </div>
     
   </div>

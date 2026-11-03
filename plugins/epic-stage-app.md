@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Epic Stage App / Epic Stage App
+title: 史诗舞台应用程序 / Epic Stage App
 ---
 
 
@@ -12,7 +12,7 @@ title: Epic Stage App / Epic Stage App
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Epic Stage App</div>
-      <div class="hero-title-cn">Epic Stage App · Enables remote connections from </div>
+      <div class="hero-title-cn">史诗舞台应用程序 · 启用来自 Epic Stage 应用程序的远程连接</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Messaging</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Epic Stage App / Epic Stage App
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Enables remote connections from the Epic Stage App</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">启用来自 Epic Stage 应用程序的远程连接</div><div class="lang-content">Enables remote connections from the Epic Stage App</div></div></div>
     </div>
     
   </div>

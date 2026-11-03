@@ -36,7 +36,7 @@ title: MeshBuilder
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 17 other module(s): ClothingSystemRuntimeNv, Core, CoreUObject, DerivedDataCache, Engine, MeshBoneReduction, MeshBuilderCommon, MeshDescription, MeshReductionInterface, MeshUtilities, MeshUtilitiesCommon, RHI, RawMesh, RenderCore, SkeletalMeshDescription, SkeletalMeshUtilitiesCommon, StaticMeshDescription.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 17 个其他模块：ClothingSystemRuntimeNv、Core、CoreUObject、DerivedDataCache、Engine、MeshBoneReduction、MeshBuilderCommon、MeshDescription、MeshReductionInterface、MeshUtilities、MeshUtilitiesCommon、RHI、RawMesh、RenderCore、SkeletalMeshDescription、SkeletalMeshUtilitiesCommon、StaticMeshDescription。</div><div class="lang-content">This module depends on 17 other module(s): ClothingSystemRuntimeNv, Core, CoreUObject, DerivedDataCache, Engine, MeshBoneReduction, MeshBuilderCommon, MeshDescription, MeshReductionInterface, MeshUtilities, MeshUtilitiesCommon, RHI, RawMesh, RenderCore, SkeletalMeshDescription, SkeletalMeshUtilitiesCommon, StaticMeshDescription.</div></div>
       </div>
     </div>
   </div>

@@ -36,7 +36,7 @@ title: AnimationBlueprintEditor
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 21 other module(s): AnimGraph, AnimGraphRuntime, AppFramework, BlueprintGraph, Core, CoreUObject, EditorFramework, EditorStyle, EditorWidgets, Engine, GraphEditor, InputCore, Kismet, KismetWidgets, Persona, PropertyEditor, RHI, Slate, SlateCore, ToolMenus, UnrealEd.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 21 个其他模块：AnimGraph、AnimGraphRuntime、AppFramework、BlueprintGraph、Core、CoreUObject、EditorFramework、EditorStyle、EditorWidgets、Engine、GraphEditor、InputCore、Kismet、KismetWidgets、Persona、PropertyEditor、RHI、Slate、SlateCore、ToolMenus、UnrealEd。</div><div class="lang-content">This module depends on 21 other module(s): AnimGraph, AnimGraphRuntime, AppFramework, BlueprintGraph, Core, CoreUObject, EditorFramework, EditorStyle, EditorWidgets, Engine, GraphEditor, InputCore, Kismet, KismetWidgets, Persona, PropertyEditor, RHI, Slate, SlateCore, ToolMenus, UnrealEd.</div></div>
       </div>
     </div>
   </div>

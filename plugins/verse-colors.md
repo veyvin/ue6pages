@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Verse Colors / Verse Colors
+title: 诗句颜色 / Verse Colors
 ---
 
 
@@ -12,7 +12,7 @@ title: Verse Colors / Verse Colors
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Verse Colors</div>
-      <div class="hero-title-cn">Verse Colors · Verse Colors</div>
+      <div class="hero-title-cn">诗句颜色 · 诗句颜色</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Verse</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Verse Colors / Verse Colors
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Verse Colors</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">诗句颜色</div><div class="lang-content">Verse Colors</div></div></div>
     </div>
     
   </div>

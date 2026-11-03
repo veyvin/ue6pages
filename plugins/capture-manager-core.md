@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Capture Manager Core / Capture Manager Core
+title: 捕获管理器核心 / Capture Manager Core
 ---
 
 
@@ -12,7 +12,7 @@ title: Capture Manager Core / Capture Manager Core
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Capture Manager Core</div>
-      <div class="hero-title-cn">Capture Manager Core · The Capture Manager Core plugin </div>
+      <div class="hero-title-cn">捕获管理器核心 · Capture Manager Core 插件包含在 Captu</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Capture Manager Core / Capture Manager Core
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>The Capture Manager Core plugin contains utility modules that are shared between Capture Manager App plugin and Capture Manager Editor plugin.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Capture Manager Core 插件包含在 Capture Manager App 插件和 Capture Manager Editor 插件之间共享的实用程序模块。</div><div class="lang-content">The Capture Manager Core plugin contains utility modules that are shared between Capture Manager App plugin and Capture Manager Editor plugin.</div></div></div>
     </div>
     
   </div>

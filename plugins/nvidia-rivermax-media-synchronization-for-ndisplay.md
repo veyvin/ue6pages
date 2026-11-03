@@ -1,6 +1,6 @@
 ---
 layout: default
-title: NVIDIA Rivermax Media synchronization for nDisplay / NVIDIA Rivermax Media synchronization for nDisplay
+title: 适用于 nDisplay 的 NVIDIA Rivermax 媒体同步 / NVIDIA Rivermax Media synchronization for nDisplay
 ---
 
 
@@ -12,7 +12,7 @@ title: NVIDIA Rivermax Media synchronization for nDisplay / NVIDIA Rivermax Medi
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">NVIDIA Rivermax Media synchronization for nDisplay</div>
-      <div class="hero-title-cn">NVIDIA Rivermax Media synchronization for nDisplay · Adding NVIDIA Rivermax synchroni</div>
+      <div class="hero-title-cn">适用于 nDisplay 的 NVIDIA Rivermax 媒体同步 · 为 nDisplay 添加 NVIDIA Rivermax 同步</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: NVIDIA Rivermax Media synchronization for nDisplay / NVIDIA Rivermax Medi
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Adding NVIDIA Rivermax synchronization capabilities for nDisplay</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">为 nDisplay 添加 NVIDIA Rivermax 同步功能</div><div class="lang-content">Adding NVIDIA Rivermax synchronization capabilities for nDisplay</div></div></div>
     </div>
     
   </div>

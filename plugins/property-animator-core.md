@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Property Animator Core / Property Animator Core
+title: 属性动画核心 / Property Animator Core
 ---
 
 
@@ -12,7 +12,7 @@ title: Property Animator Core / Property Animator Core
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Property Animator Core</div>
-      <div class="hero-title-cn">Property Animator Core · Re-usable behaviors to control p</div>
+      <div class="hero-title-cn">属性动画核心 · 在运行时和编辑器中控制属性的可重用行为</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Property Animator Core / Property Animator Core
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Re-usable behaviors to control properties at runtime and in editor</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">在运行时和编辑器中控制属性的可重用行为</div><div class="lang-content">Re-usable behaviors to control properties at runtime and in editor</div></div></div>
     </div>
     
   </div>

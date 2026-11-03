@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Projects Module Tests / Projects Module Tests
+title: 项目模块测试 / Projects Module Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: Projects Module Tests / Projects Module Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Projects Module Tests</div>
-      <div class="hero-title-cn">Projects Module Tests · MTF companion testing the Projec</div>
+      <div class="hero-title-cn">项目模块测试 · MTF 同伴测试项目模块：插件发现、安装和瞬时注册。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Projects Module Tests / Projects Module Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>MTF companion testing the Projects module: plugin discovery, mounting and transient registration.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">MTF 同伴测试项目模块：插件发现、安装和瞬时注册。</div><div class="lang-content">MTF companion testing the Projects module: plugin discovery, mounting and transient registration.</div></div></div>
     </div>
     
   </div>

@@ -36,7 +36,7 @@ title: PlacementMode
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 19 other module(s): AssetTools, BlueprintGraph, CollectionManager, ContentBrowser, ContentBrowserData, Core, CoreUObject, EditorFramework, EditorWidgets, Engine, InputCore, LevelEditor, Slate, SlateCore, ToolMenus, TypedElementFramework, TypedElementRuntime, UnrealEd, WidgetRegistration.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 19 个模块：AssetTools、BlueprintGraph、CollectionManager、ContentBrowser、ContentBrowserData、Core、CoreUObject、EditorFramework、EditorWidgets、Engine、InputCore、LevelEditor、Slate、SlateCore、ToolMenus、TypedElementFramework、TypedElementRuntime、UnrealEd、WidgetRegistration。</div><div class="lang-content">This module depends on 19 other module(s): AssetTools, BlueprintGraph, CollectionManager, ContentBrowser, ContentBrowserData, Core, CoreUObject, EditorFramework, EditorWidgets, Engine, InputCore, LevelEditor, Slate, SlateCore, ToolMenus, TypedElementFramework, TypedElementRuntime, UnrealEd, WidgetRegistration.</div></div>
       </div>
     </div>
   </div>

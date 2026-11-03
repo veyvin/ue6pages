@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Experimental Code Quality Unreal Test Plugin / Experimental Code Quality Unreal Test Plugin
+title: 实验代码质量虚幻测试插件 / Experimental Code Quality Unreal Test Plugin
 ---
 
 
@@ -12,7 +12,7 @@ title: Experimental Code Quality Unreal Test Plugin / Experimental Code Quality 
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Experimental Code Quality Unreal Test Plugin</div>
-      <div class="hero-title-cn">Experimental Code Quality Unreal Test Plugin · Simplified testing of experiment</div>
+      <div class="hero-title-cn">实验代码质量虚幻测试插件 · 虚幻引擎实验功能的简化测试</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Experimental Code Quality Unreal Test Plugin / Experimental Code Quality 
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Simplified testing of experimental features for Unreal Engine</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">虚幻引擎实验功能的简化测试</div><div class="lang-content">Simplified testing of experimental features for Unreal Engine</div></div></div>
     </div>
     
   </div>

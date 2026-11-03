@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AES network packet handler / AES network packet handler
+title: AES 网络数据包处理程序 / AES network packet handler
 ---
 
 
@@ -12,7 +12,7 @@ title: AES network packet handler / AES network packet handler
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">AES network packet handler</div>
-      <div class="hero-title-cn">AES network packet handler · Provides a packet handler compon</div>
+      <div class="hero-title-cn">AES 网络数据包处理程序 · 提供数据包处理程序组件来执行 AES 加密和解密。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Misc</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: AES network packet handler / AES network packet handler
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Provides a packet handler component to do AES encryption and decryption.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">提供数据包处理程序组件来执行 AES 加密和解密。</div><div class="lang-content">Provides a packet handler component to do AES encryption and decryption.</div></div></div>
     </div>
     
   </div>

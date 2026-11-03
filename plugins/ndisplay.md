@@ -1,6 +1,6 @@
 ---
 layout: default
-title: nDisplay / nDisplay
+title: 显示器 / nDisplay
 ---
 
 
@@ -12,7 +12,7 @@ title: nDisplay / nDisplay
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">nDisplay</div>
-      <div class="hero-title-cn">nDisplay · Support for synchronized cluster</div>
+      <div class="hero-title-cn">显示器 · 支持使用多台 PC 以单声道或立体声进行同步集群渲染</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Misc</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: nDisplay / nDisplay
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Support for synchronized clustered rendering using multiple PCs in mono or stereo</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">支持使用多台 PC 以单声道或立体声进行同步集群渲染</div><div class="lang-content">Support for synchronized clustered rendering using multiple PCs in mono or stereo</div></div></div>
     </div>
     
   </div>

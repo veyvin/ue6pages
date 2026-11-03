@@ -36,7 +36,7 @@ title: ChaosVisualDebugger
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 27 other module(s): AgilitySDK, ApplicationCore, ChaosVD, Core, CoreUObject, DerivedDataCache, EditorViewport, Engine, InputCore, InstallBundleManager, MediaUtils, Messaging, MoviePlayer, MoviePlayerProxy, PreLoadScreen, ProfileVisualizer, Projects, PropertyAccessEditor, PropertyEditor, RHI, RenderCore, Slate, SlateCore, ToolWidgets, TraceLog, UnixCommonStartup, UnrealEd.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 27 个其他模块：AgilitySDK、ApplicationCore、ChaosVD、Core、CoreUObject、DerivedDataCache、EditorViewport、Engine、InputCore、InstallBundleManager、MediaUtils、Messaging、MoviePlayer、MoviePlayerProxy、PreLoadScreen、ProfileVisualizer、Projects、PropertyAccessEditor、PropertyEditor、RHI、RenderCore、Slate、SlateCore、ToolWidgets、TraceLog、 UnixCommonStartup、UnrealEd。</div><div class="lang-content">This module depends on 27 other module(s): AgilitySDK, ApplicationCore, ChaosVD, Core, CoreUObject, DerivedDataCache, EditorViewport, Engine, InputCore, InstallBundleManager, MediaUtils, Messaging, MoviePlayer, MoviePlayerProxy, PreLoadScreen, ProfileVisualizer, Projects, PropertyAccessEditor, PropertyEditor, RHI, RenderCore, Slate, SlateCore, ToolWidgets, TraceLog, UnixCommonStartup, UnrealEd.</div></div>
       </div>
     </div>
   </div>

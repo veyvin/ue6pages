@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Switchboard / Switchboard
+title: 总机 / Switchboard
 ---
 
 
@@ -12,7 +12,7 @@ title: Switchboard / Switchboard
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Switchboard</div>
-      <div class="hero-title-cn">Switchboard · Launcher/Installer for the Switc</div>
+      <div class="hero-title-cn">总机 · 总机应用程序的启动器/安装程序。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Switchboard / Switchboard
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Launcher/Installer for the Switchboard application.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">总机应用程序的启动器/安装程序。</div><div class="lang-content">Launcher/Installer for the Switchboard application.</div></div></div>
     </div>
     
   </div>

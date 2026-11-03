@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Accumulation Depth of Field / Accumulation Depth of Field
+title: 累积景深 / Accumulation Depth of Field
 ---
 
 
@@ -12,7 +12,7 @@ title: Accumulation Depth of Field / Accumulation Depth of Field
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Accumulation Depth of Field</div>
-      <div class="hero-title-cn">Accumulation Depth of Field · Thin-lens aperture-sampled depth</div>
+      <div class="hero-title-cn">累积景深 · 用于生产渲染的薄透镜孔径采样景深</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Accumulation Depth of Field / Accumulation Depth of Field
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Thin-lens aperture-sampled depth of field for production rendering</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于生产渲染的薄透镜孔径采样景深</div><div class="lang-content">Thin-lens aperture-sampled depth of field for production rendering</div></div></div>
     </div>
     
   </div>

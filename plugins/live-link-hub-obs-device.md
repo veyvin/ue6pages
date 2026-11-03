@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Live Link Hub OBS Device / Live Link Hub OBS Device
+title: Live Link Hub OBS 设备 / Live Link Hub OBS Device
 ---
 
 
@@ -12,7 +12,7 @@ title: Live Link Hub OBS Device / Live Link Hub OBS Device
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Live Link Hub OBS Device</div>
-      <div class="hero-title-cn">Live Link Hub OBS Device · Live Link Hub device for control</div>
+      <div class="hero-title-cn">Live Link Hub OBS 设备 · Live Link Hub 设备，用于通过 OBS WebSoc</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Live Link Hub OBS Device / Live Link Hub OBS Device
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Live Link Hub device for controlling OBS Studio recording and ingesting recorded video as mono takes via the OBS WebSocket v5 protocol.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Live Link Hub 设备，用于通过 OBS WebSocket v5 协议控制 OBS Studio 录制和以单声道形式摄取录制的视频。</div><div class="lang-content">Live Link Hub device for controlling OBS Studio recording and ingesting recorded video as mono takes via the OBS WebSocket v5 protocol.</div></div></div>
     </div>
     
   </div>

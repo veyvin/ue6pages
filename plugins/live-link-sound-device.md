@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Live Link Sound Device / Live Link Sound Device
+title: Live Link 声音设备 / Live Link Sound Device
 ---
 
 
@@ -12,7 +12,7 @@ title: Live Link Sound Device / Live Link Sound Device
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Live Link Sound Device</div>
-      <div class="hero-title-cn">Live Link Sound Device · Sound Devices recorder support f</div>
+      <div class="hero-title-cn">Live Link 声音设备 · 声音设备录音机支持 Live Link Hub，具有录音和连接功</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Live Link Sound Device / Live Link Sound Device
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Sound Devices recorder support for Live Link Hub with recording and connection capabilities</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">声音设备录音机支持 Live Link Hub，具有录音和连接功能</div><div class="lang-content">Sound Devices recorder support for Live Link Hub with recording and connection capabilities</div></div></div>
     </div>
     
   </div>

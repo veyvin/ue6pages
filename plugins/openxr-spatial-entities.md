@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenXR Spatial Entities / OpenXR Spatial Entities
+title: OpenXR 空间实体 / OpenXR Spatial Entities
 ---
 
 
@@ -12,7 +12,7 @@ title: OpenXR Spatial Entities / OpenXR Spatial Entities
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OpenXR Spatial Entities</div>
-      <div class="hero-title-cn">OpenXR Spatial Entities · Implements the OpenXR XR_EXT_spa</div>
+      <div class="hero-title-cn">OpenXR 空间实体 · 为跨供应商持久空间锚点实现 OpenXR XR_EXT_spat</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: OpenXR Spatial Entities / OpenXR Spatial Entities
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Implements the OpenXR XR_EXT_spatial_entity family (base, anchor, persistence, persistence_operations) for cross-vendor persistent spatial anchors.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">为跨供应商持久空间锚点实现 OpenXR XR_EXT_spatial_entity 系列（基础、锚点、持久性、持久性操作）。</div><div class="lang-content">Implements the OpenXR XR_EXT_spatial_entity family (base, anchor, persistence, persistence_operations) for cross-vendor persistent spatial anchors.</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Script Plugin / Script Plugin
+title: 脚本插件 / Script Plugin
 ---
 
 
@@ -12,7 +12,7 @@ title: Script Plugin / Script Plugin
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Script Plugin</div>
-      <div class="hero-title-cn">Script Plugin · An example of a script plugin. T</div>
+      <div class="hero-title-cn">脚本插件 · 脚本插件的示例。这可以作为创建您自己的插件的起点。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Examples</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Script Plugin / Script Plugin
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>An example of a script plugin. This can be used as a starting point when creating your own plugin.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">脚本插件的示例。这可以作为创建您自己的插件的起点。</div><div class="lang-content">An example of a script plugin. This can be used as a starting point when creating your own plugin.</div></div></div>
     </div>
     
   </div>

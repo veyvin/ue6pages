@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Sound Utilities / Sound Utilities
+title: 声音实用程序 / Sound Utilities
 ---
 
 
@@ -12,7 +12,7 @@ title: Sound Utilities / Sound Utilities
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Sound Utilities</div>
-      <div class="hero-title-cn">Sound Utilities · A variety of BP functions, objec</div>
+      <div class="hero-title-cn">声音实用程序 · 各种用于音频的 BP 函数、对象和实用程序。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Sound Utilities / Sound Utilities
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>A variety of BP functions, objects, and utilities for audio.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">各种用于音频的 BP 函数、对象和实用程序。</div><div class="lang-content">A variety of BP functions, objects, and utilities for audio.</div></div></div>
     </div>
     
   </div>

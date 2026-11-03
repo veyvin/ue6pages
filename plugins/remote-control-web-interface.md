@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remote Control Web Interface / Remote Control Web Interface
+title: 远程控制网络界面 / Remote Control Web Interface
 ---
 
 
@@ -12,7 +12,7 @@ title: Remote Control Web Interface / Remote Control Web Interface
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Remote Control Web Interface</div>
-      <div class="hero-title-cn">Remote Control Web Interface · Provides a web interface to cont</div>
+      <div class="hero-title-cn">远程控制网络界面 · 提供Web界面通过预设控制虚幻引擎，需要安装nodejs</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Messaging</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Remote Control Web Interface / Remote Control Web Interface
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Provides a web interface to control unreal engine via presets, requires nodejs to be installed</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">提供Web界面通过预设控制虚幻引擎，需要安装nodejs</div><div class="lang-content">Provides a web interface to control unreal engine via presets, requires nodejs to be installed</div></div></div>
     </div>
     
   </div>

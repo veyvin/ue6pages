@@ -36,7 +36,7 @@ title: BuildStorageTool
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 17 other module(s): Analytics, ApplicationCore, Core, DesktopPlatform, Json, OutputLog, PakFile, Projects, Slate, SlateCore, Sockets, StandaloneRenderer, StorageServerWidgets, StudioTelemetry, ToolWidgets, UnixCommonStartup, Zen.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 17 个模块：Analytics、ApplicationCore、Core、DesktopPlatform、Json、OutputLog、PakFile、Projects、Slate、SlateCore、Sockets、StandaloneRenderer、StorageServerWidgets、StudioTelemetry、ToolWidgets、UnixCommonStartup、Zen。</div><div class="lang-content">This module depends on 17 other module(s): Analytics, ApplicationCore, Core, DesktopPlatform, Json, OutputLog, PakFile, Projects, Slate, SlateCore, Sockets, StandaloneRenderer, StorageServerWidgets, StudioTelemetry, ToolWidgets, UnixCommonStartup, Zen.</div></div>
       </div>
     </div>
   </div>

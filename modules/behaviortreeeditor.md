@@ -36,7 +36,7 @@ title: BehaviorTreeEditor
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 21 other module(s): AIGraph, AIModule, ApplicationCore, AssetDefinition, BlueprintGraph, Core, CoreUObject, EditorStyle, EditorWidgets, Engine, GameplayTags, GraphEditor, InputCore, KismetWidgets, PropertyEditor, RewindDebuggerInterface, Slate, SlateCore, ToolMenus, TraceServices, UnrealEd.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 21 个其他模块：AIGraph、AIModule、ApplicationCore、AssetDefinition、BlueprintGraph、Core、CoreUObject、EditorStyle、EditorWidgets、Engine、GameplayTags、GraphEditor、InputCore、KismetWidgets、PropertyEditor、RewindDebuggerInterface、Slate、SlateCore、ToolMenus、TraceServices、UnrealEd。</div><div class="lang-content">This module depends on 21 other module(s): AIGraph, AIModule, ApplicationCore, AssetDefinition, BlueprintGraph, Core, CoreUObject, EditorStyle, EditorWidgets, Engine, GameplayTags, GraphEditor, InputCore, KismetWidgets, PropertyEditor, RewindDebuggerInterface, Slate, SlateCore, ToolMenus, TraceServices, UnrealEd.</div></div>
       </div>
     </div>
   </div>

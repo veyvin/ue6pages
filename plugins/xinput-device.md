@@ -1,6 +1,6 @@
 ---
 layout: default
-title: XInput Device / XInput Device
+title: X输入设备 / XInput Device
 ---
 
 
@@ -12,7 +12,7 @@ title: XInput Device / XInput Device
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">XInput Device</div>
-      <div class="hero-title-cn">XInput Device · XInput is a Game Controller API </div>
+      <div class="hero-title-cn">X输入设备 · XInput 是适用于 Windows 的游戏控制器 API。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Input Devices</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: XInput Device / XInput Device
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>XInput is a Game Controller API for Windows.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">XInput 是适用于 Windows 的游戏控制器 API。</div><div class="lang-content">XInput is a Game Controller API for Windows.</div></div></div>
     </div>
     
   </div>

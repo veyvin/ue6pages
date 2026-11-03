@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Camera Calibration Machine Learning / Camera Calibration Machine Learning
+title: 相机校准机器学习 / Camera Calibration Machine Learning
 ---
 
 
@@ -12,7 +12,7 @@ title: Camera Calibration Machine Learning / Camera Calibration Machine Learning
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Camera Calibration Machine Learning</div>
-      <div class="hero-title-cn">Camera Calibration Machine Learning · Reference implementation of a ma</div>
+      <div class="hero-title-cn">相机校准机器学习 · 失真校准机器学习方法的参考实现。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Camera Calibration Machine Learning / Camera Calibration Machine Learning
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Reference implementation of a machine learning approach to distortion calibration.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">失真校准机器学习方法的参考实现。</div><div class="lang-content">Reference implementation of a machine learning approach to distortion calibration.</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Procedural Mesh Component / Procedural Mesh Component
+title: 程序网格组件 / Procedural Mesh Component
 ---
 
 
@@ -12,7 +12,7 @@ title: Procedural Mesh Component / Procedural Mesh Component
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Procedural Mesh Component</div>
-      <div class="hero-title-cn">Procedural Mesh Component · A renderable component and libra</div>
+      <div class="hero-title-cn">程序网格组件 · 用于按程序创建和修改网格几何体的可渲染组件和实用程序库。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Rendering</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Procedural Mesh Component / Procedural Mesh Component
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>A renderable component and library of utilities for creating and modifying mesh geometry procedurally.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于按程序创建和修改网格几何体的可渲染组件和实用程序库。</div><div class="lang-content">A renderable component and library of utilities for creating and modifying mesh geometry procedurally.</div></div></div>
     </div>
     
   </div>

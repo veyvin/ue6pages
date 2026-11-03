@@ -36,7 +36,7 @@ title: WorldBookmark
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 28 other module(s): ApplicationCore, AssetDefinition, AssetRegistry, AssetTools, ContentBrowser, ContentBrowserData, Core, CoreUObject, DeveloperSettings, EditorConfig, EditorFramework, EditorSubsystem, Engine, InputCore, Json, JsonUtilities, LevelEditor, Projects, PropertyEditor, SceneOutliner, Slate, SlateCore, SourceControl, ToolMenus, ToolWidgets, UncontrolledChangelists, UnrealEd, WorkspaceMenuStructure.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 28 个其他模块：ApplicationCore、AssetDefinition、AssetRegistry、AssetTools、ContentBrowser、ContentBrowserData、Core、CoreUObject、DeveloperSettings、EditorConfig、EditorFramework、EditorSubsystem、Engine、InputCore、Json、JsonUtilities、LevelEditor、Projects、PropertyEditor、SceneOutliner、Slate、SlateCore、SourceControl、ToolMenus、ToolWidgets、UncontrolChangelists、 UnrealEd，工作区菜单结构。</div><div class="lang-content">This module depends on 28 other module(s): ApplicationCore, AssetDefinition, AssetRegistry, AssetTools, ContentBrowser, ContentBrowserData, Core, CoreUObject, DeveloperSettings, EditorConfig, EditorFramework, EditorSubsystem, Engine, InputCore, Json, JsonUtilities, LevelEditor, Projects, PropertyEditor, SceneOutliner, Slate, SlateCore, SourceControl, ToolMenus, ToolWidgets, UncontrolledChangelists, UnrealEd, WorkspaceMenuStructure.</div></div>
       </div>
     </div>
   </div>

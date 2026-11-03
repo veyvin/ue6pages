@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Wave Tables / Wave Tables
+title: 波表 / Wave Tables
 ---
 
 
@@ -12,7 +12,7 @@ title: Wave Tables / Wave Tables
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Wave Tables</div>
-      <div class="hero-title-cn">Wave Tables · Default implementation of WaveTa</div>
+      <div class="hero-title-cn">波表 · 虚幻音频引擎中 WaveTable 支持的默认实现。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Wave Tables / Wave Tables
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Default implementation of WaveTable support within the Unreal Audio Engine.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">虚幻音频引擎中 WaveTable 支持的默认实现。</div><div class="lang-content">Default implementation of WaveTable support within the Unreal Audio Engine.</div></div></div>
     </div>
     
   </div>

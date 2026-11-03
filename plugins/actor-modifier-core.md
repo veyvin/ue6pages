@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Actor Modifier Core / Actor Modifier Core
+title: Actor 修改器核心 / Actor Modifier Core
 ---
 
 
@@ -12,7 +12,7 @@ title: Actor Modifier Core / Actor Modifier Core
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Actor Modifier Core</div>
-      <div class="hero-title-cn">Actor Modifier Core · Use modifier objects on actors t</div>
+      <div class="hero-title-cn">Actor 修改器核心 · 在 actor 上使用修饰符对象来应用自定义行为</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Actor Modifier Core / Actor Modifier Core
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Use modifier objects on actors to apply a custom behavior</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">在 actor 上使用修饰符对象来应用自定义行为</div><div class="lang-content">Use modifier objects on actors to apply a custom behavior</div></div></div>
     </div>
     
   </div>

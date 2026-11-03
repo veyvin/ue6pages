@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenXR Render Model / OpenXR Render Model
+title: OpenXR 渲染模型 / OpenXR Render Model
 ---
 
 
@@ -12,7 +12,7 @@ title: OpenXR Render Model / OpenXR Render Model
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OpenXR Render Model</div>
-      <div class="hero-title-cn">OpenXR Render Model · Enables the XRDeviceVisualizatio</div>
+      <div class="hero-title-cn">OpenXR 渲染模型 · 当活动运行时支持时，使 XRDeviceVisualizatio</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: OpenXR Render Model / OpenXR Render Model
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Enables the XRDeviceVisualizationComponent to load controller render models from OpenXR XR_EXT_render_model + XR_EXT_interaction_render_model when the active runtime supports them.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">当活动运行时支持时，使 XRDeviceVisualizationComponent 能够从 OpenXR XR_EXT_render_model + XR_EXT_interaction_render_model 加载控制器渲染模型。</div><div class="lang-content">Enables the XRDeviceVisualizationComponent to load controller render models from OpenXR XR_EXT_render_model + XR_EXT_interaction_render_model when the active runtime supports them.</div></div></div>
     </div>
     
   </div>

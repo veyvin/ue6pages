@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Audio Test Helper / Audio Test Helper
+title: 音频测试助手 / Audio Test Helper
 ---
 
 
@@ -12,7 +12,7 @@ title: Audio Test Helper / Audio Test Helper
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Audio Test Helper</div>
-      <div class="hero-title-cn">Audio Test Helper · Reusable audio test utilities (s</div>
+      <div class="hero-title-cn">音频测试助手 · 跨音频测试模块共享可重复使用的音频测试实用程序（信号生成、缓冲区</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Audio Test Helper / Audio Test Helper
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Reusable audio test utilities (signal generation, buffer comparison, and A/B performance-regression measurement) shared across audio test modules.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">跨音频测试模块共享可重复使用的音频测试实用程序（信号生成、缓冲区比较和 A/B 性能回归测量）。</div><div class="lang-content">Reusable audio test utilities (signal generation, buffer comparison, and A/B performance-regression measurement) shared across audio test modules.</div></div></div>
     </div>
     
   </div>

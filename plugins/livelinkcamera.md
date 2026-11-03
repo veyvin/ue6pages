@@ -1,6 +1,6 @@
 ---
 layout: default
-title: LiveLinkCamera / LiveLinkCamera
+title: 实时连线相机 / LiveLinkCamera
 ---
 
 
@@ -12,7 +12,7 @@ title: LiveLinkCamera / LiveLinkCamera
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">LiveLinkCamera</div>
-      <div class="hero-title-cn">LiveLinkCamera · Live Link plugin adding function</div>
+      <div class="hero-title-cn">实时连线相机 · Live Link 插件添加了相机处理功能</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: LiveLinkCamera / LiveLinkCamera
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Live Link plugin adding functionalities for camera handling</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Live Link 插件添加了相机处理功能</div><div class="lang-content">Live Link plugin adding functionalities for camera handling</div></div></div>
     </div>
     
   </div>

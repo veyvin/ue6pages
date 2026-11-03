@@ -1,6 +1,6 @@
 ---
 layout: default
-title: VirtualCamera / VirtualCamera
+title: 虚拟相机 / VirtualCamera
 ---
 
 
@@ -12,7 +12,7 @@ title: VirtualCamera / VirtualCamera
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">VirtualCamera</div>
-      <div class="hero-title-cn">VirtualCamera · Content for VirtualCameraCore wh</div>
+      <div class="hero-title-cn">虚拟相机 · VirtualCameraCore 的内容添加了参与者、组件和实</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: VirtualCamera / VirtualCamera
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Content for VirtualCameraCore which adds actors, components, and utilities for controlling and viewing cameras via physical devices.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">VirtualCameraCore 的内容添加了参与者、组件和实用程序，用于通过物理设备控制和查看摄像机。</div><div class="lang-content">Content for VirtualCameraCore which adds actors, components, and utilities for controlling and viewing cameras via physical devices.</div></div></div>
     </div>
     
   </div>

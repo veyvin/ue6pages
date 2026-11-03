@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Replication Graph / Replication Graph
+title: 复制图 / Replication Graph
 ---
 
 
@@ -12,7 +12,7 @@ title: Replication Graph / Replication Graph
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Replication Graph</div>
-      <div class="hero-title-cn">Replication Graph · The Replication Graph plugin pro</div>
+      <div class="hero-title-cn">复制图 · 复制图插件通过在图结构中维护持久的复制参与者列表，提供了专为大量</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Performance</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Replication Graph / Replication Graph
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>The Replication Graph plugin provides a Replication Driver implementation designed for a large number of actors and connections by mainting persistent replicated actor lists in a graph structure.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">复制图插件通过在图结构中维护持久的复制参与者列表，提供了专为大量参与者和连接而设计的复制驱动程序实现。</div><div class="lang-content">The Replication Graph plugin provides a Replication Driver implementation designed for a large number of actors and connections by mainting persistent replicated actor lists in a graph structure.</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Pippen / Pippen
+title: 皮蓬 / Pippen
 ---
 
 
@@ -12,7 +12,7 @@ title: Pippen / Pippen
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Pippen</div>
-      <div class="hero-title-cn">Pippen · Pippen plugin</div>
+      <div class="hero-title-cn">皮蓬 · 皮蓬插件</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Misc</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Pippen / Pippen
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Pippen plugin</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">皮蓬插件</div><div class="lang-content">Pippen plugin</div></div></div>
     </div>
     
   </div>

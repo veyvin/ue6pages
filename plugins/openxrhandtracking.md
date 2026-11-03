@@ -12,7 +12,7 @@ title: OpenXRHandTracking / OpenXRHandTracking
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OpenXRHandTracking</div>
-      <div class="hero-title-cn">OpenXRHandTracking · OpenXR Hand Tracking provides XR</div>
+      <div class="hero-title-cn">OpenXRHandTracking · OpenXR 手部跟踪提供 XR_EXT_hand_tracki</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: OpenXRHandTracking / OpenXRHandTracking
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>OpenXR Hand Tracking provides XR_EXT_hand_tracking support.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">OpenXR 手部跟踪提供 XR_EXT_hand_tracking 支持。</div><div class="lang-content">OpenXR Hand Tracking provides XR_EXT_hand_tracking support.</div></div></div>
     </div>
     
   </div>

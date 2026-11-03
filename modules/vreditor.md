@@ -36,7 +36,7 @@ title: VREditor
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 21 other module(s): Analytics, AppFramework, ApplicationCore, Core, CoreUObject, DeveloperToolSettings, EditorFramework, Engine, HeadMountedDisplay, InputCore, LevelEditor, LevelSequence, Projects, RenderCore, Sequencer, Slate, SlateCore, ToolMenus, UMG, UnrealEd, ViewportInteraction.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 21 个其他模块：Analytics、AppFramework、ApplicationCore、Core、CoreUObject、DeveloperToolSettings、EditorFramework、Engine、HeadMountedDisplay、InputCore、LevelEditor、LevelSequence、Projects、RenderCore、Sequencer、Slate、SlateCore、ToolMenus、UMG、UnrealEd、ViewportInteraction。</div><div class="lang-content">This module depends on 21 other module(s): Analytics, AppFramework, ApplicationCore, Core, CoreUObject, DeveloperToolSettings, EditorFramework, Engine, HeadMountedDisplay, InputCore, LevelEditor, LevelSequence, Projects, RenderCore, Sequencer, Slate, SlateCore, ToolMenus, UMG, UnrealEd, ViewportInteraction.</div></div>
       </div>
     </div>
   </div>

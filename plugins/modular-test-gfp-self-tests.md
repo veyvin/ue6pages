@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Modular Test GFP Self-Tests / Modular Test GFP Self-Tests
+title: 模块化测试 GFP 自检 / Modular Test GFP Self-Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: Modular Test GFP Self-Tests / Modular Test GFP Self-Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Modular Test GFP Self-Tests</div>
-      <div class="hero-title-cn">Modular Test GFP Self-Tests · Companion plugin that smoke-test</div>
+      <div class="hero-title-cn">模块化测试 GFP 自检 · 对 Modular Test GFP 插件进行冒烟测试的配套插件</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Modular Test GFP Self-Tests / Modular Test GFP Self-Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Companion plugin that smoke-tests the Modular Test GFP plugin.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">对 Modular Test GFP 插件进行冒烟测试的配套插件。</div><div class="lang-content">Companion plugin that smoke-tests the Modular Test GFP plugin.</div></div></div>
     </div>
     
   </div>

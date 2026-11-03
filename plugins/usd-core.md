@@ -1,6 +1,6 @@
 ---
 layout: default
-title: USD Core / USD Core
+title: 美元核心 / USD Core
 ---
 
 
@@ -12,7 +12,7 @@ title: USD Core / USD Core
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">USD Core</div>
-      <div class="hero-title-cn">USD Core · Adds support for USD SDK, UE wra</div>
+      <div class="hero-title-cn">美元核心 · 添加了对美元 SDK、UE 包装类和美元转换实用程序的支持</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: USD Core / USD Core
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Adds support for USD SDK, UE wrapper classes and USD conversion utilities</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">添加了对美元 SDK、UE 包装类和美元转换实用程序的支持</div><div class="lang-content">Adds support for USD SDK, UE wrapper classes and USD conversion utilities</div></div></div>
     </div>
     
   </div>

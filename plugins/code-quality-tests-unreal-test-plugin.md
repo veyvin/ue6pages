@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Code Quality Tests Unreal Test Plugin / Code Quality Tests Unreal Test Plugin
+title: 代码质量测试虚幻测试插件 / Code Quality Tests Unreal Test Plugin
 ---
 
 
@@ -12,7 +12,7 @@ title: Code Quality Tests Unreal Test Plugin / Code Quality Tests Unreal Test Pl
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Code Quality Tests Unreal Test Plugin</div>
-      <div class="hero-title-cn">Code Quality Tests Unreal Test Plugin · Tests for the CQTest Unreal Engi</div>
+      <div class="hero-title-cn">代码质量测试虚幻测试插件 · CQTest 虚幻引擎模块的测试</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Code Quality Tests Unreal Test Plugin / Code Quality Tests Unreal Test Pl
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Tests for the CQTest Unreal Engine module</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">CQTest 虚幻引擎模块的测试</div><div class="lang-content">Tests for the CQTest Unreal Engine module</div></div></div>
     </div>
     
   </div>

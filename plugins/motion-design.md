@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Motion Design / Motion Design
+title: 运动设计 / Motion Design
 ---
 
 
@@ -12,7 +12,9 @@ title: Motion Design / Motion Design
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Motion Design</div>
-      <div class="hero-title-cn">Motion Design · Compositing, designer and broadc</div>
+      <div class="hero-title-cn">运动设计 · 合成、设计和广播工具。
+
+插件依赖项：高级重命名器、自定义详细信</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,9 +26,11 @@ title: Motion Design / Motion Design
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Compositing, designer and broadcasting tool.
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">合成、设计和广播工具。
 
-Plugin Dependencies: Advanced Renamer, Custom Details View, Dynamic Material, Geometry Cache, Geometry Scripting, Media Compositing, Media IO Framework, Mesh Modeling Toolset Exp, Remote Control, SVG Importer, Text3D and ActorModifierCore.</p></div>
+插件依赖项：高级重命名器、自定义详细信息视图、动态材质、几何缓存、几何脚本、媒体合成、媒体 IO 框架、网格建模工具集 Exp、远程控制、SVG 导入器、Text3D 和 ActorModifierCore。</div><div class="lang-content">Compositing, designer and broadcasting tool.
+
+Plugin Dependencies: Advanced Renamer, Custom Details View, Dynamic Material, Geometry Cache, Geometry Scripting, Media Compositing, Media IO Framework, Mesh Modeling Toolset Exp, Remote Control, SVG Importer, Text3D and ActorModifierCore.</div></div></div>
     </div>
     
   </div>

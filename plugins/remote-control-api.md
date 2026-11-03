@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remote Control API / Remote Control API
+title: 远程控制API / Remote Control API
 ---
 
 
@@ -12,7 +12,7 @@ title: Remote Control API / Remote Control API
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Remote Control API</div>
-      <div class="hero-title-cn">Remote Control API · A suite of tools for controlling</div>
+      <div class="hero-title-cn">远程控制API · 一套用于在编辑器中或通过网络服务器在运行时控制虚幻引擎的工具。这</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Messaging</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Remote Control API / Remote Control API
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>A suite of tools for controlling the Unreal Engine, both in Editor or at Runtime via a webserver. This allows users to control Unreal Engine remotely through HTTP or WebSockets requests. This functionality allows developers to control Unreal through 3rd party applications and web services.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">一套用于在编辑器中或通过网络服务器在运行时控制虚幻引擎的工具。这允许用户通过 HTTP 或 WebSockets 请求远程控制虚幻引擎。此功能允许开发人员通过第 3 方应用程序和 Web 服务控制 Unreal。</div><div class="lang-content">A suite of tools for controlling the Unreal Engine, both in Editor or at Runtime via a webserver. This allows users to control Unreal Engine remotely through HTTP or WebSockets requests. This functionality allows developers to control Unreal through 3rd party applications and web services.</div></div></div>
     </div>
     
   </div>

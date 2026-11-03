@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Virtual Scouting / Virtual Scouting
+title: 虚拟侦察 / Virtual Scouting
 ---
 
 
@@ -12,7 +12,7 @@ title: Virtual Scouting / Virtual Scouting
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Virtual Scouting</div>
-      <div class="hero-title-cn">Virtual Scouting · Virtual Scouting lets filmmakers</div>
+      <div class="hero-title-cn">虚拟侦察 · 虚拟侦察可以让电影制作者在虚拟现实中侦察数字环境。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Virtual Scouting / Virtual Scouting
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Virtual Scouting lets filmmakers scout a digital environment in virtual reality.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">虚拟侦察可以让电影制作者在虚拟现实中侦察数字环境。</div><div class="lang-content">Virtual Scouting lets filmmakers scout a digital environment in virtual reality.</div></div></div>
     </div>
     
   </div>

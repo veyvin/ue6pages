@@ -1,6 +1,6 @@
 ---
 layout: default
-title: World Streaming Insights / World Streaming Insights
+title: 世界流媒体洞察 / World Streaming Insights
 ---
 
 
@@ -12,7 +12,7 @@ title: World Streaming Insights / World Streaming Insights
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">World Streaming Insights</div>
-      <div class="hero-title-cn">World Streaming Insights · Suite of tools to profile, debug</div>
+      <div class="hero-title-cn">世界流媒体洞察 · 用于分析、调试和监控虚幻引擎中世界流媒体各个方面的工具套件。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Insights</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: World Streaming Insights / World Streaming Insights
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Suite of tools to profile, debug, and monitor aspects of world streaming in the Unreal Engine.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于分析、调试和监控虚幻引擎中世界流媒体各个方面的工具套件。</div><div class="lang-content">Suite of tools to profile, debug, and monitor aspects of world streaming in the Unreal Engine.</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Microsoft GDK Runtime Plug-in for Unreal Engine / Microsoft GDK Runtime Plug-in for Unreal Engine
+title: 适用于虚幻引擎的 Microsoft GDK 运行时插件 / Microsoft GDK Runtime Plug-in for Unreal Engine
 ---
 
 
@@ -12,7 +12,7 @@ title: Microsoft GDK Runtime Plug-in for Unreal Engine / Microsoft GDK Runtime P
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Microsoft GDK Runtime Plug-in for Unreal Engine</div>
-      <div class="hero-title-cn">Microsoft GDK Runtime Plug-in for Unreal Engine · Provides GDK Runtime capabilitie</div>
+      <div class="hero-title-cn">适用于虚幻引擎的 Microsoft GDK 运行时插件 · 为 Windows 游戏提供 GDK 运行时功能</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Platform</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Microsoft GDK Runtime Plug-in for Unreal Engine / Microsoft GDK Runtime P
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Provides GDK Runtime capabilities for Windows games</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">为 Windows 游戏提供 GDK 运行时功能</div><div class="lang-content">Provides GDK Runtime capabilities for Windows games</div></div></div>
     </div>
     
   </div>

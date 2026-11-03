@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Significance Manager / Significance Manager
+title: 意义经理 / Significance Manager
 ---
 
 
@@ -12,7 +12,7 @@ title: Significance Manager / Significance Manager
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Significance Manager</div>
-      <div class="hero-title-cn">Significance Manager · The significance manager plugin </div>
+      <div class="hero-title-cn">意义经理 · 重要性管理器插件提供了一个可扩展的框架，允许游戏计算对象的重要性</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Performance</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Significance Manager / Significance Manager
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>The significance manager plugin provides an extensible framework for allowing games to calculate the significance of an object and change behavior in response.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">重要性管理器插件提供了一个可扩展的框架，允许游戏计算对象的重要性并更改响应行为。</div><div class="lang-content">The significance manager plugin provides an extensible framework for allowing games to calculate the significance of an object and change behavior in response.</div></div></div>
     </div>
     
   </div>

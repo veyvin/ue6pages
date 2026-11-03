@@ -1,6 +1,6 @@
 ---
 layout: default
-title: TextureGraph / TextureGraph
+title: 纹理图 / TextureGraph
 ---
 
 
@@ -12,7 +12,7 @@ title: TextureGraph / TextureGraph
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">TextureGraph</div>
-      <div class="hero-title-cn">TextureGraph · Texture creation tool using grap</div>
+      <div class="hero-title-cn">纹理图 · 使用图表的纹理创建工具。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Editor</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: TextureGraph / TextureGraph
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Texture creation tool using graphs.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用图表的纹理创建工具。</div><div class="lang-content">Texture creation tool using graphs.</div></div></div>
     </div>
     
   </div>

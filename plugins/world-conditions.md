@@ -1,6 +1,6 @@
 ---
 layout: default
-title: World Conditions / World Conditions
+title: 世界状况 / World Conditions
 ---
 
 
@@ -12,7 +12,7 @@ title: World Conditions / World Conditions
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">World Conditions</div>
-      <div class="hero-title-cn">World Conditions · General purpose cached condition</div>
+      <div class="hero-title-cn">世界状况 · 通用缓存条件</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Gameplay</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: World Conditions / World Conditions
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>General purpose cached conditions</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">通用缓存条件</div><div class="lang-content">General purpose cached conditions</div></div></div>
     </div>
     
   </div>

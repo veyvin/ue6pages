@@ -12,7 +12,7 @@ title: OSC（开放声音控制） / OSC (Open Sound Control)
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OSC (Open Sound Control)</div>
-      <div class="hero-title-cn">OSC（开放声音控制） · Implements the OSC 1.0 specifica</div>
+      <div class="hero-title-cn">OSC（开放声音控制） · 实现 OSC 1.0 规范，允许用户在远程客户端或应用程序之间发</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Input Devices</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: OSC（开放声音控制） / OSC (Open Sound Control)
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Implements the OSC 1.0 specification, allowing users to send and receive OSC messages and bundles between remote clients or applications.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">实现 OSC 1.0 规范，允许用户在远程客户端或应用程序之间发送和接收 OSC 消息和捆绑包。</div><div class="lang-content">Implements the OSC 1.0 specification, allowing users to send and receive OSC messages and bundles between remote clients or applications.</div></div></div>
     </div>
     
   </div>

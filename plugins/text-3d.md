@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Text 3D / Text 3D
+title: 文本 3D / Text 3D
 ---
 
 
@@ -12,7 +12,7 @@ title: Text 3D / Text 3D
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Text 3D</div>
-      <div class="hero-title-cn">Text 3D · Tool to create 3D Text with adva</div>
+      <div class="hero-title-cn">文本 3D · 使用高级选项创建 3D 文本的工具</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Text</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Text 3D / Text 3D
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Tool to create 3D Text with advanced options</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用高级选项创建 3D 文本的工具</div><div class="lang-content">Tool to create 3D Text with advanced options</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Performance Capture Workflow / Performance Capture Workflow
+title: 绩效捕获工作流程 / Performance Capture Workflow
 ---
 
 
@@ -12,7 +12,7 @@ title: Performance Capture Workflow / Performance Capture Workflow
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Performance Capture Workflow</div>
-      <div class="hero-title-cn">Performance Capture Workflow · Performance Capture In-Editor Wo</div>
+      <div class="hero-title-cn">绩效捕获工作流程 · 性能捕获编辑器内工作流程工具。提供对 Mocap Manager</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Performance Capture Workflow / Performance Capture Workflow
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Performance Capture In-Editor Workflow tools. Provides access to the Mocap Manager panel.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">性能捕获编辑器内工作流程工具。提供对 Mocap Manager 面板的访问。</div><div class="lang-content">Performance Capture In-Editor Workflow tools. Provides access to the Mocap Manager panel.</div></div></div>
     </div>
     
   </div>

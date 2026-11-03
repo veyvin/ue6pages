@@ -12,7 +12,7 @@ title: VerseModuleIndependenceB / VerseModuleIndependenceB
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">VerseModuleIndependenceB</div>
-      <div class="hero-title-cn">VerseModuleIndependenceB · Test fixture plugin B for the Ve</div>
+      <div class="hero-title-cn">VerseModuleIndependenceB · 用于 Verse 模块独立性测试的测试夹具插件 B。定义由 Ve</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Uncategorized</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: VerseModuleIndependenceB / VerseModuleIndependenceB
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Test fixture plugin B for the Verse module independence test. Defines b_class which is imported by VerseModuleIndependenceA.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于 Verse 模块独立性测试的测试夹具插件 B。定义由 VerseModuleIndependenceA 导入的 b_class。</div><div class="lang-content">Test fixture plugin B for the Verse module independence test. Defines b_class which is imported by VerseModuleIndependenceA.</div></div></div>
     </div>
     
   </div>

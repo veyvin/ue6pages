@@ -1,6 +1,6 @@
 ---
 layout: default
-title: LiveLinkInputDevice / LiveLinkInputDevice
+title: LiveLink输入设备 / LiveLinkInputDevice
 ---
 
 
@@ -12,7 +12,7 @@ title: LiveLinkInputDevice / LiveLinkInputDevice
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">LiveLinkInputDevice</div>
-      <div class="hero-title-cn">LiveLinkInputDevice · Live Link plugin for Unreal Engi</div>
+      <div class="hero-title-cn">LiveLink输入设备 · 用于虚幻引擎输入设备（即游戏控制器）的 Live Link 插件</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: LiveLinkInputDevice / LiveLinkInputDevice
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Live Link plugin for Unreal Engine Input Devices, i.e. Game Controllers. It uses the InputDevice system to query values and share state over LiveLink.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于虚幻引擎输入设备（即游戏控制器）的 Live Link 插件。它使用 InputDevice 系统通过 LiveLink 查询值并共享状态。</div><div class="lang-content">Live Link plugin for Unreal Engine Input Devices, i.e. Game Controllers. It uses the InputDevice system to query values and share state over LiveLink.</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: DMX Protocol / DMX Protocol
+title: DMX协议 / DMX Protocol
 ---
 
 
@@ -12,7 +12,7 @@ title: DMX Protocol / DMX Protocol
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">DMX Protocol</div>
-      <div class="hero-title-cn">DMX Protocol · DMX Protocols implementation</div>
+      <div class="hero-title-cn">DMX协议 · DMX 协议实施</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: DMX Protocol / DMX Protocol
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>DMX Protocols implementation</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">DMX 协议实施</div><div class="lang-content">DMX Protocols implementation</div></div></div>
     </div>
     
   </div>

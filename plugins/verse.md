@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Verse / Verse
+title: 诗 / Verse
 ---
 
 
@@ -12,7 +12,7 @@ title: Verse / Verse
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Verse</div>
-      <div class="hero-title-cn">Verse · Verse</div>
+      <div class="hero-title-cn">诗 · 诗</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Verse</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Verse / Verse
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Verse</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">诗</div><div class="lang-content">Verse</div></div></div>
     </div>
     
   </div>

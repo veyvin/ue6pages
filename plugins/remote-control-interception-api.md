@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remote Control Interception API / Remote Control Interception API
+title: 远程控制拦截API / Remote Control Interception API
 ---
 
 
@@ -12,7 +12,7 @@ title: Remote Control Interception API / Remote Control Interception API
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Remote Control Interception API</div>
-      <div class="hero-title-cn">Remote Control Interception API · Plugin that allows to intercept </div>
+      <div class="hero-title-cn">远程控制拦截API · 允许拦截远程控制命令的插件</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Messaging</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Remote Control Interception API / Remote Control Interception API
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Plugin that allows to intercept Remote Control commands</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许拦截远程控制命令的插件</div><div class="lang-content">Plugin that allows to intercept Remote Control commands</div></div></div>
     </div>
     
   </div>

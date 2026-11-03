@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Runtime Tests / Runtime Tests
+title: 运行时测试 / Runtime Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: Runtime Tests / Runtime Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Runtime Tests</div>
-      <div class="hero-title-cn">Runtime Tests · Automated tests for runtime code</div>
+      <div class="hero-title-cn">运行时测试 · 对编辑器和熟构建中使用的运行时代码进行自动测试</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Runtime Tests / Runtime Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Automated tests for runtime code used in both editor and cooked builds</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">对编辑器和熟构建中使用的运行时代码进行自动测试</div><div class="lang-content">Automated tests for runtime code used in both editor and cooked builds</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Metasound Tests / Metasound Tests
+title: 元声音测试 / Metasound Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: Metasound Tests / Metasound Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Metasound Tests</div>
-      <div class="hero-title-cn">Metasound Tests · Reusable node-agnostic tests for</div>
+      <div class="hero-title-cn">元声音测试 · MetaSound 节点的可重复使用的与节点无关的测试（独立的 </div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Metasound Tests / Metasound Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Reusable node-agnostic tests for MetaSound nodes (isolated DSP checks and old-vs-new equivalence), usable across projects.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">MetaSound 节点的可重复使用的与节点无关的测试（独立的 DSP 检查和新旧等效性），可跨项目使用。</div><div class="lang-content">Reusable node-agnostic tests for MetaSound nodes (isolated DSP checks and old-vs-new equivalence), usable across projects.</div></div></div>
     </div>
     
   </div>

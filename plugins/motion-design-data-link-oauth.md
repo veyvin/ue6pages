@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Motion Design Data Link OAuth / Motion Design Data Link OAuth
+title: 运动设计数据链接 OAuth / Motion Design Data Link OAuth
 ---
 
 
@@ -12,7 +12,7 @@ title: Motion Design Data Link OAuth / Motion Design Data Link OAuth
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Motion Design Data Link OAuth</div>
-      <div class="hero-title-cn">Motion Design Data Link OAuth · Motion Design Data Link function</div>
+      <div class="hero-title-cn">运动设计数据链接 OAuth · OAuth 2.0 的运动设计数据链接功能</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Motion Design Data Link OAuth / Motion Design Data Link OAuth
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Motion Design Data Link functionality for OAuth 2.0</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">OAuth 2.0 的运动设计数据链接功能</div><div class="lang-content">Motion Design Data Link functionality for OAuth 2.0</div></div></div>
     </div>
     
   </div>

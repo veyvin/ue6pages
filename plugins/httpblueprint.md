@@ -1,6 +1,6 @@
 ---
 layout: default
-title: HttpBlueprint / HttpBlueprint
+title: Http蓝图 / HttpBlueprint
 ---
 
 
@@ -12,7 +12,7 @@ title: HttpBlueprint / HttpBlueprint
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">HttpBlueprint</div>
-      <div class="hero-title-cn">HttpBlueprint · Allows for sending and receiving</div>
+      <div class="hero-title-cn">Http蓝图 · 允许在蓝图中发送和接收 HTTP 请求</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Web</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: HttpBlueprint / HttpBlueprint
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Allows for sending and receiving HTTP requests in Blueprint</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许在蓝图中发送和接收 HTTP 请求</div><div class="lang-content">Allows for sending and receiving HTTP requests in Blueprint</div></div></div>
     </div>
     
   </div>

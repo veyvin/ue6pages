@@ -36,7 +36,7 @@ title: GraphEditor
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 20 other module(s): AppFramework, AssetRegistry, Core, CoreUObject, DeveloperToolSettings, Documentation, EditorFramework, EditorStyle, EditorWidgets, Engine, InputCore, KismetWidgets, PropertyEditor, RHI, RenderCore, Slate, SlateCore, ToolMenus, ToolWidgets, UnrealEd.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 20 个模块：AppFramework、AssetRegistry、Core、CoreUObject、DeveloperToolSettings、Documentation、EditorFramework、EditorStyle、EditorWidgets、Engine、InputCore、KismetWidgets、PropertyEditor、RHI、RenderCore、Slate、SlateCore、ToolMenus、ToolWidgets、UnrealEd。</div><div class="lang-content">This module depends on 20 other module(s): AppFramework, AssetRegistry, Core, CoreUObject, DeveloperToolSettings, Documentation, EditorFramework, EditorStyle, EditorWidgets, Engine, InputCore, KismetWidgets, PropertyEditor, RHI, RenderCore, Slate, SlateCore, ToolMenus, ToolWidgets, UnrealEd.</div></div>
       </div>
     </div>
   </div>

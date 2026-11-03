@@ -12,7 +12,7 @@ title: GDK 虚拟键盘 / GDK Virtual Keyboard
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">GDK Virtual Keyboard</div>
-      <div class="hero-title-cn">GDK 虚拟键盘 · Virtual Keyboard support for GDK</div>
+      <div class="hero-title-cn">GDK 虚拟键盘 · GDK 的虚拟键盘支持。用于Slate文本输入等</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Platform</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: GDK 虚拟键盘 / GDK Virtual Keyboard
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Virtual Keyboard support for GDK. Used for Slate text input etc</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">GDK 的虚拟键盘支持。用于Slate文本输入等</div><div class="lang-content">Virtual Keyboard support for GDK. Used for Slate text input etc</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenXR Vive Cosmos Controller / OpenXR Vive Cosmos Controller
+title: OpenXR Vive Cosmos 控制器 / OpenXR Vive Cosmos Controller
 ---
 
 
@@ -12,7 +12,7 @@ title: OpenXR Vive Cosmos Controller / OpenXR Vive Cosmos Controller
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OpenXR Vive Cosmos Controller</div>
-      <div class="hero-title-cn">OpenXR Vive Cosmos Controller · HTC Vive Cosmos controller suppo</div>
+      <div class="hero-title-cn">OpenXR Vive Cosmos 控制器 · HTC Vive Cosmos 控制器对 OpenXR 的支持：</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: OpenXR Vive Cosmos Controller / OpenXR Vive Cosmos Controller
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>HTC Vive Cosmos controller support for OpenXR: the /interaction_profiles/htc/vive_cosmos_controller interaction profile (XR_HTC_vive_cosmos_controller_interaction, core in OpenXR 1.1) and its controller meshes.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">HTC Vive Cosmos 控制器对 OpenXR 的支持：/interaction_profiles/htc/vive_cosmos_controller 交互配置文件（XR_HTC_vive_cosmos_controller_interaction，OpenXR 1.1 中的核心）及其控制器网格。</div><div class="lang-content">HTC Vive Cosmos controller support for OpenXR: the /interaction_profiles/htc/vive_cosmos_controller interaction profile (XR_HTC_vive_cosmos_controller_interaction, core in OpenXR 1.1) and its controller meshes.</div></div></div>
     </div>
     
   </div>

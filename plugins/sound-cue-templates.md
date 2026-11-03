@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Sound Cue Templates / Sound Cue Templates
+title: 声音提示模板 / Sound Cue Templates
 ---
 
 
@@ -12,7 +12,7 @@ title: Sound Cue Templates / Sound Cue Templates
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Sound Cue Templates</div>
-      <div class="hero-title-cn">Sound Cue Templates · Collection of SoundCue Templates</div>
+      <div class="hero-title-cn">声音提示模板 · SoundCue 模板集合，提供常见音频设计工作流程的快速设计。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Sound Cue Templates / Sound Cue Templates
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Collection of SoundCue Templates, which provide rapid design of common audio design workflows.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">SoundCue 模板集合，提供常见音频设计工作流程的快速设计。</div><div class="lang-content">Collection of SoundCue Templates, which provide rapid design of common audio design workflows.</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Movie Player for WebM files / Movie Player for WebM files
+title: WebM 文件的电影播放器 / Movie Player for WebM files
 ---
 
 
@@ -12,7 +12,7 @@ title: Movie Player for WebM files / Movie Player for WebM files
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Movie Player for WebM files</div>
-      <div class="hero-title-cn">Movie Player for WebM files · Movie Player for WebM files</div>
+      <div class="hero-title-cn">WebM 文件的电影播放器 · WebM 文件的电影播放器</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Media Players</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Movie Player for WebM files / Movie Player for WebM files
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Movie Player for WebM files</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">WebM 文件的电影播放器</div><div class="lang-content">Movie Player for WebM files</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Capture Manager Devices / Capture Manager Devices
+title: 捕获管理器设备 / Capture Manager Devices
 ---
 
 
@@ -12,7 +12,7 @@ title: Capture Manager Devices / Capture Manager Devices
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Capture Manager Devices</div>
-      <div class="hero-title-cn">Capture Manager Devices · The Capture Manager Devices cont</div>
+      <div class="hero-title-cn">捕获管理器设备 · 捕获管理器设备包含可从 LiveLink Hub 的捕获管理器布</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Capture Manager Devices / Capture Manager Devices
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>The Capture Manager Devices contains devices that can be used from the Capture Manager layout of the LiveLink Hub</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">捕获管理器设备包含可从 LiveLink Hub 的捕获管理器布局中使用的设备</div><div class="lang-content">The Capture Manager Devices contains devices that can be used from the Capture Manager layout of the LiveLink Hub</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Synthesis and DSP Effects / Synthesis and DSP Effects
+title: 合成和 DSP 效果 / Synthesis and DSP Effects
 ---
 
 
@@ -12,7 +12,7 @@ title: Synthesis and DSP Effects / Synthesis and DSP Effects
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Synthesis and DSP Effects</div>
-      <div class="hero-title-cn">Synthesis and DSP Effects · A variety of realtime synthesize</div>
+      <div class="hero-title-cn">合成和 DSP 效果 · 各种实时合成器和 DSP 源和子混合效果。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Synthesis and DSP Effects / Synthesis and DSP Effects
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>A variety of realtime synthesizers and DSP source and submix effects.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">各种实时合成器和 DSP 源和子混合效果。</div><div class="lang-content">A variety of realtime synthesizers and DSP source and submix effects.</div></div></div>
     </div>
     
   </div>

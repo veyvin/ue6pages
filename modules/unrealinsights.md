@@ -36,7 +36,7 @@ title: UnrealInsights
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 22 other module(s): AppFramework, ApplicationCore, Core, CoreUObject, LiveCoding, OutputLog, Projects, SessionFrontend, Slate, SlateCore, SourceCodeAccess, StandaloneRenderer, TargetDeviceServices, TargetPlatform, TcpMessaging, TraceInsights, TraceInsightsCore, TraceInsightsFrontend, UdpMessaging, UnixCommonStartup, VisualStudioSourceCodeAccess, XCodeSourceCodeAccess.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 22 个其他模块：AppFramework、ApplicationCore、Core、CoreUObject、LiveCoding、OutputLog、Projects、SessionFrontend、Slate、SlateCore、SourceCodeAccess、StandaloneRenderer、TargetDeviceServices、TargetPlatform、TcpMessaging、TraceInsights、TraceInsightsCore、TraceInsightsFrontend、UdpMessaging、UnixCommonStartup、VisualStudioSourceCodeAccess、 XCodeSourceCodeAccess。</div><div class="lang-content">This module depends on 22 other module(s): AppFramework, ApplicationCore, Core, CoreUObject, LiveCoding, OutputLog, Projects, SessionFrontend, Slate, SlateCore, SourceCodeAccess, StandaloneRenderer, TargetDeviceServices, TargetPlatform, TcpMessaging, TraceInsights, TraceInsightsCore, TraceInsightsFrontend, UdpMessaging, UnixCommonStartup, VisualStudioSourceCodeAccess, XCodeSourceCodeAccess.</div></div>
       </div>
     </div>
   </div>

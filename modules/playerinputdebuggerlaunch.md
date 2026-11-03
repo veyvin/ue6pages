@@ -36,7 +36,7 @@ title: PlayerInputDebuggerLaunch
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 18 other module(s): ApplicationCore, Core, CoreUObject, DesktopPlatform, InputCore, Messaging, MessagingCommon, OutputLog, PlayerInputDebuggerMessages, PlayerInputDebuggerUI, Projects, Slate, SlateCore, StandaloneRenderer, TargetDeviceServices, TargetPlatform, UdpMessaging, WorkspaceMenuStructure.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 18 个模块：ApplicationCore、Core、CoreUObject、DesktopPlatform、InputCore、Messaging、MessagingCommon、OutputLog、PlayerInputDebuggerMessages、PlayerInputDebuggerUI、Projects、Slate、SlateCore、StandaloneRenderer、TargetDeviceServices、TargetPlatform、UdpMessaging、WorkspaceMenuStructure。</div><div class="lang-content">This module depends on 18 other module(s): ApplicationCore, Core, CoreUObject, DesktopPlatform, InputCore, Messaging, MessagingCommon, OutputLog, PlayerInputDebuggerMessages, PlayerInputDebuggerUI, Projects, Slate, SlateCore, StandaloneRenderer, TargetDeviceServices, TargetPlatform, UdpMessaging, WorkspaceMenuStructure.</div></div>
       </div>
     </div>
   </div>

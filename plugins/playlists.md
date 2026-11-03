@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Playlists / Playlists
+title: 播放列表 / Playlists
 ---
 
 
@@ -12,7 +12,7 @@ title: Playlists / Playlists
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Playlists</div>
-      <div class="hero-title-cn">Playlists · Sequencer Playlists allow users </div>
+      <div class="hero-title-cn">播放列表 · 音序器播放列表允许用户在虚拟制作会话期间动态准备、排队和触发关卡</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Playlists / Playlists
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Sequencer Playlists allow users to prepare, queue, and trigger level sequences on the fly during a virtual production session, providing increased flexibility and agility when interacting with animation on set.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">音序器播放列表允许用户在虚拟制作会话期间动态准备、排队和触发关卡序列，从而在与现场动画交互时提供更高的灵活性和敏捷性。</div><div class="lang-content">Sequencer Playlists allow users to prepare, queue, and trigger level sequences on the fly during a virtual production session, providing increased flexibility and agility when interacting with animation on set.</div></div></div>
     </div>
     
   </div>

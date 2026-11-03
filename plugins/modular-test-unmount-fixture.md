@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Modular Test Unmount Fixture / Modular Test Unmount Fixture
+title: 模块化测试卸载夹具 / Modular Test Unmount Fixture
 ---
 
 
@@ -12,7 +12,7 @@ title: Modular Test Unmount Fixture / Modular Test Unmount Fixture
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Modular Test Unmount Fixture</div>
-      <div class="hero-title-cn">Modular Test Unmount Fixture · Inert fixture the framework self</div>
+      <div class="hero-title-cn">模块化测试卸载夹具 · 框架自测试安装和卸载的惰性夹具。不是测试同伴；不包含任何测试。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Modular Test Unmount Fixture / Modular Test Unmount Fixture
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Inert fixture the framework self-tests mount and unmount. Not a test companion; contains no tests.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">框架自测试安装和卸载的惰性夹具。不是测试同伴；不包含任何测试。</div><div class="lang-content">Inert fixture the framework self-tests mount and unmount. Not a test companion; contains no tests.</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Windows Movie Player / Windows Movie Player
+title: Windows 电影播放器 / Windows Movie Player
 ---
 
 
@@ -12,7 +12,7 @@ title: Windows Movie Player / Windows Movie Player
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Windows Movie Player</div>
-      <div class="hero-title-cn">Windows Movie Player · Windows Specific Movie Player us</div>
+      <div class="hero-title-cn">Windows 电影播放器 · 使用 Media Foundation 的 Windows 特定</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Media Players</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Windows Movie Player / Windows Movie Player
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Windows Specific Movie Player using Media Foundation</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用 Media Foundation 的 Windows 特定电影播放器</div><div class="lang-content">Windows Specific Movie Player using Media Foundation</div></div></div>
     </div>
     
   </div>

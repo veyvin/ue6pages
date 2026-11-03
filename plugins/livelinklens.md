@@ -1,6 +1,6 @@
 ---
 layout: default
-title: LiveLinkLens / LiveLinkLens
+title: 实时链接镜头 / LiveLinkLens
 ---
 
 
@@ -12,7 +12,7 @@ title: LiveLinkLens / LiveLinkLens
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">LiveLinkLens</div>
-      <div class="hero-title-cn">LiveLinkLens · Adds a new LiveLink LensRole and</div>
+      <div class="hero-title-cn">实时链接镜头 · 添加新的 LiveLink LensRole 和 LensCon</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: LiveLinkLens / LiveLinkLens
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Adds a new LiveLink LensRole and LensController to support streaming of pre-calibrated lens data</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">添加新的 LiveLink LensRole 和 LensController 以支持预校准镜头数据流</div><div class="lang-content">Adds a new LiveLink LensRole and LensController to support streaming of pre-calibrated lens data</div></div></div>
     </div>
     
   </div>

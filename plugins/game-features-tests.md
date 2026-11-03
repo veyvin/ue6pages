@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Game Features Tests / Game Features Tests
+title: 游戏功能测试 / Game Features Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: Game Features Tests / Game Features Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Game Features Tests</div>
-      <div class="hero-title-cn">Game Features Tests · Tests for the GameFeatures plugi</div>
+      <div class="hero-title-cn">游戏功能测试 · 测试 GameFeatures 插件。由 GameFeature</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Game Features Tests / Game Features Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Tests for the GameFeatures plugin. Companion declared by GameFeatures' TestConfig.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">测试 GameFeatures 插件。由 GameFeatures 的 TestConfig 声明的同伴。</div><div class="lang-content">Tests for the GameFeatures plugin. Companion declared by GameFeatures' TestConfig.</div></div></div>
     </div>
     
   </div>

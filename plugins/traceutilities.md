@@ -12,7 +12,7 @@ title: TraceUtilities / TraceUtilities
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">TraceUtilities</div>
-      <div class="hero-title-cn">TraceUtilities · A collection of tools that incre</div>
+      <div class="hero-title-cn">TraceUtilities · 提高 Unreal Insights 和 Trace Frame</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: TraceUtilities / TraceUtilities
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>A collection of tools that increase usability of Unreal Insights and the Trace Framework</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">提高 Unreal Insights 和 Trace Framework 可用性的工具集合</div><div class="lang-content">A collection of tools that increase usability of Unreal Insights and the Trace Framework</div></div></div>
     </div>
     
   </div>

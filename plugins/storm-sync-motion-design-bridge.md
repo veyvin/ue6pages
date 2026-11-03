@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Storm Sync Motion Design Bridge / Storm Sync Motion Design Bridge
+title: Storm Sync 运动设计桥 / Storm Sync Motion Design Bridge
 ---
 
 
@@ -12,7 +12,7 @@ title: Storm Sync Motion Design Bridge / Storm Sync Motion Design Bridge
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Storm Sync Motion Design Bridge</div>
-      <div class="hero-title-cn">Storm Sync Motion Design Bridge · Plugin bridge between Motion Des</div>
+      <div class="hero-title-cn">Storm Sync 运动设计桥 · Motion Design Plugin 和 Storm Syn</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Storm Sync Motion Design Bridge / Storm Sync Motion Design Bridge
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Plugin bridge between Motion Design Plugin and Storm Sync to provide in-editor integration to synchronize assets</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Motion Design Plugin 和 Storm Sync 之间的插件桥梁，提供编辑器内集成以同步资源</div><div class="lang-content">Plugin bridge between Motion Design Plugin and Storm Sync to provide in-editor integration to synchronize assets</div></div></div>
     </div>
     
   </div>

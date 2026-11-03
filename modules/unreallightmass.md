@@ -36,7 +36,7 @@ title: UnrealLightmass
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 12 other module(s): ApplicationCore, Core, CoreUObject, Embree, IntelTBB, Messaging, Networking, Projects, Sockets, SwarmInterface, UdpMessaging, zlib.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 12 个其他模块：ApplicationCore、Core、CoreUObject、Embree、IntelTBB、Messaging、Networking、Projects、Sockets、SwarmInterface、UdpMessaging、zlib。</div><div class="lang-content">This module depends on 12 other module(s): ApplicationCore, Core, CoreUObject, Embree, IntelTBB, Messaging, Networking, Projects, Sockets, SwarmInterface, UdpMessaging, zlib.</div></div>
       </div>
     </div>
   </div>

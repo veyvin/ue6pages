@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Steam Sockets / Steam Sockets
+title: 蒸汽插座 / Steam Sockets
 ---
 
 
@@ -12,7 +12,7 @@ title: Steam Sockets / Steam Sockets
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Steam Sockets</div>
-      <div class="hero-title-cn">Steam Sockets · New Steamworks Networking code t</div>
+      <div class="hero-title-cn">蒸汽插座 · 支持 SteamSockets 接口的新 Steamworks </div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Networking</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Steam Sockets / Steam Sockets
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>New Steamworks Networking code that supports the SteamSockets interface. NOTE: This plugin is only compatible with the SteamSockets Netdriver. It will not work if the proper netdriver definitions have not been set.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">支持 SteamSockets 接口的新 Steamworks 网络代码。注意：此插件仅与 SteamSockets Netdriver 兼容。如果未设置正确的网络驱动程序定义，它将无法工作。</div><div class="lang-content">New Steamworks Networking code that supports the SteamSockets interface. NOTE: This plugin is only compatible with the SteamSockets Netdriver. It will not work if the proper netdriver definitions have not been set.</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Web Browser to Native Proxying / Web Browser to Native Proxying
+title: Web 浏览器到本机代理 / Web Browser to Native Proxying
 ---
 
 
@@ -12,7 +12,7 @@ title: Web Browser to Native Proxying / Web Browser to Native Proxying
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Web Browser to Native Proxying</div>
-      <div class="hero-title-cn">Web Browser to Native Proxying · Maintains the browser to native </div>
+      <div class="hero-title-cn">Web 浏览器到本机代理 · 维护浏览器到本机代理并提供用于注册 UObjects 绑定的挂钩</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>UI</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Web Browser to Native Proxying / Web Browser to Native Proxying
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Maintains the browser to native proxy and provides hooks for registering UObjects bindings</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">维护浏览器到本机代理并提供用于注册 UObjects 绑定的挂钩</div><div class="lang-content">Maintains the browser to native proxy and provides hooks for registering UObjects bindings</div></div></div>
     </div>
     
   </div>

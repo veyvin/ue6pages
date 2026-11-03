@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Stage Monitor / Stage Monitor
+title: 舞台监听 / Stage Monitor
 ---
 
 
@@ -12,7 +12,7 @@ title: Stage Monitor / Stage Monitor
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Stage Monitor</div>
-      <div class="hero-title-cn">Stage Monitor · Plugin enabling monitoring in th</div>
+      <div class="hero-title-cn">舞台监听 · 插件可在多台机器运行的虚拟生产阶段进行监控</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Stage Monitor / Stage Monitor
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Plugin enabling monitoring in the context of a virtual production stage where multiple machines are in operation</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">插件可在多台机器运行的虚拟生产阶段进行监控</div><div class="lang-content">Plugin enabling monitoring in the context of a virtual production stage where multiple machines are in operation</div></div></div>
     </div>
     
   </div>

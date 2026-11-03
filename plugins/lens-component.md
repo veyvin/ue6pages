@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lens Component / Lens Component
+title: 镜头组件 / Lens Component
 ---
 
 
@@ -12,7 +12,7 @@ title: Lens Component / Lens Component
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Lens Component</div>
-      <div class="hero-title-cn">Lens Component · Implements the Lens Component fo</div>
+      <div class="hero-title-cn">镜头组件 · 实现镜头组件以向电影摄影机添加失真</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Lens Component / Lens Component
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Implements the Lens Component for adding distortion to a cinematic camera</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">实现镜头组件以向电影摄影机添加失真</div><div class="lang-content">Implements the Lens Component for adding distortion to a cinematic camera</div></div></div>
     </div>
     
   </div>

@@ -12,7 +12,7 @@ title: OpenXR Oculus 触摸控制器 / OpenXR Oculus Touch Controller
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OpenXR Oculus Touch Controller</div>
-      <div class="hero-title-cn">OpenXR Oculus 触摸控制器 · Oculus Touch and Oculus Go contr</div>
+      <div class="hero-title-cn">OpenXR Oculus 触摸控制器 · Oculus Touch 和 Oculus Go 控制器对 Op</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: OpenXR Oculus 触摸控制器 / OpenXR Oculus Touch Controller
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Oculus Touch and Oculus Go controller support for OpenXR: the /interaction_profiles/oculus/touch_controller and /interaction_profiles/oculus/go_controller interaction profiles and the controller meshes (Rift, Quest, Quest 2, Go).</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Oculus Touch 和 Oculus Go 控制器对 OpenXR 的支持：/interaction_profiles/oculus/touch_controller 和 /interaction_profiles/oculus/go_controller 交互配置文件和控制器网格（Rift、Quest、Quest 2、Go）。</div><div class="lang-content">Oculus Touch and Oculus Go controller support for OpenXR: the /interaction_profiles/oculus/touch_controller and /interaction_profiles/oculus/go_controller interaction profiles and the controller meshes (Rift, Quest, Quest 2, Go).</div></div></div>
     </div>
     
   </div>

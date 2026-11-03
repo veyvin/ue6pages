@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RigVM Tests / RigVM Tests
+title: RigVM 测试 / RigVM Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: RigVM Tests / RigVM Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">RigVM Tests</div>
-      <div class="hero-title-cn">RigVM Tests · MTF tests for the RigVM graph mo</div>
+      <div class="hero-title-cn">RigVM 测试 · RigVM 图模型的 MTF 测试。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: RigVM Tests / RigVM Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>MTF tests for the RigVM graph model.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">RigVM 图模型的 MTF 测试。</div><div class="lang-content">MTF tests for the RigVM graph model.</div></div></div>
     </div>
     
   </div>

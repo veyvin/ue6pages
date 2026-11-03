@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Spatialization / Spatialization
+title: 空间化 / Spatialization
 ---
 
 
@@ -12,7 +12,7 @@ title: Spatialization / Spatialization
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Spatialization</div>
-      <div class="hero-title-cn">Spatialization · Plugin featuring a variety of ba</div>
+      <div class="hero-title-cn">空间化 · 插件具有各种基本的音频空间化解决方案。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Spatialization / Spatialization
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Plugin featuring a variety of basic audio spatialization solutions.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">插件具有各种基本的音频空间化解决方案。</div><div class="lang-content">Plugin featuring a variety of basic audio spatialization solutions.</div></div></div>
     </div>
     
   </div>

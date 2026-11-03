@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remote Control Protocol OSC / Remote Control Protocol OSC
+title: 远程控制协议OSC / Remote Control Protocol OSC
 ---
 
 
@@ -12,7 +12,7 @@ title: Remote Control Protocol OSC / Remote Control Protocol OSC
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Remote Control Protocol OSC</div>
-      <div class="hero-title-cn">Remote Control Protocol OSC · Allows interactions between OSC </div>
+      <div class="hero-title-cn">远程控制协议OSC · 允许 OSC 和 RemoteControl API 之间的交互</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Messaging</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Remote Control Protocol OSC / Remote Control Protocol OSC
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Allows interactions between OSC and RemoteControl API.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许 OSC 和 RemoteControl API 之间的交互。</div><div class="lang-content">Allows interactions between OSC and RemoteControl API.</div></div></div>
     </div>
     
   </div>

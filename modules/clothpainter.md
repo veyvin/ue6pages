@@ -36,7 +36,7 @@ title: ClothPainter
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 25 other module(s): AdvancedPreviewScene, AssetRegistry, AssetTools, ClassViewer, ClothingSystemEditorInterface, ClothingSystemRuntimeCommon, ClothingSystemRuntimeInterface, ClothingSystemRuntimeNv, Core, CoreUObject, DeveloperToolSettings, EditorFramework, EditorWidgets, Engine, InputCore, Kismet, MainFrame, MeshPaint, PropertyEditor, SkeletalMeshEditor, Slate, SlateCore, ToolMenus, ToolWidgets, UnrealEd.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 25 个其他模块：AdvancedPreviewScene、AssetRegistry、AssetTools、ClassViewer、ClothingSystemEditorInterface、ClothingSystemRuntimeCommon、ClothingSystemRuntimeInterface、ClothingSystemRuntimeNv、Core、CoreUObject、DeveloperToolSettings、EditorFramework、EditorWidgets、Engine、InputCore、Kismet、MainFrame、MeshPaint、PropertyEditor、SkeletalMeshEditor、Slate、 SlateCore、ToolMenus、ToolWidgets、UnrealEd。</div><div class="lang-content">This module depends on 25 other module(s): AdvancedPreviewScene, AssetRegistry, AssetTools, ClassViewer, ClothingSystemEditorInterface, ClothingSystemRuntimeCommon, ClothingSystemRuntimeInterface, ClothingSystemRuntimeNv, Core, CoreUObject, DeveloperToolSettings, EditorFramework, EditorWidgets, Engine, InputCore, Kismet, MainFrame, MeshPaint, PropertyEditor, SkeletalMeshEditor, Slate, SlateCore, ToolMenus, ToolWidgets, UnrealEd.</div></div>
       </div>
     </div>
   </div>

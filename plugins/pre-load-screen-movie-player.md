@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Pre-Load Screen Movie Player / Pre-Load Screen Movie Player
+title: 预加载屏幕电影播放器 / Pre-Load Screen Movie Player
 ---
 
 
@@ -12,7 +12,7 @@ title: Pre-Load Screen Movie Player / Pre-Load Screen Movie Player
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Pre-Load Screen Movie Player</div>
-      <div class="hero-title-cn">Pre-Load Screen Movie Player · Handles a default implementation</div>
+      <div class="hero-title-cn">预加载屏幕电影播放器 · 处理使用预加载屏幕显示引擎加载影片的默认实现。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>PreLoadScreenMoviePlayer</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Pre-Load Screen Movie Player / Pre-Load Screen Movie Player
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Handles a default implementation of using a Pre-Load screen to display an engine loading movie.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">处理使用预加载屏幕显示引擎加载影片的默认实现。</div><div class="lang-content">Handles a default implementation of using a Pre-Load screen to display an engine loading movie.</div></div></div>
     </div>
     
   </div>

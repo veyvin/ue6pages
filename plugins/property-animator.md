@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Property Animator / Property Animator
+title: 属性动画师 / Property Animator
 ---
 
 
@@ -12,7 +12,7 @@ title: Property Animator / Property Animator
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Property Animator</div>
-      <div class="hero-title-cn">Property Animator · Re-usable behaviors to animate t</div>
+      <div class="hero-title-cn">属性动画师 · 可重用行为来激活一个或多个属性的值</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Property Animator / Property Animator
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Re-usable behaviors to animate the value of one or more properties</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">可重用行为来激活一个或多个属性的值</div><div class="lang-content">Re-usable behaviors to animate the value of one or more properties</div></div></div>
     </div>
     
   </div>

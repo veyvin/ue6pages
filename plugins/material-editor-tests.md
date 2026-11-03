@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Material Editor Tests / Material Editor Tests
+title: 材质编辑器测试 / Material Editor Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: Material Editor Tests / Material Editor Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Material Editor Tests</div>
-      <div class="hero-title-cn">Material Editor Tests · MTF tests for the Material Edito</div>
+      <div class="hero-title-cn">材质编辑器测试 · MTF 测试材质编辑器的 Python 脚本 API。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Material Editor Tests / Material Editor Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>MTF tests for the Material Editor's Python scripting API.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">MTF 测试材质编辑器的 Python 脚本 API。</div><div class="lang-content">MTF tests for the Material Editor's Python scripting API.</div></div></div>
     </div>
     
   </div>

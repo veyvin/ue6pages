@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Automation Driver Tests / Automation Driver Tests
+title: 自动化驱动程序测试 / Automation Driver Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: Automation Driver Tests / Automation Driver Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Automation Driver Tests</div>
-      <div class="hero-title-cn">Automation Driver Tests · (no description)</div>
+      <div class="hero-title-cn">自动化驱动程序测试 · （无描述）</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Automation Driver Tests / Automation Driver Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>(no description)</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div></div>
     </div>
     
   </div>

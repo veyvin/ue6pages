@@ -36,7 +36,7 @@ title: SkeletonEditor
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 22 other module(s): AnimGraph, AnimGraphRuntime, AnimationCore, AnimationWidgets, ApplicationCore, AssetRegistry, BlueprintGraph, ContentBrowser, Core, CoreUObject, EditorFramework, EditorWidgets, Engine, InputCore, Kismet, Persona, PinnedCommandList, Slate, SlateCore, ToolMenus, ToolWidgets, UnrealEd.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 22 个模块：AnimGraph、AnimGraphRuntime、AnimationCore、AnimationWidgets、ApplicationCore、AssetRegistry、BlueprintGraph、ContentBrowser、Core、CoreUObject、EditorFramework、EditorWidgets、Engine、InputCore、Kismet、Persona、PinnedCommandList、Slate、SlateCore、ToolMenus、ToolWidgets、UnrealEd。</div><div class="lang-content">This module depends on 22 other module(s): AnimGraph, AnimGraphRuntime, AnimationCore, AnimationWidgets, ApplicationCore, AssetRegistry, BlueprintGraph, ContentBrowser, Core, CoreUObject, EditorFramework, EditorWidgets, Engine, InputCore, Kismet, Persona, PinnedCommandList, Slate, SlateCore, ToolMenus, ToolWidgets, UnrealEd.</div></div>
       </div>
     </div>
   </div>

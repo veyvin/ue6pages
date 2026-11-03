@@ -1,6 +1,6 @@
 ---
 layout: default
-title: XRBase / XRBase
+title: XR基地 / XRBase
 ---
 
 
@@ -12,7 +12,7 @@ title: XRBase / XRBase
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">XRBase</div>
-      <div class="hero-title-cn">XRBase · XR Base Feature Implementations.</div>
+      <div class="hero-title-cn">XR基地 · XR 基本功能实现。  （通常这个插件会被另一个需要它的插件自动</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: XRBase / XRBase
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>XR Base Feature Implementations.  (Generally this plugin will be automatically enabled by another plugin that requires it.)</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">XR 基本功能实现。  （通常这个插件会被另一个需要它的插件自动启用。）</div><div class="lang-content">XR Base Feature Implementations.  (Generally this plugin will be automatically enabled by another plugin that requires it.)</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Modular Test Runner UI Tests / Modular Test Runner UI Tests
+title: 模块化测试运行器 UI 测试 / Modular Test Runner UI Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: Modular Test Runner UI Tests / Modular Test Runner UI Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Modular Test Runner UI Tests</div>
-      <div class="hero-title-cn">Modular Test Runner UI Tests · Companion plugin that tests the </div>
+      <div class="hero-title-cn">模块化测试运行器 UI 测试 · 用于测试 Modular Tests Runner 编辑器 UI</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Modular Test Runner UI Tests / Modular Test Runner UI Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Companion plugin that tests the Modular Tests Runner editor UI.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于测试 Modular Tests Runner 编辑器 UI 的配套插件。</div><div class="lang-content">Companion plugin that tests the Modular Tests Runner editor UI.</div></div></div>
     </div>
     
   </div>

@@ -36,7 +36,7 @@ title: ASDTool
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 20 other module(s): ASDCore, ApplicationCore, BuildPatchServices, Core, CoreUObject, D3D12RHI, DerivedDataCache, DistributedBuildInterface, Json, PakFile, PakFileUtilities, Projects, RHI, RHICore, RenderCore, S3Client, SQLiteCore, SSL, ShaderCompilerCommon, UbaController.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 20 个模块：ASDCore、ApplicationCore、BuildPatchServices、Core、CoreUObject、D3D12RHI、DerivedDataCache、DistributedBuildInterface、Json、PakFile、PakFileUtilities、Projects、RHI、RHICore、RenderCore、S3Client、SQLiteCore、SSL、ShaderCompilerCommon、UbaController。</div><div class="lang-content">This module depends on 20 other module(s): ASDCore, ApplicationCore, BuildPatchServices, Core, CoreUObject, D3D12RHI, DerivedDataCache, DistributedBuildInterface, Json, PakFile, PakFileUtilities, Projects, RHI, RHICore, RenderCore, S3Client, SQLiteCore, SSL, ShaderCompilerCommon, UbaController.</div></div>
       </div>
     </div>
   </div>

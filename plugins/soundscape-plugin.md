@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Soundscape Plugin / Soundscape Plugin
+title: 音景插件 / Soundscape Plugin
 ---
 
 
@@ -12,7 +12,7 @@ title: Soundscape Plugin / Soundscape Plugin
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Soundscape Plugin</div>
-      <div class="hero-title-cn">Soundscape Plugin · A Dynamic Ambient Sound System</div>
+      <div class="hero-title-cn">音景插件 · 动态环境音响系统</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Soundscape Plugin / Soundscape Plugin
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>A Dynamic Ambient Sound System</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">动态环境音响系统</div><div class="lang-content">A Dynamic Ambient Sound System</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ModularTestVerse Tests / ModularTestVerse Tests
+title: ModularTestVerse 测试 / ModularTestVerse Tests
 ---
 
 
@@ -12,7 +12,7 @@ title: ModularTestVerse Tests / ModularTestVerse Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">ModularTestVerse Tests</div>
-      <div class="hero-title-cn">ModularTestVerse Tests · Companion test plugin for Modula</div>
+      <div class="hero-title-cn">ModularTestVerse 测试 · ModularTestVerse 的配套测试插件。使用真实的 v</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: ModularTestVerse Tests / ModularTestVerse Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Companion test plugin for ModularTestVerse. Acceptance tests for UMTFVerseTaskOps using a real verse coroutine.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">ModularTestVerse 的配套测试插件。使用真实的 verse 协程对 UMTFVerseTaskOps 进行验收测试。</div><div class="lang-content">Companion test plugin for ModularTestVerse. Acceptance tests for UMTFVerseTaskOps using a real verse coroutine.</div></div></div>
     </div>
     
   </div>

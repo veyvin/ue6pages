@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Motion Design Scene State Data Link Bridge / Motion Design Scene State Data Link Bridge
+title: 运动设计场景状态数据链路桥 / Motion Design Scene State Data Link Bridge
 ---
 
 
@@ -12,7 +12,7 @@ title: Motion Design Scene State Data Link Bridge / Motion Design Scene State Da
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Motion Design Scene State Data Link Bridge</div>
-      <div class="hero-title-cn">Motion Design Scene State Data Link Bridge · Scene State Tasks that execute D</div>
+      <div class="hero-title-cn">运动设计场景状态数据链路桥 · 执行数据链接图的场景状态任务</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Motion Design Scene State Data Link Bridge / Motion Design Scene State Da
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Scene State Tasks that execute Data Link Graphs</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">执行数据链接图的场景状态任务</div><div class="lang-content">Scene State Tasks that execute Data Link Graphs</div></div></div>
     </div>
     
   </div>

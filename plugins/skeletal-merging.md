@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Skeletal Merging / Skeletal Merging
+title: 骨骼合并 / Skeletal Merging
 ---
 
 
@@ -12,7 +12,7 @@ title: Skeletal Merging / Skeletal Merging
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Skeletal Merging</div>
-      <div class="hero-title-cn">Skeletal Merging · Provides Blueprint functionality</div>
+      <div class="hero-title-cn">骨骼合并 · 提供蓝图功能来执行运行时骨架网格体合并</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Skeletal Merging / Skeletal Merging
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Provides Blueprint functionality to perform runtime Skeletal Mesh merging</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">提供蓝图功能来执行运行时骨架网格体合并</div><div class="lang-content">Provides Blueprint functionality to perform runtime Skeletal Mesh merging</div></div></div>
     </div>
     
   </div>

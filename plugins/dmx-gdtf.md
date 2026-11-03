@@ -12,7 +12,7 @@ title: DMX GDTF / DMX GDTF
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">DMX GDTF</div>
-      <div class="hero-title-cn">DMX GDTF · Implementation of the GDTF stand</div>
+      <div class="hero-title-cn">DMX GDTF · 使用虚幻引擎类型实现 GDTF 标准</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: DMX GDTF / DMX GDTF
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Implementation of the GDTF standard using Unreal Engine types</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用虚幻引擎类型实现 GDTF 标准</div><div class="lang-content">Implementation of the GDTF standard using Unreal Engine types</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: UBA Controller / UBA Controller
+title: UBA控制器 / UBA Controller
 ---
 
 
@@ -12,7 +12,7 @@ title: UBA Controller / UBA Controller
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">UBA Controller</div>
-      <div class="hero-title-cn">UBA Controller · Adds support for shader compilin</div>
+      <div class="hero-title-cn">UBA控制器 · 添加对使用 UnrealBuildAccelerator (UB</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Build Distribution</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: UBA Controller / UBA Controller
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Adds support for shader compiling distribution using UnrealBuildAccelerator (UBA)</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">添加对使用 UnrealBuildAccelerator (UBA) 的着色器编译分发的支持</div><div class="lang-content">Adds support for shader compiling distribution using UnrealBuildAccelerator (UBA)</div></div></div>
     </div>
     
   </div>

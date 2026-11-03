@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenXR / OpenXR
+title: 开放XR / OpenXR
 ---
 
 
@@ -12,7 +12,7 @@ title: OpenXR / OpenXR
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OpenXR</div>
-      <div class="hero-title-cn">OpenXR · OpenXR is an open VR/AR standard</div>
+      <div class="hero-title-cn">开放XR · OpenXR 是一个开放的 VR/AR 标准</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: OpenXR / OpenXR
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>OpenXR is an open VR/AR standard</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">OpenXR 是一个开放的 VR/AR 标准</div><div class="lang-content">OpenXR is an open VR/AR standard</div></div></div>
     </div>
     
   </div>

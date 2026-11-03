@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Texture Share / Texture Share
+title: 纹理共享 / Texture Share
 ---
 
 
@@ -12,7 +12,7 @@ title: Texture Share / Texture Share
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Texture Share</div>
-      <div class="hero-title-cn">Texture Share · Share textures and data between </div>
+      <div class="hero-title-cn">纹理共享 · 在进程之间共享纹理和数据</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Texture Share / Texture Share
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Share textures and data between processes</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">在进程之间共享纹理和数据</div><div class="lang-content">Share textures and data between processes</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: NVIDIA Rivermax Media Streaming / NVIDIA Rivermax Media Streaming
+title: NVIDIA Rivermax 媒体流 / NVIDIA Rivermax Media Streaming
 ---
 
 
@@ -12,7 +12,7 @@ title: NVIDIA Rivermax Media Streaming / NVIDIA Rivermax Media Streaming
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">NVIDIA Rivermax Media Streaming</div>
-      <div class="hero-title-cn">NVIDIA Rivermax Media Streaming · Adding NVIDIA Rivermax capabilit</div>
+      <div class="hero-title-cn">NVIDIA Rivermax 媒体流 · 为媒体捕获和媒体播放器添加 NVIDIA Rivermax 功能</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: NVIDIA Rivermax Media Streaming / NVIDIA Rivermax Media Streaming
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Adding NVIDIA Rivermax capabilities for Media Captures and Media Players</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">为媒体捕获和媒体播放器添加 NVIDIA Rivermax 功能</div><div class="lang-content">Adding NVIDIA Rivermax capabilities for Media Captures and Media Players</div></div></div>
     </div>
     
   </div>

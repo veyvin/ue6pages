@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Data Charts / Data Charts
+title: 数据图表 / Data Charts
 ---
 
 
@@ -12,7 +12,7 @@ title: Data Charts / Data Charts
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Data Charts</div>
-      <div class="hero-title-cn">Data Charts · Generate charts based on data ta</div>
+      <div class="hero-title-cn">数据图表 · 根据数据表生成图表</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Misc</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Data Charts / Data Charts
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Generate charts based on data tables</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">根据数据表生成图表</div><div class="lang-content">Generate charts based on data tables</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Sound Module Plugin / Sound Module Plugin
+title: 声音模块插件 / Sound Module Plugin
 ---
 
 
@@ -12,7 +12,7 @@ title: Sound Module Plugin / Sound Module Plugin
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Sound Module Plugin</div>
-      <div class="hero-title-cn">Sound Module Plugin · Supports playback of ProTracker </div>
+      <div class="hero-title-cn">声音模块插件 · 支持播放 ProTracker (MOD)、Scream Tra</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Sound Module Plugin / Sound Module Plugin
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Supports playback of ProTracker (MOD),  Scream Tracker 3 (S3M), Fast Tracker II (XM), and Impulse Tracker (IT) files.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">支持播放 ProTracker (MOD)、Scream Tracker 3 (S3M)、Fast Tracker II (XM) 和 Impulse Tracker (IT) 文件。</div><div class="lang-content">Supports playback of ProTracker (MOD),  Scream Tracker 3 (S3M), Fast Tracker II (XM), and Impulse Tracker (IT) files.</div></div></div>
     </div>
     
   </div>

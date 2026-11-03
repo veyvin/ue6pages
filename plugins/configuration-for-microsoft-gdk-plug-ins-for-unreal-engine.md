@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuration for Microsoft GDK Plug-ins for Unreal Engine / Configuration for Microsoft GDK Plug-ins for Unreal Engine
+title: 用于虚幻引擎的 Microsoft GDK 插件的配置 / Configuration for Microsoft GDK Plug-ins for Unreal Engine
 ---
 
 
@@ -12,7 +12,7 @@ title: Configuration for Microsoft GDK Plug-ins for Unreal Engine / Configuratio
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Configuration for Microsoft GDK Plug-ins for Unreal Engine</div>
-      <div class="hero-title-cn">Configuration for Microsoft GDK Plug-ins for Unreal Engine · Microsoft Gaming Runtime and Mic</div>
+      <div class="hero-title-cn">用于虚幻引擎的 Microsoft GDK 插件的配置 · Microsoft Gaming Runtime 和 Micro</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Platform</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Configuration for Microsoft GDK Plug-ins for Unreal Engine / Configuratio
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Microsoft Gaming Runtime and Microsoft Game Store plugins.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Microsoft Gaming Runtime 和 Microsoft Game Store 插件。</div><div class="lang-content">Microsoft Gaming Runtime and Microsoft Game Store plugins.</div></div></div>
     </div>
     
   </div>

@@ -12,7 +12,7 @@ title: OpenXRViveTracker / OpenXRViveTracker
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OpenXRViveTracker</div>
-      <div class="hero-title-cn">OpenXRViveTracker · OpenXR Vive Tracker provides XR_</div>
+      <div class="hero-title-cn">OpenXRViveTracker · OpenXR Vive Tracker 提供 XR_HTCX_v</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: OpenXRViveTracker / OpenXRViveTracker
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>OpenXR Vive Tracker provides XR_HTCX_vive_tracker_interaction.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">OpenXR Vive Tracker 提供 XR_HTCX_vive_tracker_interaction。</div><div class="lang-content">OpenXR Vive Tracker provides XR_HTCX_vive_tracker_interaction.</div></div></div>
     </div>
     
   </div>

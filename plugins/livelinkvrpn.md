@@ -1,6 +1,6 @@
 ---
 layout: default
-title: LiveLinkVRPN / LiveLinkVRPN
+title: LiveLink VRPN / LiveLinkVRPN
 ---
 
 
@@ -12,7 +12,7 @@ title: LiveLinkVRPN / LiveLinkVRPN
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">LiveLinkVRPN</div>
-      <div class="hero-title-cn">LiveLinkVRPN · Live Link plugin for the VRPN pr</div>
+      <div class="hero-title-cn">LiveLink VRPN · VRPN 协议的 Live Link 插件</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: LiveLinkVRPN / LiveLinkVRPN
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Live Link plugin for the VRPN protocol</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">VRPN 协议的 Live Link 插件</div><div class="lang-content">Live Link plugin for the VRPN protocol</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RigVM / RigVM
+title: 虚拟机 / RigVM
 ---
 
 
@@ -12,7 +12,7 @@ title: RigVM / RigVM
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">RigVM</div>
-      <div class="hero-title-cn">RigVM · Provides frontend and backend fo</div>
+      <div class="hero-title-cn">虚拟机 · 为 RigVM 可视化编程语言和运行时提供前端和后端</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Misc</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: RigVM / RigVM
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Provides frontend and backend for the RigVM visual programming language and runtime</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">为 RigVM 可视化编程语言和运行时提供前端和后端</div><div class="lang-content">Provides frontend and backend for the RigVM visual programming language and runtime</div></div></div>
     </div>
     
   </div>

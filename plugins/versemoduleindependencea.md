@@ -12,7 +12,7 @@ title: VerseModuleIndependenceA / VerseModuleIndependenceA
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">VerseModuleIndependenceA</div>
-      <div class="hero-title-cn">VerseModuleIndependenceA · Test fixture plugin A for the Ve</div>
+      <div class="hero-title-cn">VerseModuleIndependenceA · 用于 Verse 模块独立性测试的测试夹具插件 A。在 Vers</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Uncategorized</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: VerseModuleIndependenceA / VerseModuleIndependenceA
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Test fixture plugin A for the Verse module independence test. Defines a_class which inherits from b_class in VerseModuleIndependenceB.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于 Verse 模块独立性测试的测试夹具插件 A。在 VerseModuleIndependenceB 中定义继承自 b_class 的 a_class。</div><div class="lang-content">Test fixture plugin A for the Verse module independence test. Defines a_class which inherits from b_class in VerseModuleIndependenceB.</div></div></div>
     </div>
     
   </div>

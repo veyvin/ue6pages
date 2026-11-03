@@ -36,7 +36,7 @@ title: CurveEditor
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 15 other module(s): AppFramework, ApplicationCore, Core, CoreUObject, EditorFramework, Engine, InputCore, PropertyEditor, SequencerWidgets, Slate, SlateCore, TimeManagement, ToolMenus, TraceLog, UMG.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 15 个其他模块：AppFramework、ApplicationCore、Core、CoreUObject、EditorFramework、Engine、InputCore、PropertyEditor、SequencerWidgets、Slate、SlateCore、TimeManagement、ToolMenus、TraceLog、UMG。</div><div class="lang-content">This module depends on 15 other module(s): AppFramework, ApplicationCore, Core, CoreUObject, EditorFramework, Engine, InputCore, PropertyEditor, SequencerWidgets, Slate, SlateCore, TimeManagement, ToolMenus, TraceLog, UMG.</div></div>
       </div>
     </div>
   </div>

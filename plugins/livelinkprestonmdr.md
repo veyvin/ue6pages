@@ -12,7 +12,7 @@ title: LiveLinkPrestonMDR / LiveLinkPrestonMDR
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">LiveLinkPrestonMDR</div>
-      <div class="hero-title-cn">LiveLinkPrestonMDR · Live Link support for the Presto</div>
+      <div class="hero-title-cn">LiveLinkPrestonMDR · 对 Preston MDR-3 电机驱动器的 Live Link</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: LiveLinkPrestonMDR / LiveLinkPrestonMDR
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Live Link support for the Preston MDR-3 Motor Driver</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">对 Preston MDR-3 电机驱动器的 Live Link 支持</div><div class="lang-content">Live Link support for the Preston MDR-3 Motor Driver</div></div></div>
     </div>
     
   </div>

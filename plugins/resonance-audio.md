@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Resonance Audio / Resonance Audio
+title: 共振音频 / Resonance Audio
 ---
 
 
@@ -12,7 +12,7 @@ title: Resonance Audio / Resonance Audio
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Resonance Audio</div>
-      <div class="hero-title-cn">Resonance Audio · 3D audio spatialization and room</div>
+      <div class="hero-title-cn">共振音频 · Google 的 3D 音频空间化和室内声学模拟插件。</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Google</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Resonance Audio / Resonance Audio
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>3D audio spatialization and room acoustics simulation plugin by Google.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Google 的 3D 音频空间化和室内声学模拟插件。</div><div class="lang-content">3D audio spatialization and room acoustics simulation plugin by Google.</div></div></div>
     </div>
     
   </div>

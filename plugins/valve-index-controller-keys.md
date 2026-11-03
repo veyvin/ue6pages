@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Valve Index Controller Keys / Valve Index Controller Keys
+title: 阀门索引控制器按键 / Valve Index Controller Keys
 ---
 
 
@@ -12,7 +12,7 @@ title: Valve Index Controller Keys / Valve Index Controller Keys
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Valve Index Controller Keys</div>
-      <div class="hero-title-cn">Valve Index Controller Keys · Input keys for the Valve Index c</div>
+      <div class="hero-title-cn">阀门索引控制器按键 · Valve Index 控制器的输入键 (ValveIndex_</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Valve Index Controller Keys / Valve Index Controller Keys
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Input keys for the Valve Index controller (ValveIndex_* FKeys). Depends on InputCore only, so modules that map to these keys without OpenXR (for example Pixel Streaming) can reference them.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Valve Index 控制器的输入键 (ValveIndex_* FKeys)。仅取决于 InputCore，因此无需 OpenXR 映射到这些键的模块（例如 Pixel Streaming）可以引用它们。</div><div class="lang-content">Input keys for the Valve Index controller (ValveIndex_* FKeys). Depends on InputCore only, so modules that map to these keys without OpenXR (for example Pixel Streaming) can reference them.</div></div></div>
     </div>
     
   </div>

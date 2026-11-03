@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Optional Mobile Features Blueprint Library / Optional Mobile Features Blueprint Library
+title: 可选的移动功能蓝图库 / Optional Mobile Features Blueprint Library
 ---
 
 
@@ -12,7 +12,7 @@ title: Optional Mobile Features Blueprint Library / Optional Mobile Features Blu
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Optional Mobile Features Blueprint Library</div>
-      <div class="hero-title-cn">Optional Mobile Features Blueprint Library · Gives blueprint access to Sound </div>
+      <div class="hero-title-cn">可选的移动功能蓝图库 · 为 Android 和 iOS 设备提供对音量、电池电量和系统温</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Mobile</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Optional Mobile Features Blueprint Library / Optional Mobile Features Blu
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Gives blueprint access to Sound Volume, Battery Charge Level, and System Temperature for Android and iOS devices</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">为 Android 和 iOS 设备提供对音量、电池电量和系统温度的蓝图访问</div><div class="lang-content">Gives blueprint access to Sound Volume, Battery Charge Level, and System Temperature for Android and iOS devices</div></div></div>
     </div>
     
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Online Subsystem Selector - GDK (Xbox PC) / Online Subsystem Selector - GDK (Xbox PC)
+title: 在线子系统选择器 - GDK (Xbox PC) / Online Subsystem Selector - GDK (Xbox PC)
 ---
 
 
@@ -12,7 +12,7 @@ title: Online Subsystem Selector - GDK (Xbox PC) / Online Subsystem Selector - G
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Online Subsystem Selector - GDK (Xbox PC)</div>
-      <div class="hero-title-cn">Online Subsystem Selector - GDK (Xbox PC) · Automatically switches to Online</div>
+      <div class="hero-title-cn">在线子系统选择器 - GDK (Xbox PC) · Automatically switches to Online</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Platform</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Microsoft GDK Store Plug-in for Unreal Engine / Microsoft GDK Store Plug-in for Unreal Engine
+title: 适用于虚幻引擎的 Microsoft GDK 商店插件 / Microsoft GDK Store Plug-in for Unreal Engine
 ---
 
 
@@ -12,7 +12,7 @@ title: Microsoft GDK Store Plug-in for Unreal Engine / Microsoft GDK Store Plug-
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Microsoft GDK Store Plug-in for Unreal Engine</div>
-      <div class="hero-title-cn">Microsoft GDK Store Plug-in for Unreal Engine · Allows packaging Windows games f</div>
+      <div class="hero-title-cn">适用于虚幻引擎的 Microsoft GDK 商店插件 · 允许打包 Windows 游戏以提交到 Xbox PC 应用程序</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Platform</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: Microsoft GDK Store Plug-in for Unreal Engine / Microsoft GDK Store Plug-
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Allows packaging Windows games for submission to the Xbox PC App</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许打包 Windows 游戏以提交到 Xbox PC 应用程序</div><div class="lang-content">Allows packaging Windows games for submission to the Xbox PC App</div></div></div>
     </div>
     
   </div>

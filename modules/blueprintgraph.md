@@ -36,7 +36,7 @@ title: BlueprintGraph
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 26 other module(s): AssetRegistry, Core, CoreUObject, DeveloperSettings, DeveloperToolSettings, EditorFramework, EditorStyle, EditorSubsystem, Engine, EngineSettings, FieldNotification, HotReload, InputCore, JsonObjectGraph, LiveCoding, Projects, PropertyEditor, ScriptDisassembler, Slate, SlateCore, ToolMenus, ToolWidgets, TypedElementFramework, TypedElementRuntime, UMG, UnrealEd.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于 26 个其他模块：AssetRegistry、Core、CoreUObject、DeveloperSettings、DeveloperToolSettings、EditorFramework、EditorStyle、EditorSubsystem、Engine、EngineSettings、FieldNotification、HotReload、InputCore、JsonObjectGraph、LiveCoding、Projects、PropertyEditor、ScriptDisassembler、Slate、SlateCore、ToolMenus、ToolWidgets、TypedElementFramework、TypedElementRuntime、UMG、虚幻编辑器。</div><div class="lang-content">This module depends on 26 other module(s): AssetRegistry, Core, CoreUObject, DeveloperSettings, DeveloperToolSettings, EditorFramework, EditorStyle, EditorSubsystem, Engine, EngineSettings, FieldNotification, HotReload, InputCore, JsonObjectGraph, LiveCoding, Projects, PropertyEditor, ScriptDisassembler, Slate, SlateCore, ToolMenus, ToolWidgets, TypedElementFramework, TypedElementRuntime, UMG, UnrealEd.</div></div>
       </div>
     </div>
   </div>
