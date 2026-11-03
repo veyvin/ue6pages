@@ -2,8 +2,11 @@ name: Generate & Deploy UE Docs
 
 # 在公有仓库 ue6pages 中运行：
 #   1. 从私有仓库 veyvin/UnrealEngine 拉取 UE 源码（sparse checkout）
-#   2. 生成插件/模块文档到本仓库的 gh-pages 分支
+#   2. 静态生成插件/模块目录页（不调用任何 AI —— CI 只做发现与描述）
 #   3. 部署到本仓库的 GitHub Pages
+#
+# 《使用方法》等 AI 文档由本地后端（backend/，设置页配置 OpenAI-compatible
+# API）批量生成，见 README 与 backend/usage_docs.py。
 
 on:
   schedule:
@@ -31,9 +34,6 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  AI_MODEL: ${{ vars.AI_MODEL || 'openai/gpt-4o-mini' }}
-  AI_WORKERS: ${{ vars.AI_WORKERS || '8' }}
-  AI_ENABLED: ${{ vars.AI_ENABLED || 'true' }}
   TRANSLATE_ENABLED: ${{ vars.TRANSLATE_ENABLED || 'true' }}
 
 jobs:
@@ -93,30 +93,22 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Generate docs
+      - name: Generate docs (static, no AI)
         env:
-          GH_TOKEN: ${{ secrets.PRIVATE_REPO_PAT }}
-          AI_MODEL: ${{ env.AI_MODEL }}
-          AI_WORKERS: ${{ env.AI_WORKERS }}
-          AI_ENABLED: ${{ env.AI_ENABLED }}
           TRANSLATE_ENABLED: ${{ env.TRANSLATE_ENABLED }}
           FORCE_REGEN: ${{ github.event.inputs.force_regenerate || 'false' }}
         run: |
-          NO_AI_FLAG=""
-          if [ "$AI_ENABLED" != "true" ]; then
-            NO_AI_FLAG="--no-ai"
-          fi
           TRANSLATE_FLAG=""
           if [ "$TRANSLATE_ENABLED" = "true" ]; then
             TRANSLATE_FLAG="--translate"
           fi
+          # --no-ai：CI 不调用 AI（GitHub Models 会返回非 JSON 的 200 OK，
+          # 且免费的用量无法支撑 1900+ 文档）。AI 内容统一由后端批量生成。
           python public-repo/scripts/generate_docs.py \
             --engine-root engine-repo \
             --docs-root /tmp/ghpages \
-            --model     "$AI_MODEL" \
-            --workers   "$AI_WORKERS" \
             --force     "$FORCE_REGEN" \
-            $NO_AI_FLAG \
+            --no-ai \
             $TRANSLATE_FLAG
 
       - name: Commit & push gh-pages

@@ -27,3 +27,8 @@ export const ConfigAPI = {
   update: (config)  => api.put('/config', config).then(r => r.data),
   testAi: ()        => api.post('/ai/test').then(r => r.data),
 }
+
+export const UsageDocAPI = {
+  get:   (kind, slug) => api.get(`/usage-docs/${kind}/${slug}`).then(r => r.data),
+  stats: ()           => api.get('/usage-docs/stats').then(r => r.data),
+}

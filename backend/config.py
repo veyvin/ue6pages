@@ -16,6 +16,7 @@ class AIConfig(BaseModel):
     api_key: str = ""
     timeout: int = 60
     stream_chunk_size: int = 128
+    workers: int = Field(default=4, ge=1, le=32)  # 批量生成《使用方法》时的并发数
 
 
 class ScanConfig(BaseModel):
@@ -25,8 +26,7 @@ class ScanConfig(BaseModel):
 
 
 class SiteConfig(BaseModel):
-    docs_root: str = "/tmp/ghpages"
-    rebuild_on_start: bool = False
+    usage_docs_root: str = "usage_docs"  # AI 生成的《使用方法》文档目录（相对 backend/ 或绝对路径）
 
 
 class CorsConfig(BaseModel):

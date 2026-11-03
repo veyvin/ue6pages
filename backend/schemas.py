@@ -21,6 +21,7 @@ class PluginInfo(BaseModel):
     description: str = ""
     path: str               # 相对 engine_root，例如 Plugins/Rendering/Lumen
     modules: list[PluginModule] = Field(default_factory=list)
+    usage_doc: bool = False  # 是否已有 AI 生成的《使用方法》文档
 
 
 class ModuleInfo(BaseModel):
@@ -33,6 +34,7 @@ class ModuleInfo(BaseModel):
     public_deps: list[str] = Field(default_factory=list)
     private_deps: list[str] = Field(default_factory=list)
     platform: str = ""       # Win64 / Linux / Mac / ""
+    usage_doc: bool = False  # 是否已有 AI 生成的《使用方法》文档
 
 
 # ---------- 列表接口 ----------
@@ -43,6 +45,7 @@ class PluginSummary(BaseModel):
     version_name: str
     description: str
     path: str
+    usage_doc: bool = False
 
 
 class ModuleSummary(BaseModel):
@@ -50,6 +53,7 @@ class ModuleSummary(BaseModel):
     name: str
     type: str
     path: str
+    usage_doc: bool = False
 
 
 class Stats(BaseModel):
@@ -67,6 +71,16 @@ class AiChatRequest(BaseModel):
     history: list[tuple[str, str]] = Field(
         default_factory=list, description="[(role, text), ...]"
     )
+
+
+class AiBatchRequest(BaseModel):
+    """批量生成《使用方法》文档的入参（POST /api/ai/batch）。"""
+    kind: str = Field("all", pattern="^(plugin|module|all)$")
+    slugs: list[str] = Field(
+        default_factory=list, description="只生成这些 slug；为空表示全部"
+    )
+    limit: int = Field(0, ge=0, description="最多生成多少条，0 = 不限（试跑用）")
+    overwrite: bool = Field(False, description="True 时覆盖已有文档，False 时跳过已有的")
 
 
 class AiChatResponse(BaseModel):

@@ -1,7 +1,7 @@
 <script setup>
 import { computed, nextTick, ref, watch } from 'vue'
-import { ItemsAPI, errMsg } from '../api/client.js'
-import { streamAiChat } from '../api/ai.js'
+import { ItemsAPI, UsageDocAPI, errMsg } from '../api/client.js'
+import { streamAiChat, streamUsageBatch } from '../api/ai.js'
 import { renderMarkdown } from '../utils/markdown.js'
 
 const props = defineProps({
@@ -19,6 +19,10 @@ const messages = ref([])
 const input = ref('')
 const sending = ref(false)
 const messagesEl = ref(null)
+
+const usage = ref({ found: false, content: '', mtime: 0 })
+const usageBusy = ref(false)
+const usageError = ref('')
 
 const isPlugin = computed(() => props.kind === 'plugin')
 const kindLabel = computed(() => (isPlugin.value ? '插件' : '模块'))
@@ -38,6 +42,41 @@ const quickPrompts = computed(() => (isPlugin.value
 const descriptionParagraphs = computed(() =>
   (item.value?.description || '').split(/\n+/).map(s => s.trim()).filter(Boolean))
 
+const usageMtime = computed(() => (
+  usage.value.found && usage.value.mtime
+    ? new Date(usage.value.mtime * 1000).toLocaleString('zh-CN', { hour12: false })
+    : ''
+))
+
+async function loadUsage() {
+  usageError.value = ''
+  try {
+    usage.value = await UsageDocAPI.get(props.kind, props.slug)
+  } catch (err) {
+    usageError.value = errMsg(err)
+  }
+}
+
+async function generateUsage() {
+  if (usageBusy.value || !item.value) return
+  usageBusy.value = true
+  usageError.value = ''
+  await streamUsageBatch(
+    { kind: props.kind, slugs: [props.slug], overwrite: true },
+    {
+      onFrame: (frame) => {
+        if (frame.type !== 'item') return
+        if (frame.status === 'ok') loadUsage()
+        else usageError.value = frame.error || '生成失败'
+      },
+      onError: (err) => {
+        usageError.value = '连接中断：' + errMsg(err)
+      },
+    },
+  )
+  usageBusy.value = false
+}
+
 async function load() {
   const id = ++requestId
   loading.value = true
@@ -45,11 +84,16 @@ async function load() {
   item.value = null
   messages.value = []
   aiOpen.value = false
+  usageBusy.value = false
+  usageError.value = ''
   try {
     const data = isPlugin.value
       ? await ItemsAPI.getPlugin(props.slug)
       : await ItemsAPI.getModule(props.slug)
-    if (id === requestId) item.value = data
+    if (id === requestId) {
+      item.value = data
+      loadUsage()
+    }
   } catch (err) {
     if (id === requestId) error.value = errMsg(err)
   } finally {
@@ -140,6 +184,9 @@ function clearChat() {
           </div>
         </div>
         <div class="hero-actions">
+          <button class="btn" :disabled="usageBusy" @click="generateUsage">
+            {{ usageBusy ? '生成中…' : (usage.found ? '重新生成使用方法' : 'AI 生成使用方法') }}
+          </button>
           <button class="btn btn-primary" @click="openAi(quickPrompts[0])">
             ✦ AI 讲解用法
           </button>
@@ -201,6 +248,24 @@ function clearChat() {
             <p v-for="(para, i) in descriptionParagraphs" :key="i">{{ para }}</p>
             <p v-if="!descriptionParagraphs.length" style="color: var(--on-surface-muted);">
               源码中没有提供描述。点击右上角「AI 讲解用法」，由 AI 根据元数据给出说明。
+            </p>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-title">
+            <span class="card-title-sep"></span>
+            使用方法 <span class="card-title-cn">Usage · AI 生成，仅供参考</span>
+            <span v-if="usage.found" class="chip chip-success" style="margin-left: auto;">已生成 · {{ usageMtime }}</span>
+          </div>
+          <div v-if="usageError" class="banner banner-error" style="margin-top: var(--space-3);">
+            {{ usageError }}
+          </div>
+          <div v-else-if="usage.found" class="md usage-body" v-html="renderMarkdown(usage.content)"></div>
+          <div v-else class="desc-body">
+            <p style="color: var(--on-surface-muted);">
+              还没有《使用方法》文档。点击右上角「AI 生成使用方法」，文档会写入后端
+              <span class="mono">usage_docs_root</span> 目录（<span class="mono">{{ isPlugin ? 'plugins' : 'modules' }}/{{ props.slug }}.md</span>）。
             </p>
           </div>
         </section>

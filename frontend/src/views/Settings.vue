@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
-import { ConfigAPI, errMsg } from '../api/client.js'
+import { ConfigAPI, UsageDocAPI, errMsg } from '../api/client.js'
+import { streamUsageBatch } from '../api/ai.js'
 import { useItemsStore } from '../stores/items.js'
 
 const store = useItemsStore()
@@ -8,8 +9,8 @@ const store = useItemsStore()
 const form = reactive({
   engine_root: '',
   scan: { plugins_dir: '', source_dir: '', parallel: true },
-  ai: { enabled: true, endpoint: '', model: '', api_key: '', timeout: 60, stream_chunk_size: 128 },
-  site: { docs_root: '', rebuild_on_start: false },
+  ai: { enabled: true, endpoint: '', model: '', api_key: '', timeout: 60, stream_chunk_size: 128, workers: 4 },
+  site: { usage_docs_root: 'usage_docs' },
   cors: { origins: [] },
 })
 
@@ -19,6 +20,15 @@ const saving = ref(false)
 const testing = ref(false)
 const status = ref(null) // { type: 'ok' | 'error', text }
 const testResult = ref(null) // { type: 'ok' | 'error', text }
+
+// ---- AI 批量生成《使用方法》 ----
+const batchForm = reactive({ kind: 'all', limit: 0, overwrite: false })
+const batchRunning = ref(false)
+const batchSummary = ref(null) // { total, seconds, ok, skip, fail }
+const batchErrors = ref([])    // ['插件 · Foo：HTTP 401 ...', ...]
+const batchProgress = reactive({ total: 0, ok: 0, skip: 0, fail: 0, current: '' })
+const configStats = ref(null) // {root, plugins:{total,have}, modules:{total,have}}
+let batchAbort = null
 
 async function load() {
   loading.value = true
@@ -30,6 +40,7 @@ async function load() {
       engine_exists: data.engine_exists,
       env_api_key: data.env_api_key,
     }
+    UsageDocAPI.stats().then((s) => { configStats.value = s }).catch(() => {})
   } catch (err) {
     status.value = { type: 'error', text: '读取配置失败：' + errMsg(err) }
   } finally {
@@ -68,6 +79,59 @@ async function testAi() {
   } finally {
     testing.value = false
   }
+}
+
+function startBatch() {
+  if (batchRunning.value) return
+  batchProgress.ok = 0
+  batchProgress.skip = 0
+  batchProgress.fail = 0
+  batchProgress.current = ''
+  batchSummary.value = null
+  batchErrors.value = []
+  batchRunning.value = true
+  batchAbort = new AbortController()
+  streamUsageBatch(
+    {
+      kind: batchForm.kind,
+      slugs: [],
+      limit: Number(batchForm.limit) || 0,
+      overwrite: batchForm.overwrite,
+    },
+    {
+      onFrame: (f) => {
+        if (f.type === 'start') {
+          batchProgress.total = f.total
+        } else if (f.type === 'item') {
+          batchProgress.current = f.name
+          if (f.status === 'ok') batchProgress.ok++
+          else if (f.status === 'skip') batchProgress.skip++
+          else if (f.status === 'fail') {
+            batchProgress.fail++
+            const label = f.kind === 'plugin' ? '插件' : '模块'
+            batchErrors.value.push(`${label} · ${f.name}：${f.error || '未知错误'}`)
+          }
+        } else if (f.type === 'summary') {
+          batchSummary.value = f
+        }
+      },
+      onError: (err) => {
+        batchErrors.value.push('连接中断：' + errMsg(err))
+      },
+    },
+    { signal: batchAbort.signal },
+  ).finally(() => {
+    batchRunning.value = false
+    batchProgress.current = ''
+  })
+  UsageDocAPI.stats().then((s) => {
+    configStats.value = s
+  }).catch(() => {})
+}
+
+function stopBatch() {
+  batchAbort?.abort()
+  batchRunning.value = false
 }
 
 onMounted(load)
@@ -147,6 +211,11 @@ onMounted(load)
           <label for="timeout">timeout（秒）</label>
           <input id="timeout" v-model.number="form.ai.timeout" type="number" min="5" max="600" />
         </div>
+        <div class="field">
+          <label for="workers">workers（批量生成并发数）</label>
+          <input id="workers" v-model.number="form.ai.workers" type="number" min="1" max="32" />
+          <span class="field-hint">批量生成《使用方法》时的并行 AI 请求数，1-32</span>
+        </div>
       </div>
 
       <div class="form-actions">
@@ -158,6 +227,72 @@ onMounted(load)
       <div v-if="testResult" class="banner" :class="testResult.type === 'ok' ? 'banner-ok' : 'banner-error'" style="margin-top: var(--space-3); word-break: break-all;">
         {{ testResult.text }}
       </div>
+    </section>
+
+    <section class="card" style="margin-top: var(--space-5);">
+      <div class="card-title">
+        <span class="card-title-sep"></span>
+        AI 批量生成 <span class="card-title-cn">使用方法 · Usage docs</span>
+      </div>
+
+      <div class="field-hint" style="margin-bottom: var(--space-3); line-height: 1.7;">
+        用上方配置的 AI 服务，按扫描到的插件/模块批量生成《使用方法》Markdown 文档，写入
+        <code class="mono">{{ configStats?.root || form.site.usage_docs_root || 'usage_docs' }}</code>。
+        CI 已不再调用 AI；这里生成的内容会显示在每个条目的详情页。
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="batch-kind">生成范围</label>
+          <select id="batch-kind" v-model="batchForm.kind" class="mono">
+            <option value="all">全部（插件 + 模块）</option>
+            <option value="plugin">仅插件</option>
+            <option value="module">仅模块</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="batch-limit">数量上限（0 = 全部）</label>
+          <input id="batch-limit" v-model.number="batchForm.limit" type="number" min="0" />
+          <span class="field-hint">可先填 5 试跑看效果</span>
+        </div>
+        <div class="field">
+          <label for="batch-overwrite">已有文档</label>
+          <label class="check" for="batch-overwrite">
+            <input id="batch-overwrite" v-model="batchForm.overwrite" type="checkbox" />
+            <span>覆盖重新生成（不勾选则跳过已有）</span>
+          </label>
+        </div>
+        <div class="field">
+          <label for="usage-root">usage_docs_root（存储目录）</label>
+          <input id="usage-root" v-model="form.site.usage_docs_root" type="text" class="mono" placeholder="usage_docs" />
+          <span class="field-hint">相对 backend/ 目录或绝对路径；修改后请点下方保存设置</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" :disabled="batchRunning" @click="startBatch">
+          {{ batchRunning ? '生成中…' : '开始批量生成' }}
+        </button>
+        <button v-if="batchRunning" class="btn" @click="stopBatch">停止</button>
+        <span v-if="configStats" class="field-hint">
+          已覆盖：插件 {{ configStats.plugins.have }}/{{ configStats.plugins.total }} ·
+          模块 {{ configStats.modules.have }}/{{ configStats.modules.total }}
+        </span>
+      </div>
+
+      <div v-if="batchRunning || batchSummary" class="form-actions" style="gap: 12px; flex-wrap: wrap;">
+        <span class="chip chip-success">成功 {{ batchProgress.ok }}</span>
+        <span class="chip">跳过 {{ batchProgress.skip }}</span>
+        <span class="chip chip-warning">失败 {{ batchProgress.fail }}</span>
+        <span class="field-hint">/{{ batchProgress.total }}　当前：{{ batchProgress.current || '—' }}</span>
+      </div>
+
+      <div v-if="batchSummary" class="banner" :class="batchSummary.fail ? 'banner-warn' : 'banner-ok'" style="margin-top: var(--space-3);">
+        完成：成功 {{ batchSummary.ok }} · 跳过 {{ batchSummary.skip }} · 失败 {{ batchSummary.fail }} ·
+        用时 {{ batchSummary.seconds }}s（输出目录 {{ batchSummary.output_root || configStats?.root }}）
+      </div>
+
+      <div v-if="batchErrors.length" class="batch-log">{{ batchErrors.join('\n') }}</div>
     </section>
 
     <div class="form-actions" style="margin-top: var(--space-6);">
