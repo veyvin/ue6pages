@@ -36,7 +36,7 @@ title: Renderer
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 14 other module(s): ApplicationCore, AutoRTFM, Core, CoreUObject, Engine, GeometryCore, ImageWriteQueue, MaterialShaderQualitySettings, NaniteUtilities, RHI, RenderCore, StateStream, TargetPlatform, TraceLog.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 14 个模块：ApplicationCore、AutoRTFM、Core、CoreUObject、Engine、GeometryCore、ImageWriteQueue、MaterialShaderQualitySettings、NaniteUtilities、RHI、RenderCore、StateStream、TargetPlatform、TraceLog。</div><div class="lang-content">This module depends on 14 other module(s): ApplicationCore, AutoRTFM, Core, CoreUObject, Engine, GeometryCore, ImageWriteQueue, MaterialShaderQualitySettings, NaniteUtilities, RHI, RenderCore, StateStream, TargetPlatform, TraceLog.</div></div>
       </div>
     </div>
   </div>

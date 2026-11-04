@@ -36,7 +36,7 @@ title: SoundFieldRendering
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<p>This module depends on 4 other module(s): AudioExtensions, Core, Engine, SignalProcessing.</p>
+<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 4 个模块：AudioExtensions、Core、Engine、SignalProcessing。</div><div class="lang-content">This module depends on 4 other module(s): AudioExtensions, Core, Engine, SignalProcessing.</div></div>
       </div>
     </div>
   </div>

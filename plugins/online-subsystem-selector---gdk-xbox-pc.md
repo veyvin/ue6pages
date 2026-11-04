@@ -12,7 +12,7 @@ title: 在线子系统选择器 - GDK (Xbox PC) / Online Subsystem Selector - GD
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Online Subsystem Selector - GDK (Xbox PC)</div>
-      <div class="hero-title-cn">在线子系统选择器 - GDK (Xbox PC) · Automatically switches to Online</div>
+      <div class="hero-title-cn">在线子系统选择器 - GDK (Xbox PC) · 通过 Xbox PC 应用程序安装游戏时，自动切换到 Onlin</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Platform</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -24,7 +24,7 @@ title: 在线子系统选择器 - GDK (Xbox PC) / Online Subsystem Selector - GD
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><p>Automatically switches to OnlineSubsystemGDK when the game is installed via the Xbox PC App.</p></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">通过 Xbox PC 应用程序安装游戏时，自动切换到 OnlineSubsystemGDK。</div><div class="lang-content">Automatically switches to OnlineSubsystemGDK when the game is installed via the Xbox PC App.</div></div></div>
     </div>
     
   </div>
