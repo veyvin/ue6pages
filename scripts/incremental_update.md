@@ -91,7 +91,7 @@ GitHub Pages / Jekyll **没有运行时、没有数据库**。Jekyll 只在构�
 
 1. 构建时仍可把用法卡烤进 `plugins/*.md` / `modules/*.md`（无 JS 也能看、利于 SEO）。
 2. 详情页由 `_layouts/default.html` 注入 `window.__USAGE_PAGE__`（kind/slug 来自 `page.path`），并加载：
-   - `assets/usage.fb` — 1995 条用法的 FlatBuffers 二进制
+   - `assets/usage.bin`（与 `usage.fb` 相同字节；Pages 上用 `.bin` 避免 MIME 404）
    - `assets/usage-fb.js` — 零依赖读取器
    - `assets/usage-runtime.js` — 覆盖 `#usage` 卡片；没有卡时会插入一张再填充
 3. `fetch` 失败则保留页面上已有的静态卡。总览页不加载 `.fb`。
@@ -99,7 +99,7 @@ GitHub Pages / Jekyll **没有运行时、没有数据库**。Jekyll 只在构�
 更新数据后重建二进制：
 
 ```bash
-python scripts/build_usage_fb.py    # -> assets/usage.fb
+python scripts/build_usage_fb.py    # -> assets/usage.fb 与 assets/usage.bin
 ```
 
 schema 见 `scripts/usage.fbs`。演示页：`usage-demo.html`。

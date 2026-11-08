@@ -24,7 +24,7 @@
 </head>
 <body>
 <h1>从 <code>usage.fb</code> 读取插件/模块用法</h1>
-<p class="muted">数据源：<code>/assets/usage.fb</code>（FlatBuffers，schema 见 <code>scripts/usage.fbs</code>）。本页不依赖任何框架，仅加载 <code>assets/usage-fb.js</code>。</p>
+<p class="muted">数据源：<code>/assets/usage.bin</code>（与 <code>usage.fb</code> 相同的 FlatBuffers；GitHub Pages 对 <code>.bin</code> MIME 更稳）。schema 见 <code>scripts/usage.fbs</code>。</p>
 
 <div class="row">
   <select id="kind"><option value="module">模块 module</option><option value="plugin">插件 plugin</option></select>
@@ -67,7 +67,7 @@ function render() {
   $('note-en').innerHTML = inline(d.note_en || '');
   $('stat').textContent = '共 ' + UEUsage.count() + ' 条；已从 usage.fb 读取。';
 }
-UEUsage.load('assets/usage.fb').then(function(b){
+UEUsage.load('assets/usage.bin').catch(function(){ return UEUsage.load('assets/usage.fb'); }).then(function(b){
   $('stat').textContent = '已加载 usage.fb：' + b.docs.length + ' 条，生成于 ' + b.generated_at;
   render();
 }).catch(function(e){

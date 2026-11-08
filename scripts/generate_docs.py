@@ -626,7 +626,10 @@ def update_index(docs_root: Path,
         "title: Unreal Engine 插件与模块文档\n"
         "description: 虚幻引擎插件和模块的自动生成参考文档（中英文对照）\n"
         "baseurl: \n"
-        "url: https://ue.veyvin.com\n",
+        "url: https://ue.veyvin.com\n"
+        "include:\n"
+        "  - assets/usage.bin\n"
+        "  - assets/usage.fb\n",
         encoding="utf-8",
     )
 
@@ -645,6 +648,10 @@ def update_index(docs_root: Path,
     _copy_chrome("_layouts/default.html")
     _copy_chrome("assets/style.css")
     _copy_chrome("assets/main.js")
+    _copy_chrome("assets/usage-fb.js")
+    _copy_chrome("assets/usage-runtime.js")
+    _copy_chrome("assets/usage.bin")
+    _copy_chrome("assets/usage.fb")
 
     def _keep_chrome(_path):
         class _W:

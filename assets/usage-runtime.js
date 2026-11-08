@@ -100,8 +100,10 @@
     var t = detectTarget();
     if (!t) return;
     if (typeof UEUsage === 'undefined' || !UEUsage.load) return;
-    var url = window.__USAGE_FB_URL__ || '/assets/usage.fb';
-    UEUsage.load(url).then(function () {
+    var url = window.__USAGE_FB_URL__ || '/assets/usage.bin';
+    UEUsage.load(url).catch(function () {
+      return UEUsage.load('/assets/usage.fb');
+    }).then(function () {
       var doc = UEUsage.get(t.kind, t.slug) || UEUsage.getBySlug(t.slug);
       if (doc) applyDoc(doc);
     }).catch(function (e) {

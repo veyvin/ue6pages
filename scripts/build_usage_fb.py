@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Serialize all AI usage guides into a single FlatBuffers binary.
 
-Output: assets/usage.fb  (schema: scripts/usage.fbs, identifier "UEUG").
+Output: assets/usage.fb and assets/usage.bin (same bytes; .bin for GitHub Pages MIME).
 
 Built with the runtime flatbuffers.Builder using manual slot layout that mirrors
 the .fbs field order, so no flatc is required. Read back with a hand-written
@@ -22,6 +22,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from inject_usage import load_ai_usage  # noqa: E402
 
 OUT = ROOT / "assets" / "usage.fb"
+OUT_BIN = ROOT / "assets" / "usage.bin"
+OUT_BIN = ROOT / "assets" / "usage.bin"  # GitHub Pages serves .bin as octet-stream
 IDENT = b"UEUG"
 
 
@@ -98,7 +100,9 @@ def build() -> tuple[int, int]:
     b.Finish(bundle, IDENT)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_bytes(bytes(b.Output()))
+    payload = bytes(b.Output())
+    OUT.write_bytes(payload)
+    OUT_BIN.write_bytes(payload)
     return len(keys), OUT.stat().st_size
 
 
