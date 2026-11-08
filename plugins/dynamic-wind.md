@@ -3,17 +3,38 @@ layout: default
 title: 动态风 / Dynamic Wind
 ---
 
-<h1>动态风 / Dynamic Wind</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/DynamicWind/DynamicWind.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">渲染</div><div class="lang-content">Rendering</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">DynamicWind, DynamicWindEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Dynamic Wind</div>
+      <div class="hero-title-cn">动态风 · 对 Nanite 树叶的极其实验性的动态风支持。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Rendering</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/DynamicWind/DynamicWind.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental <code class="usage-code">Dynamic Wind</code>（<code class="usage-code">DynamicWind</code> + <code class="usage-code">DynamicWindEditor</code>）。它只作用于 **Nanite 植被**，普通 Foliage 顶点风或 <code class="usage-code">WindDirectionalSource</code> 不是同一条路。</li><li>关卡里的树木/草必须开 Nanite；在 Foliage Type 或静态网格上确认 Nanite 已启用。</li><li>放置/配置 Dynamic Wind 源（插件提供的风场 Actor/设置），用 <code class="usage-code">DynamicWindEditor</code> 在视口看风场，调节方向、强度、阵风。</li><li>PIE 绕着 Nanite 树冠检查叶片位移；关闭 Nanite 后风效应应消失，以此确认没有走旧的顶点动画风。</li><li>游戏模块只依赖 <code class="usage-code">DynamicWind</code>；<code class="usage-code">DynamicWindEditor</code> 仅 Editor Target。</li><li>标记为 extremely experimental，不要作为 Shipping 植被方案的唯一依赖。</li></ol><p class="usage-note">Nanite 树叶的实验动态风，和传统 WindDirectionalSource 不是同一套系统。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Dynamic Wind</code> (<code class="usage-code">DynamicWind</code> + <code class="usage-code">DynamicWindEditor</code>). It targets **Nanite foliage** only, not classic foliage vertex wind or <code class="usage-code">WindDirectionalSource</code>.</li><li>Enable Nanite on the trees/grass (Foliage Type or static mesh).</li><li>Place/configure the Dynamic Wind source (wind-field actor/settings) and use <code class="usage-code">DynamicWindEditor</code> in the viewport to tune direction, strength, and gusts.</li><li>In PIE, orbit Nanite canopies to see leaf motion; disable Nanite and the effect should vanish, proving you are not on the old vertex-wind path.</li><li>Game modules depend on <code class="usage-code">DynamicWind</code> only; <code class="usage-code">DynamicWindEditor</code> stays on Editor targets.</li><li>Marked extremely experimental; do not make it the sole shipping foliage-wind solution.</li></ol><p class="usage-note">Experimental Nanite-foliage wind; not the same system as WindDirectionalSource.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">对 Nanite 树叶的极其实验性的动态风支持。</div><div class="lang-content">Extremely experimental dynamic wind support for Nanite foliage.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">DynamicWind</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DynamicWindEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/DynamicWind/DynamicWind.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

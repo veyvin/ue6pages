@@ -3,17 +3,38 @@ layout: default
 title: 数据史密斯进口商 / Datasmith Importer
 ---
 
-<h1>数据史密斯进口商 / Datasmith Importer</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Enterprise/DatasmithImporter/DatasmithImporter.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">进口商</div><div class="lang-content">Importers</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">DatasmithExternalSource, DatasmithImporter, DatasmithTranslator, DatasmithNativeTranslator, DirectLinkExtension, DirectLinkExtensionEditor, ExternalSource, DirectLinkTest</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Datasmith Importer</div>
+      <div class="hero-title-cn">数据史密斯进口商 · Datasmith 文件的导入器。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Importers</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">8</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Enterprise/DatasmithImporter/DatasmithImporter.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">Datasmith Importer</code> 是核心：读取 <code class="usage-code">.udatasmith</code> 并把 <code class="usage-code">DatasmithScene</code> 转成关卡内容，同时提供 Direct Link 实时同步通道。</li><li>启用后把任意受支持 DCC 导出的 <code class="usage-code">.udatasmith</code> 拖进内容浏览器，或走 <code class="usage-code">File → Import</code> 打开。</li><li>在导入选项里选择生成方式（关卡/Actor）、是否合并静态网格、光照与材质处理策略。</li><li>实时联动：在 DCC 端装好 Direct Link 插件，在引擎的 Datasmith Direct Link 面板建立连接，DCC 改动会同步推过来。</li><li>要自定义导入流程时实现 <code class="usage-code">DatasmithTranslator</code> 接口并在 <code class="usage-code">DirectLinkExtension</code> 上注册接收回调。</li></ol><p class="usage-note">Direct Link 与 `.udatasmith` 文件导入是两条路径：做迭代用 Direct Link，做可复现资产用文件导入。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">Datasmith Importer</code> is the core: it reads <code class="usage-code">.udatasmith</code> and converts <code class="usage-code">DatasmithScene</code> into level content, and also carries the Direct Link live-sync channel.</li><li>Enable it, then drag a <code class="usage-code">.udatasmith</code> exported from any supported DCC into the Content Browser, or open it via <code class="usage-code">File → Import</code>.</li><li>In the import options choose the generation mode (level/actors), whether to merge static meshes, and the lighting/material handling.</li><li>For live sync, install the Direct Link plugin on the DCC side and connect from the engine&#x27;s Datasmith Direct Link panel; DCC edits are pushed across.</li><li>To customize the pipeline, implement the <code class="usage-code">DatasmithTranslator</code> interface and register a receive callback on <code class="usage-code">DirectLinkExtension</code>.</li></ol><p class="usage-note">Direct Link and file `.udatasmith` import are two paths: iterate with Direct Link, produce reproducible assets via file import.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Datasmith 文件的导入器。</div><div class="lang-content">Importer for Datasmith files.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (8)</div><div class="module-item"><span class="dot"></span><span class="name mono">DatasmithExternalSource</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DatasmithImporter</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DatasmithTranslator</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DatasmithNativeTranslator</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DirectLinkExtension</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DirectLinkExtensionEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ExternalSource</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DirectLinkTest</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Enterprise/DatasmithImporter/DatasmithImporter.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

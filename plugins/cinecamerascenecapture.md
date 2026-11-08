@@ -3,17 +3,38 @@ layout: default
 title: 电影摄像机场景捕捉 / CineCameraSceneCapture
 ---
 
-<h1>电影摄像机场景捕捉 / CineCameraSceneCapture</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/CineCameraSceneCapture/CineCameraSceneCapture.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚拟制作</div><div class="lang-content">Virtual Production</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">CineCameraSceneCapture</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">CineCameraSceneCapture</div>
+      <div class="hero-title-cn">电影摄像机场景捕捉 · 该插件添加了将电影摄像机视图渲染到渲染目标中的功能，与场景捕捉相</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/CineCameraSceneCapture/CineCameraSceneCapture.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental <code class="usage-code">CineCameraSceneCapture</code>（模块 <code class="usage-code">CineCameraSceneCapture</code>）。</li><li>内容浏览器新建 <code class="usage-code">TextureRenderTarget2D</code>（尺寸对齐镜头输出），放到材质或 UMG Image 上预览。</li><li>在已有 <code class="usage-code">CineCameraActor</code> 上添加电影机场景捕捉组件（插件提供，行为对齐 <code class="usage-code">SceneCaptureComponent2D</code>，但走电影机镜头/胶片门/对焦）。</li><li>把 RT 赋给该组件的 Texture Target，设置 Capture Every Frame 或按需 <code class="usage-code">Capture Scene</code>，Primitive Render Mode 按需要 Include/Exclude 演员。</li><li>对比同一台 <code class="usage-code">CineCameraActor</code> 的视口取景与 RT：裁切、景深、胶片门应一致；不要用普通 <code class="usage-code">SceneCapture2D</code> 冒充电影机成像。</li><li>PIE 或 LED/监看材质上查看 RT；实验接口可能调整，正式流水线先小场景验证。</li></ol><p class="usage-note">把电影机视图画进 RT，不是再造一套 Scene Capture 摄像机。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">CineCameraSceneCapture</code> (module <code class="usage-code">CineCameraSceneCapture</code>).</li><li>Create a <code class="usage-code">TextureRenderTarget2D</code> sized to the shot and preview it on a material or UMG Image.</li><li>Add the plugin’s cine-camera scene-capture component to an existing <code class="usage-code">CineCameraActor</code>. It mirrors <code class="usage-code">SceneCaptureComponent2D</code> but uses cine lens, filmback, and focus.</li><li>Assign the RT as Texture Target, capture every frame or call <code class="usage-code">Capture Scene</code>, and Include/Exclude primitives as needed.</li><li>Compare the <code class="usage-code">CineCameraActor</code> viewfinder to the RT: crop, DOF, and filmback should match. A plain <code class="usage-code">SceneCapture2D</code> will not.</li><li>View the RT in PIE or on a monitor surface. Prove it on a small scene; the experimental API can still move.</li></ol><p class="usage-note">Renders a cine-camera view into an RT; it is not a second Scene Capture camera type.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该插件添加了将电影摄像机视图渲染到渲染目标中的功能，与场景捕捉相同</div><div class="lang-content">This plugin adds the ability to render cine camera views into Render Targets identically to Scene Capture</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">CineCameraSceneCapture</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/CineCameraSceneCapture/CineCameraSceneCapture.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

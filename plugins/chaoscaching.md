@@ -3,17 +3,38 @@ layout: default
 title: 混沌缓存 / ChaosCaching
 ---
 
-<h1>混沌缓存 / ChaosCaching</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/ChaosCaching/ChaosCaching.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">物理</div><div class="lang-content">Physics</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ChaosCaching, ChaosCachingEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">ChaosCaching</div>
+      <div class="hero-title-cn">混沌缓存 · 混沌缓存资源支持记录和回放物理模拟</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Physics</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/ChaosCaching/ChaosCaching.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">ChaosCaching</code>（<code class="usage-code">ChaosCaching</code>、<code class="usage-code">ChaosCachingEditor</code>）并重启。</li><li>关卡放置 <code class="usage-code">AChaosCacheManager</code>。在 Details 新建 <code class="usage-code">Chaos Cache Collection</code> 资产，作为录像容器。</li><li>在 <code class="usage-code">Observed Components</code> 里添加要录的 <code class="usage-code">Geometry Collection</code>（或支持缓存的刚体组件），每条必须填 <code class="usage-code">Cache Name</code>，否则不会写入 Collection。</li><li><code class="usage-code">Cache Mode</code> 设为 <code class="usage-code">Record</code>，<code class="usage-code">Start Mode</code> 用 Timed（BeginPlay 计时）或 Triggered（调用 <code class="usage-code">TriggerObservedComponent</code>）。Simulate/PIE 把破碎跑完后停止。</li><li>把 Mode 改成 <code class="usage-code">Play</code>。Manager 会按缓存驱动观察对象，不再实时求解。拖进 Sequencer，加 Chaos Cache 轨道或关键帧 <code class="usage-code">Start Time</code>，即可倒带、变速、对齐镜头。</li><li>运行时依赖 <code class="usage-code">ChaosCaching</code>；编辑器定制在 <code class="usage-code">ChaosCachingEditor</code>。缓存是确定回放，改了 GC 拓扑要重录。</li></ol><p class="usage-note">把 Chaos 模拟烤成可 Sequencer 倒带的 Cache Collection。`Cache Name` 为空等于没录。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">ChaosCaching</code> (<code class="usage-code">ChaosCaching</code>, <code class="usage-code">ChaosCachingEditor</code>) and restart.</li><li>Place <code class="usage-code">AChaosCacheManager</code>. In Details, create a <code class="usage-code">Chaos Cache Collection</code> asset as the recording container.</li><li>Add each <code class="usage-code">Geometry Collection</code> (or cacheable rigid component) under <code class="usage-code">Observed Components</code> and set a <code class="usage-code">Cache Name</code> per entry or nothing is stored.</li><li>Set <code class="usage-code">Cache Mode</code> to <code class="usage-code">Record</code>. <code class="usage-code">Start Mode</code> Timed counts from BeginPlay; Triggered waits for <code class="usage-code">TriggerObservedComponent</code>. Simulate/PIE the break, then stop.</li><li>Switch Mode to <code class="usage-code">Play</code> so the manager drives observers from the cache instead of live solving. Add the manager to Sequencer (Chaos Cache track or keyed <code class="usage-code">Start Time</code>) to scrub, retimed, and sync to cameras.</li><li>Runtime module is <code class="usage-code">ChaosCaching</code>; editor UI is <code class="usage-code">ChaosCachingEditor</code>. Playback is deterministic — re-record after GC topology changes.</li></ol><p class="usage-note">Bakes a Chaos sim into a Sequencer-scrubbable Cache Collection. An empty `Cache Name` means nothing is recorded.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">混沌缓存资源支持记录和回放物理模拟</div><div class="lang-content">Chaos Cache asset support for recording and playing back physics simulations</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">ChaosCaching</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ChaosCachingEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/ChaosCaching/ChaosCaching.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

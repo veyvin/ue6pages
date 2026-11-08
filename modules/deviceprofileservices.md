@@ -3,6 +3,8 @@ layout: default
 title: DeviceProfileServices
 ---
 
+
+
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -34,32 +36,9 @@ title: DeviceProfileServices
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 10 个模块：Core、CoreUObject、DesktopPlatform、EditorFramework、Engine、Json、JsonUtilities、PIEPreviewDeviceSpecification、TargetPlatform、UnrealEd。</div><div class="lang-content">This module depends on 10 other module(s): Core, CoreUObject, DesktopPlatform, EditorFramework, Engine, Json, JsonUtilities, PIEPreviewDeviceSpecification, TargetPlatform, UnrealEd.</div></div>
+<p>This module depends on 10 other module(s): Core, CoreUObject, DesktopPlatform, EditorFramework, Engine, Json, JsonUtilities, PIEPreviewDeviceSpecification, TargetPlatform, UnrealEd.</p>
       </div>
     </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：该模块依赖于其他 10 个模块：Core、CoreUObject、DesktopPlatform、EditorFramework、Engine、Json、JsonUtilities、PIEPreviewDeviceSpecification、TargetPlatform、UnrealEd。</p><p>这是 Editor 模块，只在编辑器进程加载，不能链进 Game Target。</p><p>UBT 声明它还依赖：Core, CoreUObject, DesktopPlatform, EditorFramework, Engine, Json, JsonUtilities, PIEPreviewDeviceSpecification。这些依赖暗示了它和哪些子系统协作。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: This module depends on 10 other module(s): Core, CoreUObject, DesktopPlatform, EditorFramework, Engine, Json, JsonUtilities, PIEPreviewDeviceSpecification, TargetPlatform, UnrealEd.</p><p>This is an Editor module, loaded only in the editor process — do not link it into a Game target.</p><p>UBT also lists dependencies on: Core, CoreUObject, DesktopPlatform, EditorFramework, Engine, Json, JsonUtilities, PIEPreviewDeviceSpecification. Those names show which subsystems it talks to.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>用途：<code class="usage-code">DeviceProfileServices</code> 位于 <code class="usage-code">Editor</code>，构建规则 <code class="usage-code">Editor/DeviceProfileServices/DeviceProfileServices.Build.cs</code>。它直接依赖 8 个模块：<code class="usage-code">Core</code>, <code class="usage-code">CoreUObject</code>, <code class="usage-code">DesktopPlatform</code>, <code class="usage-code">EditorFramework</code>, <code class="usage-code">Engine</code>, <code class="usage-code">Json</code>, <code class="usage-code">JsonUtilities</code>, <code class="usage-code">PIEPreviewDeviceSpecification</code>。</li><li>依赖：在 <code class="usage-code">YourModule.Build.cs</code> 加入 <code class="usage-code">PublicDependencyModuleNames.AddRange(new string[] { &quot;DeviceProfileServices&quot; });</code>；对外暴露 <code class="usage-code">DeviceProfileServices</code> 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。</li><li>部署：<code class="usage-code">DeviceProfileServices</code> 是编辑器模块，只能写进 <code class="usage-code">*Editor.Build.cs</code> 或编辑器插件；加进 Game Target 会链接失败。</li><li>调用：#include 其 Public 头（常见 <code class="usage-code">DeviceProfileServices.h</code> / <code class="usage-code">DeviceProfileServicesModule.h</code>），再用 <code class="usage-code">FModuleManager::LoadModulePtr&lt;DeviceProfileServicesModule&gt;</code> 或直接使用导出类型。</li><li>传递依赖：<code class="usage-code">DeviceProfileServices</code> 还依赖 <code class="usage-code">Core</code>, <code class="usage-code">CoreUObject</code>, <code class="usage-code">DesktopPlatform</code>, <code class="usage-code">EditorFramework</code>, <code class="usage-code">Engine</code>, <code class="usage-code">Json</code>, <code class="usage-code">JsonUtilities</code>, <code class="usage-code">PIEPreviewDeviceSpecification</code>；不必在游戏模块重复填写，除非你要直接 include 那些头文件。</li></ol><p class="usage-note">`DeviceProfileServices` 的构建规则位于 `Editor/DeviceProfileServices/DeviceProfileServices.Build.cs`，直接依赖 8 个模块，分类 Module。</p></div><div class="lang-content"><ol class="usage-steps"><li>Purpose: <code class="usage-code">DeviceProfileServices</code> lives under <code class="usage-code">Editor</code>; build rule <code class="usage-code">Editor/DeviceProfileServices/DeviceProfileServices.Build.cs</code>.It directly depends on 8 modules: <code class="usage-code">Core</code>, <code class="usage-code">CoreUObject</code>, <code class="usage-code">DesktopPlatform</code>, <code class="usage-code">EditorFramework</code>, <code class="usage-code">Engine</code>, <code class="usage-code">Json</code>, <code class="usage-code">JsonUtilities</code>, <code class="usage-code">PIEPreviewDeviceSpecification</code>.</li><li>Depend: in <code class="usage-code">YourModule.Build.cs</code> add <code class="usage-code">PublicDependencyModuleNames.AddRange(new string[] { &quot;DeviceProfileServices&quot; });</code>. Use Public when exposing <code class="usage-code">DeviceProfileServices</code> types, Private if only calling it; then Generate Project Files and rebuild.</li><li>Placement: <code class="usage-code">DeviceProfileServices</code> is editor-only. Put it in <code class="usage-code">*Editor.Build.cs</code> or an editor plugin — never a Game target.</li><li>Call: include Public headers (often <code class="usage-code">DeviceProfileServices.h</code> / <code class="usage-code">DeviceProfileServicesModule.h</code>), then use <code class="usage-code">FModuleManager::LoadModulePtr&lt;DeviceProfileServicesModule&gt;</code> or the exported types directly.</li><li>Transitive deps: <code class="usage-code">DeviceProfileServices</code> also needs <code class="usage-code">Core</code>, <code class="usage-code">CoreUObject</code>, <code class="usage-code">DesktopPlatform</code>, <code class="usage-code">EditorFramework</code>, <code class="usage-code">Engine</code>, <code class="usage-code">Json</code>, <code class="usage-code">JsonUtilities</code>, <code class="usage-code">PIEPreviewDeviceSpecification</code>; do not re-list them unless you include their headers.</li></ol><p class="usage-note">`DeviceProfileServices` build rule is `Editor/DeviceProfileServices/DeviceProfileServices.Build.cs`; depends on 8 modules; category Module.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card">

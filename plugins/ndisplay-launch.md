@@ -3,17 +3,38 @@ layout: default
 title: nDisplay 发布 / nDisplay Launch
 ---
 
-<h1>nDisplay 发布 / nDisplay Launch</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Editor/DisplayClusterLaunch/DisplayClusterLaunch.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚拟制作</div><div class="lang-content">Virtual Production</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">DisplayClusterLaunchEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">N</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">nDisplay Launch</div>
+      <div class="hero-title-cn">nDisplay 发布 · 轻松启动本地 nDisplay 节点。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Editor/DisplayClusterLaunch/DisplayClusterLaunch.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用编辑器插件 <code class="usage-code">nDisplay Launch</code>（模块 <code class="usage-code">DisplayClusterLaunchEditor</code>）并重启，属 Virtual Production。</li><li>它把 nDisplay 场景渲染到多台同步机器/窗口（LED 墙、CAVE、集群视口）。</li><li>用其 Launch 工具在多机环境启动/管理 nDisplay 渲染，配合 Switchboard、Live Link、摄像机跟踪。</li><li>这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。</li></ol><p class="usage-note">nDisplay 多机启动/管理工具（虚拟制片）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the editor plugin <code class="usage-code">nDisplay Launch</code> (module <code class="usage-code">DisplayClusterLaunchEditor</code>) and restart, part of Virtual Production.</li><li>It renders an nDisplay scene across synchronized machines/windows (LED walls, CAVE, cluster viewports).</li><li>Use its Launch tools to start/manage nDisplay rendering in multi-machine setups, with Switchboard, Live Link, and camera tracking.</li><li>It is an editor/developer plugin for Editor targets only; it does not ship.</li></ol><p class="usage-note">nDisplay multi-machine launch/management tools (virtual production).</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">轻松启动本地 nDisplay 节点。</div><div class="lang-content">Launch local nDisplay nodes with ease.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">DisplayClusterLaunchEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Editor/DisplayClusterLaunch/DisplayClusterLaunch.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 场景捕捉工具集 / Scene Capture Toolset
+title: Scene Capture Toolset / Scene Capture Toolset
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 场景捕捉工具集 / Scene Capture Toolset
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Scene Capture Toolset</div>
-      <div class="hero-title-cn">场景捕捉工具集 · 视口视频录制、场景诊断、游戏帧缓冲区捕获和编辑器相机捕获。</div>
+      <div class="hero-title-cn">Scene Capture Toolset · Viewport video recording, scene </div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games</span></div>
     </div>
   </div>
@@ -22,50 +24,9 @@ title: 场景捕捉工具集 / Scene Capture Toolset
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">视口视频录制、场景诊断、游戏帧缓冲区捕获和编辑器相机捕获。</div><div class="lang-content">Viewport video recording, scene diagnostics, game framebuffer capture and editor-camera capture.</div></div></div>
+      <div class="desc-body"><p>Viewport video recording, scene diagnostics, game framebuffer capture and editor-camera capture.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：视口视频录制、场景诊断、游戏帧缓冲区捕获和编辑器相机捕获。</p><p>Toolset：给编辑器里的 AI 助手或自动化准备的只读/只写工具，一般不进 Shipping 游戏。</p><p>Epic 把它放在 Experimental：功能可用，但接口可能随夜构建变化。</p><p>它打包的模块包括：SceneCaptureToolset。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Viewport video recording, scene diagnostics, game framebuffer capture and editor-camera capture.</p><p>Toolset: read/write tools for the in-editor AI assistant or automation — not a shipping game feature.</p><p>Epic ships this under Experimental: usable, but the contract may change on nightly builds.</p><p>It ships these modules: SceneCaptureToolset. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Scene Capture Toolset</code>（模块 <code class="usage-code">SceneCaptureToolset</code>）。</li><li>它提供视口视频录制、场景诊断、游戏帧缓冲捕获和编辑器相机捕获。</li><li>通过 AI 工具集注册表调用这些捕获工具，而不是当 Shipping 功能。</li><li>属 Toolset；一般不进 Shipping。</li></ol><p class="usage-note">视口/帧缓冲/编辑器相机捕获的 AI 工具集。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Scene Capture Toolset</code> (module <code class="usage-code">SceneCaptureToolset</code>).</li><li>It provides viewport video recording, scene diagnostics, game framebuffer capture, and editor-camera capture.</li><li>Call these capture tools via the AI Toolset Registry; not a shipping gameplay feature.</li><li>It is a Toolset; typically not shipped in a cooked game.</li></ol><p class="usage-note">AI toolset for viewport/framebuffer/editor-camera capture.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">SceneCaptureToolset</span><span class="tag runtime">Runtime</span></div></div>

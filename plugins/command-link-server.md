@@ -3,17 +3,38 @@ layout: default
 title: 命令链接服务器 / Command Link Server
 ---
 
-<h1>命令链接服务器 / Command Link Server</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/CmdLinkServer/CmdLinkServer.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">其他</div><div class="lang-content">Other</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">CmdLinkServer</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Command Link Server</div>
+      <div class="hero-title-cn">命令链接服务器 · 监听并运行来自 CmdLink 的控制台命令</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/CmdLinkServer/CmdLinkServer.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>确认 <code class="usage-code">Command Link Server</code>（模块 <code class="usage-code">CmdLinkServer</code>）已启用——引擎默认常开。它在编辑器/游戏进程里开命名管道，执行 <code class="usage-code">CmdLink.exe</code> 送来的控制台命令。</li><li>在控制台执行 <code class="usage-code">console.CmdLink.enable 1</code>（或写入 <code class="usage-code">DefaultEngine.ini</code> 的 <code class="usage-code">[ConsoleVariables]</code>）。多实例时用 <code class="usage-code">console.CmdLink.key YourPipeName</code> 区分管道名。</li><li>从引擎 <code class="usage-code">Binaries</code> 运行 <code class="usage-code">CmdLink.exe</code>，把要执行的命令当作参数传入（例如 <code class="usage-code">stat fps</code>、<code class="usage-code">open /Game/Maps/MyMap</code>）；进程经命名管道交给 <code class="usage-code">FCmdLinkServerModule</code>。</li><li>命令若跨帧（加载关卡、自动化），在自定义 <code class="usage-code">exec</code> 里调用 <code class="usage-code">FCmdLinkServerModule::Get()-&gt;BeginAsyncCommand</code>，完成后再 <code class="usage-code">EndAsyncCommand</code>，否则 CmdLink 会提前退出。</li><li>这不是游戏内聊天或 Online 会话。CI/外部工具远程敲命令时用；Shipping 若不想暴露 exec，不要启用该插件或关闭 <code class="usage-code">console.CmdLink.enable</code>。</li></ol><p class="usage-note">给 `CmdLink.exe` 用的命名管道 exec 服务器，不是网络复制。无关卡组件、无蓝图节点。</p></div><div class="lang-content"><ol class="usage-steps"><li>Keep <code class="usage-code">Command Link Server</code> (module <code class="usage-code">CmdLinkServer</code>) enabled — it is often on by default. It opens a named pipe in the editor/game process and runs console commands sent by <code class="usage-code">CmdLink.exe</code>.</li><li>Run <code class="usage-code">console.CmdLink.enable 1</code> (or set it under <code class="usage-code">[ConsoleVariables]</code> in <code class="usage-code">DefaultEngine.ini</code>). For multiple instances, set <code class="usage-code">console.CmdLink.key YourPipeName</code>.</li><li>Launch <code class="usage-code">CmdLink.exe</code> from engine <code class="usage-code">Binaries</code> with the console command as arguments (e.g. <code class="usage-code">stat fps</code>, <code class="usage-code">open /Game/Maps/MyMap</code>). <code class="usage-code">FCmdLinkServerModule</code> executes it over the pipe.</li><li>For commands that span frames (map load, automation), call <code class="usage-code">FCmdLinkServerModule::Get()-&gt;BeginAsyncCommand</code> in your <code class="usage-code">exec</code> and <code class="usage-code">EndAsyncCommand</code> when finished, or CmdLink exits early.</li><li>This is not in-game chat or an Online session. Use it for CI/external tools. Leave the plugin off or <code class="usage-code">console.CmdLink.enable</code> at 0 in Shipping if you do not want remote exec.</li></ol><p class="usage-note">Named-pipe exec server for `CmdLink.exe`, not gameplay replication. No level component and no Blueprint nodes.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">监听并运行来自 CmdLink 的控制台命令</div><div class="lang-content">Listens to and runs console commands from CmdLink</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">CmdLinkServer</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/CmdLinkServer/CmdLinkServer.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

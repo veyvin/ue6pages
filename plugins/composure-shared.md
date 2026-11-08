@@ -3,17 +3,38 @@ layout: default
 title: 冷静 共享 / Composure Shared
 ---
 
-<h1>冷静 共享 / Composure Shared</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Compositing/ComposureShared/ComposureShared.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">合成</div><div class="lang-content">Compositing</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Composure Shared</div>
+      <div class="hero-title-cn">冷静 共享 · 共享内容资产（材质、纹理、网格）从旧版 Composure 迁移</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Compositing</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">0</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Compositing/ComposureShared/ComposureShared.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用内容插件 <code class="usage-code">Composure Shared</code>（<code class="usage-code">ComposureShared.uplugin</code>）。它几乎没有 C++ 模块，只提供从旧版 Composure 迁过来的材质、贴图、网格。</li><li>同时启用 <code class="usage-code">CompositeCore</code> 与新版 <code class="usage-code">Composure</code>（<code class="usage-code">Composite</code>）或仍在用的 Legacy Composure，让它们能引用这批共享资产。</li><li>在内容浏览器打开插件内容（Show Plugin Content），浏览 <code class="usage-code">Engine/Plugins/Compositing/ComposureShared/Content</code>：抠像材质、CG 合成网格、默认 LUT/纹理。</li><li>新 Composite Actor 的 Plate/Keyer 通道或旧 <code class="usage-code">Composure</code> 元素应指向这里的材质实例，不要把整份目录复制进项目再改到丢失引擎更新。</li><li>不要在游戏 <code class="usage-code">Build.cs</code> 里写不存在的 <code class="usage-code">ComposureShared</code> 模块名；依赖关系由 .uplugin 的 content 挂载完成。</li></ol><p class="usage-note">共享内容包，不是合成执行器。没有可放置的 Composure Actor；缺了它，Composite/Composure 的默认材质会变紫或丢失。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the content plugin <code class="usage-code">Composure Shared</code> (<code class="usage-code">ComposureShared.uplugin</code>). It ships almost no C++ modules — only materials, textures, and meshes migrated from legacy Composure.</li><li>Also enable <code class="usage-code">CompositeCore</code> plus new <code class="usage-code">Composure</code> (<code class="usage-code">Composite</code>) or leftover Legacy Composure so those plugins can reference the shared assets.</li><li>Turn on Show Plugin Content and browse <code class="usage-code">Engine/Plugins/Compositing/ComposureShared/Content</code> for keyer materials, CG composite meshes, and default LUT/textures.</li><li>Point new Composite Actor plate/keyer slots (or legacy Composure elements) at those material instances. Do not duplicate the folder into the project and lose engine updates.</li><li>Do not add a fictional <code class="usage-code">ComposureShared</code> module to game <code class="usage-code">Build.cs</code>; mounting is content via the <code class="usage-code">.uplugin</code>.</li></ol><p class="usage-note">Shared content pack, not the compositor. No placeable Composure Actor. Without it, Composite/Composure default materials go missing or purple.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">共享内容资产（材质、纹理、网格）从旧版 Composure 迁移而来，可供 Composure 和 Composite 插件访问。</div><div class="lang-content">Shared content assets (materials, textures, meshes) migrated from legacy Composure, accessible to both Composure and Composite plugins.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Compositing/ComposureShared/ComposureShared.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

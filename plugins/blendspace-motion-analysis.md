@@ -3,17 +3,38 @@ layout: default
 title: 混合空间运动分析 / Blendspace Motion Analysis
 ---
 
-<h1>混合空间运动分析 / Blendspace Motion Analysis</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Animation/BlendSpaceMotionAnalysis/BlendSpaceMotionAnalysis.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">混合空间</div><div class="lang-content">BlendSpace</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">BlendSpaceMotionAnalysis</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">B</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Blendspace Motion Analysis</div>
+      <div class="hero-title-cn">混合空间运动分析 · 允许分析混合空间中的运动/根部运动属性</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>BlendSpace</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Animation/BlendSpaceMotionAnalysis/BlendSpaceMotionAnalysis.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Blendspace Motion Analysis</code>（模块 <code class="usage-code">BlendSpaceMotionAnalysis</code>）。它给 Blend Space 增加根运动/位移分析，不是新的动画资产类型。</li><li>打开已有 <code class="usage-code">Blend Space</code>（或带轴的 Aim Offset），在编辑器的 Analysis / 分析属性里启用运动分析（速度、方向等来自根运动的量）。</li><li>对每个采样动画跑分析，让插件从根位移推导轴值，再把样本点放到对应 Speed/Direction 位置，减少手填轴。</li><li>在 AnimBP 的 <code class="usage-code">Blend Space Player</code> 上用同一套轴参数（速度、方向）驱动；分析数据用于编辑时摆点与运行时匹配，不是单独的组件。</li><li>根运动必须在动画上正确烘焙。原地循环且无根位移的片段分析会得到接近零的速度。运行时若要读分析缓存，依赖 <code class="usage-code">BlendSpaceMotionAnalysis</code>，以该模块 Public 头文件为准。</li></ol><p class="usage-note">在 Blend Space 编辑器里分析根运动以自动摆轴。没有可放置组件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Blendspace Motion Analysis</code> (module <code class="usage-code">BlendSpaceMotionAnalysis</code>). It adds locomotion/root-motion analysis to Blend Spaces; it does not add a new animation asset type.</li><li>Open an existing <code class="usage-code">Blend Space</code> (or an Aim Offset with axes). In the editor Analysis properties, enable motion analysis quantities derived from root motion (speed, direction, and similar).</li><li>Run analysis on each sample animation so the plugin derives axis values from root displacement, then place sample points on the Speed/Direction grid instead of typing axes by hand.</li><li>Drive the same axes from an AnimBP <code class="usage-code">Blend Space Player</code> (speed, direction). The analysis cache is for authoring and matching, not a separate component.</li><li>Root motion must be baked on the clips. In-place loops with no root displacement analyze near zero speed. If runtime code reads the analysis cache, depend on <code class="usage-code">BlendSpaceMotionAnalysis</code> and its Public headers.</li></ol><p class="usage-note">Analyzes root motion inside the Blend Space editor to place axes. There is no placeable component.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许分析混合空间中的运动/根部运动属性</div><div class="lang-content">Allows analysis of locomotion/root motion properties in blend spaces</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">BlendSpaceMotionAnalysis</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Animation/BlendSpaceMotionAnalysis/BlendSpaceMotionAnalysis.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

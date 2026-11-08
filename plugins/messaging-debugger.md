@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 消息调试器 / Messaging Debugger
+title: Messaging Debugger / Messaging Debugger
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 消息调试器 / Messaging Debugger
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Messaging Debugger</div>
-      <div class="hero-title-cn">消息调试器 · 为消息子系统提供可视化调试器。</div>
+      <div class="hero-title-cn">Messaging Debugger · Provides a visual debugger for t</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Messaging</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,72 +24,9 @@ title: 消息调试器 / Messaging Debugger
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">为消息子系统提供可视化调试器。</div><div class="lang-content">Provides a visual debugger for the messaging sub-system.</div></div></div>
+      <div class="desc-body"><p>Provides a visual debugger for the messaging sub-system.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：为消息子系统提供可视化调试器。</p><p>这是引擎 Plugins 目录下的官方插件，由对应 .uplugin 描述其职责。</p><p>它打包的模块包括：MessagingDebugger。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Provides a visual debugger for the messaging sub-system.</p><p>This is an engine plugin under Plugins/; its .uplugin states its job.</p><p>It ships these modules: MessagingDebugger. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Messaging Debugger</code>（模块 <code class="usage-code">MessagingDebugger</code>）。</li><li>它给消息子系统提供可视化调试器：查看消息发送/接收/端点。</li><li>在编辑器里打开调试器，跟踪消息流排查问题。</li><li>属 Messaging 可视化调试工具，编辑器向。</li></ol><p class="usage-note">消息子系统的可视化调试器。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Messaging Debugger</code> (module <code class="usage-code">MessagingDebugger</code>).</li><li>It provides a visual debugger for the messaging subsystem: view message send/receive/endpoints.</li><li>Open the debugger in the editor and trace message flow to troubleshoot.</li><li>It is a Messaging visual-debug tool, editor-oriented.</li></ol><p class="usage-note">A visual debugger for the messaging subsystem.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">MessagingDebugger</span><span class="tag runtime">Runtime</span></div></div>

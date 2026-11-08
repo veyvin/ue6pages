@@ -1,19 +1,40 @@
 ---
 layout: default
-title: Alembic 新郎进口商 / Alembic Groom Importer
+title: Alembic Groom Importer / Alembic Groom Importer
 ---
 
-<h1>Alembic 新郎进口商 / Alembic Groom Importer</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Importers/AlembicHairImporter/AlembicHairImporter.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">几何学</div><div class="lang-content">Geometry</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AlembicHairTranslatorModule</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Alembic Groom Importer</div>
+      <div class="hero-title-cn">Alembic Groom Importer · Import Hair Strands from Alembic</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Geometry</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Importers/AlembicHairImporter/AlembicHairImporter.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>同时启用 <code class="usage-code">Alembic Groom Importer</code>（<code class="usage-code">AlembicHairTranslatorModule</code>）和 <code class="usage-code">Groom</code> 运行时插件。</li><li>内容浏览器 Import 符合发束 Alembic 规范的 <code class="usage-code">.abc</code>（曲线/宽度/根 UV），由本翻译器生成 <code class="usage-code">Groom</code> 资产（<code class="usage-code">UGroomAsset</code>），不要当 Geometry Cache 导入。</li><li>在 Import Options 核对流、组、插值精度；导入后打开 Groom 资产检查 Groups 与 LOD。</li><li>把 <code class="usage-code">Groom Component</code>（<code class="usage-code">UGroomComponent</code>）加到带骨骼网格的 Actor，指定 Groom 资产与 Binding（<code class="usage-code">UGroomBindingAsset</code>，若从绑定 Alembic 导入）。</li><li><code class="usage-code">Project Settings &gt; Rendering &gt; Hair Strands</code> 打开发丝渲染后，在关卡灯光下检查附着与模拟。</li><li>游戏模块不要依赖 <code class="usage-code">AlembicHairTranslatorModule</code>；运行时只用 Groom 组件与资产。</li></ol><p class="usage-note">只负责把 Alembic 发束翻成 Groom；网格缓存请用 `Alembic Importer`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Alembic Groom Importer</code> (<code class="usage-code">AlembicHairTranslatorModule</code>) together with the <code class="usage-code">Groom</code> runtime plugin.</li><li>Import a hair-strands <code class="usage-code">.abc</code> (curves/width/root UVs) via Content Browser; this translator builds a <code class="usage-code">Groom</code> (<code class="usage-code">UGroomAsset</code>), not a Geometry Cache.</li><li>Check strands, groups, and interpolation in Import Options; open the Groom asset and inspect Groups and LODs.</li><li>Add <code class="usage-code">Groom Component</code> (<code class="usage-code">UGroomComponent</code>) to a skinned actor and assign the Groom plus Binding (<code class="usage-code">UGroomBindingAsset</code> if imported).</li><li>Turn on Hair Strands under <code class="usage-code">Project Settings &gt; Rendering &gt; Hair Strands</code>, then check attachment and simulation under level lights.</li><li>Do not depend on <code class="usage-code">AlembicHairTranslatorModule</code> in game modules; runtime uses Groom components and assets only.</li></ol><p class="usage-note">Hair-strand Alembic → Groom only; mesh caches belong in `Alembic Importer`.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Import Hair Strands from Alembic file</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">AlembicHairTranslatorModule</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Importers/AlembicHairImporter/AlembicHairImporter.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

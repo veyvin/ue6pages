@@ -3,17 +3,38 @@ layout: default
 title: 评估通知 / Evaluation Notifies
 ---
 
-<h1>评估通知 / Evaluation Notifies</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/EvaluationNotifies/EvaluationNotifies.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">EvaluationNotifiesRuntime, EvaluationNotifiesEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">E</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Evaluation Notifies</div>
+      <div class="hero-title-cn">评估通知 · 动画通知系统具有动画评估时间代码。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/EvaluationNotifies/EvaluationNotifies.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">Evaluation Notifies</code>（模块 <code class="usage-code">EvaluationNotifiesRuntime</code> + <code class="usage-code">EvaluationNotifiesEditor</code>），它的用途是给动画通知附带动画评估时间码（animation evaluation time code）。</li><li>打开一个骨架网格体的动画序列，在 <code class="usage-code">Notifies</code> 轨道上右键新建基于该插件的通知，而不是普通 <code class="usage-code">AnimNotify</code>；它会让通知携带评估侧的时间码。</li><li>在动画蓝图的 <code class="usage-code">AnimNotify</code> 事件里读取通知带出的时间码，用它对齐口型、脚步或音效的评估时刻。</li><li>在 Sequencer 里采样同一段动画，对比通知触发点与播放头/评估帧是否一致，验证 Experimental 行为是否符合预期。</li><li>C++ 侧 include <code class="usage-code">EvaluationNotifiesRuntime</code> 的 Public 头里的通知类，重写 <code class="usage-code">Notify</code> 回调读取时间码；游戏 <code class="usage-code">Build.cs</code> 只加 <code class="usage-code">EvaluationNotifiesRuntime</code>。</li><li><code class="usage-code">EvaluationNotifiesEditor</code> 只进 <code class="usage-code">*Editor.Build.cs</code>。Experimental 接口可能随夜构建变化，先在空关卡验证再接正式动画。</li></ol><p class="usage-note">关键在通知携带的评估时间码，而不是普通 AnimNotify 的触发；放在 Experimental，慎用于正式项目。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">Evaluation Notifies</code> (modules <code class="usage-code">EvaluationNotifiesRuntime</code> + <code class="usage-code">EvaluationNotifiesEditor</code>). Its job is animation notifies that carry an animation evaluation time code.</li><li>Open a skeletal mesh&#x27;s animation sequence and right-click the <code class="usage-code">Notifies</code> track to add a notify based on this plugin, not a plain <code class="usage-code">AnimNotify</code> — this one attaches the evaluation-side time code.</li><li>In the AnimBP <code class="usage-code">AnimNotify</code> event, read the time code the notify carries and use it to align lip sync, footfalls, or audio at the exact evaluated moment.</li><li>In Sequencer, sample the same animation and compare the notify firing point against the playhead/evaluated frame to verify the Experimental behavior.</li><li>In C++, include the notify class from <code class="usage-code">EvaluationNotifiesRuntime</code> Public headers and override the <code class="usage-code">Notify</code> callback to read the time code. Game <code class="usage-code">Build.cs</code> adds only <code class="usage-code">EvaluationNotifiesRuntime</code>.</li><li>Keep <code class="usage-code">EvaluationNotifiesEditor</code> in <code class="usage-code">*Editor.Build.cs</code> only. Experimental — the contract can change on nightlies, so validate in an empty map before wiring real animations.</li></ol><p class="usage-note">The point is the evaluation time code the notify carries, not a plain AnimNotify trigger. Experimental — be careful in shipping projects.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">动画通知系统具有动画评估时间代码。</div><div class="lang-content">A system for animation notifies which have animation evaluation time code.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">EvaluationNotifiesRuntime</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">EvaluationNotifiesEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/EvaluationNotifies/EvaluationNotifies.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

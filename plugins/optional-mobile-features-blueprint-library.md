@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 可选的移动功能蓝图库 / Optional Mobile Features Blueprint Library
+title: Optional Mobile Features Blueprint Library / Optional Mobile Features Blueprint Library
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 可选的移动功能蓝图库 / Optional Mobile Features Blueprint Libra
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Optional Mobile Features Blueprint Library</div>
-      <div class="hero-title-cn">可选的移动功能蓝图库 · 为 Android 和 iOS 设备提供对音量、电池电量和系统温</div>
+      <div class="hero-title-cn">Optional Mobile Features Blueprint Library · Gives blueprint access to Sound </div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Mobile</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,56 +24,9 @@ title: 可选的移动功能蓝图库 / Optional Mobile Features Blueprint Libra
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">为 Android 和 iOS 设备提供对音量、电池电量和系统温度的蓝图访问</div><div class="lang-content">Gives blueprint access to Sound Volume, Battery Charge Level, and System Temperature for Android and iOS devices</div></div></div>
+      <div class="desc-body"><p>Gives blueprint access to Sound Volume, Battery Charge Level, and System Temperature for Android and iOS devices</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：为 Android 和 iOS 设备提供对音量、电池电量和系统温度的蓝图访问</p><p>运行时插件，启用后可进游戏包。</p><p>它打包的模块包括：OptionalMobileFeaturesBPLibrary。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Gives blueprint access to Sound Volume, Battery Charge Level, and System Temperature for Android and iOS devices</p><p>A runtime plugin that can ship in a cooked game.</p><p>It ships these modules: OptionalMobileFeaturesBPLibrary. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Optional Mobile Features Blueprint Library</code>（模块 <code class="usage-code">OptionalMobileFeaturesBPLibrary</code>）。</li><li>它为 Android 与 iOS 设备提供对音量、电池电量、系统温度的蓝图访问。</li><li>在移动项目蓝图里调用这些节点读取设备状态。</li><li>运行时模块；打包到 Android/iOS 生效。</li></ol><p class="usage-note">Android/iOS 的音量/电量/温度蓝图访问。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Optional Mobile Features Blueprint Library</code> (module <code class="usage-code">OptionalMobileFeaturesBPLibrary</code>).</li><li>It provides Blueprint access to volume, battery level, and system temperature on Android and iOS devices.</li><li>Call these nodes from Blueprint in mobile projects to read device state.</li><li>A runtime module; takes effect when packaged to Android/iOS.</li></ol><p class="usage-note">Blueprint access to volume/battery/temperature on Android/iOS.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">OptionalMobileFeaturesBPLibrary</span><span class="tag runtime">Runtime</span></div></div>

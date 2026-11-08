@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 苹果图像实用程序 / Apple Image Utils
+title: Apple Image Utils / Apple Image Utils
 ---
 
-<h1>苹果图像实用程序 / Apple Image Utils</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/AppleImageUtils/AppleImageUtils.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">实验性的</div><div class="lang-content">Experimental</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AppleImageUtils, AppleImageUtilsBlueprintSupport</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Apple Image Utils</div>
+      <div class="hero-title-cn">Apple Image Utils · Utilities that operate on CIImag</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Experimental</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Runtime/AppleImageUtils/AppleImageUtils.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 Apple 目标上启用 <code class="usage-code">Apple Image Utils</code>（<code class="usage-code">AppleImageUtils</code> + 蓝图节点 <code class="usage-code">AppleImageUtilsBlueprintSupport</code>）。它操作 <code class="usage-code">CIImage</code> / <code class="usage-code">CVPixelBuffer</code> / <code class="usage-code">IOSurface</code>，不是通用图片导入器。</li><li>游戏 <code class="usage-code">Build.cs</code> 依赖 <code class="usage-code">AppleImageUtils</code>；蓝图图需要节点时再加 <code class="usage-code">AppleImageUtilsBlueprintSupport</code>。<code class="usage-code">#include</code> <code class="usage-code">AppleImageUtilsBaseBlueprintFunctionLibrary.h</code>。</li><li>把实现了 <code class="usage-code">IAppleImageInterface</code> 的源（常见：AR 相机 <code class="usage-code">UARTextureCameraImage</code>，或可转换的 <code class="usage-code">UTexture</code>）交给 <code class="usage-code">ConvertToJPEG</code> / <code class="usage-code">ConvertToHEIF</code> / <code class="usage-code">ConvertToPNG</code> / <code class="usage-code">ConvertToTIFF</code>（异步代理 <code class="usage-code">UAppleImageUtilsBaseAsyncTaskBlueprintProxy</code>）。</li><li>设置质量、是否要彩色、是否走 GPU；完成回调里的 <code class="usage-code">FAppleImageUtilsImageConversionResult</code> 给出压缩字节，再写入文件或上传。失败时看 Apple 平台日志，Win 编辑器会直接不支持。</li><li>只在 iOS/macOS 真机或 Mac 编辑器上验证；不要把本插件当 <code class="usage-code">Media Texture</code> 播放器或材质采样节点。</li></ol><p class="usage-note">Core Image 转换/压缩工具库，常配合 AR 相机帧。不能在 Win64 当解码器，也不是 `Apple Movie Player`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Apple Image Utils</code> on Apple targets (<code class="usage-code">AppleImageUtils</code> plus Blueprint nodes in <code class="usage-code">AppleImageUtilsBlueprintSupport</code>). It operates on <code class="usage-code">CIImage</code> / <code class="usage-code">CVPixelBuffer</code> / <code class="usage-code">IOSurface</code>, not a generic texture importer.</li><li>Depend on <code class="usage-code">AppleImageUtils</code> in game <code class="usage-code">Build.cs</code>; add <code class="usage-code">AppleImageUtilsBlueprintSupport</code> if you need the K2 nodes. Include <code class="usage-code">AppleImageUtilsBaseBlueprintFunctionLibrary.h</code>.</li><li>Pass an <code class="usage-code">IAppleImageInterface</code> source (often AR camera <code class="usage-code">UARTextureCameraImage</code>, or a convertible <code class="usage-code">UTexture</code>) to <code class="usage-code">ConvertToJPEG</code> / <code class="usage-code">ConvertToHEIF</code> / <code class="usage-code">ConvertToPNG</code> / <code class="usage-code">ConvertToTIFF</code> (async <code class="usage-code">UAppleImageUtilsBaseAsyncTaskBlueprintProxy</code>).</li><li>Set quality, color, and GPU flags. The <code class="usage-code">FAppleImageUtilsImageConversionResult</code> callback yields compressed bytes to save or upload. Failures show up in Apple platform logs; Win editor is unsupported.</li><li>Validate on iOS/macOS device or a Mac editor. This is not a <code class="usage-code">Media Texture</code> player and not a material sample node.</li></ol><p class="usage-note">Core Image convert/compress helpers, often for AR camera frames. Not a Win64 decoder and not `Apple Movie Player`.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Utilities that operate on CIImage, CVPixelBuffer, IOSurface, etc.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">AppleImageUtils</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AppleImageUtilsBlueprintSupport</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Runtime/AppleImageUtils/AppleImageUtils.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

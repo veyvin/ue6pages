@@ -3,17 +3,38 @@ layout: default
 title: 现场通知追踪 / Field Notification Trace
 ---
 
-<h1>现场通知追踪 / Field Notification Trace</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/FieldNotificationTrace/FieldNotificationTrace.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用户界面</div><div class="lang-content">UI</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">FieldNotificationTrace, FieldNotificationTraceEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">F</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Field Notification Trace</div>
+      <div class="hero-title-cn">现场通知追踪 · 添加对跟踪字段通知对象的支持。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>UI</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/FieldNotificationTrace/FieldNotificationTrace.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">FieldNotificationTrace</code>（模块 <code class="usage-code">FieldNotificationTrace</code> + <code class="usage-code">FieldNotificationTraceEditor</code>），它给字段通知（Field Notify）对象增加 trace 支持，配合 Unreal Insights 分析。</li><li>启动带 trace 的会话，命令行加对应 channel（如 <code class="usage-code">-trace=default,fieldnotification</code> 或 <code class="usage-code">-trace=fieldnotification</code>），让字段通知被记录。</li><li>在游戏或 UMG 里触发字段通知：例如 <code class="usage-code">FieldNotify</code> 广播、MVVM 视图模型属性变更引发的通知刷新。</li><li>停止 trace 后用 Unreal Insights 打开，在对应 track 里查看字段通知的触发时机、频率与耗时。</li><li>用 trace 定位 UMG/视图模型里频繁或异常的通知刷新，据此减少不必要的通知与重绘。</li><li>C++ 运行时代码只依赖 <code class="usage-code">FieldNotificationTrace</code>；编辑器分析模块 <code class="usage-code">FieldNotificationTraceEditor</code> 只进 <code class="usage-code">*Editor.Build.cs</code>。</li><li>它服务编辑器/开发排障，正式包不必也不应开启 trace 通道。</li></ol><p class="usage-note">抓 FieldNotify 的 trace，在 Insights 里看触发时机/频率；排 UMG/MVVM 过度通知时用。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">FieldNotificationTrace</code> (modules <code class="usage-code">FieldNotificationTrace</code> + <code class="usage-code">FieldNotificationTraceEditor</code>). It adds trace support for field notification (Field Notify) objects, meant for Unreal Insights analysis.</li><li>Start a traced session with the matching channel (e.g. <code class="usage-code">-trace=default,fieldnotification</code> or <code class="usage-code">-trace=fieldnotification</code>) so field notifications get recorded.</li><li>Trigger field notifications in-game or in UMG — for example a <code class="usage-code">FieldNotify</code> broadcast, or the notification refresh caused by a MVVM view-model property change.</li><li>Stop the trace and open it in Unreal Insights, then inspect the relevant track for field-notification trigger timing, frequency, and cost.</li><li>Use the trace to find frequent or anomalous notification refreshes in UMG/view models, then cut unneeded notifications and repaints.</li><li>Runtime C++ depends only on <code class="usage-code">FieldNotificationTrace</code>; the editor analysis module <code class="usage-code">FieldNotificationTraceEditor</code> goes only in <code class="usage-code">*Editor.Build.cs</code>.</li><li>It serves editor/developer troubleshooting; release builds should not enable the trace channel.</li></ol><p class="usage-note">Captures FieldNotify traces to inspect trigger timing/frequency in Insights; use it to debug UMG/MVVM over-notification.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">添加对跟踪字段通知对象的支持。</div><div class="lang-content">Add support to trace field notification object.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">FieldNotificationTrace</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">FieldNotificationTraceEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/FieldNotificationTrace/FieldNotificationTrace.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

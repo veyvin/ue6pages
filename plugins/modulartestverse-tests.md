@@ -1,7 +1,9 @@
 ---
 layout: default
-title: ModularTestVerse 测试 / ModularTestVerse Tests
+title: ModularTestVerse Tests / ModularTestVerse Tests
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: ModularTestVerse 测试 / ModularTestVerse Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">ModularTestVerse Tests</div>
-      <div class="hero-title-cn">ModularTestVerse 测试 · ModularTestVerse 的配套测试插件。使用真实的 v</div>
+      <div class="hero-title-cn">ModularTestVerse Tests · Companion test plugin for Modula</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -22,68 +24,9 @@ title: ModularTestVerse 测试 / ModularTestVerse Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">ModularTestVerse 的配套测试插件。使用真实的 verse 协程对 UMTFVerseTaskOps 进行验收测试。</div><div class="lang-content">Companion test plugin for ModularTestVerse. Acceptance tests for UMTFVerseTaskOps using a real verse coroutine.</div></div></div>
+      <div class="desc-body"><p>Companion test plugin for ModularTestVerse. Acceptance tests for UMTFVerseTaskOps using a real verse coroutine.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Verse 是面向 UEFN / Fortnite 体验的脚本语言与运行时。这组插件提供编译、虚拟机、设备 API 与编辑器集成，不是传统蓝图游戏的必选项。</p><p>这是引擎 Plugins 目录下的官方插件，由对应 .uplugin 描述其职责。</p><p>它打包的模块包括：ModularTestVerseTests。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Verse is the scripting language and runtime for UEFN / Fortnite experiences. These plugins provide the compiler, VM, device APIs, and editor integration — not required for classic Blueprint games.</p><p>This is an engine plugin under Plugins/; its .uplugin states its job.</p><p>It ships these modules: ModularTestVerseTests. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">ModularTestVerse Tests</code>（模块 <code class="usage-code">ModularTestVerseTests</code>）。</li><li>它是 ModularTestVerse 的配套测试插件，用真实 Verse 协程对 <code class="usage-code">UMTFVerseTaskOps</code> 做验收测试。</li><li>在 CI/自动化里跑这些 Verse 验收用例。</li><li>这是测试配套插件，不要打进发行版本。</li></ol><p class="usage-note">ModularTestVerse 的 Verse 验收测试配套插件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">ModularTestVerse Tests</code> (module <code class="usage-code">ModularTestVerseTests</code>).</li><li>It is the companion test plugin for ModularTestVerse, acceptance-testing <code class="usage-code">UMTFVerseTaskOps</code> with a real Verse coroutine.</li><li>Run these Verse acceptance cases in CI/automation.</li><li>It is a test companion; do not ship it in release builds.</li></ol><p class="usage-note">The Verse acceptance-test companion for ModularTestVerse.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ModularTestVerseTests</span><span class="tag runtime">Runtime</span></div></div>

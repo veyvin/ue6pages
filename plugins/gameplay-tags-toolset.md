@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 游戏标签工具集 / Gameplay Tags Toolset
+title: Gameplay Tags Toolset / Gameplay Tags Toolset
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 游戏标签工具集 / Gameplay Tags Toolset
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Gameplay Tags Toolset</div>
-      <div class="hero-title-cn">游戏标签工具集 · 用于通过 AI 工具集注册表读取和管理游戏标签的工具集。</div>
+      <div class="hero-title-cn">Gameplay Tags Toolset · Toolset for reading and managing</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span></div>
     </div>
   </div>
@@ -22,82 +24,9 @@ title: 游戏标签工具集 / Gameplay Tags Toolset
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于通过 AI 工具集注册表读取和管理游戏标签的工具集。</div><div class="lang-content">Toolset for reading and managing gameplay tags via the AI Toolset Registry.</div></div></div>
+      <div class="desc-body"><p>Toolset for reading and managing gameplay tags via the AI Toolset Registry.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：用于通过 AI 工具集注册表读取和管理游戏标签的工具集。</p><p>Toolset：给编辑器里的 AI 助手或自动化准备的只读/只写工具，一般不进 Shipping 游戏。</p><p>Epic 把它放在 Experimental：功能可用，但接口可能随夜构建变化。</p><p>它打包的模块包括：GameplayTagsToolset。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Toolset for reading and managing gameplay tags via the AI Toolset Registry.</p><p>Toolset: read/write tools for the in-editor AI assistant or automation — not a shipping game feature.</p><p>Epic ships this under Experimental: usable, but the contract may change on nightly builds.</p><p>It ships these modules: GameplayTagsToolset. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">Gameplay Tags Toolset</code>（模块 <code class="usage-code">GameplayTagsToolset</code>），它面向 AI Toolset Registry。</li><li>让 AI 助手/工具通过 Toolset Registry 调用它，读取或管理 Gameplay Tags，而不是手动改 ini。</li><li>在 <code class="usage-code">DefaultGameplayTags.ini</code> 已定义标签的前提下使用；工具集只做读取/管理接口。</li><li>这是给 AI 工具链用的 Toolset，不是游戏运行时给玩家用的功能。</li></ol><p class="usage-note">AI 工具集注册表里的 GameplayTags 工具，不是运行时标签系统本身。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Gameplay Tags Toolset</code> (module <code class="usage-code">GameplayTagsToolset</code>); it targets the AI Toolset Registry.</li><li>Let AI assistants/tools call it through the Toolset Registry to read or manage Gameplay Tags instead of hand-editing ini files.</li><li>Use it against tags already defined in <code class="usage-code">DefaultGameplayTags.ini</code>; the toolset only reads/manages them.</li><li>It is a toolset for the AI toolchain, not a player-facing runtime feature.</li></ol><p class="usage-note">A GameplayTags tool inside the AI Toolset Registry, not the runtime tag system itself.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">GameplayTagsToolset</span><span class="tag runtime">Runtime</span></div></div>

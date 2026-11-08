@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 网格重建器示例 / Sample Mesh Reconstructor
+title: Sample Mesh Reconstructor / Sample Mesh Reconstructor
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 网格重建器示例 / Sample Mesh Reconstructor
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Sample Mesh Reconstructor</div>
-      <div class="hero-title-cn">网格重建器示例 · 如何驱动网格重建的示例。生成虚拟几何体以演示 API 用法。</div>
+      <div class="hero-title-cn">Sample Mesh Reconstructor · Sample of how to drive mesh reco</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,50 +24,9 @@ title: 网格重建器示例 / Sample Mesh Reconstructor
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">如何驱动网格重建的示例。生成虚拟几何体以演示 API 用法。</div><div class="lang-content">Sample of how to drive mesh reconstruction. Generates dummy geometry to demonstrate API usage.</div></div></div>
+      <div class="desc-body"><p>Sample of how to drive mesh reconstruction. Generates dummy geometry to demonstrate API usage.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：如何驱动网格重建的示例。生成虚拟几何体以演示 API 用法。</p><p>运行时插件，启用后可进游戏包。</p><p>它打包的模块包括：DummyMeshReconstructor。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Sample of how to drive mesh reconstruction. Generates dummy geometry to demonstrate API usage.</p><p>A runtime plugin that can ship in a cooked game.</p><p>It ships these modules: DummyMeshReconstructor. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Sample Mesh Reconstructor</code>（模块 <code class="usage-code">DummyMeshReconstructor</code>）。</li><li>它演示如何驱动网格重建：生成虚拟几何来展示 API 用法。</li><li>把它当示例参考去接自己的网格重建，而不是当生产重建器。</li><li>属示例插件；不要当 Shipping 网格方案。</li></ol><p class="usage-note">网格重建 API 的示例（生成虚拟几何）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Sample Mesh Reconstructor</code> (module <code class="usage-code">DummyMeshReconstructor</code>).</li><li>It is a sample of how to drive mesh reconstruction: it generates dummy geometry to show the API.</li><li>Treat it as a reference when wiring your own reconstructor, not as a production reconstructor.</li><li>It is a sample plugin; not a shipping mesh solution.</li></ol><p class="usage-note">Sample mesh-reconstruction API (dummy geometry).</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">DummyMeshReconstructor</span><span class="tag runtime">Runtime</span></div></div>

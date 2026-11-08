@@ -3,17 +3,38 @@ layout: default
 title: 音乐会共享石板 / Concert Shared Slate
 ---
 
-<h1>音乐会共享石板 / Concert Shared Slate</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/Concert/ConcertUI/ConcertSharedSlate/ConcertSharedSlate.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.2</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">联网</div><div class="lang-content">Networking</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ConcertSharedSlate</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Concert Shared Slate</div>
+      <div class="hero-title-cn">音乐会共享石板 · 包含服务器和客户端 UI 模块共享的 UI</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Networking</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.2</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/Concert/ConcertUI/ConcertSharedSlate/ConcertSharedSlate.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">ConcertSharedSlate</code>（描述符 <code class="usage-code">ConcertSharedSlate.uplugin</code>）；控件同时给编辑器客户端和 <code class="usage-code">UnrealMultiUserServer</code> 窗口用。</li><li>在编辑器 <code class="usage-code">Window &gt; Multi-User Browser</code> 与独立 <code class="usage-code">UnrealMultiUserServer</code> 界面里对照：会话行、在线用户、连接状态、活动摘要应是同一套控件。</li><li>扩展服务器 GUI 或要让自定义客户端与服务器列表视觉一致时，Editor 模块依赖 <code class="usage-code">ConcertSharedSlate</code>（用户条、会话行、连接指示）。</li><li>仅客户端才有的加入向导/本机资料编辑走 <code class="usage-code">ConcertClientSharedSlate</code>，不要塞进本模块。</li><li>这是 Concert UI 共享库，不要链进游戏运行时。</li></ol><p class="usage-note">slug `concert-shared-slate-fc2592`：服务器+客户端共用 Slate，不是 `ConcertClientSharedSlate`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">ConcertSharedSlate</code> (<code class="usage-code">ConcertSharedSlate.uplugin</code>). Widgets are shared by the editor client and the <code class="usage-code">UnrealMultiUserServer</code> window.</li><li>Compare <code class="usage-code">Window &gt; Multi-User Browser</code> with the standalone <code class="usage-code">UnrealMultiUserServer</code> UI: session rows, online users, connection state, and activity summaries should match.</li><li>When extending the server GUI or matching client lists to it, depend on <code class="usage-code">ConcertSharedSlate</code> in an Editor module (user chips, session rows, connection indicators).</li><li>Client-only join wizards and local profile editors belong in <code class="usage-code">ConcertClientSharedSlate</code>, not here.</li><li>Shared Concert UI library — do not link it into game runtime.</li></ol><p class="usage-note">Slug `concert-shared-slate-fc2592`: Slate shared by server and client, not `ConcertClientSharedSlate`.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">包含服务器和客户端 UI 模块共享的 UI</div><div class="lang-content">Contains UI that is shared for server and client UI modules</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ConcertSharedSlate</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/Concert/ConcertUI/ConcertSharedSlate/ConcertSharedSlate.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

@@ -3,17 +3,38 @@ layout: default
 title: 渲染文档插件 / RenderDoc Plugin
 ---
 
-<h1>渲染文档插件 / RenderDoc Plugin</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/RenderDocPlugin/RenderDocPlugin.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">渲染</div><div class="lang-content">Rendering</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">弗雷德里克·林德（主题曲）</div><div class="lang-content">Fredrik Lindh (Temaran)</div></div></span></li><li><span class="label">模块</span><span class="value">RenderDocPlugin</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">R</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">RenderDoc Plugin</div>
+      <div class="hero-title-cn">渲染文档插件 · RenderDoc 图形调试器/分析器集成。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Rendering</span><span class="chip">Fredrik Lindh (Temaran)</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Fredrik Lindh (Temaran)</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/RenderDocPlugin/RenderDocPlugin.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">RenderDoc Plugin</code>（模块 <code class="usage-code">RenderDocPlugin</code>）。</li><li>它把 RenderDoc 图形调试器/分析器接到引擎。</li><li>在编辑器里一键捕捉帧，用 RenderDoc 查 draw call 与资源。</li><li>属编辑器/开发者插件；默认不进 Shipping。</li></ol><p class="usage-note">引擎与 RenderDoc 图形调试器的集成。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">RenderDoc Plugin</code> (module <code class="usage-code">RenderDocPlugin</code>).</li><li>It integrates the RenderDoc graphics debugger/profiler with the engine.</li><li>Capture a frame from the editor, then inspect draw calls and resources in RenderDoc.</li><li>It is an editor/developer plugin; it does not ship by default.</li></ol><p class="usage-note">Engine integration with the RenderDoc graphics debugger.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">RenderDoc 图形调试器/分析器集成。</div><div class="lang-content">RenderDoc graphics debugger/profiler integration.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">RenderDocPlugin</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/RenderDocPlugin/RenderDocPlugin.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

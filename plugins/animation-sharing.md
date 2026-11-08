@@ -3,17 +3,38 @@ layout: default
 title: 动画分享 / Animation Sharing
 ---
 
-<h1>动画分享 / Animation Sharing</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/AnimationSharing/AnimationSharing.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AnimationSharing, AnimationSharingEd</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Animation Sharing</div>
+      <div class="hero-title-cn">动画分享 · 使用领导者-跟随者姿势功能创建共享动画系统的插件</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/AnimationSharing/AnimationSharing.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Animation Sharing</code>（运行时 <code class="usage-code">AnimationSharing</code>，资产编辑 <code class="usage-code">AnimationSharingEd</code>）。</li><li>内容浏览器 <code class="usage-code">Add &gt; Animation &gt; Advanced &gt; Animation Sharing Setup</code>，得到 <code class="usage-code">UAnimationSharingSetup</code>。</li><li>在 Setup 的 <code class="usage-code">Skeleton Setups</code> 填 <code class="usage-code">Skeleton</code> / 调试用 <code class="usage-code">Skeletal Mesh</code>；指定 <code class="usage-code">AnimSharingTransitionInstance</code> 子类作混合 AnimBP、<code class="usage-code">AnimSharingAdditiveInstance</code> 子类作叠加、以及 <code class="usage-code">UAnimationSharingStateProcessor</code> 子类判断状态。</li><li>在 <code class="usage-code">Animation States</code> 里为每个桶指定 <code class="usage-code">UAnimSharingStateInstance</code> 子类、要播的 <code class="usage-code">AnimSequence</code>、是否 On Demand / Additive，并调 <code class="usage-code">Scalability Settings</code>。</li><li>关卡蓝图 BeginPlay：<code class="usage-code">Create Animation Sharing Manager</code> 并传入该 Setup；角色 BeginPlay：<code class="usage-code">Get Animation Sharing Manager</code> → <code class="usage-code">Register Actor</code>（<code class="usage-code">RegisterActorWithSkeletonBP</code>），Sharing Skeleton 必须与 Setup 中的骨架一致。</li><li>游戏模块只依赖 <code class="usage-code">AnimationSharing</code>；<code class="usage-code">AnimationSharingEd</code> 仅编辑器。</li></ol><p class="usage-note">Leader-Follower 姿态共享给人群用；每个角色仍跑完整 AnimBP 时不要启用。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Animation Sharing</code> (runtime <code class="usage-code">AnimationSharing</code>, asset editor <code class="usage-code">AnimationSharingEd</code>).</li><li>Create <code class="usage-code">Add &gt; Animation &gt; Advanced &gt; Animation Sharing Setup</code> (<code class="usage-code">UAnimationSharingSetup</code>).</li><li>Fill <code class="usage-code">Skeleton Setups</code> with <code class="usage-code">Skeleton</code> and a debug <code class="usage-code">Skeletal Mesh</code>; assign an <code class="usage-code">AnimSharingTransitionInstance</code> subclass for blends, an <code class="usage-code">AnimSharingAdditiveInstance</code> subclass for additives, and a <code class="usage-code">UAnimationSharingStateProcessor</code> subclass for state.</li><li>Under <code class="usage-code">Animation States</code> configure each bucket’s <code class="usage-code">UAnimSharingStateInstance</code> subclass, <code class="usage-code">AnimSequence</code>, On Demand / Additive flags, then tune <code class="usage-code">Scalability Settings</code>.</li><li>Level Blueprint BeginPlay: <code class="usage-code">Create Animation Sharing Manager</code> with that Setup. Character BeginPlay: <code class="usage-code">Get Animation Sharing Manager</code> → <code class="usage-code">Register Actor</code> (<code class="usage-code">RegisterActorWithSkeletonBP</code>); Sharing Skeleton must match the Setup.</li><li>Game modules depend on <code class="usage-code">AnimationSharing</code> only; <code class="usage-code">AnimationSharingEd</code> is editor-only.</li></ol><p class="usage-note">Leader-follower pose sharing for crowds; do not use it if every character still evaluates a full AnimBP.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用领导者-跟随者姿势功能创建共享动画系统的插件</div><div class="lang-content">Plugin to create Shared Animation systems using the Leader-Follower pose functionality</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">AnimationSharing</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AnimationSharingEd</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/AnimationSharing/AnimationSharing.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

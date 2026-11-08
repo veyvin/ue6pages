@@ -3,17 +3,38 @@ layout: default
 title: 动画分层 / Animation Layering
 ---
 
-<h1>动画分层 / Animation Layering</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/Animation/AnimationLayering/AnimationLayering.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AnimationLayering, AnimationLayeringUncookedOnly</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Animation Layering</div>
+      <div class="hero-title-cn">动画分层 · （无描述）</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/Animation/AnimationLayering/AnimationLayering.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental <code class="usage-code">Animation Layering</code>（运行时 <code class="usage-code">AnimationLayering</code>，未烹饪图节点在 <code class="usage-code">AnimationLayeringUncookedOnly</code>）并重启。</li><li>打开角色 <code class="usage-code">AnimBP</code> 的 AnimGraph，在节点面板找本插件新增的强化骨骼遮罩与骨对骨拷贝/运动传播节点（不要当成引擎自带的 <code class="usage-code">Linked Anim Layer</code>）。</li><li>把这些节点接在运动匹配或 Locomotion 输出之后、Output Pose 之前，用遮罩把上半身子/持物层叠到基础姿态上。</li><li>C++ 游戏模块只加 <code class="usage-code">AnimationLayering</code>；<code class="usage-code">AnimationLayeringUncookedOnly</code> 仅能出现在编辑器/未烹饪模块。</li><li>先在空关卡对照 Pose Watch 验证分层，再进正式角色；Experimental 节点名可能随夜构建变化。</li></ol><p class="usage-note">UE 5.8 Experimental 的 AnimBP 分层节点集，与 UAF 的 `UAFLayering` 不是同一插件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Animation Layering</code> (runtime <code class="usage-code">AnimationLayering</code>, uncooked graph nodes in <code class="usage-code">AnimationLayeringUncookedOnly</code>) and restart.</li><li>In the character <code class="usage-code">AnimBP</code> AnimGraph, find this plugin’s enhanced bone-mask and bone-to-bone copy / motion-propagation nodes (not engine <code class="usage-code">Linked Anim Layer</code>).</li><li>Wire them after locomotion or motion matching and before Output Pose so an upper-body / item layer composites onto the base pose.</li><li>Game modules depend on <code class="usage-code">AnimationLayering</code> only; <code class="usage-code">AnimationLayeringUncookedOnly</code> belongs in editor/uncooked modules.</li><li>Prove the stack with Pose Watch in an empty map before production characters; Experimental node names can change on nightlies.</li></ol><p class="usage-note">UE 5.8 Experimental AnimBP layering nodes; not the same plugin as UAF `UAFLayering`.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">AnimationLayering</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AnimationLayeringUncookedOnly</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/Animation/AnimationLayering/AnimationLayering.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

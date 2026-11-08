@@ -3,17 +3,38 @@ layout: default
 title: 音频见解运行时 / Audio Insights Runtime
 ---
 
-<h1>音频见解运行时 / Audio Insights Runtime</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/AudioInsightsRuntime/AudioInsightsRuntime.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">声音的</div><div class="lang-content">Audio</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AudioInsightsRuntime</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Audio Insights Runtime</div>
+      <div class="hero-title-cn">音频见解运行时 · 允许通过蓝图将分析和调试数据发送到 Audio Insights</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/AudioInsightsRuntime/AudioInsightsRuntime.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Audio Insights Runtime</code>（模块 <code class="usage-code">AudioInsightsRuntime</code>），并同时启用编辑器端 <code class="usage-code">Audio Insights</code>。</li><li>打开 <code class="usage-code">Edit &gt; Editor Preferences &gt; Plugins &gt; Audio Insights</code>，在 <code class="usage-code">Custom Event Log categories</code> 里登记分类和事件名。</li><li>游戏模块依赖 <code class="usage-code">AudioInsightsRuntime</code>；在蓝图的 Audio Insights Runtime 分类（或 C++ Trace）里按登记名称发送自定义事件。</li><li>打开 <code class="usage-code">Tools &gt; Audio Insights</code>，PIE 时看 <code class="usage-code">Event Log</code> 的 Custom 过滤，点事件可对齐同一时刻的 Sources/Submixes。</li><li>独立包要把对应 Audio Insights Trace 通道打开，用 Unreal Insights 接同一套运行时事件。</li><li>本插件只负责往仪表盘送数据，不提供 <code class="usage-code">Tools &gt; Audio Insights</code> 窗口本身。</li></ol><p class="usage-note">蓝图/C++ 往 Audio Insights 事件日志打点；未登记的事件会进通用 Custom 类。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Audio Insights Runtime</code> (module <code class="usage-code">AudioInsightsRuntime</code>) together with editor <code class="usage-code">Audio Insights</code>.</li><li>In <code class="usage-code">Edit &gt; Editor Preferences &gt; Plugins &gt; Audio Insights</code>, register names under <code class="usage-code">Custom Event Log categories</code>.</li><li>Depend on <code class="usage-code">AudioInsightsRuntime</code> and emit those event names from the Blueprint Audio Insights Runtime category (or C++ traces).</li><li>Open <code class="usage-code">Tools &gt; Audio Insights</code>, PIE, and filter <code class="usage-code">Event Log</code> to Custom; selecting a row syncs Sources/Submixes to that time.</li><li>For a packaged build, enable the Audio Insights trace channels and attach Unreal Insights to the same runtime events.</li><li>This plugin only sends data; it does not host the <code class="usage-code">Tools &gt; Audio Insights</code> window.</li></ol><p class="usage-note">Blueprint/C++ injects markers into the Audio Insights Event Log; unregistered names land in generic Custom.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许通过蓝图将分析和调试数据发送到 Audio Insights 插件。</div><div class="lang-content">Enable sending profiling and debugging data via Blueprints to the Audio Insights plugin.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">AudioInsightsRuntime</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/AudioInsightsRuntime/AudioInsightsRuntime.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

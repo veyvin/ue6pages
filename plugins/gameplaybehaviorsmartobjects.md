@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 游戏行为智能对象 / GameplayBehaviorSmartObjects
+title: GameplayBehaviorSmartObjects / GameplayBehaviorSmartObjects
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 游戏行为智能对象 / GameplayBehaviorSmartObjects
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">GameplayBehaviorSmartObjects</div>
-      <div class="hero-title-cn">游戏行为智能对象 · 使用 GameplayBehavior 作为默认运行时行为的 S</div>
+      <div class="hero-title-cn">GameplayBehaviorSmartObjects · Plugins for SmartObjects using G</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,82 +24,9 @@ title: 游戏行为智能对象 / GameplayBehaviorSmartObjects
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用 GameplayBehavior 作为默认运行时行为的 SmartObjects 插件</div><div class="lang-content">Plugins for SmartObjects using GameplayBehavior as their default runtime behavior</div></div></div>
+      <div class="desc-body"><p>Plugins for SmartObjects using GameplayBehavior as their default runtime behavior</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：使用 GameplayBehavior 作为默认运行时行为的 SmartObjects 插件</p><p>运行时插件，启用后可进游戏包。</p><p>它打包的模块包括：GameplayBehaviorSmartObjectsModule。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Plugins for SmartObjects using GameplayBehavior as their default runtime behavior</p><p>A runtime plugin that can ship in a cooked game.</p><p>It ships these modules: GameplayBehaviorSmartObjectsModule. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">GameplayBehaviorSmartObjects</code>（模块 <code class="usage-code">GameplayBehaviorSmartObjectsModule</code>）。</li><li>在关卡放置 Smart Object，并让它的默认运行时行为走 <code class="usage-code">GameplayBehavior</code>。</li><li>AI 或玩家通过 Smart Object 交互时，由 GameplayBehavior 驱动对应行为，而不是自定义 Claim/Release 逻辑。</li><li>需要基础 Smart Objects 能力，确保 Smart Objects 相关插件已启用；本插件只补 GameplayBehavior 行为层。</li></ol><p class="usage-note">把 SmartObject 的运行时行为接到 GameplayBehavior，不是 SmartObject 框架本体。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">GameplayBehaviorSmartObjects</code> (module <code class="usage-code">GameplayBehaviorSmartObjectsModule</code>).</li><li>Place Smart Objects in the level and make their default runtime behavior use <code class="usage-code">GameplayBehavior</code>.</li><li>When AI or players interact through the Smart Object, GameplayBehavior drives the behavior instead of custom claim/release logic.</li><li>Make sure the base Smart Objects plugins are enabled; this plugin only adds the GameplayBehavior behavior layer.</li></ol><p class="usage-note">Wires SmartObject runtime behavior to GameplayBehavior; it is not the SmartObject framework itself.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">GameplayBehaviorSmartObjectsModule</span><span class="tag runtime">Runtime</span></div></div>

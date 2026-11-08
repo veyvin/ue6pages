@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 宾克媒体 / Bink Media
+title: Bink Media / Bink Media
 ---
 
-<h1>宾克媒体 / Bink Media</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Media/BinkMedia/BinkMedia.uplugin</code></span></li><li><span class="label">版本</span><span class="value">2.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">媒体播放器</div><div class="lang-content">Media Players</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">BinkMediaPlayer, BinkMediaPlayerEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">B</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Bink Media</div>
+      <div class="hero-title-cn">Bink Media · Implements a media player using </div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Media Players</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">2.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Media/BinkMedia/BinkMedia.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Bink Media</code>（<code class="usage-code">BinkMedia.uplugin</code>）。运行时模块 <code class="usage-code">BinkMediaPlayer</code>，编辑器工厂在 <code class="usage-code">BinkMediaPlayerEditor</code>。</li><li>用 RAD Video Tools 把视频压成 <code class="usage-code">.bk2</code>，再导入内容浏览器，得到 <code class="usage-code">Bink Media Player</code> 一类资产（不是普通 Electra <code class="usage-code">File Media Source</code>）。</li><li>创建 <code class="usage-code">Bink Media Texture</code>，指向该 Player；把纹理接到材质或 UMG <code class="usage-code">Image</code>。蓝图调用该 Player 的 Play/Pause/Seek，而不是 Media Framework 的通用 <code class="usage-code">Open Source</code>。</li><li>全屏开场片可走 Bink 电影播放路径：在 <code class="usage-code">DefaultEngine.ini</code> / 项目电影设置里配置 <code class="usage-code">StartupMovies</code> 等条目，让启动时解码 <code class="usage-code">.bk2</code> 而不是 WMF。</li><li>游戏 <code class="usage-code">Build.cs</code> 只依赖 <code class="usage-code">BinkMediaPlayer</code>。<code class="usage-code">BinkMediaPlayerEditor</code> 仅编辑器。Shipping 平台需包含 Bink 授权库；在目标硬件上看解码 CPU/GPU，不要只在编辑器视口点播放。</li></ol><p class="usage-note">RAD Bink `.bk2` 播放器与 `Bink Media Texture`。不要当成 Electra 解码插件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Bink Media</code> (<code class="usage-code">BinkMedia.uplugin</code>). Runtime module is <code class="usage-code">BinkMediaPlayer</code>; the editor factory is <code class="usage-code">BinkMediaPlayerEditor</code>.</li><li>Encode video to <code class="usage-code">.bk2</code> with RAD Video Tools, then import it. You get a <code class="usage-code">Bink Media Player</code> asset — not a generic Electra <code class="usage-code">File Media Source</code>.</li><li>Create a <code class="usage-code">Bink Media Texture</code> aimed at that player and sample it in a material or UMG <code class="usage-code">Image</code>. Drive Play/Pause/Seek on the Bink player, not Media Framework <code class="usage-code">Open Source</code>.</li><li>Fullscreen startup movies use the Bink movie-player path: set <code class="usage-code">StartupMovies</code> (and related entries) in <code class="usage-code">DefaultEngine.ini</code> / project movie settings so boot decodes <code class="usage-code">.bk2</code> instead of WMF.</li><li>Game <code class="usage-code">Build.cs</code> depends on <code class="usage-code">BinkMediaPlayer</code> only. <code class="usage-code">BinkMediaPlayerEditor</code> stays editor-side. Shipping platforms need the licensed Bink libs; profile decode on device, not only the editor viewport.</li></ol><p class="usage-note">RAD Bink `.bk2` player plus `Bink Media Texture`. Not an Electra decoder plugin.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Implements a media player using Bink.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">BinkMediaPlayer</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">BinkMediaPlayerEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Media/BinkMedia/BinkMedia.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 适用于 Electra 的高级专业视频 (APV) 解码器 / Advanced Professional Video (APV) Decoder for Electra
+title: Advanced Professional Video (APV) Decoder for Electra / Advanced Professional Video (APV) Decoder for Electra
 ---
 
-<h1>适用于 Electra 的高级专业视频 (APV) 解码器 / Advanced Professional Video (APV) Decoder for Electra</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Media/APVDecoderElectra/APVDecoderElectra.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">媒体播放器</div><div class="lang-content">Media Players</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">APVDecoderElectra</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Advanced Professional Video (APV) Decoder for Electra</div>
+      <div class="hero-title-cn">Advanced Professional Video (APV) Decoder for Electra · OpenAPV video decoder</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Media Players</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Media/APVDecoderElectra/APVDecoderElectra.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Advanced Professional Video (APV) Decoder for Electra</code>（模块 <code class="usage-code">APVDecoderElectra</code>），并让项目走 Electra 播放器而不是 WMF。</li><li>准备 OpenAPV/APV 编码的视频；该解码器不处理 H.264/H.265。</li><li>内容浏览器右键 <code class="usage-code">Media &gt; File Media Source</code>，指向该文件。</li><li>新建 <code class="usage-code">Media Player</code>（Electra）和 <code class="usage-code">Media Texture</code>，对 Source 执行 Open 后 Play。</li><li>把 <code class="usage-code">Media Texture</code> 赋给材质采样或 <code class="usage-code">Media Plate</code> 进行画面输出。</li><li>没有独立 Window 菜单；播不出来时先确认 Player 后端是 Electra 且容器里是 APV 码流。</li></ol><p class="usage-note">这是 Electra 的 OpenAPV 解码插件，不会在编辑器里注册独立播放窗口。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Advanced Professional Video (APV) Decoder for Electra</code> (<code class="usage-code">APVDecoderElectra</code>) and use Electra, not WMF, as the player.</li><li>Supply OpenAPV/APV-encoded video; this decoder does not handle H.264/H.265.</li><li>Create <code class="usage-code">Media &gt; File Media Source</code> in the Content Browser and point it at that file.</li><li>Create an Electra <code class="usage-code">Media Player</code> plus a <code class="usage-code">Media Texture</code>, then Open the source and Play.</li><li>Assign the <code class="usage-code">Media Texture</code> to a material sampler or a <code class="usage-code">Media Plate</code>.</li><li>There is no Window menu; if playback fails, confirm the Electra backend and that the bitstream is APV.</li></ol><p class="usage-note">This is an Electra OpenAPV decoder only; it does not register a standalone editor player window.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>OpenAPV video decoder</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">APVDecoderElectra</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Media/APVDecoderElectra/APVDecoderElectra.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

@@ -3,17 +3,38 @@ layout: default
 title: 变形器图 / Deformer Graph
 ---
 
-<h1>变形器图 / Deformer Graph</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Animation/DeformerGraph/DeformerGraph.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.9</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">OptimusSettings, OptimusCore, OptimusDeveloper, OptimusEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Deformer Graph</div>
+      <div class="hero-title-cn">变形器图 · 用于创建 GPU 网格变形图的编辑器</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.9</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">5</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Animation/DeformerGraph/DeformerGraph.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">Deformer Graph</code>（Optimus）让你用节点图在 GPU 上做网格变形，替代部分骨骼/顶点动画开销。</li><li>启用后在内容浏览器右键 <code class="usage-code">Animation → Deformer Graph</code> 新建一个 Optimus 变形图资产。</li><li>在图里把 <code class="usage-code">Mesh</code> 输入接到骨骼网格，用 Kernel/节点做顶点位移（风吹、布料、二次运动等），结果输出回 <code class="usage-code">Mesh</code>。</li><li>打开骨架网格体资产，在 Deformer Graph 槽位指定该图，并设置编辑期还是运行期执行。</li><li>在 Sequencer 或游戏里预览变形；<code class="usage-code">OptimusEditor</code> 仅编辑器用，打包只依赖 <code class="usage-code">OptimusCore</code>/<code class="usage-code">OptimusSettings</code>。</li></ol><p class="usage-note">GPU 变形图与 CPU 动画叠加时要关注顶点数预算，过量 Kernel 会拖慢半透明/蒙皮网格。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">Deformer Graph</code> (Optimus) lets you deform meshes on the GPU with a node graph, replacing part of the skeletal/vertex-animation cost.</li><li>After enabling, right-click <code class="usage-code">Animation → Deformer Graph</code> in the Content Browser to create an Optimus deformer asset.</li><li>Wire the <code class="usage-code">Mesh</code> input from the skeletal mesh, use Kernels/nodes to displace vertices (wind, cloth, secondary motion), and output back to <code class="usage-code">Mesh</code>.</li><li>Open the skeletal mesh asset, assign the graph in its Deformer Graph slot, and choose whether it runs in editor or at runtime.</li><li>Preview the deformation in Sequencer or in-game; <code class="usage-code">OptimusEditor</code> is editor-only and shipping depends only on <code class="usage-code">OptimusCore</code>/<code class="usage-code">OptimusSettings</code>.</li></ol><p class="usage-note">Watch the vertex budget when stacking GPU deformation on CPU animation; heavy kernels slow down translucent/skinned meshes.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于创建 GPU 网格变形图的编辑器</div><div class="lang-content">Editor for creating GPU mesh deformation graphs</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (5)</div><div class="module-item"><span class="dot"></span><span class="name mono">OptimusSettings</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">OptimusCore</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">OptimusDeveloper</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">OptimusEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">OptimusScripting</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Animation/DeformerGraph/DeformerGraph.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

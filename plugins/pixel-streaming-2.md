@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 像素流2 / Pixel Streaming 2
+title: Pixel Streaming 2 / Pixel Streaming 2
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 像素流2 / Pixel Streaming 2
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Pixel Streaming 2</div>
-      <div class="hero-title-cn">像素流2 · 将虚幻引擎音频流式传输并渲染到 WebRTC 兼容的媒体播放器（</div>
+      <div class="hero-title-cn">Pixel Streaming 2 · Streaming of Unreal Engine audio</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Graphics</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,54 +24,9 @@ title: 像素流2 / Pixel Streaming 2
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">将虚幻引擎音频流式传输并渲染到 WebRTC 兼容的媒体播放器（例如 Web 浏览器）。</div><div class="lang-content">Streaming of Unreal Engine audio and rendering to WebRTC-compatible media players such as a web browsers.</div></div></div>
+      <div class="desc-body"><p>Streaming of Unreal Engine audio and rendering to WebRTC-compatible media players such as a web browsers.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Pixel Streaming 把引擎画面通过 WebRTC 推到浏览器：云端或本机跑游戏，薄客户端只显示与输入。用于云游戏、可视化审阅、远程演示。</p><p>属于 Media Framework / Electra 播流与解码。</p><p>它打包的模块包括：PixelStreaming2Core, PixelStreaming2, PixelStreaming2Settings, PixelStreaming2RTC, PixelStreaming2Servers, PixelStreaming2Editor, PixelStreaming2HMD, PixelStreaming2Input。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">参考文档：<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/pixel-streaming-in-unreal-engine" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/pixel-streaming-in-unreal-engine</a></p></div><div class="lang-content"><p>Pixel Streaming sends the engine frame buffer to a browser over WebRTC so the game runs in the cloud or on a host while a thin client only shows video and sends input. Used for cloud gaming, reviews, and remote demos.</p><p>Part of Media Framework / Electra playback and decode.</p><p>It ships these modules: PixelStreaming2Core, PixelStreaming2, PixelStreaming2Settings, PixelStreaming2RTC, PixelStreaming2Servers, PixelStreaming2Editor, PixelStreaming2HMD, PixelStreaming2Input. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Docs: <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/pixel-streaming-in-unreal-engine" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/pixel-streaming-in-unreal-engine</a></p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Pixel Streaming 2</code>（模块 <code class="usage-code">PixelStreaming2Core</code>、<code class="usage-code">PixelStreaming2</code>、<code class="usage-code">PixelStreaming2Settings</code>、<code class="usage-code">PixelStreaming2RTC</code>、<code class="usage-code">PixelStreaming2Servers</code>、<code class="usage-code">PixelStreaming2Editor</code>、<code class="usage-code">PixelStreaming2HMD</code>、<code class="usage-code">PixelStreaming2Input</code>）。</li><li>它把引擎音频与画面通过 WebRTC 推到浏览器等兼容播放器（Pixel Streaming 的新一代实现）。</li><li>配置信令/STUN，启动推流，用浏览器当薄客户端显示并回传输入。</li><li>Game 模块依赖运行时模块；<code class="usage-code">PixelStreaming2Editor</code> 只进 Editor Target。</li></ol><p class="usage-note">新一代 Pixel Streaming：WebRTC 推送引擎音视频到浏览器。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Pixel Streaming 2</code> (modules <code class="usage-code">PixelStreaming2Core</code>, <code class="usage-code">PixelStreaming2</code>, <code class="usage-code">PixelStreaming2Settings</code>, <code class="usage-code">PixelStreaming2RTC</code>, <code class="usage-code">PixelStreaming2Servers</code>, <code class="usage-code">PixelStreaming2Editor</code>, <code class="usage-code">PixelStreaming2HMD</code>, <code class="usage-code">PixelStreaming2Input</code>).</li><li>It streams engine audio and frames over WebRTC to compatible players such as a browser (the next-gen Pixel Streaming implementation).</li><li>Configure signaling/STUN, start streaming, and use a browser as a thin client for video plus input.</li><li>Game modules depend on runtime modules; <code class="usage-code">PixelStreaming2Editor</code> is Editor-target only.</li></ol><p class="usage-note">Next-gen Pixel Streaming: WebRTC of engine audio/video to browsers.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (8)</div><div class="module-item"><span class="dot"></span><span class="name mono">PixelStreaming2Core</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PixelStreaming2</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PixelStreaming2Settings</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PixelStreaming2RTC</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PixelStreaming2Servers</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PixelStreaming2Editor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PixelStreaming2HMD</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PixelStreaming2Input</span><span class="tag runtime">Runtime</span></div></div>

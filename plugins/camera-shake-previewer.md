@@ -3,17 +3,38 @@ layout: default
 title: 相机抖动预览器 / Camera Shake Previewer
 ---
 
-<h1>相机抖动预览器 / Camera Shake Previewer</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Cameras/CameraShakePreviewer/CameraShakePreviewer.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">相机</div><div class="lang-content">Cameras</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">CameraShakePreviewer</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Camera Shake Previewer</div>
+      <div class="hero-title-cn">相机抖动预览器 · 添加一个可从关卡编辑器访问的新面板，使用户可以在编辑器视口中预览</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Cameras</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Cameras/CameraShakePreviewer/CameraShakePreviewer.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Camera Shake Previewer</code>（模块 <code class="usage-code">CameraShakePreviewer</code>）。它只给关卡视口预览，不改变 <code class="usage-code">Start Camera Shake</code> 的运行时路径。</li><li>新建继承 <code class="usage-code">CameraShakeBase</code> / <code class="usage-code">DefaultCameraShakeBase</code> 的抖动类，调 Location/Rotation 振幅与频率；再放置 <code class="usage-code">Camera Shake Source</code> Actor（或组件），把 <code class="usage-code">Camera Shake</code> 指到该类，设好内外衰减半径。</li><li>视口左上角 <code class="usage-code">Viewport Options</code> 勾选 <code class="usage-code">Allow Camera Shakes</code>，否则编辑器相机完全不吃抖动。</li><li>打开 <code class="usage-code">Window &gt; Camera Shake Previewer</code>，关卡里的 Source 会出现在列表中。</li><li>选中条目点 <code class="usage-code">Play/Stop Selected</code>（或多个源时用 <code class="usage-code">Play/Stop All</code>），把编辑器相机移进外半径，在视口里看衰减，无需 PIE。</li><li>改抖动类振幅后不必停 Play：预览器会继续套当前 Source。确认手感后再把同一资产接到 Sequencer 的 Camera Shake 轨道或运行时 <code class="usage-code">Start Camera Shake</code>。</li></ol><p class="usage-note">必须勾选 `Allow Camera Shakes`；预览器不播放 Sequencer，只驱动关卡里的 `Camera Shake Source`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Camera Shake Previewer</code> (module <code class="usage-code">CameraShakePreviewer</code>). It previews in the level viewport only and does not change runtime <code class="usage-code">Start Camera Shake</code>.</li><li>Create a <code class="usage-code">CameraShakeBase</code> / <code class="usage-code">DefaultCameraShakeBase</code> class, tune location/rotation amplitude, place a <code class="usage-code">Camera Shake Source</code> actor (or component), assign that class, and set inner/outer attenuation radii.</li><li>In the viewport’s top-left <code class="usage-code">Viewport Options</code>, enable <code class="usage-code">Allow Camera Shakes</code> or the editor camera will ignore shakes.</li><li>Open <code class="usage-code">Window &gt; Camera Shake Previewer</code>; placed sources appear in the list.</li><li>Use <code class="usage-code">Play/Stop Selected</code> (or <code class="usage-code">Play/Stop All</code>), fly the editor camera into the outer radius, and judge falloff without PIE.</li><li>Tweak amplitudes while preview is running. When it feels right, reuse the same asset on a Sequencer Camera Shake track or runtime <code class="usage-code">Start Camera Shake</code>.</li></ol><p class="usage-note">`Allow Camera Shakes` must be on. The panel drives `Camera Shake Source` actors in the level, not Sequencer playback.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">添加一个可从关卡编辑器访问的新面板，使用户可以在编辑器视口中预览相机抖动。</div><div class="lang-content">Adds a new panel, accessible from the Level Editor, which lets the user preview camera shakes in editor viewports.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">CameraShakePreviewer</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Cameras/CameraShakePreviewer/CameraShakePreviewer.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

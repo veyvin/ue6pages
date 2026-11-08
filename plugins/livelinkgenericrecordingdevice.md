@@ -3,17 +3,38 @@ layout: default
 title: LiveLink通用录音设备 / LiveLinkGenericRecordingDevice
 ---
 
-<h1>LiveLink通用录音设备 / LiveLinkGenericRecordingDevice</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Animation/LiveLinkGenericRecordingDevice/LiveLinkGenericRecordingDevice.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">其他</div><div class="lang-content">Other</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">LiveLinkGenericRecordingDevice</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">L</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">LiveLinkGenericRecordingDevice</div>
+      <div class="hero-title-cn">LiveLink通用录音设备 · 提供可由 Live Link Hub 的 Python 脚本使用</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Animation/LiveLinkGenericRecordingDevice/LiveLinkGenericRecordingDevice.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">LiveLinkGenericRecordingDevice</code>（模块 <code class="usage-code">LiveLinkGenericRecordingDevice</code>）。</li><li>它提供可由 Live Link Hub 的 Python 脚本使用的通用录制设备；类是抽象的，默认隐藏。</li><li>在 Python 脚本里继承/实例化该录制设备类，实现自定义录制。</li><li>属 Live Link Hub 录制扩展；需 Live Link Hub 与 Python 脚本环境。</li></ol><p class="usage-note">给 Live Link Hub Python 脚本用的通用录制设备（抽象、默认隐藏）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">LiveLinkGenericRecordingDevice</code> (module <code class="usage-code">LiveLinkGenericRecordingDevice</code>).</li><li>It provides a generic recording device usable from Live Link Hub Python scripts; its classes are abstract and hidden by default.</li><li>From Python, subclass/instantiate the recording device class to implement custom recording.</li><li>It is a Live Link Hub recording extension; requires Live Link Hub and a Python scripting environment.</li></ol><p class="usage-note">A generic recording device for Live Link Hub Python scripts (abstract, hidden by default).</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">提供可由 Live Link Hub 的 Python 脚本使用的通用录制设备。由于类是抽象的，它默认是隐藏的。</div><div class="lang-content">Provides a generic recording device that can be used by Python scripts for Live Link Hub. It is hidden by default as the classes are abstract.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">LiveLinkGenericRecordingDevice</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Animation/LiveLinkGenericRecordingDevice/LiveLinkGenericRecordingDevice.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

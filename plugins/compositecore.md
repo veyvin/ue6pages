@@ -3,17 +3,38 @@ layout: default
 title: 复合核心 / CompositeCore
 ---
 
-<h1>复合核心 / CompositeCore</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Compositing/CompositeCore/CompositeCore.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">合成</div><div class="lang-content">Compositing</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">CompositeCore</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">CompositeCore</div>
+      <div class="hero-title-cn">复合核心 · 用于实时合成的可扩展核心插件，通过后处理使用默认（保留）合成管道</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Compositing</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Compositing/CompositeCore/CompositeCore.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">CompositeCore</code>（模块 <code class="usage-code">CompositeCore</code>）。它是实时合成的底层：默认经后处理的 holdout 管线，被新版 Composure（<code class="usage-code">Composite</code>）扩展，不是引擎 <code class="usage-code">Core</code> 模块。</li><li>关卡里准备要从主渲染抠掉、改由合成层补上的图元（前景 CG 或投影板网格）。</li><li>用 <code class="usage-code">UCompositeCoreSubsystem::RegisterPrimitive</code> 注册 <code class="usage-code">UPrimitiveComponent</code>，<code class="usage-code">HoldoutManagement</code> 用 <code class="usage-code">Automatic</code>（让核心改 holdout 标志）或手动。注销走 <code class="usage-code">UnregisterPrimitive</code>。</li><li>主视角渲染这些图元时走 alpha holdout，避免与实拍板双重遮挡；合成层再把板/CG 叠回。不要在蓝图里找「CompositeCore 组件」——入口是该 World Subsystem。</li><li>一般项目启用上层 <code class="usage-code">Composure</code>（<code class="usage-code">Composite</code> 插件）即可，由它自动管理 Scene Capture 与 holdout。只有自写合成扩展才直接依赖 <code class="usage-code">CompositeCore</code>。</li></ol><p class="usage-note">合成 holdout 核心，不是 `Core`/`CoreUObject`。默认管线走后处理；上层 Actor/图层在 `Composite` 插件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">CompositeCore</code> (module <code class="usage-code">CompositeCore</code>). It is the real-time compositing core: a default holdout pipeline through post-process that the new Composure (<code class="usage-code">Composite</code>) plugin extends — not engine <code class="usage-code">Core</code>.</li><li>Identify primitives that should be held out of the main render and restored by a composite layer (CG foreground or projection meshes).</li><li>Call <code class="usage-code">UCompositeCoreSubsystem::RegisterPrimitive</code> on each <code class="usage-code">UPrimitiveComponent</code> with <code class="usage-code">HoldoutManagement</code> <code class="usage-code">Automatic</code> (lets the core toggle holdout) or manual. Unregister with <code class="usage-code">UnregisterPrimitive</code>.</li><li>Those primitives render as alpha holdouts in the main view so they do not double-occlude the plate; composite layers put plate/CG back. There is no Blueprint “CompositeCore component” — the World Subsystem is the API.</li><li>Most projects enable the higher-level <code class="usage-code">Composure</code> (<code class="usage-code">Composite</code>) plugin and let it own scene captures and holdout. Depend on <code class="usage-code">CompositeCore</code> directly only when writing a custom composite extension.</li></ol><p class="usage-note">Compositing holdout core, not `Core`/`CoreUObject`. Default path is post-process; actors and layers live in the `Composite` plugin.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于实时合成的可扩展核心插件，通过后处理使用默认（保留）合成管道。</div><div class="lang-content">Extensible core plugin for real-time compositing, with a default (holdout) composite pipeline through post-processing.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">CompositeCore</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Compositing/CompositeCore/CompositeCore.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

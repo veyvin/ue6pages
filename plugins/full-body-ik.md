@@ -3,17 +3,38 @@ layout: default
 title: 全身ME / Full Body IK
 ---
 
-<h1>全身ME / Full Body IK</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/FullBodyIK/FullBodyIK.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">其他</div><div class="lang-content">Other</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">FullBodyIK, PBIK</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">F</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Full Body IK</div>
+      <div class="hero-title-cn">全身ME · （无描述）</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/FullBodyIK/FullBodyIK.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">Full Body IK</code>（模块 <code class="usage-code">FullBodyIK</code> 与 <code class="usage-code">PBIK</code>）。这是动画图 / Control Rig 的全身 IK 求解器，不是角色组件。</li><li>打开骨架的 <code class="usage-code">AnimBP</code>，在 AnimGraph 加入 <code class="usage-code">Full Body IK</code>（PBIK）节点，接在输出 Pose 前。指定 Root、解算迭代次数，并为手/脚/头添加 Effector（骨名 + <code class="usage-code">Transform</code> 目标）。</li><li>用脚效应器对地面、手对道具；PIE 或预览网格上应看到整条链（脊柱、骨盆）补偿，而不是只有末端骨旋转。权重过大导致抖动时降低 Alpha 或加约束。</li><li>Control Rig 里同样有 <code class="usage-code">PBIK</code> 节点，适合绑定层；运行时角色通常用 AnimBP 节点。旧 <code class="usage-code">FullBodyIK</code> 节点与 <code class="usage-code">PBIK</code> 并存，新项目优先 PBIK。</li><li>游戏 <code class="usage-code">Build.cs</code> 依赖 <code class="usage-code">PBIK</code>（需要旧求解器再加 <code class="usage-code">FullBodyIK</code>）。不要把本插件当物理资产（Physics Asset）替代。</li></ol><p class="usage-note">PBIK 全身 IK 节点，不是 Two Bone IK，也不是物理布娃娃。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">Full Body IK</code> (modules <code class="usage-code">FullBodyIK</code> and <code class="usage-code">PBIK</code>). It is a full-body IK solver for AnimGraph / Control Rig, not a character component.</li><li>In the skeleton’s <code class="usage-code">AnimBP</code>, add a <code class="usage-code">Full Body IK</code> (PBIK) node before Output Pose. Set the root, iteration count, and effectors (bone name + target <code class="usage-code">Transform</code>) for hands/feet/head.</li><li>Drive foot effectors to the floor and hands to props. Preview/PIE should show spine/pelvis compensation, not just end-bone rotation. If it jitters, lower alpha or add constraints.</li><li>Control Rig also has a <code class="usage-code">PBIK</code> node for rigs; runtime characters usually use the AnimBP node. Legacy <code class="usage-code">FullBodyIK</code> coexists — prefer PBIK on new work.</li><li>Game <code class="usage-code">Build.cs</code> depends on <code class="usage-code">PBIK</code> (add <code class="usage-code">FullBodyIK</code> only if you still call the old solver). This plugin does not replace a Physics Asset.</li></ol><p class="usage-note">PBIK full-body node, not Two Bone IK and not a physics ragdoll.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">FullBodyIK</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PBIK</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/FullBodyIK/FullBodyIK.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

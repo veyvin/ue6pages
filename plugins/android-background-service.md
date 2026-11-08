@@ -1,19 +1,40 @@
 ---
 layout: default
-title: Android后台服务 / Android Background Service
+title: Android Background Service / Android Background Service
 ---
 
-<h1>Android后台服务 / Android Background Service</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/AndroidBackgroundService/AndroidBackgroundService.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Android后台服务</div><div class="lang-content">Android Background Service</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AndroidBackgroundService</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Android Background Service</div>
+      <div class="hero-title-cn">Android Background Service · Allows you to use AndroidX WorkM</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Android Background Service</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Runtime/AndroidBackgroundService/AndroidBackgroundService.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>为 Android 目标启用 <code class="usage-code">Android Background Service</code>（模块 <code class="usage-code">AndroidBackgroundService</code>），它封装 AndroidX <code class="usage-code">WorkManager</code>。</li><li>在 <code class="usage-code">Project Settings &gt; Platforms &gt; Android</code> 确认包名、最低 SDK，并按 WorkManager 需要补全清单权限（由插件注入）。</li><li>在游戏 C++ 模块依赖 <code class="usage-code">AndroidBackgroundService</code>，用插件提供的调度接口把可延迟任务交给 <code class="usage-code">WorkManager</code>（杀进程后仍可能重试）。</li><li>用 Android 真机或模拟器包装测试：把 App 切到后台后看 Logcat 中 WorkManager 执行，而不是 Windows PIE。</li><li>前台通知/精确闹钟另受 Android 版本限制；本插件不是普通 <code class="usage-code">AsyncTask</code> 或编辑器 Tick。</li></ol><p class="usage-note">仅 Android 运行时后台任务；编辑器与其他平台无 WorkManager。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Android Background Service</code> (module <code class="usage-code">AndroidBackgroundService</code>) for the Android target; it wraps AndroidX <code class="usage-code">WorkManager</code>.</li><li>In <code class="usage-code">Project Settings &gt; Platforms &gt; Android</code> set package name and min SDK; the plugin injects the WorkManager manifest pieces.</li><li>Depend on <code class="usage-code">AndroidBackgroundService</code> in game C++ and schedule deferrable work through the plugin onto <code class="usage-code">WorkManager</code> (may retry after process death).</li><li>Package to a device or emulator and watch Logcat after backgrounding the app — not Windows PIE.</li><li>Foreground notifications and exact alarms are version-gated; this is not <code class="usage-code">AsyncTask</code> or an editor Tick.</li></ol><p class="usage-note">Android-only background work; there is no WorkManager in the editor or on other platforms.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Allows you to use AndroidX WorkManager to perform background work on Android</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">AndroidBackgroundService</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Runtime/AndroidBackgroundService/AndroidBackgroundService.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

@@ -1,7 +1,9 @@
 ---
 layout: default
-title: DMX 显示集群 / DMX DisplayCluster
+title: DMX DisplayCluster / DMX DisplayCluster
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: DMX 显示集群 / DMX DisplayCluster
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">DMX DisplayCluster</div>
-      <div class="hero-title-cn">DMX 显示集群 · 允许 DMX 和 DisplayCluster 之间的集成</div>
+      <div class="hero-title-cn">DMX DisplayCluster · Allows integration between DMX a</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,88 +24,9 @@ title: DMX 显示集群 / DMX DisplayCluster
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许 DMX 和 DisplayCluster 之间的集成</div><div class="lang-content">Allows integration between DMX and DisplayCluster</div></div></div>
+      <div class="desc-body"><p>Allows integration between DMX and DisplayCluster</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：允许 DMX 和 DisplayCluster 之间的集成</p><p>DMX 家族：舞台灯光协议、灯具、像素映射，把引擎接到真实灯光台。</p><p>属于虚拟制片工具链（摄像机、舞台、同步、LED）。</p><p>它打包的模块包括：DMXDisplayCluster, DMXDisplayClusterLightCard。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Allows integration between DMX and DisplayCluster</p><p>DMX family: lighting protocols, fixtures, and pixel mapping from the engine to a lighting desk.</p><p>Part of the virtual-production toolchain (cameras, stage, sync, LED).</p><p>It ships these modules: DMXDisplayCluster, DMXDisplayClusterLightCard. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>同时启用 <code class="usage-code">nDisplay</code> / Display Cluster、<code class="usage-code">DMX Engine</code> 和 <code class="usage-code">DMX DisplayCluster</code>（<code class="usage-code">DMXDisplayCluster</code>、<code class="usage-code">DMXDisplayClusterLightCard</code>）。</li><li>打开 nDisplay 配置资产，确保场景里有 Light Card（或 nDisplay 的 Light Card Actor）。</li><li>把 Light Card 绑到 <code class="usage-code">DMX Library</code> 的 Fixture Patch：由 <code class="usage-code">DMXDisplayClusterLightCard</code> 把 DMX 通道映射到卡片颜色、强度、变换。</li><li>用真实灯台或 Control Console 改通道，在 nDisplay 集群视口看 Light Card 是否同步，而不是只在编辑器主视口看普通灯。</li><li>集群节点都要加载同一套 DMX 端口与 Library；只在主编辑器改 DMX、从节点未同步端口会导致墙体灯卡不亮。</li><li>这是 DMX↔nDisplay 桥，不要把它当独立像素映射编辑器（那是 <code class="usage-code">DMX Pixel Mapping</code>）。</li></ol><p class="usage-note">用来让灯台 DMX 驱动 nDisplay Light Card，离开集群配置没有独立面板可玩。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">nDisplay</code> / Display Cluster, <code class="usage-code">DMX Engine</code>, and <code class="usage-code">DMX DisplayCluster</code> (<code class="usage-code">DMXDisplayCluster</code>, <code class="usage-code">DMXDisplayClusterLightCard</code>).</li><li>Open the nDisplay config and confirm Light Cards exist in the cluster scene.</li><li>Bind those cards to <code class="usage-code">DMX Library</code> Fixture Patches so <code class="usage-code">DMXDisplayClusterLightCard</code> maps DMX channels onto card color, intensity, and transform.</li><li>Drive channels from a desk or Control Console and watch Light Cards on the nDisplay cluster view, not only a regular editor light.</li><li>Every cluster node needs the same DMX ports and Library; editing ports only on the primary leaves wall cards dark on inner nodes.</li><li>This is the DMX↔nDisplay bridge, not the pixel-mapping editor (<code class="usage-code">DMX Pixel Mapping</code>).</li></ol><p class="usage-note">Drives nDisplay Light Cards from DMX; there is no useful standalone panel without a cluster config.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">DMXDisplayCluster</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DMXDisplayClusterLightCard</span><span class="tag runtime">Runtime</span></div></div>

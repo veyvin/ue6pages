@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 大众游戏 / MassGameplay
+title: MassGameplay / MassGameplay
 ---
 
-<h1>大众游戏 / MassGameplay</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/MassGameplay/MassGameplay.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.4</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">游戏玩法</div><div class="lang-content">Gameplay</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">MassCommon, MassNetwork, MassActors, MassEQS, MassSpawner, MassSmartObjects, MassSimulation, MassLOD, MassMovement, MassCharacterTrajectory, MassReplication, MassRepresentation, MassGameplayDebug, MassGameplayEditor, MassMovementEditor, MassGameplayExternalTraits, MassGameplayTestSuite</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">M</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">MassGameplay</div>
+      <div class="hero-title-cn">MassGameplay · Implementation of large-scale ag</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Gameplay</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.4</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">17</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Runtime/MassGameplay/MassGameplay.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">MassGameplay</code>（模块 <code class="usage-code">MassCommon</code>、<code class="usage-code">MassNetwork</code>、<code class="usage-code">MassActors</code>、<code class="usage-code">MassEQS</code>、<code class="usage-code">MassSpawner</code>、<code class="usage-code">MassSmartObjects</code>、<code class="usage-code">MassSimulation</code>、<code class="usage-code">MassLOD</code> 等）。</li><li>它提供基于 MassEntity 的大规模 Agent 仿真实现（生成、模拟、LOD、网络、SmartObject、EQS）。</li><li>用 Mass Spawner 与处理器搭建实体仿真管线，按 LOD 控制开销。</li><li>运行时插件可进游戏包；Mass 是 ECS 风格，不要按普通 Actor 组件理解。</li></ol><p class="usage-note">MassEntity 大规模 Agent 仿真核心（生成/模拟/LOD/网络）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">MassGameplay</code> (modules <code class="usage-code">MassCommon</code>, <code class="usage-code">MassNetwork</code>, <code class="usage-code">MassActors</code>, <code class="usage-code">MassEQS</code>, <code class="usage-code">MassSpawner</code>, <code class="usage-code">MassSmartObjects</code>, <code class="usage-code">MassSimulation</code>, <code class="usage-code">MassLOD</code>, etc.).</li><li>It provides a large-scale agent simulation on MassEntity (spawn, simulate, LOD, networking, SmartObject, EQS).</li><li>Build your entity simulation pipeline with Mass Spawner and processors, controlling cost via LOD.</li><li>A runtime plugin that can ship; Mass is ECS-style, not a typical Actor component.</li></ol><p class="usage-note">The MassEntity large-scale agent simulation core (spawn/simulate/LOD/network).</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Implementation of large-scale agent simulation based on MassEntity</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (17)</div><div class="module-item"><span class="dot"></span><span class="name mono">MassCommon</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassNetwork</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassActors</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassEQS</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassSpawner</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassSmartObjects</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassSimulation</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassLOD</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassMovement</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassCharacterTrajectory</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassReplication</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassRepresentation</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassGameplayDebug</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassGameplayEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassMovementEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassGameplayExternalTraits</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">MassGameplayTestSuite</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Runtime/MassGameplay/MassGameplay.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

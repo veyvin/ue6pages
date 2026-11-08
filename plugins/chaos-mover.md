@@ -3,17 +3,38 @@ layout: default
 title: 混沌移动者 / Chaos Mover
 ---
 
-<h1>混沌移动者 / Chaos Mover</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/ChaosMover/ChaosMover.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">物理</div><div class="lang-content">Physics</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ChaosMover</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Chaos Mover</div>
+      <div class="hero-title-cn">混沌移动者 · Chaos Mover 是一个虚幻引擎插件，使用 Mover 框</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Physics</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/ChaosMover/ChaosMover.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>同时启用 <code class="usage-code">Mover</code> 与实验性 <code class="usage-code">Chaos Mover</code>（模块 <code class="usage-code">ChaosMover</code>）并重启。这是在物理线程上跑的 Mover 后端，不能把普通 <code class="usage-code">UWalkingMode</code> 原样丢进去。</li><li>在 <code class="usage-code">Project Settings &gt; Physics</code> 打开 <code class="usage-code">Tick Physics Async</code>；联机再开 <code class="usage-code">Enable Physics Prediction</code>。Chaos Mover 强制异步固定步长，关异步物理无法正确步进。</li><li>Pawn 上用 <code class="usage-code">UChaosCharacterMoverComponent</code>（不要用 CMC）。地面模式需要角色地面约束；模式列表放 <code class="usage-code">UChaosWalkingMode</code>、<code class="usage-code">UChaosFallingMode</code>，需要时再加 <code class="usage-code">UChaosSwimmingMode</code> / <code class="usage-code">UChaosFlyingMode</code> 或带弹簧平滑的 <code class="usage-code">UChaosSmoothWalkingMode</code>。</li><li>自定义模式必须只碰已封送的 <code class="usage-code">FMoverTickStartData</code> / <code class="usage-code">FProposedMove</code>，禁止在 PT 回调里碰 <code class="usage-code">UObject</code> 或游戏线程状态。输入经 <code class="usage-code">UChaosMoverBackendComponent</code> 封送到物理线程。</li><li>场景里可互动物体也要做物理复制，否则客户端重模拟会和角色脱步。Chaos Mover 角色不能与走 Network Prediction 的普通 Mover Actor 对齐。</li><li>游戏 <code class="usage-code">Build.cs</code> 加 <code class="usage-code">ChaosMover</code>（通常还要 <code class="usage-code">Mover</code>）；参考 Mover Examples 里的 <code class="usage-code">PhysicsMannyPawn</code> / <code class="usage-code">L_PhysicsSimulatedCharacter</code>，不要抄 CMC 角色。</li></ol><p class="usage-note">和 CMC / 标准 Mover 不兼容：模拟在物理线程。输入到动作会有插值延迟；Experimental，接口会变。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable both <code class="usage-code">Mover</code> and experimental <code class="usage-code">Chaos Mover</code> (module <code class="usage-code">ChaosMover</code>) and restart. This is the physics-thread Mover backend; stock <code class="usage-code">UWalkingMode</code> is not drop-in.</li><li>Turn on <code class="usage-code">Tick Physics Async</code> under <code class="usage-code">Project Settings &gt; Physics</code>; for net play also enable <code class="usage-code">Enable Physics Prediction</code>. Chaos Mover requires an async fixed timestep.</li><li>Put <code class="usage-code">UChaosCharacterMoverComponent</code> on the pawn (not CMC). Ground motion needs a character ground constraint. Register <code class="usage-code">UChaosWalkingMode</code> and <code class="usage-code">UChaosFallingMode</code>, plus <code class="usage-code">UChaosSwimmingMode</code> / <code class="usage-code">UChaosFlyingMode</code> or spring-smoothed <code class="usage-code">UChaosSmoothWalkingMode</code> as needed.</li><li>Custom modes may touch only marshalled <code class="usage-code">FMoverTickStartData</code> / <code class="usage-code">FProposedMove</code> — no <code class="usage-code">UObject</code> or game-thread state on the physics thread. Inputs go through <code class="usage-code">UChaosMoverBackendComponent</code>.</li><li>Replicate other interactive physics actors or clients will desync on resim. Chaos Mover pawns are not synced with Network Prediction Mover actors.</li><li>Add <code class="usage-code">ChaosMover</code> (and usually <code class="usage-code">Mover</code>) to game <code class="usage-code">Build.cs</code>. Start from Mover Examples <code class="usage-code">PhysicsMannyPawn</code> / <code class="usage-code">L_PhysicsSimulatedCharacter</code>, not a CMC character.</li></ol><p class="usage-note">Incompatible with CMC and stock Mover modes: simulation runs on the physics thread. Expect input-to-motion interpolation delay. Experimental APIs.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Chaos Mover 是一个虚幻引擎插件，使用 Mover 框架支持基于混沌物理的角色移动。</div><div class="lang-content">Chaos Mover is an Unreal Engine plugin to support Chaos physics based character movement using the Mover framework.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ChaosMover</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/ChaosMover/ChaosMover.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

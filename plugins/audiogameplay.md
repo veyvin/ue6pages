@@ -3,17 +3,38 @@ layout: default
 title: 音频游戏 / AudioGameplay
 ---
 
-<h1>音频游戏 / AudioGameplay</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/AudioGameplay/AudioGameplay.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">声音的</div><div class="lang-content">Audio</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AudioGameplay, AudioGameplayTests</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">AudioGameplay</div>
+      <div class="hero-title-cn">音频游戏 · 音频游戏的核心插件</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/AudioGameplay/AudioGameplay.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">AudioGameplay</code>（运行时 <code class="usage-code">AudioGameplay</code>；<code class="usage-code">AudioGameplayTests</code> 只给自动化）。</li><li>在需要按游戏条件发声的 Actor 上添加 <code class="usage-code">UAudioGameplayComponent</code>，作为音频游戏逻辑的宿主（不是 <code class="usage-code">UAudioComponent</code> 播放器）。</li><li>配置组件上的条件 / Requirement，用 Gameplay Tag 或谓词决定何时允许播放、衰减或切换。</li><li>关卡空间效果请另启用 <code class="usage-code">AudioGameplayVolume</code>；本插件只提供组件与条件框架。</li><li>C++ 游戏模块依赖 <code class="usage-code">AudioGameplay</code>。验证时在 PIE 切换条件，确认声音启用/禁用跟随组件，而不是 Sound Cue 时间轴。</li><li>不要把 <code class="usage-code">AudioGameplayTests</code> 写进 Shipping。</li></ol><p class="usage-note">音频玩法核心组件/条件层，Volume 变体在独立的 AudioGameplayVolume 插件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">AudioGameplay</code> (runtime <code class="usage-code">AudioGameplay</code>; <code class="usage-code">AudioGameplayTests</code> is automation-only).</li><li>Add <code class="usage-code">UAudioGameplayComponent</code> to actors that should emit sound based on gameplay conditions — it is not a <code class="usage-code">UAudioComponent</code> player.</li><li>Author requirements/predicates on the component (Gameplay Tags or similar) that gate play, attenuation, or switching.</li><li>For spatial volume effects enable <code class="usage-code">AudioGameplayVolume</code> separately; this plugin is the component/condition core.</li><li>Game modules depend on <code class="usage-code">AudioGameplay</code>. In PIE, toggle conditions and confirm sound follows the component, not a Sound Cue timeline.</li><li>Do not ship <code class="usage-code">AudioGameplayTests</code>.</li></ol><p class="usage-note">Core audio-gameplay components and conditions; volume actors live in AudioGameplayVolume.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">音频游戏的核心插件</div><div class="lang-content">Core plugin for audio gameplay</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">AudioGameplay</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AudioGameplayTests</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/AudioGameplay/AudioGameplay.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

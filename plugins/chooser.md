@@ -3,17 +3,38 @@ layout: default
 title: 选择器 / Chooser
 ---
 
-<h1>选择器 / Chooser</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Chooser/Chooser.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">Chooser, ChooserUncooked, ChooserEditor, ProxyTable, ProxyTableUncooked, ProxyTableEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Chooser</div>
+      <div class="hero-title-cn">选择器 · 使用选择器和代理表构建动态资产选择逻辑。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">6</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Chooser/Chooser.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Chooser</code>（运行时 <code class="usage-code">Chooser</code> / <code class="usage-code">ProxyTable</code>，编辑器 <code class="usage-code">ChooserEditor</code> / <code class="usage-code">ProxyTableEditor</code>；未烹饪模块 <code class="usage-code">ChooserUncooked</code> / <code class="usage-code">ProxyTableUncooked</code> 不要进 Game Target）。</li><li>内容浏览器右键 <code class="usage-code">Animation &gt; Chooser Table</code>，添加上下文列（Bool / Enum / Float / 对象）和结果列（动画序列、Pose Search 数据库或其他 UObject）。</li><li>填行：每行是一组条件 → 选出的资产；用编辑器里的调试/评分查看当前上下文命中哪一行。</li><li>需要按角色换表时再新建 <code class="usage-code">Proxy Table</code>：键是逻辑名，值指向不同 Chooser 或资产，把角色差异从 AnimBP 里抽出去。</li><li>在动画蓝图 AnimGraph 加 <code class="usage-code">Evaluate Chooser</code>（或 Chooser Player）节点，把移动速度、状态枚举等接到上下文引脚，输出接到 <code class="usage-code">Output Pose</code>。</li><li>PIE 用 AnimBP 调试叠层看每次选中的行；烹饪后只保留 <code class="usage-code">Chooser</code> 与 <code class="usage-code">ProxyTable</code> 运行时数据。</li></ol><p class="usage-note">动态选资产表，不是把 Chooser 资产拖到骨骼网格上采样的组件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Chooser</code> (runtime <code class="usage-code">Chooser</code> / <code class="usage-code">ProxyTable</code>, editors <code class="usage-code">ChooserEditor</code> / <code class="usage-code">ProxyTableEditor</code>). Keep <code class="usage-code">ChooserUncooked</code> / <code class="usage-code">ProxyTableUncooked</code> off Game targets.</li><li>Content Browser → <code class="usage-code">Animation &gt; Chooser Table</code>. Add context columns (Bool / Enum / Float / object) and a result column (AnimSequence, Pose Search database, or other UObject).</li><li>Author rows as condition sets → chosen asset; use the table debugger/scoring to see which row the current context hits.</li><li>For per-character remaps, create a <code class="usage-code">Proxy Table</code> (logical names → different Choosers/assets) so AnimBP stays character-agnostic.</li><li>In the AnimGraph add <code class="usage-code">Evaluate Chooser</code> (or Chooser Player), wire speed/state enums into context pins, and feed the pose to <code class="usage-code">Output Pose</code>.</li><li>PIE with the AnimBP debugger to confirm the selected row. Cooked games keep only runtime <code class="usage-code">Chooser</code> / <code class="usage-code">ProxyTable</code> data.</li></ol><p class="usage-note">Data-driven asset selection tables, not a component you drop on a skeletal mesh.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用选择器和代理表构建动态资产选择逻辑。</div><div class="lang-content">Use Chooser and Proxy Tables to build dynamic asset selection logic.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (6)</div><div class="module-item"><span class="dot"></span><span class="name mono">Chooser</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ChooserUncooked</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ChooserEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ProxyTable</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ProxyTableUncooked</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ProxyTableEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Chooser/Chooser.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

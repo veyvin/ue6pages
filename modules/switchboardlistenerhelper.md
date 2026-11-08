@@ -3,6 +3,8 @@ layout: default
 title: SwitchboardListenerHelper
 ---
 
+
+
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -34,32 +36,9 @@ title: SwitchboardListenerHelper
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Overview<span class="card-title-cn">概览</span></div>
       <div class="desc-body">
-<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 10 个模块：ApplicationCore、Core、CoreUObject、Json、JsonUtilities、Networking、NvmlWrapper、Projects、Public、TraceLog。</div><div class="lang-content">This module depends on 10 other module(s): ApplicationCore, Core, CoreUObject, Json, JsonUtilities, Networking, NvmlWrapper, Projects, Public, TraceLog.</div></div>
+<p>This module depends on 10 other module(s): ApplicationCore, Core, CoreUObject, Json, JsonUtilities, Networking, NvmlWrapper, Projects, Public, TraceLog.</p>
       </div>
     </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：该模块依赖于其他 10 个模块：ApplicationCore、Core、CoreUObject、Json、JsonUtilities、Networking、NvmlWrapper、Projects、Public、TraceLog。</p><p>虚拟制片显示家族：集群视口、同步、LED 墙或舞台控制。</p><p>这是开发者工具或独立程序模块，给 Insights、UBT、命令行用。</p><p>UBT 声明它还依赖：ApplicationCore, Core, CoreUObject, Json, JsonUtilities, Networking, NvmlWrapper, Projects。这些依赖暗示了它和哪些子系统协作。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: This module depends on 10 other module(s): ApplicationCore, Core, CoreUObject, Json, JsonUtilities, Networking, NvmlWrapper, Projects, Public, TraceLog.</p><p>Virtual-production display family: cluster views, sync, LED walls, or stage control.</p><p>This is a developer tool or program module for Insights, UBT, or command-line apps.</p><p>UBT also lists dependencies on: ApplicationCore, Core, CoreUObject, Json, JsonUtilities, Networking, NvmlWrapper, Projects. Those names show which subsystems it talks to.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>用途：<code class="usage-code">SwitchboardListenerHelper</code> 位于 <code class="usage-code">Programs</code>，构建规则 <code class="usage-code">Programs/SwitchboardListenerHelper/SwitchboardListenerHelper.Build.cs</code>。它直接依赖 8 个模块：<code class="usage-code">ApplicationCore</code>, <code class="usage-code">Core</code>, <code class="usage-code">CoreUObject</code>, <code class="usage-code">Json</code>, <code class="usage-code">JsonUtilities</code>, <code class="usage-code">Networking</code>, <code class="usage-code">NvmlWrapper</code>, <code class="usage-code">Projects</code>。</li><li>依赖：在 <code class="usage-code">YourModule.Build.cs</code> 加入 <code class="usage-code">PublicDependencyModuleNames.AddRange(new string[] { &quot;SwitchboardListenerHelper&quot; });</code>；对外暴露 <code class="usage-code">SwitchboardListenerHelper</code> 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。</li><li>部署：<code class="usage-code">SwitchboardListenerHelper</code> 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。</li><li>调用：#include 其 Public 头（常见 <code class="usage-code">SwitchboardListenerHelper.h</code> / <code class="usage-code">SwitchboardListenerHelperModule.h</code>），再用 <code class="usage-code">FModuleManager::LoadModulePtr&lt;SwitchboardListenerHelperModule&gt;</code> 或直接使用导出类型。</li><li>传递依赖：<code class="usage-code">SwitchboardListenerHelper</code> 还依赖 <code class="usage-code">ApplicationCore</code>, <code class="usage-code">Core</code>, <code class="usage-code">CoreUObject</code>, <code class="usage-code">Json</code>, <code class="usage-code">JsonUtilities</code>, <code class="usage-code">Networking</code>, <code class="usage-code">NvmlWrapper</code>, <code class="usage-code">Projects</code>；不必在游戏模块重复填写，除非你要直接 include 那些头文件。</li></ol><p class="usage-note">`SwitchboardListenerHelper` 的构建规则位于 `Programs/SwitchboardListenerHelper/SwitchboardListenerHelper.Build.cs`，直接依赖 8 个模块，分类 Module。</p></div><div class="lang-content"><ol class="usage-steps"><li>Purpose: <code class="usage-code">SwitchboardListenerHelper</code> lives under <code class="usage-code">Programs</code>; build rule <code class="usage-code">Programs/SwitchboardListenerHelper/SwitchboardListenerHelper.Build.cs</code>.It directly depends on 8 modules: <code class="usage-code">ApplicationCore</code>, <code class="usage-code">Core</code>, <code class="usage-code">CoreUObject</code>, <code class="usage-code">Json</code>, <code class="usage-code">JsonUtilities</code>, <code class="usage-code">Networking</code>, <code class="usage-code">NvmlWrapper</code>, <code class="usage-code">Projects</code>.</li><li>Depend: in <code class="usage-code">YourModule.Build.cs</code> add <code class="usage-code">PublicDependencyModuleNames.AddRange(new string[] { &quot;SwitchboardListenerHelper&quot; });</code>. Use Public when exposing <code class="usage-code">SwitchboardListenerHelper</code> types, Private if only calling it; then Generate Project Files and rebuild.</li><li>Placement: <code class="usage-code">SwitchboardListenerHelper</code> belongs to a standalone Program; used by CLI/tools, not game runtime.</li><li>Call: include Public headers (often <code class="usage-code">SwitchboardListenerHelper.h</code> / <code class="usage-code">SwitchboardListenerHelperModule.h</code>), then use <code class="usage-code">FModuleManager::LoadModulePtr&lt;SwitchboardListenerHelperModule&gt;</code> or the exported types directly.</li><li>Transitive deps: <code class="usage-code">SwitchboardListenerHelper</code> also needs <code class="usage-code">ApplicationCore</code>, <code class="usage-code">Core</code>, <code class="usage-code">CoreUObject</code>, <code class="usage-code">Json</code>, <code class="usage-code">JsonUtilities</code>, <code class="usage-code">Networking</code>, <code class="usage-code">NvmlWrapper</code>, <code class="usage-code">Projects</code>; do not re-list them unless you include their headers.</li></ol><p class="usage-note">`SwitchboardListenerHelper` build rule is `Programs/SwitchboardListenerHelper/SwitchboardListenerHelper.Build.cs`; depends on 8 modules; category Module.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card">

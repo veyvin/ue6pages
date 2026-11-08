@@ -3,17 +3,38 @@ layout: default
 title: 蓝图 C++ 标头预览 / Blueprint C++ Header Preview
 ---
 
-<h1>蓝图 C++ 标头预览 / Blueprint C++ Header Preview</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Editor/BlueprintHeaderView/BlueprintHeaderView.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">蓝图</div><div class="lang-content">Blueprints</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">BlueprintHeaderView</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">B</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Blueprint C++ Header Preview</div>
+      <div class="hero-title-cn">蓝图 C++ 标头预览 · 帮助将蓝图类转换为原生 C++ 的工具。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Blueprints</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Editor/BlueprintHeaderView/BlueprintHeaderView.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 启用 <code class="usage-code">Blueprint C++ Header Preview</code>（模块 <code class="usage-code">BlueprintHeaderView</code>）并重启；该工具只服务把蓝图类迁到原生 C++，不要写进 Shipping 依赖。</li><li>打开要迁移的 <code class="usage-code">Blueprint Class</code> 或用户结构体；在内容浏览器右键该资产，选 <code class="usage-code">Preview Equivalent C++ Header</code>。</li><li>也可从 <code class="usage-code">Window &gt; Developer Tools &gt; C++ Header Preview</code> 打开面板，再点选同一蓝图，预览生成的 <code class="usage-code">.h</code>。</li><li>对照面板里的 <code class="usage-code">UCLASS</code> / <code class="usage-code">UPROPERTY</code> / <code class="usage-code">UFUNCTION</code> 声明，把变量、函数、组件和事件分发器抄进自己的 C++ 头文件。</li><li>在 <code class="usage-code">Project Settings</code> 或编辑器设置里查看 <code class="usage-code">UBlueprintHeaderViewSettings</code>（排序、语法高亮颜色），按团队命名习惯调整预览。</li><li>在游戏模块里手写对应 <code class="usage-code">.cpp</code> 实现；预览不会把图表逻辑编译成可发布 C++。</li><li>用 Core Redirects 把旧蓝图类引用指到新 native 类，编译并在编辑器里核对引用不再指向原蓝图。</li></ol><p class="usage-note">只生成声明预览，不生成图表实现；编辑器插件，勿加入游戏运行时 `Build.cs`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Blueprint C++ Header Preview</code> in <code class="usage-code">Edit &gt; Plugins</code> (module <code class="usage-code">BlueprintHeaderView</code>) and restart. It is an editor conversion aid, not a Shipping dependency.</li><li>Select the <code class="usage-code">Blueprint Class</code> or user struct to migrate; in the Content Browser right-click it and choose <code class="usage-code">Preview Equivalent C++ Header</code>.</li><li>Alternatively open <code class="usage-code">Window &gt; Developer Tools &gt; C++ Header Preview</code> and pick the same Blueprint to show the generated <code class="usage-code">.h</code>.</li><li>Copy the previewed <code class="usage-code">UCLASS</code> / <code class="usage-code">UPROPERTY</code> / <code class="usage-code">UFUNCTION</code> declarations (variables, functions, components, event dispatchers) into your own C++ header.</li><li>Tune preview sorting and syntax colors via <code class="usage-code">UBlueprintHeaderViewSettings</code> in editor/project settings.</li><li>Implement the matching <code class="usage-code">.cpp</code> by hand; the preview does not convert graph bodies into shipping C++.</li><li>Remap old Blueprint class references with Core Redirects, rebuild, and confirm assets now parent to the native class.</li></ol><p class="usage-note">Header preview only — no graph-to-C++ body. Editor plugin; do not add `BlueprintHeaderView` to game runtime `Build.cs`.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">帮助将蓝图类转换为原生 C++ 的工具。</div><div class="lang-content">A tool to help convert Blueprint Classes to Native C++.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">BlueprintHeaderView</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Editor/BlueprintHeaderView/BlueprintHeaderView.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

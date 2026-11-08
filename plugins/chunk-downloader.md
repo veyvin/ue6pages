@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 块下载器 / Chunk Downloader
+title: Chunk Downloader / Chunk Downloader
 ---
 
-<h1>块下载器 / Chunk Downloader</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/ChunkDownloader/ChunkDownloader.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">线上平台</div><div class="lang-content">Online Platform</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ChunkDownloader</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Chunk Downloader</div>
+      <div class="hero-title-cn">Chunk Downloader · Implements a streaming install c</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Online Platform</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Runtime/ChunkDownloader/ChunkDownloader.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用运行时插件 <code class="usage-code">Chunk Downloader</code>（模块 <code class="usage-code">ChunkDownloader</code>），游戏 <code class="usage-code">Build.cs</code> 加入该模块。</li><li>在 <code class="usage-code">Project Settings &gt; Packaging</code> 打开 <code class="usage-code">Generate Chunks</code>，给要流式下发的资产指定 <code class="usage-code">Chunk ID</code>（Pakchunk），打出带清单的 Pak。</li><li>把清单与 Pak 放到 HTTP(S) 分发根目录；在启动代码里 <code class="usage-code">FChunkDownloader::Get()</code>，<code class="usage-code">Initialize(PlatformName, TargetDownloadsInFlight)</code>，再 <code class="usage-code">LoadCachedBuild</code> / <code class="usage-code">UpdateBuild(DeploymentName, ContentBuildId)</code>。</li><li>用 <code class="usage-code">GetLoadingProgress</code> 更新 UI，下载完成后 <code class="usage-code">MountChunk</code> / 挂载 Pak，再 <code class="usage-code">LoadPackage</code> 或切关卡。</li><li>在 <code class="usage-code">DefaultGame.ini</code> 的 <code class="usage-code">[ChunkDownloader]</code> 段配置缓存目录、部署名与可选 BaseUrl；这不是 Online Subsystem 登录凭证。</li><li>用弱网和断点续传各测一遍；Shipping 包只含启动块，其余走本客户端拉取。</li></ol><p class="usage-note">流式安装/分块下载客户端，不是 Online Subsystem 实现。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable runtime <code class="usage-code">Chunk Downloader</code> (module <code class="usage-code">ChunkDownloader</code>) and add it to the game <code class="usage-code">Build.cs</code>.</li><li>Turn on <code class="usage-code">Generate Chunks</code> under <code class="usage-code">Project Settings &gt; Packaging</code>, assign <code class="usage-code">Chunk ID</code>s to streamed assets, and cook Paks plus a manifest.</li><li>Host the manifest and Paks on HTTP(S). At startup <code class="usage-code">FChunkDownloader::Get()</code>, <code class="usage-code">Initialize(PlatformName, TargetDownloadsInFlight)</code>, then <code class="usage-code">LoadCachedBuild</code> / <code class="usage-code">UpdateBuild(DeploymentName, ContentBuildId)</code>.</li><li>Drive UI from <code class="usage-code">GetLoadingProgress</code>; after download <code class="usage-code">MountChunk</code> / mount Paks, then <code class="usage-code">LoadPackage</code> or open the map.</li><li>Configure cache path, deployment name, and optional BaseUrl under <code class="usage-code">[ChunkDownloader]</code> in <code class="usage-code">DefaultGame.ini</code>. This is not Online Subsystem login.</li><li>Test slow networks and resume. Shipping should ship the bootstrap chunk only; the rest streams through this client.</li></ol><p class="usage-note">Streaming-install / chunk client, not an Online Subsystem implementation.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Implements a streaming install client</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ChunkDownloader</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Runtime/ChunkDownloader/ChunkDownloader.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

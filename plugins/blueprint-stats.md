@@ -3,17 +3,38 @@ layout: default
 title: 蓝图统计 / Blueprint Stats
 ---
 
-<h1>蓝图统计 / Blueprint Stats</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/BlueprintStats/BlueprintStats.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">蓝图</div><div class="lang-content">Blueprints</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">BlueprintStats</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">B</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Blueprint Stats</div>
+      <div class="hero-title-cn">蓝图统计 · 蓝图统计</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Blueprints</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/BlueprintStats/BlueprintStats.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 启用 <code class="usage-code">Blueprint Stats</code>（模块 <code class="usage-code">BlueprintStats</code>）并重启；这是编辑器统计命令，不是运行时计数器。</li><li>打开 <code class="usage-code">Window &gt; Output Log</code>，确保日志过滤器包含 <code class="usage-code">LogBlueprintStats</code>。</li><li>在控制台执行 <code class="usage-code">DumpBlueprintStats</code>。</li><li>阅读输出：先是各 <code class="usage-code">K2Node_*</code> / AnimGraph 节点类型的出现次数，再是 <code class="usage-code">FunctionPath,ClassName,FunctionName,NumInstances</code> 函数调用排行。</li><li>用这份清单找项目里滥用最多的节点（例如海量 <code class="usage-code">Add_IntInt</code> 或特定 <code class="usage-code">K2Node_Event</code>），决定哪些图该下沉到 C++。</li><li>不要把 <code class="usage-code">BlueprintStats</code> 写进游戏 <code class="usage-code">Build.cs</code>；命令只扫描当前编辑器已加载的蓝图。</li></ol><p class="usage-note">唯一正式入口是控制台 `DumpBlueprintStats`；没有独立 Window 面板，也没有游戏内 Stat 组。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Blueprint Stats</code> in <code class="usage-code">Edit &gt; Plugins</code> (module <code class="usage-code">BlueprintStats</code>) and restart. It is an editor dump command, not a runtime counter.</li><li>Open <code class="usage-code">Window &gt; Output Log</code> and keep <code class="usage-code">LogBlueprintStats</code> visible in the filter.</li><li>Run the console command <code class="usage-code">DumpBlueprintStats</code>.</li><li>Read the dump: counts per <code class="usage-code">K2Node_*</code> / AnimGraph node class, then the <code class="usage-code">FunctionPath,ClassName,FunctionName,NumInstances</code> table.</li><li>Use the hot list (heavy <code class="usage-code">Add_IntInt</code>, <code class="usage-code">K2Node_Event</code>, etc.) to decide which graphs should move to C++.</li><li>Do not add <code class="usage-code">BlueprintStats</code> to a game <code class="usage-code">Build.cs</code>; the command only scans Blueprints loaded in this editor session.</li></ol><p class="usage-note">The real entry is the `DumpBlueprintStats` console command. There is no dedicated window and no in-game Stat group.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">蓝图统计</div><div class="lang-content">Blueprint Stats</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">BlueprintStats</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/BlueprintStats/BlueprintStats.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

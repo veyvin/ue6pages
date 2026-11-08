@@ -3,17 +3,38 @@ layout: default
 title: 返回频道 / BackChannel
 ---
 
-<h1>返回频道 / BackChannel</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/BackChannel/BackChannel.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">实验性的</div><div class="lang-content">Experimental</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">BackChannel</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">B</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">BackChannel</div>
+      <div class="hero-title-cn">返回频道 · BackChannel 是一个实验性插件，允许外部工具和应用程序</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Experimental</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/BackChannel/BackChannel.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验插件 <code class="usage-code">BackChannel</code>（<code class="usage-code">Engine/Plugins/Experimental/BackChannel/BackChannel.uplugin</code>）。它给正在运行的 UE 会话提供外部查询/推送通道，不是关卡组件。</li><li>游戏或 Gauntlet 测试模块的 <code class="usage-code">Build.cs</code> 加入 <code class="usage-code">BackChannel</code>。包含 <code class="usage-code">IBackChannelConnection</code> 以及 OSC 实现 <code class="usage-code">FBackChannelOSCConnection</code>（<code class="usage-code">BackChannel/Protocol/OSC/</code>）。</li><li>在进程内 <code class="usage-code">Listen</code> 或 <code class="usage-code">Connect</code> 一条 TCP OSC 连接；外部工具按 OSC 地址模式发数据包。Gauntlet / 自动化主机常用这条回通道向 PIE 或独立进程注入命令、拉截图或状态。</li><li>实现 <code class="usage-code">IBackChannelPacket</code> 处理器，按地址分发：只处理你登记过的路径，避免把任意 OSC 直接映射到控制台命令。</li><li>用本机小 OSC 客户端先打通监听端口与一条回包；确认防火墙放行。接口随 Experimental 变更，不要作为 Shipping 公共协议。</li></ol><p class="usage-note">面向 Gauntlet/外部工具的 OSC TCP 回通道。无编辑器面板；API 以 `IBackChannelConnection` 为准。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">BackChannel</code> (<code class="usage-code">Engine/Plugins/Experimental/BackChannel/BackChannel.uplugin</code>). It lets external tools query and push into a running UE session; it is not a level component.</li><li>Add <code class="usage-code">BackChannel</code> to the game or Gauntlet test <code class="usage-code">Build.cs</code>. Use <code class="usage-code">IBackChannelConnection</code> and the OSC implementation <code class="usage-code">FBackChannelOSCConnection</code> under <code class="usage-code">BackChannel/Protocol/OSC/</code>.</li><li>From process code, <code class="usage-code">Listen</code> or <code class="usage-code">Connect</code> a TCP OSC link. External tools send packets by OSC address pattern. Gauntlet/automation hosts use this back channel to inject commands or pull screenshots/status from PIE or a standalone process.</li><li>Implement an <code class="usage-code">IBackChannelPacket</code> handler and dispatch on address. Only honor paths you registered — do not map arbitrary OSC onto console commands.</li><li>Prove the listen port and one round-trip with a local OSC client, and open the firewall. The Experimental contract can change; do not treat it as a Shipping public protocol.</li></ol><p class="usage-note">OSC-over-TCP back channel for Gauntlet and external tools. No editor panel; `IBackChannelConnection` is the API.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">BackChannel 是一个实验性插件，允许外部工具和应用程序查询数据并将数据推送到正在运行的 Unreal 会话中。</div><div class="lang-content">BackChannel is an experimental plugin that allows external tools and apps to query for and push data into a running Unreal session.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">BackChannel</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/BackChannel/BackChannel.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

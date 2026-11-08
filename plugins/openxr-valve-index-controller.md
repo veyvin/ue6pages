@@ -1,7 +1,9 @@
 ---
 layout: default
-title: OpenXR 阀门索引控制器 / OpenXR Valve Index Controller
+title: OpenXR Valve Index Controller / OpenXR Valve Index Controller
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: OpenXR 阀门索引控制器 / OpenXR Valve Index Controller
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">OpenXR Valve Index Controller</div>
-      <div class="hero-title-cn">OpenXR 阀门索引控制器 · Valve Index 控制器对 OpenXR 的支持：/int</div>
+      <div class="hero-title-cn">OpenXR Valve Index Controller · Valve Index controller support f</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,56 +24,9 @@ title: OpenXR 阀门索引控制器 / OpenXR Valve Index Controller
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Valve Index 控制器对 OpenXR 的支持：/interaction_profiles/valve/index_controller 交互配置文件及其控制器网格。</div><div class="lang-content">Valve Index controller support for OpenXR: the /interaction_profiles/valve/index_controller interaction profile and its controller meshes.</div></div></div>
+      <div class="desc-body"><p>Valve Index controller support for OpenXR: the /interaction_profiles/valve/index_controller interaction profile and its controller meshes.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>OpenXR 插件让引擎走 Khronos OpenXR 运行时，对接 SteamVR、Oculus、Windows Mixed Reality 等头显，而不为每个厂商单独写插件。</p><p>运行时插件，启用后可进游戏包。</p><p>它打包的模块包括：OpenXRValveIndexController。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">参考文档：<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/developing-for-head-mounted-experiences-with-openxr-in-unreal-engine" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/developing-for-head-mounted-experiences-with-openxr-in-unreal-engine</a></p></div><div class="lang-content"><p>The OpenXR plugin talks to a Khronos OpenXR runtime so Unreal can target SteamVR, Meta, WMR, and others without a vendor-specific plugin per HMD.</p><p>A runtime plugin that can ship in a cooked game.</p><p>It ships these modules: OpenXRValveIndexController. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Docs: <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/developing-for-head-mounted-experiences-with-openxr-in-unreal-engine" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/developing-for-head-mounted-experiences-with-openxr-in-unreal-engine</a></p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">OpenXR Valve Index Controller</code>（模块 <code class="usage-code">OpenXRValveIndexController</code>）。</li><li>它为 Valve Index 控制器提供 OpenXR 支持（<code class="usage-code">/interaction_profiles/valve/index_controller</code> 及控制器网格）。</li><li>在 Index 的 OpenXR 项目里使用对应交互配置与手部/输入。</li><li>属 OpenXR 输入扩展；需 OpenXR 运行时。</li></ol><p class="usage-note">OpenXR 的 Valve Index 控制器支持。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">OpenXR Valve Index Controller</code> (module <code class="usage-code">OpenXRValveIndexController</code>).</li><li>It provides OpenXR support for Valve Index controllers (<code class="usage-code">/interaction_profiles/valve/index_controller</code> plus controller meshes).</li><li>Use the matching interaction profile and hand/input in Index OpenXR projects.</li><li>It is an OpenXR input extension; requires an OpenXR runtime.</li></ol><p class="usage-note">OpenXR support for Valve Index controllers.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">OpenXRValveIndexController</span><span class="tag runtime">Runtime</span></div></div>

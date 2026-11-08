@@ -3,17 +3,38 @@ layout: default
 title: 目录占位符 / Directory Placeholder
 ---
 
-<h1>目录占位符 / Directory Placeholder</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/DirectoryPlaceholder/DirectoryPlaceholder.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">源代码控制</div><div class="lang-content">Source Control</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">DirectoryPlaceholder</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Directory Placeholder</div>
+      <div class="hero-title-cn">目录占位符 · 添加轻量级目录占位符资产类型，可以将其添加到其他空文件夹中，以便</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Source Control</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/DirectoryPlaceholder/DirectoryPlaceholder.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">Directory Placeholder</code> 提供一个占位资产类型，用来把「空文件夹」也纳入源码管理（空目录本身不会被提交）。</li><li>启用后（纯编辑器工具），在内容浏览器对着空文件夹右键 <code class="usage-code">Create Advanced Asset → Misc → Directory Placeholder</code>。</li><li>给占位资产命名，提交时它随文件夹一起进入 Perforce/Git，团队拉取后空目录结构得以保留。</li><li>当文件夹里真正有了内容，可以删掉占位资产，目录仍随其中的内容一起版本化。</li><li>它只在编辑器侧：别把 <code class="usage-code">DirectoryPlaceholder</code> 模块加进 Game Target，否则打包徒增依赖。</li></ol><p class="usage-note">占位资产只是为了让空目录进版本库；有内容后及时清理，避免无意义的资产堆积。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">Directory Placeholder</code> adds a placeholder asset type so even empty folders get tracked by source control (bare empty dirs are not committed).</li><li>After enabling (it is editor-only), right-click the empty folder in the Content Browser and pick <code class="usage-code">Create Advanced Asset → Misc → Directory Placeholder</code>.</li><li>Name the placeholder; on commit it enters Perforce/Git with the folder, preserving the empty directory structure for everyone who syncs.</li><li>Once the folder holds real content, delete the placeholder; the directory stays versioned alongside its contents.</li><li>It is editor-side only: never add the <code class="usage-code">DirectoryPlaceholder</code> module to a Game target, or packaging gains a needless dependency.</li></ol><p class="usage-note">The placeholder only exists to version an empty folder; clean it up once content lands to avoid clutter.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">添加轻量级目录占位符资产类型，可以将其添加到其他空文件夹中，以便将它们添加到源代码管理中。</div><div class="lang-content">Adds a lightweight Directory Placeholder asset type, which can be added to otherwise empty folders in order to add them to source control.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">DirectoryPlaceholder</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/DirectoryPlaceholder/DirectoryPlaceholder.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

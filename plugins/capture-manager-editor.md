@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 捕获管理器编辑器 / Capture Manager Editor
+title: Capture Manager Editor / Capture Manager Editor
 ---
 
-<h1>捕获管理器编辑器 / Capture Manager Editor</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/VirtualProduction/CaptureManager/CaptureManagerEditor/CaptureManagerEditor.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚拟制作</div><div class="lang-content">Virtual Production</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">CaptureManagerEditorSettings, LiveLinkHubWorkerManager, LiveLinkHubExportServer, DataIngestCoreEditor, LiveLinkHubDiscoveryEditor, CaptureManagerIngestBlueprint, CaptureManagerDeviceBlueprint</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Capture Manager Editor</div>
+      <div class="hero-title-cn">Capture Manager Editor · The Capture Manager Editor plugi</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">7</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/VirtualProduction/CaptureManager/CaptureManagerEditor/CaptureManagerEditor.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 UE 或 UEFN 编辑器启用 <code class="usage-code">Capture Manager Editor</code>（<code class="usage-code">CaptureManagerEditorSettings</code>、<code class="usage-code">DataIngestCoreEditor</code>、<code class="usage-code">LiveLinkHubDiscoveryEditor</code>、<code class="usage-code">CaptureManagerIngestBlueprint</code>、<code class="usage-code">CaptureManagerDeviceBlueprint</code>）。</li><li>打开编辑器设置里的 <code class="usage-code">UCaptureManagerEditorSettings</code>：<code class="usage-code">MediaDirectory</code> 写转码后的图像序列/音频磁盘路径，<code class="usage-code">ImportDirectory</code> 必须在 <code class="usage-code">/Game</code> 下，按需打开 <code class="usage-code">bAutoSaveAssets</code>，并用 token 配置 <code class="usage-code">CaptureDataAssetName</code> 等命名。</li><li><code class="usage-code">LiveLinkHubDiscoveryEditor</code> 用于发现本机/局域网 Hub；<code class="usage-code">LiveLinkHubExportServer</code> 接收 App 上传的归档。防火墙放行后，Hub 侧 <code class="usage-code">UploadHostName</code> 才能连上。</li><li>脚本入库用 <code class="usage-code">UCaptureManagerIngestBlueprintLibrary</code>：<code class="usage-code">IngestTakeArchiveSync</code>（目录或 <code class="usage-code">.cptake</code>）、<code class="usage-code">IngestMonoVideoSync</code>（视频+可选音频+slate/take 号）。阻塞版返回 <code class="usage-code">UFootageCaptureData</code>，异步版走 Worker。</li><li>技术美术可用 <code class="usage-code">CaptureManagerIngestBlueprint</code> / <code class="usage-code">CaptureManagerDeviceBlueprint</code> 在编辑器工具蓝图里接同一套 API，不必写 C++。</li><li><code class="usage-code">LiveLinkHubWorkerManager</code> 调度后台转码；大镜头不要在游戏线程同步 <code class="usage-code">Ingest*Sync</code>。</li><li>这些模块全部是编辑器/Hub 侧，不要写进 Game Target。</li></ol><p class="usage-note">负责把归档变成 `/Game` 里的 `FootageCaptureData`。设备枚举在 Devices，现场录制在 App。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Capture Manager Editor</code> in UE or UEFN (<code class="usage-code">CaptureManagerEditorSettings</code>, <code class="usage-code">DataIngestCoreEditor</code>, <code class="usage-code">LiveLinkHubDiscoveryEditor</code>, <code class="usage-code">CaptureManagerIngestBlueprint</code>, <code class="usage-code">CaptureManagerDeviceBlueprint</code>).</li><li>Set <code class="usage-code">UCaptureManagerEditorSettings</code>: <code class="usage-code">MediaDirectory</code> for transcoded sequences/audio on disk, <code class="usage-code">ImportDirectory</code> under <code class="usage-code">/Game</code>, optional <code class="usage-code">bAutoSaveAssets</code>, and tokenized <code class="usage-code">CaptureDataAssetName</code> (and related) names.</li><li><code class="usage-code">LiveLinkHubDiscoveryEditor</code> finds local/LAN Hubs; <code class="usage-code">LiveLinkHubExportServer</code> receives App uploads. Open the firewall so Hub <code class="usage-code">UploadHostName</code> can connect.</li><li>Script ingest with <code class="usage-code">UCaptureManagerIngestBlueprintLibrary</code>: <code class="usage-code">IngestTakeArchiveSync</code> (folder or <code class="usage-code">.cptake</code>), <code class="usage-code">IngestMonoVideoSync</code> (video, optional audio, slate/take). Blocking calls return <code class="usage-code">UFootageCaptureData</code>; async uses the worker.</li><li>TDs can wire the same API in editor-utility Blueprints via <code class="usage-code">CaptureManagerIngestBlueprint</code> / <code class="usage-code">CaptureManagerDeviceBlueprint</code>.</li><li><code class="usage-code">LiveLinkHubWorkerManager</code> owns background transcode — do not <code class="usage-code">Ingest*Sync</code> huge takes on the game thread.</li><li>All of these modules are editor/Hub-side. Keep them out of the Game target.</li></ol><p class="usage-note">This plugin turns archives into `FootageCaptureData` under `/Game`. Device enumeration is Devices; on-set recording is the App.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>The Capture Manager Editor plugin is used for importing the Capture archive data into UE/UEFN to create necessary assets</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (7)</div><div class="module-item"><span class="dot"></span><span class="name mono">CaptureManagerEditorSettings</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LiveLinkHubWorkerManager</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LiveLinkHubExportServer</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DataIngestCoreEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LiveLinkHubDiscoveryEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CaptureManagerIngestBlueprint</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CaptureManagerDeviceBlueprint</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/VirtualProduction/CaptureManager/CaptureManagerEditor/CaptureManagerEditor.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

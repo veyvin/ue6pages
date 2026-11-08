@@ -3,17 +3,38 @@ layout: default
 title: 音乐会同步 - 服务器 / Concert Sync - Server
 ---
 
-<h1>音乐会同步 - 服务器 / Concert Sync - Server</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/Concert/ConcertSync/ConcertSyncServer/ConcertSyncServer.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.2</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">联网</div><div class="lang-content">Networking</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ConcertSyncServer</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Concert Sync - Server</div>
+      <div class="hero-title-cn">音乐会同步 - 服务器 · 支持多用户编辑器会话的服务器插件</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Networking</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.2</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/Concert/ConcertSync/ConcertSyncServer/ConcertSyncServer.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Concert Sync - Server</code>（模块 <code class="usage-code">ConcertSyncServer</code>）。会话宿主跑在独立进程，不是关卡里的 Actor。</li><li>从引擎 <code class="usage-code">Binaries</code> 启动 <code class="usage-code">UnrealMultiUserServer</code>，或在 <code class="usage-code">Window &gt; Multi-User Browser</code> 里 <code class="usage-code">Launch Server</code>，指定会话名、工作目录和归档路径。</li><li>客户端用 <code class="usage-code">Concert Sync - Client</code> Join 后，服务器接收事务、包和工作区快照；在服务器窗口看已连接端点和活动流。</li><li>需要复盘时用服务器的 Archive / Restore，把会话状态落到磁盘，而不是把 <code class="usage-code">.umap</code> 当权威源。</li><li>局域网注意防火墙端口；不要把 <code class="usage-code">ConcertSyncServer</code> 链进 Game Target。</li></ol><p class="usage-note">多人编辑的权威在 Concert 会话，不在单机关卡文件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Concert Sync - Server</code> (module <code class="usage-code">ConcertSyncServer</code>). The session host is a separate process, not a level actor.</li><li>Launch <code class="usage-code">UnrealMultiUserServer</code> from engine <code class="usage-code">Binaries</code>, or <code class="usage-code">Launch Server</code> in <code class="usage-code">Window &gt; Multi-User Browser</code>, and set session name, working directory, and archive path.</li><li>After clients join with <code class="usage-code">Concert Sync - Client</code>, the server takes transactions, packages, and workspace snapshots — watch endpoints and the activity stream in the server UI.</li><li>Use Archive / Restore to persist session state; do not treat the on-disk <code class="usage-code">.umap</code> as the source of truth while the session is live.</li><li>Open firewall ports on LAN. Do not link <code class="usage-code">ConcertSyncServer</code> into a Game target.</li></ol><p class="usage-note">Authority lives in the Concert session, not in one editor’s map file.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">支持多用户编辑器会话的服务器插件</div><div class="lang-content">Server plugin to enables multi-users editor sessions</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ConcertSyncServer</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/Concert/ConcertSync/ConcertSyncServer/ConcertSyncServer.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

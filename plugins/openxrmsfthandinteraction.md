@@ -3,17 +3,38 @@ layout: default
 title: OpenXRMsftHandInteraction / OpenXRMsftHandInteraction
 ---
 
-<h1>OpenXRMsftHandInteraction / OpenXRMsftHandInteraction</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/OpenXRMsftHandInteraction/OpenXRMsftHandInteraction.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚拟现实</div><div class="lang-content">Virtual Reality</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">OpenXRMsftHandInteraction</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">O</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">OpenXRMsftHandInteraction</div>
+      <div class="hero-title-cn">OpenXRMsftHandInteraction · OpenXRMsftHandInteraction provid</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Reality</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Runtime/OpenXRMsftHandInteraction/OpenXRMsftHandInteraction.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">OpenXRMsftHandInteraction</code>（模块 <code class="usage-code">OpenXRMsftHandInteraction</code>），运行时插件。</li><li>它为 OpenXR 提供 Microsoft 手部交互扩展（如手部射线/手势）。</li><li>在支持的设备上用该扩展做手部交互输入。</li><li>运行时模块可进包；需 OpenXR 运行时与扩展支持。</li></ol><p class="usage-note">OpenXR 的 Microsoft 手部交互扩展。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">OpenXRMsftHandInteraction</code> (module <code class="usage-code">OpenXRMsftHandInteraction</code>), a runtime plugin.</li><li>It provides the Microsoft hand-interaction extension for OpenXR (e.g. hand ray/gestures).</li><li>Use the extension for hand interactions on supported devices.</li><li>Runtime modules can ship; requires an OpenXR runtime and extension support.</li></ol><p class="usage-note">The Microsoft hand-interaction extension for OpenXR.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>OpenXRMsftHandInteraction provides support for the XR_MSFT_hand_interaction OpenXR Extension.  This allows hand tracking to act as a motion controller.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">OpenXRMsftHandInteraction</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Runtime/OpenXRMsftHandInteraction/OpenXRMsftHandInteraction.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

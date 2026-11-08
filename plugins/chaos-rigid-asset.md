@@ -3,17 +3,38 @@ layout: default
 title: 混沌刚性资产 / Chaos Rigid Asset
 ---
 
-<h1>混沌刚性资产 / Chaos Rigid Asset</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/ChaosRigidAsset/ChaosRigidAsset.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">物理</div><div class="lang-content">Physics</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ChaosRigidAssetEditor, ChaosRigidAssetNodes, ChaosRigidAssetEngine</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Chaos Rigid Asset</div>
+      <div class="hero-title-cn">混沌刚性资产 · 用于创建和利用刚体集合的刚性资产插件</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Physics</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">3</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/ChaosRigidAsset/ChaosRigidAsset.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">Chaos Rigid Asset</code>（<code class="usage-code">ChaosRigidAssetEngine</code>、<code class="usage-code">ChaosRigidAssetNodes</code>、<code class="usage-code">ChaosRigidAssetEditor</code>）并重启。它制作刚体集合，不是 Geometry Collection 破碎图。</li><li>内容浏览器新建 <code class="usage-code">Chaos Rigid Asset</code>，打开绑定的 Dataflow。用 <code class="usage-code">ChaosRigidAssetNodes</code> 把静态网格/碰撞体导入为刚体粒子，设置质量、惯性、碰撞形状与约束。</li><li>求值 Dataflow，在资产视口里检查刚体集合是否按约束连接。需要预览步进时打开能跑 Chaos 的 Dataflow 求解（见 <code class="usage-code">ChaosDataflowSolver</code>）。</li><li>把生成的刚体集合放到关卡 Actor/组件上，或作为 Outfit/布料管线的碰撞刚体输入，而不是拖进 Fracture 模式再切一次。</li><li>运行时模块用 <code class="usage-code">ChaosRigidAssetEngine</code>；图节点用 <code class="usage-code">ChaosRigidAssetNodes</code>。<code class="usage-code">ChaosRigidAssetEditor</code> 只进 <code class="usage-code">*Editor.Build.cs</code>。</li><li>Experimental：资产格式与节点名会变。不要用它替代 Fracture 的可破碎 Geometry Collection。</li></ol><p class="usage-note">Dataflow 刚体集合资产，面向成组刚体与约束，不是破坏切片工具。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">Chaos Rigid Asset</code> (<code class="usage-code">ChaosRigidAssetEngine</code>, <code class="usage-code">ChaosRigidAssetNodes</code>, <code class="usage-code">ChaosRigidAssetEditor</code>) and restart. It authors rigid-body collections, not Geometry Collection fracture graphs.</li><li>Create a <code class="usage-code">Chaos Rigid Asset</code> and open its Dataflow. Use <code class="usage-code">ChaosRigidAssetNodes</code> to ingest static meshes/colliders as rigid particles and set mass, inertia, collision shapes, and constraints.</li><li>Evaluate the graph and inspect the collection in the asset viewport. For stepped preview, enable a Dataflow Chaos solver (<code class="usage-code">ChaosDataflowSolver</code>).</li><li>Place the collection on a level actor/component, or feed it as rigid colliders into Outfit/cloth pipelines — do not send it through Fracture Mode.</li><li>Runtime: <code class="usage-code">ChaosRigidAssetEngine</code>. Graph nodes: <code class="usage-code">ChaosRigidAssetNodes</code>. <code class="usage-code">ChaosRigidAssetEditor</code> belongs only in <code class="usage-code">*Editor.Build.cs</code>.</li><li>Experimental: asset format and node names can change. This does not replace fracture Geometry Collections.</li></ol><p class="usage-note">Dataflow rigid-body collection asset for grouped bodies and constraints, not a fracture/slice tool.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于创建和利用刚体集合的刚性资产插件</div><div class="lang-content">Rigid Asset plugin for creating and utilising collections of rigid bodies</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (3)</div><div class="module-item"><span class="dot"></span><span class="name mono">ChaosRigidAssetEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ChaosRigidAssetNodes</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ChaosRigidAssetEngine</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/ChaosRigidAsset/ChaosRigidAsset.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

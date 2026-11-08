@@ -3,17 +3,38 @@ layout: default
 title: 音乐会 - 主要 / Concert - Main
 ---
 
-<h1>音乐会 - 主要 / Concert - Main</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/Concert/ConcertMain/ConcertMain.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.2</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">联网</div><div class="lang-content">Networking</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">Concert, ConcertClient, ConcertServer, ConcertTransport</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Concert - Main</div>
+      <div class="hero-title-cn">音乐会 - 主要 · 允许在编辑器中进行协作多用户会话</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Networking</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.2</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">4</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/Concert/ConcertMain/ConcertMain.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Concert - Main</code>（<code class="usage-code">Concert</code>、<code class="usage-code">ConcertClient</code>、<code class="usage-code">ConcertServer</code>、<code class="usage-code">ConcertTransport</code>）。这是多人编辑的会话/传输层；关卡同步还需要 <code class="usage-code">Multi-User Editing</code>（Concert Sync）一起开。</li><li>一台机器当服务器：<code class="usage-code">Window &gt; Multi-User Browser</code>（或独立 <code class="usage-code">UnrealMultiUserServer</code>）创建 Session，确认端口与 <code class="usage-code">ConcertTransport</code> UDP/TCP 可达。</li><li>其他编辑器在同一 Browser 里 Join，显示名与会话名一致。连接后 <code class="usage-code">ConcertClient</code> 把事务发到 <code class="usage-code">ConcertServer</code>，再广播给各客户端。</li><li>先在沙盒关卡验证移动 Actor 是否出现在其他机器；冲突用 Multi-User 的事务/锁定 UI 处理，而不是 Git 合并 <code class="usage-code">.umap</code>。</li><li>不要把这些模块加进游戏 Shipping。Concert 同步的是编辑器会话，不是 PIE 网络游戏复制。</li></ol><p class="usage-note">Concert 传输与会话核心。没有 Sync 插件就没有开箱即用的关卡协作。不是游戏 NetDriver。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Concert - Main</code> (<code class="usage-code">Concert</code>, <code class="usage-code">ConcertClient</code>, <code class="usage-code">ConcertServer</code>, <code class="usage-code">ConcertTransport</code>). This is the session/transport layer; level/asset sync also needs <code class="usage-code">Multi-User Editing</code> (Concert Sync).</li><li>On the host, open <code class="usage-code">Window &gt; Multi-User Browser</code> (or standalone <code class="usage-code">UnrealMultiUserServer</code>) and create a Session. Ensure <code class="usage-code">ConcertTransport</code> UDP/TCP ports are reachable.</li><li>Other editors Join the same session with matching display names. <code class="usage-code">ConcertClient</code> sends transactions to <code class="usage-code">ConcertServer</code>, which broadcasts to clients.</li><li>Prove Actor moves on a sandbox map before production. Resolve conflicts with Multi-User transaction/lock UI, not by Git-merging <code class="usage-code">.umap</code>.</li><li>Do not add these modules to Shipping. Concert syncs editor sessions, not PIE gameplay replication.</li></ol><p class="usage-note">Concert transport and session core. Without the Sync plugin there is no turnkey level collab. Not a gameplay NetDriver.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许在编辑器中进行协作多用户会话</div><div class="lang-content">Allow collaborative multi-users sessions in the Editor</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (4)</div><div class="module-item"><span class="dot"></span><span class="name mono">Concert</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ConcertClient</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ConcertServer</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ConcertTransport</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/Concert/ConcertMain/ConcertMain.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

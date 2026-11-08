@@ -1,19 +1,40 @@
 ---
 layout: default
-title: GDK 的 DLC 支持 / DLC Support for GDK
+title: DLC Support for GDK / DLC Support for GDK
 ---
 
-<h1>GDK 的 DLC 支持 / DLC Support for GDK</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/Microsoft/GDKPlatformDLC/GDKPlatformDLC.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">平台</div><div class="lang-content">Platform</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">GDKPlatformDLC</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">DLC Support for GDK</div>
+      <div class="hero-title-cn">DLC Support for GDK · Experimental support for DLC in </div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Platform</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/Microsoft/GDKPlatformDLC/GDKPlatformDLC.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">DLC Support for GDK</code>（模块 <code class="usage-code">GDKPlatformDLC</code>），并同时启用正式的 Microsoft GDK 平台插件；本插件不是通用 <code class="usage-code">ChunkDownloader</code>。</li><li>在 <code class="usage-code">Project Settings &gt; Platforms &gt; GDK / Windows GDK</code> 填 Partner Center 产品 ID、沙盒、以及要作为附加内容的 package/chunk 标识。</li><li>用 GDK 打包流程把主包与 DLC 打成独立 <code class="usage-code">.xvc</code> / Microsoft Store 附加包，不要只靠 <code class="usage-code">Pak</code> 分块当商店 DLC。</li><li>游戏模块 <code class="usage-code">Build.cs</code> 依赖 <code class="usage-code">GDKPlatformDLC</code>，在运行时查询/挂载已安装的 GDK DLC（枚举已拥有内容、安装状态），而不是去蓝图组件列表里加一个 DLC 组件。</li><li>在 GDK 开发套件或 Retail 沙盒上验证：未购买时内容不可用，安装完成后资源可加载。</li><li>接口仍是 Experimental，不要把它当跨 Steam/EOS 的通用 DLC 层。</li></ol><p class="usage-note">只服务 Microsoft GDK 商店附加内容；实验接口，且必须配 GDK 打包与 Partner Center 产品。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">DLC Support for GDK</code> (module <code class="usage-code">GDKPlatformDLC</code>) together with the shipping Microsoft GDK platform plugin; this is not generic <code class="usage-code">ChunkDownloader</code>.</li><li>Fill Partner Center product IDs, sandbox, and add-on package/chunk IDs under <code class="usage-code">Project Settings &gt; Platforms &gt; GDK / Windows GDK</code>.</li><li>Package the base game and DLC as separate <code class="usage-code">.xvc</code> / Microsoft Store add-ons through the GDK pipeline, not as Pak chunks pretending to be store DLC.</li><li>Depend on <code class="usage-code">GDKPlatformDLC</code> in the game <code class="usage-code">Build.cs</code> and query/mount installed GDK add-ons at runtime (ownership, install state). Do not add a DLC component from the Blueprint component list.</li><li>Verify on a GDK dev kit or retail sandbox: content stays unavailable until the add-on is owned and installed.</li><li>The API is Experimental; do not use it as a cross-Steam/EOS DLC layer.</li></ol><p class="usage-note">GDK store add-ons only; experimental, and it requires GDK packaging plus Partner Center product IDs.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Experimental support for DLC in GDK.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">GDKPlatformDLC</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/Microsoft/GDKPlatformDLC/GDKPlatformDLC.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 级联编辑器 / Cascade Editor
+title: Cascade Editor / Cascade Editor
 ---
 
-<h1>级联编辑器 / Cascade Editor</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/FX/Cascade/Cascade.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">外汇</div><div class="lang-content">FX</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">CascadeVertexFactories, CascadeRuntime, CascadeEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Cascade Editor</div>
+      <div class="hero-title-cn">Cascade Editor · Editor for (legacy) Cascade effe</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>FX</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">3</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/FX/Cascade/Cascade.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Cascade Editor</code>（<code class="usage-code">CascadeEditor</code>、<code class="usage-code">CascadeRuntime</code>、<code class="usage-code">CascadeVertexFactories</code>）才能双击打开旧 <code class="usage-code">Particle System</code> 资产。</li><li>在 Cascade 窗口左侧选发射器，右侧堆模块：<code class="usage-code">TypeData</code>（Sprite/Mesh/Beam/AnimTrail/GPU）、Spawn、Lifetime、Velocity、Color Over Life、Size 等，视口里看循环预览。</li><li>把资产拖进关卡，生成 <code class="usage-code">ParticleSystemComponent</code>；或在蓝图里 <code class="usage-code">Spawn Emitter at Location</code>。Shipping 包只要 <code class="usage-code">CascadeRuntime</code>/<code class="usage-code">CascadeVertexFactories</code>，不必带编辑器。</li><li>关卡里调 <code class="usage-code">Translucency Sort Priority</code>、LOD、<code class="usage-code">Detail Mode</code>；GPU 粒子还要核对该发射器的 GPU TypeData 限制。</li><li>新效果改在 Niagara 做；对本资产用 <code class="usage-code">Cascade To Niagara Converter</code> 迁移后再关掉编辑器插件，运行时仍能播未迁移的 Cascade。</li><li><code class="usage-code">CascadeEditor</code> 只进 <code class="usage-code">*Editor.Build.cs</code>；游戏模块不要依赖它。</li></ol><p class="usage-note">编辑器可关，运行时模块仍播放 Cascade。新内容不要继续堆 Cascade 模块。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Cascade Editor</code> (<code class="usage-code">CascadeEditor</code>, <code class="usage-code">CascadeRuntime</code>, <code class="usage-code">CascadeVertexFactories</code>) so legacy <code class="usage-code">Particle System</code> assets open on double-click.</li><li>In the Cascade window pick an emitter, stack modules (<code class="usage-code">TypeData</code> Sprite/Mesh/Beam/AnimTrail/GPU, Spawn, Lifetime, Velocity, Color Over Life, Size) and preview looping in the viewport.</li><li>Drag the asset into a level (<code class="usage-code">ParticleSystemComponent</code>) or <code class="usage-code">Spawn Emitter at Location</code> in Blueprint. Shipping needs <code class="usage-code">CascadeRuntime</code>/<code class="usage-code">CascadeVertexFactories</code>, not the editor module.</li><li>Tune <code class="usage-code">Translucency Sort Priority</code>, LOD, and <code class="usage-code">Detail Mode</code>. GPU emitters must stay within GPU TypeData limits.</li><li>Author new FX in Niagara. Convert this asset with a Cascade-to-Niagara converter, then you can disable the editor plugin; unconverted Cascade still plays at runtime.</li><li>Put <code class="usage-code">CascadeEditor</code> only in <code class="usage-code">*Editor.Build.cs</code>; game modules must not depend on it.</li></ol><p class="usage-note">You can disable the editor and still play Cascade at runtime. Do not keep stacking new Cascade modules.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Editor for (legacy) Cascade effect systems. Cascade assets can still run in a game with this plugin disabled.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (3)</div><div class="module-item"><span class="dot"></span><span class="name mono">CascadeVertexFactories</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CascadeRuntime</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CascadeEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/FX/Cascade/Cascade.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

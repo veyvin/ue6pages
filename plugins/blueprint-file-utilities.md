@@ -3,17 +3,38 @@ layout: default
 title: 蓝图文件实用程序 / Blueprint File Utilities
 ---
 
-<h1>蓝图文件实用程序 / Blueprint File Utilities</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/BlueprintFileUtils/BlueprintFileUtils.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">蓝图</div><div class="lang-content">Blueprints</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">BlueprintFileUtils</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">B</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Blueprint File Utilities</div>
+      <div class="hero-title-cn">蓝图文件实用程序 · 一个蓝图库，支持移动、复制、删除和查找等低级文件操作。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Blueprints</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/BlueprintFileUtils/BlueprintFileUtils.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 启用 <code class="usage-code">Blueprint File Utilities</code>（模块 <code class="usage-code">BlueprintFileUtils</code>）并重启。</li><li>在编辑器工具蓝图或开发用关卡蓝图里搜索 <code class="usage-code">FileUtils</code> 分类，目标类是 <code class="usage-code">UBlueprintFileUtilsBPLibrary</code>。</li><li>用 <code class="usage-code">File Exists</code> / <code class="usage-code">Directory Exists</code> 校验绝对路径，再用 <code class="usage-code">Make Directory</code>（可勾选 Create Tree）创建目录树。</li><li>用 <code class="usage-code">Copy File</code> 或 <code class="usage-code">Move File</code>（参数：Dest Filename、Src Filename、Replace、Even If Read Only）搬运文件；Dest 在上、Src 在下。</li><li>用 <code class="usage-code">Find Files</code>（Directory + 可选 File Extension）列出单层目录，或 <code class="usage-code">Find Recursive</code>（Wildcard、bFindFiles、bFindDirectories）扫子目录。</li><li>删除时调用库里的 Delete File / Delete Directory；先 <code class="usage-code">File Exists</code> 再删，避免误伤只读或正在写入的文件。</li><li>C++ 侧在模块 <code class="usage-code">Build.cs</code> 加入 <code class="usage-code">BlueprintFileUtils</code>，<code class="usage-code">#include &quot;BlueprintFileUtilsBPLibrary.h&quot;</code>，调用同名静态函数；打包游戏请限制在开发/工具路径，不要对玩家机任意写盘。</li></ol><p class="usage-note">路径必须是绝对路径；`Copy File` 对正在被写入的文件可能失败。这是低级文件系统 API，不是内容浏览器资产复制。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Blueprint File Utilities</code> in <code class="usage-code">Edit &gt; Plugins</code> (module <code class="usage-code">BlueprintFileUtils</code>) and restart.</li><li>In an editor utility or development Level Blueprint, search the <code class="usage-code">FileUtils</code> category; the target is <code class="usage-code">UBlueprintFileUtilsBPLibrary</code>.</li><li>Guard with <code class="usage-code">File Exists</code> / <code class="usage-code">Directory Exists</code> on absolute paths, then <code class="usage-code">Make Directory</code> (Create Tree) if needed.</li><li>Use <code class="usage-code">Copy File</code> or <code class="usage-code">Move File</code> (Dest Filename, Src Filename, Replace, Even If Read Only). Dest is the top pin, Src the bottom.</li><li>List a folder with <code class="usage-code">Find Files</code> (Directory + optional File Extension) or walk trees with <code class="usage-code">Find Recursive</code> (Wildcard, bFindFiles, bFindDirectories).</li><li>Delete via the library’s Delete File / Delete Directory after an existence check so you do not clobber read-only or in-use files.</li><li>In C++, add <code class="usage-code">BlueprintFileUtils</code> to <code class="usage-code">Build.cs</code>, <code class="usage-code">#include &quot;BlueprintFileUtilsBPLibrary.h&quot;</code>, and call the same statics. Restrict packaged use to tool paths; do not write arbitrary player disks.</li></ol><p class="usage-note">Paths must be absolute; `Copy File` can fail on files that are still being written. This is OS file I/O, not Content Browser asset duplication.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">一个蓝图库，支持移动、复制、删除和查找等低级文件操作。</div><div class="lang-content">A Blueprint library that enables low-level file operations such as Move, Copy, Delete, and Find.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">BlueprintFileUtils</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/BlueprintFileUtils/BlueprintFileUtils.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

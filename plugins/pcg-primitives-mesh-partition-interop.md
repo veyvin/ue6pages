@@ -1,19 +1,40 @@
 ---
 layout: default
-title: PCG 基元网格分区互操作 / PCG Primitives Mesh Partition Interop
+title: PCG Primitives Mesh Partition Interop / PCG Primitives Mesh Partition Interop
 ---
 
-<h1>PCG 基元网格分区互操作 / PCG Primitives Mesh Partition Interop</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/PCGPrimitives_MeshPartitionInterop/PCGPrimitives_MeshPartitionInterop.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">其他</div><div class="lang-content">Other</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">P</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">PCG Primitives Mesh Partition Interop</div>
+      <div class="hero-title-cn">PCG Primitives Mesh Partition Interop · Extra PCG Primitives and Example</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">0</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/PCGPrimitives_MeshPartitionInterop/PCGPrimitives_MeshPartitionInterop.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">PCG Primitives Mesh Partition Interop</code> 插件（无独立模块列表）。</li><li>它提供用于网格分区互操作的额外 PCG 基元与示例库。</li><li>在 PCG + Mesh Partition 工作流里用这些基元/库生成与编辑分区网格。</li><li>Experimental：接口可能变动；示例/库向，宜作参考。</li></ol><p class="usage-note">网格分区互操作用的额外 PCG 基元/示例库。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the Experimental <code class="usage-code">PCG Primitives Mesh Partition Interop</code> plugin (no standalone module list).</li><li>It provides extra PCG primitives and sample libraries for mesh-partition interop.</li><li>In a PCG + Mesh Partition workflow, use these primitives/libraries to generate/edit partitioned meshes.</li><li>Experimental: contract may change; sample/library oriented, best as reference.</li></ol><p class="usage-note">Extra PCG primitives/sample libraries for mesh-partition interop.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Extra PCG Primitives and Examples Library for Mesh Partition interop</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/PCGPrimitives_MeshPartitionInterop/PCGPrimitives_MeshPartitionInterop.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

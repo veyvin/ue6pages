@@ -3,17 +3,38 @@ layout: default
 title: 批量重命名器 / Batch Renamer
 ---
 
-<h1>批量重命名器 / Batch Renamer</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/AdvancedRenamer/AdvancedRenamer.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">实验性的</div><div class="lang-content">Experimental</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AdvancedRenamer</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">B</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Batch Renamer</div>
+      <div class="hero-title-cn">批量重命名器 · 重命名多个选定的演员或资产，并标准化其前缀和后缀。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Experimental</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/AdvancedRenamer/AdvancedRenamer.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验插件 <code class="usage-code">Batch Renamer</code>（描述符 <code class="usage-code">AdvancedRenamer.uplugin</code>，模块 <code class="usage-code">AdvancedRenamer</code>）。5.5 起常默认开启。</li><li>在内容浏览器多选资产，或在关卡/World Outliner 多选 Actor，右键选 <code class="usage-code">Batch Rename</code>（快捷键 <code class="usage-code">Shift+F2</code>），打开 Batch Renamer 对话框。</li><li>用面板操作组合规则：<code class="usage-code">Search</code>/<code class="usage-code">Rename to</code>（可切 <code class="usage-code">Regex</code>）、<code class="usage-code">Remove Old Prefix</code>/<code class="usage-code">Suffix</code>、<code class="usage-code">Add Prefix</code>/<code class="usage-code">Add Suffix</code>、<code class="usage-code">Auto Increment</code>、<code class="usage-code">Change Case</code>。右侧预览旧名→新名，确认无碰撞再 <code class="usage-code">Apply</code>。</li><li>资产重命名走资源注册表引用修复；Actor 重命名改的是关卡实例名。两类可以分次处理，不要指望一次操作同时改磁盘路径和关卡标签以外的包名。</li><li>大规模重命名后保存关卡与重定向器（<code class="usage-code">Fix Up Redirectors</code>）。<code class="usage-code">AdvancedRenamer</code> 只属于编辑器，不要加入游戏 <code class="usage-code">Build.cs</code>。</li></ol><p class="usage-note">编辑器批量改名：右键 `Batch Rename` / `Shift+F2`。模块名仍是 `AdvancedRenamer`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">Batch Renamer</code> (descriptor <code class="usage-code">AdvancedRenamer.uplugin</code>, module <code class="usage-code">AdvancedRenamer</code>). It is often on by default from 5.5.</li><li>Multi-select assets in the Content Browser, or actors in the level / World Outliner, then right-click <code class="usage-code">Batch Rename</code> (<code class="usage-code">Shift+F2</code>) to open the Batch Renamer dialog.</li><li>Build a rule chain: <code class="usage-code">Search</code>/<code class="usage-code">Rename to</code> (optional <code class="usage-code">Regex</code>), <code class="usage-code">Remove Old Prefix</code>/<code class="usage-code">Suffix</code>, <code class="usage-code">Add Prefix</code>/<code class="usage-code">Add Suffix</code>, <code class="usage-code">Auto Increment</code>, <code class="usage-code">Change Case</code>. Preview old→new names on the right and <code class="usage-code">Apply</code> only when collisions are clear.</li><li>Asset renames go through the asset registry and reference fixup; actor renames change level instance names. Run them as separate passes if you need both.</li><li>After large batches, save the level and fix redirectors (<code class="usage-code">Fix Up Redirectors</code>). <code class="usage-code">AdvancedRenamer</code> is editor-only — do not add it to a game <code class="usage-code">Build.cs</code>.</li></ol><p class="usage-note">Editor batch rename via right-click `Batch Rename` / `Shift+F2`. The module is still `AdvancedRenamer`.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">重命名多个选定的演员或资产，并标准化其前缀和后缀。</div><div class="lang-content">Rename multiple selected actors or assets, and standardize their prefixes and suffixes.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">AdvancedRenamer</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/AdvancedRenamer/AdvancedRenamer.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

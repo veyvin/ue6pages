@@ -3,17 +3,38 @@ layout: default
 title: 控制装置模块 / Control Rig Modules
 ---
 
-<h1>控制装置模块 / Control Rig Modules</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Animation/ControlRigModules/ControlRigModules.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Control Rig Modules</div>
+      <div class="hero-title-cn">控制装置模块 · 控制装置模块</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">0</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Animation/ControlRigModules/ControlRigModules.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Control Rig Modules</code>（内容插件，无独立运行时模块）以及 <code class="usage-code">Control Rig</code>，重启后才能在绑定图里看到官方模块库。</li><li>新建或打开 <code class="usage-code">Control Rig</code> 资产，切到 <code class="usage-code">Modules</code> 面板（模块化绑定，不是 Rig Graph 右键菜单里的单个 Rig Unit）。</li><li>从库中拖入 <code class="usage-code">Spine</code>、<code class="usage-code">Limb</code>、<code class="usage-code">Foot</code> 等模块，在 Construction Event 里把模块插槽接到骨骼/控件层级，Compile。</li><li>在 Viewport 拖控件验证 Forward Solve；需要运行时驱动时，把该 Control Rig 挂到 <code class="usage-code">UControlRigComponent</code> 或 AnimBP 的 Control Rig 节点。</li><li>团队自定义模块做成同类型模块资产放进项目，仍走 Modules 面板添加，不要把本插件写进游戏 <code class="usage-code">Build.cs</code>。</li></ol><p class="usage-note">官方模块化绑定内容包；样条/动力学节点不在这里。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Control Rig Modules</code> (content plugin, no separate runtime module) plus <code class="usage-code">Control Rig</code>, then restart so the stock module library appears.</li><li>Open a <code class="usage-code">Control Rig</code> asset and switch to the <code class="usage-code">Modules</code> panel (modular rigging — not a single Rig Unit from the graph context menu).</li><li>Drop <code class="usage-code">Spine</code>, <code class="usage-code">Limb</code>, <code class="usage-code">Foot</code> (etc.) modules, wire module sockets to the bone/control hierarchy on Construction Event, and Compile.</li><li>Drag controls in the viewport to prove Forward Solve. For runtime, attach the rig via <code class="usage-code">UControlRigComponent</code> or the AnimBP Control Rig node.</li><li>Ship custom modules as the same asset type in your project and add them from Modules. Do not add this plugin to a game <code class="usage-code">Build.cs</code>.</li></ol><p class="usage-note">Stock modular-rig content; spline/dynamics units live in other plugins.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">控制装置模块</div><div class="lang-content">Modules for Control Rig</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Animation/ControlRigModules/ControlRigModules.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

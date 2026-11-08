@@ -3,17 +3,38 @@ layout: default
 title: 控制装置样条线 / Control Rig Spline
 ---
 
-<h1>控制装置样条线 / Control Rig Spline</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Animation/ControlRigSpline/ControlRigSpline.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ControlRigSpline</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Control Rig Spline</div>
+      <div class="hero-title-cn">控制装置样条线 · 允许为控制装备创建和使用样条曲线</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Animation/ControlRigSpline/ControlRigSpline.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Control Rig Spline</code>（模块 <code class="usage-code">ControlRigSpline</code>），确保 <code class="usage-code">Control Rig</code> 已开。</li><li>打开 Control Rig 图，搜索 <code class="usage-code">Spline</code>：用 <code class="usage-code">Spline From Points</code> / <code class="usage-code">Spline From Transforms</code> 从一串控件或骨骼生成 <code class="usage-code">FControlRigSpline</code>（Hermite / BSpline 等）。</li><li>用 <code class="usage-code">Fit Chain To Spline Curve</code> 把尾巴、触手、脊椎链贴到样条；<code class="usage-code">Get Location at Spline Length</code> / <code class="usage-code">Get Transform at Spline Length</code> 沿弧长取样。</li><li>需要预览时接 <code class="usage-code">Draw Spline</code>；在 Sequencer 里给控制点打关键帧，运行时同一套 Rig Unit 会跟着 <code class="usage-code">UControlRig</code> 求解。</li><li>游戏模块若要在 C++ 里碰到样条类型，<code class="usage-code">Build.cs</code> 加 <code class="usage-code">ControlRigSpline</code> 并 <code class="usage-code">#include</code> 对应 <code class="usage-code">RigUnit_*.h</code>；仅用蓝图/Rig 图则不必。</li></ol><p class="usage-note">Rig 内样条拟合，不是关卡里的 `USplineComponent`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Control Rig Spline</code> (module <code class="usage-code">ControlRigSpline</code>) with <code class="usage-code">Control Rig</code> already on.</li><li>In the Control Rig graph search <code class="usage-code">Spline</code>: build an <code class="usage-code">FControlRigSpline</code> from controls/bones via <code class="usage-code">Spline From Points</code> / <code class="usage-code">Spline From Transforms</code> (Hermite / BSpline, …).</li><li>Use <code class="usage-code">Fit Chain To Spline Curve</code> to stick a tail/tentacle/spine chain to the spline; sample with <code class="usage-code">Get Location at Spline Length</code> / <code class="usage-code">Get Transform at Spline Length</code>.</li><li>Preview with <code class="usage-code">Draw Spline</code>. Key the control points in Sequencer; the same Rig Units solve at runtime on <code class="usage-code">UControlRig</code>.</li><li>If C++ must touch spline types, add <code class="usage-code">ControlRigSpline</code> to <code class="usage-code">Build.cs</code> and include the <code class="usage-code">RigUnit_*.h</code> headers. Graph-only users can skip that.</li></ol><p class="usage-note">In-rig spline fitting, not level `USplineComponent`.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许为控制装备创建和使用样条曲线</div><div class="lang-content">Allows creation and use of splines for Control Rig</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ControlRigSpline</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Animation/ControlRigSpline/ControlRigSpline.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

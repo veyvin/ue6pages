@@ -3,17 +3,38 @@ layout: default
 title: 动画曲线表达式 / Animation Curve Expressions
 ---
 
-<h1>动画曲线表达式 / Animation Curve Expressions</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/Animation/CurveExpression/CurveExpression.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">CurveExpression, CurveExpressionEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Animation Curve Expressions</div>
+      <div class="hero-title-cn">动画曲线表达式 · 使用简单数学表达式的实验曲线重新映射器</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/Animation/CurveExpression/CurveExpression.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 启用 Experimental 的 <code class="usage-code">Animation Curve Expressions</code>（运行时 <code class="usage-code">CurveExpression</code>，图节点在 <code class="usage-code">CurveExpressionEditor</code>）并重启。</li><li>内容浏览器 <code class="usage-code">Add &gt; Miscellaneous &gt; Data Asset</code>，选 <code class="usage-code">CurveExpressionsDataAsset</code>，为每条目标曲线写简单数学表达式（可用源曲线名、常量与四则运算）。</li><li>打开角色 <code class="usage-code">AnimBP</code>，在 AnimGraph 加入 <code class="usage-code">Remap Curves</code>（<code class="usage-code">FAnimNode_RemapCurves</code> / <code class="usage-code">UAnimGraphNode_RemapCurves</code>），<code class="usage-code">Expression Source</code> 指向该 Data Asset，或在节点上填内联 <code class="usage-code">curve_expressions</code>。</li><li>需要从另一网格体抄曲线时改用 <code class="usage-code">Remap Curves From Mesh</code>（<code class="usage-code">FAnimNode_RemapCurvesFromMesh</code>）：指定 <code class="usage-code">Source Mesh Component</code>，或勾选 <code class="usage-code">Use Attached Parent</code> 读父级 <code class="usage-code">SkeletalMeshComponent</code>。</li><li>表达式运行时不变时勾选 <code class="usage-code">Expressions Immutable</code> 以跳过每帧重解析；游戏模块只依赖 <code class="usage-code">CurveExpression</code>，不要把 <code class="usage-code">CurveExpressionEditor</code> 写进 Game Target。</li></ol><p class="usage-note">Experimental 曲线重映射器；表达式语法以 `ExpressionEvaluator.h` 为准，不要当通用 Modify Curve 节点用。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Animation Curve Expressions</code> (<code class="usage-code">CurveExpression</code> runtime, <code class="usage-code">CurveExpressionEditor</code> graph nodes) under <code class="usage-code">Edit &gt; Plugins</code> and restart.</li><li>Create <code class="usage-code">Add &gt; Miscellaneous &gt; Data Asset</code> of class <code class="usage-code">CurveExpressionsDataAsset</code> and write a simple math expression per destination curve (source curve names, constants, arithmetic).</li><li>In the character <code class="usage-code">AnimBP</code> AnimGraph add <code class="usage-code">Remap Curves</code> (<code class="usage-code">FAnimNode_RemapCurves</code> / <code class="usage-code">UAnimGraphNode_RemapCurves</code>); point <code class="usage-code">Expression Source</code> at the data asset or fill inline <code class="usage-code">curve_expressions</code>.</li><li>To copy curves from another mesh use <code class="usage-code">Remap Curves From Mesh</code> (<code class="usage-code">FAnimNode_RemapCurvesFromMesh</code>): set <code class="usage-code">Source Mesh Component</code>, or enable <code class="usage-code">Use Attached Parent</code> to read the parent <code class="usage-code">SkeletalMeshComponent</code>.</li><li>Tick <code class="usage-code">Expressions Immutable</code> when the map will not change at runtime; game modules depend on <code class="usage-code">CurveExpression</code> only, never <code class="usage-code">CurveExpressionEditor</code>.</li></ol><p class="usage-note">Experimental curve remapper; expression syntax lives in `ExpressionEvaluator.h`. This is not the stock Modify Curve node.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用简单数学表达式的实验曲线重新映射器</div><div class="lang-content">Experimental Curve Remapper using Simple Math Expressions</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">CurveExpression</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CurveExpressionEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/Animation/CurveExpression/CurveExpression.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

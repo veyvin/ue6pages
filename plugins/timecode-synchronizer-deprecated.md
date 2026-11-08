@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 时间码同步器（已弃用） / Timecode Synchronizer (Deprecated)
+title: Timecode Synchronizer (Deprecated) / Timecode Synchronizer (Deprecated)
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 时间码同步器（已弃用） / Timecode Synchronizer (Deprecated)
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Timecode Synchronizer (Deprecated)</div>
-      <div class="hero-title-cn">时间码同步器（已弃用） · 该插件已被弃用，并将在未来的引擎版本中删除。请更新您的项目以使用</div>
+      <div class="hero-title-cn">Timecode Synchronizer (Deprecated) · This plugin has been deprecated </div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,46 +24,10 @@ title: 时间码同步器（已弃用） / Timecode Synchronizer (Deprecated)
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该插件已被弃用，并将在未来的引擎版本中删除。请更新您的项目以使用 TimedDataMonitor 插件的功能。
-一旦所有输入同步到时间码，该资产将成为 TimecodeProvider。</div><div class="lang-content">This plugin has been deprecated and will be removed in a future engine version. Please update your project to use the features of the TimedDataMonitor plugin instead.
-An asset that will become the TimecodeProvider once all the inputs get synchronized to a timecode.</div></div></div>
+      <div class="desc-body"><p>This plugin has been deprecated and will be removed in a future engine version. Please update your project to use the features of the TimedDataMonitor plugin instead.
+An asset that will become the TimecodeProvider once all the inputs get synchronized to a timecode.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：该插件已被弃用，并将在未来的引擎版本中删除。请更新您的项目以使用 TimedDataMonitor 插件的功能。
-一旦所有输入同步到时间码，该资产将成为 TimecodeProvider。</p><p>属于 Media Framework / Electra 播流与解码。</p><p>它打包的模块包括：TimecodeSynchronizer, TimecodeSynchronizerEditor。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: This plugin has been deprecated and will be removed in a future engine version. Please update your project to use the features of the TimedDataMonitor plugin instead.
-An asset that will become the TimecodeProvider once all the inputs get synchronized to a timecode.</p><p>Part of Media Framework / Electra playback and decode.</p><p>It ships these modules: TimecodeSynchronizer, TimecodeSynchronizerEditor. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">Timecode Synchronizer (Deprecated)</code> 已弃用，将在未来引擎版本删除。</li><li>改用 <code class="usage-code">Timed Data Monitor</code> 插件的功能；输入同步到时间码后该资产成为 TimecodeProvider。</li><li>新项目迁移到 Timed Data Monitor。</li><li>迁移完成后禁用本插件。</li></ol><p class="usage-note">已弃用，改用 Timed Data Monitor。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">Timecode Synchronizer (Deprecated)</code> is deprecated and will be removed in a future engine version.</li><li>Use the <code class="usage-code">Timed Data Monitor</code> plugin instead; once inputs sync to timecode, the asset becomes a TimecodeProvider.</li><li>New projects should migrate to Timed Data Monitor.</li><li>Disable this plugin after migration.</li></ol><p class="usage-note">Deprecated; use Timed Data Monitor instead.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">TimecodeSynchronizer</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">TimecodeSynchronizerEditor</span><span class="tag runtime">Runtime</span></div></div>

@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 美元多用户同步 / USD Multi-User synchronization
+title: USD Multi-User synchronization / USD Multi-User synchronization
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 美元多用户同步 / USD Multi-User synchronization
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">USD Multi-User synchronization</div>
-      <div class="hero-title-cn">美元多用户同步 · 启用美元导入器插件的选择加入多用户同步。</div>
+      <div class="hero-title-cn">USD Multi-User synchronization · Enables opt-in multi-user synchr</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Importers</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,40 +24,9 @@ title: 美元多用户同步 / USD Multi-User synchronization
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">启用美元导入器插件的选择加入多用户同步。</div><div class="lang-content">Enables opt-in multi-user synchronization for the USD Importer plugin.</div></div></div>
+      <div class="desc-body"><p>Enables opt-in multi-user synchronization for the USD Importer plugin.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：启用美元导入器插件的选择加入多用户同步。</p><p>Concert/多人编辑：在多台编辑器之间同步关卡与资产更改。</p><p>属于资产导入管线。</p><p>它打包的模块包括：USDMultiUser。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Enables opt-in multi-user synchronization for the USD Importer plugin.</p><p>Concert / multi-user: syncs level and asset edits across editor machines.</p><p>Part of the asset-import pipeline.</p><p>It ships these modules: USDMultiUser. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">USD Multi-User synchronization</code>（模块 <code class="usage-code">USDMultiUser</code>）。</li><li>它为 USD 导入器插件启用可选加入的多用户同步（Concert 多端同步 USD 舞台）。</li><li>在多用户会话里同步 USD 编辑。</li><li>运行时模块；配合 USD Importer 与 Concert 使用。</li></ol><p class="usage-note">USD 导入器的多用户(Concert)同步。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">USD Multi-User synchronization</code> (module <code class="usage-code">USDMultiUser</code>).</li><li>It enables opt-in multi-user synchronization for the USD importer plugin (Concert sync across editors for USD stages).</li><li>Sync USD editing in a multi-user session.</li><li>A runtime module; used with the USD Importer and Concert.</li></ol><p class="usage-note">Multi-user (Concert) sync for the USD importer.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">USDMultiUser</span><span class="tag runtime">Runtime</span></div></div>

@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 数据注册工具集 / DataRegistryToolset
+title: DataRegistryToolset / DataRegistryToolset
 ---
 
-<h1>数据注册工具集 / DataRegistryToolset</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/Toolsets/DataRegistryToolset/DataRegistryToolset.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">其他</div><div class="lang-content">Other</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏</div><div class="lang-content">Epic Games</div></div></span></li><li><span class="label">模块</span><span class="value">DataRegistryToolset</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">DataRegistryToolset</div>
+      <div class="hero-title-cn">DataRegistryToolset · Toolset for querying and inspect</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/Toolsets/DataRegistryToolset/DataRegistryToolset.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental Toolset <code class="usage-code">DataRegistryToolset</code>（模块 <code class="usage-code">DataRegistryToolset</code>），并确保 <code class="usage-code">Data Registry</code> 插件已启用且项目里有 Registry 资产。</li><li>打开编辑器 AI / Agent 会话，确认 Toolset 能看到已注册的 <code class="usage-code">FDataRegistryType</code> 列表。</li><li>让代理按 Type + Item 名查询 <code class="usage-code">FDataRegistryId</code>，核对返回的结构字段与 Data Table 行一致。</li><li>再让它列出某 Registry 的源（Data Table / Curve Table）和缓存状态；这是检查工具，不要让代理在会话里改玩法数值当正式管线。</li><li>对照 <code class="usage-code">UDataRegistrySubsystem</code> 在 PIE 中的 <code class="usage-code">GetCachedItem</code> 结果，确认助手读到的是同一缓存。</li><li>不要把 <code class="usage-code">DataRegistryToolset</code> 链进 Game Target；Shipping 游戏应只保留 <code class="usage-code">DataRegistry</code>。</li></ol><p class="usage-note">给编辑器 AI 查询 Data Registry 的 Toolset，不是运行时数据源。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental Toolset <code class="usage-code">DataRegistryToolset</code> (module <code class="usage-code">DataRegistryToolset</code>) and make sure the <code class="usage-code">Data Registry</code> plugin is on with at least one registry asset.</li><li>Open an Editor AI / Agent session and confirm the Toolset can list registered <code class="usage-code">FDataRegistryType</code> values.</li><li>Have the agent resolve an <code class="usage-code">FDataRegistryId</code> by type + item name and check the struct fields against the Data Table row.</li><li>Ask it to list a registry’s sources (Data Table / Curve Table) and cache state. This is inspection, not a pipeline for changing gameplay numbers in chat.</li><li>Compare with <code class="usage-code">UDataRegistrySubsystem::GetCachedItem</code> in PIE so the assistant is reading the same cache.</li><li>Do not link <code class="usage-code">DataRegistryToolset</code> into a Game target; shipping games should keep only <code class="usage-code">DataRegistry</code>.</li></ol><p class="usage-note">Editor-AI Toolset to query Data Registries, not a runtime data source.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Toolset for querying and inspecting Data Registries</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">DataRegistryToolset</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/Toolsets/DataRegistryToolset/DataRegistryToolset.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

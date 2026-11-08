@@ -3,17 +3,38 @@ layout: default
 title: 内容浏览器 - 资产数据源 / Content Browser - Asset Data Source
 ---
 
-<h1>内容浏览器 - 资产数据源 / Content Browser - Asset Data Source</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Editor/ContentBrowser/ContentBrowserAssetDataSource/ContentBrowserAssetDataSource.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">内容浏览器</div><div class="lang-content">Content Browser</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ContentBrowserAssetDataSource</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Content Browser - Asset Data Source</div>
+      <div class="hero-title-cn">内容浏览器 - 资产数据源 · 数据源插件向内容浏览器提供资产数据</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Content Browser</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Editor/ContentBrowser/ContentBrowserAssetDataSource/ContentBrowserAssetDataSource.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>保持 <code class="usage-code">Content Browser - Asset Data Source</code>（模块 <code class="usage-code">ContentBrowserAssetDataSource</code>）启用：它把 <code class="usage-code">Asset Registry</code> 里的 <code class="usage-code">uasset</code> 喂给内容浏览器的 <code class="usage-code">/All/Game</code>、<code class="usage-code">/Engine</code> 等虚拟树，关掉后浏览器里资产格子会空掉。</li><li>打开内容浏览器，确认 <code class="usage-code">/Game</code> 下列出网格、材质、蓝图；缩略图、过滤器、右键 <code class="usage-code">Asset Actions</code> 都走这条数据源，不是独立面板。</li><li>写自定义浏览器视图时，在 Editor 模块依赖 <code class="usage-code">ContentBrowserAssetDataSource</code> / <code class="usage-code">ContentBrowserData</code>，用 <code class="usage-code">UContentBrowserAssetDataSource</code> 解析 <code class="usage-code">FContentBrowserItem</code> 上的 <code class="usage-code">UObject</code> 包路径，不要自己扫磁盘 <code class="usage-code">.uasset</code>。</li><li>资产重命名、移到新文件夹、Save 后应立刻出现在对应虚拟路径；若只改了源码未热载，先 <code class="usage-code">Asset Registry</code> 刷新再看浏览器。</li><li>这是编辑器基础设施，禁止写进游戏 <code class="usage-code">Build.cs</code>；Shipping 包不通过内容浏览器加载资产。</li></ol><p class="usage-note">负责 `uasset` 列表，不是 Class 视图，也不是松散文件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Keep <code class="usage-code">Content Browser - Asset Data Source</code> (module <code class="usage-code">ContentBrowserAssetDataSource</code>) on: it feeds <code class="usage-code">Asset Registry</code> <code class="usage-code">uasset</code>s into Content Browser virtual trees (<code class="usage-code">/All/Game</code>, <code class="usage-code">/Engine</code>). Disable it and the asset grid goes empty.</li><li>Open the Content Browser and confirm meshes/materials/Blueprints under <code class="usage-code">/Game</code>. Thumbnails, filters, and right-click <code class="usage-code">Asset Actions</code> all go through this source — it is not a separate panel.</li><li>For a custom browser view, depend on <code class="usage-code">ContentBrowserAssetDataSource</code> / <code class="usage-code">ContentBrowserData</code> in an Editor module and resolve the <code class="usage-code">UObject</code> package path from <code class="usage-code">FContentBrowserItem</code> via <code class="usage-code">UContentBrowserAssetDataSource</code>; do not scan <code class="usage-code">.uasset</code> files yourself.</li><li>Rename/move/Save an asset and it should appear under the new virtual path immediately. If you only changed code, refresh the <code class="usage-code">Asset Registry</code> before blaming the browser.</li><li>Editor infrastructure only — never add it to a game <code class="usage-code">Build.cs</code>. Shipping builds do not load via the Content Browser.</li></ol><p class="usage-note">Serves the `uasset` list, not the Classes view and not loose files.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">数据源插件向内容浏览器提供资产数据</div><div class="lang-content">Data Source plugin providing Asset Data to the Content Browser</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ContentBrowserAssetDataSource</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Editor/ContentBrowser/ContentBrowserAssetDataSource/ContentBrowserAssetDataSource.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

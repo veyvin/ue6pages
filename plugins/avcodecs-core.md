@@ -3,17 +3,38 @@ layout: default
 title: AVCodecs核心 / AVCodecs Core
 ---
 
-<h1>AVCodecs核心 / AVCodecs Core</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/AVCodecs/AVCodecsCore/AVCodecsCore.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">编解码器</div><div class="lang-content">Codecs</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AVCodecsCore, AVCodecsCoreRHI</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">AVCodecs Core</div>
+      <div class="hero-title-cn">AVCodecs核心 · 适用于各种音频/视频编解码器的核心插件</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Codecs</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/AVCodecs/AVCodecsCore/AVCodecsCore.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 的 Codecs / Experimental 中启用 <code class="usage-code">AVCodecs Core</code>（<code class="usage-code">AVCodecsCore.uplugin</code>）。多数项目是作为 Pixel Streaming、硬件编解码器等插件的依赖被拉起，不必单独做关卡里的「播放」操作。</li><li>游戏或功能模块的 <code class="usage-code">Build.cs</code> 按需加入运行时模块 <code class="usage-code">AVCodecsCore</code>（GPU 资源互操作再加 <code class="usage-code">AVCodecsCoreRHI</code>），然后 Generate Project Files。不要把该 Experimental 接口写进 Shipping 公共 API。</li><li>在 C++ 里通过 <code class="usage-code">AVCodecsCore</code> 的编解码上下文创建编码器/解码器实例，把待压帧从游戏/RHI 纹理交给 <code class="usage-code">AVCodecsCoreRHI</code> 做资源包装后再送进具体 codec 后端。</li><li>具体 codec（NVENC、VPx 等）是别的插件；本插件只提供公共 <code class="usage-code">FAV*</code> 设备/实例层。对照 <code class="usage-code">AVCodecsCore</code> 与 <code class="usage-code">AVCodecsCoreRHI</code> 的 Public 头文件选择实现，不要在蓝图里找「AVCodecs」节点。</li><li>用一帧已知分辨率的测试纹理跑通 Initialize → Encode/Decode → Shutdown；用日志确认 <code class="usage-code">FAVResult</code> 失败码来自设备创建还是码流，而不是媒体框架的 <code class="usage-code">Media Player</code>。</li></ol><p class="usage-note">实验性 C++ 编解码抽象层，不是音频混合器，也不是 Media Framework 播放器。蓝图无入口。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">AVCodecs Core</code> (<code class="usage-code">AVCodecsCore.uplugin</code>) under <code class="usage-code">Edit &gt; Plugins</code> (Codecs / Experimental). Most projects pull it in as a dependency of Pixel Streaming or hardware codec plugins; there is nothing to drop in a level.</li><li>Add runtime module <code class="usage-code">AVCodecsCore</code> to your <code class="usage-code">Build.cs</code> (and <code class="usage-code">AVCodecsCoreRHI</code> if you share GPU resources), then Generate Project Files. Treat the Experimental surface as unstable for Shipping public APIs.</li><li>In C++, create encoder/decoder instances through <code class="usage-code">AVCodecsCore</code>’s codec context. Wrap game/RHI textures with <code class="usage-code">AVCodecsCoreRHI</code> before handing frames to a concrete codec backend.</li><li>NVENC, VPx, and similar backends live in other plugins. This plugin only supplies the shared <code class="usage-code">FAV*</code> device/instance layer. Pick types from <code class="usage-code">AVCodecsCore</code> / <code class="usage-code">AVCodecsCoreRHI</code> Public headers — there are no Blueprint “AVCodecs” nodes.</li><li>Prove a single known-resolution test texture through Initialize → Encode/Decode → Shutdown. Read <code class="usage-code">FAVResult</code> logs to see whether failure is device creation or bitstream, not Media Framework <code class="usage-code">Media Player</code>.</li></ol><p class="usage-note">Experimental C++ codec abstraction — not an audio mixer and not a Media Framework player. No Blueprint entry point.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">适用于各种音频/视频编解码器的核心插件</div><div class="lang-content">Core Plugin for various Audio/Video codecs</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">AVCodecsCore</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AVCodecsCoreRHI</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/AVCodecs/AVCodecsCore/AVCodecsCore.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

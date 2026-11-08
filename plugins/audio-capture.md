@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 音频捕捉 / Audio Capture
+title: Audio Capture / Audio Capture
 ---
 
-<h1>音频捕捉 / Audio Capture</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/AudioCapture/AudioCapture.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">声音的</div><div class="lang-content">Audio</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AudioCapture, AudioCaptureEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Audio Capture</div>
+      <div class="hero-title-cn">Audio Capture · Plugin provides an interface for</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Audio</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Runtime/AudioCapture/AudioCapture.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Audio Capture</code>（运行时 <code class="usage-code">AudioCapture</code>，编辑器 <code class="usage-code">AudioCaptureEditor</code>）。</li><li>游戏模块 <code class="usage-code">Build.cs</code> 加入 <code class="usage-code">AudioCapture</code>（不要加 <code class="usage-code">AudioCaptureEditor</code>）。</li><li>在 Actor 上添加 <code class="usage-code">UAudioCaptureComponent</code>，把输出接到 <code class="usage-code">Sound Submix</code>；需要落盘时用 Submix 的 Start/Finish Recording Output。</li><li>C++ 也可用 <code class="usage-code">UAudioCaptureFunctionLibrary::CreateAudioCapture</code> 得到 <code class="usage-code">UAudioCapture</code>，再 <code class="usage-code">OpenDefaultAudioStream</code>、<code class="usage-code">StartCapturingAudio</code> / <code class="usage-code">StopCapturingAudio</code>。</li><li>枚举输入设备用 <code class="usage-code">UAudioCaptureBlueprintLibrary::GetAvailableAudioInputDevices</code>（<code class="usage-code">FAudioInputDeviceInfo</code>）。</li><li>PIE 前在系统声音设置里选对默认输入；移动端还要开麦克风权限。</li></ol><p class="usage-note">麦克风采集接口；`AudioCaptureEditor` 只服务编辑器录音，不能进 Game Target。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Audio Capture</code> (runtime <code class="usage-code">AudioCapture</code>, editor <code class="usage-code">AudioCaptureEditor</code>).</li><li>Add <code class="usage-code">AudioCapture</code> to the game module <code class="usage-code">Build.cs</code> (not <code class="usage-code">AudioCaptureEditor</code>).</li><li>Add <code class="usage-code">UAudioCaptureComponent</code> to an actor and send it to a <code class="usage-code">Sound Submix</code>; use the submix Start/Finish Recording Output if you need a WAV/<code class="usage-code">USoundWave</code>.</li><li>In C++ you can <code class="usage-code">UAudioCaptureFunctionLibrary::CreateAudioCapture</code>, then <code class="usage-code">OpenDefaultAudioStream</code> and <code class="usage-code">StartCapturingAudio</code> / <code class="usage-code">StopCapturingAudio</code> on <code class="usage-code">UAudioCapture</code>.</li><li>Enumerate inputs with <code class="usage-code">UAudioCaptureBlueprintLibrary::GetAvailableAudioInputDevices</code> (<code class="usage-code">FAudioInputDeviceInfo</code>).</li><li>Pick the correct default input in the OS mixer before PIE; mobile also needs microphone permission.</li></ol><p class="usage-note">Microphone capture; `AudioCaptureEditor` is editor recording only and must not hit a Game target.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Plugin provides an interface for microphone input capture.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">AudioCapture</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AudioCaptureEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Runtime/AudioCapture/AudioCapture.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

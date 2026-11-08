@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 虚幻MCP / Unreal MCP
+title: Unreal MCP / Unreal MCP
 ---
 
-<h1>虚幻MCP / Unreal MCP</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/ModelContextProtocol/ModelContextProtocol.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">其他</div><div class="lang-content">Other</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ModelContextProtocol, ModelContextProtocolEngine, ModelContextProtocolEditor, ModelContextProtocolTests, ModelContextProtocolEngineTests, ModelContextProtocolEditorTests</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">U</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Unreal MCP</div>
+      <div class="hero-title-cn">Unreal MCP · Anthropic MCP (Model Context Pro</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">6</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/ModelContextProtocol/ModelContextProtocol.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">Unreal MCP</code>（模块 <code class="usage-code">ModelContextProtocol</code>、<code class="usage-code">ModelContextProtocolEngine</code>、<code class="usage-code">ModelContextProtocolEditor</code> 及测试模块）。</li><li>它是虚幻引擎的 Anthropic MCP（模型上下文协议）服务器实现（让外部 AI 工具通过 MCP 操作引擎）。</li><li>启动 MCP 服务器，配置外部客户端连接以调用引擎能力。</li><li>Experimental：接口可能变动；编辑器/引擎/测试模块分开。</li></ol><p class="usage-note">虚幻引擎的 Anthropic MCP 服务器实现，实验性。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Unreal MCP</code> (modules <code class="usage-code">ModelContextProtocol</code>, <code class="usage-code">ModelContextProtocolEngine</code>, <code class="usage-code">ModelContextProtocolEditor</code>, plus test modules).</li><li>It is the Anthropic MCP (Model Context Protocol) server implementation for Unreal Engine (lets external AI tools drive the engine via MCP).</li><li>Start the MCP server and configure an external client to connect and call engine capabilities.</li><li>Experimental: contract may change; editor/engine/test modules are separate.</li></ol><p class="usage-note">An Anthropic MCP server implementation for Unreal Engine, experimental.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Anthropic MCP (Model Context Protocol) server implementation for Unreal Engine.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (6)</div><div class="module-item"><span class="dot"></span><span class="name mono">ModelContextProtocol</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ModelContextProtocolEngine</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ModelContextProtocolEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ModelContextProtocolTests</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ModelContextProtocolEngineTests</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ModelContextProtocolEditorTests</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/ModelContextProtocol/ModelContextProtocol.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

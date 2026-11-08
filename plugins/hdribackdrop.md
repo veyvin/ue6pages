@@ -1,7 +1,9 @@
 ---
 layout: default
-title: HDRI背景 / HDRIBackdrop
+title: HDRIBackdrop / HDRIBackdrop
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: HDRI背景 / HDRIBackdrop
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">HDRIBackdrop</div>
-      <div class="hero-title-cn">HDRI背景 · （无描述）</div>
+      <div class="hero-title-cn">HDRIBackdrop · (no description)</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Rendering</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,80 +24,9 @@ title: HDRI背景 / HDRIBackdrop
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div></div>
+      <div class="desc-body"><p>(no description)</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：（无描述）</p><p>运行时插件，启用后可进游戏包。</p><p>它打包的模块包括：HDRIBackdrop。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: (no description)</p><p>A runtime plugin that can ship in a cooked game.</p><p>It ships these modules: HDRIBackdrop. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">HDRIBackdrop</code>（模块 <code class="usage-code">HDRIBackdrop</code>）。</li><li>在关卡放置 HDRIBackdrop Actor，指定 HDRI 贴图作为背景环境。</li><li>调整背景亮度/朝向与地面合成，用于展示、布光或快速出片。</li><li>运行时可放置，用于背景环境与光照参考。</li></ol><p class="usage-note">用 HDRI 贴图做背景环境的 Actor，便于布光/展示。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">HDRIBackdrop</code> (module <code class="usage-code">HDRIBackdrop</code>).</li><li>Place an HDRIBackdrop actor in the level and assign an HDRI texture as the background environment.</li><li>Tune background intensity/orientation and ground compositing for showcase, lighting, or quick renders.</li><li>It is placeable at runtime and serves as background environment and lighting reference.</li></ol><p class="usage-note">An actor that uses an HDRI texture as background environment for lighting/showcase.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">HDRIBackdrop</span><span class="tag runtime">Runtime</span></div></div>

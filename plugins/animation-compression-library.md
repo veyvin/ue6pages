@@ -3,17 +3,38 @@ layout: default
 title: 动画压缩库 / Animation Compression Library
 ---
 
-<h1>动画压缩库 / Animation Compression Library</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Animation/ACLPlugin/ACLPlugin.uplugin</code></span></li><li><span class="label">版本</span><span class="value">3.1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ACLPlugin, ACLPluginEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Animation Compression Library</div>
+      <div class="hero-title-cn">动画压缩库 · 使用动画压缩库 (ACL) 来压缩动画序列。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">3.1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Animation/ACLPlugin/ACLPlugin.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Animation Compression Library</code>（运行时 <code class="usage-code">ACLPlugin</code>，编辑器 <code class="usage-code">ACLPluginEditor</code>）。</li><li>内容浏览器新建 <code class="usage-code">Bone Compression Settings</code>（<code class="usage-code">UAnimBoneCompressionSettings</code>），Codec 选 <code class="usage-code">Anim Compress ACL</code>（<code class="usage-code">UAnimBoneCompressionCodec_ACL</code>）；曲线可用 <code class="usage-code">UAnimCurveCompressionCodec_ACL</code>。</li><li>打开 <code class="usage-code">Anim Sequence</code>，在 Asset Details 的 Compression Settings 指定该资产并 Apply Compression，在动画编辑器里看 ACL 误差/内存统计。</li><li>需要按平台剥精度时再建 <code class="usage-code">UAnimationCompressionLibraryDatabase</code>，Codec 改用 <code class="usage-code">UAnimBoneCompressionCodec_ACLDatabase</code>，把序列编进数据库。</li><li>骨架默认压缩也可指向同一份 ACL Settings，避免每条序列手填。</li><li>游戏模块只依赖 <code class="usage-code">ACLPlugin</code> 做运行时解压；<code class="usage-code">ACLPluginEditor</code> 禁止进 Game Target。</li></ol><p class="usage-note">ACL 替换 AnimSequence 的骨骼/曲线压缩 Codec，不会在关卡里出现组件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Animation Compression Library</code> (runtime <code class="usage-code">ACLPlugin</code>, editor <code class="usage-code">ACLPluginEditor</code>).</li><li>Create a <code class="usage-code">Bone Compression Settings</code> asset (<code class="usage-code">UAnimBoneCompressionSettings</code>) whose codec is <code class="usage-code">Anim Compress ACL</code> (<code class="usage-code">UAnimBoneCompressionCodec_ACL</code>); curves can use <code class="usage-code">UAnimCurveCompressionCodec_ACL</code>.</li><li>On an <code class="usage-code">Anim Sequence</code>, assign that asset under Compression Settings and Apply Compression; inspect ACL error/memory in the animation editor.</li><li>For per-platform stripping, create <code class="usage-code">UAnimationCompressionLibraryDatabase</code> and switch the codec to <code class="usage-code">UAnimBoneCompressionCodec_ACLDatabase</code>, then register sequences in the database.</li><li>Point skeleton default compression at the same ACL settings so you are not filling every sequence by hand.</li><li>Game modules depend on <code class="usage-code">ACLPlugin</code> for runtime decompress; never link <code class="usage-code">ACLPluginEditor</code> into a Game target.</li></ol><p class="usage-note">ACL replaces AnimSequence bone/curve codecs; there is no level component.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用动画压缩库 (ACL) 来压缩动画序列。</div><div class="lang-content">Use the Animation Compression Library (ACL) to compress AnimSequences.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">ACLPlugin</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ACLPluginEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Animation/ACLPlugin/ACLPlugin.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

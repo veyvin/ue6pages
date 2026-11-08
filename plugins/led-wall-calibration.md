@@ -1,7 +1,9 @@
 ---
 layout: default
-title: LED 墙校准 / Led Wall Calibration
+title: Led Wall Calibration / Led Wall Calibration
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: LED 墙校准 / Led Wall Calibration
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Led Wall Calibration</div>
-      <div class="hero-title-cn">LED 墙校准 · LED 墙校准工具</div>
+      <div class="hero-title-cn">Led Wall Calibration · Tools for Led Wall calibration</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,76 +24,9 @@ title: LED 墙校准 / Led Wall Calibration
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">LED 墙校准工具</div><div class="lang-content">Tools for Led Wall calibration</div></div></div>
+      <div class="desc-body"><p>Tools for Led Wall calibration</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：LED 墙校准工具</p><p>Epic 把它放在 Experimental：功能可用，但接口可能随夜构建变化。</p><p>它打包的模块包括：LedWallCalibrationEditor, LedWallCalibration。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Tools for Led Wall calibration</p><p>Epic ships this under Experimental: usable, but the contract may change on nightly builds.</p><p>It ships these modules: LedWallCalibrationEditor, LedWallCalibration. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Led Wall Calibration</code>（运行时 <code class="usage-code">LedWallCalibration</code>，编辑器 <code class="usage-code">LedWallCalibrationEditor</code>），属 Virtual Production。</li><li>在 LED 墙虚拟制片场景里，用该工具对摄像机与 LED 墙做几何/色彩校准。</li><li>按引导采集校准数据，生成校正参数并应用到 nDisplay 配置。</li><li>这是校准工具；具体播放仍由 nDisplay / ICVFX 负责。</li></ol><p class="usage-note">LED 墙几何/色彩校准，配合 nDisplay 与 ICVFX。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Led Wall Calibration</code> (runtime <code class="usage-code">LedWallCalibration</code>, editor <code class="usage-code">LedWallCalibrationEditor</code>), part of Virtual Production.</li><li>In an LED-wall virtual production scene, use it to calibrate camera and LED wall geometry/color.</li><li>Follow the guided capture to collect calibration data, generate correction parameters, and apply them to the nDisplay config.</li><li>It is a calibration tool; actual playback stays with nDisplay / ICVFX.</li></ol><p class="usage-note">LED wall geometry/color calibration, paired with nDisplay and ICVFX.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">LedWallCalibrationEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LedWallCalibration</span><span class="tag runtime">Runtime</span></div></div>

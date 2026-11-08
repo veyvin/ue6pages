@@ -3,17 +3,38 @@ layout: default
 title: 调试绘图 / DebugDraw
 ---
 
-<h1>调试绘图 / DebugDraw</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/DebugDraw/DebugDraw.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">编程</div><div class="lang-content">Programming</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">DebugDraw</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">DebugDraw</div>
+      <div class="hero-title-cn">调试绘图 · 用于调试可视化的无锁、色调映射后形状渲染 (UE::DebugD</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Programming</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/DebugDraw/DebugDraw.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">DebugDraw</code> 是 <code class="usage-code">UE::DebugDraw::*</code> 系列 API，绕开 <code class="usage-code">ULineBatchComponent</code>，做高吞吐量、无锁、色调映射后的调试线/形状绘制。</li><li>启用后把代码里的 <code class="usage-code">DrawDebugLine</code>/<code class="usage-code">ULineBatchComponent</code> 调用换成 <code class="usage-code">UE::DebugDraw::Line/Box/Sphere</code> 等函数。</li><li>把绘制写进每帧的 <code class="usage-code">FDebugDrawContext</code> 回调里，避免在渲染线程加锁，从而支撑成千上万条调试图元。</li><li>用对应 cvar（<code class="usage-code">r.DebugDraw.*</code> 之类）开关和限流，只在需要时打开，定位只在调试构建出现的高频绘制问题。</li><li>因为它在 tonemap 之后渲染且是 Experimental，先在目标 RHI（DX12/Vulkan）下验证，再决定是否替换旧的 DrawDebug 路径。</li></ol><p class="usage-note">色调映射后渲染意味着颜色/透明度与普通 DrawDebug 不同；对比截图时别把它当旧接口的等价替代。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">DebugDraw</code> is the <code class="usage-code">UE::DebugDraw::*</code> API family; it bypasses <code class="usage-code">ULineBatchComponent</code> to draw debug lines/shapes lock-free and post-tonemap at high throughput.</li><li>After enabling, replace <code class="usage-code">DrawDebugLine</code>/<code class="usage-code">ULineBatchComponent</code> calls in your code with <code class="usage-code">UE::DebugDraw::Line/Box/Sphere</code> and friends.</li><li>Emit the draws from a per-frame <code class="usage-code">FDebugDrawContext</code> callback to avoid locking the render thread, sustaining thousands of debug primitives.</li><li>Gate and throttle it with the related cvars (<code class="usage-code">r.DebugDraw.*</code> and similar) so it is only on when needed, for high-frequency draw problems.</li><li>Because it draws after tonemap and is Experimental, verify on your target RHI (DX12/Vulkan) before replacing older DrawDebug paths.</li></ol><p class="usage-note">Post-tonemap rendering means colors/opacity differ from plain DrawDebug; don&#x27;t treat it as a drop-in match when comparing screenshots.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于调试可视化的无锁、色调映射后形状渲染 (UE::DebugDraw::*)。用于大容量调试绘制路径的 ULineBatchComponent / DrawDebugLine 的替代方案。</div><div class="lang-content">Lock-free, post-tonemap shape rendering for debug visualization (UE::DebugDraw::*). Alternative to ULineBatchComponent / DrawDebugLine for high-volume debug draw paths.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">DebugDraw</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/DebugDraw/DebugDraw.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

@@ -3,17 +3,38 @@ layout: default
 title: 异步消息系统 / AsyncMessageSystem
 ---
 
-<h1>异步消息系统 / AsyncMessageSystem</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/AsyncMessageSystem/AsyncMessageSystem.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">框架</div><div class="lang-content">Framework</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AsyncMessageSystem</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">AsyncMessageSystem</div>
+      <div class="hero-title-cn">异步消息系统 · 异步消息系统</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Framework</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/AsyncMessageSystem/AsyncMessageSystem.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 插件 <code class="usage-code">AsyncMessageSystem</code>，游戏模块同时依赖 <code class="usage-code">GameplayTags</code> 与 <code class="usage-code">AsyncMessageSystem</code>。</li><li>定义消息身份 <code class="usage-code">FAsyncMessageId</code>（内部是 Gameplay Tag，子 Tag 会扇出到父监听者）。</li><li>从 <code class="usage-code">UAsyncMessageWorldSubsystem</code> 取当前 World 的消息系统；需要独立通道时在 Actor 上加 <code class="usage-code">UAsyncMessageBindingComponent</code>。</li><li>用 <code class="usage-code">BindListener</code> 加上 <code class="usage-code">FAsyncMessageBindingOptions</code>（Tick Group / 线程 / 任务优先级）绑定回调，保存 <code class="usage-code">FAsyncMessageHandle</code>。</li><li>发送时调用 <code class="usage-code">QueueMessageForBroadcast</code>（或蓝图 <code class="usage-code">UAsyncMessageSystemBlueprintLibrary::Queue Async Message for Broadcast</code>），载荷用 <code class="usage-code">FInstancedStruct</code>，系统会拷贝以便跨线程读取。</li><li>在监听回调里读 <code class="usage-code">FAsyncMessage</code>（<code class="usage-code">GetPayloadData</code> / <code class="usage-code">GetQueueFrame</code>）；投递是延迟的，不要假设 Queue 返回后回调已跑完。</li><li>需要调用栈时在项目设置打开 <code class="usage-code">bShouldRecordQueueCallstackOnMessages</code>。接口仍可能随夜构建变化。</li></ol><p class="usage-note">按 Tag 寻址、可跨线程的延迟广播；载荷会被拷贝，保持结构体小。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">AsyncMessageSystem</code> and depend on both <code class="usage-code">GameplayTags</code> and <code class="usage-code">AsyncMessageSystem</code> in the game module.</li><li>Identify messages with <code class="usage-code">FAsyncMessageId</code> (a Gameplay Tag; child tags fan out to parent listeners).</li><li>Get the per-world system from <code class="usage-code">UAsyncMessageWorldSubsystem</code>; add <code class="usage-code">UAsyncMessageBindingComponent</code> when you need a private endpoint on an actor.</li><li>Bind with <code class="usage-code">BindListener</code> and <code class="usage-code">FAsyncMessageBindingOptions</code> (tick group / thread / task priority) and keep the <code class="usage-code">FAsyncMessageHandle</code>.</li><li>Send with <code class="usage-code">QueueMessageForBroadcast</code> (or Blueprint <code class="usage-code">UAsyncMessageSystemBlueprintLibrary::Queue Async Message for Broadcast</code>); the <code class="usage-code">FInstancedStruct</code> payload is copied for other threads.</li><li>In the listener, read <code class="usage-code">FAsyncMessage</code> (<code class="usage-code">GetPayloadData</code> / <code class="usage-code">GetQueueFrame</code>); delivery is deferred — do not assume the callback ran before Queue returns.</li><li>Enable <code class="usage-code">bShouldRecordQueueCallstackOnMessages</code> in project settings if you need queue callstacks. The API may still change.</li></ol><p class="usage-note">Tag-addressed, deferred, cross-thread broadcast; payloads are copied, so keep structs small.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">异步消息系统</div><div class="lang-content">Async Message System</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">AsyncMessageSystem</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/AsyncMessageSystem/AsyncMessageSystem.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

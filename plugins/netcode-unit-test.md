@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 网络代码单元测试 / Netcode Unit Test
+title: Netcode Unit Test / Netcode Unit Test
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 网络代码单元测试 / Netcode Unit Test
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Netcode Unit Test</div>
-      <div class="hero-title-cn">网络代码单元测试 · 用于测试虚幻引擎网络代码的单元测试框架，主要针对错误和漏洞利用</div>
+      <div class="hero-title-cn">Netcode Unit Test · A unit testing framework for tes</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Networking</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,62 +24,9 @@ title: 网络代码单元测试 / Netcode Unit Test
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于测试虚幻引擎网络代码的单元测试框架，主要针对错误和漏洞利用</div><div class="lang-content">A unit testing framework for testing the Unreal Engine netcode, primarily for bugs and exploits</div></div></div>
+      <div class="desc-body"><p>A unit testing framework for testing the Unreal Engine netcode, primarily for bugs and exploits</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：用于测试虚幻引擎网络代码的单元测试框架，主要针对错误和漏洞利用</p><p>这是引擎 Plugins 目录下的官方插件，由对应 .uplugin 描述其职责。</p><p>它打包的模块包括：NetcodeUnitTest。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: A unit testing framework for testing the Unreal Engine netcode, primarily for bugs and exploits</p><p>This is an engine plugin under Plugins/; its .uplugin states its job.</p><p>It ships these modules: NetcodeUnitTest. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Netcode Unit Test</code>（模块 <code class="usage-code">NetcodeUnitTest</code>）。</li><li>它是测试 UE 网络代码的单元测试框架，主要针对 bug 与漏洞利用。</li><li>编写/运行网络单元测试，验证复制与网络行为。</li><li>这是测试框架插件，不进正式产品。</li></ol><p class="usage-note">测试 UE 网络代码的单元测试框架（bug/漏洞）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Netcode Unit Test</code> (module <code class="usage-code">NetcodeUnitTest</code>).</li><li>It is a unit-testing framework for testing UE netcode, primarily for bugs and exploits.</li><li>Author/run network unit tests to validate replication and networking behavior.</li><li>It is a test-framework plugin, not for production.</li></ol><p class="usage-note">A unit-testing framework for UE netcode (bugs/exploits).</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">NetcodeUnitTest</span><span class="tag runtime">Runtime</span></div></div>

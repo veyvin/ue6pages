@@ -3,17 +3,38 @@ layout: default
 title: 示例CharacterFXEditor / ExampleCharacterFXEditor
 ---
 
-<h1>示例CharacterFXEditor / ExampleCharacterFXEditor</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/CharacterFXEditor/ExampleCharacterFXEditor/ExampleCharacterFXEditor.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">其他</div><div class="lang-content">Other</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ExampleCharacterFXEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">E</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">ExampleCharacterFXEditor</div>
+      <div class="hero-title-cn">示例CharacterFXEditor · 使用 BaseCharacterFXEditor 基类的示例资源</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/CharacterFXEditor/ExampleCharacterFXEditor/ExampleCharacterFXEditor.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">ExampleCharacterFXEditor</code> 是基于 <code class="usage-code">BaseCharacterFXEditor</code> 基类的示例资产编辑器。先读它的模块源码，理解如何从基类派生出一个自定义 asset editor。</li><li>启用后在编辑器里打开它注册的示例资产/工具入口，观察自定的 Toolkit 面板、视口与细节面板是怎么拼起来的。</li><li>把它的 <code class="usage-code">FExampleCharacterFXEditor</code> 结构当模板：复制骨架，在你自己的 <code class="usage-code">StartupModule</code> 里注册 asset editor 与 <code class="usage-code">AssetTypeActions</code>。</li><li>在 <code class="usage-code">Tools</code> 菜单看到示例入口后，对示例资产执行一次编辑，确认 tool mode、视口交互与细节面板属性联动正常。</li><li>真正做自己的 CharacterFX 编辑器时继承 <code class="usage-code">BaseCharacterFXEditor</code> 基类，而不是修改示例本体，避免和 Experimental 版本冲突。</li><li>它注册在 <code class="usage-code">*Editor</code> 模块，只用于编辑器侧；不要把 <code class="usage-code">ExampleCharacterFXEditor</code> 链接进 Game target。</li></ol><p class="usage-note">示例源码，教你用 `BaseCharacterFXEditor` 搭自定义资产编辑器；生产时继承基类而非改示例。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">ExampleCharacterFXEditor</code> is a sample asset editor built on the <code class="usage-code">BaseCharacterFXEditor</code> base classes. Read its module source to see how a custom asset editor is derived from the base.</li><li>Enable it, then open the sample asset/tool entry it registers in the editor and study how its Toolkit panels, viewport, and details panel are assembled.</li><li>Treat its <code class="usage-code">FExampleCharacterFXEditor</code> as a template: copy the skeleton and register your own asset editor and <code class="usage-code">AssetTypeActions</code> in your <code class="usage-code">StartupModule</code>.</li><li>With the sample entry visible under the <code class="usage-code">Tools</code> menu, edit a sample asset once and confirm tool mode, viewport interaction, and details-property binding all stay in sync.</li><li>To build your own CharacterFX editor, subclass <code class="usage-code">BaseCharacterFXEditor</code> rather than modifying the example itself, so Experimental changes do not collide with your code.</li><li>It registers in an <code class="usage-code">*Editor</code> module and is editor-only; never link <code class="usage-code">ExampleCharacterFXEditor</code> into a Game target.</li></ol><p class="usage-note">Sample source teaching you to build a custom asset editor on `BaseCharacterFXEditor`. For production, subclass the base instead of editing the sample.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用 BaseCharacterFXEditor 基类的示例资源编辑器</div><div class="lang-content">Example asset editor using the BaseCharacterFXEditor base classes</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ExampleCharacterFXEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/CharacterFXEditor/ExampleCharacterFXEditor/ExampleCharacterFXEditor.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

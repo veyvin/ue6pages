@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 板岩调试器 / Slate Debugger
+title: Slate Debugger / Slate Debugger
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 板岩调试器 / Slate Debugger
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Slate Debugger</div>
-      <div class="hero-title-cn">板岩调试器 · 记录编辑器中的 Slate 焦点和导航事件，并通过 USlate</div>
+      <div class="hero-title-cn">Slate Debugger · Records Slate focus and navigati</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>UI</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,46 +24,9 @@ title: 板岩调试器 / Slate Debugger
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">记录编辑器中的 Slate 焦点和导航事件，并通过 USlateDebuggerSubsystem 将它们公开给 Python 和 AI 工具。</div><div class="lang-content">Records Slate focus and navigation events in the editor and exposes them to Python and AI tools through USlateDebuggerSubsystem.</div></div></div>
+      <div class="desc-body"><p>Records Slate focus and navigation events in the editor and exposes them to Python and AI tools through USlateDebuggerSubsystem.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Slate 是引擎的立即模式/保留模式混合 UI 工具包，编辑器几乎全部用它画。游戏 UI 通常走 UMG，UMG 再编译成 Slate 控件。</p><p>Epic 把它放在 Experimental：功能可用，但接口可能随夜构建变化。</p><p>它打包的模块包括：SlateDebugger, SlateDebuggerCommonUI。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Slate is the engine’s UI toolkit (immediate/retained hybrid). The editor is almost entirely Slate. Game UI usually goes through UMG, which compiles down to Slate widgets.</p><p>Epic ships this under Experimental: usable, but the contract may change on nightly builds.</p><p>It ships these modules: SlateDebugger, SlateDebuggerCommonUI. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Slate Debugger</code>（模块 <code class="usage-code">SlateDebugger</code>、<code class="usage-code">SlateDebuggerCommonUI</code>）。</li><li>它记录编辑器中的 Slate 焦点与导航事件，并通过 <code class="usage-code">USlateDebuggerSubsystem</code> 暴露给 Python 与 AI 工具。</li><li>在 UI 调试时用其子系统/Python 回溯焦点与导航。</li><li>属 UI 调试工具；编辑器向。</li></ol><p class="usage-note">记录 Slate 焦点/导航并经子系统暴露给 Python/AI。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Slate Debugger</code> (modules <code class="usage-code">SlateDebugger</code>, <code class="usage-code">SlateDebuggerCommonUI</code>).</li><li>It records Slate focus and navigation events in the editor and exposes them to Python and AI tools via <code class="usage-code">USlateDebuggerSubsystem</code>.</li><li>During UI debugging, use its subsystem/Python to trace focus and navigation.</li><li>It is a UI debug tool; editor-oriented.</li></ol><p class="usage-note">Records Slate focus/navigation and exposes it to Python/AI via a subsystem.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">SlateDebugger</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">SlateDebuggerCommonUI</span><span class="tag runtime">Runtime</span></div></div>

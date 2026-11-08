@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 通用UI插件 / Common UI Plugin
+title: Common UI Plugin / Common UI Plugin
 ---
 
-<h1>通用UI插件 / Common UI Plugin</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/CommonUI/CommonUI.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用户界面</div><div class="lang-content">UI</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">CommonUI, CommonUIEditor, CommonInput</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Common UI Plugin</div>
+      <div class="hero-title-cn">Common UI Plugin · A repository for game independen</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>UI</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">4</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Runtime/CommonUI/CommonUI.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用运行时 <code class="usage-code">Common UI Plugin</code>（<code class="usage-code">CommonUI</code>、<code class="usage-code">CommonInput</code>，编辑器 <code class="usage-code">CommonUIEditor</code>）并重启。</li><li>在 <code class="usage-code">Project Settings &gt; Game &gt; Common Input Settings</code> 配置 <code class="usage-code">Input Data</code>（键鼠/手柄/触控图标表）和平台策略；把 <code class="usage-code">Game Viewport Client Class</code> 换成 <code class="usage-code">UCommonGameViewportClient</code>（或项目子类）。</li><li>Widget Blueprint 父类用 <code class="usage-code">UCommonActivatableWidget</code> 做界面栈页、<code class="usage-code">UCommonButtonBase</code> 做按钮。在按钮上绑 <code class="usage-code">Input Action</code>（Enhanced Input），让 <code class="usage-code">UCommonUIActionRouterBase</code> 按激活栈路由手柄焦点。</li><li>用自己的 HUD/<code class="usage-code">UCommonActivatableWidgetContainer</code>（Stack / Queue）<code class="usage-code">AddWidget</code> 推入页面；返回时 <code class="usage-code">DeactivateWidget</code>，不要对每层都 <code class="usage-code">Add to Viewport</code>。</li><li>运行时用 <code class="usage-code">UCommonInputSubsystem</code> 读当前输入类型，切换按钮图标。C++ 游戏模块依赖 <code class="usage-code">CommonUI</code> 与 <code class="usage-code">CommonInput</code>；<code class="usage-code">CommonUIEditor</code> 仅 Editor。</li></ol><p class="usage-note">可激活控件栈 + 跨设备输入图标，不是 UMG 替代品。不用 Activatable 容器而直接 Add to Viewport，手柄焦点会丢。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable runtime <code class="usage-code">Common UI Plugin</code> (<code class="usage-code">CommonUI</code>, <code class="usage-code">CommonInput</code>, editor <code class="usage-code">CommonUIEditor</code>) and restart.</li><li>In <code class="usage-code">Project Settings &gt; Game &gt; Common Input Settings</code>, set <code class="usage-code">Input Data</code> (keyboard/gamepad/touch icon tables) and platform policy. Switch <code class="usage-code">Game Viewport Client Class</code> to <code class="usage-code">UCommonGameViewportClient</code> (or a project subclass).</li><li>Parent screen widgets on <code class="usage-code">UCommonActivatableWidget</code> and buttons on <code class="usage-code">UCommonButtonBase</code>. Bind Enhanced Input <code class="usage-code">Input Action</code>s on buttons so <code class="usage-code">UCommonUIActionRouterBase</code> routes gamepad focus through the activation stack.</li><li>Push pages with your HUD / <code class="usage-code">UCommonActivatableWidgetContainer</code> (Stack or Queue) <code class="usage-code">AddWidget</code>; pop with <code class="usage-code">DeactivateWidget</code>. Do not <code class="usage-code">Add to Viewport</code> every layer.</li><li>Read the current input type from <code class="usage-code">UCommonInputSubsystem</code> to swap button icons. Game modules depend on <code class="usage-code">CommonUI</code> and <code class="usage-code">CommonInput</code>; <code class="usage-code">CommonUIEditor</code> is editor-only.</li></ol><p class="usage-note">Activatable widget stack plus cross-device input icons — not a UMG replacement. Skipping the activatable container and using Add to Viewport drops gamepad focus.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>A repository for game independent UI elements.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (4)</div><div class="module-item"><span class="dot"></span><span class="name mono">CommonUI</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CommonUIEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CommonUIDebugging</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">CommonInput</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Runtime/CommonUI/CommonUI.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

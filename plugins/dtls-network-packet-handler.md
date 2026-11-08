@@ -1,19 +1,40 @@
 ---
 layout: default
-title: DTLS 网络数据包处理程序 / DTLS network packet handler
+title: DTLS network packet handler / DTLS network packet handler
 ---
 
-<h1>DTLS 网络数据包处理程序 / DTLS network packet handler</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Runtime/PacketHandlers/DTLSHandlerComponent/DTLSHandlerComponent.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">杂项</div><div class="lang-content">Misc</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">DTLSHandlerComponent</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">DTLS network packet handler</div>
+      <div class="hero-title-cn">DTLS network packet handler · Provides a packet handler compon</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Misc</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Runtime/PacketHandlers/DTLSHandlerComponent/DTLSHandlerComponent.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">DTLS network packet handler</code>（模块 <code class="usage-code">DTLSHandlerComponent</code>）。它是 <code class="usage-code">PacketHandler</code> 管道组件，不能当 <code class="usage-code">UActorComponent</code> 加到 Actor。</li><li>在客户端与服务器的 <code class="usage-code">DefaultEngine.ini</code> 写 <code class="usage-code">[PacketHandlerComponents]</code>，<code class="usage-code">Components=DTLSHandlerComponent</code>（名称不要写成 AES 那两个 Handler）。</li><li>配置 DTLS 证书/密钥（引擎 DTLS 设置或部署时下发的 cert），保证 DS 与客户端是同一套身份材料。</li><li>用 dedicated server 联机进关，确认握手完成后复制包走 DTLS 加解密（比预共享 AES 更接近证书握手）。</li><li>两端 PacketHandler 列表必须一致，否则加密通道建不起来。</li><li>可进 Shipping；若只需要对称预共享密钥，应改用 <code class="usage-code">AESGCMHandlerComponent</code> 而不是误配 DTLS。</li></ol><p class="usage-note">基于 DTLS 的包加密 Handler，需要证书材料；与 AES/AES-GCM Handler 互不替换名字。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">DTLS network packet handler</code> (module <code class="usage-code">DTLSHandlerComponent</code>). It is a <code class="usage-code">PacketHandler</code> pipeline component, not a <code class="usage-code">UActorComponent</code>.</li><li>On both client and server <code class="usage-code">DefaultEngine.ini</code>, set <code class="usage-code">[PacketHandlerComponents]</code> <code class="usage-code">Components=DTLSHandlerComponent</code> (not the AES handler names).</li><li>Provision DTLS certificates/keys (engine DTLS settings or deployed certs) so DS and clients share the same identity material.</li><li>Join a dedicated server and confirm replication is DTLS-encrypted after handshake (certificate-style, unlike pre-shared AES).</li><li>PacketHandler lists must match on both ends or the encrypted channel will not come up.</li><li>Shippable; if you only want a pre-shared symmetric key, use <code class="usage-code">AESGCMHandlerComponent</code> instead of misconfiguring DTLS.</li></ol><p class="usage-note">DTLS packet encryption that needs certificates; not interchangeable with the AES/AES-GCM handler names.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Provides a packet handler component to do DTLS encryption and decryption.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">DTLSHandlerComponent</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Runtime/PacketHandlers/DTLSHandlerComponent/DTLSHandlerComponent.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

@@ -1,19 +1,40 @@
 ---
 layout: default
-title: 程序内容生成框架 (PCG) 水互操作 / Procedural Content Generation Framework (PCG) Water Interop
+title: Procedural Content Generation Framework (PCG) Water Interop / Procedural Content Generation Framework (PCG) Water Interop
 ---
 
-<h1>程序内容生成框架 (PCG) 水互操作 / Procedural Content Generation Framework (PCG) Water Interop</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/PCGInterops/PCGWaterInterop/PCGWaterInterop.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">编辑</div><div class="lang-content">Editor</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">PCGWaterInterop</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">P</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Procedural Content Generation Framework (PCG) Water Interop</div>
+      <div class="hero-title-cn">Procedural Content Generation Framework (PCG) Water Interop · Extra plugin for Procedural Cont</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Editor</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/PCGInterops/PCGWaterInterop/PCGWaterInterop.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Procedural Content Generation Framework (PCG) Water Interop</code>（模块 <code class="usage-code">PCGWaterInterop</code>）。</li><li>它让 PCG 与 Water 水体系统互操作。</li><li>在 PCG 图里沿河流/湖泊样条采样或避开水面生成内容。</li><li>属实验性 PCG 互操作；需启用 PCG 与 Water。</li></ol><p class="usage-note">PCG 与 Water 水体系统的互操作。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Procedural Content Generation Framework (PCG) Water Interop</code> (module <code class="usage-code">PCGWaterInterop</code>).</li><li>It lets PCG interoperate with the Water system.</li><li>Sample along river/lake splines or keep generated content off the water surface in PCG graphs.</li><li>It is experimental PCG interop; requires PCG and Water.</li></ol><p class="usage-note">PCG interop with the Water system.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Extra plugin for Procedural Content Generation Framework interacting with the Water system.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">PCGWaterInterop</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/PCGInterops/PCGWaterInterop/PCGWaterInterop.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

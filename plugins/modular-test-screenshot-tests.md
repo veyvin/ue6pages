@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 模块化测试截图测试 / Modular Test Screenshot Tests
+title: Modular Test Screenshot Tests / Modular Test Screenshot Tests
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 模块化测试截图测试 / Modular Test Screenshot Tests
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Modular Test Screenshot Tests</div>
-      <div class="hero-title-cn">模块化测试截图测试 · ModularTestScreenshot 的测试伴侣：证明客户</div>
+      <div class="hero-title-cn">Modular Test Screenshot Tests · Test companion for ModularTestSc</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Testing</span></div>
     </div>
   </div>
@@ -22,68 +24,9 @@ title: 模块化测试截图测试 / Modular Test Screenshot Tests
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">ModularTestScreenshot 的测试伴侣：证明客户端捕获到达磁盘并且比较结论可能导致测试失败。</div><div class="lang-content">Test companion for ModularTestScreenshot: proves a client capture reaches disk and that a comparison verdict can fail a test.</div></div></div>
+      <div class="desc-body"><p>Test companion for ModularTestScreenshot: proves a client capture reaches disk and that a comparison verdict can fail a test.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：ModularTestScreenshot 的测试伴侣：证明客户端捕获到达磁盘并且比较结论可能导致测试失败。</p><p>这是引擎 Plugins 目录下的官方插件，由对应 .uplugin 描述其职责。</p><p>它打包的模块包括：ModularTestScreenshotTests。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Test companion for ModularTestScreenshot: proves a client capture reaches disk and that a comparison verdict can fail a test.</p><p>This is an engine plugin under Plugins/; its .uplugin states its job.</p><p>It ships these modules: ModularTestScreenshotTests. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Modular Test Screenshot Tests</code>（模块 <code class="usage-code">ModularTestScreenshotTests</code>）。</li><li>它是 <code class="usage-code">ModularTestScreenshot</code> 的测试伴侣：证明客户端捕获能落盘、且比较结论可使测试失败。</li><li>在 CI/自动化里跑这些用例，验证截图比对链路。</li><li>这是测试配套插件，不要打进发行版本。</li></ol><p class="usage-note">ModularTestScreenshot 的测试伴侣（验证落盘+比对）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Modular Test Screenshot Tests</code> (module <code class="usage-code">ModularTestScreenshotTests</code>).</li><li>It is the test companion for <code class="usage-code">ModularTestScreenshot</code>: proves a client capture reaches disk and a comparison verdict can fail a test.</li><li>Run these cases in CI/automation to validate the screenshot-compare chain.</li><li>It is a test companion; do not ship it in release builds.</li></ol><p class="usage-note">The test companion for ModularTestScreenshot (disk + compare).</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ModularTestScreenshotTests</span><span class="tag runtime">Runtime</span></div></div>

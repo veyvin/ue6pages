@@ -3,17 +3,38 @@ layout: default
 title: 断裂 / Fracture
 ---
 
-<h1>断裂 / Fracture</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/Fracture/Fracture.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">物理</div><div class="lang-content">Physics</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">FractureEngine</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">F</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Fracture</div>
+      <div class="hero-title-cn">断裂 · 添加 FractureEditor 模块</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Physics</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/Fracture/Fracture.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">Fracture</code>（模块 <code class="usage-code">FractureEngine</code>），并保持 Chaos 几何集合 / Fracture Editor 相关插件开启。本模块给断裂编辑器提供引擎侧切割与聚类，不是单独的「破碎组件」面板。</li><li>选中静态网格，生成 <code class="usage-code">Geometry Collection</code> 资产并替换关卡里的网格。切到 <code class="usage-code">Fracture</code> 模式（模式工具栏），用 Uniform / Cluster / Slice / Plane 切块。</li><li>调 <code class="usage-code">Num Voronoi Sites</code>、最小体积、嵌入与聚类层次后 <code class="usage-code">Fracture</code>；视口应看到彩色碎块。保存几何集合资产，否则 PIE 仍是未切的整体。</li><li>把集合 <code class="usage-code">Object Type</code> 设为模拟，加场或碰撞触发应变；PIE 中应沿预切面裂开。运行时依赖 Chaos / <code class="usage-code">GeometryCollectionEngine</code>，<code class="usage-code">FractureEngine</code> 主要服务编辑器切分结果。</li><li>不要把 <code class="usage-code">FractureEngine</code> 误当成 Apex Destruction。编辑器切分数据写在几何集合资产里，Shipping 播的是已切好的集合，不是 Fracture 模式 UI。</li></ol><p class="usage-note">几何集合的预切编辑器后端，不是运行时随机碎裂求解器。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">Fracture</code> (module <code class="usage-code">FractureEngine</code>) and keep Chaos geometry-collection / Fracture Editor plugins on. This module supplies engine-side cut/cluster for the Fracture editor — not a standalone “break component” panel.</li><li>Select a static mesh, create a <code class="usage-code">Geometry Collection</code> asset, and swap it into the level. Enter <code class="usage-code">Fracture</code> mode and cut with Uniform / Cluster / Slice / Plane.</li><li>Tune Voronoi site count, min volume, embed, and cluster hierarchy, then Fracture. Colored pieces should appear; save the collection or PIE still uses the uncut solid.</li><li>Set object type to simulated and trigger strain via a field or impact; PIE should split along the pre-cut faces. Runtime uses Chaos / <code class="usage-code">GeometryCollectionEngine</code>; <code class="usage-code">FractureEngine</code> mainly authors the cuts.</li><li>This is not Apex Destruction. Cut data lives on the geometry collection; shipping plays the authored collection, not the Fracture-mode UI.</li></ol><p class="usage-note">Authoring backend for pre-cut geometry collections, not a runtime random-shatter solver.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">添加 FractureEditor 模块</div><div class="lang-content">Adds Module for FractureEditor</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">FractureEngine</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/Fracture/Fracture.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

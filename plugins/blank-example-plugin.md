@@ -3,17 +3,38 @@ layout: default
 title: 空白示例插件 / Blank Example Plugin
 ---
 
-<h1>空白示例插件 / Blank Example Plugin</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/BlankPlugin/BlankPlugin.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">示例</div><div class="lang-content">Examples</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">BlankPlugin</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">B</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Blank Example Plugin</div>
+      <div class="hero-title-cn">空白示例插件 · 最小插件的示例。  这可以作为创建您自己的插件的起点。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Examples</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/BlankPlugin/BlankPlugin.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>把 <code class="usage-code">Engine/Plugins/Developer/BlankPlugin</code> 整目录复制到项目 <code class="usage-code">Plugins/</code>（不要改引擎树里的示例当产品插件）。</li><li>重命名文件夹、<code class="usage-code">.uplugin</code>、模块名 <code class="usage-code">BlankPlugin</code> 以及描述符里的 FriendlyName/GUID；<code class="usage-code">BlankPlugin.Build.cs</code> 与 <code class="usage-code">FBlankPluginModule</code> 类名一并改掉。</li><li>在 <code class="usage-code">.uplugin</code> 里声明模块类型（Runtime 或 Editor），实现 <code class="usage-code">StartupModule</code> / <code class="usage-code">ShutdownModule</code>。需要 UI 时另加 <code class="usage-code">*Editor</code> 模块，不要把 Slate 链进 Game Target。</li><li>项目 <code class="usage-code">.uproject</code> 的 <code class="usage-code">Plugins</code> 数组启用你的插件名，Generate Project Files 后编译。日志里应出现模块加载，而不是仍加载引擎自带的 <code class="usage-code">BlankPlugin</code>。</li><li>示例默认几乎无功能：在模块启动里注册控制台命令或 Editor 菜单再验证。Developer 示例默认不进 Shipping。</li></ol><p class="usage-note">最小插件模板。正确用法是复制后改名实现 `FBlankPluginModule`，不是在游戏里搜索组件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Copy <code class="usage-code">Engine/Plugins/Developer/BlankPlugin</code> into your project <code class="usage-code">Plugins/</code> folder. Do not turn the engine-tree sample into a product plugin in place.</li><li>Rename the folder, <code class="usage-code">.uplugin</code>, module <code class="usage-code">BlankPlugin</code>, FriendlyName, and GUID. Rename <code class="usage-code">BlankPlugin.Build.cs</code> and <code class="usage-code">FBlankPluginModule</code> to match.</li><li>Declare the module type (Runtime vs Editor) in the <code class="usage-code">.uplugin</code> and implement <code class="usage-code">StartupModule</code> / <code class="usage-code">ShutdownModule</code>. Add a separate <code class="usage-code">*Editor</code> module for UI; do not link Slate into a Game Target.</li><li>Enable your plugin name in the <code class="usage-code">.uproject</code> <code class="usage-code">Plugins</code> array, Generate Project Files, and compile. Logs should load your module, not the engine’s stock <code class="usage-code">BlankPlugin</code>.</li><li>The sample is intentionally empty: register a console command or editor menu in startup to prove it. Developer examples are not Shipping plugins by default.</li></ol><p class="usage-note">Minimal plugin template. Copy, rename, and implement `FBlankPluginModule` — there is no gameplay component to find.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">最小插件的示例。  这可以作为创建您自己的插件的起点。</div><div class="lang-content">An example of a minimal plugin.  This can be used as a starting point when creating your own plugin.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">BlankPlugin</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/BlankPlugin/BlankPlugin.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

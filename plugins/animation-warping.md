@@ -3,17 +3,38 @@ layout: default
 title: 动画变形 / Animation Warping
 ---
 
-<h1>动画变形 / Animation Warping</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Animation/AnimationWarping/AnimationWarping.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AnimationWarpingRuntime, AnimationWarpingEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Animation Warping</div>
+      <div class="hero-title-cn">动画变形 · 动画和姿势扭曲的框架。该插件包括步幅、方向和坡度变形以及根运动增</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Animation/AnimationWarping/AnimationWarping.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Animation Warping</code>（运行时 <code class="usage-code">AnimationWarpingRuntime</code>，图节点 <code class="usage-code">AnimationWarpingEditor</code>）。</li><li>在 Locomotion <code class="usage-code">AnimBP</code> 里，于 Sequence Player / Motion Matching 之后加入 <code class="usage-code">Orientation Warping</code>（腿 IK + 脊柱扭转对齐移动方向）、<code class="usage-code">Stride Warping</code>（按胶囊体速度缩放步幅）、需要贴地时再加 <code class="usage-code">Slope Warping</code>。</li><li>配置对应骨骼（骨盆、IK 脚、脊柱链）和 Warp 轴；方向角通常来自 Movement Component 或 Root Motion。</li><li>胶囊体驱动位移时在图末加 <code class="usage-code">Offset Root Bone</code>，用 <code class="usage-code">EOffsetRootBoneMode</code>（Accumulate / Interpolate / Hold / Release）控制网格相对胶囊体的根偏移；蓝图可用 <code class="usage-code">UAnimationWarpingLibrary::GetOffsetRootTransform</code>。</li><li>调试用 <code class="usage-code">a.AnimNode.OrientationWarping.Debug</code>、<code class="usage-code">a.AnimNode.StrideWarping.Debug</code>、<code class="usage-code">a.AnimNode.SlopeWarping.Enable</code>；游戏模块只依赖 <code class="usage-code">AnimationWarpingRuntime</code>。</li></ol><p class="usage-note">插件还提供 Root Motion Delta 动画属性；Stride Warping 常与 Distance Matching 一起补速率夹紧后的步长差。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Animation Warping</code> (runtime <code class="usage-code">AnimationWarpingRuntime</code>, graph nodes in <code class="usage-code">AnimationWarpingEditor</code>).</li><li>After Sequence Player / Motion Matching in the locomotion <code class="usage-code">AnimBP</code>, add <code class="usage-code">Orientation Warping</code> (leg IK + spine twist vs move direction), <code class="usage-code">Stride Warping</code> (scale stride to capsule speed), and <code class="usage-code">Slope Warping</code> when feet must follow the floor.</li><li>Set pelvis, IK feet, spine chain, and warp axis; feed facing from the movement component or root motion.</li><li>When the capsule drives translation, finish with <code class="usage-code">Offset Root Bone</code> and <code class="usage-code">EOffsetRootBoneMode</code> (Accumulate / Interpolate / Hold / Release). Blueprints can call <code class="usage-code">UAnimationWarpingLibrary::GetOffsetRootTransform</code>.</li><li>Debug with <code class="usage-code">a.AnimNode.OrientationWarping.Debug</code>, <code class="usage-code">a.AnimNode.StrideWarping.Debug</code>, <code class="usage-code">a.AnimNode.SlopeWarping.Enable</code>. Game modules depend on <code class="usage-code">AnimationWarpingRuntime</code> only.</li></ol><p class="usage-note">Also ships the Root Motion Delta animation attribute. Stride Warping often fills the gap after Distance Matching clamps play rate.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">动画和姿势扭曲的框架。该插件包括步幅、方向和坡度变形以及根运动增量动画属性。</div><div class="lang-content">Framework for animation and pose warping. This plugin includes Stride, Orientation, and Slope Warping alongside the Root Motion Delta animation attribute.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">AnimationWarpingRuntime</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AnimationWarpingEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Animation/AnimationWarping/AnimationWarping.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

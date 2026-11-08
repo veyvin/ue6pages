@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 尼亚加拉洞察 / Niagara Insights
+title: Niagara Insights / Niagara Insights
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 尼亚加拉洞察 / Niagara Insights
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Niagara Insights</div>
-      <div class="hero-title-cn">尼亚加拉洞察 · Niagara Unreal Insights 调试和性能</div>
+      <div class="hero-title-cn">Niagara Insights · Niagara Unreal Insights Debuggin</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Insights</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,62 +24,9 @@ title: 尼亚加拉洞察 / Niagara Insights
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Niagara Unreal Insights 调试和性能</div><div class="lang-content">Niagara Unreal Insights Debugging and Performance</div></div></div>
+      <div class="desc-body"><p>Niagara Unreal Insights Debugging and Performance</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Niagara 是虚幻引擎的下一代实时特效系统，用来制作火焰、烟雾、粒子、流体等。技术美术可以在模块栈里自己扩展行为，不必每次都找程序员。发射器可复用，同一次模拟也能用 Sprite、Ribbon、Mesh 多种方式渲染。</p><p>属于特效/Niagara 工具链。</p><p>它打包的模块包括：NiagaraInsights。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">参考文档：<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/niagara-visual-effects-system-in-unreal-engine" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/niagara-visual-effects-system-in-unreal-engine</a></p></div><div class="lang-content"><p>Niagara is Unreal’s next-generation real-time VFX system for fire, smoke, particles, and fluids. Technical artists can add behavior in the module stack without a programmer. Emitters are reusable, and one simulation can render as sprites, ribbons, and meshes at once.</p><p>Part of the FX / Niagara toolchain.</p><p>It ships these modules: NiagaraInsights. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Docs: <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/niagara-visual-effects-system-in-unreal-engine" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/niagara-visual-effects-system-in-unreal-engine</a></p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Niagara Insights</code>（模块 <code class="usage-code">NiagaraInsights</code>）。</li><li>它提供 Niagara 的 Unreal Insights 调试与性能分析。</li><li>启动带该插件的 trace，运行后查看 Niagara 模拟/开销。</li><li>属 Insights/Trace 性能工具。</li></ol><p class="usage-note">Niagara 的 Insights 调试与性能分析。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Niagara Insights</code> (module <code class="usage-code">NiagaraInsights</code>).</li><li>It provides Niagara debugging and performance analysis via Unreal Insights.</li><li>Start a trace with this plugin and inspect Niagara simulation/cost.</li><li>It is an Insights/Trace performance tool.</li></ol><p class="usage-note">Niagara debugging/performance via Insights.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">NiagaraInsights</span><span class="tag runtime">Runtime</span></div></div>

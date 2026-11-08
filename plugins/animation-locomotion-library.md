@@ -3,17 +3,38 @@ layout: default
 title: 动画运动库 / Animation Locomotion Library
 ---
 
-<h1>动画运动库 / Animation Locomotion Library</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Animation/AnimationLocomotionLibrary/AnimationLocomotionLibrary.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">动画片</div><div class="lang-content">Animation</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AnimationLocomotionLibraryRuntime, AnimationLocomotionLibraryEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Animation Locomotion Library</div>
+      <div class="hero-title-cn">动画运动库 · 驾驶运动动画技术合集</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Animation</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Animation/AnimationLocomotionLibrary/AnimationLocomotionLibrary.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Animation Locomotion Library</code>（运行时 <code class="usage-code">AnimationLocomotionLibraryRuntime</code>，编辑器修饰器在 <code class="usage-code">AnimationLocomotionLibraryEditor</code>）。</li><li>打开带 Root Motion 的起步/停步/转向 <code class="usage-code">AnimSequence</code>，<code class="usage-code">Window &gt; Animation Data Modifiers</code> 添加 <code class="usage-code">DistanceCurveModifier</code>，设置 <code class="usage-code">Curve Name</code>、<code class="usage-code">Axis</code>（位移多用 XY，跳跃用 Z）、<code class="usage-code">Sample Rate</code> 后 <code class="usage-code">Apply All Modifiers</code>。</li><li>在 <code class="usage-code">AnimBP</code> 放 <code class="usage-code">Sequence Evaluator</code>，Explicit Time 设为 Dynamic；在该节点的 On Update 绑定里调用 <code class="usage-code">UAnimDistanceMatchingLibrary</code>：停步用 <code class="usage-code">PredictGroundMovementStopLocation</code>（<code class="usage-code">UAnimCharacterMovementLibrary</code>）再 <code class="usage-code">DistanceMatchToTarget</code>，循环步用 <code class="usage-code">AdvanceTimeByDistanceMatching</code>，恒速循环可用 <code class="usage-code">SetPlayRateToMatchSpeed</code>。</li><li>On Update 必须是 Thread Safe，CMC 字段用 Property Access 喂给预测函数；播放速率用 <code class="usage-code">Play Rate Clamp</code>（默认约 0.75–1.25）限制。</li><li>滑步仍在时再叠 <code class="usage-code">Animation Warping</code> 的 Stride Warping；游戏模块只依赖 <code class="usage-code">AnimationLocomotionLibraryRuntime</code>。</li></ol><p class="usage-note">`DistanceCurveModifier` 必须有 Root Motion；没有位移数据时曲线会是一条平线。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Animation Locomotion Library</code> (runtime <code class="usage-code">AnimationLocomotionLibraryRuntime</code>, editor modifiers in <code class="usage-code">AnimationLocomotionLibraryEditor</code>).</li><li>Open a root-motion start/stop/pivot <code class="usage-code">AnimSequence</code>, <code class="usage-code">Window &gt; Animation Data Modifiers</code>, add <code class="usage-code">DistanceCurveModifier</code>, set <code class="usage-code">Curve Name</code>, <code class="usage-code">Axis</code> (XY for travel, Z for jumps), <code class="usage-code">Sample Rate</code>, then <code class="usage-code">Apply All Modifiers</code>.</li><li>In the <code class="usage-code">AnimBP</code> use a <code class="usage-code">Sequence Evaluator</code> with Dynamic Explicit Time. On its On Update binding call <code class="usage-code">UAnimDistanceMatchingLibrary</code>: stops use <code class="usage-code">PredictGroundMovementStopLocation</code> (<code class="usage-code">UAnimCharacterMovementLibrary</code>) then <code class="usage-code">DistanceMatchToTarget</code>; cycles use <code class="usage-code">AdvanceTimeByDistanceMatching</code>; constant-speed loops may use <code class="usage-code">SetPlayRateToMatchSpeed</code>.</li><li>Keep On Update thread-safe and feed CMC fields via Property Access; clamp effective play rate (<code class="usage-code">Play Rate Clamp</code>, typically ~0.75–1.25).</li><li>If feet still slide, layer Stride Warping from <code class="usage-code">Animation Warping</code>. Game modules depend on <code class="usage-code">AnimationLocomotionLibraryRuntime</code> only.</li></ol><p class="usage-note">`DistanceCurveModifier` needs root motion; without travel data the curve is a flat line.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">驾驶运动动画技术合集</div><div class="lang-content">Collection of techniques for driving locomotion animations</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">AnimationLocomotionLibraryRuntime</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">AnimationLocomotionLibraryEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Animation/AnimationLocomotionLibrary/AnimationLocomotionLibrary.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

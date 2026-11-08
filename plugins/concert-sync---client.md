@@ -3,17 +3,38 @@ layout: default
 title: 音乐会同步 - 客户端 / Concert Sync - Client
 ---
 
-<h1>音乐会同步 - 客户端 / Concert Sync - Client</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/Concert/ConcertSync/ConcertSyncClient/ConcertSyncClient.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.2</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">联网</div><div class="lang-content">Networking</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ConcertSyncClient</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Concert Sync - Client</div>
+      <div class="hero-title-cn">音乐会同步 - 客户端 · 连接到 Concert 服务器时启用多用户编辑器会话的客户端插件</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Networking</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.2</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/Concert/ConcertSync/ConcertSyncClient/ConcertSyncClient.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Concert Sync - Client</code>（模块 <code class="usage-code">ConcertSyncClient</code>），并保证 <code class="usage-code">Concert Sync Core</code> 已开；这是连上 Concert 服务器后的多人编辑客户端。</li><li>打开 <code class="usage-code">Window &gt; Multi-User Browser</code>，填显示名，浏览或创建会话；先有人用 <code class="usage-code">Concert Sync - Server</code> / <code class="usage-code">UnrealMultiUserServer</code> 把会话跑起来。</li><li>Join 后在同一关卡移动 Actor、改属性或保存资产，确认其他已加入编辑器出现事务/包同步，而不是自己保存再 SVN 拉。</li><li>用浏览器里的 Presence、锁定和活动日志核对谁在改哪张图；冲突时看事务回放而不是覆盖磁盘上的 <code class="usage-code">.umap</code>。</li><li>离开会话或关掉编辑器会断开 <code class="usage-code">IConcertSyncClient</code>；不要把 <code class="usage-code">ConcertSyncClient</code> 加进游戏 <code class="usage-code">Build.cs</code>。</li></ol><p class="usage-note">只同步编辑器事务与工作副本，不是游戏联机；Shipping 不要带上。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Concert Sync - Client</code> (module <code class="usage-code">ConcertSyncClient</code>) with <code class="usage-code">Concert Sync Core</code>. This is the multi-user editor client that talks to a Concert server.</li><li>Open <code class="usage-code">Window &gt; Multi-User Browser</code>, set a display name, then browse or create a session. Someone must already host via <code class="usage-code">Concert Sync - Server</code> / <code class="usage-code">UnrealMultiUserServer</code>.</li><li>After Join, move actors, edit properties, or save assets on the same map and confirm other joined editors receive transactions/packages — not SVN pull after a local save.</li><li>Use presence, locks, and the activity log to see who owns which map; resolve conflicts by replaying transactions, not overwriting the on-disk <code class="usage-code">.umap</code>.</li><li>Leave session or quit the editor to drop <code class="usage-code">IConcertSyncClient</code>. Do not add <code class="usage-code">ConcertSyncClient</code> to a game <code class="usage-code">Build.cs</code>.</li></ol><p class="usage-note">Syncs editor transactions and workspace copies, not gameplay netcode; keep it out of Shipping.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">连接到 Concert 服务器时启用多用户编辑器会话的客户端插件</div><div class="lang-content">Client plugin to enables multi-users editor sessions when connecting to a Concert Server</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ConcertSyncClient</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/Concert/ConcertSync/ConcertSyncClient/ConcertSyncClient.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

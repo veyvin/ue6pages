@@ -3,17 +3,38 @@ layout: default
 title: 数据史密斯内容 / Datasmith Content
 ---
 
-<h1>数据史密斯内容 / Datasmith Content</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Enterprise/DatasmithContent/DatasmithContent.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">进口商</div><div class="lang-content">Importers</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">DatasmithContent, DatasmithContentEditor</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Datasmith Content</div>
+      <div class="hero-title-cn">数据史密斯内容 · Datasmith 导入器的内容。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Importers</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Enterprise/DatasmithContent/DatasmithContent.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">Datasmith Content</code> 本身不提供导入入口，它是所有 Datasmith 翻译器共享的资产类型库：<code class="usage-code">DatasmithScene</code>、<code class="usage-code">DatasmithAssetUserData</code>、变体集。</li><li>启用后，任意翻译器导入的内容都以这些类型保存；在内容浏览器打开生成的 <code class="usage-code">DatasmithScene</code> 即可查看层级。</li><li>选中导入的 Actor，在细节面板的 Datasmith 分区里查看/编辑 <code class="usage-code">DatasmithAssetUserData</code> 携带的元数据（DCC 对象名、材质名、原始路径）。</li><li>用变体管理器（菜单 <code class="usage-code">Window → Virtual Production → Variant Manager</code>）从导入的变体集生成可切换的状态。</li><li>在关卡蓝图里按标签或元数据筛选 <code class="usage-code">DatasmithScene</code> 下的对象做批量材质覆盖或显隐切换。</li></ol><p class="usage-note">运行时目标只需依赖 `DatasmithContent`；`DatasmithContentEditor` 是纯编辑器模块，别加进 Game Target。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">Datasmith Content</code> has no import entry of its own; it is the shared asset-type library for every Datasmith translator: <code class="usage-code">DatasmithScene</code>, <code class="usage-code">DatasmithAssetUserData</code>, and variant sets.</li><li>Once enabled, content imported by any translator is stored with these types; open the resulting <code class="usage-code">DatasmithScene</code> in the Content Browser to inspect the hierarchy.</li><li>Select an imported actor and read or edit the metadata in <code class="usage-code">DatasmithAssetUserData</code> from the Datasmith section of the Details panel (DCC object name, material name, original path).</li><li>Use the Variant Manager (menu <code class="usage-code">Window → Virtual Production → Variant Manager</code>) to build switchable states from the imported variant set.</li><li>In the level Blueprint, filter actors under the <code class="usage-code">DatasmithScene</code> by tag or metadata to batch material overrides or toggle visibility.</li></ol><p class="usage-note">Runtime targets only need `DatasmithContent`; `DatasmithContentEditor` is editor-only and must not go into a Game target.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">Datasmith 导入器的内容。</div><div class="lang-content">Content for Datasmith Importer.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">DatasmithContent</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DatasmithContentEditor</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Enterprise/DatasmithContent/DatasmithContent.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

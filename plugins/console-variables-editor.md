@@ -3,17 +3,38 @@ layout: default
 title: 控制台变量编辑器 / Console Variables Editor
 ---
 
-<h1>控制台变量编辑器 / Console Variables Editor</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Editor/ConsoleVariablesEditor/ConsoleVariables.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">虚拟制作</div><div class="lang-content">Virtual Production</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">ConsoleVariablesEditor, ConsoleVariablesEditorRuntime</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Console Variables Editor</div>
+      <div class="hero-title-cn">控制台变量编辑器 · 使用 Slate 从此面板保存、加载和控制控制台变量 (cvar</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Virtual Production</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Editor/ConsoleVariablesEditor/ConsoleVariables.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Console Variables Editor</code>（<code class="usage-code">ConsoleVariablesEditor</code> + <code class="usage-code">ConsoleVariablesEditorRuntime</code>）。</li><li>打开 <code class="usage-code">Window &gt; Console Variables</code>，按名搜索并添加 CVar（如 <code class="usage-code">r.ScreenPercentage</code>、<code class="usage-code">r.VSync</code>），在面板里改值，视口应立即变化。</li><li>内容浏览器右键 <code class="usage-code">Miscellaneous</code> / Virtual Production，创建 <code class="usage-code">Console Variables</code> 资产，把当前列表 Save 进该资产。</li><li>换机或换关卡后对该资产 Load，确认同一组 CVar 被写回，而不用手敲 <code class="usage-code">~</code> 控制台。</li><li>nDisplay / 虚拟制作配置可引用这份预设；运行时由 <code class="usage-code">ConsoleVariablesEditorRuntime</code> 应用，面板模块不要进 Game Target。</li></ol><p class="usage-note">给人用的 CVar 预设面板；AI 控制台工具集是另一个插件 `ConsoleToolset`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Console Variables Editor</code> (<code class="usage-code">ConsoleVariablesEditor</code> + <code class="usage-code">ConsoleVariablesEditorRuntime</code>).</li><li>Open <code class="usage-code">Window &gt; Console Variables</code>, search-add CVars (for example <code class="usage-code">r.ScreenPercentage</code>, <code class="usage-code">r.VSync</code>), edit values, and watch the viewport update.</li><li>In the Content Browser, create a <code class="usage-code">Console Variables</code> asset (Miscellaneous / Virtual Production) and Save the current list into it.</li><li>On another machine or map, Load that asset so the same CVar set is restored instead of typing in the <code class="usage-code">~</code> console.</li><li>nDisplay / VP configs can reference the preset; <code class="usage-code">ConsoleVariablesEditorRuntime</code> applies it. Keep the panel module off Game targets.</li></ol><p class="usage-note">Human-facing CVar preset panel; the AI console toolset is the separate `ConsoleToolset` plugin.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用 Slate 从此面板保存、加载和控制控制台变量 (cvar)。</div><div class="lang-content">Save, load and control Console Variables (cvars) from this panel using Slate.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">ConsoleVariablesEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">ConsoleVariablesEditorRuntime</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Editor/ConsoleVariablesEditor/ConsoleVariables.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

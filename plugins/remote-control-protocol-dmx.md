@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 远程控制协议DMX / Remote Control Protocol DMX
+title: Remote Control Protocol DMX / Remote Control Protocol DMX
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 远程控制协议DMX / Remote Control Protocol DMX
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Remote Control Protocol DMX</div>
-      <div class="hero-title-cn">远程控制协议DMX · 允许 DMX 和 RemoteControl API 之间的交互</div>
+      <div class="hero-title-cn">Remote Control Protocol DMX · Allows interactions between DMX </div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Messaging</span><span class="chip">Epic Games, Inc.</span></div>
     </div>
   </div>
@@ -22,52 +24,9 @@ title: 远程控制协议DMX / Remote Control Protocol DMX
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许 DMX 和 RemoteControl API 之间的交互。</div><div class="lang-content">Allows interactions between DMX and RemoteControl API.</div></div></div>
+      <div class="desc-body"><p>Allows interactions between DMX and RemoteControl API.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：允许 DMX 和 RemoteControl API 之间的交互。</p><p>DMX 家族：舞台灯光协议、灯具、像素映射，把引擎接到真实灯光台。</p><p>属于虚拟制片工具链（摄像机、舞台、同步、LED）。</p><p>它打包的模块包括：RemoteControlProtocolDMX, RemoteControlProtocolDMXEditor。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Allows interactions between DMX and RemoteControl API.</p><p>DMX family: lighting protocols, fixtures, and pixel mapping from the engine to a lighting desk.</p><p>Part of the virtual-production toolchain (cameras, stage, sync, LED).</p><p>It ships these modules: RemoteControlProtocolDMX, RemoteControlProtocolDMXEditor. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Remote Control Protocol DMX</code>（运行时 <code class="usage-code">RemoteControlProtocolDMX</code>，编辑器 <code class="usage-code">RemoteControlProtocolDMXEditor</code>）。</li><li>它允许 DMX 与 Remote Control API 交互。</li><li>把灯控台 DMX 通道绑到 Remote Control Preset 属性。</li><li>需 Remote Control API 与 DMX；常用于虚拟制片现场。</li></ol><p class="usage-note">DMX 与 Remote Control API 的协议桥。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Remote Control Protocol DMX</code> (runtime <code class="usage-code">RemoteControlProtocolDMX</code>, editor <code class="usage-code">RemoteControlProtocolDMXEditor</code>).</li><li>It allows interactions between DMX and the Remote Control API.</li><li>Bind lighting-console DMX channels to Remote Control Preset properties.</li><li>Requires Remote Control API and DMX; common on virtual-production sets.</li></ol><p class="usage-note">Protocol bridge between DMX and Remote Control API.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">RemoteControlProtocolDMX</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">RemoteControlProtocolDMXEditor</span><span class="tag runtime">Runtime</span></div></div>

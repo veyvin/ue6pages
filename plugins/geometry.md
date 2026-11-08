@@ -3,17 +3,38 @@ layout: default
 title: 几何学 / Geometry
 ---
 
-<h1>几何学 / Geometry</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Experimental/GeometryCollectionPlugin/GeometryCollectionPlugin.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">几何学</div><div class="lang-content">Geometry</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">GeometryCollectionEditor, GeometryCollectionTracks, GeometryCollectionSequencer, GeometryCollectionNodes, GeometryCollectionDepNodes</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">G</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Geometry</div>
+      <div class="hero-title-cn">几何学 · Adds Geometry Collection Contain</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Geometry</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">5</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Experimental/GeometryCollectionPlugin/GeometryCollectionPlugin.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">Geometry</code>（模块 <code class="usage-code">GeometryCollectionEditor</code>、<code class="usage-code">GeometryCollectionTracks</code>、<code class="usage-code">GeometryCollectionSequencer</code>、<code class="usage-code">GeometryCollectionNodes</code> 等）。</li><li>用于几何集合（Geometry Collection）容器及其 Chaos 破坏/碎裂管线。</li><li>在编辑器里创建 Geometry Collection、设置碎裂，再在 Sequencer 里用其轨道编排。</li><li>Experimental：接口可能变动；编辑器模块不要进 Game Target。</li></ol><p class="usage-note">几何集合容器与 Chaos 破坏管线，和 Geometry Cache 不是一回事。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Geometry</code> (modules <code class="usage-code">GeometryCollectionEditor</code>, <code class="usage-code">GeometryCollectionTracks</code>, <code class="usage-code">GeometryCollectionSequencer</code>, <code class="usage-code">GeometryCollectionNodes</code>, etc.).</li><li>Use it for Geometry Collection containers and the Chaos destruction/fracture pipeline.</li><li>Create a Geometry Collection in the editor, set up fracturing, then sequence it with its tracks in Sequencer.</li><li>Experimental: contract may change; keep editor modules off Game targets.</li></ol><p class="usage-note">Geometry Collection containers plus the Chaos destruction pipeline, distinct from Geometry Cache.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><p>Adds Geometry Collection Container.</p></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (5)</div><div class="module-item"><span class="dot"></span><span class="name mono">GeometryCollectionEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">GeometryCollectionTracks</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">GeometryCollectionSequencer</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">GeometryCollectionNodes</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">GeometryCollectionDepNodes</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Experimental/GeometryCollectionPlugin/GeometryCollectionPlugin.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

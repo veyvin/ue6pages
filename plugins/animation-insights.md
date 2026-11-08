@@ -3,17 +3,38 @@ layout: default
 title: 动画洞察 / Animation Insights
 ---
 
-<h1>动画洞察 / Animation Insights</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Animation/GameplayInsights/GameplayInsights.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">见解</div><div class="lang-content">Insights</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">GameplayInsights, GameplayInsightsEditor, RewindDebugger, RewindDebuggerVLog, RewindDebuggerRuntime, RewindDebuggerVLogRuntime</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">Animation Insights</div>
+      <div class="hero-title-cn">动画洞察 · 允许通过 Unreal Insights 调试动画系统</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Insights</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">6</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Animation/GameplayInsights/GameplayInsights.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Animation Insights</code>（<code class="usage-code">GameplayInsights.uplugin</code>：<code class="usage-code">GameplayInsights</code>、<code class="usage-code">RewindDebugger</code>、<code class="usage-code">RewindDebuggerRuntime</code>、<code class="usage-code">RewindDebuggerVLog</code> 等）并重启。</li><li>打开 <code class="usage-code">Tools &gt; Debug &gt; Rewind Debugger</code> 与 <code class="usage-code">Tools &gt; Debug &gt; Rewind Debugger Details</code>，需要曲线/日志时再开 Visual Logger（<code class="usage-code">RewindDebuggerVLog</code>）。</li><li>PIE 后点 Rewind Debugger 的录制，停录后用 Object Outliner / 滴管选中角色及其 <code class="usage-code">SkeletalMeshComponent</code>。</li><li>时间轴上展开 AnimBP、Montage、Notifies、曲线与姿态轨道，拖动红色播放头对照视口；选中轨道后在 Details 里看混合权重与状态机。</li><li>要做帧耗时分析时 <code class="usage-code">Tools &gt; Launch Unreal Insights</code>，对 <code class="usage-code">animation</code> / AnimGraph 相关 Trace 通道录 <code class="usage-code">.utrace</code>，不要把 <code class="usage-code">GameplayInsightsEditor</code> 链进 Game Target。</li></ol><p class="usage-note">这是 Insights/Rewind 调试器，不是给骨架网格体挂的动画资产。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Animation Insights</code> (<code class="usage-code">GameplayInsights.uplugin</code>: <code class="usage-code">GameplayInsights</code>, <code class="usage-code">RewindDebugger</code>, <code class="usage-code">RewindDebuggerRuntime</code>, <code class="usage-code">RewindDebuggerVLog</code>, …) and restart.</li><li>Open <code class="usage-code">Tools &gt; Debug &gt; Rewind Debugger</code> and <code class="usage-code">Tools &gt; Debug &gt; Rewind Debugger Details</code>; add Visual Logger (<code class="usage-code">RewindDebuggerVLog</code>) when you need logged curves.</li><li>Play in Editor, record in Rewind Debugger, then pick the character and its <code class="usage-code">SkeletalMeshComponent</code> with the Object Outliner / dropper.</li><li>Expand AnimBP, montage, notify, curve, and pose tracks; scrub the red playhead against the viewport and inspect blend weights / state machines in Details.</li><li>For frame-cost work use <code class="usage-code">Tools &gt; Launch Unreal Insights</code> and trace <code class="usage-code">animation</code> / AnimGraph channels to a <code class="usage-code">.utrace</code>. Do not link <code class="usage-code">GameplayInsightsEditor</code> into a Game target.</li></ol><p class="usage-note">Insights/Rewind debugging only — not an animation asset you attach to a skeletal mesh.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许通过 Unreal Insights 调试动画系统</div><div class="lang-content">Allows debugging of animation systems via Unreal Insights</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (6)</div><div class="module-item"><span class="dot"></span><span class="name mono">GameplayInsights</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">GameplayInsightsEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">RewindDebugger</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">RewindDebuggerVLog</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">RewindDebuggerRuntime</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">RewindDebuggerVLogRuntime</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Animation/GameplayInsights/GameplayInsights.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

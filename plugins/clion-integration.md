@@ -3,17 +3,38 @@ layout: default
 title: CLion集成 / CLion Integration
 ---
 
-<h1>CLion集成 / CLion Integration</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Developer/CLionSourceCodeAccess/CLionSourceCodeAccess.uplugin</code></span></li><li><span class="label">版本</span><span class="value">2.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">编程</div><div class="lang-content">Programming</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">点兔公司</div><div class="lang-content">dotBunny, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">CLionSourceCodeAccess</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">C</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">CLion Integration</div>
+      <div class="hero-title-cn">CLion集成 · 允许访问 CLion 中的源代码。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Programming</span><span class="chip">dotBunny, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">2.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">dotBunny, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Developer/CLionSourceCodeAccess/CLionSourceCodeAccess.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 的 Programming 启用 <code class="usage-code">CLion Integration</code>（模块 <code class="usage-code">CLionSourceCodeAccess</code>）并重启。</li><li>打开 <code class="usage-code">Edit &gt; Editor Preferences &gt; General &gt; Source Code</code>，把 <code class="usage-code">Source Code Editor</code> 设为 <code class="usage-code">CLion</code>。</li><li>本机安装 CLion，并对当前 <code class="usage-code">.uproject</code> / 引擎源码执行 Generate Project Files（CMake）。</li><li>内容浏览器双击 C++ 类，或 <code class="usage-code">Tools &gt; Open CLion</code> / Open Source Code；应由 <code class="usage-code">CLionSourceCodeAccess</code> 把文件交给 CLion，而不是 Visual Studio。</li><li>从 Class Viewer 或蓝图 Goto C++ Definition 再验证跳转。不要把该模块写进 Game Target。</li></ol><p class="usage-note">编辑器源码访问器，不进 Shipping。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">CLion Integration</code> under <code class="usage-code">Edit &gt; Plugins</code> (Programming); it loads <code class="usage-code">CLionSourceCodeAccess</code>, then restart.</li><li>Open <code class="usage-code">Edit &gt; Editor Preferences &gt; General &gt; Source Code</code> and set <code class="usage-code">Source Code Editor</code> to <code class="usage-code">CLion</code>.</li><li>Install CLion locally and generate project files (CMake) for this <code class="usage-code">.uproject</code> / engine tree.</li><li>Double-click a C++ class in the Content Browser, or use <code class="usage-code">Tools &gt; Open CLion</code> / Open Source Code; <code class="usage-code">CLionSourceCodeAccess</code> should hand the file to CLion, not Visual Studio.</li><li>Confirm Goto C++ Definition from Class Viewer or a Blueprint also lands in CLion. Do not link this module into a Game target.</li></ol><p class="usage-note">Editor-only source accessor; do not ship it.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许访问 CLion 中的源代码。</div><div class="lang-content">Allows access to source code in CLion.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">CLionSourceCodeAccess</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Developer/CLionSourceCodeAccess/CLionSourceCodeAccess.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

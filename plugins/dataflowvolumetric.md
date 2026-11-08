@@ -3,17 +3,38 @@ layout: default
 title: 数据流体积 / DataflowVolumetric
 ---
 
-<h1>数据流体积 / DataflowVolumetric</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/DataflowVolumetricPlugin/DataflowVolumetricPlugin.uplugin</code></span></li><li><span class="label">版本</span><span class="value">0.1</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">数据流</div><div class="lang-content">Dataflow</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">DataflowVolumeCore, DataflowVolumeNodes</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">D</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">DataflowVolumetric</div>
+      <div class="hero-title-cn">数据流体积 · 为 Dataflow 添加体积支持</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Dataflow</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">0.1</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">2</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/DataflowVolumetricPlugin/DataflowVolumetricPlugin.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">DataflowVolumetric</code>（描述符 <code class="usage-code">DataflowVolumetricPlugin.uplugin</code>，模块 <code class="usage-code">DataflowVolumeCore</code> 与 <code class="usage-code">DataflowVolumeNodes</code>）。</li><li>打开 Geometry Collection / Dataflow 资产，在节点面板搜 Volume / Voxel / SDF 类节点（来自 <code class="usage-code">DataflowVolumeNodes</code>）。</li><li>放入体积源（网格转体素、隐式场或已有 volume 资产），设置体素分辨率、包围盒和对齐方式。</li><li>把体积接到采样、布尔、侵蚀或网格提取节点；求值后在预览里看切面密度，而不是只看表面三角。</li><li>需要运行时求值时，游戏模块依赖 <code class="usage-code">DataflowVolumeCore</code>（加必要的 <code class="usage-code">DataflowVolumeNodes</code>）；不要把体积节点当普通 Static Mesh 组件拖进关卡。</li><li>分辨率过高会爆内存：先用粗糙体素验证拓扑，再提高格子密度。</li></ol><p class="usage-note">给 Dataflow 加体积/体素节点，不是后处理雾体积。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">DataflowVolumetric</code> (<code class="usage-code">DataflowVolumetricPlugin.uplugin</code>, modules <code class="usage-code">DataflowVolumeCore</code> and <code class="usage-code">DataflowVolumeNodes</code>).</li><li>Open a Geometry Collection / Dataflow asset and search the node palette for Volume / Voxel / SDF nodes from <code class="usage-code">DataflowVolumeNodes</code>.</li><li>Add a volume source (mesh-to-voxels, implicit field, or an existing volume asset) and set voxel resolution, bounds, and alignment.</li><li>Wire the volume into sample, boolean, erode, or mesh-extract nodes; after evaluate, inspect slice density in the preview, not only surface triangles.</li><li>If you evaluate at runtime, depend on <code class="usage-code">DataflowVolumeCore</code> (and <code class="usage-code">DataflowVolumeNodes</code> as needed). Do not drop volume nodes into a level as Static Mesh components.</li><li>High resolution explodes memory: prove topology on a coarse grid before refining the lattice.</li></ol><p class="usage-note">Volumetric/voxel nodes for Dataflow, not post-process exponential height fog.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">为 Dataflow 添加体积支持</div><div class="lang-content">Adds volumetric support to Dataflow</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">DataflowVolumeCore</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">DataflowVolumeNodes</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/DataflowVolumetricPlugin/DataflowVolumetricPlugin.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

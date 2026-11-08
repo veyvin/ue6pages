@@ -3,17 +3,38 @@ layout: default
 title: AXF 进口商 / AxF Importer
 ---
 
-<h1>AXF 进口商 / AxF Importer</h1>
 
-<div class="info-card">
-  <ul>
-    <li><span class="label">插件文件</span><span class="value"><code>Engine/Plugins/Enterprise/AxFImporter/AxFImporter.uplugin</code></span></li><li><span class="label">版本</span><span class="value">1.0</span></li><li><span class="label">类别</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">进口商</div><div class="lang-content">Importers</div></div></span></li><li><span class="label">作者</span><span class="value"><div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">史诗游戏公司</div><div class="lang-content">Epic Games, Inc.</div></div></span></li><li><span class="label">模块</span><span class="value">AxFImporter</span></li>
-  </ul>
+
+<!-- Hero card -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="hero-badge">A</div>
+    <div class="hero-info">
+      <div class="hero-subtitle">Plugin / 插件</div>
+      <div class="hero-title">AxF Importer</div>
+      <div class="hero-title-cn">AXF 进口商 · AxF 材质文件的导入器。</div>
+      <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Importers</span><span class="chip">Epic Games, Inc.</span></div>
+    </div>
+  </div>
+  <div class="meta-grid"><div class="meta-item"><div class="meta-label">Version</div><div class="meta-value mono">1.0</div></div><div class="meta-item"><div class="meta-label">Engine</div><div class="meta-value mono">—</div></div><div class="meta-item"><div class="meta-label">Author</div><div class="meta-value">Epic Games, Inc.</div></div><div class="meta-item"><div class="meta-label">Modules</div><div class="meta-value mono">1</div></div><div class="meta-item file-col"><div class="meta-label">Plugin File</div><div class="file-path mono">Plugins/Enterprise/AxFImporter/AxFImporter.uplugin</div></div></div>
 </div>
 
-<div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用企业插件 <code class="usage-code">AxF Importer</code>（<code class="usage-code">Engine/Plugins/Enterprise/AxFImporter/AxFImporter.uplugin</code>）。若构建未链 X-Rite AxF SDK，导入会直接失败，先确认该引擎发行版包含 AxF 运行时。</li><li>在内容浏览器 <code class="usage-code">Import</code> 选择 X-Rite <code class="usage-code">.axf</code>（Appearance Exchange Format）。工厂由模块 <code class="usage-code">AxFImporter</code> 注册，不要走 FBX/USD 材质槽去「假装」导入 AxF。</li><li>导入结果是一套 UE 材质 + 测量贴图（SVBRDF：漫反射、高光、法线、粗糙度等，视 AxF 模型而定），不是可播放网格。检查材质实例参数与贴图 sRGB/线性标记。</li><li>把生成的材质赋给静态/骨骼网格，在默认光照下对比测量球；AxF 是外观交换格式，几何仍用你自己的 FBX/USD。</li><li><code class="usage-code">AxFImporter</code> 是编辑器导入器：不要写进游戏 Target。重新导入时覆盖同路径贴图，避免场景里旧材质实例指向失效纹理。</li></ol><p class="usage-note">X-Rite `.axf` 外观导入器，产出材质与贴图。需要 AxF SDK；不是网格导入器。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the enterprise plugin <code class="usage-code">AxF Importer</code> (<code class="usage-code">Engine/Plugins/Enterprise/AxFImporter/AxFImporter.uplugin</code>). Import fails if this engine build is not linked against the X-Rite AxF SDK — confirm the runtime is present.</li><li>In the Content Browser <code class="usage-code">Import</code> an X-Rite <code class="usage-code">.axf</code> (Appearance Exchange Format). The factory is registered by module <code class="usage-code">AxFImporter</code>; do not try to smuggle AxF through FBX/USD material slots.</li><li>The result is a UE material plus measured maps (SVBRDF: diffuse, specular, normal, roughness, depending on the AxF model), not a playable mesh. Check instance parameters and sRGB vs linear on textures.</li><li>Assign the generated material to your static/skeletal meshes and compare under a known light. AxF is appearance interchange; geometry still comes from your FBX/USD.</li><li><code class="usage-code">AxFImporter</code> is an editor importer — keep it off Game Targets. Reimport over the same texture paths so existing material instances do not dangle.</li></ol><p class="usage-note">X-Rite `.axf` appearance importer producing materials and maps. Needs the AxF SDK; it does not import meshes.</p></div></div></div>
+<!-- Two-column content -->
+<div class="content-grid">
+  <div>
+    <div class="card">
+      <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">AxF 材质文件的导入器。</div><div class="lang-content">Importer for AxF material files.</div></div></div>
     </div>
-
+    
+  </div>
+  <aside class="detail-sidebar">
+    <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">AxFImporter</span><span class="tag runtime">Runtime</span></div></div>
+    <div class="sidebar-card" style="background:var(--surface-container);">
+      <div class="sidebar-card-title">Auto-generated</div>
+      <div style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">
+        Sourced from <span class="mono">Plugins/Enterprise/AxFImporter/AxFImporter.uplugin</span>. Updated daily from the Unreal Engine source tree.
+      </div>
+    </div>
+  </aside>
+</div>

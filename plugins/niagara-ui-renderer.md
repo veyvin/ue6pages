@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 尼亚加拉 UI 渲染器 / Niagara UI Renderer
+title: Niagara UI Renderer / Niagara UI Renderer
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 尼亚加拉 UI 渲染器 / Niagara UI Renderer
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">Niagara UI Renderer</div>
-      <div class="hero-title-cn">尼亚加拉 UI 渲染器 · 使用专用的 UI 精灵渲染器在 Slate/UMG 小部件内渲染</div>
+      <div class="hero-title-cn">Niagara UI Renderer · Renders Niagara CPU particle sys</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>FX</span><span class="chip">Epic Games</span></div>
     </div>
   </div>
@@ -22,60 +24,9 @@ title: 尼亚加拉 UI 渲染器 / Niagara UI Renderer
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用专用的 UI 精灵渲染器在 Slate/UMG 小部件内渲染 Niagara CPU 粒子系统。</div><div class="lang-content">Renders Niagara CPU particle systems inside Slate/UMG widgets using a dedicated UI sprite renderer.</div></div></div>
+      <div class="desc-body"><p>Renders Niagara CPU particle systems inside Slate/UMG widgets using a dedicated UI sprite renderer.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Niagara 是虚幻引擎的下一代实时特效系统，用来制作火焰、烟雾、粒子、流体等。技术美术可以在模块栈里自己扩展行为，不必每次都找程序员。发射器可复用，同一次模拟也能用 Sprite、Ribbon、Mesh 多种方式渲染。</p><p>属于特效/Niagara 工具链。</p><p>它打包的模块包括：NiagaraUIRenderer, NiagaraUIRendererEditor。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">参考文档：<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/niagara-visual-effects-system-in-unreal-engine" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/niagara-visual-effects-system-in-unreal-engine</a></p></div><div class="lang-content"><p>Niagara is Unreal’s next-generation real-time VFX system for fire, smoke, particles, and fluids. Technical artists can add behavior in the module stack without a programmer. Emitters are reusable, and one simulation can render as sprites, ribbons, and meshes at once.</p><p>Part of the FX / Niagara toolchain.</p><p>It ships these modules: NiagaraUIRenderer, NiagaraUIRendererEditor. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Docs: <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/niagara-visual-effects-system-in-unreal-engine" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/niagara-visual-effects-system-in-unreal-engine</a></p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Niagara UI Renderer</code>（运行时 <code class="usage-code">NiagaraUIRenderer</code>，编辑器 <code class="usage-code">NiagaraUIRendererEditor</code>）。</li><li>它用专用 UI 精灵渲染器在 Slate/UMG 小部件内渲染 Niagara CPU 粒子系统。</li><li>在 UMG 控件里放 Niagara UI Renderer，指定 CPU 粒子系统做界面特效。</li><li>Game 模块依赖运行时模块；编辑器模块只进 Editor Target。</li></ol><p class="usage-note">在 Slate/UMG 里渲染 Niagara CPU 粒子的 UI 渲染器。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Niagara UI Renderer</code> (runtime <code class="usage-code">NiagaraUIRenderer</code>, editor <code class="usage-code">NiagaraUIRendererEditor</code>).</li><li>It renders Niagara CPU particle systems inside Slate/UMG widgets via a dedicated UI sprite renderer.</li><li>Drop a Niagara UI Renderer into a UMG widget and assign a CPU particle system for UI VFX.</li><li>Game modules depend on runtime modules; editor modules go to Editor targets only.</li></ol><p class="usage-note">A renderer for Niagara CPU particles inside Slate/UMG.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">NiagaraUIRenderer</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">NiagaraUIRendererEditor</span><span class="tag runtime">Runtime</span></div></div>

@@ -1,7 +1,9 @@
 ---
 layout: default
-title: 控制台工具集 / ConsoleToolset
+title: ConsoleToolset / ConsoleToolset
 ---
+
+
 
 <!-- Hero card -->
 <div class="hero">
@@ -10,7 +12,7 @@ title: 控制台工具集 / ConsoleToolset
     <div class="hero-info">
       <div class="hero-subtitle">Plugin / 插件</div>
       <div class="hero-title">ConsoleToolset</div>
-      <div class="hero-title-cn">控制台工具集 · 用于通过 AI 工具集注册表驱动引擎的控制台子系统（CVar 和</div>
+      <div class="hero-title-cn">ConsoleToolset · Toolsets for driving the engine'</div>
       <div class="hero-tags"><span class="chip chip-primary"><span style="width:6px;height:6px;border-radius:50%;background:var(--primary);display:inline-block;"></span>Other</span></div>
     </div>
   </div>
@@ -22,88 +24,9 @@ title: 控制台工具集 / ConsoleToolset
   <div>
     <div class="card">
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于通过 AI 工具集注册表驱动引擎的控制台子系统（CVar 和 Exec 命令）的工具集。</div><div class="lang-content">Toolsets for driving the engine's console subsystem (CVars and Exec commands) via the AI Toolset Registry.</div></div></div>
+      <div class="desc-body"><p>Toolsets for driving the engine's console subsystem (CVars and Exec commands) via the AI Toolset Registry.</p></div>
     </div>
     
-    
-
-    
-
-    
-
-    
-
-    
-
-        <div class="card role-card" id="role">
-      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：用于通过 AI 工具集注册表驱动引擎的控制台子系统（CVar 和 Exec 命令）的工具集。</p><p>Toolset：给编辑器里的 AI 助手或自动化准备的只读/只写工具，一般不进 Shipping 游戏。</p><p>Epic 把它放在 Experimental：功能可用，但接口可能随夜构建变化。</p><p>它打包的模块包括：ConsoleToolset。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Toolsets for driving the engine's console subsystem (CVars and Exec commands) via the AI Toolset Registry.</p><p>Toolset: read/write tools for the in-editor AI assistant or automation — not a shipping game feature.</p><p>Epic ships this under Experimental: usable, but the contract may change on nightly builds.</p><p>It ships these modules: ConsoleToolset. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="card usage-card" id="usage" data-usage-source="ai">
-      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
-      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
-      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">ConsoleToolset</code>，并打开 <code class="usage-code">Toolset Registry</code> / 编辑器 AI（MCP）会话。</li><li>让助手列出或读取指定 CVar（例如 <code class="usage-code">r.Shadow.Virtual.Enable</code>），对照 <code class="usage-code">~</code> 控制台 <code class="usage-code">Get</code> 的结果。</li><li>用工具集 Set CVar 或 Exec（如 <code class="usage-code">stat unit</code>、<code class="usage-code">r.SetRes</code>）驱动控制台子系统，然后在视口/stat 叠加层验证，而不是打开 <code class="usage-code">Window &gt; Console Variables</code>。</li><li>批量改画质时走本工具集的 exec/cvar 接口；若要保存成可复用资产，改用 <code class="usage-code">Console Variables Editor</code> 的预设资产。</li><li>实验性助手工具，禁止加入 Shipping；危险 exec 先在空工程试。</li></ol><p class="usage-note">给 AI 跑 CVar/Exec；人类预设面板请用 `Console Variables Editor`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">ConsoleToolset</code> and open <code class="usage-code">Toolset Registry</code> / an editor AI (MCP) session.</li><li>Have the assistant list or get a CVar (for example <code class="usage-code">r.Shadow.Virtual.Enable</code>) and compare with <code class="usage-code">~</code> console <code class="usage-code">Get</code>.</li><li>Drive the console subsystem with Set CVar or Exec (<code class="usage-code">stat unit</code>, <code class="usage-code">r.SetRes</code>, …) and verify in the viewport/stat overlay — not via <code class="usage-code">Window &gt; Console Variables</code>.</li><li>Use this toolset for batch quality exec/cvar calls; persist reusable presets with <code class="usage-code">Console Variables Editor</code> assets instead.</li><li>Experimental assistant tools — never Shipping. Try dangerous execs on an empty project first.</li></ol><p class="usage-note">AI-facing CVar/Exec tools; humans saving presets should use `Console Variables Editor`.</p></div></div></div>
-    </div>
-
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">ConsoleToolset</span><span class="tag runtime">Runtime</span></div></div>
