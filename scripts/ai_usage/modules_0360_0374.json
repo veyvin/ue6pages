@@ -1,304 +1,302 @@
 [
   {
+    "slug": "inputbindingsettingsviewer",
+    "kind": "module",
+    "cn_steps": [
+      "`InputBindingSettingsViewer`（Input Binding Settings Viewer）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/InputBindingSettingsViewer/InputBindingSettingsViewer.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`EditorFramework`、`Engine`、`SettingsEditor` 等。",
+      "部署：`InputBindingSettingsViewer` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InputBindingSettingsViewer\" });`；对外暴露 `InputBindingSettingsViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`InputBindingSettingsViewer` (Input Binding Settings Viewer): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/InputBindingSettingsViewer/InputBindingSettingsViewer.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `SettingsEditor` etc.",
+      "Placement: `InputBindingSettingsViewer` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InputBindingSettingsViewer\" });`. Use Public when exposing `InputBindingSettingsViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`InputBindingSettingsViewer`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/InputBindingSettingsViewer/InputBindingSettingsViewer.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`InputBindingSettingsViewer`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/InputBindingSettingsViewer/InputBindingSettingsViewer.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "inputcore",
     "kind": "module",
     "cn_steps": [
-      "用途：`InputCore` 位于 `Runtime`，构建规则 `Runtime/InputCore/InputCore.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`InputCore`（Input Core）：它属于输入设备/输入系统（手柄、键鼠、触控、HID、RawInput）。位于 `Runtime`，构建规则 `Runtime/InputCore/InputCore.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`InputCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 项目设置 > 输入 里映射动作，运行时通过 Enhanced Input 或 InputDevice 读取。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InputCore\" });`；对外暴露 `InputCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`InputCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `InputCore.h` / `InputCoreModule.h`），再用 `FModuleManager::LoadModulePtr<InputCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`InputCore` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `InputCore` lives under `Runtime`; build rule `Runtime/InputCore/InputCore.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`InputCore` (Input Core): it is part of the input devices/system (gamepads, keyboard/mouse, touch, HID, RawInput). Located under `Runtime`; build rule `Runtime/InputCore/InputCore.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `InputCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: map actions in Project Settings > Input and read them via Enhanced Input or the InputDevice at runtime.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InputCore\" });`. Use Public when exposing `InputCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `InputCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `InputCore.h` / `InputCoreModule.h`), then use `FModuleManager::LoadModulePtr<InputCoreModule>` or the exported types directly.",
-      "Transitive deps: `InputCore` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`InputCore` 的构建规则位于 `Runtime/InputCore/InputCore.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`InputCore` build rule is `Runtime/InputCore/InputCore.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`InputCore`：它属于输入设备/输入系统（手柄、键鼠、触控、HID、RawInput）；构建规则 `Runtime/InputCore/InputCore.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`InputCore`: it is part of the input devices/system (gamepads, keyboard/mouse, touch, HID, RawInput); build rule `Runtime/InputCore/InputCore.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "inputdevice",
     "kind": "module",
     "cn_steps": [
-      "用途：`InputDevice` 位于 `Runtime`，构建规则 `Runtime/InputDevice/InputDevice.Build.cs`。它直接依赖 2 个模块：`Core`, `Engine`。",
+      "`InputDevice`（Input Device）：它属于输入设备/输入系统（手柄、键鼠、触控、HID、RawInput）。位于 `Runtime`，构建规则 `Runtime/InputDevice/InputDevice.Build.cs`。直接依赖 2 个模块：`Core`、`Engine`。",
+      "部署：`InputDevice` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 项目设置 > 输入 里映射动作，运行时通过 Enhanced Input 或 InputDevice 读取。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InputDevice\" });`；对外暴露 `InputDevice` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`InputDevice` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `InputDevice.h` / `InputDeviceModule.h`），再用 `FModuleManager::LoadModulePtr<InputDeviceModule>` 或直接使用导出类型。",
-      "传递依赖：`InputDevice` 还依赖 `Core`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `InputDevice` lives under `Runtime`; build rule `Runtime/InputDevice/InputDevice.Build.cs`.It directly depends on 2 modules: `Core`, `Engine`.",
+      "`InputDevice` (Input Device): it is part of the input devices/system (gamepads, keyboard/mouse, touch, HID, RawInput). Located under `Runtime`; build rule `Runtime/InputDevice/InputDevice.Build.cs`. It directly depends on 2 modules: `Core`, `Engine`.",
+      "Placement: `InputDevice` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: map actions in Project Settings > Input and read them via Enhanced Input or the InputDevice at runtime.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InputDevice\" });`. Use Public when exposing `InputDevice` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `InputDevice` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `InputDevice.h` / `InputDeviceModule.h`), then use `FModuleManager::LoadModulePtr<InputDeviceModule>` or the exported types directly.",
-      "Transitive deps: `InputDevice` also needs `Core`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`InputDevice` 的构建规则位于 `Runtime/InputDevice/InputDevice.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`InputDevice` build rule is `Runtime/InputDevice/InputDevice.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`InputDevice`：它属于输入设备/输入系统（手柄、键鼠、触控、HID、RawInput）；构建规则 `Runtime/InputDevice/InputDevice.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`InputDevice`: it is part of the input devices/system (gamepads, keyboard/mouse, touch, HID, RawInput); build rule `Runtime/InputDevice/InputDevice.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "installbundlemanager",
     "kind": "module",
     "cn_steps": [
-      "用途：`InstallBundleManager` 位于 `Runtime`，构建规则 `Runtime/InstallBundleManager/InstallBundleManager.Build.cs`。它直接依赖 4 个模块：`ApplicationCore`, `Core`, `IoStoreOnDemandCore`, `Json`。",
+      "`InstallBundleManager`（Install Bundle Manager）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/InstallBundleManager/InstallBundleManager.Build.cs`。直接依赖 4 个模块：`ApplicationCore`、`Core`、`IoStoreOnDemandCore`、`Json`。",
+      "部署：`InstallBundleManager` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InstallBundleManager\" });`；对外暴露 `InstallBundleManager` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`InstallBundleManager` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `InstallBundleManager.h` / `InstallBundleManagerModule.h`），再用 `FModuleManager::LoadModulePtr<InstallBundleManagerModule>` 或直接使用导出类型。",
-      "传递依赖：`InstallBundleManager` 还依赖 `ApplicationCore`, `Core`, `IoStoreOnDemandCore`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `InstallBundleManager` lives under `Runtime`; build rule `Runtime/InstallBundleManager/InstallBundleManager.Build.cs`.It directly depends on 4 modules: `ApplicationCore`, `Core`, `IoStoreOnDemandCore`, `Json`.",
+      "`InstallBundleManager` (Install Bundle Manager): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/InstallBundleManager/InstallBundleManager.Build.cs`. It directly depends on 4 modules: `ApplicationCore`, `Core`, `IoStoreOnDemandCore`, `Json`.",
+      "Placement: `InstallBundleManager` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InstallBundleManager\" });`. Use Public when exposing `InstallBundleManager` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `InstallBundleManager` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `InstallBundleManager.h` / `InstallBundleManagerModule.h`), then use `FModuleManager::LoadModulePtr<InstallBundleManagerModule>` or the exported types directly.",
-      "Transitive deps: `InstallBundleManager` also needs `ApplicationCore`, `Core`, `IoStoreOnDemandCore`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`InstallBundleManager` 的构建规则位于 `Runtime/InstallBundleManager/InstallBundleManager.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`InstallBundleManager` build rule is `Runtime/InstallBundleManager/InstallBundleManager.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`InstallBundleManager`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/InstallBundleManager/InstallBundleManager.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`InstallBundleManager`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/InstallBundleManager/InstallBundleManager.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "instrumentation",
     "kind": "module",
     "cn_steps": [
-      "用途：`Instrumentation` 位于 `Runtime`，构建规则 `Runtime/Instrumentation/Instrumentation.Build.cs`。描述符未声明依赖。",
+      "`Instrumentation`：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）。位于 `Runtime`，构建规则 `Runtime/Instrumentation/Instrumentation.Build.cs`。描述符未声明依赖。",
+      "部署：`Instrumentation` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：几乎被所有模块间接依赖；一般无需显式添加，除非你在写底层插件或工具。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Instrumentation\" });`；对外暴露 `Instrumentation` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Instrumentation` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Instrumentation.h` / `InstrumentationModule.h`），再用 `FModuleManager::LoadModulePtr<InstrumentationModule>` 或直接使用导出类型。",
-      "传递依赖：`Instrumentation` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Instrumentation` lives under `Runtime`; build rule `Runtime/Instrumentation/Instrumentation.Build.cs`.The descriptor declares no dependencies.",
+      "`Instrumentation`: it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata). Located under `Runtime`; build rule `Runtime/Instrumentation/Instrumentation.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Instrumentation` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: almost every module depends on it transitively; you rarely add it explicitly unless writing low-level plugins/tools.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Instrumentation\" });`. Use Public when exposing `Instrumentation` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Instrumentation` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Instrumentation.h` / `InstrumentationModule.h`), then use `FModuleManager::LoadModulePtr<InstrumentationModule>` or the exported types directly.",
-      "Transitive deps: `Instrumentation` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Instrumentation` 的构建规则位于 `Runtime/Instrumentation/Instrumentation.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`Instrumentation` build rule is `Runtime/Instrumentation/Instrumentation.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`Instrumentation`：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）；构建规则 `Runtime/Instrumentation/Instrumentation.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Instrumentation`: it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata); build rule `Runtime/Instrumentation/Instrumentation.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "intelextensionsframework",
     "kind": "module",
     "cn_steps": [
-      "用途：`IntelExtensionsFramework` 位于 `ThirdParty`，构建规则 `ThirdParty/Intel/ExtensionsFramework/IntelExtensionsFramework.Build.cs`。描述符未声明依赖。",
+      "`IntelExtensionsFramework`（Intel Extensions Framework）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Intel/ExtensionsFramework/IntelExtensionsFramework.Build.cs`。描述符未声明依赖。",
+      "部署：`IntelExtensionsFramework` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IntelExtensionsFramework\" });`；对外暴露 `IntelExtensionsFramework` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`IntelExtensionsFramework` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `IntelExtensionsFramework.h` / `IntelExtensionsFrameworkModule.h`），再用 `FModuleManager::LoadModulePtr<IntelExtensionsFrameworkModule>` 或直接使用导出类型。",
-      "传递依赖：`IntelExtensionsFramework` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `IntelExtensionsFramework` lives under `ThirdParty`; build rule `ThirdParty/Intel/ExtensionsFramework/IntelExtensionsFramework.Build.cs`.The descriptor declares no dependencies.",
+      "`IntelExtensionsFramework` (Intel Extensions Framework): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Intel/ExtensionsFramework/IntelExtensionsFramework.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `IntelExtensionsFramework` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IntelExtensionsFramework\" });`. Use Public when exposing `IntelExtensionsFramework` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `IntelExtensionsFramework` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `IntelExtensionsFramework.h` / `IntelExtensionsFrameworkModule.h`), then use `FModuleManager::LoadModulePtr<IntelExtensionsFrameworkModule>` or the exported types directly.",
-      "Transitive deps: `IntelExtensionsFramework` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`IntelExtensionsFramework` 的构建规则位于 `ThirdParty/Intel/ExtensionsFramework/IntelExtensionsFramework.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`IntelExtensionsFramework` build rule is `ThirdParty/Intel/ExtensionsFramework/IntelExtensionsFramework.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`IntelExtensionsFramework`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Intel/ExtensionsFramework/IntelExtensionsFramework.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`IntelExtensionsFramework`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Intel/ExtensionsFramework/IntelExtensionsFramework.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "intelispc",
     "kind": "module",
     "cn_steps": [
-      "用途：`IntelISPC` 位于 `ThirdParty`，构建规则 `ThirdParty/Intel/ISPC/IntelISPC.Build.cs`。描述符未声明依赖。",
+      "`IntelISPC`（Intel ISPC）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Intel/ISPC/IntelISPC.Build.cs`。描述符未声明依赖。",
+      "部署：`IntelISPC` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IntelISPC\" });`；对外暴露 `IntelISPC` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`IntelISPC` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `IntelISPC.h` / `IntelISPCModule.h`），再用 `FModuleManager::LoadModulePtr<IntelISPCModule>` 或直接使用导出类型。",
-      "传递依赖：`IntelISPC` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `IntelISPC` lives under `ThirdParty`; build rule `ThirdParty/Intel/ISPC/IntelISPC.Build.cs`.The descriptor declares no dependencies.",
+      "`IntelISPC` (Intel ISPC): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Intel/ISPC/IntelISPC.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `IntelISPC` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IntelISPC\" });`. Use Public when exposing `IntelISPC` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `IntelISPC` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `IntelISPC.h` / `IntelISPCModule.h`), then use `FModuleManager::LoadModulePtr<IntelISPCModule>` or the exported types directly.",
-      "Transitive deps: `IntelISPC` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`IntelISPC` 的构建规则位于 `ThirdParty/Intel/ISPC/IntelISPC.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`IntelISPC` build rule is `ThirdParty/Intel/ISPC/IntelISPC.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`IntelISPC`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Intel/ISPC/IntelISPC.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`IntelISPC`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Intel/ISPC/IntelISPC.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "intelispctexcomp",
     "kind": "module",
     "cn_steps": [
-      "用途：`IntelISPCTexComp` 位于 `ThirdParty`，构建规则 `ThirdParty/Intel/ISPCTexComp/IntelISPCTexComp.Build.cs`。描述符未声明依赖。",
+      "`IntelISPCTexComp`（Intel ISPC Tex Comp）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Intel/ISPCTexComp/IntelISPCTexComp.Build.cs`。描述符未声明依赖。",
+      "部署：`IntelISPCTexComp` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IntelISPCTexComp\" });`；对外暴露 `IntelISPCTexComp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`IntelISPCTexComp` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `IntelISPCTexComp.h` / `IntelISPCTexCompModule.h`），再用 `FModuleManager::LoadModulePtr<IntelISPCTexCompModule>` 或直接使用导出类型。",
-      "传递依赖：`IntelISPCTexComp` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `IntelISPCTexComp` lives under `ThirdParty`; build rule `ThirdParty/Intel/ISPCTexComp/IntelISPCTexComp.Build.cs`.The descriptor declares no dependencies.",
+      "`IntelISPCTexComp` (Intel ISPC Tex Comp): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Intel/ISPCTexComp/IntelISPCTexComp.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `IntelISPCTexComp` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IntelISPCTexComp\" });`. Use Public when exposing `IntelISPCTexComp` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `IntelISPCTexComp` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `IntelISPCTexComp.h` / `IntelISPCTexCompModule.h`), then use `FModuleManager::LoadModulePtr<IntelISPCTexCompModule>` or the exported types directly.",
-      "Transitive deps: `IntelISPCTexComp` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`IntelISPCTexComp` 的构建规则位于 `ThirdParty/Intel/ISPCTexComp/IntelISPCTexComp.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`IntelISPCTexComp` build rule is `ThirdParty/Intel/ISPCTexComp/IntelISPCTexComp.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`IntelISPCTexComp`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Intel/ISPCTexComp/IntelISPCTexComp.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`IntelISPCTexComp`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Intel/ISPCTexComp/IntelISPCTexComp.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "inteloidn",
     "kind": "module",
     "cn_steps": [
-      "用途：`IntelOIDN` 位于 `ThirdParty`，构建规则 `ThirdParty/Intel/OIDN/IntelOIDN.Build.cs`。它直接依赖 1 个模块：`IntelTBB`。",
+      "`IntelOIDN`（Intel OIDN）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Intel/OIDN/IntelOIDN.Build.cs`。直接依赖 1 个模块：`IntelTBB`。",
+      "部署：`IntelOIDN` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IntelOIDN\" });`；对外暴露 `IntelOIDN` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`IntelOIDN` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `IntelOIDN.h` / `IntelOIDNModule.h`），再用 `FModuleManager::LoadModulePtr<IntelOIDNModule>` 或直接使用导出类型。",
-      "传递依赖：`IntelOIDN` 还依赖 `IntelTBB`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `IntelOIDN` lives under `ThirdParty`; build rule `ThirdParty/Intel/OIDN/IntelOIDN.Build.cs`.It directly depends on 1 modules: `IntelTBB`.",
+      "`IntelOIDN` (Intel OIDN): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Intel/OIDN/IntelOIDN.Build.cs`. It directly depends on 1 modules: `IntelTBB`.",
+      "Placement: `IntelOIDN` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IntelOIDN\" });`. Use Public when exposing `IntelOIDN` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `IntelOIDN` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `IntelOIDN.h` / `IntelOIDNModule.h`), then use `FModuleManager::LoadModulePtr<IntelOIDNModule>` or the exported types directly.",
-      "Transitive deps: `IntelOIDN` also needs `IntelTBB`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`IntelOIDN` 的构建规则位于 `ThirdParty/Intel/OIDN/IntelOIDN.Build.cs`，直接依赖 1 个模块，分类 External。",
-    "note_en": "`IntelOIDN` build rule is `ThirdParty/Intel/OIDN/IntelOIDN.Build.cs`; depends on 1 modules; category External."
+    "note_cn": "`IntelOIDN`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Intel/OIDN/IntelOIDN.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`IntelOIDN`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Intel/OIDN/IntelOIDN.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "inteltbb",
     "kind": "module",
     "cn_steps": [
-      "用途：`IntelTBB` 位于 `ThirdParty`，构建规则 `ThirdParty/Intel/TBB/IntelTBB.Build.cs`。描述符未声明依赖。",
+      "`IntelTBB`（Intel TBB）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Intel/TBB/IntelTBB.Build.cs`。描述符未声明依赖。",
+      "部署：`IntelTBB` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IntelTBB\" });`；对外暴露 `IntelTBB` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`IntelTBB` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `IntelTBB.h` / `IntelTBBModule.h`），再用 `FModuleManager::LoadModulePtr<IntelTBBModule>` 或直接使用导出类型。",
-      "传递依赖：`IntelTBB` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `IntelTBB` lives under `ThirdParty`; build rule `ThirdParty/Intel/TBB/IntelTBB.Build.cs`.The descriptor declares no dependencies.",
+      "`IntelTBB` (Intel TBB): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Intel/TBB/IntelTBB.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `IntelTBB` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IntelTBB\" });`. Use Public when exposing `IntelTBB` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `IntelTBB` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `IntelTBB.h` / `IntelTBBModule.h`), then use `FModuleManager::LoadModulePtr<IntelTBBModule>` or the exported types directly.",
-      "Transitive deps: `IntelTBB` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`IntelTBB` 的构建规则位于 `ThirdParty/Intel/TBB/IntelTBB.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`IntelTBB` build rule is `ThirdParty/Intel/TBB/IntelTBB.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`IntelTBB`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Intel/TBB/IntelTBB.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`IntelTBB`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Intel/TBB/IntelTBB.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "intelvtune",
     "kind": "module",
     "cn_steps": [
-      "用途：`IntelVTune` 位于 `ThirdParty`，构建规则 `ThirdParty/Intel/VTune/IntelVTune.Build.cs`。描述符未声明依赖。",
+      "`IntelVTune`（Intel V Tune）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Intel/VTune/IntelVTune.Build.cs`。描述符未声明依赖。",
+      "部署：`IntelVTune` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IntelVTune\" });`；对外暴露 `IntelVTune` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`IntelVTune` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `IntelVTune.h` / `IntelVTuneModule.h`），再用 `FModuleManager::LoadModulePtr<IntelVTuneModule>` 或直接使用导出类型。",
-      "传递依赖：`IntelVTune` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `IntelVTune` lives under `ThirdParty`; build rule `ThirdParty/Intel/VTune/IntelVTune.Build.cs`.The descriptor declares no dependencies.",
+      "`IntelVTune` (Intel V Tune): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Intel/VTune/IntelVTune.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `IntelVTune` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IntelVTune\" });`. Use Public when exposing `IntelVTune` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `IntelVTune` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `IntelVTune.h` / `IntelVTuneModule.h`), then use `FModuleManager::LoadModulePtr<IntelVTuneModule>` or the exported types directly.",
-      "Transitive deps: `IntelVTune` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`IntelVTune` 的构建规则位于 `ThirdParty/Intel/VTune/IntelVTune.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`IntelVTune` build rule is `ThirdParty/Intel/VTune/IntelVTune.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`IntelVTune`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Intel/VTune/IntelVTune.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`IntelVTune`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Intel/VTune/IntelVTune.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "interactivetoolsframework",
     "kind": "module",
     "cn_steps": [
-      "用途：`InteractiveToolsFramework` 位于 `Runtime`，构建规则 `Runtime/InteractiveToolsFramework/InteractiveToolsFramework.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `EditorToolEvents`, `Engine`, `GeometryCore`, `InputCore`, `MeshDescription`。",
+      "`InteractiveToolsFramework`（Interactive Tools Framework）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/InteractiveToolsFramework/InteractiveToolsFramework.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`EditorToolEvents`、`Engine` 等。",
+      "部署：`InteractiveToolsFramework` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InteractiveToolsFramework\" });`；对外暴露 `InteractiveToolsFramework` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`InteractiveToolsFramework` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `InteractiveToolsFramework.h` / `InteractiveToolsFrameworkModule.h`），再用 `FModuleManager::LoadModulePtr<InteractiveToolsFrameworkModule>` 或直接使用导出类型。",
-      "传递依赖：`InteractiveToolsFramework` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `EditorToolEvents`, `Engine`, `GeometryCore`, `InputCore`, `MeshDescription`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `InteractiveToolsFramework` lives under `Runtime`; build rule `Runtime/InteractiveToolsFramework/InteractiveToolsFramework.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EditorToolEvents`, `Engine`, `GeometryCore`, `InputCore`, `MeshDescription`.",
+      "`InteractiveToolsFramework` (Interactive Tools Framework): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/InteractiveToolsFramework/InteractiveToolsFramework.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EditorToolEvents`, `Engine` etc.",
+      "Placement: `InteractiveToolsFramework` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InteractiveToolsFramework\" });`. Use Public when exposing `InteractiveToolsFramework` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `InteractiveToolsFramework` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `InteractiveToolsFramework.h` / `InteractiveToolsFrameworkModule.h`), then use `FModuleManager::LoadModulePtr<InteractiveToolsFrameworkModule>` or the exported types directly.",
-      "Transitive deps: `InteractiveToolsFramework` also needs `ApplicationCore`, `Core`, `CoreUObject`, `EditorToolEvents`, `Engine`, `GeometryCore`, `InputCore`, `MeshDescription`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`InteractiveToolsFramework` 的构建规则位于 `Runtime/InteractiveToolsFramework/InteractiveToolsFramework.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`InteractiveToolsFramework` build rule is `Runtime/InteractiveToolsFramework/InteractiveToolsFramework.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`InteractiveToolsFramework`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/InteractiveToolsFramework/InteractiveToolsFramework.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`InteractiveToolsFramework`: it exposes C++ API/functionality to other modules; build rule `Runtime/InteractiveToolsFramework/InteractiveToolsFramework.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "interactivevisualizers",
     "kind": "module",
     "cn_steps": [
-      "用途：`InteractiveVisualizers` 位于 `Editor`，构建规则 `Editor/Experimental/InteractiveVisualizers/InteractiveVisualizers.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `GeometryCore`, `InputCore`, `InteractiveToolsFramework`。",
+      "`InteractiveVisualizers`（Interactive Visualizers）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/Experimental/InteractiveVisualizers/InteractiveVisualizers.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`EditorFramework`、`EditorInteractiveToolsFramework`、`Engine` 等。",
+      "部署：`InteractiveVisualizers` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InteractiveVisualizers\" });`；对外暴露 `InteractiveVisualizers` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`InteractiveVisualizers` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `InteractiveVisualizers.h` / `InteractiveVisualizersModule.h`），再用 `FModuleManager::LoadModulePtr<InteractiveVisualizersModule>` 或直接使用导出类型。",
-      "传递依赖：`InteractiveVisualizers` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `GeometryCore`, `InputCore`, `InteractiveToolsFramework`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`InteractiveVisualizers` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `InteractiveVisualizers` lives under `Editor`; build rule `Editor/Experimental/InteractiveVisualizers/InteractiveVisualizers.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `GeometryCore`, `InputCore`, `InteractiveToolsFramework`.",
+      "`InteractiveVisualizers` (Interactive Visualizers): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/Experimental/InteractiveVisualizers/InteractiveVisualizers.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine` etc.",
+      "Placement: `InteractiveVisualizers` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InteractiveVisualizers\" });`. Use Public when exposing `InteractiveVisualizers` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `InteractiveVisualizers` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `InteractiveVisualizers.h` / `InteractiveVisualizersModule.h`), then use `FModuleManager::LoadModulePtr<InteractiveVisualizersModule>` or the exported types directly.",
-      "Transitive deps: `InteractiveVisualizers` also needs `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `GeometryCore`, `InputCore`, `InteractiveToolsFramework`; do not re-list them unless you include their headers.",
-      "Note: `InteractiveVisualizers` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`InteractiveVisualizers` 的构建规则位于 `Editor/Experimental/InteractiveVisualizers/InteractiveVisualizers.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`InteractiveVisualizers` build rule is `Editor/Experimental/InteractiveVisualizers/InteractiveVisualizers.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`InteractiveVisualizers`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/Experimental/InteractiveVisualizers/InteractiveVisualizers.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`InteractiveVisualizers`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/Experimental/InteractiveVisualizers/InteractiveVisualizers.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "interchangecore",
     "kind": "module",
     "cn_steps": [
-      "用途：`InterchangeCore` 位于 `Runtime`，构建规则 `Runtime/Interchange/Core/InterchangeCore.Build.cs`。它直接依赖 6 个模块：`Analytics`, `Core`, `CoreUObject`, `Json`, `JsonUtilities`, `SlateCore`。",
+      "`InterchangeCore`（Interchange Core）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/Interchange/Core/InterchangeCore.Build.cs`。直接依赖 6 个模块：`Analytics`、`Core`、`CoreUObject`、`Json`、`JsonUtilities` 等。",
+      "部署：`InterchangeCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InterchangeCore\" });`；对外暴露 `InterchangeCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`InterchangeCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `InterchangeCore.h` / `InterchangeCoreModule.h`），再用 `FModuleManager::LoadModulePtr<InterchangeCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`InterchangeCore` 还依赖 `Analytics`, `Core`, `CoreUObject`, `Json`, `JsonUtilities`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `InterchangeCore` lives under `Runtime`; build rule `Runtime/Interchange/Core/InterchangeCore.Build.cs`.It directly depends on 6 modules: `Analytics`, `Core`, `CoreUObject`, `Json`, `JsonUtilities`, `SlateCore`.",
+      "`InterchangeCore` (Interchange Core): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/Interchange/Core/InterchangeCore.Build.cs`. It directly depends on 6 modules: `Analytics`, `Core`, `CoreUObject`, `Json`, `JsonUtilities` etc.",
+      "Placement: `InterchangeCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InterchangeCore\" });`. Use Public when exposing `InterchangeCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `InterchangeCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `InterchangeCore.h` / `InterchangeCoreModule.h`), then use `FModuleManager::LoadModulePtr<InterchangeCoreModule>` or the exported types directly.",
-      "Transitive deps: `InterchangeCore` also needs `Analytics`, `Core`, `CoreUObject`, `Json`, `JsonUtilities`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`InterchangeCore` 的构建规则位于 `Runtime/Interchange/Core/InterchangeCore.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`InterchangeCore` build rule is `Runtime/Interchange/Core/InterchangeCore.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`InterchangeCore`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/Interchange/Core/InterchangeCore.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`InterchangeCore`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/Interchange/Core/InterchangeCore.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "interchangeengine",
     "kind": "module",
     "cn_steps": [
-      "用途：`InterchangeEngine` 位于 `Runtime`，构建规则 `Runtime/Interchange/Engine/InterchangeEngine.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InterchangeCore`, `Json`, `JsonUtilities`。",
+      "`InterchangeEngine`（Interchange Engine）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/Interchange/Engine/InterchangeEngine.Build.cs`。直接依赖 8 个模块：`AssetRegistry`、`Core`、`CoreUObject`、`DeveloperSettings`、`Engine` 等。",
+      "部署：`InterchangeEngine` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InterchangeEngine\" });`；对外暴露 `InterchangeEngine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`InterchangeEngine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `InterchangeEngine.h` / `InterchangeEngineModule.h`），再用 `FModuleManager::LoadModulePtr<InterchangeEngineModule>` 或直接使用导出类型。",
-      "传递依赖：`InterchangeEngine` 还依赖 `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InterchangeCore`, `Json`, `JsonUtilities`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `InterchangeEngine` lives under `Runtime`; build rule `Runtime/Interchange/Engine/InterchangeEngine.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InterchangeCore`, `Json`, `JsonUtilities`.",
+      "`InterchangeEngine` (Interchange Engine): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/Interchange/Engine/InterchangeEngine.Build.cs`. It directly depends on 8 modules: `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine` etc.",
+      "Placement: `InterchangeEngine` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InterchangeEngine\" });`. Use Public when exposing `InterchangeEngine` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `InterchangeEngine` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `InterchangeEngine.h` / `InterchangeEngineModule.h`), then use `FModuleManager::LoadModulePtr<InterchangeEngineModule>` or the exported types directly.",
-      "Transitive deps: `InterchangeEngine` also needs `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InterchangeCore`, `Json`, `JsonUtilities`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`InterchangeEngine` 的构建规则位于 `Runtime/Interchange/Engine/InterchangeEngine.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`InterchangeEngine` build rule is `Runtime/Interchange/Engine/InterchangeEngine.Build.cs`; depends on 8 modules; category Module."
-  },
-  {
-    "slug": "interchangeworker",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`InterchangeWorker` 位于 `Programs`，构建规则 `Programs/InterchangeWorker/InterchangeWorker.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `InterchangeCore`, `InterchangeDispatcher`, `InterchangeFbxParser`, `InterchangeNodes`, `Json`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InterchangeWorker\" });`；对外暴露 `InterchangeWorker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`InterchangeWorker` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `InterchangeWorker.h` / `InterchangeWorkerModule.h`），再用 `FModuleManager::LoadModulePtr<InterchangeWorkerModule>` 或直接使用导出类型。",
-      "传递依赖：`InterchangeWorker` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `InterchangeCore`, `InterchangeDispatcher`, `InterchangeFbxParser`, `InterchangeNodes`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `InterchangeWorker` lives under `Programs`; build rule `Programs/InterchangeWorker/InterchangeWorker.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `InterchangeCore`, `InterchangeDispatcher`, `InterchangeFbxParser`, `InterchangeNodes`, `Json`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InterchangeWorker\" });`. Use Public when exposing `InterchangeWorker` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `InterchangeWorker` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `InterchangeWorker.h` / `InterchangeWorkerModule.h`), then use `FModuleManager::LoadModulePtr<InterchangeWorkerModule>` or the exported types directly.",
-      "Transitive deps: `InterchangeWorker` also needs `ApplicationCore`, `Core`, `CoreUObject`, `InterchangeCore`, `InterchangeDispatcher`, `InterchangeFbxParser`, `InterchangeNodes`, `Json`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`InterchangeWorker` 的构建规则位于 `Programs/InterchangeWorker/InterchangeWorker.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`InterchangeWorker` build rule is `Programs/InterchangeWorker/InterchangeWorker.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`InterchangeEngine`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/Interchange/Engine/InterchangeEngine.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`InterchangeEngine`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/Interchange/Engine/InterchangeEngine.Build.cs`; depends on 8 modules."
   }
 ]

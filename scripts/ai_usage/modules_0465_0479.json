@@ -1,302 +1,302 @@
 [
   {
+    "slug": "managedstoragedebug",
+    "kind": "module",
+    "cn_steps": [
+      "`ManagedStorageDebug`（Managed Storage Debug）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/ManagedStorageDebug/ManagedStorageDebug.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`Engine`。",
+      "部署：`ManagedStorageDebug` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ManagedStorageDebug\" });`；对外暴露 `ManagedStorageDebug` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`ManagedStorageDebug` (Managed Storage Debug): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/ManagedStorageDebug/ManagedStorageDebug.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Placement: `ManagedStorageDebug` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ManagedStorageDebug\" });`. Use Public when exposing `ManagedStorageDebug` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`ManagedStorageDebug`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/ManagedStorageDebug/ManagedStorageDebug.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`ManagedStorageDebug`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/ManagedStorageDebug/ManagedStorageDebug.Build.cs`; depends on 3 modules."
+  },
+  {
     "slug": "marketplacekit",
     "kind": "module",
     "cn_steps": [
-      "用途：`MarketplaceKit` 位于 `Runtime`，构建规则 `Runtime/IOS/MarketplaceKit/MarketplaceKit.Build.cs`。它直接依赖 2 个模块：`Core`, `Engine`。",
+      "`MarketplaceKit`（Marketplace Kit）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Runtime`，构建规则 `Runtime/IOS/MarketplaceKit/MarketplaceKit.Build.cs`。直接依赖 2 个模块：`Core`、`Engine`。",
+      "部署：`MarketplaceKit` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MarketplaceKit\" });`；对外暴露 `MarketplaceKit` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MarketplaceKit` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MarketplaceKit.h` / `MarketplaceKitModule.h`），再用 `FModuleManager::LoadModulePtr<MarketplaceKitModule>` 或直接使用导出类型。",
-      "传递依赖：`MarketplaceKit` 还依赖 `Core`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MarketplaceKit` lives under `Runtime`; build rule `Runtime/IOS/MarketplaceKit/MarketplaceKit.Build.cs`.It directly depends on 2 modules: `Core`, `Engine`.",
+      "`MarketplaceKit` (Marketplace Kit): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Runtime`; build rule `Runtime/IOS/MarketplaceKit/MarketplaceKit.Build.cs`. It directly depends on 2 modules: `Core`, `Engine`.",
+      "Placement: `MarketplaceKit` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MarketplaceKit\" });`. Use Public when exposing `MarketplaceKit` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MarketplaceKit` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MarketplaceKit.h` / `MarketplaceKitModule.h`), then use `FModuleManager::LoadModulePtr<MarketplaceKitModule>` or the exported types directly.",
-      "Transitive deps: `MarketplaceKit` also needs `Core`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MarketplaceKit` 的构建规则位于 `Runtime/IOS/MarketplaceKit/MarketplaceKit.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`MarketplaceKit` build rule is `Runtime/IOS/MarketplaceKit/MarketplaceKit.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`MarketplaceKit`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Runtime/IOS/MarketplaceKit/MarketplaceKit.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`MarketplaceKit`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Runtime/IOS/MarketplaceKit/MarketplaceKit.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "masscore",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassCore` 位于 `Runtime`，构建规则 `Runtime/Mass/MassCore/MassCore.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `TraceLog`。",
+      "`MassCore`（Mass Core）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Runtime`，构建规则 `Runtime/Mass/MassCore/MassCore.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`TraceLog`。",
+      "部署：`MassCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassCore\" });`；对外暴露 `MassCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MassCore.h` / `MassCoreModule.h`），再用 `FModuleManager::LoadModulePtr<MassCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`MassCore` 还依赖 `Core`, `CoreUObject`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MassCore` lives under `Runtime`; build rule `Runtime/Mass/MassCore/MassCore.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `TraceLog`.",
+      "`MassCore` (Mass Core): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Runtime`; build rule `Runtime/Mass/MassCore/MassCore.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `TraceLog`.",
+      "Placement: `MassCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassCore\" });`. Use Public when exposing `MassCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MassCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MassCore.h` / `MassCoreModule.h`), then use `FModuleManager::LoadModulePtr<MassCoreModule>` or the exported types directly.",
-      "Transitive deps: `MassCore` also needs `Core`, `CoreUObject`, `TraceLog`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MassCore` 的构建规则位于 `Runtime/Mass/MassCore/MassCore.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`MassCore` build rule is `Runtime/Mass/MassCore/MassCore.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`MassCore`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Runtime/Mass/MassCore/MassCore.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`MassCore`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Runtime/Mass/MassCore/MassCore.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "massdeveloper",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassDeveloper` 位于 `Runtime`，构建规则 `Runtime/Mass/MassDeveloper/MassDeveloper.Build.cs`。它直接依赖 4 个模块：`Core`, `TraceAnalysis`, `TraceLog`, `TraceServices`。",
+      "`MassDeveloper`（Mass Developer）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Runtime`，构建规则 `Runtime/Mass/MassDeveloper/MassDeveloper.Build.cs`。直接依赖 4 个模块：`Core`、`TraceAnalysis`、`TraceLog`、`TraceServices`。",
+      "部署：`MassDeveloper` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassDeveloper\" });`；对外暴露 `MassDeveloper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassDeveloper` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MassDeveloper.h` / `MassDeveloperModule.h`），再用 `FModuleManager::LoadModulePtr<MassDeveloperModule>` 或直接使用导出类型。",
-      "传递依赖：`MassDeveloper` 还依赖 `Core`, `TraceAnalysis`, `TraceLog`, `TraceServices`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MassDeveloper` lives under `Runtime`; build rule `Runtime/Mass/MassDeveloper/MassDeveloper.Build.cs`.It directly depends on 4 modules: `Core`, `TraceAnalysis`, `TraceLog`, `TraceServices`.",
+      "`MassDeveloper` (Mass Developer): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Runtime`; build rule `Runtime/Mass/MassDeveloper/MassDeveloper.Build.cs`. It directly depends on 4 modules: `Core`, `TraceAnalysis`, `TraceLog`, `TraceServices`.",
+      "Placement: `MassDeveloper` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassDeveloper\" });`. Use Public when exposing `MassDeveloper` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MassDeveloper` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MassDeveloper.h` / `MassDeveloperModule.h`), then use `FModuleManager::LoadModulePtr<MassDeveloperModule>` or the exported types directly.",
-      "Transitive deps: `MassDeveloper` also needs `Core`, `TraceAnalysis`, `TraceLog`, `TraceServices`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MassDeveloper` 的构建规则位于 `Runtime/Mass/MassDeveloper/MassDeveloper.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`MassDeveloper` build rule is `Runtime/Mass/MassDeveloper/MassDeveloper.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`MassDeveloper`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Runtime/Mass/MassDeveloper/MassDeveloper.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`MassDeveloper`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Runtime/Mass/MassDeveloper/MassDeveloper.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "massengine",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassEngine` 位于 `Runtime`，构建规则 `Runtime/Mass/MassEngine/MassEngine.Build.cs`。它直接依赖 8 个模块：`AudioExtensions`, `Chaos`, `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`, `MassSignals`。",
+      "`MassEngine`（Mass Engine）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Runtime`，构建规则 `Runtime/Mass/MassEngine/MassEngine.Build.cs`。直接依赖 8 个模块：`AudioExtensions`、`Chaos`、`Core`、`CoreUObject`、`Engine` 等。",
+      "部署：`MassEngine` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassEngine\" });`；对外暴露 `MassEngine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassEngine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MassEngine.h` / `MassEngineModule.h`），再用 `FModuleManager::LoadModulePtr<MassEngineModule>` 或直接使用导出类型。",
-      "传递依赖：`MassEngine` 还依赖 `AudioExtensions`, `Chaos`, `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`, `MassSignals`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MassEngine` lives under `Runtime`; build rule `Runtime/Mass/MassEngine/MassEngine.Build.cs`.It directly depends on 8 modules: `AudioExtensions`, `Chaos`, `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`, `MassSignals`.",
+      "`MassEngine` (Mass Engine): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Runtime`; build rule `Runtime/Mass/MassEngine/MassEngine.Build.cs`. It directly depends on 8 modules: `AudioExtensions`, `Chaos`, `Core`, `CoreUObject`, `Engine` etc.",
+      "Placement: `MassEngine` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassEngine\" });`. Use Public when exposing `MassEngine` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MassEngine` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MassEngine.h` / `MassEngineModule.h`), then use `FModuleManager::LoadModulePtr<MassEngineModule>` or the exported types directly.",
-      "Transitive deps: `MassEngine` also needs `AudioExtensions`, `Chaos`, `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`, `MassSignals`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MassEngine` 的构建规则位于 `Runtime/Mass/MassEngine/MassEngine.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MassEngine` build rule is `Runtime/Mass/MassEngine/MassEngine.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`MassEngine`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Runtime/Mass/MassEngine/MassEngine.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MassEngine`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Runtime/Mass/MassEngine/MassEngine.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "massentity",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassEntity` 位于 `Runtime`，构建规则 `Runtime/MassEntity/MassEntity.Build.cs`。描述符未声明依赖。",
+      "`MassEntity`（Mass Entity）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Runtime`，构建规则 `Runtime/MassEntity/MassEntity.Build.cs`。描述符未声明依赖。",
+      "部署：`MassEntity` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassEntity\" });`；对外暴露 `MassEntity` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassEntity` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MassEntity.h` / `MassEntityModule.h`），再用 `FModuleManager::LoadModulePtr<MassEntityModule>` 或直接使用导出类型。",
-      "传递依赖：`MassEntity` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MassEntity` lives under `Runtime`; build rule `Runtime/MassEntity/MassEntity.Build.cs`.The descriptor declares no dependencies.",
+      "`MassEntity` (Mass Entity): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Runtime`; build rule `Runtime/MassEntity/MassEntity.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `MassEntity` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassEntity\" });`. Use Public when exposing `MassEntity` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MassEntity` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MassEntity.h` / `MassEntityModule.h`), then use `FModuleManager::LoadModulePtr<MassEntityModule>` or the exported types directly.",
-      "Transitive deps: `MassEntity` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MassEntity` 的构建规则位于 `Runtime/MassEntity/MassEntity.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`MassEntity` build rule is `Runtime/MassEntity/MassEntity.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`MassEntity`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Runtime/MassEntity/MassEntity.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`MassEntity`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Runtime/MassEntity/MassEntity.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "massentitydebugger",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassEntityDebugger` 位于 `Editor`，构建规则 `Editor/MassEntityDebugger/MassEntityDebugger.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `Json`, `MassCore`, `MassEntity`。",
+      "`MassEntityDebugger`（Mass Entity Debugger）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Editor`，构建规则 `Editor/MassEntityDebugger/MassEntityDebugger.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`Engine`、`InputCore` 等。",
+      "部署：`MassEntityDebugger` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassEntityDebugger\" });`；对外暴露 `MassEntityDebugger` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassEntityDebugger` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `MassEntityDebugger.h` / `MassEntityDebuggerModule.h`），再用 `FModuleManager::LoadModulePtr<MassEntityDebuggerModule>` 或直接使用导出类型。",
-      "传递依赖：`MassEntityDebugger` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `Json`, `MassCore`, `MassEntity`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MassEntityDebugger` lives under `Editor`; build rule `Editor/MassEntityDebugger/MassEntityDebugger.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `Json`, `MassCore`, `MassEntity`.",
+      "`MassEntityDebugger` (Mass Entity Debugger): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Editor`; build rule `Editor/MassEntityDebugger/MassEntityDebugger.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore` etc.",
+      "Placement: `MassEntityDebugger` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassEntityDebugger\" });`. Use Public when exposing `MassEntityDebugger` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MassEntityDebugger` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `MassEntityDebugger.h` / `MassEntityDebuggerModule.h`), then use `FModuleManager::LoadModulePtr<MassEntityDebuggerModule>` or the exported types directly.",
-      "Transitive deps: `MassEntityDebugger` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `Json`, `MassCore`, `MassEntity`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MassEntityDebugger` 的构建规则位于 `Editor/MassEntityDebugger/MassEntityDebugger.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MassEntityDebugger` build rule is `Editor/MassEntityDebugger/MassEntityDebugger.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`MassEntityDebugger`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Editor/MassEntityDebugger/MassEntityDebugger.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MassEntityDebugger`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Editor/MassEntityDebugger/MassEntityDebugger.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "massentityeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassEntityEditor` 位于 `Editor`，构建规则 `Editor/MassEntityEditor/MassEntityEditor.Build.cs`。它直接依赖 8 个模块：`AIGraph`, `AssetTools`, `ComponentVisualizers`, `Core`, `CoreUObject`, `DetailCustomizations`, `DeveloperSettings`, `EditorSubsystem`。",
+      "`MassEntityEditor`（Mass Entity Editor）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Editor`，构建规则 `Editor/MassEntityEditor/MassEntityEditor.Build.cs`。直接依赖 8 个模块：`AIGraph`、`AssetTools`、`ComponentVisualizers`、`Core`、`CoreUObject` 等。",
+      "部署：`MassEntityEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassEntityEditor\" });`；对外暴露 `MassEntityEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassEntityEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `MassEntityEditor.h` / `MassEntityEditorModule.h`），再用 `FModuleManager::LoadModulePtr<MassEntityEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`MassEntityEditor` 还依赖 `AIGraph`, `AssetTools`, `ComponentVisualizers`, `Core`, `CoreUObject`, `DetailCustomizations`, `DeveloperSettings`, `EditorSubsystem`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MassEntityEditor` lives under `Editor`; build rule `Editor/MassEntityEditor/MassEntityEditor.Build.cs`.It directly depends on 8 modules: `AIGraph`, `AssetTools`, `ComponentVisualizers`, `Core`, `CoreUObject`, `DetailCustomizations`, `DeveloperSettings`, `EditorSubsystem`.",
+      "`MassEntityEditor` (Mass Entity Editor): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Editor`; build rule `Editor/MassEntityEditor/MassEntityEditor.Build.cs`. It directly depends on 8 modules: `AIGraph`, `AssetTools`, `ComponentVisualizers`, `Core`, `CoreUObject` etc.",
+      "Placement: `MassEntityEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassEntityEditor\" });`. Use Public when exposing `MassEntityEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MassEntityEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `MassEntityEditor.h` / `MassEntityEditorModule.h`), then use `FModuleManager::LoadModulePtr<MassEntityEditorModule>` or the exported types directly.",
-      "Transitive deps: `MassEntityEditor` also needs `AIGraph`, `AssetTools`, `ComponentVisualizers`, `Core`, `CoreUObject`, `DetailCustomizations`, `DeveloperSettings`, `EditorSubsystem`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MassEntityEditor` 的构建规则位于 `Editor/MassEntityEditor/MassEntityEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MassEntityEditor` build rule is `Editor/MassEntityEditor/MassEntityEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`MassEntityEditor`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Editor/MassEntityEditor/MassEntityEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MassEntityEditor`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Editor/MassEntityEditor/MassEntityEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "massentitytestsuite",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassEntityTestSuite` 位于 `Developer`，构建规则 `Developer/MassEntityTestSuite/MassEntityTestSuite.Build.cs`。它直接依赖 7 个模块：`AITestSuite`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MassCore`, `MassEntity`。",
+      "`MassEntityTestSuite`（Mass Entity Test Suite）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Developer`，构建规则 `Developer/MassEntityTestSuite/MassEntityTestSuite.Build.cs`。直接依赖 7 个模块：`AITestSuite`、`Core`、`CoreUObject`、`DeveloperSettings`、`Engine` 等。",
+      "部署：`MassEntityTestSuite` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassEntityTestSuite\" });`；对外暴露 `MassEntityTestSuite` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassEntityTestSuite` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `MassEntityTestSuite.h` / `MassEntityTestSuiteModule.h`），再用 `FModuleManager::LoadModulePtr<MassEntityTestSuiteModule>` 或直接使用导出类型。",
-      "传递依赖：`MassEntityTestSuite` 还依赖 `AITestSuite`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MassCore`, `MassEntity`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MassEntityTestSuite` lives under `Developer`; build rule `Developer/MassEntityTestSuite/MassEntityTestSuite.Build.cs`.It directly depends on 7 modules: `AITestSuite`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MassCore`, `MassEntity`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassEntityTestSuite\" });`. Use Public when exposing `MassEntityTestSuite` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`MassEntityTestSuite` (Mass Entity Test Suite): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Developer`; build rule `Developer/MassEntityTestSuite/MassEntityTestSuite.Build.cs`. It directly depends on 7 modules: `AITestSuite`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine` etc.",
       "Placement: `MassEntityTestSuite` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `MassEntityTestSuite.h` / `MassEntityTestSuiteModule.h`), then use `FModuleManager::LoadModulePtr<MassEntityTestSuiteModule>` or the exported types directly.",
-      "Transitive deps: `MassEntityTestSuite` also needs `AITestSuite`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MassCore`, `MassEntity`; do not re-list them unless you include their headers."
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassEntityTestSuite\" });`. Use Public when exposing `MassEntityTestSuite` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MassEntityTestSuite` 的构建规则位于 `Developer/MassEntityTestSuite/MassEntityTestSuite.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`MassEntityTestSuite` build rule is `Developer/MassEntityTestSuite/MassEntityTestSuite.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`MassEntityTestSuite`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Developer/MassEntityTestSuite/MassEntityTestSuite.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`MassEntityTestSuite`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Developer/MassEntityTestSuite/MassEntityTestSuite.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "masssignals",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassSignals` 位于 `Runtime`，构建规则 `Runtime/Mass/MassSignals/MassSignals.Build.cs`。描述符未声明依赖。",
+      "`MassSignals`（Mass Signals）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Runtime`，构建规则 `Runtime/Mass/MassSignals/MassSignals.Build.cs`。描述符未声明依赖。",
+      "部署：`MassSignals` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassSignals\" });`；对外暴露 `MassSignals` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassSignals` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MassSignals.h` / `MassSignalsModule.h`），再用 `FModuleManager::LoadModulePtr<MassSignalsModule>` 或直接使用导出类型。",
-      "传递依赖：`MassSignals` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MassSignals` lives under `Runtime`; build rule `Runtime/Mass/MassSignals/MassSignals.Build.cs`.The descriptor declares no dependencies.",
+      "`MassSignals` (Mass Signals): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Runtime`; build rule `Runtime/Mass/MassSignals/MassSignals.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `MassSignals` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassSignals\" });`. Use Public when exposing `MassSignals` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MassSignals` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MassSignals.h` / `MassSignalsModule.h`), then use `FModuleManager::LoadModulePtr<MassSignalsModule>` or the exported types directly.",
-      "Transitive deps: `MassSignals` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MassSignals` 的构建规则位于 `Runtime/Mass/MassSignals/MassSignals.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`MassSignals` build rule is `Runtime/Mass/MassSignals/MassSignals.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`MassSignals`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Runtime/Mass/MassSignals/MassSignals.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`MassSignals`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Runtime/Mass/MassSignals/MassSignals.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "masstests",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassTests` 位于 `Programs`，构建规则 `Programs/MassTests/MassTests.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`。",
+      "`MassTests`（Mass Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/MassTests/MassTests.Build.cs`。直接依赖 5 个模块：`Core`、`CoreUObject`、`Engine`、`MassCore`、`MassEntity`。",
+      "部署：`MassTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassTests\" });`；对外暴露 `MassTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `MassTests.h` / `MassTestsModule.h`），再用 `FModuleManager::LoadModulePtr<MassTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`MassTests` 还依赖 `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `MassTests` lives under `Programs`; build rule `Programs/MassTests/MassTests.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`.",
+      "`MassTests` (Mass Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/MassTests/MassTests.Build.cs`. It directly depends on 5 modules: `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`.",
+      "Placement: `MassTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassTests\" });`. Use Public when exposing `MassTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MassTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `MassTests.h` / `MassTestsModule.h`), then use `FModuleManager::LoadModulePtr<MassTestsModule>` or the exported types directly.",
-      "Transitive deps: `MassTests` also needs `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`MassTests` 的构建规则位于 `Programs/MassTests/MassTests.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`MassTests` build rule is `Programs/MassTests/MassTests.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`MassTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/MassTests/MassTests.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`MassTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/MassTests/MassTests.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "massunloadingtestmodule",
     "kind": "module",
     "cn_steps": [
-      "用途：`MassUnloadingTestModule` 位于 `Developer`，构建规则 `Developer/MassUnloadingTestModule/MassUnloadingTestModule.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`, `UnrealEd`。",
+      "`MassUnloadingTestModule`（Mass Unloading Test Module）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Developer`，构建规则 `Developer/MassUnloadingTestModule/MassUnloadingTestModule.Build.cs`。直接依赖 6 个模块：`Core`、`CoreUObject`、`Engine`、`MassCore`、`MassEntity` 等。",
+      "部署：`MassUnloadingTestModule` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MassUnloadingTestModule\" });`；对外暴露 `MassUnloadingTestModule` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MassUnloadingTestModule` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `MassUnloadingTestModule.h` / `MassUnloadingTestModuleModule.h`），再用 `FModuleManager::LoadModulePtr<MassUnloadingTestModuleModule>` 或直接使用导出类型。",
-      "传递依赖：`MassUnloadingTestModule` 还依赖 `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MassUnloadingTestModule` lives under `Developer`; build rule `Developer/MassUnloadingTestModule/MassUnloadingTestModule.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`, `UnrealEd`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassUnloadingTestModule\" });`. Use Public when exposing `MassUnloadingTestModule` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`MassUnloadingTestModule` (Mass Unloading Test Module): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Developer`; build rule `Developer/MassUnloadingTestModule/MassUnloadingTestModule.Build.cs`. It directly depends on 6 modules: `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity` etc.",
       "Placement: `MassUnloadingTestModule` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `MassUnloadingTestModule.h` / `MassUnloadingTestModuleModule.h`), then use `FModuleManager::LoadModulePtr<MassUnloadingTestModuleModule>` or the exported types directly.",
-      "Transitive deps: `MassUnloadingTestModule` also needs `Core`, `CoreUObject`, `Engine`, `MassCore`, `MassEntity`, `UnrealEd`; do not re-list them unless you include their headers."
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MassUnloadingTestModule\" });`. Use Public when exposing `MassUnloadingTestModule` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MassUnloadingTestModule` 的构建规则位于 `Developer/MassUnloadingTestModule/MassUnloadingTestModule.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`MassUnloadingTestModule` build rule is `Developer/MassUnloadingTestModule/MassUnloadingTestModule.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`MassUnloadingTestModule`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Developer/MassUnloadingTestModule/MassUnloadingTestModule.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`MassUnloadingTestModule`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Developer/MassUnloadingTestModule/MassUnloadingTestModule.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "materialbaking",
     "kind": "module",
     "cn_steps": [
-      "用途：`MaterialBaking` 位于 `Developer`，构建规则 `Developer/MaterialBaking/MaterialBaking.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `InputCore`, `MeshDescription`, `PropertyEditor`, `RHI`, `RenderCore`。",
+      "`MaterialBaking`（Material Baking）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/MaterialBaking/MaterialBaking.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`Engine`、`InputCore`、`MeshDescription` 等。",
+      "部署：`MaterialBaking` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialBaking\" });`；对外暴露 `MaterialBaking` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MaterialBaking` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `MaterialBaking.h` / `MaterialBakingModule.h`），再用 `FModuleManager::LoadModulePtr<MaterialBakingModule>` 或直接使用导出类型。",
-      "传递依赖：`MaterialBaking` 还依赖 `Core`, `CoreUObject`, `Engine`, `InputCore`, `MeshDescription`, `PropertyEditor`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MaterialBaking` lives under `Developer`; build rule `Developer/MaterialBaking/MaterialBaking.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `MeshDescription`, `PropertyEditor`, `RHI`, `RenderCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialBaking\" });`. Use Public when exposing `MaterialBaking` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`MaterialBaking` (Material Baking): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/MaterialBaking/MaterialBaking.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `MeshDescription` etc.",
       "Placement: `MaterialBaking` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `MaterialBaking.h` / `MaterialBakingModule.h`), then use `FModuleManager::LoadModulePtr<MaterialBakingModule>` or the exported types directly.",
-      "Transitive deps: `MaterialBaking` also needs `Core`, `CoreUObject`, `Engine`, `InputCore`, `MeshDescription`, `PropertyEditor`, `RHI`, `RenderCore`; do not re-list them unless you include their headers."
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialBaking\" });`. Use Public when exposing `MaterialBaking` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MaterialBaking` 的构建规则位于 `Developer/MaterialBaking/MaterialBaking.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MaterialBaking` build rule is `Developer/MaterialBaking/MaterialBaking.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`MaterialBaking`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/MaterialBaking/MaterialBaking.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MaterialBaking`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/MaterialBaking/MaterialBaking.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "materialeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`MaterialEditor` 位于 `Editor`，构建规则 `Editor/MaterialEditor/MaterialEditor.Build.cs`。它直接依赖 8 个模块：`AdvancedPreviewScene`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `CommonMenuExtensions`, `ContentBrowser`, `ContentBrowserData`。",
+      "`MaterialEditor`（Material Editor）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Editor`，构建规则 `Editor/MaterialEditor/MaterialEditor.Build.cs`。直接依赖 8 个模块：`AdvancedPreviewScene`、`AppFramework`、`ApplicationCore`、`AssetRegistry`、`BlueprintGraph` 等。",
+      "部署：`MaterialEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialEditor\" });`；对外暴露 `MaterialEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MaterialEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `MaterialEditor.h` / `MaterialEditorModule.h`），再用 `FModuleManager::LoadModulePtr<MaterialEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`MaterialEditor` 还依赖 `AdvancedPreviewScene`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `CommonMenuExtensions`, `ContentBrowser`, `ContentBrowserData`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MaterialEditor` lives under `Editor`; build rule `Editor/MaterialEditor/MaterialEditor.Build.cs`.It directly depends on 8 modules: `AdvancedPreviewScene`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `CommonMenuExtensions`, `ContentBrowser`, `ContentBrowserData`.",
+      "`MaterialEditor` (Material Editor): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Editor`; build rule `Editor/MaterialEditor/MaterialEditor.Build.cs`. It directly depends on 8 modules: `AdvancedPreviewScene`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph` etc.",
+      "Placement: `MaterialEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialEditor\" });`. Use Public when exposing `MaterialEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MaterialEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `MaterialEditor.h` / `MaterialEditorModule.h`), then use `FModuleManager::LoadModulePtr<MaterialEditorModule>` or the exported types directly.",
-      "Transitive deps: `MaterialEditor` also needs `AdvancedPreviewScene`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `CommonMenuExtensions`, `ContentBrowser`, `ContentBrowserData`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MaterialEditor` 的构建规则位于 `Editor/MaterialEditor/MaterialEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MaterialEditor` build rule is `Editor/MaterialEditor/MaterialEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`MaterialEditor`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Editor/MaterialEditor/MaterialEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MaterialEditor`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Editor/MaterialEditor/MaterialEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "materialshaderqualitysettings",
     "kind": "module",
     "cn_steps": [
-      "用途：`MaterialShaderQualitySettings` 位于 `Runtime`，构建规则 `Runtime/MaterialShaderQualitySettings/MaterialShaderQualitySettings.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `RHI`。",
+      "`MaterialShaderQualitySettings`（Material Shader Quality Settings）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/MaterialShaderQualitySettings/MaterialShaderQualitySettings.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`RHI`。",
+      "部署：`MaterialShaderQualitySettings` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialShaderQualitySettings\" });`；对外暴露 `MaterialShaderQualitySettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MaterialShaderQualitySettings` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MaterialShaderQualitySettings.h` / `MaterialShaderQualitySettingsModule.h`），再用 `FModuleManager::LoadModulePtr<MaterialShaderQualitySettingsModule>` 或直接使用导出类型。",
-      "传递依赖：`MaterialShaderQualitySettings` 还依赖 `Core`, `CoreUObject`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MaterialShaderQualitySettings` lives under `Runtime`; build rule `Runtime/MaterialShaderQualitySettings/MaterialShaderQualitySettings.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `RHI`.",
+      "`MaterialShaderQualitySettings` (Material Shader Quality Settings): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/MaterialShaderQualitySettings/MaterialShaderQualitySettings.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `RHI`.",
+      "Placement: `MaterialShaderQualitySettings` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialShaderQualitySettings\" });`. Use Public when exposing `MaterialShaderQualitySettings` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MaterialShaderQualitySettings` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MaterialShaderQualitySettings.h` / `MaterialShaderQualitySettingsModule.h`), then use `FModuleManager::LoadModulePtr<MaterialShaderQualitySettingsModule>` or the exported types directly.",
-      "Transitive deps: `MaterialShaderQualitySettings` also needs `Core`, `CoreUObject`, `RHI`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MaterialShaderQualitySettings` 的构建规则位于 `Runtime/MaterialShaderQualitySettings/MaterialShaderQualitySettings.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`MaterialShaderQualitySettings` build rule is `Runtime/MaterialShaderQualitySettings/MaterialShaderQualitySettings.Build.cs`; depends on 3 modules; category Module."
-  },
-  {
-    "slug": "materialshaderqualitysettingseditor",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`MaterialShaderQualitySettingsEditor` 位于 `Editor`，构建规则 `Editor/MaterialShaderQualitySettingsEditor/MaterialShaderQualitySettingsEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `InputCore`, `MaterialShaderQualitySettings`, `PropertyEditor`, `Slate`, `SlateCore`, `TargetPlatform`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialShaderQualitySettingsEditor\" });`；对外暴露 `MaterialShaderQualitySettingsEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MaterialShaderQualitySettingsEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `MaterialShaderQualitySettingsEditor.h` / `MaterialShaderQualitySettingsEditorModule.h`），再用 `FModuleManager::LoadModulePtr<MaterialShaderQualitySettingsEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`MaterialShaderQualitySettingsEditor` 还依赖 `Core`, `CoreUObject`, `InputCore`, `MaterialShaderQualitySettings`, `PropertyEditor`, `Slate`, `SlateCore`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `MaterialShaderQualitySettingsEditor` lives under `Editor`; build rule `Editor/MaterialShaderQualitySettingsEditor/MaterialShaderQualitySettingsEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `InputCore`, `MaterialShaderQualitySettings`, `PropertyEditor`, `Slate`, `SlateCore`, `TargetPlatform`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialShaderQualitySettingsEditor\" });`. Use Public when exposing `MaterialShaderQualitySettingsEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MaterialShaderQualitySettingsEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `MaterialShaderQualitySettingsEditor.h` / `MaterialShaderQualitySettingsEditorModule.h`), then use `FModuleManager::LoadModulePtr<MaterialShaderQualitySettingsEditorModule>` or the exported types directly.",
-      "Transitive deps: `MaterialShaderQualitySettingsEditor` also needs `Core`, `CoreUObject`, `InputCore`, `MaterialShaderQualitySettings`, `PropertyEditor`, `Slate`, `SlateCore`, `TargetPlatform`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`MaterialShaderQualitySettingsEditor` 的构建规则位于 `Editor/MaterialShaderQualitySettingsEditor/MaterialShaderQualitySettingsEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MaterialShaderQualitySettingsEditor` build rule is `Editor/MaterialShaderQualitySettingsEditor/MaterialShaderQualitySettingsEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`MaterialShaderQualitySettings`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/MaterialShaderQualitySettings/MaterialShaderQualitySettings.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`MaterialShaderQualitySettings`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/MaterialShaderQualitySettings/MaterialShaderQualitySettings.Build.cs`; depends on 3 modules."
   }
 ]

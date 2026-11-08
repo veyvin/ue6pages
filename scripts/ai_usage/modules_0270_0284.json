@@ -1,304 +1,302 @@
 [
   {
+    "slug": "epicwebhelper",
+    "kind": "module",
+    "cn_steps": [
+      "`EpicWebHelper`（Epic Web Helper）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/EpicWebHelper/EpicWebHelper.Build.cs`。直接依赖 4 个模块：`ApplicationCore`、`CEF3Utils`、`Core`、`Projects`。",
+      "部署：`EpicWebHelper` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EpicWebHelper\" });`；对外暴露 `EpicWebHelper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
+    ],
+    "en_steps": [
+      "`EpicWebHelper` (Epic Web Helper): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/EpicWebHelper/EpicWebHelper.Build.cs`. It directly depends on 4 modules: `ApplicationCore`, `CEF3Utils`, `Core`, `Projects`.",
+      "Placement: `EpicWebHelper` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EpicWebHelper\" });`. Use Public when exposing `EpicWebHelper` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
+    ],
+    "note_cn": "`EpicWebHelper`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/EpicWebHelper/EpicWebHelper.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`EpicWebHelper`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/EpicWebHelper/EpicWebHelper.Build.cs`; depends on 4 modules."
+  },
+  {
     "slug": "etc2comp",
     "kind": "module",
     "cn_steps": [
-      "用途：`etc2comp` 位于 `ThirdParty`，构建规则 `ThirdParty/etc2comp/etc2comp.Build.cs`。描述符未声明依赖。",
+      "`etc2comp`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/etc2comp/etc2comp.Build.cs`。描述符未声明依赖。",
+      "部署：`etc2comp` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"etc2comp\" });`；对外暴露 `etc2comp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`etc2comp` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `etc2comp.h` / `etc2compModule.h`），再用 `FModuleManager::LoadModulePtr<etc2compModule>` 或直接使用导出类型。",
-      "传递依赖：`etc2comp` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `etc2comp` lives under `ThirdParty`; build rule `ThirdParty/etc2comp/etc2comp.Build.cs`.The descriptor declares no dependencies.",
+      "`etc2comp`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/etc2comp/etc2comp.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `etc2comp` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"etc2comp\" });`. Use Public when exposing `etc2comp` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `etc2comp` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `etc2comp.h` / `etc2compModule.h`), then use `FModuleManager::LoadModulePtr<etc2compModule>` or the exported types directly.",
-      "Transitive deps: `etc2comp` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`etc2comp` 的构建规则位于 `ThirdParty/etc2comp/etc2comp.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`etc2comp` build rule is `ThirdParty/etc2comp/etc2comp.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`etc2comp`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/etc2comp/etc2comp.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`etc2comp`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/etc2comp/etc2comp.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "eventloop",
     "kind": "module",
     "cn_steps": [
-      "用途：`EventLoop` 位于 `Runtime`，构建规则 `Runtime/Online/EventLoop/EventLoop.Build.cs`。它直接依赖 2 个模块：`Core`, `NetCommon`。",
+      "`EventLoop`（Event Loop）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/EventLoop/EventLoop.Build.cs`。直接依赖 2 个模块：`Core`、`NetCommon`。",
+      "部署：`EventLoop` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EventLoop\" });`；对外暴露 `EventLoop` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EventLoop` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `EventLoop.h` / `EventLoopModule.h`），再用 `FModuleManager::LoadModulePtr<EventLoopModule>` 或直接使用导出类型。",
-      "传递依赖：`EventLoop` 还依赖 `Core`, `NetCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EventLoop` lives under `Runtime`; build rule `Runtime/Online/EventLoop/EventLoop.Build.cs`.It directly depends on 2 modules: `Core`, `NetCommon`.",
+      "`EventLoop` (Event Loop): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/EventLoop/EventLoop.Build.cs`. It directly depends on 2 modules: `Core`, `NetCommon`.",
+      "Placement: `EventLoop` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EventLoop\" });`. Use Public when exposing `EventLoop` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EventLoop` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `EventLoop.h` / `EventLoopModule.h`), then use `FModuleManager::LoadModulePtr<EventLoopModule>` or the exported types directly.",
-      "Transitive deps: `EventLoop` also needs `Core`, `NetCommon`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EventLoop` 的构建规则位于 `Runtime/Online/EventLoop/EventLoop.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`EventLoop` build rule is `Runtime/Online/EventLoop/EventLoop.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`EventLoop`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/EventLoop/EventLoop.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`EventLoop`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/EventLoop/EventLoop.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "eventloopunittests",
     "kind": "module",
     "cn_steps": [
-      "用途：`EventLoopUnitTests` 位于 `Runtime`，构建规则 `Runtime/Online/EventLoopTests/EventLoopUnitTests.Build.cs`。它直接依赖 3 个模块：`Core`, `EventLoop`, `Sockets`。",
+      "`EventLoopUnitTests`（Event Loop Unit Tests）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/EventLoopTests/EventLoopUnitTests.Build.cs`。直接依赖 3 个模块：`Core`、`EventLoop`、`Sockets`。",
+      "部署：`EventLoopUnitTests` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EventLoopUnitTests\" });`；对外暴露 `EventLoopUnitTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EventLoopUnitTests` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `EventLoopUnitTests.h` / `EventLoopUnitTestsModule.h`），再用 `FModuleManager::LoadModulePtr<EventLoopUnitTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`EventLoopUnitTests` 还依赖 `Core`, `EventLoop`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EventLoopUnitTests` lives under `Runtime`; build rule `Runtime/Online/EventLoopTests/EventLoopUnitTests.Build.cs`.It directly depends on 3 modules: `Core`, `EventLoop`, `Sockets`.",
+      "`EventLoopUnitTests` (Event Loop Unit Tests): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/EventLoopTests/EventLoopUnitTests.Build.cs`. It directly depends on 3 modules: `Core`, `EventLoop`, `Sockets`.",
+      "Placement: `EventLoopUnitTests` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EventLoopUnitTests\" });`. Use Public when exposing `EventLoopUnitTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EventLoopUnitTests` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `EventLoopUnitTests.h` / `EventLoopUnitTestsModule.h`), then use `FModuleManager::LoadModulePtr<EventLoopUnitTestsModule>` or the exported types directly.",
-      "Transitive deps: `EventLoopUnitTests` also needs `Core`, `EventLoop`, `Sockets`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EventLoopUnitTests` 的构建规则位于 `Runtime/Online/EventLoopTests/EventLoopUnitTests.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`EventLoopUnitTests` build rule is `Runtime/Online/EventLoopTests/EventLoopUnitTests.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`EventLoopUnitTests`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/EventLoopTests/EventLoopUnitTests.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`EventLoopUnitTests`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/EventLoopTests/EventLoopUnitTests.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "expat",
     "kind": "module",
     "cn_steps": [
-      "用途：`Expat` 位于 `ThirdParty`，构建规则 `ThirdParty/Expat/Expat.Build.cs`。描述符未声明依赖。",
+      "`Expat`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Expat/Expat.Build.cs`。描述符未声明依赖。",
+      "部署：`Expat` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Expat\" });`；对外暴露 `Expat` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Expat` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Expat.h` / `ExpatModule.h`），再用 `FModuleManager::LoadModulePtr<ExpatModule>` 或直接使用导出类型。",
-      "传递依赖：`Expat` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Expat` lives under `ThirdParty`; build rule `ThirdParty/Expat/Expat.Build.cs`.The descriptor declares no dependencies.",
+      "`Expat`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Expat/Expat.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Expat` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Expat\" });`. Use Public when exposing `Expat` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Expat` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Expat.h` / `ExpatModule.h`), then use `FModuleManager::LoadModulePtr<ExpatModule>` or the exported types directly.",
-      "Transitive deps: `Expat` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Expat` 的构建规则位于 `ThirdParty/Expat/Expat.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Expat` build rule is `ThirdParty/Expat/Expat.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`Expat`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Expat/Expat.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Expat`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Expat/Expat.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "externalimagepicker",
     "kind": "module",
     "cn_steps": [
-      "用途：`ExternalImagePicker` 位于 `Developer`，构建规则 `Developer/ExternalImagePicker/ExternalImagePicker.Build.cs`。它直接依赖 7 个模块：`Core`, `DesktopPlatform`, `ImageCore`, `ImageWrapper`, `PropertyEditor`, `Slate`, `SlateCore`。",
+      "`ExternalImagePicker`（External Image Picker）：它属于图像处理/编解码（像素格式、图像读写、颜色管理）。位于 `Developer`，构建规则 `Developer/ExternalImagePicker/ExternalImagePicker.Build.cs`。直接依赖 7 个模块：`Core`、`DesktopPlatform`、`ImageCore`、`ImageWrapper`、`PropertyEditor` 等。",
+      "部署：`ExternalImagePicker` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在导入/导出纹理、运行时读写像素或做色彩空间转换时用；常与 ImageCore/ImageWrapper 配合。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ExternalImagePicker\" });`；对外暴露 `ExternalImagePicker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ExternalImagePicker` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `ExternalImagePicker.h` / `ExternalImagePickerModule.h`），再用 `FModuleManager::LoadModulePtr<ExternalImagePickerModule>` 或直接使用导出类型。",
-      "传递依赖：`ExternalImagePicker` 还依赖 `Core`, `DesktopPlatform`, `ImageCore`, `ImageWrapper`, `PropertyEditor`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ExternalImagePicker` lives under `Developer`; build rule `Developer/ExternalImagePicker/ExternalImagePicker.Build.cs`.It directly depends on 7 modules: `Core`, `DesktopPlatform`, `ImageCore`, `ImageWrapper`, `PropertyEditor`, `Slate`, `SlateCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ExternalImagePicker\" });`. Use Public when exposing `ExternalImagePicker` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`ExternalImagePicker` (External Image Picker): it is part of image processing/codecs (pixel formats, image read/write, color management). Located under `Developer`; build rule `Developer/ExternalImagePicker/ExternalImagePicker.Build.cs`. It directly depends on 7 modules: `Core`, `DesktopPlatform`, `ImageCore`, `ImageWrapper`, `PropertyEditor` etc.",
       "Placement: `ExternalImagePicker` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `ExternalImagePicker.h` / `ExternalImagePickerModule.h`), then use `FModuleManager::LoadModulePtr<ExternalImagePickerModule>` or the exported types directly.",
-      "Transitive deps: `ExternalImagePicker` also needs `Core`, `DesktopPlatform`, `ImageCore`, `ImageWrapper`, `PropertyEditor`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "How to use: used when importing/exporting textures, reading pixels at runtime, or converting color space; often paired with ImageCore/ImageWrapper.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ExternalImagePicker\" });`. Use Public when exposing `ExternalImagePicker` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ExternalImagePicker` 的构建规则位于 `Developer/ExternalImagePicker/ExternalImagePicker.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`ExternalImagePicker` build rule is `Developer/ExternalImagePicker/ExternalImagePicker.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`ExternalImagePicker`：它属于图像处理/编解码（像素格式、图像读写、颜色管理）；构建规则 `Developer/ExternalImagePicker/ExternalImagePicker.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`ExternalImagePicker`: it is part of image processing/codecs (pixel formats, image read/write, color management); build rule `Developer/ExternalImagePicker/ExternalImagePicker.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "externalrpcregistry",
     "kind": "module",
     "cn_steps": [
-      "用途：`ExternalRpcRegistry` 位于 `Runtime`，构建规则 `Runtime/ExternalRPCRegistry/ExternalRpcRegistry.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `HTTP`, `HTTPServer`, `Json`。",
+      "`ExternalRpcRegistry`（External Rpc Registry）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/ExternalRPCRegistry/ExternalRpcRegistry.Build.cs`。直接依赖 5 个模块：`Core`、`CoreUObject`、`HTTP`、`HTTPServer`、`Json`。",
+      "部署：`ExternalRpcRegistry` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ExternalRpcRegistry\" });`；对外暴露 `ExternalRpcRegistry` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ExternalRpcRegistry` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `ExternalRpcRegistry.h` / `ExternalRpcRegistryModule.h`），再用 `FModuleManager::LoadModulePtr<ExternalRpcRegistryModule>` 或直接使用导出类型。",
-      "传递依赖：`ExternalRpcRegistry` 还依赖 `Core`, `CoreUObject`, `HTTP`, `HTTPServer`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ExternalRpcRegistry` lives under `Runtime`; build rule `Runtime/ExternalRPCRegistry/ExternalRpcRegistry.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `HTTP`, `HTTPServer`, `Json`.",
+      "`ExternalRpcRegistry` (External Rpc Registry): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/ExternalRPCRegistry/ExternalRpcRegistry.Build.cs`. It directly depends on 5 modules: `Core`, `CoreUObject`, `HTTP`, `HTTPServer`, `Json`.",
+      "Placement: `ExternalRpcRegistry` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ExternalRpcRegistry\" });`. Use Public when exposing `ExternalRpcRegistry` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ExternalRpcRegistry` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `ExternalRpcRegistry.h` / `ExternalRpcRegistryModule.h`), then use `FModuleManager::LoadModulePtr<ExternalRpcRegistryModule>` or the exported types directly.",
-      "Transitive deps: `ExternalRpcRegistry` also needs `Core`, `CoreUObject`, `HTTP`, `HTTPServer`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ExternalRpcRegistry` 的构建规则位于 `Runtime/ExternalRPCRegistry/ExternalRpcRegistry.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`ExternalRpcRegistry` build rule is `Runtime/ExternalRPCRegistry/ExternalRpcRegistry.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`ExternalRpcRegistry`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/ExternalRPCRegistry/ExternalRpcRegistry.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`ExternalRpcRegistry`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/ExternalRPCRegistry/ExternalRpcRegistry.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "eyetracker",
     "kind": "module",
     "cn_steps": [
-      "用途：`EyeTracker` 位于 `Runtime`，构建规则 `Runtime/EyeTracker/EyeTracker.Build.cs`。它直接依赖 8 个模块：`Analytics`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `RHI`, `RenderCore`, `Renderer`。",
+      "`EyeTracker`（Eye Tracker）：它提供 XR/VR/AR 能力（OpenXR、HMD 与手柄追踪、手势等）。位于 `Runtime`，构建规则 `Runtime/EyeTracker/EyeTracker.Build.cs`。直接依赖 8 个模块：`Analytics`、`Core`、`CoreUObject`、`Engine`、`InputCore` 等。",
+      "部署：`EyeTracker` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 XR/VR 项目里启用对应 XR 插件，通过 XR 子系统读取头显/手柄姿态与输入。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EyeTracker\" });`；对外暴露 `EyeTracker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EyeTracker` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `EyeTracker.h` / `EyeTrackerModule.h`），再用 `FModuleManager::LoadModulePtr<EyeTrackerModule>` 或直接使用导出类型。",
-      "传递依赖：`EyeTracker` 还依赖 `Analytics`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `RHI`, `RenderCore`, `Renderer`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EyeTracker` lives under `Runtime`; build rule `Runtime/EyeTracker/EyeTracker.Build.cs`.It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `RHI`, `RenderCore`, `Renderer`.",
+      "`EyeTracker` (Eye Tracker): it provides XR/VR/AR capability (OpenXR, HMD and controller tracking, hands, etc.). Located under `Runtime`; build rule `Runtime/EyeTracker/EyeTracker.Build.cs`. It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `Engine`, `InputCore` etc.",
+      "Placement: `EyeTracker` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: in XR/VR projects enable the matching XR plugin and read headset/controller pose and input through the XR subsystem.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EyeTracker\" });`. Use Public when exposing `EyeTracker` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EyeTracker` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `EyeTracker.h` / `EyeTrackerModule.h`), then use `FModuleManager::LoadModulePtr<EyeTrackerModule>` or the exported types directly.",
-      "Transitive deps: `EyeTracker` also needs `Analytics`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `RHI`, `RenderCore`, `Renderer`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EyeTracker` 的构建规则位于 `Runtime/EyeTracker/EyeTracker.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`EyeTracker` build rule is `Runtime/EyeTracker/EyeTracker.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`EyeTracker`：它提供 XR/VR/AR 能力（OpenXR、HMD 与手柄追踪、手势等）；构建规则 `Runtime/EyeTracker/EyeTracker.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`EyeTracker`: it provides XR/VR/AR capability (OpenXR, HMD and controller tracking, hands, etc.); build rule `Runtime/EyeTracker/EyeTracker.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "facebook",
     "kind": "module",
     "cn_steps": [
-      "用途：`Facebook` 位于 `ThirdParty`，构建规则 `ThirdParty/Facebook/Facebook.Build.cs`。它直接依赖 1 个模块：`Swift`。",
+      "`Facebook`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Facebook/Facebook.Build.cs`。直接依赖 1 个模块：`Swift`。",
+      "部署：`Facebook` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Facebook\" });`；对外暴露 `Facebook` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Facebook` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Facebook.h` / `FacebookModule.h`），再用 `FModuleManager::LoadModulePtr<FacebookModule>` 或直接使用导出类型。",
-      "传递依赖：`Facebook` 还依赖 `Swift`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Facebook` lives under `ThirdParty`; build rule `ThirdParty/Facebook/Facebook.Build.cs`.It directly depends on 1 modules: `Swift`.",
+      "`Facebook`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Facebook/Facebook.Build.cs`. It directly depends on 1 modules: `Swift`.",
+      "Placement: `Facebook` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Facebook\" });`. Use Public when exposing `Facebook` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Facebook` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Facebook.h` / `FacebookModule.h`), then use `FModuleManager::LoadModulePtr<FacebookModule>` or the exported types directly.",
-      "Transitive deps: `Facebook` also needs `Swift`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Facebook` 的构建规则位于 `ThirdParty/Facebook/Facebook.Build.cs`，直接依赖 1 个模块，分类 External。",
-    "note_en": "`Facebook` build rule is `ThirdParty/Facebook/Facebook.Build.cs`; depends on 1 modules; category External."
+    "note_cn": "`Facebook`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Facebook/Facebook.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`Facebook`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Facebook/Facebook.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "faiss",
     "kind": "module",
     "cn_steps": [
-      "用途：`FAISS` 位于 `ThirdParty`，构建规则 `ThirdParty/FAISS/FAISS.Build.cs`。描述符未声明依赖。",
+      "`FAISS`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/FAISS/FAISS.Build.cs`。描述符未声明依赖。",
+      "部署：`FAISS` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FAISS\" });`；对外暴露 `FAISS` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`FAISS` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `FAISS.h` / `FAISSModule.h`），再用 `FModuleManager::LoadModulePtr<FAISSModule>` 或直接使用导出类型。",
-      "传递依赖：`FAISS` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `FAISS` lives under `ThirdParty`; build rule `ThirdParty/FAISS/FAISS.Build.cs`.The descriptor declares no dependencies.",
+      "`FAISS`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/FAISS/FAISS.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `FAISS` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FAISS\" });`. Use Public when exposing `FAISS` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `FAISS` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `FAISS.h` / `FAISSModule.h`), then use `FModuleManager::LoadModulePtr<FAISSModule>` or the exported types directly.",
-      "Transitive deps: `FAISS` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`FAISS` 的构建规则位于 `ThirdParty/FAISS/FAISS.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`FAISS` build rule is `ThirdParty/FAISS/FAISS.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`FAISS`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/FAISS/FAISS.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`FAISS`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/FAISS/FAISS.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "fakeit",
     "kind": "module",
     "cn_steps": [
-      "用途：`FakeIt` 位于 `ThirdParty`，构建规则 `ThirdParty/FakeIt/FakeIt.Build.cs`。描述符未声明依赖。",
+      "`FakeIt`（Fake It）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/FakeIt/FakeIt.Build.cs`。描述符未声明依赖。",
+      "部署：`FakeIt` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FakeIt\" });`；对外暴露 `FakeIt` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`FakeIt` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `FakeIt.h` / `FakeItModule.h`），再用 `FModuleManager::LoadModulePtr<FakeItModule>` 或直接使用导出类型。",
-      "传递依赖：`FakeIt` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `FakeIt` lives under `ThirdParty`; build rule `ThirdParty/FakeIt/FakeIt.Build.cs`.The descriptor declares no dependencies.",
+      "`FakeIt` (Fake It): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/FakeIt/FakeIt.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `FakeIt` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FakeIt\" });`. Use Public when exposing `FakeIt` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `FakeIt` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `FakeIt.h` / `FakeItModule.h`), then use `FModuleManager::LoadModulePtr<FakeItModule>` or the exported types directly.",
-      "Transitive deps: `FakeIt` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`FakeIt` 的构建规则位于 `ThirdParty/FakeIt/FakeIt.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`FakeIt` build rule is `ThirdParty/FakeIt/FakeIt.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`FakeIt`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/FakeIt/FakeIt.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`FakeIt`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/FakeIt/FakeIt.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "fbx",
     "kind": "module",
     "cn_steps": [
-      "用途：`FBX` 位于 `ThirdParty`，构建规则 `ThirdParty/FBX/FBX.Build.cs`。描述符未声明依赖。",
+      "`FBX`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/FBX/FBX.Build.cs`。描述符未声明依赖。",
+      "部署：`FBX` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FBX\" });`；对外暴露 `FBX` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`FBX` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `FBX.h` / `FBXModule.h`），再用 `FModuleManager::LoadModulePtr<FBXModule>` 或直接使用导出类型。",
-      "传递依赖：`FBX` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `FBX` lives under `ThirdParty`; build rule `ThirdParty/FBX/FBX.Build.cs`.The descriptor declares no dependencies.",
+      "`FBX`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/FBX/FBX.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `FBX` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FBX\" });`. Use Public when exposing `FBX` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `FBX` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `FBX.h` / `FBXModule.h`), then use `FModuleManager::LoadModulePtr<FBXModule>` or the exported types directly.",
-      "Transitive deps: `FBX` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`FBX` 的构建规则位于 `ThirdParty/FBX/FBX.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`FBX` build rule is `ThirdParty/FBX/FBX.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`FBX`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/FBX/FBX.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`FBX`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/FBX/FBX.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "fieldnotification",
     "kind": "module",
     "cn_steps": [
-      "用途：`FieldNotification` 位于 `Runtime`，构建规则 `Runtime/FieldNotification/FieldNotification.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`FieldNotification`（Field Notification）：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）。位于 `Runtime`，构建规则 `Runtime/FieldNotification/FieldNotification.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`FieldNotification` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给网格开启物理/Chaos，放置字段或破坏资产；运行时由物理系统模拟，代码里查询碰撞与物理状态。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FieldNotification\" });`；对外暴露 `FieldNotification` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`FieldNotification` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `FieldNotification.h` / `FieldNotificationModule.h`），再用 `FModuleManager::LoadModulePtr<FieldNotificationModule>` 或直接使用导出类型。",
-      "传递依赖：`FieldNotification` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `FieldNotification` lives under `Runtime`; build rule `Runtime/FieldNotification/FieldNotification.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`FieldNotification` (Field Notification): it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields). Located under `Runtime`; build rule `Runtime/FieldNotification/FieldNotification.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `FieldNotification` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: enable physics/Chaos on meshes and place fields or destruction assets; the physics system simulates at runtime and you query collisions/state from code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FieldNotification\" });`. Use Public when exposing `FieldNotification` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `FieldNotification` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `FieldNotification.h` / `FieldNotificationModule.h`), then use `FModuleManager::LoadModulePtr<FieldNotificationModule>` or the exported types directly.",
-      "Transitive deps: `FieldNotification` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`FieldNotification` 的构建规则位于 `Runtime/FieldNotification/FieldNotification.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`FieldNotification` build rule is `Runtime/FieldNotification/FieldNotification.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`FieldNotification`：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）；构建规则 `Runtime/FieldNotification/FieldNotification.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`FieldNotification`: it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields); build rule `Runtime/FieldNotification/FieldNotification.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "fieldsystemengine",
     "kind": "module",
     "cn_steps": [
-      "用途：`FieldSystemEngine` 位于 `Runtime`，构建规则 `Runtime/Experimental/FieldSystem/Source/FieldSystemEngine/FieldSystemEngine.Build.cs`。它直接依赖 8 个模块：`Chaos`, `ChaosSolverEngine`, `Core`, `CoreUObject`, `Engine`, `PhysicsCore`, `RHI`, `RenderCore`。",
+      "`FieldSystemEngine`（Field System Engine）：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）。位于 `Runtime`，构建规则 `Runtime/Experimental/FieldSystem/Source/FieldSystemEngine/FieldSystemEngine.Build.cs`。直接依赖 8 个模块：`Chaos`、`ChaosSolverEngine`、`Core`、`CoreUObject`、`Engine` 等。",
+      "部署：`FieldSystemEngine` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给网格开启物理/Chaos，放置字段或破坏资产；运行时由物理系统模拟，代码里查询碰撞与物理状态。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FieldSystemEngine\" });`；对外暴露 `FieldSystemEngine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`FieldSystemEngine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `FieldSystemEngine.h` / `FieldSystemEngineModule.h`），再用 `FModuleManager::LoadModulePtr<FieldSystemEngineModule>` 或直接使用导出类型。",
-      "传递依赖：`FieldSystemEngine` 还依赖 `Chaos`, `ChaosSolverEngine`, `Core`, `CoreUObject`, `Engine`, `PhysicsCore`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`FieldSystemEngine` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `FieldSystemEngine` lives under `Runtime`; build rule `Runtime/Experimental/FieldSystem/Source/FieldSystemEngine/FieldSystemEngine.Build.cs`.It directly depends on 8 modules: `Chaos`, `ChaosSolverEngine`, `Core`, `CoreUObject`, `Engine`, `PhysicsCore`, `RHI`, `RenderCore`.",
+      "`FieldSystemEngine` (Field System Engine): it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields). Located under `Runtime`; build rule `Runtime/Experimental/FieldSystem/Source/FieldSystemEngine/FieldSystemEngine.Build.cs`. It directly depends on 8 modules: `Chaos`, `ChaosSolverEngine`, `Core`, `CoreUObject`, `Engine` etc.",
+      "Placement: `FieldSystemEngine` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: enable physics/Chaos on meshes and place fields or destruction assets; the physics system simulates at runtime and you query collisions/state from code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FieldSystemEngine\" });`. Use Public when exposing `FieldSystemEngine` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `FieldSystemEngine` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `FieldSystemEngine.h` / `FieldSystemEngineModule.h`), then use `FModuleManager::LoadModulePtr<FieldSystemEngineModule>` or the exported types directly.",
-      "Transitive deps: `FieldSystemEngine` also needs `Chaos`, `ChaosSolverEngine`, `Core`, `CoreUObject`, `Engine`, `PhysicsCore`, `RHI`, `RenderCore`; do not re-list them unless you include their headers.",
-      "Note: `FieldSystemEngine` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`FieldSystemEngine` 的构建规则位于 `Runtime/Experimental/FieldSystem/Source/FieldSystemEngine/FieldSystemEngine.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`FieldSystemEngine` build rule is `Runtime/Experimental/FieldSystem/Source/FieldSystemEngine/FieldSystemEngine.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`FieldSystemEngine`：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）；构建规则 `Runtime/Experimental/FieldSystem/Source/FieldSystemEngine/FieldSystemEngine.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`FieldSystemEngine`: it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields); build rule `Runtime/Experimental/FieldSystem/Source/FieldSystemEngine/FieldSystemEngine.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "fileutilities",
     "kind": "module",
     "cn_steps": [
-      "用途：`FileUtilities` 位于 `Developer`，构建规则 `Developer/FileUtilities/FileUtilities.Build.cs`。它直接依赖 2 个模块：`Core`, `libzip`。",
+      "`FileUtilities`（File Utilities）：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）。位于 `Developer`，构建规则 `Developer/FileUtilities/FileUtilities.Build.cs`。直接依赖 2 个模块：`Core`、`libzip`。",
+      "部署：`FileUtilities` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：几乎被所有模块间接依赖；一般无需显式添加，除非你在写底层插件或工具。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FileUtilities\" });`；对外暴露 `FileUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`FileUtilities` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `FileUtilities.h` / `FileUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<FileUtilitiesModule>` 或直接使用导出类型。",
-      "传递依赖：`FileUtilities` 还依赖 `Core`, `libzip`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `FileUtilities` lives under `Developer`; build rule `Developer/FileUtilities/FileUtilities.Build.cs`.It directly depends on 2 modules: `Core`, `libzip`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FileUtilities\" });`. Use Public when exposing `FileUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`FileUtilities` (File Utilities): it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata). Located under `Developer`; build rule `Developer/FileUtilities/FileUtilities.Build.cs`. It directly depends on 2 modules: `Core`, `libzip`.",
       "Placement: `FileUtilities` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `FileUtilities.h` / `FileUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<FileUtilitiesModule>` or the exported types directly.",
-      "Transitive deps: `FileUtilities` also needs `Core`, `libzip`; do not re-list them unless you include their headers."
+      "How to use: almost every module depends on it transitively; you rarely add it explicitly unless writing low-level plugins/tools.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FileUtilities\" });`. Use Public when exposing `FileUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`FileUtilities` 的构建规则位于 `Developer/FileUtilities/FileUtilities.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`FileUtilities` build rule is `Developer/FileUtilities/FileUtilities.Build.cs`; depends on 2 modules; category Module."
-  },
-  {
-    "slug": "flatbuffers",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`Flatbuffers` 位于 `ThirdParty`，构建规则 `ThirdParty/flatbuffers/Flatbuffers.Build.cs`。描述符未声明依赖。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Flatbuffers\" });`；对外暴露 `Flatbuffers` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Flatbuffers` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Flatbuffers.h` / `FlatbuffersModule.h`），再用 `FModuleManager::LoadModulePtr<FlatbuffersModule>` 或直接使用导出类型。",
-      "传递依赖：`Flatbuffers` 未声明额外公开依赖，通常只依赖引擎基础层。"
-    ],
-    "en_steps": [
-      "Purpose: `Flatbuffers` lives under `ThirdParty`; build rule `ThirdParty/flatbuffers/Flatbuffers.Build.cs`.The descriptor declares no dependencies.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Flatbuffers\" });`. Use Public when exposing `Flatbuffers` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Flatbuffers` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Flatbuffers.h` / `FlatbuffersModule.h`), then use `FModuleManager::LoadModulePtr<FlatbuffersModule>` or the exported types directly.",
-      "Transitive deps: `Flatbuffers` declares no extra public deps; it typically relies on engine basics."
-    ],
-    "note_cn": "`Flatbuffers` 的构建规则位于 `ThirdParty/flatbuffers/Flatbuffers.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Flatbuffers` build rule is `ThirdParty/flatbuffers/Flatbuffers.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`FileUtilities`：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）；构建规则 `Developer/FileUtilities/FileUtilities.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`FileUtilities`: it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata); build rule `Developer/FileUtilities/FileUtilities.Build.cs`; depends on 2 modules."
   }
 ]

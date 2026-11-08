@@ -1,302 +1,302 @@
 [
   {
+    "slug": "uejpegcomp",
+    "kind": "module",
+    "cn_steps": [
+      "`UEJpegComp`（UE Jpeg Comp）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/UEJpegComp/UEJpegComp.Build.cs`。描述符未声明依赖。",
+      "部署：`UEJpegComp` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UEJpegComp\" });`；对外暴露 `UEJpegComp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`UEJpegComp` (UE Jpeg Comp): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/UEJpegComp/UEJpegComp.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `UEJpegComp` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UEJpegComp\" });`. Use Public when exposing `UEJpegComp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`UEJpegComp`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/UEJpegComp/UEJpegComp.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`UEJpegComp`: it exposes C++ API/functionality to other modules; build rule `Runtime/UEJpegComp/UEJpegComp.Build.cs`; depends on 0 modules."
+  },
+  {
     "slug": "uelibjpg",
     "kind": "module",
     "cn_steps": [
-      "用途：`UElibJPG` 位于 `ThirdParty`，构建规则 `ThirdParty/libJPG/UElibJPG.Build.cs`。描述符未声明依赖。",
+      "`UElibJPG`（U Elib JPG）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libJPG/UElibJPG.Build.cs`。描述符未声明依赖。",
+      "部署：`UElibJPG` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UElibJPG\" });`；对外暴露 `UElibJPG` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UElibJPG` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `UElibJPG.h` / `UElibJPGModule.h`），再用 `FModuleManager::LoadModulePtr<UElibJPGModule>` 或直接使用导出类型。",
-      "传递依赖：`UElibJPG` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `UElibJPG` lives under `ThirdParty`; build rule `ThirdParty/libJPG/UElibJPG.Build.cs`.The descriptor declares no dependencies.",
+      "`UElibJPG` (U Elib JPG): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libJPG/UElibJPG.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `UElibJPG` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UElibJPG\" });`. Use Public when exposing `UElibJPG` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UElibJPG` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `UElibJPG.h` / `UElibJPGModule.h`), then use `FModuleManager::LoadModulePtr<UElibJPGModule>` or the exported types directly.",
-      "Transitive deps: `UElibJPG` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`UElibJPG` 的构建规则位于 `ThirdParty/libJPG/UElibJPG.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`UElibJPG` build rule is `ThirdParty/libJPG/UElibJPG.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`UElibJPG`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libJPG/UElibJPG.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`UElibJPG`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libJPG/UElibJPG.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "uelibpng",
     "kind": "module",
     "cn_steps": [
-      "用途：`UElibPNG` 位于 `ThirdParty`，构建规则 `ThirdParty/libPNG/UElibPNG.Build.cs`。描述符未声明依赖。",
+      "`UElibPNG`（U Elib PNG）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libPNG/UElibPNG.Build.cs`。描述符未声明依赖。",
+      "部署：`UElibPNG` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UElibPNG\" });`；对外暴露 `UElibPNG` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UElibPNG` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `UElibPNG.h` / `UElibPNGModule.h`），再用 `FModuleManager::LoadModulePtr<UElibPNGModule>` 或直接使用导出类型。",
-      "传递依赖：`UElibPNG` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `UElibPNG` lives under `ThirdParty`; build rule `ThirdParty/libPNG/UElibPNG.Build.cs`.The descriptor declares no dependencies.",
+      "`UElibPNG` (U Elib PNG): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libPNG/UElibPNG.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `UElibPNG` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UElibPNG\" });`. Use Public when exposing `UElibPNG` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UElibPNG` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `UElibPNG.h` / `UElibPNGModule.h`), then use `FModuleManager::LoadModulePtr<UElibPNGModule>` or the exported types directly.",
-      "Transitive deps: `UElibPNG` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`UElibPNG` 的构建规则位于 `ThirdParty/libPNG/UElibPNG.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`UElibPNG` build rule is `ThirdParty/libPNG/UElibPNG.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`UElibPNG`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libPNG/UElibPNG.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`UElibPNG`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libPNG/UElibPNG.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "uelibrary",
     "kind": "module",
     "cn_steps": [
-      "用途：`UELibrary` 位于 `Runtime`，构建规则 `Runtime/UELibrary/UELibrary.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `Core`, `Engine`, `InputCore`, `Launch`。",
+      "`UELibrary`（UE Library）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/UELibrary/UELibrary.Build.cs`。直接依赖 5 个模块：`ApplicationCore`、`Core`、`Engine`、`InputCore`、`Launch`。",
+      "部署：`UELibrary` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UELibrary\" });`；对外暴露 `UELibrary` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UELibrary` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `UELibrary.h` / `UELibraryModule.h`），再用 `FModuleManager::LoadModulePtr<UELibraryModule>` 或直接使用导出类型。",
-      "传递依赖：`UELibrary` 还依赖 `ApplicationCore`, `Core`, `Engine`, `InputCore`, `Launch`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `UELibrary` lives under `Runtime`; build rule `Runtime/UELibrary/UELibrary.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `Core`, `Engine`, `InputCore`, `Launch`.",
+      "`UELibrary` (UE Library): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/UELibrary/UELibrary.Build.cs`. It directly depends on 5 modules: `ApplicationCore`, `Core`, `Engine`, `InputCore`, `Launch`.",
+      "Placement: `UELibrary` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UELibrary\" });`. Use Public when exposing `UELibrary` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UELibrary` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `UELibrary.h` / `UELibraryModule.h`), then use `FModuleManager::LoadModulePtr<UELibraryModule>` or the exported types directly.",
-      "Transitive deps: `UELibrary` also needs `ApplicationCore`, `Core`, `Engine`, `InputCore`, `Launch`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`UELibrary` 的构建规则位于 `Runtime/UELibrary/UELibrary.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`UELibrary` build rule is `Runtime/UELibrary/UELibrary.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`UELibrary`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/UELibrary/UELibrary.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`UELibrary`: it exposes C++ API/functionality to other modules; build rule `Runtime/UELibrary/UELibrary.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "uelibsamplerate",
     "kind": "module",
     "cn_steps": [
-      "用途：`UELibSampleRate` 位于 `ThirdParty`，构建规则 `ThirdParty/libSampleRate/UElibSampleRate.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`UELibSampleRate`（UE Lib Sample Rate）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libSampleRate/UElibSampleRate.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`UELibSampleRate` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UELibSampleRate\" });`；对外暴露 `UELibSampleRate` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UELibSampleRate` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `UELibSampleRate.h` / `UELibSampleRateModule.h`），再用 `FModuleManager::LoadModulePtr<UELibSampleRateModule>` 或直接使用导出类型。",
-      "传递依赖：`UELibSampleRate` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `UELibSampleRate` lives under `ThirdParty`; build rule `ThirdParty/libSampleRate/UElibSampleRate.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`UELibSampleRate` (UE Lib Sample Rate): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libSampleRate/UElibSampleRate.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `UELibSampleRate` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UELibSampleRate\" });`. Use Public when exposing `UELibSampleRate` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UELibSampleRate` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `UELibSampleRate.h` / `UELibSampleRateModule.h`), then use `FModuleManager::LoadModulePtr<UELibSampleRateModule>` or the exported types directly.",
-      "Transitive deps: `UELibSampleRate` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`UELibSampleRate` 的构建规则位于 `ThirdParty/libSampleRate/UElibSampleRate.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`UELibSampleRate` build rule is `ThirdParty/libSampleRate/UElibSampleRate.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`UELibSampleRate`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libSampleRate/UElibSampleRate.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`UELibSampleRate`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libSampleRate/UElibSampleRate.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "ueogg",
     "kind": "module",
     "cn_steps": [
-      "用途：`UEOgg` 位于 `ThirdParty`，构建规则 `ThirdParty/Ogg/UEOgg.Build.cs`。描述符未声明依赖。",
+      "`UEOgg`（UE Ogg）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Ogg/UEOgg.Build.cs`。描述符未声明依赖。",
+      "部署：`UEOgg` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UEOgg\" });`；对外暴露 `UEOgg` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UEOgg` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `UEOgg.h` / `UEOggModule.h`），再用 `FModuleManager::LoadModulePtr<UEOggModule>` 或直接使用导出类型。",
-      "传递依赖：`UEOgg` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `UEOgg` lives under `ThirdParty`; build rule `ThirdParty/Ogg/UEOgg.Build.cs`.The descriptor declares no dependencies.",
+      "`UEOgg` (UE Ogg): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Ogg/UEOgg.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `UEOgg` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UEOgg\" });`. Use Public when exposing `UEOgg` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UEOgg` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `UEOgg.h` / `UEOggModule.h`), then use `FModuleManager::LoadModulePtr<UEOggModule>` or the exported types directly.",
-      "Transitive deps: `UEOgg` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`UEOgg` 的构建规则位于 `ThirdParty/Ogg/UEOgg.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`UEOgg` build rule is `ThirdParty/Ogg/UEOgg.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`UEOgg`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Ogg/UEOgg.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`UEOgg`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Ogg/UEOgg.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "ueopenapv",
     "kind": "module",
     "cn_steps": [
-      "用途：`UEOpenAPV` 位于 `ThirdParty`，构建规则 `ThirdParty/OpenAPV/UEOpenAPV.Build.cs`。描述符未声明依赖。",
+      "`UEOpenAPV`（UE Open APV）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/OpenAPV/UEOpenAPV.Build.cs`。描述符未声明依赖。",
+      "部署：`UEOpenAPV` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UEOpenAPV\" });`；对外暴露 `UEOpenAPV` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UEOpenAPV` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `UEOpenAPV.h` / `UEOpenAPVModule.h`），再用 `FModuleManager::LoadModulePtr<UEOpenAPVModule>` 或直接使用导出类型。",
-      "传递依赖：`UEOpenAPV` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `UEOpenAPV` lives under `ThirdParty`; build rule `ThirdParty/OpenAPV/UEOpenAPV.Build.cs`.The descriptor declares no dependencies.",
+      "`UEOpenAPV` (UE Open APV): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/OpenAPV/UEOpenAPV.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `UEOpenAPV` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UEOpenAPV\" });`. Use Public when exposing `UEOpenAPV` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UEOpenAPV` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `UEOpenAPV.h` / `UEOpenAPVModule.h`), then use `FModuleManager::LoadModulePtr<UEOpenAPVModule>` or the exported types directly.",
-      "Transitive deps: `UEOpenAPV` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`UEOpenAPV` 的构建规则位于 `ThirdParty/OpenAPV/UEOpenAPV.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`UEOpenAPV` build rule is `ThirdParty/OpenAPV/UEOpenAPV.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`UEOpenAPV`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/OpenAPV/UEOpenAPV.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`UEOpenAPV`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/OpenAPV/UEOpenAPV.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "ueopenexr",
     "kind": "module",
     "cn_steps": [
-      "用途：`UEOpenExr` 位于 `ThirdParty`，构建规则 `ThirdParty/openexr/UEOpenExr.Build.cs`。它直接依赖 1 个模块：`Imath`。",
+      "`UEOpenExr`（UE Open Exr）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/openexr/UEOpenExr.Build.cs`。直接依赖 1 个模块：`Imath`。",
+      "部署：`UEOpenExr` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UEOpenExr\" });`；对外暴露 `UEOpenExr` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UEOpenExr` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `UEOpenExr.h` / `UEOpenExrModule.h`），再用 `FModuleManager::LoadModulePtr<UEOpenExrModule>` 或直接使用导出类型。",
-      "传递依赖：`UEOpenExr` 还依赖 `Imath`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `UEOpenExr` lives under `ThirdParty`; build rule `ThirdParty/openexr/UEOpenExr.Build.cs`.It directly depends on 1 modules: `Imath`.",
+      "`UEOpenExr` (UE Open Exr): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/openexr/UEOpenExr.Build.cs`. It directly depends on 1 modules: `Imath`.",
+      "Placement: `UEOpenExr` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UEOpenExr\" });`. Use Public when exposing `UEOpenExr` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UEOpenExr` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `UEOpenExr.h` / `UEOpenExrModule.h`), then use `FModuleManager::LoadModulePtr<UEOpenExrModule>` or the exported types directly.",
-      "Transitive deps: `UEOpenExr` also needs `Imath`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`UEOpenExr` 的构建规则位于 `ThirdParty/openexr/UEOpenExr.Build.cs`，直接依赖 1 个模块，分类 External。",
-    "note_en": "`UEOpenExr` build rule is `ThirdParty/openexr/UEOpenExr.Build.cs`; depends on 1 modules; category External."
+    "note_cn": "`UEOpenExr`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/openexr/UEOpenExr.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`UEOpenExr`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/openexr/UEOpenExr.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "uewavcomp",
     "kind": "module",
     "cn_steps": [
-      "用途：`UEWavComp` 位于 `Runtime`，构建规则 `Runtime/UEWavComp/UEWavComp.Build.cs`。描述符未声明依赖。",
+      "`UEWavComp`（UE Wav Comp）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/UEWavComp/UEWavComp.Build.cs`。描述符未声明依赖。",
+      "部署：`UEWavComp` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UEWavComp\" });`；对外暴露 `UEWavComp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UEWavComp` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `UEWavComp.h` / `UEWavCompModule.h`），再用 `FModuleManager::LoadModulePtr<UEWavCompModule>` 或直接使用导出类型。",
-      "传递依赖：`UEWavComp` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `UEWavComp` lives under `Runtime`; build rule `Runtime/UEWavComp/UEWavComp.Build.cs`.The descriptor declares no dependencies.",
+      "`UEWavComp` (UE Wav Comp): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/UEWavComp/UEWavComp.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `UEWavComp` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UEWavComp\" });`. Use Public when exposing `UEWavComp` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UEWavComp` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `UEWavComp.h` / `UEWavCompModule.h`), then use `FModuleManager::LoadModulePtr<UEWavCompModule>` or the exported types directly.",
-      "Transitive deps: `UEWavComp` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`UEWavComp` 的构建规则位于 `Runtime/UEWavComp/UEWavComp.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`UEWavComp` build rule is `Runtime/UEWavComp/UEWavComp.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`UEWavComp`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/UEWavComp/UEWavComp.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`UEWavComp`: it exposes C++ API/functionality to other modules; build rule `Runtime/UEWavComp/UEWavComp.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "ugscore",
     "kind": "module",
     "cn_steps": [
-      "用途：`UGSCore` 位于 `Programs`，构建规则 `Programs/UGSCore/UGSCore.Build.cs`。它直接依赖 2 个模块：`Core`, `Json`。",
+      "`UGSCore`（UGS Core）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/UGSCore/UGSCore.Build.cs`。直接依赖 2 个模块：`Core`、`Json`。",
+      "部署：`UGSCore` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UGSCore\" });`；对外暴露 `UGSCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UGSCore` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `UGSCore.h` / `UGSCoreModule.h`），再用 `FModuleManager::LoadModulePtr<UGSCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`UGSCore` 还依赖 `Core`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `UGSCore` lives under `Programs`; build rule `Programs/UGSCore/UGSCore.Build.cs`.It directly depends on 2 modules: `Core`, `Json`.",
+      "`UGSCore` (UGS Core): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/UGSCore/UGSCore.Build.cs`. It directly depends on 2 modules: `Core`, `Json`.",
+      "Placement: `UGSCore` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UGSCore\" });`. Use Public when exposing `UGSCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UGSCore` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `UGSCore.h` / `UGSCoreModule.h`), then use `FModuleManager::LoadModulePtr<UGSCoreModule>` or the exported types directly.",
-      "Transitive deps: `UGSCore` also needs `Core`, `Json`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`UGSCore` 的构建规则位于 `Programs/UGSCore/UGSCore.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`UGSCore` build rule is `Programs/UGSCore/UGSCore.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`UGSCore`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/UGSCore/UGSCore.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`UGSCore`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/UGSCore/UGSCore.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "ulangcore",
     "kind": "module",
     "cn_steps": [
-      "用途：`uLangCore` 位于 `Runtime`，构建规则 `Runtime/Solaris/uLangCore/uLangCore.Build.cs`。它直接依赖 2 个模块：`AutoRTFM`, `Core`。",
+      "`uLangCore`（u Lang Core）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Runtime`，构建规则 `Runtime/Solaris/uLangCore/uLangCore.Build.cs`。直接依赖 2 个模块：`AutoRTFM`、`Core`。",
+      "部署：`uLangCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"uLangCore\" });`；对外暴露 `uLangCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`uLangCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `uLangCore.h` / `uLangCoreModule.h`），再用 `FModuleManager::LoadModulePtr<uLangCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`uLangCore` 还依赖 `AutoRTFM`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `uLangCore` lives under `Runtime`; build rule `Runtime/Solaris/uLangCore/uLangCore.Build.cs`.It directly depends on 2 modules: `AutoRTFM`, `Core`.",
+      "`uLangCore` (u Lang Core): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Runtime`; build rule `Runtime/Solaris/uLangCore/uLangCore.Build.cs`. It directly depends on 2 modules: `AutoRTFM`, `Core`.",
+      "Placement: `uLangCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"uLangCore\" });`. Use Public when exposing `uLangCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `uLangCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `uLangCore.h` / `uLangCoreModule.h`), then use `FModuleManager::LoadModulePtr<uLangCoreModule>` or the exported types directly.",
-      "Transitive deps: `uLangCore` also needs `AutoRTFM`, `Core`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`uLangCore` 的构建规则位于 `Runtime/Solaris/uLangCore/uLangCore.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`uLangCore` build rule is `Runtime/Solaris/uLangCore/uLangCore.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`uLangCore`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Runtime/Solaris/uLangCore/uLangCore.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`uLangCore`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Runtime/Solaris/uLangCore/uLangCore.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "ulangdap",
     "kind": "module",
     "cn_steps": [
-      "用途：`uLangDAP` 位于 `Runtime`，构建规则 `Runtime/Solaris/uLangDAP/uLangDAP.Build.cs`。它直接依赖 3 个模块：`Core`, `uLangCore`, `uLangJSON`。",
+      "`uLangDAP`（u Lang DAP）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Runtime`，构建规则 `Runtime/Solaris/uLangDAP/uLangDAP.Build.cs`。直接依赖 3 个模块：`Core`、`uLangCore`、`uLangJSON`。",
+      "部署：`uLangDAP` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"uLangDAP\" });`；对外暴露 `uLangDAP` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`uLangDAP` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `uLangDAP.h` / `uLangDAPModule.h`），再用 `FModuleManager::LoadModulePtr<uLangDAPModule>` 或直接使用导出类型。",
-      "传递依赖：`uLangDAP` 还依赖 `Core`, `uLangCore`, `uLangJSON`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `uLangDAP` lives under `Runtime`; build rule `Runtime/Solaris/uLangDAP/uLangDAP.Build.cs`.It directly depends on 3 modules: `Core`, `uLangCore`, `uLangJSON`.",
+      "`uLangDAP` (u Lang DAP): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Runtime`; build rule `Runtime/Solaris/uLangDAP/uLangDAP.Build.cs`. It directly depends on 3 modules: `Core`, `uLangCore`, `uLangJSON`.",
+      "Placement: `uLangDAP` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"uLangDAP\" });`. Use Public when exposing `uLangDAP` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `uLangDAP` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `uLangDAP.h` / `uLangDAPModule.h`), then use `FModuleManager::LoadModulePtr<uLangDAPModule>` or the exported types directly.",
-      "Transitive deps: `uLangDAP` also needs `Core`, `uLangCore`, `uLangJSON`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`uLangDAP` 的构建规则位于 `Runtime/Solaris/uLangDAP/uLangDAP.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`uLangDAP` build rule is `Runtime/Solaris/uLangDAP/uLangDAP.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`uLangDAP`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Runtime/Solaris/uLangDAP/uLangDAP.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`uLangDAP`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Runtime/Solaris/uLangDAP/uLangDAP.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "ulangdigests",
     "kind": "module",
     "cn_steps": [
-      "用途：`uLangDigests` 位于 `Runtime`，构建规则 `Runtime/Solaris/uLangDigests/uLangDigests.Build.cs`。它直接依赖 4 个模块：`Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`。",
+      "`uLangDigests`（u Lang Digests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Runtime`，构建规则 `Runtime/Solaris/uLangDigests/uLangDigests.Build.cs`。直接依赖 4 个模块：`Core`、`VerseCompiler`、`uLangCore`、`uLangJSON`。",
+      "部署：`uLangDigests` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"uLangDigests\" });`；对外暴露 `uLangDigests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`uLangDigests` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `uLangDigests.h` / `uLangDigestsModule.h`），再用 `FModuleManager::LoadModulePtr<uLangDigestsModule>` 或直接使用导出类型。",
-      "传递依赖：`uLangDigests` 还依赖 `Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `uLangDigests` lives under `Runtime`; build rule `Runtime/Solaris/uLangDigests/uLangDigests.Build.cs`.It directly depends on 4 modules: `Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`.",
+      "`uLangDigests` (u Lang Digests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Runtime`; build rule `Runtime/Solaris/uLangDigests/uLangDigests.Build.cs`. It directly depends on 4 modules: `Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`.",
+      "Placement: `uLangDigests` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"uLangDigests\" });`. Use Public when exposing `uLangDigests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `uLangDigests` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `uLangDigests.h` / `uLangDigestsModule.h`), then use `FModuleManager::LoadModulePtr<uLangDigestsModule>` or the exported types directly.",
-      "Transitive deps: `uLangDigests` also needs `Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`uLangDigests` 的构建规则位于 `Runtime/Solaris/uLangDigests/uLangDigests.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`uLangDigests` build rule is `Runtime/Solaris/uLangDigests/uLangDigests.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`uLangDigests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Runtime/Solaris/uLangDigests/uLangDigests.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`uLangDigests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Runtime/Solaris/uLangDigests/uLangDigests.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "ulangidesupport",
     "kind": "module",
     "cn_steps": [
-      "用途：`uLangIdeSupport` 位于 `Runtime`，构建规则 `Runtime/Solaris/uLangIdeSupport/uLangIdeSupport.Build.cs`。它直接依赖 2 个模块：`VerseCompiler`, `uLangCore`。",
+      "`uLangIdeSupport`（u Lang Ide Support）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Runtime`，构建规则 `Runtime/Solaris/uLangIdeSupport/uLangIdeSupport.Build.cs`。直接依赖 2 个模块：`VerseCompiler`、`uLangCore`。",
+      "部署：`uLangIdeSupport` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"uLangIdeSupport\" });`；对外暴露 `uLangIdeSupport` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`uLangIdeSupport` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `uLangIdeSupport.h` / `uLangIdeSupportModule.h`），再用 `FModuleManager::LoadModulePtr<uLangIdeSupportModule>` 或直接使用导出类型。",
-      "传递依赖：`uLangIdeSupport` 还依赖 `VerseCompiler`, `uLangCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `uLangIdeSupport` lives under `Runtime`; build rule `Runtime/Solaris/uLangIdeSupport/uLangIdeSupport.Build.cs`.It directly depends on 2 modules: `VerseCompiler`, `uLangCore`.",
+      "`uLangIdeSupport` (u Lang Ide Support): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Runtime`; build rule `Runtime/Solaris/uLangIdeSupport/uLangIdeSupport.Build.cs`. It directly depends on 2 modules: `VerseCompiler`, `uLangCore`.",
+      "Placement: `uLangIdeSupport` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"uLangIdeSupport\" });`. Use Public when exposing `uLangIdeSupport` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `uLangIdeSupport` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `uLangIdeSupport.h` / `uLangIdeSupportModule.h`), then use `FModuleManager::LoadModulePtr<uLangIdeSupportModule>` or the exported types directly.",
-      "Transitive deps: `uLangIdeSupport` also needs `VerseCompiler`, `uLangCore`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`uLangIdeSupport` 的构建规则位于 `Runtime/Solaris/uLangIdeSupport/uLangIdeSupport.Build.cs`，直接依赖 2 个模块，分类 External。",
-    "note_en": "`uLangIdeSupport` build rule is `Runtime/Solaris/uLangIdeSupport/uLangIdeSupport.Build.cs`; depends on 2 modules; category External."
+    "note_cn": "`uLangIdeSupport`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Runtime/Solaris/uLangIdeSupport/uLangIdeSupport.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`uLangIdeSupport`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Runtime/Solaris/uLangIdeSupport/uLangIdeSupport.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "ulangjson",
     "kind": "module",
     "cn_steps": [
-      "用途：`uLangJSON` 位于 `Runtime`，构建规则 `Runtime/Solaris/uLangJSON/uLangJSON.Build.cs`。它直接依赖 3 个模块：`Core`, `RapidJSON`, `uLangCore`。",
+      "`uLangJSON`（u Lang JSON）：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）。位于 `Runtime`，构建规则 `Runtime/Solaris/uLangJSON/uLangJSON.Build.cs`。直接依赖 3 个模块：`Core`、`RapidJSON`、`uLangCore`。",
+      "部署：`uLangJSON` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要读写结构化数据或配置的代码里 include 其头文件，直接调用其序列化/解析 API。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"uLangJSON\" });`；对外暴露 `uLangJSON` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`uLangJSON` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `uLangJSON.h` / `uLangJSONModule.h`），再用 `FModuleManager::LoadModulePtr<uLangJSONModule>` 或直接使用导出类型。",
-      "传递依赖：`uLangJSON` 还依赖 `Core`, `RapidJSON`, `uLangCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `uLangJSON` lives under `Runtime`; build rule `Runtime/Solaris/uLangJSON/uLangJSON.Build.cs`.It directly depends on 3 modules: `Core`, `RapidJSON`, `uLangCore`.",
+      "`uLangJSON` (u Lang JSON): it is part of data/serialization (JSON/XML/Config/struct serialization/logging). Located under `Runtime`; build rule `Runtime/Solaris/uLangJSON/uLangJSON.Build.cs`. It directly depends on 3 modules: `Core`, `RapidJSON`, `uLangCore`.",
+      "Placement: `uLangJSON` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: include its headers where you read/write structured data or config and call its serialization/parse API.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"uLangJSON\" });`. Use Public when exposing `uLangJSON` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `uLangJSON` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `uLangJSON.h` / `uLangJSONModule.h`), then use `FModuleManager::LoadModulePtr<uLangJSONModule>` or the exported types directly.",
-      "Transitive deps: `uLangJSON` also needs `Core`, `RapidJSON`, `uLangCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`uLangJSON` 的构建规则位于 `Runtime/Solaris/uLangJSON/uLangJSON.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`uLangJSON` build rule is `Runtime/Solaris/uLangJSON/uLangJSON.Build.cs`; depends on 3 modules; category Module."
-  },
-  {
-    "slug": "ulanglsp",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`uLangLSP` 位于 `Runtime`，构建规则 `Runtime/Solaris/uLangLSP/uLangLSP.Build.cs`。它直接依赖 3 个模块：`Core`, `uLangCore`, `uLangJSON`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"uLangLSP\" });`；对外暴露 `uLangLSP` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`uLangLSP` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `uLangLSP.h` / `uLangLSPModule.h`），再用 `FModuleManager::LoadModulePtr<uLangLSPModule>` 或直接使用导出类型。",
-      "传递依赖：`uLangLSP` 还依赖 `Core`, `uLangCore`, `uLangJSON`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `uLangLSP` lives under `Runtime`; build rule `Runtime/Solaris/uLangLSP/uLangLSP.Build.cs`.It directly depends on 3 modules: `Core`, `uLangCore`, `uLangJSON`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"uLangLSP\" });`. Use Public when exposing `uLangLSP` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `uLangLSP` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `uLangLSP.h` / `uLangLSPModule.h`), then use `FModuleManager::LoadModulePtr<uLangLSPModule>` or the exported types directly.",
-      "Transitive deps: `uLangLSP` also needs `Core`, `uLangCore`, `uLangJSON`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`uLangLSP` 的构建规则位于 `Runtime/Solaris/uLangLSP/uLangLSP.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`uLangLSP` build rule is `Runtime/Solaris/uLangLSP/uLangLSP.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`uLangJSON`：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）；构建规则 `Runtime/Solaris/uLangJSON/uLangJSON.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`uLangJSON`: it is part of data/serialization (JSON/XML/Config/struct serialization/logging); build rule `Runtime/Solaris/uLangJSON/uLangJSON.Build.cs`; depends on 3 modules."
   }
 ]

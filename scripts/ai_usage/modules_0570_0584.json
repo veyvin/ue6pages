@@ -1,302 +1,302 @@
 [
   {
+    "slug": "openssl",
+    "kind": "module",
+    "cn_steps": [
+      "`OpenSSL`（Open SSL）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/OpenSSL/OpenSSL.Build.cs`。描述符未声明依赖。",
+      "部署：`OpenSSL` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenSSL\" });`；对外暴露 `OpenSSL` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
+    ],
+    "en_steps": [
+      "`OpenSSL` (Open SSL): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/OpenSSL/OpenSSL.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `OpenSSL` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenSSL\" });`. Use Public when exposing `OpenSSL` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
+    ],
+    "note_cn": "`OpenSSL`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/OpenSSL/OpenSSL.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`OpenSSL`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/OpenSSL/OpenSSL.Build.cs`; depends on 0 modules."
+  },
+  {
     "slug": "opensubdiv",
     "kind": "module",
     "cn_steps": [
-      "用途：`OpenSubdiv` 位于 `ThirdParty`，构建规则 `ThirdParty/OpenSubdiv/OpenSubdiv.Build.cs`。描述符未声明依赖。",
+      "`OpenSubdiv`（Open Subdiv）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/OpenSubdiv/OpenSubdiv.Build.cs`。描述符未声明依赖。",
+      "部署：`OpenSubdiv` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenSubdiv\" });`；对外暴露 `OpenSubdiv` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`OpenSubdiv` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `OpenSubdiv.h` / `OpenSubdivModule.h`），再用 `FModuleManager::LoadModulePtr<OpenSubdivModule>` 或直接使用导出类型。",
-      "传递依赖：`OpenSubdiv` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `OpenSubdiv` lives under `ThirdParty`; build rule `ThirdParty/OpenSubdiv/OpenSubdiv.Build.cs`.The descriptor declares no dependencies.",
+      "`OpenSubdiv` (Open Subdiv): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/OpenSubdiv/OpenSubdiv.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `OpenSubdiv` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenSubdiv\" });`. Use Public when exposing `OpenSubdiv` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `OpenSubdiv` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `OpenSubdiv.h` / `OpenSubdivModule.h`), then use `FModuleManager::LoadModulePtr<OpenSubdivModule>` or the exported types directly.",
-      "Transitive deps: `OpenSubdiv` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`OpenSubdiv` 的构建规则位于 `ThirdParty/OpenSubdiv/OpenSubdiv.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`OpenSubdiv` build rule is `ThirdParty/OpenSubdiv/OpenSubdiv.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`OpenSubdiv`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/OpenSubdiv/OpenSubdiv.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`OpenSubdiv`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/OpenSubdiv/OpenSubdiv.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "openvdb",
     "kind": "module",
     "cn_steps": [
-      "用途：`OpenVDB` 位于 `ThirdParty`，构建规则 `ThirdParty/OpenVDB/OpenVDB.Build.cs`。它直接依赖 2 个模块：`Boost`, `IntelTBB`。",
+      "`OpenVDB`（Open VDB）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/OpenVDB/OpenVDB.Build.cs`。直接依赖 2 个模块：`Boost`、`IntelTBB`。",
+      "部署：`OpenVDB` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenVDB\" });`；对外暴露 `OpenVDB` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`OpenVDB` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `OpenVDB.h` / `OpenVDBModule.h`），再用 `FModuleManager::LoadModulePtr<OpenVDBModule>` 或直接使用导出类型。",
-      "传递依赖：`OpenVDB` 还依赖 `Boost`, `IntelTBB`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `OpenVDB` lives under `ThirdParty`; build rule `ThirdParty/OpenVDB/OpenVDB.Build.cs`.It directly depends on 2 modules: `Boost`, `IntelTBB`.",
+      "`OpenVDB` (Open VDB): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/OpenVDB/OpenVDB.Build.cs`. It directly depends on 2 modules: `Boost`, `IntelTBB`.",
+      "Placement: `OpenVDB` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenVDB\" });`. Use Public when exposing `OpenVDB` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `OpenVDB` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `OpenVDB.h` / `OpenVDBModule.h`), then use `FModuleManager::LoadModulePtr<OpenVDBModule>` or the exported types directly.",
-      "Transitive deps: `OpenVDB` also needs `Boost`, `IntelTBB`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`OpenVDB` 的构建规则位于 `ThirdParty/OpenVDB/OpenVDB.Build.cs`，直接依赖 2 个模块，分类 External。",
-    "note_en": "`OpenVDB` build rule is `ThirdParty/OpenVDB/OpenVDB.Build.cs`; depends on 2 modules; category External."
+    "note_cn": "`OpenVDB`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/OpenVDB/OpenVDB.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`OpenVDB`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/OpenVDB/OpenVDB.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "openxr",
     "kind": "module",
     "cn_steps": [
-      "用途：`OpenXR` 位于 `ThirdParty`，构建规则 `ThirdParty/OpenXR/OpenXR.Build.cs`。描述符未声明依赖。",
+      "`OpenXR`（Open XR）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/OpenXR/OpenXR.Build.cs`。描述符未声明依赖。",
+      "部署：`OpenXR` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenXR\" });`；对外暴露 `OpenXR` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`OpenXR` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `OpenXR.h` / `OpenXRModule.h`），再用 `FModuleManager::LoadModulePtr<OpenXRModule>` 或直接使用导出类型。",
-      "传递依赖：`OpenXR` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `OpenXR` lives under `ThirdParty`; build rule `ThirdParty/OpenXR/OpenXR.Build.cs`.The descriptor declares no dependencies.",
+      "`OpenXR` (Open XR): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/OpenXR/OpenXR.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `OpenXR` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenXR\" });`. Use Public when exposing `OpenXR` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `OpenXR` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `OpenXR.h` / `OpenXRModule.h`), then use `FModuleManager::LoadModulePtr<OpenXRModule>` or the exported types directly.",
-      "Transitive deps: `OpenXR` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`OpenXR` 的构建规则位于 `ThirdParty/OpenXR/OpenXR.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`OpenXR` build rule is `ThirdParty/OpenXR/OpenXR.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`OpenXR`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/OpenXR/OpenXR.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`OpenXR`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/OpenXR/OpenXR.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "opusaudiodecoder",
     "kind": "module",
     "cn_steps": [
-      "用途：`OpusAudioDecoder` 位于 `Runtime`，构建规则 `Runtime/OpusAudioDecoder/Module/OpusAudioDecoder.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "`OpusAudioDecoder`（Opus Audio Decoder）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/OpusAudioDecoder/Module/OpusAudioDecoder.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`Engine`。",
+      "部署：`OpusAudioDecoder` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpusAudioDecoder\" });`；对外暴露 `OpusAudioDecoder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`OpusAudioDecoder` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `OpusAudioDecoder.h` / `OpusAudioDecoderModule.h`），再用 `FModuleManager::LoadModulePtr<OpusAudioDecoderModule>` 或直接使用导出类型。",
-      "传递依赖：`OpusAudioDecoder` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `OpusAudioDecoder` lives under `Runtime`; build rule `Runtime/OpusAudioDecoder/Module/OpusAudioDecoder.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "`OpusAudioDecoder` (Opus Audio Decoder): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/OpusAudioDecoder/Module/OpusAudioDecoder.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Placement: `OpusAudioDecoder` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpusAudioDecoder\" });`. Use Public when exposing `OpusAudioDecoder` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `OpusAudioDecoder` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `OpusAudioDecoder.h` / `OpusAudioDecoderModule.h`), then use `FModuleManager::LoadModulePtr<OpusAudioDecoderModule>` or the exported types directly.",
-      "Transitive deps: `OpusAudioDecoder` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`OpusAudioDecoder` 的构建规则位于 `Runtime/OpusAudioDecoder/Module/OpusAudioDecoder.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`OpusAudioDecoder` build rule is `Runtime/OpusAudioDecoder/Module/OpusAudioDecoder.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`OpusAudioDecoder`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/OpusAudioDecoder/Module/OpusAudioDecoder.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`OpusAudioDecoder`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/OpusAudioDecoder/Module/OpusAudioDecoder.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "osstestscore",
     "kind": "module",
     "cn_steps": [
-      "用途：`OSSTestsCore` 位于 `Programs`，构建规则 `Programs/Online/OSSTestsCore/OSSTestsCore.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `EngineSettings`, `OnlineSubsystem`, `OnlineSubsystemNull`, `Projects`。",
+      "`OSSTestsCore`（OSS Tests Core）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Online/OSSTestsCore/OSSTestsCore.Build.cs`。直接依赖 7 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`EngineSettings`、`OnlineSubsystem` 等。",
+      "部署：`OSSTestsCore` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OSSTestsCore\" });`；对外暴露 `OSSTestsCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`OSSTestsCore` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `OSSTestsCore.h` / `OSSTestsCoreModule.h`），再用 `FModuleManager::LoadModulePtr<OSSTestsCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`OSSTestsCore` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `EngineSettings`, `OnlineSubsystem`, `OnlineSubsystemNull`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `OSSTestsCore` lives under `Programs`; build rule `Programs/Online/OSSTestsCore/OSSTestsCore.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EngineSettings`, `OnlineSubsystem`, `OnlineSubsystemNull`, `Projects`.",
+      "`OSSTestsCore` (OSS Tests Core): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Online/OSSTestsCore/OSSTestsCore.Build.cs`. It directly depends on 7 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EngineSettings`, `OnlineSubsystem` etc.",
+      "Placement: `OSSTestsCore` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OSSTestsCore\" });`. Use Public when exposing `OSSTestsCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `OSSTestsCore` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `OSSTestsCore.h` / `OSSTestsCoreModule.h`), then use `FModuleManager::LoadModulePtr<OSSTestsCoreModule>` or the exported types directly.",
-      "Transitive deps: `OSSTestsCore` also needs `ApplicationCore`, `Core`, `CoreUObject`, `EngineSettings`, `OnlineSubsystem`, `OnlineSubsystemNull`, `Projects`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`OSSTestsCore` 的构建规则位于 `Programs/Online/OSSTestsCore/OSSTestsCore.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`OSSTestsCore` build rule is `Programs/Online/OSSTestsCore/OSSTestsCore.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`OSSTestsCore`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Online/OSSTestsCore/OSSTestsCore.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`OSSTestsCore`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Online/OSSTestsCore/OSSTestsCore.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "outputlog",
     "kind": "module",
     "cn_steps": [
-      "用途：`OutputLog` 位于 `Developer`，构建规则 `Developer/OutputLog/OutputLog.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `EngineSettings`, `InputCore`。",
+      "`OutputLog`（Output Log）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/OutputLog/OutputLog.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`DesktopPlatform`、`EditorFramework` 等。",
+      "部署：`OutputLog` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OutputLog\" });`；对外暴露 `OutputLog` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`OutputLog` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `OutputLog.h` / `OutputLogModule.h`），再用 `FModuleManager::LoadModulePtr<OutputLogModule>` 或直接使用导出类型。",
-      "传递依赖：`OutputLog` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `EngineSettings`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `OutputLog` lives under `Developer`; build rule `Developer/OutputLog/OutputLog.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `EngineSettings`, `InputCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OutputLog\" });`. Use Public when exposing `OutputLog` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`OutputLog` (Output Log): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/OutputLog/OutputLog.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework` etc.",
       "Placement: `OutputLog` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `OutputLog.h` / `OutputLogModule.h`), then use `FModuleManager::LoadModulePtr<OutputLogModule>` or the exported types directly.",
-      "Transitive deps: `OutputLog` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `EngineSettings`, `InputCore`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OutputLog\" });`. Use Public when exposing `OutputLog` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`OutputLog` 的构建规则位于 `Developer/OutputLog/OutputLog.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`OutputLog` build rule is `Developer/OutputLog/OutputLog.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`OutputLog`：它向其他模块提供 C++ API/功能；构建规则 `Developer/OutputLog/OutputLog.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`OutputLog`: it exposes C++ API/functionality to other modules; build rule `Developer/OutputLog/OutputLog.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "overlay",
     "kind": "module",
     "cn_steps": [
-      "用途：`Overlay` 位于 `Runtime`，构建规则 `Runtime/Overlay/Overlay.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `UMG`。",
+      "`Overlay`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Runtime`，构建规则 `Runtime/Overlay/Overlay.Build.cs`。直接依赖 6 个模块：`Core`、`CoreUObject`、`Engine`、`Slate`、`SlateCore` 等。",
+      "部署：`Overlay` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Overlay\" });`；对外暴露 `Overlay` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Overlay` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Overlay.h` / `OverlayModule.h`），再用 `FModuleManager::LoadModulePtr<OverlayModule>` 或直接使用导出类型。",
-      "传递依赖：`Overlay` 还依赖 `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `UMG`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Overlay` lives under `Runtime`; build rule `Runtime/Overlay/Overlay.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `UMG`.",
+      "`Overlay`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Runtime`; build rule `Runtime/Overlay/Overlay.Build.cs`. It directly depends on 6 modules: `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore` etc.",
+      "Placement: `Overlay` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Overlay\" });`. Use Public when exposing `Overlay` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Overlay` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Overlay.h` / `OverlayModule.h`), then use `FModuleManager::LoadModulePtr<OverlayModule>` or the exported types directly.",
-      "Transitive deps: `Overlay` also needs `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `UMG`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Overlay` 的构建规则位于 `Runtime/Overlay/Overlay.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`Overlay` build rule is `Runtime/Overlay/Overlay.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`Overlay`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Runtime/Overlay/Overlay.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`Overlay`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Runtime/Overlay/Overlay.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "overlayeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`OverlayEditor` 位于 `Editor`，构建规则 `Editor/OverlayEditor/OverlayEditor.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Overlay`, `UnrealEd`。",
+      "`OverlayEditor`（Overlay Editor）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Editor`，构建规则 `Editor/OverlayEditor/OverlayEditor.Build.cs`。直接依赖 6 个模块：`Core`、`CoreUObject`、`EditorFramework`、`Engine`、`Overlay` 等。",
+      "部署：`OverlayEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OverlayEditor\" });`；对外暴露 `OverlayEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`OverlayEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `OverlayEditor.h` / `OverlayEditorModule.h`），再用 `FModuleManager::LoadModulePtr<OverlayEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`OverlayEditor` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Overlay`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `OverlayEditor` lives under `Editor`; build rule `Editor/OverlayEditor/OverlayEditor.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Overlay`, `UnrealEd`.",
+      "`OverlayEditor` (Overlay Editor): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Editor`; build rule `Editor/OverlayEditor/OverlayEditor.Build.cs`. It directly depends on 6 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Overlay` etc.",
+      "Placement: `OverlayEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OverlayEditor\" });`. Use Public when exposing `OverlayEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `OverlayEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `OverlayEditor.h` / `OverlayEditorModule.h`), then use `FModuleManager::LoadModulePtr<OverlayEditorModule>` or the exported types directly.",
-      "Transitive deps: `OverlayEditor` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Overlay`, `UnrealEd`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`OverlayEditor` 的构建规则位于 `Editor/OverlayEditor/OverlayEditor.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`OverlayEditor` build rule is `Editor/OverlayEditor/OverlayEditor.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`OverlayEditor`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Editor/OverlayEditor/OverlayEditor.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`OverlayEditor`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Editor/OverlayEditor/OverlayEditor.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "packagesdialog",
     "kind": "module",
     "cn_steps": [
-      "用途：`PackagesDialog` 位于 `Editor`，构建规则 `Editor/PackagesDialog/PackagesDialog.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `SourceControl`。",
+      "`PackagesDialog`（Packages Dialog）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Editor`，构建规则 `Editor/PackagesDialog/PackagesDialog.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`AssetRegistry`、`Core`、`CoreUObject`、`InputCore` 等。",
+      "部署：`PackagesDialog` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PackagesDialog\" });`；对外暴露 `PackagesDialog` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PackagesDialog` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `PackagesDialog.h` / `PackagesDialogModule.h`），再用 `FModuleManager::LoadModulePtr<PackagesDialogModule>` 或直接使用导出类型。",
-      "传递依赖：`PackagesDialog` 还依赖 `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `SourceControl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PackagesDialog` lives under `Editor`; build rule `Editor/PackagesDialog/PackagesDialog.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `SourceControl`.",
+      "`PackagesDialog` (Packages Dialog): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Editor`; build rule `Editor/PackagesDialog/PackagesDialog.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `InputCore` etc.",
+      "Placement: `PackagesDialog` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PackagesDialog\" });`. Use Public when exposing `PackagesDialog` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PackagesDialog` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `PackagesDialog.h` / `PackagesDialogModule.h`), then use `FModuleManager::LoadModulePtr<PackagesDialogModule>` or the exported types directly.",
-      "Transitive deps: `PackagesDialog` also needs `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `SourceControl`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PackagesDialog` 的构建规则位于 `Editor/PackagesDialog/PackagesDialog.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`PackagesDialog` build rule is `Editor/PackagesDialog/PackagesDialog.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`PackagesDialog`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Editor/PackagesDialog/PackagesDialog.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`PackagesDialog`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Editor/PackagesDialog/PackagesDialog.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "packethandler",
     "kind": "module",
     "cn_steps": [
-      "用途：`PacketHandler` 位于 `Runtime`，构建规则 `Runtime/PacketHandlers/PacketHandler/PacketHandler.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `NetCore`, `Sockets`。",
+      "`PacketHandler`（Packet Handler）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/PacketHandlers/PacketHandler/PacketHandler.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`NetCore`、`Sockets`。",
+      "部署：`PacketHandler` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PacketHandler\" });`；对外暴露 `PacketHandler` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PacketHandler` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `PacketHandler.h` / `PacketHandlerModule.h`），再用 `FModuleManager::LoadModulePtr<PacketHandlerModule>` 或直接使用导出类型。",
-      "传递依赖：`PacketHandler` 还依赖 `Core`, `CoreUObject`, `NetCore`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PacketHandler` lives under `Runtime`; build rule `Runtime/PacketHandlers/PacketHandler/PacketHandler.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `NetCore`, `Sockets`.",
+      "`PacketHandler` (Packet Handler): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/PacketHandlers/PacketHandler/PacketHandler.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `NetCore`, `Sockets`.",
+      "Placement: `PacketHandler` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PacketHandler\" });`. Use Public when exposing `PacketHandler` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PacketHandler` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `PacketHandler.h` / `PacketHandlerModule.h`), then use `FModuleManager::LoadModulePtr<PacketHandlerModule>` or the exported types directly.",
-      "Transitive deps: `PacketHandler` also needs `Core`, `CoreUObject`, `NetCore`, `Sockets`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PacketHandler` 的构建规则位于 `Runtime/PacketHandlers/PacketHandler/PacketHandler.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`PacketHandler` build rule is `Runtime/PacketHandlers/PacketHandler/PacketHandler.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`PacketHandler`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/PacketHandlers/PacketHandler/PacketHandler.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`PacketHandler`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/PacketHandlers/PacketHandler/PacketHandler.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "pakfile",
     "kind": "module",
     "cn_steps": [
-      "用途：`PakFile` 位于 `Runtime`，构建规则 `Runtime/PakFile/PakFile.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `RSA`, `TraceLog`。",
+      "`PakFile`（Pak File）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/PakFile/PakFile.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`RSA`、`TraceLog`。",
+      "部署：`PakFile` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PakFile\" });`；对外暴露 `PakFile` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PakFile` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `PakFile.h` / `PakFileModule.h`），再用 `FModuleManager::LoadModulePtr<PakFileModule>` 或直接使用导出类型。",
-      "传递依赖：`PakFile` 还依赖 `Core`, `CoreUObject`, `RSA`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PakFile` lives under `Runtime`; build rule `Runtime/PakFile/PakFile.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `RSA`, `TraceLog`.",
+      "`PakFile` (Pak File): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/PakFile/PakFile.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `RSA`, `TraceLog`.",
+      "Placement: `PakFile` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PakFile\" });`. Use Public when exposing `PakFile` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PakFile` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `PakFile.h` / `PakFileModule.h`), then use `FModuleManager::LoadModulePtr<PakFileModule>` or the exported types directly.",
-      "Transitive deps: `PakFile` also needs `Core`, `CoreUObject`, `RSA`, `TraceLog`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PakFile` 的构建规则位于 `Runtime/PakFile/PakFile.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`PakFile` build rule is `Runtime/PakFile/PakFile.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`PakFile`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/PakFile/PakFile.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`PakFile`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/PakFile/PakFile.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "pakfileutilities",
     "kind": "module",
     "cn_steps": [
-      "用途：`PakFileUtilities` 位于 `Developer`，构建规则 `Developer/PakFileUtilities/PakFileUtilities.Build.cs`。它直接依赖 6 个模块：`Core`, `IoStoreUtilities`, `Json`, `PakFile`, `Projects`, `RSA`。",
+      "`PakFileUtilities`（Pak File Utilities）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Developer`，构建规则 `Developer/PakFileUtilities/PakFileUtilities.Build.cs`。直接依赖 6 个模块：`Core`、`IoStoreUtilities`、`Json`、`PakFile`、`Projects` 等。",
+      "部署：`PakFileUtilities` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PakFileUtilities\" });`；对外暴露 `PakFileUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PakFileUtilities` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `PakFileUtilities.h` / `PakFileUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<PakFileUtilitiesModule>` 或直接使用导出类型。",
-      "传递依赖：`PakFileUtilities` 还依赖 `Core`, `IoStoreUtilities`, `Json`, `PakFile`, `Projects`, `RSA`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PakFileUtilities` lives under `Developer`; build rule `Developer/PakFileUtilities/PakFileUtilities.Build.cs`.It directly depends on 6 modules: `Core`, `IoStoreUtilities`, `Json`, `PakFile`, `Projects`, `RSA`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PakFileUtilities\" });`. Use Public when exposing `PakFileUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`PakFileUtilities` (Pak File Utilities): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Developer`; build rule `Developer/PakFileUtilities/PakFileUtilities.Build.cs`. It directly depends on 6 modules: `Core`, `IoStoreUtilities`, `Json`, `PakFile`, `Projects` etc.",
       "Placement: `PakFileUtilities` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `PakFileUtilities.h` / `PakFileUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<PakFileUtilitiesModule>` or the exported types directly.",
-      "Transitive deps: `PakFileUtilities` also needs `Core`, `IoStoreUtilities`, `Json`, `PakFile`, `Projects`, `RSA`; do not re-list them unless you include their headers."
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PakFileUtilities\" });`. Use Public when exposing `PakFileUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PakFileUtilities` 的构建规则位于 `Developer/PakFileUtilities/PakFileUtilities.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`PakFileUtilities` build rule is `Developer/PakFileUtilities/PakFileUtilities.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`PakFileUtilities`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Developer/PakFileUtilities/PakFileUtilities.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`PakFileUtilities`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Developer/PakFileUtilities/PakFileUtilities.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "perfcounters",
     "kind": "module",
     "cn_steps": [
-      "用途：`PerfCounters` 位于 `Runtime`，构建规则 `Runtime/PerfCounters/PerfCounters.Build.cs`。它直接依赖 3 个模块：`Core`, `HTTPServer`, `Json`。",
+      "`PerfCounters`（Perf Counters）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/PerfCounters/PerfCounters.Build.cs`。直接依赖 3 个模块：`Core`、`HTTPServer`、`Json`。",
+      "部署：`PerfCounters` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PerfCounters\" });`；对外暴露 `PerfCounters` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PerfCounters` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `PerfCounters.h` / `PerfCountersModule.h`），再用 `FModuleManager::LoadModulePtr<PerfCountersModule>` 或直接使用导出类型。",
-      "传递依赖：`PerfCounters` 还依赖 `Core`, `HTTPServer`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PerfCounters` lives under `Runtime`; build rule `Runtime/PerfCounters/PerfCounters.Build.cs`.It directly depends on 3 modules: `Core`, `HTTPServer`, `Json`.",
+      "`PerfCounters` (Perf Counters): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/PerfCounters/PerfCounters.Build.cs`. It directly depends on 3 modules: `Core`, `HTTPServer`, `Json`.",
+      "Placement: `PerfCounters` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PerfCounters\" });`. Use Public when exposing `PerfCounters` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PerfCounters` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `PerfCounters.h` / `PerfCountersModule.h`), then use `FModuleManager::LoadModulePtr<PerfCountersModule>` or the exported types directly.",
-      "Transitive deps: `PerfCounters` also needs `Core`, `HTTPServer`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PerfCounters` 的构建规则位于 `Runtime/PerfCounters/PerfCounters.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`PerfCounters` build rule is `Runtime/PerfCounters/PerfCounters.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`PerfCounters`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/PerfCounters/PerfCounters.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`PerfCounters`: it exposes C++ API/functionality to other modules; build rule `Runtime/PerfCounters/PerfCounters.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "perforce",
     "kind": "module",
     "cn_steps": [
-      "用途：`Perforce` 位于 `ThirdParty`，构建规则 `ThirdParty/Perforce/Perforce.Build.cs`。它直接依赖 1 个模块：`SSL`。",
+      "`Perforce`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Perforce/Perforce.Build.cs`。直接依赖 1 个模块：`SSL`。",
+      "部署：`Perforce` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Perforce\" });`；对外暴露 `Perforce` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Perforce` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Perforce.h` / `PerforceModule.h`），再用 `FModuleManager::LoadModulePtr<PerforceModule>` 或直接使用导出类型。",
-      "传递依赖：`Perforce` 还依赖 `SSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Perforce` lives under `ThirdParty`; build rule `ThirdParty/Perforce/Perforce.Build.cs`.It directly depends on 1 modules: `SSL`.",
+      "`Perforce`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Perforce/Perforce.Build.cs`. It directly depends on 1 modules: `SSL`.",
+      "Placement: `Perforce` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Perforce\" });`. Use Public when exposing `Perforce` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Perforce` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Perforce.h` / `PerforceModule.h`), then use `FModuleManager::LoadModulePtr<PerforceModule>` or the exported types directly.",
-      "Transitive deps: `Perforce` also needs `SSL`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Perforce` 的构建规则位于 `ThirdParty/Perforce/Perforce.Build.cs`，直接依赖 1 个模块，分类 External。",
-    "note_en": "`Perforce` build rule is `ThirdParty/Perforce/Perforce.Build.cs`; depends on 1 modules; category External."
-  },
-  {
-    "slug": "persona",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`Persona` 位于 `Editor`，构建规则 `Editor/Persona/Persona.Build.cs`。它直接依赖 8 个模块：`AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `AnimationBlueprintLibrary`, `AnimationEditMode`, `AnimationModifiers`, `AppFramework`, `ApplicationCore`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Persona\" });`；对外暴露 `Persona` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Persona` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `Persona.h` / `PersonaModule.h`），再用 `FModuleManager::LoadModulePtr<PersonaModule>` 或直接使用导出类型。",
-      "传递依赖：`Persona` 还依赖 `AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `AnimationBlueprintLibrary`, `AnimationEditMode`, `AnimationModifiers`, `AppFramework`, `ApplicationCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `Persona` lives under `Editor`; build rule `Editor/Persona/Persona.Build.cs`.It directly depends on 8 modules: `AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `AnimationBlueprintLibrary`, `AnimationEditMode`, `AnimationModifiers`, `AppFramework`, `ApplicationCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Persona\" });`. Use Public when exposing `Persona` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Persona` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `Persona.h` / `PersonaModule.h`), then use `FModuleManager::LoadModulePtr<PersonaModule>` or the exported types directly.",
-      "Transitive deps: `Persona` also needs `AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `AnimationBlueprintLibrary`, `AnimationEditMode`, `AnimationModifiers`, `AppFramework`, `ApplicationCore`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`Persona` 的构建规则位于 `Editor/Persona/Persona.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`Persona` build rule is `Editor/Persona/Persona.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`Perforce`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Perforce/Perforce.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`Perforce`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Perforce/Perforce.Build.cs`; depends on 1 modules."
   }
 ]

@@ -1,302 +1,302 @@
 [
   {
+    "slug": "levelsequence",
+    "kind": "module",
+    "cn_steps": [
+      "`LevelSequence`（Level Sequence）：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）。位于 `Runtime`，构建规则 `Runtime/LevelSequence/LevelSequence.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DeveloperSettings`、`Engine`、`MediaAssets` 等。",
+      "部署：`LevelSequence` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：游戏逻辑主体；在 C++/蓝图里直接用其类型或相关子系统。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LevelSequence\" });`；对外暴露 `LevelSequence` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`LevelSequence` (Level Sequence): it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems). Located under `Runtime`; build rule `Runtime/LevelSequence/LevelSequence.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MediaAssets` etc.",
+      "Placement: `LevelSequence` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: core game logic; use its types or related subsystems directly from C++/Blueprint.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LevelSequence\" });`. Use Public when exposing `LevelSequence` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`LevelSequence`：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）；构建规则 `Runtime/LevelSequence/LevelSequence.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`LevelSequence`: it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems); build rule `Runtime/LevelSequence/LevelSequence.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "libav",
     "kind": "module",
     "cn_steps": [
-      "用途：`libav` 位于 `ThirdParty`，构建规则 `ThirdParty/libav/libav.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`libav`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libav/libav.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`libav` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"libav\" });`；对外暴露 `libav` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`libav` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `libav.h` / `libavModule.h`），再用 `FModuleManager::LoadModulePtr<libavModule>` 或直接使用导出类型。",
-      "传递依赖：`libav` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `libav` lives under `ThirdParty`; build rule `ThirdParty/libav/libav.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`libav`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libav/libav.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `libav` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"libav\" });`. Use Public when exposing `libav` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `libav` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `libav.h` / `libavModule.h`), then use `FModuleManager::LoadModulePtr<libavModule>` or the exported types directly.",
-      "Transitive deps: `libav` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`libav` 的构建规则位于 `ThirdParty/libav/libav.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`libav` build rule is `ThirdParty/libav/libav.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`libav`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libav/libav.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`libav`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libav/libav.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "libcurl",
     "kind": "module",
     "cn_steps": [
-      "用途：`libcurl` 位于 `ThirdParty`，构建规则 `ThirdParty/libcurl/libcurl.Build.cs`。描述符未声明依赖。",
+      "`libcurl`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libcurl/libcurl.Build.cs`。描述符未声明依赖。",
+      "部署：`libcurl` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"libcurl\" });`；对外暴露 `libcurl` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`libcurl` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `libcurl.h` / `libcurlModule.h`），再用 `FModuleManager::LoadModulePtr<libcurlModule>` 或直接使用导出类型。",
-      "传递依赖：`libcurl` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `libcurl` lives under `ThirdParty`; build rule `ThirdParty/libcurl/libcurl.Build.cs`.The descriptor declares no dependencies.",
+      "`libcurl`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libcurl/libcurl.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `libcurl` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"libcurl\" });`. Use Public when exposing `libcurl` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `libcurl` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `libcurl.h` / `libcurlModule.h`), then use `FModuleManager::LoadModulePtr<libcurlModule>` or the exported types directly.",
-      "Transitive deps: `libcurl` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`libcurl` 的构建规则位于 `ThirdParty/libcurl/libcurl.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`libcurl` build rule is `ThirdParty/libcurl/libcurl.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`libcurl`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libcurl/libcurl.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`libcurl`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libcurl/libcurl.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "libgpucounters",
     "kind": "module",
     "cn_steps": [
-      "用途：`libGPUCounters` 位于 `ThirdParty`，构建规则 `ThirdParty/libGPUCounters/libGPUCounters.Build.cs`。描述符未声明依赖。",
+      "`libGPUCounters`（lib GPU Counters）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libGPUCounters/libGPUCounters.Build.cs`。描述符未声明依赖。",
+      "部署：`libGPUCounters` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"libGPUCounters\" });`；对外暴露 `libGPUCounters` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`libGPUCounters` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `libGPUCounters.h` / `libGPUCountersModule.h`），再用 `FModuleManager::LoadModulePtr<libGPUCountersModule>` 或直接使用导出类型。",
-      "传递依赖：`libGPUCounters` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `libGPUCounters` lives under `ThirdParty`; build rule `ThirdParty/libGPUCounters/libGPUCounters.Build.cs`.The descriptor declares no dependencies.",
+      "`libGPUCounters` (lib GPU Counters): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libGPUCounters/libGPUCounters.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `libGPUCounters` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"libGPUCounters\" });`. Use Public when exposing `libGPUCounters` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `libGPUCounters` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `libGPUCounters.h` / `libGPUCountersModule.h`), then use `FModuleManager::LoadModulePtr<libGPUCountersModule>` or the exported types directly.",
-      "Transitive deps: `libGPUCounters` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`libGPUCounters` 的构建规则位于 `ThirdParty/libGPUCounters/libGPUCounters.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`libGPUCounters` build rule is `ThirdParty/libGPUCounters/libGPUCounters.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`libGPUCounters`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libGPUCounters/libGPUCounters.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`libGPUCounters`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libGPUCounters/libGPUCounters.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "libjpegturbo",
     "kind": "module",
     "cn_steps": [
-      "用途：`LibJpegTurbo` 位于 `ThirdParty`，构建规则 `ThirdParty/libjpeg-turbo/LibJpegTurbo.Build.cs`。描述符未声明依赖。",
+      "`LibJpegTurbo`（Lib Jpeg Turbo）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libjpeg-turbo/LibJpegTurbo.Build.cs`。描述符未声明依赖。",
+      "部署：`LibJpegTurbo` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LibJpegTurbo\" });`；对外暴露 `LibJpegTurbo` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`LibJpegTurbo` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `LibJpegTurbo.h` / `LibJpegTurboModule.h`），再用 `FModuleManager::LoadModulePtr<LibJpegTurboModule>` 或直接使用导出类型。",
-      "传递依赖：`LibJpegTurbo` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `LibJpegTurbo` lives under `ThirdParty`; build rule `ThirdParty/libjpeg-turbo/LibJpegTurbo.Build.cs`.The descriptor declares no dependencies.",
+      "`LibJpegTurbo` (Lib Jpeg Turbo): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libjpeg-turbo/LibJpegTurbo.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `LibJpegTurbo` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LibJpegTurbo\" });`. Use Public when exposing `LibJpegTurbo` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `LibJpegTurbo` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `LibJpegTurbo.h` / `LibJpegTurboModule.h`), then use `FModuleManager::LoadModulePtr<LibJpegTurboModule>` or the exported types directly.",
-      "Transitive deps: `LibJpegTurbo` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`LibJpegTurbo` 的构建规则位于 `ThirdParty/libjpeg-turbo/LibJpegTurbo.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`LibJpegTurbo` build rule is `ThirdParty/libjpeg-turbo/LibJpegTurbo.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`LibJpegTurbo`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libjpeg-turbo/LibJpegTurbo.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`LibJpegTurbo`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libjpeg-turbo/LibJpegTurbo.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "libpas",
     "kind": "module",
     "cn_steps": [
-      "用途：`libpas` 位于 `ThirdParty`，构建规则 `ThirdParty/libpas/src/libpas/libpas.Build.cs`。描述符未声明依赖。",
+      "`libpas`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libpas/src/libpas/libpas.Build.cs`。描述符未声明依赖。",
+      "部署：`libpas` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"libpas\" });`；对外暴露 `libpas` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`libpas` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `libpas.h` / `libpasModule.h`），再用 `FModuleManager::LoadModulePtr<libpasModule>` 或直接使用导出类型。",
-      "传递依赖：`libpas` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `libpas` lives under `ThirdParty`; build rule `ThirdParty/libpas/src/libpas/libpas.Build.cs`.The descriptor declares no dependencies.",
+      "`libpas`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libpas/src/libpas/libpas.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `libpas` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"libpas\" });`. Use Public when exposing `libpas` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `libpas` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `libpas.h` / `libpasModule.h`), then use `FModuleManager::LoadModulePtr<libpasModule>` or the exported types directly.",
-      "Transitive deps: `libpas` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`libpas` 的构建规则位于 `ThirdParty/libpas/src/libpas/libpas.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`libpas` build rule is `ThirdParty/libpas/src/libpas/libpas.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`libpas`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libpas/src/libpas/libpas.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`libpas`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libpas/src/libpas/libpas.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "libphonon",
     "kind": "module",
     "cn_steps": [
-      "用途：`libPhonon` 位于 `ThirdParty`，构建规则 `ThirdParty/libPhonon/LibPhonon.Build.cs`。描述符未声明依赖。",
+      "`libPhonon`（lib Phonon）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libPhonon/LibPhonon.Build.cs`。描述符未声明依赖。",
+      "部署：`libPhonon` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"libPhonon\" });`；对外暴露 `libPhonon` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`libPhonon` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `libPhonon.h` / `libPhononModule.h`），再用 `FModuleManager::LoadModulePtr<libPhononModule>` 或直接使用导出类型。",
-      "传递依赖：`libPhonon` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `libPhonon` lives under `ThirdParty`; build rule `ThirdParty/libPhonon/LibPhonon.Build.cs`.The descriptor declares no dependencies.",
+      "`libPhonon` (lib Phonon): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libPhonon/LibPhonon.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `libPhonon` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"libPhonon\" });`. Use Public when exposing `libPhonon` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `libPhonon` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `libPhonon.h` / `libPhononModule.h`), then use `FModuleManager::LoadModulePtr<libPhononModule>` or the exported types directly.",
-      "Transitive deps: `libPhonon` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`libPhonon` 的构建规则位于 `ThirdParty/libPhonon/LibPhonon.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`libPhonon` build rule is `ThirdParty/libPhonon/LibPhonon.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`libPhonon`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libPhonon/LibPhonon.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`libPhonon`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libPhonon/LibPhonon.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "libressl",
     "kind": "module",
     "cn_steps": [
-      "用途：`LibreSSL` 位于 `ThirdParty`，构建规则 `ThirdParty/LibreSSL/LibreSSL.Build.cs`。描述符未声明依赖。",
+      "`LibreSSL`（Libre SSL）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/LibreSSL/LibreSSL.Build.cs`。描述符未声明依赖。",
+      "部署：`LibreSSL` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LibreSSL\" });`；对外暴露 `LibreSSL` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`LibreSSL` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `LibreSSL.h` / `LibreSSLModule.h`），再用 `FModuleManager::LoadModulePtr<LibreSSLModule>` 或直接使用导出类型。",
-      "传递依赖：`LibreSSL` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `LibreSSL` lives under `ThirdParty`; build rule `ThirdParty/LibreSSL/LibreSSL.Build.cs`.The descriptor declares no dependencies.",
+      "`LibreSSL` (Libre SSL): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/LibreSSL/LibreSSL.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `LibreSSL` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LibreSSL\" });`. Use Public when exposing `LibreSSL` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `LibreSSL` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `LibreSSL.h` / `LibreSSLModule.h`), then use `FModuleManager::LoadModulePtr<LibreSSLModule>` or the exported types directly.",
-      "Transitive deps: `LibreSSL` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`LibreSSL` 的构建规则位于 `ThirdParty/LibreSSL/LibreSSL.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`LibreSSL` build rule is `ThirdParty/LibreSSL/LibreSSL.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`LibreSSL`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/LibreSSL/LibreSSL.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`LibreSSL`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/LibreSSL/LibreSSL.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "libstrophe",
     "kind": "module",
     "cn_steps": [
-      "用途：`libstrophe` 位于 `ThirdParty`，构建规则 `ThirdParty/libstrophe/libstrophe.Build.cs`。描述符未声明依赖。",
+      "`libstrophe`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libstrophe/libstrophe.Build.cs`。描述符未声明依赖。",
+      "部署：`libstrophe` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"libstrophe\" });`；对外暴露 `libstrophe` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`libstrophe` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `libstrophe.h` / `libstropheModule.h`），再用 `FModuleManager::LoadModulePtr<libstropheModule>` 或直接使用导出类型。",
-      "传递依赖：`libstrophe` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `libstrophe` lives under `ThirdParty`; build rule `ThirdParty/libstrophe/libstrophe.Build.cs`.The descriptor declares no dependencies.",
+      "`libstrophe`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libstrophe/libstrophe.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `libstrophe` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"libstrophe\" });`. Use Public when exposing `libstrophe` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `libstrophe` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `libstrophe.h` / `libstropheModule.h`), then use `FModuleManager::LoadModulePtr<libstropheModule>` or the exported types directly.",
-      "Transitive deps: `libstrophe` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`libstrophe` 的构建规则位于 `ThirdParty/libstrophe/libstrophe.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`libstrophe` build rule is `ThirdParty/libstrophe/libstrophe.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`libstrophe`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libstrophe/libstrophe.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`libstrophe`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libstrophe/libstrophe.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "libtiff",
     "kind": "module",
     "cn_steps": [
-      "用途：`LibTiff` 位于 `ThirdParty`，构建规则 `ThirdParty/LibTiff/LibTiff.Build.cs`。描述符未声明依赖。",
+      "`LibTiff`（Lib Tiff）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/LibTiff/LibTiff.Build.cs`。描述符未声明依赖。",
+      "部署：`LibTiff` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LibTiff\" });`；对外暴露 `LibTiff` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`LibTiff` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `LibTiff.h` / `LibTiffModule.h`），再用 `FModuleManager::LoadModulePtr<LibTiffModule>` 或直接使用导出类型。",
-      "传递依赖：`LibTiff` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `LibTiff` lives under `ThirdParty`; build rule `ThirdParty/LibTiff/LibTiff.Build.cs`.The descriptor declares no dependencies.",
+      "`LibTiff` (Lib Tiff): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/LibTiff/LibTiff.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `LibTiff` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LibTiff\" });`. Use Public when exposing `LibTiff` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `LibTiff` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `LibTiff.h` / `LibTiffModule.h`), then use `FModuleManager::LoadModulePtr<LibTiffModule>` or the exported types directly.",
-      "Transitive deps: `LibTiff` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`LibTiff` 的构建规则位于 `ThirdParty/LibTiff/LibTiff.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`LibTiff` build rule is `ThirdParty/LibTiff/LibTiff.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`LibTiff`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/LibTiff/LibTiff.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`LibTiff`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/LibTiff/LibTiff.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "libunwind",
     "kind": "module",
     "cn_steps": [
-      "用途：`libunwind` 位于 `ThirdParty`，构建规则 `ThirdParty/Android/libunwind/libunwind.Build.cs`。描述符未声明依赖。",
+      "`libunwind`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Android/libunwind/libunwind.Build.cs`。描述符未声明依赖。",
+      "部署：`libunwind` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"libunwind\" });`；对外暴露 `libunwind` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`libunwind` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `libunwind.h` / `libunwindModule.h`），再用 `FModuleManager::LoadModulePtr<libunwindModule>` 或直接使用导出类型。",
-      "传递依赖：`libunwind` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `libunwind` lives under `ThirdParty`; build rule `ThirdParty/Android/libunwind/libunwind.Build.cs`.The descriptor declares no dependencies.",
+      "`libunwind`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Android/libunwind/libunwind.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `libunwind` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"libunwind\" });`. Use Public when exposing `libunwind` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `libunwind` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `libunwind.h` / `libunwindModule.h`), then use `FModuleManager::LoadModulePtr<libunwindModule>` or the exported types directly.",
-      "Transitive deps: `libunwind` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`libunwind` 的构建规则位于 `ThirdParty/Android/libunwind/libunwind.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`libunwind` build rule is `ThirdParty/Android/libunwind/libunwind.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`libunwind`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Android/libunwind/libunwind.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`libunwind`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Android/libunwind/libunwind.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "libwebsockets",
     "kind": "module",
     "cn_steps": [
-      "用途：`libWebSockets` 位于 `ThirdParty`，构建规则 `ThirdParty/libWebSockets/libWebSockets.Build.cs`。它直接依赖 1 个模块：`OpenSSL`。",
+      "`libWebSockets`（lib Web Sockets）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libWebSockets/libWebSockets.Build.cs`。直接依赖 1 个模块：`OpenSSL`。",
+      "部署：`libWebSockets` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"libWebSockets\" });`；对外暴露 `libWebSockets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`libWebSockets` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `libWebSockets.h` / `libWebSocketsModule.h`），再用 `FModuleManager::LoadModulePtr<libWebSocketsModule>` 或直接使用导出类型。",
-      "传递依赖：`libWebSockets` 还依赖 `OpenSSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `libWebSockets` lives under `ThirdParty`; build rule `ThirdParty/libWebSockets/libWebSockets.Build.cs`.It directly depends on 1 modules: `OpenSSL`.",
+      "`libWebSockets` (lib Web Sockets): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libWebSockets/libWebSockets.Build.cs`. It directly depends on 1 modules: `OpenSSL`.",
+      "Placement: `libWebSockets` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"libWebSockets\" });`. Use Public when exposing `libWebSockets` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `libWebSockets` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `libWebSockets.h` / `libWebSocketsModule.h`), then use `FModuleManager::LoadModulePtr<libWebSocketsModule>` or the exported types directly.",
-      "Transitive deps: `libWebSockets` also needs `OpenSSL`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`libWebSockets` 的构建规则位于 `ThirdParty/libWebSockets/libWebSockets.Build.cs`，直接依赖 1 个模块，分类 External。",
-    "note_en": "`libWebSockets` build rule is `ThirdParty/libWebSockets/libWebSockets.Build.cs`; depends on 1 modules; category External."
+    "note_cn": "`libWebSockets`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libWebSockets/libWebSockets.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`libWebSockets`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libWebSockets/libWebSockets.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "libzip",
     "kind": "module",
     "cn_steps": [
-      "用途：`libzip` 位于 `ThirdParty`，构建规则 `ThirdParty/libzip/libzip.Build.cs`。它直接依赖 2 个模块：`OpenSSL`, `zlib`。",
+      "`libzip`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/libzip/libzip.Build.cs`。直接依赖 2 个模块：`OpenSSL`、`zlib`。",
+      "部署：`libzip` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"libzip\" });`；对外暴露 `libzip` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`libzip` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `libzip.h` / `libzipModule.h`），再用 `FModuleManager::LoadModulePtr<libzipModule>` 或直接使用导出类型。",
-      "传递依赖：`libzip` 还依赖 `OpenSSL`, `zlib`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `libzip` lives under `ThirdParty`; build rule `ThirdParty/libzip/libzip.Build.cs`.It directly depends on 2 modules: `OpenSSL`, `zlib`.",
+      "`libzip`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/libzip/libzip.Build.cs`. It directly depends on 2 modules: `OpenSSL`, `zlib`.",
+      "Placement: `libzip` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"libzip\" });`. Use Public when exposing `libzip` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `libzip` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `libzip.h` / `libzipModule.h`), then use `FModuleManager::LoadModulePtr<libzipModule>` or the exported types directly.",
-      "Transitive deps: `libzip` also needs `OpenSSL`, `zlib`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`libzip` 的构建规则位于 `ThirdParty/libzip/libzip.Build.cs`，直接依赖 2 个模块，分类 External。",
-    "note_en": "`libzip` build rule is `ThirdParty/libzip/libzip.Build.cs`; depends on 2 modules; category External."
+    "note_cn": "`libzip`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/libzip/libzip.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`libzip`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/libzip/libzip.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "linuxarm64targetplatform",
     "kind": "module",
     "cn_steps": [
-      "用途：`LinuxArm64TargetPlatform` 位于 `Developer`，构建规则 `Developer/Linux/LinuxArm64TargetPlatform/LinuxArm64TargetPlatform.Build.cs`。它直接依赖 3 个模块：`Core`, `DesktopPlatform`, `TargetPlatform`。",
+      "`LinuxArm64TargetPlatform`（Linux Arm64 Target Platform）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Developer`，构建规则 `Developer/Linux/LinuxArm64TargetPlatform/LinuxArm64TargetPlatform.Build.cs`。直接依赖 3 个模块：`Core`、`DesktopPlatform`、`TargetPlatform`。",
+      "部署：`LinuxArm64TargetPlatform` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxArm64TargetPlatform\" });`；对外暴露 `LinuxArm64TargetPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`LinuxArm64TargetPlatform` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `LinuxArm64TargetPlatform.h` / `LinuxArm64TargetPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<LinuxArm64TargetPlatformModule>` 或直接使用导出类型。",
-      "传递依赖：`LinuxArm64TargetPlatform` 还依赖 `Core`, `DesktopPlatform`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `LinuxArm64TargetPlatform` lives under `Developer`; build rule `Developer/Linux/LinuxArm64TargetPlatform/LinuxArm64TargetPlatform.Build.cs`.It directly depends on 3 modules: `Core`, `DesktopPlatform`, `TargetPlatform`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxArm64TargetPlatform\" });`. Use Public when exposing `LinuxArm64TargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`LinuxArm64TargetPlatform` (Linux Arm64 Target Platform): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Developer`; build rule `Developer/Linux/LinuxArm64TargetPlatform/LinuxArm64TargetPlatform.Build.cs`. It directly depends on 3 modules: `Core`, `DesktopPlatform`, `TargetPlatform`.",
       "Placement: `LinuxArm64TargetPlatform` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `LinuxArm64TargetPlatform.h` / `LinuxArm64TargetPlatformModule.h`), then use `FModuleManager::LoadModulePtr<LinuxArm64TargetPlatformModule>` or the exported types directly.",
-      "Transitive deps: `LinuxArm64TargetPlatform` also needs `Core`, `DesktopPlatform`, `TargetPlatform`; do not re-list them unless you include their headers."
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxArm64TargetPlatform\" });`. Use Public when exposing `LinuxArm64TargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`LinuxArm64TargetPlatform` 的构建规则位于 `Developer/Linux/LinuxArm64TargetPlatform/LinuxArm64TargetPlatform.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`LinuxArm64TargetPlatform` build rule is `Developer/Linux/LinuxArm64TargetPlatform/LinuxArm64TargetPlatform.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`LinuxArm64TargetPlatform`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Developer/Linux/LinuxArm64TargetPlatform/LinuxArm64TargetPlatform.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`LinuxArm64TargetPlatform`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Developer/Linux/LinuxArm64TargetPlatform/LinuxArm64TargetPlatform.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "linuxarm64targetplatformcontrols",
     "kind": "module",
     "cn_steps": [
-      "用途：`LinuxArm64TargetPlatformControls` 位于 `Developer`，构建规则 `Developer/Linux/LinuxArm64TargetPlatformControls/LinuxArm64TargetPlatformControls.Build.cs`。它直接依赖 5 个模块：`Core`, `DesktopPlatform`, `Engine`, `LinuxArm64TargetPlatformSettings`, `TargetPlatform`。",
+      "`LinuxArm64TargetPlatformControls`（Linux Arm64 Target Platform Controls）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Developer`，构建规则 `Developer/Linux/LinuxArm64TargetPlatformControls/LinuxArm64TargetPlatformControls.Build.cs`。直接依赖 5 个模块：`Core`、`DesktopPlatform`、`Engine`、`LinuxArm64TargetPlatformSettings`、`TargetPlatform`。",
+      "部署：`LinuxArm64TargetPlatformControls` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxArm64TargetPlatformControls\" });`；对外暴露 `LinuxArm64TargetPlatformControls` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`LinuxArm64TargetPlatformControls` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `LinuxArm64TargetPlatformControls.h` / `LinuxArm64TargetPlatformControlsModule.h`），再用 `FModuleManager::LoadModulePtr<LinuxArm64TargetPlatformControlsModule>` 或直接使用导出类型。",
-      "传递依赖：`LinuxArm64TargetPlatformControls` 还依赖 `Core`, `DesktopPlatform`, `Engine`, `LinuxArm64TargetPlatformSettings`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `LinuxArm64TargetPlatformControls` lives under `Developer`; build rule `Developer/Linux/LinuxArm64TargetPlatformControls/LinuxArm64TargetPlatformControls.Build.cs`.It directly depends on 5 modules: `Core`, `DesktopPlatform`, `Engine`, `LinuxArm64TargetPlatformSettings`, `TargetPlatform`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxArm64TargetPlatformControls\" });`. Use Public when exposing `LinuxArm64TargetPlatformControls` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`LinuxArm64TargetPlatformControls` (Linux Arm64 Target Platform Controls): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Developer`; build rule `Developer/Linux/LinuxArm64TargetPlatformControls/LinuxArm64TargetPlatformControls.Build.cs`. It directly depends on 5 modules: `Core`, `DesktopPlatform`, `Engine`, `LinuxArm64TargetPlatformSettings`, `TargetPlatform`.",
       "Placement: `LinuxArm64TargetPlatformControls` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `LinuxArm64TargetPlatformControls.h` / `LinuxArm64TargetPlatformControlsModule.h`), then use `FModuleManager::LoadModulePtr<LinuxArm64TargetPlatformControlsModule>` or the exported types directly.",
-      "Transitive deps: `LinuxArm64TargetPlatformControls` also needs `Core`, `DesktopPlatform`, `Engine`, `LinuxArm64TargetPlatformSettings`, `TargetPlatform`; do not re-list them unless you include their headers."
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxArm64TargetPlatformControls\" });`. Use Public when exposing `LinuxArm64TargetPlatformControls` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`LinuxArm64TargetPlatformControls` 的构建规则位于 `Developer/Linux/LinuxArm64TargetPlatformControls/LinuxArm64TargetPlatformControls.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`LinuxArm64TargetPlatformControls` build rule is `Developer/Linux/LinuxArm64TargetPlatformControls/LinuxArm64TargetPlatformControls.Build.cs`; depends on 5 modules; category Module."
-  },
-  {
-    "slug": "linuxarm64targetplatformsettings",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`LinuxArm64TargetPlatformSettings` 位于 `Developer`，构建规则 `Developer/Linux/LinuxArm64TargetPlatformSettings/LinuxArm64TargetPlatformSettings.Build.cs`。它直接依赖 4 个模块：`Core`, `DesktopPlatform`, `Engine`, `TargetPlatform`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxArm64TargetPlatformSettings\" });`；对外暴露 `LinuxArm64TargetPlatformSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`LinuxArm64TargetPlatformSettings` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `LinuxArm64TargetPlatformSettings.h` / `LinuxArm64TargetPlatformSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<LinuxArm64TargetPlatformSettingsModule>` 或直接使用导出类型。",
-      "传递依赖：`LinuxArm64TargetPlatformSettings` 还依赖 `Core`, `DesktopPlatform`, `Engine`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `LinuxArm64TargetPlatformSettings` lives under `Developer`; build rule `Developer/Linux/LinuxArm64TargetPlatformSettings/LinuxArm64TargetPlatformSettings.Build.cs`.It directly depends on 4 modules: `Core`, `DesktopPlatform`, `Engine`, `TargetPlatform`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxArm64TargetPlatformSettings\" });`. Use Public when exposing `LinuxArm64TargetPlatformSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `LinuxArm64TargetPlatformSettings` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `LinuxArm64TargetPlatformSettings.h` / `LinuxArm64TargetPlatformSettingsModule.h`), then use `FModuleManager::LoadModulePtr<LinuxArm64TargetPlatformSettingsModule>` or the exported types directly.",
-      "Transitive deps: `LinuxArm64TargetPlatformSettings` also needs `Core`, `DesktopPlatform`, `Engine`, `TargetPlatform`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`LinuxArm64TargetPlatformSettings` 的构建规则位于 `Developer/Linux/LinuxArm64TargetPlatformSettings/LinuxArm64TargetPlatformSettings.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`LinuxArm64TargetPlatformSettings` build rule is `Developer/Linux/LinuxArm64TargetPlatformSettings/LinuxArm64TargetPlatformSettings.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`LinuxArm64TargetPlatformControls`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Developer/Linux/LinuxArm64TargetPlatformControls/LinuxArm64TargetPlatformControls.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`LinuxArm64TargetPlatformControls`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Developer/Linux/LinuxArm64TargetPlatformControls/LinuxArm64TargetPlatformControls.Build.cs`; depends on 5 modules."
   }
 ]

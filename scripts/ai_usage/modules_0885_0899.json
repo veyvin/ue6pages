@@ -1,304 +1,302 @@
 [
   {
+    "slug": "voice",
+    "kind": "module",
+    "cn_steps": [
+      "`Voice`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/Voice/Voice.Build.cs`。直接依赖 5 个模块：`ApplicationCore`、`AudioMixer`、`Core`、`Engine`、`SignalProcessing`。",
+      "部署：`Voice` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Voice\" });`；对外暴露 `Voice` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`Voice`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/Voice/Voice.Build.cs`. It directly depends on 5 modules: `ApplicationCore`, `AudioMixer`, `Core`, `Engine`, `SignalProcessing`.",
+      "Placement: `Voice` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Voice\" });`. Use Public when exposing `Voice` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`Voice`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/Voice/Voice.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`Voice`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/Voice/Voice.Build.cs`; depends on 5 modules."
+  },
+  {
+    "slug": "vorbis",
+    "kind": "module",
+    "cn_steps": [
+      "`Vorbis`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Vorbis/Vorbis.Build.cs`。描述符未声明依赖。",
+      "部署：`Vorbis` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Vorbis\" });`；对外暴露 `Vorbis` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
+    ],
+    "en_steps": [
+      "`Vorbis`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Vorbis/Vorbis.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Vorbis` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Vorbis\" });`. Use Public when exposing `Vorbis` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
+    ],
+    "note_cn": "`Vorbis`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Vorbis/Vorbis.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Vorbis`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Vorbis/Vorbis.Build.cs`; depends on 0 modules."
+  },
+  {
     "slug": "vorbisaudiodecoder",
     "kind": "module",
     "cn_steps": [
-      "用途：`VorbisAudioDecoder` 位于 `Runtime`，构建规则 `Runtime/VorbisAudioDecoder/Module/VorbisAudioDecoder.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "`VorbisAudioDecoder`（Vorbis Audio Decoder）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/VorbisAudioDecoder/Module/VorbisAudioDecoder.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`Engine`。",
+      "部署：`VorbisAudioDecoder` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VorbisAudioDecoder\" });`；对外暴露 `VorbisAudioDecoder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VorbisAudioDecoder` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `VorbisAudioDecoder.h` / `VorbisAudioDecoderModule.h`），再用 `FModuleManager::LoadModulePtr<VorbisAudioDecoderModule>` 或直接使用导出类型。",
-      "传递依赖：`VorbisAudioDecoder` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VorbisAudioDecoder` lives under `Runtime`; build rule `Runtime/VorbisAudioDecoder/Module/VorbisAudioDecoder.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "`VorbisAudioDecoder` (Vorbis Audio Decoder): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/VorbisAudioDecoder/Module/VorbisAudioDecoder.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Placement: `VorbisAudioDecoder` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VorbisAudioDecoder\" });`. Use Public when exposing `VorbisAudioDecoder` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VorbisAudioDecoder` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `VorbisAudioDecoder.h` / `VorbisAudioDecoderModule.h`), then use `FModuleManager::LoadModulePtr<VorbisAudioDecoderModule>` or the exported types directly.",
-      "Transitive deps: `VorbisAudioDecoder` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VorbisAudioDecoder` 的构建规则位于 `Runtime/VorbisAudioDecoder/Module/VorbisAudioDecoder.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`VorbisAudioDecoder` build rule is `Runtime/VorbisAudioDecoder/Module/VorbisAudioDecoder.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`VorbisAudioDecoder`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/VorbisAudioDecoder/Module/VorbisAudioDecoder.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`VorbisAudioDecoder`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/VorbisAudioDecoder/Module/VorbisAudioDecoder.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "vorbisfile",
     "kind": "module",
     "cn_steps": [
-      "用途：`VorbisFile` 位于 `ThirdParty`，构建规则 `ThirdParty/Vorbis/VorbisFile.Build.cs`。描述符未声明依赖。",
+      "`VorbisFile`（Vorbis File）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Vorbis/VorbisFile.Build.cs`。描述符未声明依赖。",
+      "部署：`VorbisFile` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VorbisFile\" });`；对外暴露 `VorbisFile` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VorbisFile` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `VorbisFile.h` / `VorbisFileModule.h`），再用 `FModuleManager::LoadModulePtr<VorbisFileModule>` 或直接使用导出类型。",
-      "传递依赖：`VorbisFile` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `VorbisFile` lives under `ThirdParty`; build rule `ThirdParty/Vorbis/VorbisFile.Build.cs`.The descriptor declares no dependencies.",
+      "`VorbisFile` (Vorbis File): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Vorbis/VorbisFile.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `VorbisFile` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VorbisFile\" });`. Use Public when exposing `VorbisFile` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VorbisFile` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `VorbisFile.h` / `VorbisFileModule.h`), then use `FModuleManager::LoadModulePtr<VorbisFileModule>` or the exported types directly.",
-      "Transitive deps: `VorbisFile` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`VorbisFile` 的构建规则位于 `ThirdParty/Vorbis/VorbisFile.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`VorbisFile` build rule is `ThirdParty/Vorbis/VorbisFile.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`VorbisFile`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Vorbis/VorbisFile.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`VorbisFile`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Vorbis/VorbisFile.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "voronoi",
     "kind": "module",
     "cn_steps": [
-      "用途：`Voronoi` 位于 `Runtime`，构建规则 `Runtime/Experimental/Voronoi/Voronoi.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`Voronoi`：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/Experimental/Voronoi/Voronoi.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`Voronoi` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Voronoi\" });`；对外暴露 `Voronoi` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Voronoi` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Voronoi.h` / `VoronoiModule.h`），再用 `FModuleManager::LoadModulePtr<VoronoiModule>` 或直接使用导出类型。",
-      "传递依赖：`Voronoi` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`Voronoi` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Voronoi` lives under `Runtime`; build rule `Runtime/Experimental/Voronoi/Voronoi.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`Voronoi`: it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/Experimental/Voronoi/Voronoi.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `Voronoi` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Voronoi\" });`. Use Public when exposing `Voronoi` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Voronoi` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Voronoi.h` / `VoronoiModule.h`), then use `FModuleManager::LoadModulePtr<VoronoiModule>` or the exported types directly.",
-      "Transitive deps: `Voronoi` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers.",
-      "Note: `Voronoi` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Voronoi` 的构建规则位于 `Runtime/Experimental/Voronoi/Voronoi.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`Voronoi` build rule is `Runtime/Experimental/Voronoi/Voronoi.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`Voronoi`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/Experimental/Voronoi/Voronoi.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`Voronoi`: it exposes C++ API/functionality to other modules; build rule `Runtime/Experimental/Voronoi/Voronoi.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "vpltextbuffer",
     "kind": "module",
     "cn_steps": [
-      "用途：`VplTextBuffer` 位于 `Runtime`，构建规则 `Runtime/Solaris/VplTextBuffer/VplTextBuffer.Build.cs`。它直接依赖 3 个模块：`Core`, `VerseCompiler`, `uLangCore`。",
+      "`VplTextBuffer`（Vpl Text Buffer）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/Solaris/VplTextBuffer/VplTextBuffer.Build.cs`。直接依赖 3 个模块：`Core`、`VerseCompiler`、`uLangCore`。",
+      "部署：`VplTextBuffer` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VplTextBuffer\" });`；对外暴露 `VplTextBuffer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VplTextBuffer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `VplTextBuffer.h` / `VplTextBufferModule.h`），再用 `FModuleManager::LoadModulePtr<VplTextBufferModule>` 或直接使用导出类型。",
-      "传递依赖：`VplTextBuffer` 还依赖 `Core`, `VerseCompiler`, `uLangCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VplTextBuffer` lives under `Runtime`; build rule `Runtime/Solaris/VplTextBuffer/VplTextBuffer.Build.cs`.It directly depends on 3 modules: `Core`, `VerseCompiler`, `uLangCore`.",
+      "`VplTextBuffer` (Vpl Text Buffer): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/Solaris/VplTextBuffer/VplTextBuffer.Build.cs`. It directly depends on 3 modules: `Core`, `VerseCompiler`, `uLangCore`.",
+      "Placement: `VplTextBuffer` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VplTextBuffer\" });`. Use Public when exposing `VplTextBuffer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VplTextBuffer` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `VplTextBuffer.h` / `VplTextBufferModule.h`), then use `FModuleManager::LoadModulePtr<VplTextBufferModule>` or the exported types directly.",
-      "Transitive deps: `VplTextBuffer` also needs `Core`, `VerseCompiler`, `uLangCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VplTextBuffer` 的构建规则位于 `Runtime/Solaris/VplTextBuffer/VplTextBuffer.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`VplTextBuffer` build rule is `Runtime/Solaris/VplTextBuffer/VplTextBuffer.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`VplTextBuffer`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/Solaris/VplTextBuffer/VplTextBuffer.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`VplTextBuffer`: it exposes C++ API/functionality to other modules; build rule `Runtime/Solaris/VplTextBuffer/VplTextBuffer.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "vreditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`VREditor` 位于 `Editor`，构建规则 `Editor/VREditor/VREditor.Build.cs`。它直接依赖 8 个模块：`Analytics`, `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`。",
+      "`VREditor`（VR Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/VREditor/VREditor.Build.cs`。直接依赖 8 个模块：`Analytics`、`AppFramework`、`ApplicationCore`、`Core`、`CoreUObject` 等。",
+      "部署：`VREditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VREditor\" });`；对外暴露 `VREditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VREditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `VREditor.h` / `VREditorModule.h`），再用 `FModuleManager::LoadModulePtr<VREditorModule>` 或直接使用导出类型。",
-      "传递依赖：`VREditor` 还依赖 `Analytics`, `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VREditor` lives under `Editor`; build rule `Editor/VREditor/VREditor.Build.cs`.It directly depends on 8 modules: `Analytics`, `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`.",
+      "`VREditor` (VR Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/VREditor/VREditor.Build.cs`. It directly depends on 8 modules: `Analytics`, `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject` etc.",
+      "Placement: `VREditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VREditor\" });`. Use Public when exposing `VREditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VREditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `VREditor.h` / `VREditorModule.h`), then use `FModuleManager::LoadModulePtr<VREditorModule>` or the exported types directly.",
-      "Transitive deps: `VREditor` also needs `Analytics`, `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VREditor` 的构建规则位于 `Editor/VREditor/VREditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`VREditor` build rule is `Editor/VREditor/VREditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`VREditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/VREditor/VREditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`VREditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/VREditor/VREditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "vsperfexternalprofiler",
     "kind": "module",
     "cn_steps": [
-      "用途：`VSPerfExternalProfiler` 位于 `ThirdParty`，构建规则 `ThirdParty/VSPerfExternalProfiler/VSPerfExternalProfiler.Build.cs`。描述符未声明依赖。",
+      "`VSPerfExternalProfiler`（VS Perf External Profiler）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/VSPerfExternalProfiler/VSPerfExternalProfiler.Build.cs`。描述符未声明依赖。",
+      "部署：`VSPerfExternalProfiler` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VSPerfExternalProfiler\" });`；对外暴露 `VSPerfExternalProfiler` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VSPerfExternalProfiler` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `VSPerfExternalProfiler.h` / `VSPerfExternalProfilerModule.h`），再用 `FModuleManager::LoadModulePtr<VSPerfExternalProfilerModule>` 或直接使用导出类型。",
-      "传递依赖：`VSPerfExternalProfiler` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `VSPerfExternalProfiler` lives under `ThirdParty`; build rule `ThirdParty/VSPerfExternalProfiler/VSPerfExternalProfiler.Build.cs`.The descriptor declares no dependencies.",
+      "`VSPerfExternalProfiler` (VS Perf External Profiler): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/VSPerfExternalProfiler/VSPerfExternalProfiler.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `VSPerfExternalProfiler` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VSPerfExternalProfiler\" });`. Use Public when exposing `VSPerfExternalProfiler` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VSPerfExternalProfiler` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `VSPerfExternalProfiler.h` / `VSPerfExternalProfilerModule.h`), then use `FModuleManager::LoadModulePtr<VSPerfExternalProfilerModule>` or the exported types directly.",
-      "Transitive deps: `VSPerfExternalProfiler` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`VSPerfExternalProfiler` 的构建规则位于 `ThirdParty/VSPerfExternalProfiler/VSPerfExternalProfiler.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`VSPerfExternalProfiler` build rule is `ThirdParty/VSPerfExternalProfiler/VSPerfExternalProfiler.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`VSPerfExternalProfiler`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/VSPerfExternalProfiler/VSPerfExternalProfiler.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`VSPerfExternalProfiler`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/VSPerfExternalProfiler/VSPerfExternalProfiler.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "vulkan",
     "kind": "module",
     "cn_steps": [
-      "用途：`Vulkan` 位于 `ThirdParty`，构建规则 `ThirdParty/Vulkan/Vulkan.Build.cs`。描述符未声明依赖。",
+      "`Vulkan`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Vulkan/Vulkan.Build.cs`。描述符未声明依赖。",
+      "部署：`Vulkan` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Vulkan\" });`；对外暴露 `Vulkan` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Vulkan` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Vulkan.h` / `VulkanModule.h`），再用 `FModuleManager::LoadModulePtr<VulkanModule>` 或直接使用导出类型。",
-      "传递依赖：`Vulkan` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Vulkan` lives under `ThirdParty`; build rule `ThirdParty/Vulkan/Vulkan.Build.cs`.The descriptor declares no dependencies.",
+      "`Vulkan`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Vulkan/Vulkan.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Vulkan` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Vulkan\" });`. Use Public when exposing `Vulkan` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Vulkan` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Vulkan.h` / `VulkanModule.h`), then use `FModuleManager::LoadModulePtr<VulkanModule>` or the exported types directly.",
-      "Transitive deps: `Vulkan` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Vulkan` 的构建规则位于 `ThirdParty/Vulkan/Vulkan.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Vulkan` build rule is `ThirdParty/Vulkan/Vulkan.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`Vulkan`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Vulkan/Vulkan.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Vulkan`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Vulkan/Vulkan.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "vulkanrhi",
     "kind": "module",
     "cn_steps": [
-      "用途：`VulkanRHI` 位于 `Runtime`，构建规则 `Runtime/VulkanRHI/VulkanRHI.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `ArmlibGPUInfo`, `BuildSettings`, `Core`, `CoreUObject`, `Engine`, `GoogleGameSDK`, `HeadMountedDisplay`。",
+      "`VulkanRHI`（Vulkan RHI）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/VulkanRHI/VulkanRHI.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`ArmlibGPUInfo`、`BuildSettings`、`Core`、`CoreUObject` 等。",
+      "部署：`VulkanRHI` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VulkanRHI\" });`；对外暴露 `VulkanRHI` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VulkanRHI` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `VulkanRHI.h` / `VulkanRHIModule.h`），再用 `FModuleManager::LoadModulePtr<VulkanRHIModule>` 或直接使用导出类型。",
-      "传递依赖：`VulkanRHI` 还依赖 `ApplicationCore`, `ArmlibGPUInfo`, `BuildSettings`, `Core`, `CoreUObject`, `Engine`, `GoogleGameSDK`, `HeadMountedDisplay`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VulkanRHI` lives under `Runtime`; build rule `Runtime/VulkanRHI/VulkanRHI.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `ArmlibGPUInfo`, `BuildSettings`, `Core`, `CoreUObject`, `Engine`, `GoogleGameSDK`, `HeadMountedDisplay`.",
+      "`VulkanRHI` (Vulkan RHI): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/VulkanRHI/VulkanRHI.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `ArmlibGPUInfo`, `BuildSettings`, `Core`, `CoreUObject` etc.",
+      "Placement: `VulkanRHI` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VulkanRHI\" });`. Use Public when exposing `VulkanRHI` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VulkanRHI` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `VulkanRHI.h` / `VulkanRHIModule.h`), then use `FModuleManager::LoadModulePtr<VulkanRHIModule>` or the exported types directly.",
-      "Transitive deps: `VulkanRHI` also needs `ApplicationCore`, `ArmlibGPUInfo`, `BuildSettings`, `Core`, `CoreUObject`, `Engine`, `GoogleGameSDK`, `HeadMountedDisplay`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VulkanRHI` 的构建规则位于 `Runtime/VulkanRHI/VulkanRHI.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`VulkanRHI` build rule is `Runtime/VulkanRHI/VulkanRHI.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`VulkanRHI`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/VulkanRHI/VulkanRHI.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`VulkanRHI`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/VulkanRHI/VulkanRHI.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "vulkanshaderformat",
     "kind": "module",
     "cn_steps": [
-      "用途：`VulkanShaderFormat` 位于 `Developer`，构建规则 `Developer/VulkanShaderFormat/VulkanShaderFormat.Build.cs`。它直接依赖 6 个模块：`Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`。",
+      "`VulkanShaderFormat`（Vulkan Shader Format）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/VulkanShaderFormat/VulkanShaderFormat.Build.cs`。直接依赖 6 个模块：`Core`、`RHI`、`RenderCore`、`ShaderBuild`、`ShaderCompilerCommon` 等。",
+      "部署：`VulkanShaderFormat` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VulkanShaderFormat\" });`；对外暴露 `VulkanShaderFormat` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VulkanShaderFormat` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `VulkanShaderFormat.h` / `VulkanShaderFormatModule.h`），再用 `FModuleManager::LoadModulePtr<VulkanShaderFormatModule>` 或直接使用导出类型。",
-      "传递依赖：`VulkanShaderFormat` 还依赖 `Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VulkanShaderFormat` lives under `Developer`; build rule `Developer/VulkanShaderFormat/VulkanShaderFormat.Build.cs`.It directly depends on 6 modules: `Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VulkanShaderFormat\" });`. Use Public when exposing `VulkanShaderFormat` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`VulkanShaderFormat` (Vulkan Shader Format): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/VulkanShaderFormat/VulkanShaderFormat.Build.cs`. It directly depends on 6 modules: `Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon` etc.",
       "Placement: `VulkanShaderFormat` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `VulkanShaderFormat.h` / `VulkanShaderFormatModule.h`), then use `FModuleManager::LoadModulePtr<VulkanShaderFormatModule>` or the exported types directly.",
-      "Transitive deps: `VulkanShaderFormat` also needs `Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`; do not re-list them unless you include their headers."
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VulkanShaderFormat\" });`. Use Public when exposing `VulkanShaderFormat` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VulkanShaderFormat` 的构建规则位于 `Developer/VulkanShaderFormat/VulkanShaderFormat.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`VulkanShaderFormat` build rule is `Developer/VulkanShaderFormat/VulkanShaderFormat.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`VulkanShaderFormat`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/VulkanShaderFormat/VulkanShaderFormat.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`VulkanShaderFormat`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/VulkanShaderFormat/VulkanShaderFormat.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "webbrowser",
     "kind": "module",
     "cn_steps": [
-      "用途：`WebBrowser` 位于 `Runtime`，构建规则 `Runtime/WebBrowser/WebBrowser.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `CEF3Utils`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `InputCore`, `Json`。",
+      "`WebBrowser`（Web Browser）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Runtime`，构建规则 `Runtime/WebBrowser/WebBrowser.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`CEF3Utils`、`Core`、`CoreUObject`、`Engine` 等。",
+      "部署：`WebBrowser` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WebBrowser\" });`；对外暴露 `WebBrowser` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`WebBrowser` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `WebBrowser.h` / `WebBrowserModule.h`），再用 `FModuleManager::LoadModulePtr<WebBrowserModule>` 或直接使用导出类型。",
-      "传递依赖：`WebBrowser` 还依赖 `ApplicationCore`, `CEF3Utils`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `InputCore`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `WebBrowser` lives under `Runtime`; build rule `Runtime/WebBrowser/WebBrowser.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `CEF3Utils`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `InputCore`, `Json`.",
+      "`WebBrowser` (Web Browser): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Runtime`; build rule `Runtime/WebBrowser/WebBrowser.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `CEF3Utils`, `Core`, `CoreUObject`, `Engine` etc.",
+      "Placement: `WebBrowser` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WebBrowser\" });`. Use Public when exposing `WebBrowser` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `WebBrowser` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `WebBrowser.h` / `WebBrowserModule.h`), then use `FModuleManager::LoadModulePtr<WebBrowserModule>` or the exported types directly.",
-      "Transitive deps: `WebBrowser` also needs `ApplicationCore`, `CEF3Utils`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `InputCore`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`WebBrowser` 的构建规则位于 `Runtime/WebBrowser/WebBrowser.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`WebBrowser` build rule is `Runtime/WebBrowser/WebBrowser.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`WebBrowser`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Runtime/WebBrowser/WebBrowser.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`WebBrowser`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Runtime/WebBrowser/WebBrowser.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "webbrowsertexture",
     "kind": "module",
     "cn_steps": [
-      "用途：`WebBrowserTexture` 位于 `Runtime`，构建规则 `Runtime/WebBrowserTexture/WebBrowserTexture.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `MediaUtils`, `RHI`, `RenderCore`。",
+      "`WebBrowserTexture`（Web Browser Texture）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/WebBrowserTexture/WebBrowserTexture.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`Engine`、`InputCore` 等。",
+      "部署：`WebBrowserTexture` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WebBrowserTexture\" });`；对外暴露 `WebBrowserTexture` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`WebBrowserTexture` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `WebBrowserTexture.h` / `WebBrowserTextureModule.h`），再用 `FModuleManager::LoadModulePtr<WebBrowserTextureModule>` 或直接使用导出类型。",
-      "传递依赖：`WebBrowserTexture` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `MediaUtils`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `WebBrowserTexture` lives under `Runtime`; build rule `Runtime/WebBrowserTexture/WebBrowserTexture.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `MediaUtils`, `RHI`, `RenderCore`.",
+      "`WebBrowserTexture` (Web Browser Texture): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/WebBrowserTexture/WebBrowserTexture.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore` etc.",
+      "Placement: `WebBrowserTexture` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WebBrowserTexture\" });`. Use Public when exposing `WebBrowserTexture` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `WebBrowserTexture` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `WebBrowserTexture.h` / `WebBrowserTextureModule.h`), then use `FModuleManager::LoadModulePtr<WebBrowserTextureModule>` or the exported types directly.",
-      "Transitive deps: `WebBrowserTexture` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `MediaUtils`, `RHI`, `RenderCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`WebBrowserTexture` 的构建规则位于 `Runtime/WebBrowserTexture/WebBrowserTexture.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`WebBrowserTexture` build rule is `Runtime/WebBrowserTexture/WebBrowserTexture.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`WebBrowserTexture`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/WebBrowserTexture/WebBrowserTexture.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`WebBrowserTexture`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/WebBrowserTexture/WebBrowserTexture.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "webrtc",
     "kind": "module",
     "cn_steps": [
-      "用途：`WebRTC` 位于 `ThirdParty`，构建规则 `ThirdParty/WebRTC/WebRTC.Build.cs`。描述符未声明依赖。",
+      "`WebRTC`（Web RTC）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/WebRTC/WebRTC.Build.cs`。描述符未声明依赖。",
+      "部署：`WebRTC` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WebRTC\" });`；对外暴露 `WebRTC` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`WebRTC` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `WebRTC.h` / `WebRTCModule.h`），再用 `FModuleManager::LoadModulePtr<WebRTCModule>` 或直接使用导出类型。",
-      "传递依赖：`WebRTC` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `WebRTC` lives under `ThirdParty`; build rule `ThirdParty/WebRTC/WebRTC.Build.cs`.The descriptor declares no dependencies.",
+      "`WebRTC` (Web RTC): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/WebRTC/WebRTC.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `WebRTC` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WebRTC\" });`. Use Public when exposing `WebRTC` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `WebRTC` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `WebRTC.h` / `WebRTCModule.h`), then use `FModuleManager::LoadModulePtr<WebRTCModule>` or the exported types directly.",
-      "Transitive deps: `WebRTC` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`WebRTC` 的构建规则位于 `ThirdParty/WebRTC/WebRTC.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`WebRTC` build rule is `ThirdParty/WebRTC/WebRTC.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`WebRTC`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/WebRTC/WebRTC.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`WebRTC`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/WebRTC/WebRTC.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "websockets",
     "kind": "module",
     "cn_steps": [
-      "用途：`WebSockets` 位于 `Runtime`，构建规则 `Runtime/Online/WebSockets/WebSockets.Build.cs`。它直接依赖 3 个模块：`Core`, `HTTP`, `SSL`。",
+      "`WebSockets`（Web Sockets）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/WebSockets/WebSockets.Build.cs`。直接依赖 3 个模块：`Core`、`HTTP`、`SSL`。",
+      "部署：`WebSockets` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WebSockets\" });`；对外暴露 `WebSockets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`WebSockets` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `WebSockets.h` / `WebSocketsModule.h`），再用 `FModuleManager::LoadModulePtr<WebSocketsModule>` 或直接使用导出类型。",
-      "传递依赖：`WebSockets` 还依赖 `Core`, `HTTP`, `SSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `WebSockets` lives under `Runtime`; build rule `Runtime/Online/WebSockets/WebSockets.Build.cs`.It directly depends on 3 modules: `Core`, `HTTP`, `SSL`.",
+      "`WebSockets` (Web Sockets): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/WebSockets/WebSockets.Build.cs`. It directly depends on 3 modules: `Core`, `HTTP`, `SSL`.",
+      "Placement: `WebSockets` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WebSockets\" });`. Use Public when exposing `WebSockets` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `WebSockets` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `WebSockets.h` / `WebSocketsModule.h`), then use `FModuleManager::LoadModulePtr<WebSocketsModule>` or the exported types directly.",
-      "Transitive deps: `WebSockets` also needs `Core`, `HTTP`, `SSL`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`WebSockets` 的构建规则位于 `Runtime/Online/WebSockets/WebSockets.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`WebSockets` build rule is `Runtime/Online/WebSockets/WebSockets.Build.cs`; depends on 3 modules; category Module."
-  },
-  {
-    "slug": "websocketserver",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`WebSocketServer` 位于 `Runtime`，构建规则 `Runtime/Online/WebSocketServer/WebSocketServer.Build.cs`。它直接依赖 2 个模块：`Core`, `SSL`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WebSocketServer\" });`；对外暴露 `WebSocketServer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`WebSocketServer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `WebSocketServer.h` / `WebSocketServerModule.h`），再用 `FModuleManager::LoadModulePtr<WebSocketServerModule>` 或直接使用导出类型。",
-      "传递依赖：`WebSocketServer` 还依赖 `Core`, `SSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `WebSocketServer` lives under `Runtime`; build rule `Runtime/Online/WebSocketServer/WebSocketServer.Build.cs`.It directly depends on 2 modules: `Core`, `SSL`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WebSocketServer\" });`. Use Public when exposing `WebSocketServer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `WebSocketServer` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `WebSocketServer.h` / `WebSocketServerModule.h`), then use `FModuleManager::LoadModulePtr<WebSocketServerModule>` or the exported types directly.",
-      "Transitive deps: `WebSocketServer` also needs `Core`, `SSL`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`WebSocketServer` 的构建规则位于 `Runtime/Online/WebSocketServer/WebSocketServer.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`WebSocketServer` build rule is `Runtime/Online/WebSocketServer/WebSocketServer.Build.cs`; depends on 2 modules; category Module."
-  },
-  {
-    "slug": "webtests",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`WebTests` 位于 `Programs`，构建规则 `Programs/WebTests/WebTests.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `EventLoop`, `HTTP`, `HTTPServer`, `Json`, `SSL`, `Sockets`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WebTests\" });`；对外暴露 `WebTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`WebTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `WebTests.h` / `WebTestsModule.h`），再用 `FModuleManager::LoadModulePtr<WebTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`WebTests` 还依赖 `ApplicationCore`, `Core`, `EventLoop`, `HTTP`, `HTTPServer`, `Json`, `SSL`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `WebTests` lives under `Programs`; build rule `Programs/WebTests/WebTests.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `EventLoop`, `HTTP`, `HTTPServer`, `Json`, `SSL`, `Sockets`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WebTests\" });`. Use Public when exposing `WebTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `WebTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `WebTests.h` / `WebTestsModule.h`), then use `FModuleManager::LoadModulePtr<WebTestsModule>` or the exported types directly.",
-      "Transitive deps: `WebTests` also needs `ApplicationCore`, `Core`, `EventLoop`, `HTTP`, `HTTPServer`, `Json`, `SSL`, `Sockets`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`WebTests` 的构建规则位于 `Programs/WebTests/WebTests.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`WebTests` build rule is `Programs/WebTests/WebTests.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`WebSockets`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/WebSockets/WebSockets.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`WebSockets`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/WebSockets/WebSockets.Build.cs`; depends on 3 modules."
   }
 ]

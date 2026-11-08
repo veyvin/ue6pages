@@ -1,304 +1,302 @@
 [
   {
+    "slug": "gameplaydebugger",
+    "kind": "module",
+    "cn_steps": [
+      "`GameplayDebugger`（Gameplay Debugger）：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）。位于 `Runtime`，构建规则 `Runtime/GameplayDebugger/GameplayDebugger.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DeveloperSettings`、`DrawPrimitiveDebugger`、`Engine` 等。",
+      "部署：`GameplayDebugger` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：游戏逻辑主体；在 C++/蓝图里直接用其类型或相关子系统。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayDebugger\" });`；对外暴露 `GameplayDebugger` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`GameplayDebugger` (Gameplay Debugger): it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems). Located under `Runtime`; build rule `Runtime/GameplayDebugger/GameplayDebugger.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `Engine` etc.",
+      "Placement: `GameplayDebugger` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: core game logic; use its types or related subsystems directly from C++/Blueprint.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayDebugger\" });`. Use Public when exposing `GameplayDebugger` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`GameplayDebugger`：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）；构建规则 `Runtime/GameplayDebugger/GameplayDebugger.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`GameplayDebugger`: it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems); build rule `Runtime/GameplayDebugger/GameplayDebugger.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "gameplaydebuggereditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`GameplayDebuggerEditor` 位于 `Editor`，构建规则 `Editor/GameplayDebugger/GameplayDebuggerEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `EditorFramework`, `Engine`, `GameplayDebugger`, `InputCore`。",
+      "`GameplayDebuggerEditor`（Gameplay Debugger Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/GameplayDebugger/GameplayDebuggerEditor.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DeveloperSettings`、`DrawPrimitiveDebugger`、`EditorFramework` 等。",
+      "部署：`GameplayDebuggerEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayDebuggerEditor\" });`；对外暴露 `GameplayDebuggerEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GameplayDebuggerEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `GameplayDebuggerEditor.h` / `GameplayDebuggerEditorModule.h`），再用 `FModuleManager::LoadModulePtr<GameplayDebuggerEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`GameplayDebuggerEditor` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `EditorFramework`, `Engine`, `GameplayDebugger`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GameplayDebuggerEditor` lives under `Editor`; build rule `Editor/GameplayDebugger/GameplayDebuggerEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `EditorFramework`, `Engine`, `GameplayDebugger`, `InputCore`.",
+      "`GameplayDebuggerEditor` (Gameplay Debugger Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/GameplayDebugger/GameplayDebuggerEditor.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `EditorFramework` etc.",
+      "Placement: `GameplayDebuggerEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayDebuggerEditor\" });`. Use Public when exposing `GameplayDebuggerEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GameplayDebuggerEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `GameplayDebuggerEditor.h` / `GameplayDebuggerEditorModule.h`), then use `FModuleManager::LoadModulePtr<GameplayDebuggerEditorModule>` or the exported types directly.",
-      "Transitive deps: `GameplayDebuggerEditor` also needs `Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `EditorFramework`, `Engine`, `GameplayDebugger`, `InputCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GameplayDebuggerEditor` 的构建规则位于 `Editor/GameplayDebugger/GameplayDebuggerEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`GameplayDebuggerEditor` build rule is `Editor/GameplayDebugger/GameplayDebuggerEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`GameplayDebuggerEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/GameplayDebugger/GameplayDebuggerEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`GameplayDebuggerEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/GameplayDebugger/GameplayDebuggerEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "gameplaymediaencoder",
     "kind": "module",
     "cn_steps": [
-      "用途：`GameplayMediaEncoder` 位于 `Runtime`，构建规则 `Runtime/GameplayMediaEncoder/GameplayMediaEncoder.Build.cs`。它直接依赖 8 个模块：`AVEncoder`, `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `Json`, `RHI`。",
+      "`GameplayMediaEncoder`（Gameplay Media Encoder）：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）。位于 `Runtime`，构建规则 `Runtime/GameplayMediaEncoder/GameplayMediaEncoder.Build.cs`。直接依赖 8 个模块：`AVEncoder`、`ApplicationCore`、`Core`、`CoreUObject`、`Engine` 等。",
+      "部署：`GameplayMediaEncoder` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：建 Media Player + Media Source，用 Media Texture 把视频贴到材质/Media Plate 上播放；解码器会接到 Electra/Media Framework。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayMediaEncoder\" });`；对外暴露 `GameplayMediaEncoder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GameplayMediaEncoder` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `GameplayMediaEncoder.h` / `GameplayMediaEncoderModule.h`），再用 `FModuleManager::LoadModulePtr<GameplayMediaEncoderModule>` 或直接使用导出类型。",
-      "传递依赖：`GameplayMediaEncoder` 还依赖 `AVEncoder`, `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `Json`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GameplayMediaEncoder` lives under `Runtime`; build rule `Runtime/GameplayMediaEncoder/GameplayMediaEncoder.Build.cs`.It directly depends on 8 modules: `AVEncoder`, `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `Json`, `RHI`.",
+      "`GameplayMediaEncoder` (Gameplay Media Encoder): it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs). Located under `Runtime`; build rule `Runtime/GameplayMediaEncoder/GameplayMediaEncoder.Build.cs`. It directly depends on 8 modules: `AVEncoder`, `ApplicationCore`, `Core`, `CoreUObject`, `Engine` etc.",
+      "Placement: `GameplayMediaEncoder` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: create a Media Player + Media Source and play via Media Texture on a material/Media Plate; decoders plug into Electra/Media Framework.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayMediaEncoder\" });`. Use Public when exposing `GameplayMediaEncoder` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GameplayMediaEncoder` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `GameplayMediaEncoder.h` / `GameplayMediaEncoderModule.h`), then use `FModuleManager::LoadModulePtr<GameplayMediaEncoderModule>` or the exported types directly.",
-      "Transitive deps: `GameplayMediaEncoder` also needs `AVEncoder`, `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `Json`, `RHI`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GameplayMediaEncoder` 的构建规则位于 `Runtime/GameplayMediaEncoder/GameplayMediaEncoder.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`GameplayMediaEncoder` build rule is `Runtime/GameplayMediaEncoder/GameplayMediaEncoder.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`GameplayMediaEncoder`：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）；构建规则 `Runtime/GameplayMediaEncoder/GameplayMediaEncoder.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`GameplayMediaEncoder`: it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs); build rule `Runtime/GameplayMediaEncoder/GameplayMediaEncoder.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "gameplaytags",
     "kind": "module",
     "cn_steps": [
-      "用途：`GameplayTags` 位于 `Runtime`，构建规则 `Runtime/GameplayTags/GameplayTags.Build.cs`。描述符未声明依赖。",
+      "`GameplayTags`（Gameplay Tags）：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）。位于 `Runtime`，构建规则 `Runtime/GameplayTags/GameplayTags.Build.cs`。描述符未声明依赖。",
+      "部署：`GameplayTags` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：游戏逻辑主体；在 C++/蓝图里直接用其类型或相关子系统。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayTags\" });`；对外暴露 `GameplayTags` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GameplayTags` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `GameplayTags.h` / `GameplayTagsModule.h`），再用 `FModuleManager::LoadModulePtr<GameplayTagsModule>` 或直接使用导出类型。",
-      "传递依赖：`GameplayTags` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GameplayTags` lives under `Runtime`; build rule `Runtime/GameplayTags/GameplayTags.Build.cs`.The descriptor declares no dependencies.",
+      "`GameplayTags` (Gameplay Tags): it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems). Located under `Runtime`; build rule `Runtime/GameplayTags/GameplayTags.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GameplayTags` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: core game logic; use its types or related subsystems directly from C++/Blueprint.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayTags\" });`. Use Public when exposing `GameplayTags` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GameplayTags` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `GameplayTags.h` / `GameplayTagsModule.h`), then use `FModuleManager::LoadModulePtr<GameplayTagsModule>` or the exported types directly.",
-      "Transitive deps: `GameplayTags` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GameplayTags` 的构建规则位于 `Runtime/GameplayTags/GameplayTags.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`GameplayTags` build rule is `Runtime/GameplayTags/GameplayTags.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`GameplayTags`：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）；构建规则 `Runtime/GameplayTags/GameplayTags.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GameplayTags`: it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems); build rule `Runtime/GameplayTags/GameplayTags.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "gameplaytasks",
     "kind": "module",
     "cn_steps": [
-      "用途：`GameplayTasks` 位于 `Runtime`，构建规则 `Runtime/GameplayTasks/GameplayTasks.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GameplayTags`, `GameplayTagsEditor`, `NetCore`。",
+      "`GameplayTasks`（Gameplay Tasks）：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）。位于 `Runtime`，构建规则 `Runtime/GameplayTasks/GameplayTasks.Build.cs`。直接依赖 7 个模块：`Core`、`CoreUObject`、`EditorFramework`、`Engine`、`GameplayTags` 等。",
+      "部署：`GameplayTasks` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：游戏逻辑主体；在 C++/蓝图里直接用其类型或相关子系统。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayTasks\" });`；对外暴露 `GameplayTasks` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GameplayTasks` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `GameplayTasks.h` / `GameplayTasksModule.h`），再用 `FModuleManager::LoadModulePtr<GameplayTasksModule>` 或直接使用导出类型。",
-      "传递依赖：`GameplayTasks` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GameplayTags`, `GameplayTagsEditor`, `NetCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GameplayTasks` lives under `Runtime`; build rule `Runtime/GameplayTasks/GameplayTasks.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GameplayTags`, `GameplayTagsEditor`, `NetCore`.",
+      "`GameplayTasks` (Gameplay Tasks): it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems). Located under `Runtime`; build rule `Runtime/GameplayTasks/GameplayTasks.Build.cs`. It directly depends on 7 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GameplayTags` etc.",
+      "Placement: `GameplayTasks` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: core game logic; use its types or related subsystems directly from C++/Blueprint.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayTasks\" });`. Use Public when exposing `GameplayTasks` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GameplayTasks` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `GameplayTasks.h` / `GameplayTasksModule.h`), then use `FModuleManager::LoadModulePtr<GameplayTasksModule>` or the exported types directly.",
-      "Transitive deps: `GameplayTasks` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GameplayTags`, `GameplayTagsEditor`, `NetCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GameplayTasks` 的构建规则位于 `Runtime/GameplayTasks/GameplayTasks.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`GameplayTasks` build rule is `Runtime/GameplayTasks/GameplayTasks.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`GameplayTasks`：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）；构建规则 `Runtime/GameplayTasks/GameplayTasks.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`GameplayTasks`: it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems); build rule `Runtime/GameplayTasks/GameplayTasks.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "gameplaytaskseditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`GameplayTasksEditor` 位于 `Editor`，构建规则 `Editor/GameplayTasksEditor/GameplayTasksEditor.Build.cs`。它直接依赖 6 个模块：`BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `GameplayTasks`, `UnrealEd`。",
+      "`GameplayTasksEditor`（Gameplay Tasks Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/GameplayTasksEditor/GameplayTasksEditor.Build.cs`。直接依赖 6 个模块：`BlueprintGraph`、`Core`、`CoreUObject`、`Engine`、`GameplayTasks` 等。",
+      "部署：`GameplayTasksEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayTasksEditor\" });`；对外暴露 `GameplayTasksEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GameplayTasksEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `GameplayTasksEditor.h` / `GameplayTasksEditorModule.h`），再用 `FModuleManager::LoadModulePtr<GameplayTasksEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`GameplayTasksEditor` 还依赖 `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `GameplayTasks`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GameplayTasksEditor` lives under `Editor`; build rule `Editor/GameplayTasksEditor/GameplayTasksEditor.Build.cs`.It directly depends on 6 modules: `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `GameplayTasks`, `UnrealEd`.",
+      "`GameplayTasksEditor` (Gameplay Tasks Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/GameplayTasksEditor/GameplayTasksEditor.Build.cs`. It directly depends on 6 modules: `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `GameplayTasks` etc.",
+      "Placement: `GameplayTasksEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayTasksEditor\" });`. Use Public when exposing `GameplayTasksEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GameplayTasksEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `GameplayTasksEditor.h` / `GameplayTasksEditorModule.h`), then use `FModuleManager::LoadModulePtr<GameplayTasksEditorModule>` or the exported types directly.",
-      "Transitive deps: `GameplayTasksEditor` also needs `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `GameplayTasks`, `UnrealEd`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GameplayTasksEditor` 的构建规则位于 `Editor/GameplayTasksEditor/GameplayTasksEditor.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`GameplayTasksEditor` build rule is `Editor/GameplayTasksEditor/GameplayTasksEditor.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`GameplayTasksEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/GameplayTasksEditor/GameplayTasksEditor.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`GameplayTasksEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/GameplayTasksEditor/GameplayTasksEditor.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "gameprojectgeneration",
     "kind": "module",
     "cn_steps": [
-      "用途：`GameProjectGeneration` 位于 `Editor`，构建规则 `Editor/GameProjectGeneration/GameProjectGeneration.Build.cs`。它直接依赖 8 个模块：`AddContentDialog`, `Analytics`, `AppFramework`, `ApplicationCore`, `AssetTools`, `AudioMixer`, `AudioMixerCore`, `BlueprintGraph`。",
+      "`GameProjectGeneration`（Game Project Generation）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/GameProjectGeneration/GameProjectGeneration.Build.cs`。直接依赖 8 个模块：`AddContentDialog`、`Analytics`、`AppFramework`、`ApplicationCore`、`AssetTools` 等。",
+      "部署：`GameProjectGeneration` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GameProjectGeneration\" });`；对外暴露 `GameProjectGeneration` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GameProjectGeneration` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `GameProjectGeneration.h` / `GameProjectGenerationModule.h`），再用 `FModuleManager::LoadModulePtr<GameProjectGenerationModule>` 或直接使用导出类型。",
-      "传递依赖：`GameProjectGeneration` 还依赖 `AddContentDialog`, `Analytics`, `AppFramework`, `ApplicationCore`, `AssetTools`, `AudioMixer`, `AudioMixerCore`, `BlueprintGraph`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GameProjectGeneration` lives under `Editor`; build rule `Editor/GameProjectGeneration/GameProjectGeneration.Build.cs`.It directly depends on 8 modules: `AddContentDialog`, `Analytics`, `AppFramework`, `ApplicationCore`, `AssetTools`, `AudioMixer`, `AudioMixerCore`, `BlueprintGraph`.",
+      "`GameProjectGeneration` (Game Project Generation): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/GameProjectGeneration/GameProjectGeneration.Build.cs`. It directly depends on 8 modules: `AddContentDialog`, `Analytics`, `AppFramework`, `ApplicationCore`, `AssetTools` etc.",
+      "Placement: `GameProjectGeneration` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GameProjectGeneration\" });`. Use Public when exposing `GameProjectGeneration` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GameProjectGeneration` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `GameProjectGeneration.h` / `GameProjectGenerationModule.h`), then use `FModuleManager::LoadModulePtr<GameProjectGenerationModule>` or the exported types directly.",
-      "Transitive deps: `GameProjectGeneration` also needs `AddContentDialog`, `Analytics`, `AppFramework`, `ApplicationCore`, `AssetTools`, `AudioMixer`, `AudioMixerCore`, `BlueprintGraph`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GameProjectGeneration` 的构建规则位于 `Editor/GameProjectGeneration/GameProjectGeneration.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`GameProjectGeneration` build rule is `Editor/GameProjectGeneration/GameProjectGeneration.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`GameProjectGeneration`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/GameProjectGeneration/GameProjectGeneration.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`GameProjectGeneration`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/GameProjectGeneration/GameProjectGeneration.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "gdkpackagemanifest",
     "kind": "module",
     "cn_steps": [
-      "用途：`GDKPackageManifest` 位于 `Runtime`，构建规则 `Runtime/Microsoft/GDKPackageManifest/GDKPackageManifest.Build.cs`。它直接依赖 3 个模块：`Core`, `GRDK`, `Json`。",
+      "`GDKPackageManifest`（GDK Package Manifest）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Runtime`，构建规则 `Runtime/Microsoft/GDKPackageManifest/GDKPackageManifest.Build.cs`。直接依赖 3 个模块：`Core`、`GRDK`、`Json`。",
+      "部署：`GDKPackageManifest` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GDKPackageManifest\" });`；对外暴露 `GDKPackageManifest` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GDKPackageManifest` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `GDKPackageManifest.h` / `GDKPackageManifestModule.h`），再用 `FModuleManager::LoadModulePtr<GDKPackageManifestModule>` 或直接使用导出类型。",
-      "传递依赖：`GDKPackageManifest` 还依赖 `Core`, `GRDK`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GDKPackageManifest` lives under `Runtime`; build rule `Runtime/Microsoft/GDKPackageManifest/GDKPackageManifest.Build.cs`.It directly depends on 3 modules: `Core`, `GRDK`, `Json`.",
+      "`GDKPackageManifest` (GDK Package Manifest): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Runtime`; build rule `Runtime/Microsoft/GDKPackageManifest/GDKPackageManifest.Build.cs`. It directly depends on 3 modules: `Core`, `GRDK`, `Json`.",
+      "Placement: `GDKPackageManifest` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GDKPackageManifest\" });`. Use Public when exposing `GDKPackageManifest` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GDKPackageManifest` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `GDKPackageManifest.h` / `GDKPackageManifestModule.h`), then use `FModuleManager::LoadModulePtr<GDKPackageManifestModule>` or the exported types directly.",
-      "Transitive deps: `GDKPackageManifest` also needs `Core`, `GRDK`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GDKPackageManifest` 的构建规则位于 `Runtime/Microsoft/GDKPackageManifest/GDKPackageManifest.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`GDKPackageManifest` build rule is `Runtime/Microsoft/GDKPackageManifest/GDKPackageManifest.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`GDKPackageManifest`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Runtime/Microsoft/GDKPackageManifest/GDKPackageManifest.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`GDKPackageManifest`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Runtime/Microsoft/GDKPackageManifest/GDKPackageManifest.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "gdkplatformeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`GDKPlatformEditor` 位于 `Developer`，构建规则 `Developer/Microsoft/GDKPlatformEditor/GDKPlatformEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine`, `InputCore`, `MainFrame`, `Projects`, `PropertyEditor`。",
+      "`GDKPlatformEditor`（GDK Platform Editor）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Developer`，构建规则 `Developer/Microsoft/GDKPlatformEditor/GDKPlatformEditor.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DeveloperToolSettings`、`Engine`、`InputCore` 等。",
+      "部署：`GDKPlatformEditor` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GDKPlatformEditor\" });`；对外暴露 `GDKPlatformEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GDKPlatformEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `GDKPlatformEditor.h` / `GDKPlatformEditorModule.h`），再用 `FModuleManager::LoadModulePtr<GDKPlatformEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`GDKPlatformEditor` 还依赖 `Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine`, `InputCore`, `MainFrame`, `Projects`, `PropertyEditor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GDKPlatformEditor` lives under `Developer`; build rule `Developer/Microsoft/GDKPlatformEditor/GDKPlatformEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine`, `InputCore`, `MainFrame`, `Projects`, `PropertyEditor`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GDKPlatformEditor\" });`. Use Public when exposing `GDKPlatformEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`GDKPlatformEditor` (GDK Platform Editor): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Developer`; build rule `Developer/Microsoft/GDKPlatformEditor/GDKPlatformEditor.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine`, `InputCore` etc.",
       "Placement: `GDKPlatformEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `GDKPlatformEditor.h` / `GDKPlatformEditorModule.h`), then use `FModuleManager::LoadModulePtr<GDKPlatformEditorModule>` or the exported types directly.",
-      "Transitive deps: `GDKPlatformEditor` also needs `Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine`, `InputCore`, `MainFrame`, `Projects`, `PropertyEditor`; do not re-list them unless you include their headers."
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GDKPlatformEditor\" });`. Use Public when exposing `GDKPlatformEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GDKPlatformEditor` 的构建规则位于 `Developer/Microsoft/GDKPlatformEditor/GDKPlatformEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`GDKPlatformEditor` build rule is `Developer/Microsoft/GDKPlatformEditor/GDKPlatformEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`GDKPlatformEditor`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Developer/Microsoft/GDKPlatformEditor/GDKPlatformEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`GDKPlatformEditor`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Developer/Microsoft/GDKPlatformEditor/GDKPlatformEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "gdkruntime",
     "kind": "module",
     "cn_steps": [
-      "用途：`GDKRuntime` 位于 `Runtime`，构建规则 `Runtime/Microsoft/GDKRuntime/GDKRuntime.Build.cs`。它直接依赖 2 个模块：`Core`, `GRDK`。",
+      "`GDKRuntime`（GDK Runtime）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Runtime`，构建规则 `Runtime/Microsoft/GDKRuntime/GDKRuntime.Build.cs`。直接依赖 2 个模块：`Core`、`GRDK`。",
+      "部署：`GDKRuntime` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GDKRuntime\" });`；对外暴露 `GDKRuntime` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GDKRuntime` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `GDKRuntime.h` / `GDKRuntimeModule.h`），再用 `FModuleManager::LoadModulePtr<GDKRuntimeModule>` 或直接使用导出类型。",
-      "传递依赖：`GDKRuntime` 还依赖 `Core`, `GRDK`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GDKRuntime` lives under `Runtime`; build rule `Runtime/Microsoft/GDKRuntime/GDKRuntime.Build.cs`.It directly depends on 2 modules: `Core`, `GRDK`.",
+      "`GDKRuntime` (GDK Runtime): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Runtime`; build rule `Runtime/Microsoft/GDKRuntime/GDKRuntime.Build.cs`. It directly depends on 2 modules: `Core`, `GRDK`.",
+      "Placement: `GDKRuntime` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GDKRuntime\" });`. Use Public when exposing `GDKRuntime` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GDKRuntime` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `GDKRuntime.h` / `GDKRuntimeModule.h`), then use `FModuleManager::LoadModulePtr<GDKRuntimeModule>` or the exported types directly.",
-      "Transitive deps: `GDKRuntime` also needs `Core`, `GRDK`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GDKRuntime` 的构建规则位于 `Runtime/Microsoft/GDKRuntime/GDKRuntime.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`GDKRuntime` build rule is `Runtime/Microsoft/GDKRuntime/GDKRuntime.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`GDKRuntime`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Runtime/Microsoft/GDKRuntime/GDKRuntime.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`GDKRuntime`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Runtime/Microsoft/GDKRuntime/GDKRuntime.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "gdksavegamesystem",
     "kind": "module",
     "cn_steps": [
-      "用途：`GDKSaveGameSystem` 位于 `Runtime`，构建规则 `Runtime/Microsoft/GDKSaveGameSystem/GDKSaveGameSystem.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `Core`, `Engine`, `GDKRuntime`, `GRDK`。",
+      "`GDKSaveGameSystem`（GDK Save Game System）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Runtime`，构建规则 `Runtime/Microsoft/GDKSaveGameSystem/GDKSaveGameSystem.Build.cs`。直接依赖 5 个模块：`ApplicationCore`、`Core`、`Engine`、`GDKRuntime`、`GRDK`。",
+      "部署：`GDKSaveGameSystem` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GDKSaveGameSystem\" });`；对外暴露 `GDKSaveGameSystem` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GDKSaveGameSystem` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `GDKSaveGameSystem.h` / `GDKSaveGameSystemModule.h`），再用 `FModuleManager::LoadModulePtr<GDKSaveGameSystemModule>` 或直接使用导出类型。",
-      "传递依赖：`GDKSaveGameSystem` 还依赖 `ApplicationCore`, `Core`, `Engine`, `GDKRuntime`, `GRDK`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GDKSaveGameSystem` lives under `Runtime`; build rule `Runtime/Microsoft/GDKSaveGameSystem/GDKSaveGameSystem.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `Core`, `Engine`, `GDKRuntime`, `GRDK`.",
+      "`GDKSaveGameSystem` (GDK Save Game System): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Runtime`; build rule `Runtime/Microsoft/GDKSaveGameSystem/GDKSaveGameSystem.Build.cs`. It directly depends on 5 modules: `ApplicationCore`, `Core`, `Engine`, `GDKRuntime`, `GRDK`.",
+      "Placement: `GDKSaveGameSystem` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GDKSaveGameSystem\" });`. Use Public when exposing `GDKSaveGameSystem` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GDKSaveGameSystem` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `GDKSaveGameSystem.h` / `GDKSaveGameSystemModule.h`), then use `FModuleManager::LoadModulePtr<GDKSaveGameSystemModule>` or the exported types directly.",
-      "Transitive deps: `GDKSaveGameSystem` also needs `ApplicationCore`, `Core`, `Engine`, `GDKRuntime`, `GRDK`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GDKSaveGameSystem` 的构建规则位于 `Runtime/Microsoft/GDKSaveGameSystem/GDKSaveGameSystem.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`GDKSaveGameSystem` build rule is `Runtime/Microsoft/GDKSaveGameSystem/GDKSaveGameSystem.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`GDKSaveGameSystem`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Runtime/Microsoft/GDKSaveGameSystem/GDKSaveGameSystem.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`GDKSaveGameSystem`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Runtime/Microsoft/GDKSaveGameSystem/GDKSaveGameSystem.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "geforcenow",
     "kind": "module",
     "cn_steps": [
-      "用途：`GeForceNOW` 位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/GeForceNOW/GeForceNOW.Build.cs`。描述符未声明依赖。",
+      "`GeForceNOW`（Ge Force NOW）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/GeForceNOW/GeForceNOW.Build.cs`。描述符未声明依赖。",
+      "部署：`GeForceNOW` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GeForceNOW\" });`；对外暴露 `GeForceNOW` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GeForceNOW` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GeForceNOW.h` / `GeForceNOWModule.h`），再用 `FModuleManager::LoadModulePtr<GeForceNOWModule>` 或直接使用导出类型。",
-      "传递依赖：`GeForceNOW` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GeForceNOW` lives under `ThirdParty`; build rule `ThirdParty/NVIDIA/GeForceNOW/GeForceNOW.Build.cs`.The descriptor declares no dependencies.",
+      "`GeForceNOW` (Ge Force NOW): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/NVIDIA/GeForceNOW/GeForceNOW.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GeForceNOW` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GeForceNOW\" });`. Use Public when exposing `GeForceNOW` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GeForceNOW` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GeForceNOW.h` / `GeForceNOWModule.h`), then use `FModuleManager::LoadModulePtr<GeForceNOWModule>` or the exported types directly.",
-      "Transitive deps: `GeForceNOW` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GeForceNOW` 的构建规则位于 `ThirdParty/NVIDIA/GeForceNOW/GeForceNOW.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`GeForceNOW` build rule is `ThirdParty/NVIDIA/GeForceNOW/GeForceNOW.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`GeForceNOW`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/NVIDIA/GeForceNOW/GeForceNOW.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GeForceNOW`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/NVIDIA/GeForceNOW/GeForceNOW.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "geometrycollectionengine",
     "kind": "module",
     "cn_steps": [
-      "用途：`GeometryCollectionEngine` 位于 `Runtime`，构建规则 `Runtime/Experimental/GeometryCollectionEngine/GeometryCollectionEngine.Build.cs`。它直接依赖 8 个模块：`ChaosSolverEngine`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `EditorFramework`, `Engine`, `FieldSystemEngine`。",
+      "`GeometryCollectionEngine`（Geometry Collection Engine）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/Experimental/GeometryCollectionEngine/GeometryCollectionEngine.Build.cs`。直接依赖 8 个模块：`ChaosSolverEngine`、`Core`、`CoreUObject`、`DataflowCore`、`DataflowEngine` 等。",
+      "部署：`GeometryCollectionEngine` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryCollectionEngine\" });`；对外暴露 `GeometryCollectionEngine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GeometryCollectionEngine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `GeometryCollectionEngine.h` / `GeometryCollectionEngineModule.h`），再用 `FModuleManager::LoadModulePtr<GeometryCollectionEngineModule>` 或直接使用导出类型。",
-      "传递依赖：`GeometryCollectionEngine` 还依赖 `ChaosSolverEngine`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `EditorFramework`, `Engine`, `FieldSystemEngine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`GeometryCollectionEngine` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GeometryCollectionEngine` lives under `Runtime`; build rule `Runtime/Experimental/GeometryCollectionEngine/GeometryCollectionEngine.Build.cs`.It directly depends on 8 modules: `ChaosSolverEngine`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `EditorFramework`, `Engine`, `FieldSystemEngine`.",
+      "`GeometryCollectionEngine` (Geometry Collection Engine): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/Experimental/GeometryCollectionEngine/GeometryCollectionEngine.Build.cs`. It directly depends on 8 modules: `ChaosSolverEngine`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine` etc.",
+      "Placement: `GeometryCollectionEngine` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryCollectionEngine\" });`. Use Public when exposing `GeometryCollectionEngine` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GeometryCollectionEngine` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `GeometryCollectionEngine.h` / `GeometryCollectionEngineModule.h`), then use `FModuleManager::LoadModulePtr<GeometryCollectionEngineModule>` or the exported types directly.",
-      "Transitive deps: `GeometryCollectionEngine` also needs `ChaosSolverEngine`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `EditorFramework`, `Engine`, `FieldSystemEngine`; do not re-list them unless you include their headers.",
-      "Note: `GeometryCollectionEngine` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GeometryCollectionEngine` 的构建规则位于 `Runtime/Experimental/GeometryCollectionEngine/GeometryCollectionEngine.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`GeometryCollectionEngine` build rule is `Runtime/Experimental/GeometryCollectionEngine/GeometryCollectionEngine.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`GeometryCollectionEngine`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/Experimental/GeometryCollectionEngine/GeometryCollectionEngine.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`GeometryCollectionEngine`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/Experimental/GeometryCollectionEngine/GeometryCollectionEngine.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "geometrycore",
     "kind": "module",
     "cn_steps": [
-      "用途：`GeometryCore` 位于 `Runtime`，构建规则 `Runtime/GeometryCore/GeometryCore.Build.cs`。描述符未声明依赖。",
+      "`GeometryCore`（Geometry Core）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/GeometryCore/GeometryCore.Build.cs`。描述符未声明依赖。",
+      "部署：`GeometryCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryCore\" });`；对外暴露 `GeometryCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GeometryCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `GeometryCore.h` / `GeometryCoreModule.h`），再用 `FModuleManager::LoadModulePtr<GeometryCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`GeometryCore` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GeometryCore` lives under `Runtime`; build rule `Runtime/GeometryCore/GeometryCore.Build.cs`.The descriptor declares no dependencies.",
+      "`GeometryCore` (Geometry Core): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/GeometryCore/GeometryCore.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GeometryCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryCore\" });`. Use Public when exposing `GeometryCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GeometryCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `GeometryCore.h` / `GeometryCoreModule.h`), then use `FModuleManager::LoadModulePtr<GeometryCoreModule>` or the exported types directly.",
-      "Transitive deps: `GeometryCore` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GeometryCore` 的构建规则位于 `Runtime/GeometryCore/GeometryCore.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`GeometryCore` build rule is `Runtime/GeometryCore/GeometryCore.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`GeometryCore`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/GeometryCore/GeometryCore.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GeometryCore`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/GeometryCore/GeometryCore.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "geometryframework",
     "kind": "module",
     "cn_steps": [
-      "用途：`GeometryFramework` 位于 `Runtime`，构建规则 `Runtime/GeometryFramework/GeometryFramework.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorWidgets`, `Engine`, `GeometryCore`, `InteractiveToolsFramework`, `MeshConversion`, `MeshDescription`。",
+      "`GeometryFramework`（Geometry Framework）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/GeometryFramework/GeometryFramework.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`EditorWidgets`、`Engine`、`GeometryCore` 等。",
+      "部署：`GeometryFramework` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryFramework\" });`；对外暴露 `GeometryFramework` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GeometryFramework` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `GeometryFramework.h` / `GeometryFrameworkModule.h`），再用 `FModuleManager::LoadModulePtr<GeometryFrameworkModule>` 或直接使用导出类型。",
-      "传递依赖：`GeometryFramework` 还依赖 `Core`, `CoreUObject`, `EditorWidgets`, `Engine`, `GeometryCore`, `InteractiveToolsFramework`, `MeshConversion`, `MeshDescription`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GeometryFramework` lives under `Runtime`; build rule `Runtime/GeometryFramework/GeometryFramework.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorWidgets`, `Engine`, `GeometryCore`, `InteractiveToolsFramework`, `MeshConversion`, `MeshDescription`.",
+      "`GeometryFramework` (Geometry Framework): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/GeometryFramework/GeometryFramework.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorWidgets`, `Engine`, `GeometryCore` etc.",
+      "Placement: `GeometryFramework` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryFramework\" });`. Use Public when exposing `GeometryFramework` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GeometryFramework` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `GeometryFramework.h` / `GeometryFrameworkModule.h`), then use `FModuleManager::LoadModulePtr<GeometryFrameworkModule>` or the exported types directly.",
-      "Transitive deps: `GeometryFramework` also needs `Core`, `CoreUObject`, `EditorWidgets`, `Engine`, `GeometryCore`, `InteractiveToolsFramework`, `MeshConversion`, `MeshDescription`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GeometryFramework` 的构建规则位于 `Runtime/GeometryFramework/GeometryFramework.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`GeometryFramework` build rule is `Runtime/GeometryFramework/GeometryFramework.Build.cs`; depends on 8 modules; category Module."
-  },
-  {
-    "slug": "geometryprocessing",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`GeometryProcessing` 位于 `Programs`，构建规则 `Programs/GeometryProcessing/GeometryProcessing.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `DynamicMesh`, `GeometryAlgorithms`, `GeometryCore`, `MeshFileUtils`, `Projects`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryProcessing\" });`；对外暴露 `GeometryProcessing` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GeometryProcessing` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `GeometryProcessing.h` / `GeometryProcessingModule.h`），再用 `FModuleManager::LoadModulePtr<GeometryProcessingModule>` 或直接使用导出类型。",
-      "传递依赖：`GeometryProcessing` 还依赖 `Core`, `CoreUObject`, `DynamicMesh`, `GeometryAlgorithms`, `GeometryCore`, `MeshFileUtils`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `GeometryProcessing` lives under `Programs`; build rule `Programs/GeometryProcessing/GeometryProcessing.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `DynamicMesh`, `GeometryAlgorithms`, `GeometryCore`, `MeshFileUtils`, `Projects`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryProcessing\" });`. Use Public when exposing `GeometryProcessing` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GeometryProcessing` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `GeometryProcessing.h` / `GeometryProcessingModule.h`), then use `FModuleManager::LoadModulePtr<GeometryProcessingModule>` or the exported types directly.",
-      "Transitive deps: `GeometryProcessing` also needs `Core`, `CoreUObject`, `DynamicMesh`, `GeometryAlgorithms`, `GeometryCore`, `MeshFileUtils`, `Projects`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`GeometryProcessing` 的构建规则位于 `Programs/GeometryProcessing/GeometryProcessing.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`GeometryProcessing` build rule is `Programs/GeometryProcessing/GeometryProcessing.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`GeometryFramework`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/GeometryFramework/GeometryFramework.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`GeometryFramework`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/GeometryFramework/GeometryFramework.Build.cs`; depends on 8 modules."
   }
 ]

@@ -1,302 +1,302 @@
 [
   {
+    "slug": "sblcore",
+    "kind": "module",
+    "cn_steps": [
+      "`SblCore`（Sbl Core）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/SwitchboardListener/SblCore/SblCore.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`JWT`、`Json` 等。",
+      "部署：`SblCore` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SblCore\" });`；对外暴露 `SblCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
+    ],
+    "en_steps": [
+      "`SblCore` (Sbl Core): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/SwitchboardListener/SblCore/SblCore.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `JWT`, `Json` etc.",
+      "Placement: `SblCore` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SblCore\" });`. Use Public when exposing `SblCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
+    ],
+    "note_cn": "`SblCore`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/SwitchboardListener/SblCore/SblCore.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SblCore`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/SwitchboardListener/SblCore/SblCore.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "sblslate",
     "kind": "module",
     "cn_steps": [
-      "用途：`SblSlate` 位于 `Programs`，构建规则 `Programs/SwitchboardListener/SblSlate/SblSlate.Build.cs`。它直接依赖 7 个模块：`OutputLog`, `SblCore`, `Slate`, `SlateCore`, `SlateReflector`, `StandaloneRenderer`, `ToolMenus`。",
+      "`SblSlate`（Sbl Slate）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/SwitchboardListener/SblSlate/SblSlate.Build.cs`。直接依赖 7 个模块：`OutputLog`、`SblCore`、`Slate`、`SlateCore`、`SlateReflector` 等。",
+      "部署：`SblSlate` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SblSlate\" });`；对外暴露 `SblSlate` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SblSlate` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `SblSlate.h` / `SblSlateModule.h`），再用 `FModuleManager::LoadModulePtr<SblSlateModule>` 或直接使用导出类型。",
-      "传递依赖：`SblSlate` 还依赖 `OutputLog`, `SblCore`, `Slate`, `SlateCore`, `SlateReflector`, `StandaloneRenderer`, `ToolMenus`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `SblSlate` lives under `Programs`; build rule `Programs/SwitchboardListener/SblSlate/SblSlate.Build.cs`.It directly depends on 7 modules: `OutputLog`, `SblCore`, `Slate`, `SlateCore`, `SlateReflector`, `StandaloneRenderer`, `ToolMenus`.",
+      "`SblSlate` (Sbl Slate): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/SwitchboardListener/SblSlate/SblSlate.Build.cs`. It directly depends on 7 modules: `OutputLog`, `SblCore`, `Slate`, `SlateCore`, `SlateReflector` etc.",
+      "Placement: `SblSlate` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SblSlate\" });`. Use Public when exposing `SblSlate` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SblSlate` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `SblSlate.h` / `SblSlateModule.h`), then use `FModuleManager::LoadModulePtr<SblSlateModule>` or the exported types directly.",
-      "Transitive deps: `SblSlate` also needs `OutputLog`, `SblCore`, `Slate`, `SlateCore`, `SlateReflector`, `StandaloneRenderer`, `ToolMenus`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`SblSlate` 的构建规则位于 `Programs/SwitchboardListener/SblSlate/SblSlate.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`SblSlate` build rule is `Programs/SwitchboardListener/SblSlate/SblSlate.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`SblSlate`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/SwitchboardListener/SblSlate/SblSlate.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`SblSlate`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/SwitchboardListener/SblSlate/SblSlate.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "scenedepthpickermode",
     "kind": "module",
     "cn_steps": [
-      "用途：`SceneDepthPickerMode` 位于 `Editor`，构建规则 `Editor/SceneDepthPickerMode/SceneDepthPickerMode.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `UnrealEd`。",
+      "`SceneDepthPickerMode`（Scene Depth Picker Mode）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/SceneDepthPickerMode/SceneDepthPickerMode.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`EditorFramework`、`Engine`、`InputCore` 等。",
+      "部署：`SceneDepthPickerMode` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SceneDepthPickerMode\" });`；对外暴露 `SceneDepthPickerMode` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SceneDepthPickerMode` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `SceneDepthPickerMode.h` / `SceneDepthPickerModeModule.h`），再用 `FModuleManager::LoadModulePtr<SceneDepthPickerModeModule>` 或直接使用导出类型。",
-      "传递依赖：`SceneDepthPickerMode` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SceneDepthPickerMode` lives under `Editor`; build rule `Editor/SceneDepthPickerMode/SceneDepthPickerMode.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `UnrealEd`.",
+      "`SceneDepthPickerMode` (Scene Depth Picker Mode): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/SceneDepthPickerMode/SceneDepthPickerMode.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore` etc.",
+      "Placement: `SceneDepthPickerMode` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SceneDepthPickerMode\" });`. Use Public when exposing `SceneDepthPickerMode` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SceneDepthPickerMode` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `SceneDepthPickerMode.h` / `SceneDepthPickerModeModule.h`), then use `FModuleManager::LoadModulePtr<SceneDepthPickerModeModule>` or the exported types directly.",
-      "Transitive deps: `SceneDepthPickerMode` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `UnrealEd`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SceneDepthPickerMode` 的构建规则位于 `Editor/SceneDepthPickerMode/SceneDepthPickerMode.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SceneDepthPickerMode` build rule is `Editor/SceneDepthPickerMode/SceneDepthPickerMode.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SceneDepthPickerMode`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/SceneDepthPickerMode/SceneDepthPickerMode.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SceneDepthPickerMode`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/SceneDepthPickerMode/SceneDepthPickerMode.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "sceneoutliner",
     "kind": "module",
     "cn_steps": [
-      "用途：`SceneOutliner` 位于 `Editor`，构建规则 `Editor/SceneOutliner/SceneOutliner.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig`, `EditorFramework`, `EditorStyle`, `EditorWidgets`。",
+      "`SceneOutliner`（Scene Outliner）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/SceneOutliner/SceneOutliner.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`AssetDefinition`、`Core`、`CoreUObject`、`EditorConfig` 等。",
+      "部署：`SceneOutliner` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SceneOutliner\" });`；对外暴露 `SceneOutliner` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SceneOutliner` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `SceneOutliner.h` / `SceneOutlinerModule.h`），再用 `FModuleManager::LoadModulePtr<SceneOutlinerModule>` 或直接使用导出类型。",
-      "传递依赖：`SceneOutliner` 还依赖 `ApplicationCore`, `AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig`, `EditorFramework`, `EditorStyle`, `EditorWidgets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SceneOutliner` lives under `Editor`; build rule `Editor/SceneOutliner/SceneOutliner.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig`, `EditorFramework`, `EditorStyle`, `EditorWidgets`.",
+      "`SceneOutliner` (Scene Outliner): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/SceneOutliner/SceneOutliner.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig` etc.",
+      "Placement: `SceneOutliner` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SceneOutliner\" });`. Use Public when exposing `SceneOutliner` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SceneOutliner` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `SceneOutliner.h` / `SceneOutlinerModule.h`), then use `FModuleManager::LoadModulePtr<SceneOutlinerModule>` or the exported types directly.",
-      "Transitive deps: `SceneOutliner` also needs `ApplicationCore`, `AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig`, `EditorFramework`, `EditorStyle`, `EditorWidgets`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SceneOutliner` 的构建规则位于 `Editor/SceneOutliner/SceneOutliner.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SceneOutliner` build rule is `Editor/SceneOutliner/SceneOutliner.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SceneOutliner`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/SceneOutliner/SceneOutliner.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SceneOutliner`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/SceneOutliner/SceneOutliner.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "screenshotcomparison",
     "kind": "module",
     "cn_steps": [
-      "用途：`ScreenShotComparison` 位于 `Developer`，构建规则 `Developer/ScreenShotComparison/ScreenShotComparison.Build.cs`。它直接依赖 8 个模块：`AutomationMessages`, `Core`, `CoreUObject`, `DesktopWidgets`, `DirectoryWatcher`, `ImageWrapper`, `InputCore`, `Json`。",
+      "`ScreenShotComparison`（Screen Shot Comparison）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/ScreenShotComparison/ScreenShotComparison.Build.cs`。直接依赖 8 个模块：`AutomationMessages`、`Core`、`CoreUObject`、`DesktopWidgets`、`DirectoryWatcher` 等。",
+      "部署：`ScreenShotComparison` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ScreenShotComparison\" });`；对外暴露 `ScreenShotComparison` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ScreenShotComparison` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `ScreenShotComparison.h` / `ScreenShotComparisonModule.h`），再用 `FModuleManager::LoadModulePtr<ScreenShotComparisonModule>` 或直接使用导出类型。",
-      "传递依赖：`ScreenShotComparison` 还依赖 `AutomationMessages`, `Core`, `CoreUObject`, `DesktopWidgets`, `DirectoryWatcher`, `ImageWrapper`, `InputCore`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ScreenShotComparison` lives under `Developer`; build rule `Developer/ScreenShotComparison/ScreenShotComparison.Build.cs`.It directly depends on 8 modules: `AutomationMessages`, `Core`, `CoreUObject`, `DesktopWidgets`, `DirectoryWatcher`, `ImageWrapper`, `InputCore`, `Json`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ScreenShotComparison\" });`. Use Public when exposing `ScreenShotComparison` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`ScreenShotComparison` (Screen Shot Comparison): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/ScreenShotComparison/ScreenShotComparison.Build.cs`. It directly depends on 8 modules: `AutomationMessages`, `Core`, `CoreUObject`, `DesktopWidgets`, `DirectoryWatcher` etc.",
       "Placement: `ScreenShotComparison` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `ScreenShotComparison.h` / `ScreenShotComparisonModule.h`), then use `FModuleManager::LoadModulePtr<ScreenShotComparisonModule>` or the exported types directly.",
-      "Transitive deps: `ScreenShotComparison` also needs `AutomationMessages`, `Core`, `CoreUObject`, `DesktopWidgets`, `DirectoryWatcher`, `ImageWrapper`, `InputCore`, `Json`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ScreenShotComparison\" });`. Use Public when exposing `ScreenShotComparison` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ScreenShotComparison` 的构建规则位于 `Developer/ScreenShotComparison/ScreenShotComparison.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`ScreenShotComparison` build rule is `Developer/ScreenShotComparison/ScreenShotComparison.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`ScreenShotComparison`：它向其他模块提供 C++ API/功能；构建规则 `Developer/ScreenShotComparison/ScreenShotComparison.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`ScreenShotComparison`: it exposes C++ API/functionality to other modules; build rule `Developer/ScreenShotComparison/ScreenShotComparison.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "screenshotcomparisontools",
     "kind": "module",
     "cn_steps": [
-      "用途：`ScreenShotComparisonTools` 位于 `Developer`，构建规则 `Developer/ScreenShotComparisonTools/ScreenShotComparisonTools.Build.cs`。它直接依赖 8 个模块：`AutomationMessages`, `Core`, `CoreUObject`, `DesktopPlatform`, `ImageWrapper`, `Json`, `JsonUtilities`, `RenderCore`。",
+      "`ScreenShotComparisonTools`（Screen Shot Comparison Tools）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/ScreenShotComparisonTools/ScreenShotComparisonTools.Build.cs`。直接依赖 8 个模块：`AutomationMessages`、`Core`、`CoreUObject`、`DesktopPlatform`、`ImageWrapper` 等。",
+      "部署：`ScreenShotComparisonTools` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ScreenShotComparisonTools\" });`；对外暴露 `ScreenShotComparisonTools` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ScreenShotComparisonTools` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `ScreenShotComparisonTools.h` / `ScreenShotComparisonToolsModule.h`），再用 `FModuleManager::LoadModulePtr<ScreenShotComparisonToolsModule>` 或直接使用导出类型。",
-      "传递依赖：`ScreenShotComparisonTools` 还依赖 `AutomationMessages`, `Core`, `CoreUObject`, `DesktopPlatform`, `ImageWrapper`, `Json`, `JsonUtilities`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ScreenShotComparisonTools` lives under `Developer`; build rule `Developer/ScreenShotComparisonTools/ScreenShotComparisonTools.Build.cs`.It directly depends on 8 modules: `AutomationMessages`, `Core`, `CoreUObject`, `DesktopPlatform`, `ImageWrapper`, `Json`, `JsonUtilities`, `RenderCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ScreenShotComparisonTools\" });`. Use Public when exposing `ScreenShotComparisonTools` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`ScreenShotComparisonTools` (Screen Shot Comparison Tools): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/ScreenShotComparisonTools/ScreenShotComparisonTools.Build.cs`. It directly depends on 8 modules: `AutomationMessages`, `Core`, `CoreUObject`, `DesktopPlatform`, `ImageWrapper` etc.",
       "Placement: `ScreenShotComparisonTools` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `ScreenShotComparisonTools.h` / `ScreenShotComparisonToolsModule.h`), then use `FModuleManager::LoadModulePtr<ScreenShotComparisonToolsModule>` or the exported types directly.",
-      "Transitive deps: `ScreenShotComparisonTools` also needs `AutomationMessages`, `Core`, `CoreUObject`, `DesktopPlatform`, `ImageWrapper`, `Json`, `JsonUtilities`, `RenderCore`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ScreenShotComparisonTools\" });`. Use Public when exposing `ScreenShotComparisonTools` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ScreenShotComparisonTools` 的构建规则位于 `Developer/ScreenShotComparisonTools/ScreenShotComparisonTools.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`ScreenShotComparisonTools` build rule is `Developer/ScreenShotComparisonTools/ScreenShotComparisonTools.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`ScreenShotComparisonTools`：它向其他模块提供 C++ API/功能；构建规则 `Developer/ScreenShotComparisonTools/ScreenShotComparisonTools.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`ScreenShotComparisonTools`: it exposes C++ API/functionality to other modules; build rule `Developer/ScreenShotComparisonTools/ScreenShotComparisonTools.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "scriptableeditorwidgets",
     "kind": "module",
     "cn_steps": [
-      "用途：`ScriptableEditorWidgets` 位于 `Editor`，构建规则 `Editor/ScriptableEditorWidgets/ScriptableEditorWidgets.Build.cs`。它直接依赖 2 个模块：`CoreUObject`, `UMG`。",
+      "`ScriptableEditorWidgets`（Scriptable Editor Widgets）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Editor`，构建规则 `Editor/ScriptableEditorWidgets/ScriptableEditorWidgets.Build.cs`。直接依赖 2 个模块：`CoreUObject`、`UMG`。",
+      "部署：`ScriptableEditorWidgets` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ScriptableEditorWidgets\" });`；对外暴露 `ScriptableEditorWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ScriptableEditorWidgets` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `ScriptableEditorWidgets.h` / `ScriptableEditorWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<ScriptableEditorWidgetsModule>` 或直接使用导出类型。",
-      "传递依赖：`ScriptableEditorWidgets` 还依赖 `CoreUObject`, `UMG`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ScriptableEditorWidgets` lives under `Editor`; build rule `Editor/ScriptableEditorWidgets/ScriptableEditorWidgets.Build.cs`.It directly depends on 2 modules: `CoreUObject`, `UMG`.",
+      "`ScriptableEditorWidgets` (Scriptable Editor Widgets): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Editor`; build rule `Editor/ScriptableEditorWidgets/ScriptableEditorWidgets.Build.cs`. It directly depends on 2 modules: `CoreUObject`, `UMG`.",
+      "Placement: `ScriptableEditorWidgets` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ScriptableEditorWidgets\" });`. Use Public when exposing `ScriptableEditorWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ScriptableEditorWidgets` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `ScriptableEditorWidgets.h` / `ScriptableEditorWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<ScriptableEditorWidgetsModule>` or the exported types directly.",
-      "Transitive deps: `ScriptableEditorWidgets` also needs `CoreUObject`, `UMG`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ScriptableEditorWidgets` 的构建规则位于 `Editor/ScriptableEditorWidgets/ScriptableEditorWidgets.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`ScriptableEditorWidgets` build rule is `Editor/ScriptableEditorWidgets/ScriptableEditorWidgets.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`ScriptableEditorWidgets`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Editor/ScriptableEditorWidgets/ScriptableEditorWidgets.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`ScriptableEditorWidgets`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Editor/ScriptableEditorWidgets/ScriptableEditorWidgets.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "scriptdisassembler",
     "kind": "module",
     "cn_steps": [
-      "用途：`ScriptDisassembler` 位于 `Developer`，构建规则 `Developer/ScriptDisassembler/ScriptDisassembler.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`ScriptDisassembler`（Script Disassembler）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/ScriptDisassembler/ScriptDisassembler.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`ScriptDisassembler` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ScriptDisassembler\" });`；对外暴露 `ScriptDisassembler` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ScriptDisassembler` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `ScriptDisassembler.h` / `ScriptDisassemblerModule.h`），再用 `FModuleManager::LoadModulePtr<ScriptDisassemblerModule>` 或直接使用导出类型。",
-      "传递依赖：`ScriptDisassembler` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ScriptDisassembler` lives under `Developer`; build rule `Developer/ScriptDisassembler/ScriptDisassembler.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ScriptDisassembler\" });`. Use Public when exposing `ScriptDisassembler` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`ScriptDisassembler` (Script Disassembler): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/ScriptDisassembler/ScriptDisassembler.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
       "Placement: `ScriptDisassembler` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `ScriptDisassembler.h` / `ScriptDisassemblerModule.h`), then use `FModuleManager::LoadModulePtr<ScriptDisassemblerModule>` or the exported types directly.",
-      "Transitive deps: `ScriptDisassembler` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ScriptDisassembler\" });`. Use Public when exposing `ScriptDisassembler` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ScriptDisassembler` 的构建规则位于 `Developer/ScriptDisassembler/ScriptDisassembler.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`ScriptDisassembler` build rule is `Developer/ScriptDisassembler/ScriptDisassembler.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`ScriptDisassembler`：它向其他模块提供 C++ API/功能；构建规则 `Developer/ScriptDisassembler/ScriptDisassembler.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`ScriptDisassembler`: it exposes C++ API/functionality to other modules; build rule `Developer/ScriptDisassembler/ScriptDisassembler.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "sdl3",
     "kind": "module",
     "cn_steps": [
-      "用途：`SDL3` 位于 `ThirdParty`，构建规则 `ThirdParty/SDL3/SDL3.Build.cs`。描述符未声明依赖。",
+      "`SDL3`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/SDL3/SDL3.Build.cs`。描述符未声明依赖。",
+      "部署：`SDL3` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SDL3\" });`；对外暴露 `SDL3` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SDL3` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `SDL3.h` / `SDL3Module.h`），再用 `FModuleManager::LoadModulePtr<SDL3Module>` 或直接使用导出类型。",
-      "传递依赖：`SDL3` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `SDL3` lives under `ThirdParty`; build rule `ThirdParty/SDL3/SDL3.Build.cs`.The descriptor declares no dependencies.",
+      "`SDL3`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/SDL3/SDL3.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `SDL3` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SDL3\" });`. Use Public when exposing `SDL3` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SDL3` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `SDL3.h` / `SDL3Module.h`), then use `FModuleManager::LoadModulePtr<SDL3Module>` or the exported types directly.",
-      "Transitive deps: `SDL3` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`SDL3` 的构建规则位于 `ThirdParty/SDL3/SDL3.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`SDL3` build rule is `ThirdParty/SDL3/SDL3.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`SDL3`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/SDL3/SDL3.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`SDL3`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/SDL3/SDL3.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "sentrynative",
     "kind": "module",
     "cn_steps": [
-      "用途：`SentryNative` 位于 `ThirdParty`，构建规则 `ThirdParty/SentryNative/SentryNative.Build.cs`。描述符未声明依赖。",
+      "`SentryNative`（Sentry Native）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/SentryNative/SentryNative.Build.cs`。描述符未声明依赖。",
+      "部署：`SentryNative` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SentryNative\" });`；对外暴露 `SentryNative` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SentryNative` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `SentryNative.h` / `SentryNativeModule.h`），再用 `FModuleManager::LoadModulePtr<SentryNativeModule>` 或直接使用导出类型。",
-      "传递依赖：`SentryNative` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `SentryNative` lives under `ThirdParty`; build rule `ThirdParty/SentryNative/SentryNative.Build.cs`.The descriptor declares no dependencies.",
+      "`SentryNative` (Sentry Native): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/SentryNative/SentryNative.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `SentryNative` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SentryNative\" });`. Use Public when exposing `SentryNative` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SentryNative` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `SentryNative.h` / `SentryNativeModule.h`), then use `FModuleManager::LoadModulePtr<SentryNativeModule>` or the exported types directly.",
-      "Transitive deps: `SentryNative` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`SentryNative` 的构建规则位于 `ThirdParty/SentryNative/SentryNative.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`SentryNative` build rule is `ThirdParty/SentryNative/SentryNative.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`SentryNative`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/SentryNative/SentryNative.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`SentryNative`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/SentryNative/SentryNative.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "sequencer",
     "kind": "module",
     "cn_steps": [
-      "用途：`Sequencer` 位于 `Editor`，构建规则 `Editor/Sequencer/Sequencer.Build.cs`。它直接依赖 8 个模块：`ActorPickerMode`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `CinematicCamera`, `Constraints`, `ContentBrowser`。",
+      "`Sequencer`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/Sequencer/Sequencer.Build.cs`。直接依赖 8 个模块：`ActorPickerMode`、`AppFramework`、`ApplicationCore`、`AssetRegistry`、`BlueprintGraph` 等。",
+      "部署：`Sequencer` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Sequencer\" });`；对外暴露 `Sequencer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Sequencer` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `Sequencer.h` / `SequencerModule.h`），再用 `FModuleManager::LoadModulePtr<SequencerModule>` 或直接使用导出类型。",
-      "传递依赖：`Sequencer` 还依赖 `ActorPickerMode`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `CinematicCamera`, `Constraints`, `ContentBrowser`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Sequencer` lives under `Editor`; build rule `Editor/Sequencer/Sequencer.Build.cs`.It directly depends on 8 modules: `ActorPickerMode`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `CinematicCamera`, `Constraints`, `ContentBrowser`.",
+      "`Sequencer`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/Sequencer/Sequencer.Build.cs`. It directly depends on 8 modules: `ActorPickerMode`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph` etc.",
+      "Placement: `Sequencer` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Sequencer\" });`. Use Public when exposing `Sequencer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Sequencer` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `Sequencer.h` / `SequencerModule.h`), then use `FModuleManager::LoadModulePtr<SequencerModule>` or the exported types directly.",
-      "Transitive deps: `Sequencer` also needs `ActorPickerMode`, `AppFramework`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `CinematicCamera`, `Constraints`, `ContentBrowser`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Sequencer` 的构建规则位于 `Editor/Sequencer/Sequencer.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`Sequencer` build rule is `Editor/Sequencer/Sequencer.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`Sequencer`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/Sequencer/Sequencer.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`Sequencer`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/Sequencer/Sequencer.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "sequencercore",
     "kind": "module",
     "cn_steps": [
-      "用途：`SequencerCore` 位于 `Editor`，构建规则 `Editor/SequencerCore/SequencerCore.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorStyle`, `Engine`, `GraphEditor`, `InputCore`。",
+      "`SequencerCore`（Sequencer Core）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/SequencerCore/SequencerCore.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`CurveEditor`、`EditorFramework`、`EditorStyle` 等。",
+      "部署：`SequencerCore` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SequencerCore\" });`；对外暴露 `SequencerCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SequencerCore` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `SequencerCore.h` / `SequencerCoreModule.h`），再用 `FModuleManager::LoadModulePtr<SequencerCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`SequencerCore` 还依赖 `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorStyle`, `Engine`, `GraphEditor`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SequencerCore` lives under `Editor`; build rule `Editor/SequencerCore/SequencerCore.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorStyle`, `Engine`, `GraphEditor`, `InputCore`.",
+      "`SequencerCore` (Sequencer Core): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/SequencerCore/SequencerCore.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorStyle` etc.",
+      "Placement: `SequencerCore` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SequencerCore\" });`. Use Public when exposing `SequencerCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SequencerCore` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `SequencerCore.h` / `SequencerCoreModule.h`), then use `FModuleManager::LoadModulePtr<SequencerCoreModule>` or the exported types directly.",
-      "Transitive deps: `SequencerCore` also needs `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorStyle`, `Engine`, `GraphEditor`, `InputCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SequencerCore` 的构建规则位于 `Editor/SequencerCore/SequencerCore.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SequencerCore` build rule is `Editor/SequencerCore/SequencerCore.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SequencerCore`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/SequencerCore/SequencerCore.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SequencerCore`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/SequencerCore/SequencerCore.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "sequencerecorder",
     "kind": "module",
     "cn_steps": [
-      "用途：`SequenceRecorder` 位于 `Editor`，构建规则 `Editor/SequenceRecorder/SequenceRecorder.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `CinematicCamera`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `EditorWidgets`。",
+      "`SequenceRecorder`（Sequence Recorder）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/SequenceRecorder/SequenceRecorder.Build.cs`。直接依赖 8 个模块：`AssetRegistry`、`CinematicCamera`、`ContentBrowserData`、`Core`、`CoreUObject` 等。",
+      "部署：`SequenceRecorder` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SequenceRecorder\" });`；对外暴露 `SequenceRecorder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SequenceRecorder` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `SequenceRecorder.h` / `SequenceRecorderModule.h`），再用 `FModuleManager::LoadModulePtr<SequenceRecorderModule>` 或直接使用导出类型。",
-      "传递依赖：`SequenceRecorder` 还依赖 `AssetRegistry`, `CinematicCamera`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `EditorWidgets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SequenceRecorder` lives under `Editor`; build rule `Editor/SequenceRecorder/SequenceRecorder.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `CinematicCamera`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `EditorWidgets`.",
+      "`SequenceRecorder` (Sequence Recorder): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/SequenceRecorder/SequenceRecorder.Build.cs`. It directly depends on 8 modules: `AssetRegistry`, `CinematicCamera`, `ContentBrowserData`, `Core`, `CoreUObject` etc.",
+      "Placement: `SequenceRecorder` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SequenceRecorder\" });`. Use Public when exposing `SequenceRecorder` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SequenceRecorder` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `SequenceRecorder.h` / `SequenceRecorderModule.h`), then use `FModuleManager::LoadModulePtr<SequenceRecorderModule>` or the exported types directly.",
-      "Transitive deps: `SequenceRecorder` also needs `AssetRegistry`, `CinematicCamera`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `EditorWidgets`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SequenceRecorder` 的构建规则位于 `Editor/SequenceRecorder/SequenceRecorder.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SequenceRecorder` build rule is `Editor/SequenceRecorder/SequenceRecorder.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SequenceRecorder`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/SequenceRecorder/SequenceRecorder.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SequenceRecorder`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/SequenceRecorder/SequenceRecorder.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "sequencerecordersections",
     "kind": "module",
     "cn_steps": [
-      "用途：`SequenceRecorderSections` 位于 `Editor`，构建规则 `Editor/SequenceRecorderSections/SequenceRecorderSections.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `Engine`, `MovieScene`, `MovieSceneTracks`, `SequenceRecorder`, `TimeManagement`。",
+      "`SequenceRecorderSections`（Sequence Recorder Sections）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/SequenceRecorderSections/SequenceRecorderSections.Build.cs`。直接依赖 7 个模块：`Core`、`CoreUObject`、`Engine`、`MovieScene`、`MovieSceneTracks` 等。",
+      "部署：`SequenceRecorderSections` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SequenceRecorderSections\" });`；对外暴露 `SequenceRecorderSections` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SequenceRecorderSections` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `SequenceRecorderSections.h` / `SequenceRecorderSectionsModule.h`），再用 `FModuleManager::LoadModulePtr<SequenceRecorderSectionsModule>` 或直接使用导出类型。",
-      "传递依赖：`SequenceRecorderSections` 还依赖 `Core`, `CoreUObject`, `Engine`, `MovieScene`, `MovieSceneTracks`, `SequenceRecorder`, `TimeManagement`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SequenceRecorderSections` lives under `Editor`; build rule `Editor/SequenceRecorderSections/SequenceRecorderSections.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `Engine`, `MovieScene`, `MovieSceneTracks`, `SequenceRecorder`, `TimeManagement`.",
+      "`SequenceRecorderSections` (Sequence Recorder Sections): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/SequenceRecorderSections/SequenceRecorderSections.Build.cs`. It directly depends on 7 modules: `Core`, `CoreUObject`, `Engine`, `MovieScene`, `MovieSceneTracks` etc.",
+      "Placement: `SequenceRecorderSections` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SequenceRecorderSections\" });`. Use Public when exposing `SequenceRecorderSections` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SequenceRecorderSections` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `SequenceRecorderSections.h` / `SequenceRecorderSectionsModule.h`), then use `FModuleManager::LoadModulePtr<SequenceRecorderSectionsModule>` or the exported types directly.",
-      "Transitive deps: `SequenceRecorderSections` also needs `Core`, `CoreUObject`, `Engine`, `MovieScene`, `MovieSceneTracks`, `SequenceRecorder`, `TimeManagement`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SequenceRecorderSections` 的构建规则位于 `Editor/SequenceRecorderSections/SequenceRecorderSections.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`SequenceRecorderSections` build rule is `Editor/SequenceRecorderSections/SequenceRecorderSections.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`SequenceRecorderSections`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/SequenceRecorderSections/SequenceRecorderSections.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`SequenceRecorderSections`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/SequenceRecorderSections/SequenceRecorderSections.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "sequenceruntimerecorder",
     "kind": "module",
     "cn_steps": [
-      "用途：`SequenceRuntimeRecorder` 位于 `Runtime`，构建规则 `Runtime/SequenceRuntimeRecorder/SequenceRuntimeRecorder.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `InputCore`, `SerializedRecorderInterface`, `Slate`, `SlateCore`, `TimeManagement`。",
+      "`SequenceRuntimeRecorder`（Sequence Runtime Recorder）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/SequenceRuntimeRecorder/SequenceRuntimeRecorder.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`Engine`、`InputCore`、`SerializedRecorderInterface` 等。",
+      "部署：`SequenceRuntimeRecorder` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SequenceRuntimeRecorder\" });`；对外暴露 `SequenceRuntimeRecorder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SequenceRuntimeRecorder` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `SequenceRuntimeRecorder.h` / `SequenceRuntimeRecorderModule.h`），再用 `FModuleManager::LoadModulePtr<SequenceRuntimeRecorderModule>` 或直接使用导出类型。",
-      "传递依赖：`SequenceRuntimeRecorder` 还依赖 `Core`, `CoreUObject`, `Engine`, `InputCore`, `SerializedRecorderInterface`, `Slate`, `SlateCore`, `TimeManagement`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SequenceRuntimeRecorder` lives under `Runtime`; build rule `Runtime/SequenceRuntimeRecorder/SequenceRuntimeRecorder.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `SerializedRecorderInterface`, `Slate`, `SlateCore`, `TimeManagement`.",
+      "`SequenceRuntimeRecorder` (Sequence Runtime Recorder): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/SequenceRuntimeRecorder/SequenceRuntimeRecorder.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `SerializedRecorderInterface` etc.",
+      "Placement: `SequenceRuntimeRecorder` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SequenceRuntimeRecorder\" });`. Use Public when exposing `SequenceRuntimeRecorder` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SequenceRuntimeRecorder` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `SequenceRuntimeRecorder.h` / `SequenceRuntimeRecorderModule.h`), then use `FModuleManager::LoadModulePtr<SequenceRuntimeRecorderModule>` or the exported types directly.",
-      "Transitive deps: `SequenceRuntimeRecorder` also needs `Core`, `CoreUObject`, `Engine`, `InputCore`, `SerializedRecorderInterface`, `Slate`, `SlateCore`, `TimeManagement`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SequenceRuntimeRecorder` 的构建规则位于 `Runtime/SequenceRuntimeRecorder/SequenceRuntimeRecorder.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SequenceRuntimeRecorder` build rule is `Runtime/SequenceRuntimeRecorder/SequenceRuntimeRecorder.Build.cs`; depends on 8 modules; category Module."
-  },
-  {
-    "slug": "sequencerwidgets",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`SequencerWidgets` 位于 `Editor`，构建规则 `Editor/SequencerWidgets/SequencerWidgets.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorStyle`, `InputCore`, `MovieScene`, `MovieSceneTracks`, `Slate`, `SlateCore`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SequencerWidgets\" });`；对外暴露 `SequencerWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SequencerWidgets` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `SequencerWidgets.h` / `SequencerWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<SequencerWidgetsModule>` 或直接使用导出类型。",
-      "传递依赖：`SequencerWidgets` 还依赖 `Core`, `CoreUObject`, `EditorStyle`, `InputCore`, `MovieScene`, `MovieSceneTracks`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `SequencerWidgets` lives under `Editor`; build rule `Editor/SequencerWidgets/SequencerWidgets.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorStyle`, `InputCore`, `MovieScene`, `MovieSceneTracks`, `Slate`, `SlateCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SequencerWidgets\" });`. Use Public when exposing `SequencerWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SequencerWidgets` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `SequencerWidgets.h` / `SequencerWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<SequencerWidgetsModule>` or the exported types directly.",
-      "Transitive deps: `SequencerWidgets` also needs `Core`, `CoreUObject`, `EditorStyle`, `InputCore`, `MovieScene`, `MovieSceneTracks`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`SequencerWidgets` 的构建规则位于 `Editor/SequencerWidgets/SequencerWidgets.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SequencerWidgets` build rule is `Editor/SequencerWidgets/SequencerWidgets.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SequenceRuntimeRecorder`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/SequenceRuntimeRecorder/SequenceRuntimeRecorder.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SequenceRuntimeRecorder`: it exposes C++ API/functionality to other modules; build rule `Runtime/SequenceRuntimeRecorder/SequenceRuntimeRecorder.Build.cs`; depends on 8 modules."
   }
 ]

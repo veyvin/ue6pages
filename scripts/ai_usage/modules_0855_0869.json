@@ -1,302 +1,302 @@
 [
   {
+    "slug": "unrealversionselector",
+    "kind": "module",
+    "cn_steps": [
+      "`UnrealVersionSelector`（Unreal Version Selector）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/UnrealVersionSelector/UnrealVersionSelector.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`DesktopPlatform`、`Json` 等。",
+      "部署：`UnrealVersionSelector` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealVersionSelector\" });`；对外暴露 `UnrealVersionSelector` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
+    ],
+    "en_steps": [
+      "`UnrealVersionSelector` (Unreal Version Selector): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/UnrealVersionSelector/UnrealVersionSelector.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json` etc.",
+      "Placement: `UnrealVersionSelector` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealVersionSelector\" });`. Use Public when exposing `UnrealVersionSelector` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
+    ],
+    "note_cn": "`UnrealVersionSelector`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/UnrealVersionSelector/UnrealVersionSelector.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`UnrealVersionSelector`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/UnrealVersionSelector/UnrealVersionSelector.Build.cs`; depends on 8 modules."
+  },
+  {
+    "slug": "unrealvirtualizationtool",
+    "kind": "module",
+    "cn_steps": [
+      "`UnrealVirtualizationTool`（Unreal Virtualization Tool）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/UnrealVirtualizationTool/UnrealVirtualizationTool.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`DesktopPlatform`、`Json` 等。",
+      "部署：`UnrealVirtualizationTool` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealVirtualizationTool\" });`；对外暴露 `UnrealVirtualizationTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
+    ],
+    "en_steps": [
+      "`UnrealVirtualizationTool` (Unreal Virtualization Tool): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/UnrealVirtualizationTool/UnrealVirtualizationTool.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json` etc.",
+      "Placement: `UnrealVirtualizationTool` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealVirtualizationTool\" });`. Use Public when exposing `UnrealVirtualizationTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
+    ],
+    "note_cn": "`UnrealVirtualizationTool`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/UnrealVirtualizationTool/UnrealVirtualizationTool.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`UnrealVirtualizationTool`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/UnrealVirtualizationTool/UnrealVirtualizationTool.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "unsavedassetstracker",
     "kind": "module",
     "cn_steps": [
-      "用途：`UnsavedAssetsTracker` 位于 `Developer`，构建规则 `Developer/UnsavedAssetsTracker/Source/UnsavedAssetsTracker.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `TypedElementFramework`。",
+      "`UnsavedAssetsTracker`（Unsaved Assets Tracker）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/UnsavedAssetsTracker/Source/UnsavedAssetsTracker.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`EditorSubsystem`、`Engine`、`Slate` 等。",
+      "部署：`UnsavedAssetsTracker` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnsavedAssetsTracker\" });`；对外暴露 `UnsavedAssetsTracker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UnsavedAssetsTracker` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `UnsavedAssetsTracker.h` / `UnsavedAssetsTrackerModule.h`），再用 `FModuleManager::LoadModulePtr<UnsavedAssetsTrackerModule>` 或直接使用导出类型。",
-      "传递依赖：`UnsavedAssetsTracker` 还依赖 `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `TypedElementFramework`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `UnsavedAssetsTracker` lives under `Developer`; build rule `Developer/UnsavedAssetsTracker/Source/UnsavedAssetsTracker.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `TypedElementFramework`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnsavedAssetsTracker\" });`. Use Public when exposing `UnsavedAssetsTracker` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`UnsavedAssetsTracker` (Unsaved Assets Tracker): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/UnsavedAssetsTracker/Source/UnsavedAssetsTracker.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Slate` etc.",
       "Placement: `UnsavedAssetsTracker` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `UnsavedAssetsTracker.h` / `UnsavedAssetsTrackerModule.h`), then use `FModuleManager::LoadModulePtr<UnsavedAssetsTrackerModule>` or the exported types directly.",
-      "Transitive deps: `UnsavedAssetsTracker` also needs `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `TypedElementFramework`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnsavedAssetsTracker\" });`. Use Public when exposing `UnsavedAssetsTracker` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`UnsavedAssetsTracker` 的构建规则位于 `Developer/UnsavedAssetsTracker/Source/UnsavedAssetsTracker.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`UnsavedAssetsTracker` build rule is `Developer/UnsavedAssetsTracker/Source/UnsavedAssetsTracker.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`UnsavedAssetsTracker`：它向其他模块提供 C++ API/功能；构建规则 `Developer/UnsavedAssetsTracker/Source/UnsavedAssetsTracker.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`UnsavedAssetsTracker`: it exposes C++ API/functionality to other modules; build rule `Developer/UnsavedAssetsTracker/Source/UnsavedAssetsTracker.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "unsync",
     "kind": "module",
     "cn_steps": [
-      "用途：`Unsync` 位于 `Programs`，构建规则 `Programs/Unsync/Unsync.Build.cs`。它直接依赖 6 个模块：`BLAKE3`, `CLI11`, `LibreSSL`, `fmt`, `http_parser`, `zstd`。",
+      "`Unsync`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Unsync/Unsync.Build.cs`。直接依赖 6 个模块：`BLAKE3`、`CLI11`、`LibreSSL`、`fmt`、`http_parser` 等。",
+      "部署：`Unsync` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Unsync\" });`；对外暴露 `Unsync` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Unsync` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `Unsync.h` / `UnsyncModule.h`），再用 `FModuleManager::LoadModulePtr<UnsyncModule>` 或直接使用导出类型。",
-      "传递依赖：`Unsync` 还依赖 `BLAKE3`, `CLI11`, `LibreSSL`, `fmt`, `http_parser`, `zstd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `Unsync` lives under `Programs`; build rule `Programs/Unsync/Unsync.Build.cs`.It directly depends on 6 modules: `BLAKE3`, `CLI11`, `LibreSSL`, `fmt`, `http_parser`, `zstd`.",
+      "`Unsync`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Unsync/Unsync.Build.cs`. It directly depends on 6 modules: `BLAKE3`, `CLI11`, `LibreSSL`, `fmt`, `http_parser` etc.",
+      "Placement: `Unsync` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Unsync\" });`. Use Public when exposing `Unsync` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Unsync` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `Unsync.h` / `UnsyncModule.h`), then use `FModuleManager::LoadModulePtr<UnsyncModule>` or the exported types directly.",
-      "Transitive deps: `Unsync` also needs `BLAKE3`, `CLI11`, `LibreSSL`, `fmt`, `http_parser`, `zstd`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`Unsync` 的构建规则位于 `Programs/Unsync/Unsync.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`Unsync` build rule is `Programs/Unsync/Unsync.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`Unsync`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Unsync/Unsync.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`Unsync`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Unsync/Unsync.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "userassettagseditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`UserAssetTagsEditor` 位于 `Editor`，构建规则 `Editor/UserAssetTagsEditor/UserAssetTagsEditor.Build.cs`。它直接依赖 8 个模块：`AdvancedPreviewScene`, `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `ContentBrowser`, `ContentBrowserData`, `Core`。",
+      "`UserAssetTagsEditor`（User Asset Tags Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/UserAssetTagsEditor/UserAssetTagsEditor.Build.cs`。直接依赖 8 个模块：`AdvancedPreviewScene`、`ApplicationCore`、`AssetDefinition`、`AssetRegistry`、`AssetTools` 等。",
+      "部署：`UserAssetTagsEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UserAssetTagsEditor\" });`；对外暴露 `UserAssetTagsEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UserAssetTagsEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `UserAssetTagsEditor.h` / `UserAssetTagsEditorModule.h`），再用 `FModuleManager::LoadModulePtr<UserAssetTagsEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`UserAssetTagsEditor` 还依赖 `AdvancedPreviewScene`, `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `ContentBrowser`, `ContentBrowserData`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `UserAssetTagsEditor` lives under `Editor`; build rule `Editor/UserAssetTagsEditor/UserAssetTagsEditor.Build.cs`.It directly depends on 8 modules: `AdvancedPreviewScene`, `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `ContentBrowser`, `ContentBrowserData`, `Core`.",
+      "`UserAssetTagsEditor` (User Asset Tags Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/UserAssetTagsEditor/UserAssetTagsEditor.Build.cs`. It directly depends on 8 modules: `AdvancedPreviewScene`, `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools` etc.",
+      "Placement: `UserAssetTagsEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UserAssetTagsEditor\" });`. Use Public when exposing `UserAssetTagsEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UserAssetTagsEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `UserAssetTagsEditor.h` / `UserAssetTagsEditorModule.h`), then use `FModuleManager::LoadModulePtr<UserAssetTagsEditorModule>` or the exported types directly.",
-      "Transitive deps: `UserAssetTagsEditor` also needs `AdvancedPreviewScene`, `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `ContentBrowser`, `ContentBrowserData`, `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`UserAssetTagsEditor` 的构建规则位于 `Editor/UserAssetTagsEditor/UserAssetTagsEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`UserAssetTagsEditor` build rule is `Editor/UserAssetTagsEditor/UserAssetTagsEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`UserAssetTagsEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/UserAssetTagsEditor/UserAssetTagsEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`UserAssetTagsEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/UserAssetTagsEditor/UserAssetTagsEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "vcpkg",
     "kind": "module",
     "cn_steps": [
-      "用途：`Vcpkg` 位于 `ThirdParty`，构建规则 `ThirdParty/vcpkg/Vcpkg.Build.cs`。描述符未声明依赖。",
+      "`Vcpkg`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/vcpkg/Vcpkg.Build.cs`。描述符未声明依赖。",
+      "部署：`Vcpkg` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Vcpkg\" });`；对外暴露 `Vcpkg` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Vcpkg` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Vcpkg.h` / `VcpkgModule.h`），再用 `FModuleManager::LoadModulePtr<VcpkgModule>` 或直接使用导出类型。",
-      "传递依赖：`Vcpkg` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Vcpkg` lives under `ThirdParty`; build rule `ThirdParty/vcpkg/Vcpkg.Build.cs`.The descriptor declares no dependencies.",
+      "`Vcpkg`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/vcpkg/Vcpkg.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Vcpkg` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Vcpkg\" });`. Use Public when exposing `Vcpkg` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Vcpkg` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Vcpkg.h` / `VcpkgModule.h`), then use `FModuleManager::LoadModulePtr<VcpkgModule>` or the exported types directly.",
-      "Transitive deps: `Vcpkg` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Vcpkg` 的构建规则位于 `ThirdParty/vcpkg/Vcpkg.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Vcpkg` build rule is `ThirdParty/vcpkg/Vcpkg.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`Vcpkg`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/vcpkg/Vcpkg.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Vcpkg`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/vcpkg/Vcpkg.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "vectorvm",
     "kind": "module",
     "cn_steps": [
-      "用途：`VectorVM` 位于 `Runtime`，构建规则 `Runtime/VectorVM/VectorVM.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`VectorVM`（Vector VM）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/VectorVM/VectorVM.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`VectorVM` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VectorVM\" });`；对外暴露 `VectorVM` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VectorVM` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `VectorVM.h` / `VectorVMModule.h`），再用 `FModuleManager::LoadModulePtr<VectorVMModule>` 或直接使用导出类型。",
-      "传递依赖：`VectorVM` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VectorVM` lives under `Runtime`; build rule `Runtime/VectorVM/VectorVM.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`VectorVM` (Vector VM): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/VectorVM/VectorVM.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `VectorVM` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VectorVM\" });`. Use Public when exposing `VectorVM` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VectorVM` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `VectorVM.h` / `VectorVMModule.h`), then use `FModuleManager::LoadModulePtr<VectorVMModule>` or the exported types directly.",
-      "Transitive deps: `VectorVM` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VectorVM` 的构建规则位于 `Runtime/VectorVM/VectorVM.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`VectorVM` build rule is `Runtime/VectorVM/VectorVM.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`VectorVM`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/VectorVM/VectorVM.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`VectorVM`: it exposes C++ API/functionality to other modules; build rule `Runtime/VectorVM/VectorVM.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "verseassist",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseAssist` 位于 `Runtime`，构建规则 `Runtime/Solaris/VerseAssist/VerseAssist.Build.cs`。它直接依赖 5 个模块：`Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`, `uLangLSP`。",
+      "`VerseAssist`（Verse Assist）：它属于 Verse 脚本运行时（面向 UEFN/Fortnite 体验）。位于 `Runtime`，构建规则 `Runtime/Solaris/VerseAssist/VerseAssist.Build.cs`。直接依赖 5 个模块：`Core`、`VerseCompiler`、`uLangCore`、`uLangJSON`、`uLangLSP`。",
+      "部署：`VerseAssist` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Verse 项目/设备里调用其 API；改完 Verse 代码后编译并推到会话。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseAssist\" });`；对外暴露 `VerseAssist` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseAssist` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `VerseAssist.h` / `VerseAssistModule.h`），再用 `FModuleManager::LoadModulePtr<VerseAssistModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseAssist` 还依赖 `Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`, `uLangLSP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VerseAssist` lives under `Runtime`; build rule `Runtime/Solaris/VerseAssist/VerseAssist.Build.cs`.It directly depends on 5 modules: `Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`, `uLangLSP`.",
+      "`VerseAssist` (Verse Assist): it is part of the Verse scripting runtime (for UEFN/Fortnite experiences). Located under `Runtime`; build rule `Runtime/Solaris/VerseAssist/VerseAssist.Build.cs`. It directly depends on 5 modules: `Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`, `uLangLSP`.",
+      "Placement: `VerseAssist` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: call its API from Verse projects/devices; compile Verse and push to the session after edits.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseAssist\" });`. Use Public when exposing `VerseAssist` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseAssist` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `VerseAssist.h` / `VerseAssistModule.h`), then use `FModuleManager::LoadModulePtr<VerseAssistModule>` or the exported types directly.",
-      "Transitive deps: `VerseAssist` also needs `Core`, `VerseCompiler`, `uLangCore`, `uLangJSON`, `uLangLSP`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VerseAssist` 的构建规则位于 `Runtime/Solaris/VerseAssist/VerseAssist.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`VerseAssist` build rule is `Runtime/Solaris/VerseAssist/VerseAssist.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`VerseAssist`：它属于 Verse 脚本运行时（面向 UEFN/Fortnite 体验）；构建规则 `Runtime/Solaris/VerseAssist/VerseAssist.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`VerseAssist`: it is part of the Verse scripting runtime (for UEFN/Fortnite experiences); build rule `Runtime/Solaris/VerseAssist/VerseAssist.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "versebenchmarknative",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseBenchmarkNative` 位于 `Programs`，构建规则 `Programs/VerseBenchmarkNative/VerseBenchmarkNative.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `VerseNative`。",
+      "`VerseBenchmarkNative`（Verse Benchmark Native）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/VerseBenchmarkNative/VerseBenchmarkNative.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`VerseNative`。",
+      "部署：`VerseBenchmarkNative` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseBenchmarkNative\" });`；对外暴露 `VerseBenchmarkNative` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseBenchmarkNative` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseBenchmarkNative.h` / `VerseBenchmarkNativeModule.h`），再用 `FModuleManager::LoadModulePtr<VerseBenchmarkNativeModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseBenchmarkNative` 还依赖 `Core`, `CoreUObject`, `VerseNative`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `VerseBenchmarkNative` lives under `Programs`; build rule `Programs/VerseBenchmarkNative/VerseBenchmarkNative.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `VerseNative`.",
+      "`VerseBenchmarkNative` (Verse Benchmark Native): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/VerseBenchmarkNative/VerseBenchmarkNative.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `VerseNative`.",
+      "Placement: `VerseBenchmarkNative` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseBenchmarkNative\" });`. Use Public when exposing `VerseBenchmarkNative` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseBenchmarkNative` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseBenchmarkNative.h` / `VerseBenchmarkNativeModule.h`), then use `FModuleManager::LoadModulePtr<VerseBenchmarkNativeModule>` or the exported types directly.",
-      "Transitive deps: `VerseBenchmarkNative` also needs `Core`, `CoreUObject`, `VerseNative`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`VerseBenchmarkNative` 的构建规则位于 `Programs/VerseBenchmarkNative/VerseBenchmarkNative.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`VerseBenchmarkNative` build rule is `Programs/VerseBenchmarkNative/VerseBenchmarkNative.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`VerseBenchmarkNative`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/VerseBenchmarkNative/VerseBenchmarkNative.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`VerseBenchmarkNative`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/VerseBenchmarkNative/VerseBenchmarkNative.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "verseclr",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseCLR` 位于 `Programs`，构建规则 `Programs/VerseCLR/VerseCLR.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `EpicGamesTemporary`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`。",
+      "`VerseCLR`（Verse CLR）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/VerseCLR/VerseCLR.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`EpicGamesTemporary`、`Projects` 等。",
+      "部署：`VerseCLR` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseCLR\" });`；对外暴露 `VerseCLR` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseCLR` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseCLR.h` / `VerseCLRModule.h`），再用 `FModuleManager::LoadModulePtr<VerseCLRModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseCLR` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `EpicGamesTemporary`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `VerseCLR` lives under `Programs`; build rule `Programs/VerseCLR/VerseCLR.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EpicGamesTemporary`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`.",
+      "`VerseCLR` (Verse CLR): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/VerseCLR/VerseCLR.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EpicGamesTemporary`, `Projects` etc.",
+      "Placement: `VerseCLR` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseCLR\" });`. Use Public when exposing `VerseCLR` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseCLR` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseCLR.h` / `VerseCLRModule.h`), then use `FModuleManager::LoadModulePtr<VerseCLRModule>` or the exported types directly.",
-      "Transitive deps: `VerseCLR` also needs `ApplicationCore`, `Core`, `CoreUObject`, `EpicGamesTemporary`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`VerseCLR` 的构建规则位于 `Programs/VerseCLR/VerseCLR.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`VerseCLR` build rule is `Programs/VerseCLR/VerseCLR.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`VerseCLR`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/VerseCLR/VerseCLR.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`VerseCLR`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/VerseCLR/VerseCLR.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "versecmd",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseCmd` 位于 `Programs`，构建规则 `Programs/VerseCmd/VerseCmd.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`。",
+      "`VerseCmd`（Verse Cmd）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/VerseCmd/VerseCmd.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`Projects`、`ScriptDisassembler` 等。",
+      "部署：`VerseCmd` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseCmd\" });`；对外暴露 `VerseCmd` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseCmd` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseCmd.h` / `VerseCmdModule.h`），再用 `FModuleManager::LoadModulePtr<VerseCmdModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseCmd` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `VerseCmd` lives under `Programs`; build rule `Programs/VerseCmd/VerseCmd.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`.",
+      "`VerseCmd` (Verse Cmd): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/VerseCmd/VerseCmd.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler` etc.",
+      "Placement: `VerseCmd` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseCmd\" });`. Use Public when exposing `VerseCmd` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseCmd` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseCmd.h` / `VerseCmdModule.h`), then use `FModuleManager::LoadModulePtr<VerseCmdModule>` or the exported types directly.",
-      "Transitive deps: `VerseCmd` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`VerseCmd` 的构建规则位于 `Programs/VerseCmd/VerseCmd.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`VerseCmd` build rule is `Programs/VerseCmd/VerseCmd.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`VerseCmd`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/VerseCmd/VerseCmd.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`VerseCmd`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/VerseCmd/VerseCmd.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "versecompiler",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseCompiler` 位于 `Runtime`，构建规则 `Runtime/VerseCompiler/VerseCompiler.Build.cs`。它直接依赖 3 个模块：`Core`, `uLangCore`, `uLangJSON`。",
+      "`VerseCompiler`（Verse Compiler）：它属于 Verse 脚本运行时（面向 UEFN/Fortnite 体验）。位于 `Runtime`，构建规则 `Runtime/VerseCompiler/VerseCompiler.Build.cs`。直接依赖 3 个模块：`Core`、`uLangCore`、`uLangJSON`。",
+      "部署：`VerseCompiler` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Verse 项目/设备里调用其 API；改完 Verse 代码后编译并推到会话。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseCompiler\" });`；对外暴露 `VerseCompiler` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseCompiler` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `VerseCompiler.h` / `VerseCompilerModule.h`），再用 `FModuleManager::LoadModulePtr<VerseCompilerModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseCompiler` 还依赖 `Core`, `uLangCore`, `uLangJSON`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VerseCompiler` lives under `Runtime`; build rule `Runtime/VerseCompiler/VerseCompiler.Build.cs`.It directly depends on 3 modules: `Core`, `uLangCore`, `uLangJSON`.",
+      "`VerseCompiler` (Verse Compiler): it is part of the Verse scripting runtime (for UEFN/Fortnite experiences). Located under `Runtime`; build rule `Runtime/VerseCompiler/VerseCompiler.Build.cs`. It directly depends on 3 modules: `Core`, `uLangCore`, `uLangJSON`.",
+      "Placement: `VerseCompiler` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: call its API from Verse projects/devices; compile Verse and push to the session after edits.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseCompiler\" });`. Use Public when exposing `VerseCompiler` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseCompiler` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `VerseCompiler.h` / `VerseCompilerModule.h`), then use `FModuleManager::LoadModulePtr<VerseCompilerModule>` or the exported types directly.",
-      "Transitive deps: `VerseCompiler` also needs `Core`, `uLangCore`, `uLangJSON`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VerseCompiler` 的构建规则位于 `Runtime/VerseCompiler/VerseCompiler.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`VerseCompiler` build rule is `Runtime/VerseCompiler/VerseCompiler.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`VerseCompiler`：它属于 Verse 脚本运行时（面向 UEFN/Fortnite 体验）；构建规则 `Runtime/VerseCompiler/VerseCompiler.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`VerseCompiler`: it is part of the Verse scripting runtime (for UEFN/Fortnite experiences); build rule `Runtime/VerseCompiler/VerseCompiler.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "versecompilercmd",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseCompilerCmd` 位于 `Programs`，构建规则 `Programs/Solaris/VerseCompilerCmd/VerseCompilerCmd.Build.cs`。它直接依赖 7 个模块：`Core`, `VerseCompiler`, `VerseJsonInterfaceGen`, `VerseNativeInterfaceGen`, `VerseProgramHostServices`, `uLangCore`, `uLangJSON`。",
+      "`VerseCompilerCmd`（Verse Compiler Cmd）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Solaris/VerseCompilerCmd/VerseCompilerCmd.Build.cs`。直接依赖 7 个模块：`Core`、`VerseCompiler`、`VerseJsonInterfaceGen`、`VerseNativeInterfaceGen`、`VerseProgramHostServices` 等。",
+      "部署：`VerseCompilerCmd` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseCompilerCmd\" });`；对外暴露 `VerseCompilerCmd` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseCompilerCmd` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseCompilerCmd.h` / `VerseCompilerCmdModule.h`），再用 `FModuleManager::LoadModulePtr<VerseCompilerCmdModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseCompilerCmd` 还依赖 `Core`, `VerseCompiler`, `VerseJsonInterfaceGen`, `VerseNativeInterfaceGen`, `VerseProgramHostServices`, `uLangCore`, `uLangJSON`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `VerseCompilerCmd` lives under `Programs`; build rule `Programs/Solaris/VerseCompilerCmd/VerseCompilerCmd.Build.cs`.It directly depends on 7 modules: `Core`, `VerseCompiler`, `VerseJsonInterfaceGen`, `VerseNativeInterfaceGen`, `VerseProgramHostServices`, `uLangCore`, `uLangJSON`.",
+      "`VerseCompilerCmd` (Verse Compiler Cmd): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Solaris/VerseCompilerCmd/VerseCompilerCmd.Build.cs`. It directly depends on 7 modules: `Core`, `VerseCompiler`, `VerseJsonInterfaceGen`, `VerseNativeInterfaceGen`, `VerseProgramHostServices` etc.",
+      "Placement: `VerseCompilerCmd` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseCompilerCmd\" });`. Use Public when exposing `VerseCompilerCmd` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseCompilerCmd` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseCompilerCmd.h` / `VerseCompilerCmdModule.h`), then use `FModuleManager::LoadModulePtr<VerseCompilerCmdModule>` or the exported types directly.",
-      "Transitive deps: `VerseCompilerCmd` also needs `Core`, `VerseCompiler`, `VerseJsonInterfaceGen`, `VerseNativeInterfaceGen`, `VerseProgramHostServices`, `uLangCore`, `uLangJSON`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`VerseCompilerCmd` 的构建规则位于 `Programs/Solaris/VerseCompilerCmd/VerseCompilerCmd.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`VerseCompilerCmd` build rule is `Programs/Solaris/VerseCompilerCmd/VerseCompilerCmd.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`VerseCompilerCmd`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Solaris/VerseCompilerCmd/VerseCompilerCmd.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`VerseCompilerCmd`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Solaris/VerseCompilerCmd/VerseCompilerCmd.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "versejsoninterfacegen",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseJsonInterfaceGen` 位于 `Programs`，构建规则 `Programs/Solaris/VerseJsonInterfaceGen/VerseJsonInterfaceGen.Build.cs`。描述符未声明依赖。",
+      "`VerseJsonInterfaceGen`（Verse Json Interface Gen）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Solaris/VerseJsonInterfaceGen/VerseJsonInterfaceGen.Build.cs`。描述符未声明依赖。",
+      "部署：`VerseJsonInterfaceGen` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseJsonInterfaceGen\" });`；对外暴露 `VerseJsonInterfaceGen` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseJsonInterfaceGen` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseJsonInterfaceGen.h` / `VerseJsonInterfaceGenModule.h`），再用 `FModuleManager::LoadModulePtr<VerseJsonInterfaceGenModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseJsonInterfaceGen` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `VerseJsonInterfaceGen` lives under `Programs`; build rule `Programs/Solaris/VerseJsonInterfaceGen/VerseJsonInterfaceGen.Build.cs`.The descriptor declares no dependencies.",
+      "`VerseJsonInterfaceGen` (Verse Json Interface Gen): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Solaris/VerseJsonInterfaceGen/VerseJsonInterfaceGen.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `VerseJsonInterfaceGen` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseJsonInterfaceGen\" });`. Use Public when exposing `VerseJsonInterfaceGen` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseJsonInterfaceGen` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseJsonInterfaceGen.h` / `VerseJsonInterfaceGenModule.h`), then use `FModuleManager::LoadModulePtr<VerseJsonInterfaceGenModule>` or the exported types directly.",
-      "Transitive deps: `VerseJsonInterfaceGen` declares no extra public deps; it typically relies on engine basics."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`VerseJsonInterfaceGen` 的构建规则位于 `Programs/Solaris/VerseJsonInterfaceGen/VerseJsonInterfaceGen.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`VerseJsonInterfaceGen` build rule is `Programs/Solaris/VerseJsonInterfaceGen/VerseJsonInterfaceGen.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`VerseJsonInterfaceGen`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Solaris/VerseJsonInterfaceGen/VerseJsonInterfaceGen.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`VerseJsonInterfaceGen`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Solaris/VerseJsonInterfaceGen/VerseJsonInterfaceGen.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "versenativeinterfacegen",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseNativeInterfaceGen` 位于 `Programs`，构建规则 `Programs/Solaris/VerseNativeInterfaceGen/VerseNativeInterfaceGen.Build.cs`。描述符未声明依赖。",
+      "`VerseNativeInterfaceGen`（Verse Native Interface Gen）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Solaris/VerseNativeInterfaceGen/VerseNativeInterfaceGen.Build.cs`。描述符未声明依赖。",
+      "部署：`VerseNativeInterfaceGen` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseNativeInterfaceGen\" });`；对外暴露 `VerseNativeInterfaceGen` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseNativeInterfaceGen` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseNativeInterfaceGen.h` / `VerseNativeInterfaceGenModule.h`），再用 `FModuleManager::LoadModulePtr<VerseNativeInterfaceGenModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseNativeInterfaceGen` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `VerseNativeInterfaceGen` lives under `Programs`; build rule `Programs/Solaris/VerseNativeInterfaceGen/VerseNativeInterfaceGen.Build.cs`.The descriptor declares no dependencies.",
+      "`VerseNativeInterfaceGen` (Verse Native Interface Gen): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Solaris/VerseNativeInterfaceGen/VerseNativeInterfaceGen.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `VerseNativeInterfaceGen` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseNativeInterfaceGen\" });`. Use Public when exposing `VerseNativeInterfaceGen` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseNativeInterfaceGen` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseNativeInterfaceGen.h` / `VerseNativeInterfaceGenModule.h`), then use `FModuleManager::LoadModulePtr<VerseNativeInterfaceGenModule>` or the exported types directly.",
-      "Transitive deps: `VerseNativeInterfaceGen` declares no extra public deps; it typically relies on engine basics."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`VerseNativeInterfaceGen` 的构建规则位于 `Programs/Solaris/VerseNativeInterfaceGen/VerseNativeInterfaceGen.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`VerseNativeInterfaceGen` build rule is `Programs/Solaris/VerseNativeInterfaceGen/VerseNativeInterfaceGen.Build.cs`; depends on 0 modules; category Module."
-  },
-  {
-    "slug": "verseprogramhostservices",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`VerseProgramHostServices` 位于 `Programs`，构建规则 `Programs/Solaris/VerseProgramHostServices/VerseProgramHostServices.Build.cs`。它直接依赖 2 个模块：`VerseCompiler`, `uLangCore`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseProgramHostServices\" });`；对外暴露 `VerseProgramHostServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseProgramHostServices` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseProgramHostServices.h` / `VerseProgramHostServicesModule.h`），再用 `FModuleManager::LoadModulePtr<VerseProgramHostServicesModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseProgramHostServices` 还依赖 `VerseCompiler`, `uLangCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `VerseProgramHostServices` lives under `Programs`; build rule `Programs/Solaris/VerseProgramHostServices/VerseProgramHostServices.Build.cs`.It directly depends on 2 modules: `VerseCompiler`, `uLangCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseProgramHostServices\" });`. Use Public when exposing `VerseProgramHostServices` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseProgramHostServices` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseProgramHostServices.h` / `VerseProgramHostServicesModule.h`), then use `FModuleManager::LoadModulePtr<VerseProgramHostServicesModule>` or the exported types directly.",
-      "Transitive deps: `VerseProgramHostServices` also needs `VerseCompiler`, `uLangCore`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`VerseProgramHostServices` 的构建规则位于 `Programs/Solaris/VerseProgramHostServices/VerseProgramHostServices.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`VerseProgramHostServices` build rule is `Programs/Solaris/VerseProgramHostServices/VerseProgramHostServices.Build.cs`; depends on 2 modules; category Module."
-  },
-  {
-    "slug": "verserefactoringtools",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`VerseRefactoringTools` 位于 `Developer`，构建规则 `Developer/VerseRefactoringTools/VerseRefactoringTools.Build.cs`。它直接依赖 3 个模块：`Core`, `VerseCompiler`, `uLangCore`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseRefactoringTools\" });`；对外暴露 `VerseRefactoringTools` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseRefactoringTools` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `VerseRefactoringTools.h` / `VerseRefactoringToolsModule.h`），再用 `FModuleManager::LoadModulePtr<VerseRefactoringToolsModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseRefactoringTools` 还依赖 `Core`, `VerseCompiler`, `uLangCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `VerseRefactoringTools` lives under `Developer`; build rule `Developer/VerseRefactoringTools/VerseRefactoringTools.Build.cs`.It directly depends on 3 modules: `Core`, `VerseCompiler`, `uLangCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseRefactoringTools\" });`. Use Public when exposing `VerseRefactoringTools` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseRefactoringTools` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `VerseRefactoringTools.h` / `VerseRefactoringToolsModule.h`), then use `FModuleManager::LoadModulePtr<VerseRefactoringToolsModule>` or the exported types directly.",
-      "Transitive deps: `VerseRefactoringTools` also needs `Core`, `VerseCompiler`, `uLangCore`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`VerseRefactoringTools` 的构建规则位于 `Developer/VerseRefactoringTools/VerseRefactoringTools.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`VerseRefactoringTools` build rule is `Developer/VerseRefactoringTools/VerseRefactoringTools.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`VerseNativeInterfaceGen`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Solaris/VerseNativeInterfaceGen/VerseNativeInterfaceGen.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`VerseNativeInterfaceGen`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Solaris/VerseNativeInterfaceGen/VerseNativeInterfaceGen.Build.cs`; depends on 0 modules."
   }
 ]

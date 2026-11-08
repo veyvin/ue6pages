@@ -3,304 +3,300 @@
     "slug": "automationtest",
     "kind": "module",
     "cn_steps": [
-      "用途：`AutomationTest` 位于 `Runtime`，构建规则 `Runtime/AutomationTest/AutomationTest.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `SourceControl`。",
+      "`AutomationTest`（Automation Test）：它是测试模块/测试套件（自动化、Gauntlet、Mock）。位于 `Runtime`，构建规则 `Runtime/AutomationTest/AutomationTest.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`SourceControl`。",
+      "部署：`AutomationTest` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Session Frontend/自动化里运行，或由 CI 触发对应自动化目标；不要打进发行版本。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AutomationTest\" });`；对外暴露 `AutomationTest` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AutomationTest` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AutomationTest.h` / `AutomationTestModule.h`），再用 `FModuleManager::LoadModulePtr<AutomationTestModule>` 或直接使用导出类型。",
-      "传递依赖：`AutomationTest` 还依赖 `Core`, `CoreUObject`, `SourceControl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AutomationTest` lives under `Runtime`; build rule `Runtime/AutomationTest/AutomationTest.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `SourceControl`.",
+      "`AutomationTest` (Automation Test): it is a test module/suite (automation, Gauntlet, mocks). Located under `Runtime`; build rule `Runtime/AutomationTest/AutomationTest.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `SourceControl`.",
+      "Placement: `AutomationTest` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: run it from Session Frontend/automation or trigger the matching target from CI; do not ship it.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AutomationTest\" });`. Use Public when exposing `AutomationTest` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AutomationTest` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AutomationTest.h` / `AutomationTestModule.h`), then use `FModuleManager::LoadModulePtr<AutomationTestModule>` or the exported types directly.",
-      "Transitive deps: `AutomationTest` also needs `Core`, `CoreUObject`, `SourceControl`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AutomationTest` 的构建规则位于 `Runtime/AutomationTest/AutomationTest.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AutomationTest` build rule is `Runtime/AutomationTest/AutomationTest.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AutomationTest`：它是测试模块/测试套件（自动化、Gauntlet、Mock）；构建规则 `Runtime/AutomationTest/AutomationTest.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AutomationTest`: it is a test module/suite (automation, Gauntlet, mocks); build rule `Runtime/AutomationTest/AutomationTest.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "automationwindow",
     "kind": "module",
     "cn_steps": [
-      "用途：`AutomationWindow` 位于 `Developer`，构建规则 `Developer/AutomationWindow/AutomationWindow.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AutomationController`, `AutomationTest`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`。",
+      "`AutomationWindow`（Automation Window）：它是测试模块/测试套件（自动化、Gauntlet、Mock）。位于 `Developer`，构建规则 `Developer/AutomationWindow/AutomationWindow.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`AutomationController`、`AutomationTest`、`Core`、`CoreUObject` 等。",
+      "部署：`AutomationWindow` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在 Session Frontend/自动化里运行，或由 CI 触发对应自动化目标；不要打进发行版本。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AutomationWindow\" });`；对外暴露 `AutomationWindow` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AutomationWindow` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `AutomationWindow.h` / `AutomationWindowModule.h`），再用 `FModuleManager::LoadModulePtr<AutomationWindowModule>` 或直接使用导出类型。",
-      "传递依赖：`AutomationWindow` 还依赖 `ApplicationCore`, `AutomationController`, `AutomationTest`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AutomationWindow` lives under `Developer`; build rule `Developer/AutomationWindow/AutomationWindow.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AutomationController`, `AutomationTest`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AutomationWindow\" });`. Use Public when exposing `AutomationWindow` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`AutomationWindow` (Automation Window): it is a test module/suite (automation, Gauntlet, mocks). Located under `Developer`; build rule `Developer/AutomationWindow/AutomationWindow.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `AutomationController`, `AutomationTest`, `Core`, `CoreUObject` etc.",
       "Placement: `AutomationWindow` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `AutomationWindow.h` / `AutomationWindowModule.h`), then use `FModuleManager::LoadModulePtr<AutomationWindowModule>` or the exported types directly.",
-      "Transitive deps: `AutomationWindow` also needs `ApplicationCore`, `AutomationController`, `AutomationTest`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`; do not re-list them unless you include their headers."
+      "How to use: run it from Session Frontend/automation or trigger the matching target from CI; do not ship it.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AutomationWindow\" });`. Use Public when exposing `AutomationWindow` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AutomationWindow` 的构建规则位于 `Developer/AutomationWindow/AutomationWindow.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AutomationWindow` build rule is `Developer/AutomationWindow/AutomationWindow.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AutomationWindow`：它是测试模块/测试套件（自动化、Gauntlet、Mock）；构建规则 `Developer/AutomationWindow/AutomationWindow.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AutomationWindow`: it is a test module/suite (automation, Gauntlet, mocks); build rule `Developer/AutomationWindow/AutomationWindow.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "automationworker",
     "kind": "module",
     "cn_steps": [
-      "用途：`AutomationWorker` 位于 `Runtime`，构建规则 `Runtime/AutomationWorker/AutomationWorker.Build.cs`。它直接依赖 8 个模块：`Analytics`, `AnalyticsET`, `AutomationMessages`, `AutomationTest`, `Core`, `CoreUObject`, `Engine`, `Json`。",
+      "`AutomationWorker`（Automation Worker）：它是测试模块/测试套件（自动化、Gauntlet、Mock）。位于 `Runtime`，构建规则 `Runtime/AutomationWorker/AutomationWorker.Build.cs`。直接依赖 8 个模块：`Analytics`、`AnalyticsET`、`AutomationMessages`、`AutomationTest`、`Core` 等。",
+      "部署：`AutomationWorker` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Session Frontend/自动化里运行，或由 CI 触发对应自动化目标；不要打进发行版本。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AutomationWorker\" });`；对外暴露 `AutomationWorker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AutomationWorker` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AutomationWorker.h` / `AutomationWorkerModule.h`），再用 `FModuleManager::LoadModulePtr<AutomationWorkerModule>` 或直接使用导出类型。",
-      "传递依赖：`AutomationWorker` 还依赖 `Analytics`, `AnalyticsET`, `AutomationMessages`, `AutomationTest`, `Core`, `CoreUObject`, `Engine`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AutomationWorker` lives under `Runtime`; build rule `Runtime/AutomationWorker/AutomationWorker.Build.cs`.It directly depends on 8 modules: `Analytics`, `AnalyticsET`, `AutomationMessages`, `AutomationTest`, `Core`, `CoreUObject`, `Engine`, `Json`.",
+      "`AutomationWorker` (Automation Worker): it is a test module/suite (automation, Gauntlet, mocks). Located under `Runtime`; build rule `Runtime/AutomationWorker/AutomationWorker.Build.cs`. It directly depends on 8 modules: `Analytics`, `AnalyticsET`, `AutomationMessages`, `AutomationTest`, `Core` etc.",
+      "Placement: `AutomationWorker` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: run it from Session Frontend/automation or trigger the matching target from CI; do not ship it.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AutomationWorker\" });`. Use Public when exposing `AutomationWorker` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AutomationWorker` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AutomationWorker.h` / `AutomationWorkerModule.h`), then use `FModuleManager::LoadModulePtr<AutomationWorkerModule>` or the exported types directly.",
-      "Transitive deps: `AutomationWorker` also needs `Analytics`, `AnalyticsET`, `AutomationMessages`, `AutomationTest`, `Core`, `CoreUObject`, `Engine`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AutomationWorker` 的构建规则位于 `Runtime/AutomationWorker/AutomationWorker.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AutomationWorker` build rule is `Runtime/AutomationWorker/AutomationWorker.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AutomationWorker`：它是测试模块/测试套件（自动化、Gauntlet、Mock）；构建规则 `Runtime/AutomationWorker/AutomationWorker.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AutomationWorker`: it is a test module/suite (automation, Gauntlet, mocks); build rule `Runtime/AutomationWorker/AutomationWorker.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "autortfm",
     "kind": "module",
     "cn_steps": [
-      "用途：`AutoRTFM` 位于 `Runtime`，构建规则 `Runtime/AutoRTFM/AutoRTFM.Build.cs`。描述符未声明依赖。",
+      "`AutoRTFM`（Auto RTFM）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/AutoRTFM/AutoRTFM.Build.cs`。描述符未声明依赖。",
+      "部署：`AutoRTFM` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AutoRTFM\" });`；对外暴露 `AutoRTFM` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AutoRTFM` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AutoRTFM.h` / `AutoRTFMModule.h`），再用 `FModuleManager::LoadModulePtr<AutoRTFMModule>` 或直接使用导出类型。",
-      "传递依赖：`AutoRTFM` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AutoRTFM` lives under `Runtime`; build rule `Runtime/AutoRTFM/AutoRTFM.Build.cs`.The descriptor declares no dependencies.",
+      "`AutoRTFM` (Auto RTFM): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/AutoRTFM/AutoRTFM.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `AutoRTFM` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AutoRTFM\" });`. Use Public when exposing `AutoRTFM` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AutoRTFM` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AutoRTFM.h` / `AutoRTFMModule.h`), then use `FModuleManager::LoadModulePtr<AutoRTFMModule>` or the exported types directly.",
-      "Transitive deps: `AutoRTFM` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AutoRTFM` 的构建规则位于 `Runtime/AutoRTFM/AutoRTFM.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`AutoRTFM` build rule is `Runtime/AutoRTFM/AutoRTFM.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`AutoRTFM`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/AutoRTFM/AutoRTFM.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`AutoRTFM`: it exposes C++ API/functionality to other modules; build rule `Runtime/AutoRTFM/AutoRTFM.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "autortfmtests",
     "kind": "module",
     "cn_steps": [
-      "用途：`AutoRTFMTests` 位于 `Programs`，构建规则 `Programs/AutoRTFMTests/AutoRTFMTests.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetRegistry`, `AutoRTFM`, `Catch2Extras`, `Core`, `CoreUObject`, `DesktopPlatform`, `Internal`。",
+      "`AutoRTFMTests`（Auto RTFM Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/AutoRTFMTests/AutoRTFMTests.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`AssetRegistry`、`AutoRTFM`、`Catch2Extras`、`Core` 等。",
+      "部署：`AutoRTFMTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AutoRTFMTests\" });`；对外暴露 `AutoRTFMTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AutoRTFMTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `AutoRTFMTests.h` / `AutoRTFMTestsModule.h`），再用 `FModuleManager::LoadModulePtr<AutoRTFMTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`AutoRTFMTests` 还依赖 `ApplicationCore`, `AssetRegistry`, `AutoRTFM`, `Catch2Extras`, `Core`, `CoreUObject`, `DesktopPlatform`, `Internal`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `AutoRTFMTests` lives under `Programs`; build rule `Programs/AutoRTFMTests/AutoRTFMTests.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `AutoRTFM`, `Catch2Extras`, `Core`, `CoreUObject`, `DesktopPlatform`, `Internal`.",
+      "`AutoRTFMTests` (Auto RTFM Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/AutoRTFMTests/AutoRTFMTests.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `AutoRTFM`, `Catch2Extras`, `Core` etc.",
+      "Placement: `AutoRTFMTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AutoRTFMTests\" });`. Use Public when exposing `AutoRTFMTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AutoRTFMTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `AutoRTFMTests.h` / `AutoRTFMTestsModule.h`), then use `FModuleManager::LoadModulePtr<AutoRTFMTestsModule>` or the exported types directly.",
-      "Transitive deps: `AutoRTFMTests` also needs `ApplicationCore`, `AssetRegistry`, `AutoRTFM`, `Catch2Extras`, `Core`, `CoreUObject`, `DesktopPlatform`, `Internal`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`AutoRTFMTests` 的构建规则位于 `Programs/AutoRTFMTests/AutoRTFMTests.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AutoRTFMTests` build rule is `Programs/AutoRTFMTests/AutoRTFMTests.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AutoRTFMTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/AutoRTFMTests/AutoRTFMTests.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AutoRTFMTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/AutoRTFMTests/AutoRTFMTests.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "autortfmtestsreloadable",
     "kind": "module",
     "cn_steps": [
-      "用途：`AutoRTFMTestsReloadable` 位于 `Programs`，构建规则 `Programs/AutoRTFMTestsReloadable/AutoRTFMTestsReloadable.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`AutoRTFMTestsReloadable`（Auto RTFM Tests Reloadable）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/AutoRTFMTestsReloadable/AutoRTFMTestsReloadable.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`AutoRTFMTestsReloadable` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AutoRTFMTestsReloadable\" });`；对外暴露 `AutoRTFMTestsReloadable` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AutoRTFMTestsReloadable` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `AutoRTFMTestsReloadable.h` / `AutoRTFMTestsReloadableModule.h`），再用 `FModuleManager::LoadModulePtr<AutoRTFMTestsReloadableModule>` 或直接使用导出类型。",
-      "传递依赖：`AutoRTFMTestsReloadable` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `AutoRTFMTestsReloadable` lives under `Programs`; build rule `Programs/AutoRTFMTestsReloadable/AutoRTFMTestsReloadable.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`AutoRTFMTestsReloadable` (Auto RTFM Tests Reloadable): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/AutoRTFMTestsReloadable/AutoRTFMTestsReloadable.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `AutoRTFMTestsReloadable` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AutoRTFMTestsReloadable\" });`. Use Public when exposing `AutoRTFMTestsReloadable` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AutoRTFMTestsReloadable` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `AutoRTFMTestsReloadable.h` / `AutoRTFMTestsReloadableModule.h`), then use `FModuleManager::LoadModulePtr<AutoRTFMTestsReloadableModule>` or the exported types directly.",
-      "Transitive deps: `AutoRTFMTestsReloadable` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`AutoRTFMTestsReloadable` 的构建规则位于 `Programs/AutoRTFMTestsReloadable/AutoRTFMTestsReloadable.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`AutoRTFMTestsReloadable` build rule is `Programs/AutoRTFMTestsReloadable/AutoRTFMTestsReloadable.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`AutoRTFMTestsReloadable`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/AutoRTFMTestsReloadable/AutoRTFMTestsReloadable.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`AutoRTFMTestsReloadable`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/AutoRTFMTestsReloadable/AutoRTFMTestsReloadable.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "avencoder",
     "kind": "module",
     "cn_steps": [
-      "用途：`AVEncoder` 位于 `Runtime`，构建规则 `Runtime/AVEncoder/AVEncoder.Build.cs`。它直接依赖 6 个模块：`CUDA`, `Core`, `Engine`, `RHI`, `RenderCore`, `SignalProcessing`。",
+      "`AVEncoder`（AV Encoder）：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）。位于 `Runtime`，构建规则 `Runtime/AVEncoder/AVEncoder.Build.cs`。直接依赖 6 个模块：`CUDA`、`Core`、`Engine`、`RHI`、`RenderCore` 等。",
+      "部署：`AVEncoder` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：建 Media Player + Media Source，用 Media Texture 把视频贴到材质/Media Plate 上播放；解码器会接到 Electra/Media Framework。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AVEncoder\" });`；对外暴露 `AVEncoder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AVEncoder` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AVEncoder.h` / `AVEncoderModule.h`），再用 `FModuleManager::LoadModulePtr<AVEncoderModule>` 或直接使用导出类型。",
-      "传递依赖：`AVEncoder` 还依赖 `CUDA`, `Core`, `Engine`, `RHI`, `RenderCore`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AVEncoder` lives under `Runtime`; build rule `Runtime/AVEncoder/AVEncoder.Build.cs`.It directly depends on 6 modules: `CUDA`, `Core`, `Engine`, `RHI`, `RenderCore`, `SignalProcessing`.",
+      "`AVEncoder` (AV Encoder): it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs). Located under `Runtime`; build rule `Runtime/AVEncoder/AVEncoder.Build.cs`. It directly depends on 6 modules: `CUDA`, `Core`, `Engine`, `RHI`, `RenderCore` etc.",
+      "Placement: `AVEncoder` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: create a Media Player + Media Source and play via Media Texture on a material/Media Plate; decoders plug into Electra/Media Framework.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AVEncoder\" });`. Use Public when exposing `AVEncoder` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AVEncoder` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AVEncoder.h` / `AVEncoderModule.h`), then use `FModuleManager::LoadModulePtr<AVEncoderModule>` or the exported types directly.",
-      "Transitive deps: `AVEncoder` also needs `CUDA`, `Core`, `Engine`, `RHI`, `RenderCore`, `SignalProcessing`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AVEncoder` 的构建规则位于 `Runtime/AVEncoder/AVEncoder.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`AVEncoder` build rule is `Runtime/AVEncoder/AVEncoder.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`AVEncoder`：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）；构建规则 `Runtime/AVEncoder/AVEncoder.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`AVEncoder`: it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs); build rule `Runtime/AVEncoder/AVEncoder.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "aviwriter",
     "kind": "module",
     "cn_steps": [
-      "用途：`AVIWriter` 位于 `Runtime`，构建规则 `Runtime/AVIWriter/AVIWriter.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`AVIWriter`（AVI Writer）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/AVIWriter/AVIWriter.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`AVIWriter` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AVIWriter\" });`；对外暴露 `AVIWriter` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AVIWriter` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AVIWriter.h` / `AVIWriterModule.h`），再用 `FModuleManager::LoadModulePtr<AVIWriterModule>` 或直接使用导出类型。",
-      "传递依赖：`AVIWriter` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AVIWriter` lives under `Runtime`; build rule `Runtime/AVIWriter/AVIWriter.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`AVIWriter` (AVI Writer): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/AVIWriter/AVIWriter.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `AVIWriter` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AVIWriter\" });`. Use Public when exposing `AVIWriter` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AVIWriter` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AVIWriter.h` / `AVIWriterModule.h`), then use `FModuleManager::LoadModulePtr<AVIWriterModule>` or the exported types directly.",
-      "Transitive deps: `AVIWriter` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AVIWriter` 的构建规则位于 `Runtime/AVIWriter/AVIWriter.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`AVIWriter` build rule is `Runtime/AVIWriter/AVIWriter.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`AVIWriter`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/AVIWriter/AVIWriter.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`AVIWriter`: it exposes C++ API/functionality to other modules; build rule `Runtime/AVIWriter/AVIWriter.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "backgroundhttp",
     "kind": "module",
     "cn_steps": [
-      "用途：`BackgroundHTTP` 位于 `Runtime`，构建规则 `Runtime/Online/BackgroundHTTP/BackgroundHTTP.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `Core`, `CoreUObject`, `Engine`, `HTTP`。",
+      "`BackgroundHTTP`（Background HTTP）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/BackgroundHTTP/BackgroundHTTP.Build.cs`。直接依赖 7 个模块：`ApplicationCore`、`BackgroundHTTPFileHash`、`BackgroundHttpIOS`、`Core`、`CoreUObject` 等。",
+      "部署：`BackgroundHTTP` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BackgroundHTTP\" });`；对外暴露 `BackgroundHTTP` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BackgroundHTTP` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `BackgroundHTTP.h` / `BackgroundHTTPModule.h`），再用 `FModuleManager::LoadModulePtr<BackgroundHTTPModule>` 或直接使用导出类型。",
-      "传递依赖：`BackgroundHTTP` 还依赖 `ApplicationCore`, `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `Core`, `CoreUObject`, `Engine`, `HTTP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `BackgroundHTTP` lives under `Runtime`; build rule `Runtime/Online/BackgroundHTTP/BackgroundHTTP.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `Core`, `CoreUObject`, `Engine`, `HTTP`.",
+      "`BackgroundHTTP` (Background HTTP): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/BackgroundHTTP/BackgroundHTTP.Build.cs`. It directly depends on 7 modules: `ApplicationCore`, `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `Core`, `CoreUObject` etc.",
+      "Placement: `BackgroundHTTP` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BackgroundHTTP\" });`. Use Public when exposing `BackgroundHTTP` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BackgroundHTTP` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `BackgroundHTTP.h` / `BackgroundHTTPModule.h`), then use `FModuleManager::LoadModulePtr<BackgroundHTTPModule>` or the exported types directly.",
-      "Transitive deps: `BackgroundHTTP` also needs `ApplicationCore`, `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `Core`, `CoreUObject`, `Engine`, `HTTP`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`BackgroundHTTP` 的构建规则位于 `Runtime/Online/BackgroundHTTP/BackgroundHTTP.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`BackgroundHTTP` build rule is `Runtime/Online/BackgroundHTTP/BackgroundHTTP.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`BackgroundHTTP`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/BackgroundHTTP/BackgroundHTTP.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`BackgroundHTTP`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/BackgroundHTTP/BackgroundHTTP.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "backgroundhttpfilehash",
     "kind": "module",
     "cn_steps": [
-      "用途：`BackgroundHTTPFileHash` 位于 `Runtime`，构建规则 `Runtime/Online/BackgroundHTTPFileHash/BackgroundHTTPFileHash.Build.cs`。它直接依赖 2 个模块：`BuildSettings`, `Core`。",
+      "`BackgroundHTTPFileHash`（Background HTTP File Hash）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/BackgroundHTTPFileHash/BackgroundHTTPFileHash.Build.cs`。直接依赖 2 个模块：`BuildSettings`、`Core`。",
+      "部署：`BackgroundHTTPFileHash` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BackgroundHTTPFileHash\" });`；对外暴露 `BackgroundHTTPFileHash` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BackgroundHTTPFileHash` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `BackgroundHTTPFileHash.h` / `BackgroundHTTPFileHashModule.h`），再用 `FModuleManager::LoadModulePtr<BackgroundHTTPFileHashModule>` 或直接使用导出类型。",
-      "传递依赖：`BackgroundHTTPFileHash` 还依赖 `BuildSettings`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `BackgroundHTTPFileHash` lives under `Runtime`; build rule `Runtime/Online/BackgroundHTTPFileHash/BackgroundHTTPFileHash.Build.cs`.It directly depends on 2 modules: `BuildSettings`, `Core`.",
+      "`BackgroundHTTPFileHash` (Background HTTP File Hash): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/BackgroundHTTPFileHash/BackgroundHTTPFileHash.Build.cs`. It directly depends on 2 modules: `BuildSettings`, `Core`.",
+      "Placement: `BackgroundHTTPFileHash` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BackgroundHTTPFileHash\" });`. Use Public when exposing `BackgroundHTTPFileHash` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BackgroundHTTPFileHash` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `BackgroundHTTPFileHash.h` / `BackgroundHTTPFileHashModule.h`), then use `FModuleManager::LoadModulePtr<BackgroundHTTPFileHashModule>` or the exported types directly.",
-      "Transitive deps: `BackgroundHTTPFileHash` also needs `BuildSettings`, `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`BackgroundHTTPFileHash` 的构建规则位于 `Runtime/Online/BackgroundHTTPFileHash/BackgroundHTTPFileHash.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`BackgroundHTTPFileHash` build rule is `Runtime/Online/BackgroundHTTPFileHash/BackgroundHTTPFileHash.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`BackgroundHTTPFileHash`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/BackgroundHTTPFileHash/BackgroundHTTPFileHash.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`BackgroundHTTPFileHash`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/BackgroundHTTPFileHash/BackgroundHTTPFileHash.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "bandwidthdebugdelegates",
     "kind": "module",
     "cn_steps": [
-      "用途：`BandwidthDebugDelegates` 位于 `Runtime`，构建规则 `Runtime/Online/Experimental/BandwidthDebugDelegates/BandwidthDebugDelegates.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`BandwidthDebugDelegates`（Bandwidth Debug Delegates）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/Experimental/BandwidthDebugDelegates/BandwidthDebugDelegates.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`BandwidthDebugDelegates` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BandwidthDebugDelegates\" });`；对外暴露 `BandwidthDebugDelegates` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BandwidthDebugDelegates` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `BandwidthDebugDelegates.h` / `BandwidthDebugDelegatesModule.h`），再用 `FModuleManager::LoadModulePtr<BandwidthDebugDelegatesModule>` 或直接使用导出类型。",
-      "传递依赖：`BandwidthDebugDelegates` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`BandwidthDebugDelegates` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `BandwidthDebugDelegates` lives under `Runtime`; build rule `Runtime/Online/Experimental/BandwidthDebugDelegates/BandwidthDebugDelegates.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`BandwidthDebugDelegates` (Bandwidth Debug Delegates): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/Experimental/BandwidthDebugDelegates/BandwidthDebugDelegates.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `BandwidthDebugDelegates` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BandwidthDebugDelegates\" });`. Use Public when exposing `BandwidthDebugDelegates` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BandwidthDebugDelegates` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `BandwidthDebugDelegates.h` / `BandwidthDebugDelegatesModule.h`), then use `FModuleManager::LoadModulePtr<BandwidthDebugDelegatesModule>` or the exported types directly.",
-      "Transitive deps: `BandwidthDebugDelegates` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers.",
-      "Note: `BandwidthDebugDelegates` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`BandwidthDebugDelegates` 的构建规则位于 `Runtime/Online/Experimental/BandwidthDebugDelegates/BandwidthDebugDelegates.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`BandwidthDebugDelegates` build rule is `Runtime/Online/Experimental/BandwidthDebugDelegates/BandwidthDebugDelegates.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`BandwidthDebugDelegates`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/Experimental/BandwidthDebugDelegates/BandwidthDebugDelegates.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`BandwidthDebugDelegates`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/Experimental/BandwidthDebugDelegates/BandwidthDebugDelegates.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "bandwidthmeasurementtool",
     "kind": "module",
     "cn_steps": [
-      "用途：`BandwidthMeasurementTool` 位于 `Engine`，构建规则 `Engine/Source/Runtime/Online/Experimental/BandwidthMeasurementTool/BandwidthMeasurementTool.Build.cs`。描述符未声明依赖。",
+      "`BandwidthMeasurementTool`（Bandwidth Measurement Tool）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Engine`，构建规则 `Engine/Source/Runtime/Online/Experimental/BandwidthMeasurementTool/BandwidthMeasurementTool.Build.cs`。描述符未声明依赖。",
+      "部署：`BandwidthMeasurementTool` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BandwidthMeasurementTool\" });`；对外暴露 `BandwidthMeasurementTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BandwidthMeasurementTool` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `BandwidthMeasurementTool.h` / `BandwidthMeasurementToolModule.h`），再用 `FModuleManager::LoadModulePtr<BandwidthMeasurementToolModule>` 或直接使用导出类型。",
-      "传递依赖：`BandwidthMeasurementTool` 未声明额外公开依赖，通常只依赖引擎基础层。",
-      "注意：`BandwidthMeasurementTool` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `BandwidthMeasurementTool` lives under `Engine`; build rule `Engine/Source/Runtime/Online/Experimental/BandwidthMeasurementTool/BandwidthMeasurementTool.Build.cs`.The descriptor declares no dependencies.",
+      "`BandwidthMeasurementTool` (Bandwidth Measurement Tool): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Engine`; build rule `Engine/Source/Runtime/Online/Experimental/BandwidthMeasurementTool/BandwidthMeasurementTool.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `BandwidthMeasurementTool` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BandwidthMeasurementTool\" });`. Use Public when exposing `BandwidthMeasurementTool` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BandwidthMeasurementTool` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `BandwidthMeasurementTool.h` / `BandwidthMeasurementToolModule.h`), then use `FModuleManager::LoadModulePtr<BandwidthMeasurementToolModule>` or the exported types directly.",
-      "Transitive deps: `BandwidthMeasurementTool` declares no extra public deps; it typically relies on engine basics.",
-      "Note: `BandwidthMeasurementTool` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`BandwidthMeasurementTool` 的构建规则位于 `Engine/Source/Runtime/Online/Experimental/BandwidthMeasurementTool/BandwidthMeasurementTool.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`BandwidthMeasurementTool` build rule is `Engine/Source/Runtime/Online/Experimental/BandwidthMeasurementTool/BandwidthMeasurementTool.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`BandwidthMeasurementTool`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Engine/Source/Runtime/Online/Experimental/BandwidthMeasurementTool/BandwidthMeasurementTool.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`BandwidthMeasurementTool`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Engine/Source/Runtime/Online/Experimental/BandwidthMeasurementTool/BandwidthMeasurementTool.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "basetexturebuildworker",
     "kind": "module",
     "cn_steps": [
-      "用途：`BaseTextureBuildWorker` 位于 `Programs`，构建规则 `Programs/BaseTextureBuildWorker/BaseTextureBuildWorker.Build.cs`。它直接依赖 8 个模块：`Core`, `TextureBuild`, `TextureBuildUtilities`, `TextureFormat`, `TextureFormatASTC`, `TextureFormatETC2`, `TextureFormatOodle`, `TextureFormatUncompressed`。",
+      "`BaseTextureBuildWorker`（Base Texture Build Worker）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/BaseTextureBuildWorker/BaseTextureBuildWorker.Build.cs`。直接依赖 8 个模块：`Core`、`TextureBuild`、`TextureBuildUtilities`、`TextureFormat`、`TextureFormatASTC` 等。",
+      "部署：`BaseTextureBuildWorker` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BaseTextureBuildWorker\" });`；对外暴露 `BaseTextureBuildWorker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BaseTextureBuildWorker` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `BaseTextureBuildWorker.h` / `BaseTextureBuildWorkerModule.h`），再用 `FModuleManager::LoadModulePtr<BaseTextureBuildWorkerModule>` 或直接使用导出类型。",
-      "传递依赖：`BaseTextureBuildWorker` 还依赖 `Core`, `TextureBuild`, `TextureBuildUtilities`, `TextureFormat`, `TextureFormatASTC`, `TextureFormatETC2`, `TextureFormatOodle`, `TextureFormatUncompressed`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `BaseTextureBuildWorker` lives under `Programs`; build rule `Programs/BaseTextureBuildWorker/BaseTextureBuildWorker.Build.cs`.It directly depends on 8 modules: `Core`, `TextureBuild`, `TextureBuildUtilities`, `TextureFormat`, `TextureFormatASTC`, `TextureFormatETC2`, `TextureFormatOodle`, `TextureFormatUncompressed`.",
+      "`BaseTextureBuildWorker` (Base Texture Build Worker): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/BaseTextureBuildWorker/BaseTextureBuildWorker.Build.cs`. It directly depends on 8 modules: `Core`, `TextureBuild`, `TextureBuildUtilities`, `TextureFormat`, `TextureFormatASTC` etc.",
+      "Placement: `BaseTextureBuildWorker` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BaseTextureBuildWorker\" });`. Use Public when exposing `BaseTextureBuildWorker` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BaseTextureBuildWorker` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `BaseTextureBuildWorker.h` / `BaseTextureBuildWorkerModule.h`), then use `FModuleManager::LoadModulePtr<BaseTextureBuildWorkerModule>` or the exported types directly.",
-      "Transitive deps: `BaseTextureBuildWorker` also needs `Core`, `TextureBuild`, `TextureBuildUtilities`, `TextureFormat`, `TextureFormatASTC`, `TextureFormatETC2`, `TextureFormatOodle`, `TextureFormatUncompressed`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`BaseTextureBuildWorker` 的构建规则位于 `Programs/BaseTextureBuildWorker/BaseTextureBuildWorker.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`BaseTextureBuildWorker` build rule is `Programs/BaseTextureBuildWorker/BaseTextureBuildWorker.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`BaseTextureBuildWorker`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/BaseTextureBuildWorker/BaseTextureBuildWorker.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`BaseTextureBuildWorker`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/BaseTextureBuildWorker/BaseTextureBuildWorker.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "behaviortreeeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`BehaviorTreeEditor` 位于 `Editor`，构建规则 `Editor/BehaviorTreeEditor/BehaviorTreeEditor.Build.cs`。它直接依赖 8 个模块：`AIGraph`, `AIModule`, `ApplicationCore`, `AssetDefinition`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorStyle`。",
+      "`BehaviorTreeEditor`（Behavior Tree Editor）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Editor`，构建规则 `Editor/BehaviorTreeEditor/BehaviorTreeEditor.Build.cs`。直接依赖 8 个模块：`AIGraph`、`AIModule`、`ApplicationCore`、`AssetDefinition`、`BlueprintGraph` 等。",
+      "部署：`BehaviorTreeEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BehaviorTreeEditor\" });`；对外暴露 `BehaviorTreeEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BehaviorTreeEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `BehaviorTreeEditor.h` / `BehaviorTreeEditorModule.h`），再用 `FModuleManager::LoadModulePtr<BehaviorTreeEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`BehaviorTreeEditor` 还依赖 `AIGraph`, `AIModule`, `ApplicationCore`, `AssetDefinition`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorStyle`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `BehaviorTreeEditor` lives under `Editor`; build rule `Editor/BehaviorTreeEditor/BehaviorTreeEditor.Build.cs`.It directly depends on 8 modules: `AIGraph`, `AIModule`, `ApplicationCore`, `AssetDefinition`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorStyle`.",
+      "`BehaviorTreeEditor` (Behavior Tree Editor): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Editor`; build rule `Editor/BehaviorTreeEditor/BehaviorTreeEditor.Build.cs`. It directly depends on 8 modules: `AIGraph`, `AIModule`, `ApplicationCore`, `AssetDefinition`, `BlueprintGraph` etc.",
+      "Placement: `BehaviorTreeEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BehaviorTreeEditor\" });`. Use Public when exposing `BehaviorTreeEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BehaviorTreeEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `BehaviorTreeEditor.h` / `BehaviorTreeEditorModule.h`), then use `FModuleManager::LoadModulePtr<BehaviorTreeEditorModule>` or the exported types directly.",
-      "Transitive deps: `BehaviorTreeEditor` also needs `AIGraph`, `AIModule`, `ApplicationCore`, `AssetDefinition`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorStyle`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`BehaviorTreeEditor` 的构建规则位于 `Editor/BehaviorTreeEditor/BehaviorTreeEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`BehaviorTreeEditor` build rule is `Editor/BehaviorTreeEditor/BehaviorTreeEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`BehaviorTreeEditor`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Editor/BehaviorTreeEditor/BehaviorTreeEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`BehaviorTreeEditor`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Editor/BehaviorTreeEditor/BehaviorTreeEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "benchmarktool",
     "kind": "module",
     "cn_steps": [
-      "用途：`BenchmarkTool` 位于 `Programs`，构建规则 `Programs/BenchmarkTool/BenchmarkTool.Build.cs`。它直接依赖 2 个模块：`Core`, `Projects`。",
+      "`BenchmarkTool`（Benchmark Tool）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/BenchmarkTool/BenchmarkTool.Build.cs`。直接依赖 2 个模块：`Core`、`Projects`。",
+      "部署：`BenchmarkTool` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BenchmarkTool\" });`；对外暴露 `BenchmarkTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BenchmarkTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `BenchmarkTool.h` / `BenchmarkToolModule.h`），再用 `FModuleManager::LoadModulePtr<BenchmarkToolModule>` 或直接使用导出类型。",
-      "传递依赖：`BenchmarkTool` 还依赖 `Core`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `BenchmarkTool` lives under `Programs`; build rule `Programs/BenchmarkTool/BenchmarkTool.Build.cs`.It directly depends on 2 modules: `Core`, `Projects`.",
+      "`BenchmarkTool` (Benchmark Tool): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/BenchmarkTool/BenchmarkTool.Build.cs`. It directly depends on 2 modules: `Core`, `Projects`.",
+      "Placement: `BenchmarkTool` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BenchmarkTool\" });`. Use Public when exposing `BenchmarkTool` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BenchmarkTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `BenchmarkTool.h` / `BenchmarkToolModule.h`), then use `FModuleManager::LoadModulePtr<BenchmarkToolModule>` or the exported types directly.",
-      "Transitive deps: `BenchmarkTool` also needs `Core`, `Projects`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`BenchmarkTool` 的构建规则位于 `Programs/BenchmarkTool/BenchmarkTool.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`BenchmarkTool` build rule is `Programs/BenchmarkTool/BenchmarkTool.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`BenchmarkTool`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/BenchmarkTool/BenchmarkTool.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`BenchmarkTool`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/BenchmarkTool/BenchmarkTool.Build.cs`; depends on 2 modules."
   }
 ]

@@ -3,300 +3,300 @@
     "slug": "asdcore",
     "kind": "module",
     "cn_steps": [
-      "用途：`ASDCore` 位于 `Runtime`，构建规则 `Runtime/Windows/ASDCore/ASDCore.Build.cs`。它直接依赖 3 个模块：`Core`, `HTTP`, `Json`。",
+      "`ASDCore`（ASD Core）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/Windows/ASDCore/ASDCore.Build.cs`。直接依赖 3 个模块：`Core`、`HTTP`、`Json`。",
+      "部署：`ASDCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ASDCore\" });`；对外暴露 `ASDCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ASDCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `ASDCore.h` / `ASDCoreModule.h`），再用 `FModuleManager::LoadModulePtr<ASDCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`ASDCore` 还依赖 `Core`, `HTTP`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ASDCore` lives under `Runtime`; build rule `Runtime/Windows/ASDCore/ASDCore.Build.cs`.It directly depends on 3 modules: `Core`, `HTTP`, `Json`.",
+      "`ASDCore` (ASD Core): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/Windows/ASDCore/ASDCore.Build.cs`. It directly depends on 3 modules: `Core`, `HTTP`, `Json`.",
+      "Placement: `ASDCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ASDCore\" });`. Use Public when exposing `ASDCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ASDCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `ASDCore.h` / `ASDCoreModule.h`), then use `FModuleManager::LoadModulePtr<ASDCoreModule>` or the exported types directly.",
-      "Transitive deps: `ASDCore` also needs `Core`, `HTTP`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ASDCore` 的构建规则位于 `Runtime/Windows/ASDCore/ASDCore.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`ASDCore` build rule is `Runtime/Windows/ASDCore/ASDCore.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`ASDCore`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/Windows/ASDCore/ASDCore.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`ASDCore`: it exposes C++ API/functionality to other modules; build rule `Runtime/Windows/ASDCore/ASDCore.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "asdtool",
     "kind": "module",
     "cn_steps": [
-      "用途：`ASDTool` 位于 `Programs`，构建规则 `Programs/Windows/ASDTool/ASDTool.Build.cs`。它直接依赖 8 个模块：`ASDCore`, `ApplicationCore`, `BuildPatchServices`, `Core`, `CoreUObject`, `D3D12RHI`, `DerivedDataCache`, `DistributedBuildInterface`。",
+      "`ASDTool`（ASD Tool）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Windows/ASDTool/ASDTool.Build.cs`。直接依赖 8 个模块：`ASDCore`、`ApplicationCore`、`BuildPatchServices`、`Core`、`CoreUObject` 等。",
+      "部署：`ASDTool` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ASDTool\" });`；对外暴露 `ASDTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ASDTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `ASDTool.h` / `ASDToolModule.h`），再用 `FModuleManager::LoadModulePtr<ASDToolModule>` 或直接使用导出类型。",
-      "传递依赖：`ASDTool` 还依赖 `ASDCore`, `ApplicationCore`, `BuildPatchServices`, `Core`, `CoreUObject`, `D3D12RHI`, `DerivedDataCache`, `DistributedBuildInterface`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `ASDTool` lives under `Programs`; build rule `Programs/Windows/ASDTool/ASDTool.Build.cs`.It directly depends on 8 modules: `ASDCore`, `ApplicationCore`, `BuildPatchServices`, `Core`, `CoreUObject`, `D3D12RHI`, `DerivedDataCache`, `DistributedBuildInterface`.",
+      "`ASDTool` (ASD Tool): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Windows/ASDTool/ASDTool.Build.cs`. It directly depends on 8 modules: `ASDCore`, `ApplicationCore`, `BuildPatchServices`, `Core`, `CoreUObject` etc.",
+      "Placement: `ASDTool` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ASDTool\" });`. Use Public when exposing `ASDTool` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ASDTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `ASDTool.h` / `ASDToolModule.h`), then use `FModuleManager::LoadModulePtr<ASDToolModule>` or the exported types directly.",
-      "Transitive deps: `ASDTool` also needs `ASDCore`, `ApplicationCore`, `BuildPatchServices`, `Core`, `CoreUObject`, `D3D12RHI`, `DerivedDataCache`, `DistributedBuildInterface`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`ASDTool` 的构建规则位于 `Programs/Windows/ASDTool/ASDTool.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`ASDTool` build rule is `Programs/Windows/ASDTool/ASDTool.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`ASDTool`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Windows/ASDTool/ASDTool.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`ASDTool`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Windows/ASDTool/ASDTool.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "asio",
     "kind": "module",
     "cn_steps": [
-      "用途：`Asio` 位于 `ThirdParty`，构建规则 `ThirdParty/asio/Asio.Build.cs`。它直接依赖 2 个模块：`Core`, `OpenSSL`。",
+      "`Asio`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/asio/Asio.Build.cs`。直接依赖 2 个模块：`Core`、`OpenSSL`。",
+      "部署：`Asio` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Asio\" });`；对外暴露 `Asio` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Asio` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Asio.h` / `AsioModule.h`），再用 `FModuleManager::LoadModulePtr<AsioModule>` 或直接使用导出类型。",
-      "传递依赖：`Asio` 还依赖 `Core`, `OpenSSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Asio` lives under `ThirdParty`; build rule `ThirdParty/asio/Asio.Build.cs`.It directly depends on 2 modules: `Core`, `OpenSSL`.",
+      "`Asio`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/asio/Asio.Build.cs`. It directly depends on 2 modules: `Core`, `OpenSSL`.",
+      "Placement: `Asio` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Asio\" });`. Use Public when exposing `Asio` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Asio` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Asio.h` / `AsioModule.h`), then use `FModuleManager::LoadModulePtr<AsioModule>` or the exported types directly.",
-      "Transitive deps: `Asio` also needs `Core`, `OpenSSL`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Asio` 的构建规则位于 `ThirdParty/asio/Asio.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`Asio` build rule is `ThirdParty/asio/Asio.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`Asio`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/asio/Asio.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`Asio`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/asio/Asio.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "assetdefinition",
     "kind": "module",
     "cn_steps": [
-      "用途：`AssetDefinition` 位于 `Editor`，构建规则 `Editor/AssetDefinition/AssetDefinition.Build.cs`。描述符未声明依赖。",
+      "`AssetDefinition`（Asset Definition）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/AssetDefinition/AssetDefinition.Build.cs`。描述符未声明依赖。",
+      "部署：`AssetDefinition` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AssetDefinition\" });`；对外暴露 `AssetDefinition` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AssetDefinition` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `AssetDefinition.h` / `AssetDefinitionModule.h`），再用 `FModuleManager::LoadModulePtr<AssetDefinitionModule>` 或直接使用导出类型。",
-      "传递依赖：`AssetDefinition` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AssetDefinition` lives under `Editor`; build rule `Editor/AssetDefinition/AssetDefinition.Build.cs`.The descriptor declares no dependencies.",
+      "`AssetDefinition` (Asset Definition): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/AssetDefinition/AssetDefinition.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `AssetDefinition` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AssetDefinition\" });`. Use Public when exposing `AssetDefinition` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AssetDefinition` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `AssetDefinition.h` / `AssetDefinitionModule.h`), then use `FModuleManager::LoadModulePtr<AssetDefinitionModule>` or the exported types directly.",
-      "Transitive deps: `AssetDefinition` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AssetDefinition` 的构建规则位于 `Editor/AssetDefinition/AssetDefinition.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`AssetDefinition` build rule is `Editor/AssetDefinition/AssetDefinition.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`AssetDefinition`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/AssetDefinition/AssetDefinition.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`AssetDefinition`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/AssetDefinition/AssetDefinition.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "assetregistry",
     "kind": "module",
     "cn_steps": [
-      "用途：`AssetRegistry` 位于 `Runtime`，构建规则 `Runtime/AssetRegistry/AssetRegistry.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `PakFile`, `Projects`, `TelemetryUtils`, `TraceLog`。",
+      "`AssetRegistry`（Asset Registry）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/AssetRegistry/AssetRegistry.Build.cs`。直接依赖 7 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`PakFile`、`Projects` 等。",
+      "部署：`AssetRegistry` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AssetRegistry\" });`；对外暴露 `AssetRegistry` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AssetRegistry` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AssetRegistry.h` / `AssetRegistryModule.h`），再用 `FModuleManager::LoadModulePtr<AssetRegistryModule>` 或直接使用导出类型。",
-      "传递依赖：`AssetRegistry` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `PakFile`, `Projects`, `TelemetryUtils`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AssetRegistry` lives under `Runtime`; build rule `Runtime/AssetRegistry/AssetRegistry.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `Core`, `CoreUObject`, `PakFile`, `Projects`, `TelemetryUtils`, `TraceLog`.",
+      "`AssetRegistry` (Asset Registry): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/AssetRegistry/AssetRegistry.Build.cs`. It directly depends on 7 modules: `ApplicationCore`, `Core`, `CoreUObject`, `PakFile`, `Projects` etc.",
+      "Placement: `AssetRegistry` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AssetRegistry\" });`. Use Public when exposing `AssetRegistry` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AssetRegistry` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AssetRegistry.h` / `AssetRegistryModule.h`), then use `FModuleManager::LoadModulePtr<AssetRegistryModule>` or the exported types directly.",
-      "Transitive deps: `AssetRegistry` also needs `ApplicationCore`, `Core`, `CoreUObject`, `PakFile`, `Projects`, `TelemetryUtils`, `TraceLog`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AssetRegistry` 的构建规则位于 `Runtime/AssetRegistry/AssetRegistry.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`AssetRegistry` build rule is `Runtime/AssetRegistry/AssetRegistry.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`AssetRegistry`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/AssetRegistry/AssetRegistry.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`AssetRegistry`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/AssetRegistry/AssetRegistry.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "assetstatuscontributor",
     "kind": "module",
     "cn_steps": [
-      "用途：`AssetStatusContributor` 位于 `Developer`，构建规则 `Developer/AssetStatusContributor/AssetStatusContributor.Build.cs`。它直接依赖 3 个模块：`Core`, `Slate`, `SlateCore`。",
+      "`AssetStatusContributor`（Asset Status Contributor）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/AssetStatusContributor/AssetStatusContributor.Build.cs`。直接依赖 3 个模块：`Core`、`Slate`、`SlateCore`。",
+      "部署：`AssetStatusContributor` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AssetStatusContributor\" });`；对外暴露 `AssetStatusContributor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AssetStatusContributor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `AssetStatusContributor.h` / `AssetStatusContributorModule.h`），再用 `FModuleManager::LoadModulePtr<AssetStatusContributorModule>` 或直接使用导出类型。",
-      "传递依赖：`AssetStatusContributor` 还依赖 `Core`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AssetStatusContributor` lives under `Developer`; build rule `Developer/AssetStatusContributor/AssetStatusContributor.Build.cs`.It directly depends on 3 modules: `Core`, `Slate`, `SlateCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AssetStatusContributor\" });`. Use Public when exposing `AssetStatusContributor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`AssetStatusContributor` (Asset Status Contributor): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/AssetStatusContributor/AssetStatusContributor.Build.cs`. It directly depends on 3 modules: `Core`, `Slate`, `SlateCore`.",
       "Placement: `AssetStatusContributor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `AssetStatusContributor.h` / `AssetStatusContributorModule.h`), then use `FModuleManager::LoadModulePtr<AssetStatusContributorModule>` or the exported types directly.",
-      "Transitive deps: `AssetStatusContributor` also needs `Core`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AssetStatusContributor\" });`. Use Public when exposing `AssetStatusContributor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AssetStatusContributor` 的构建规则位于 `Developer/AssetStatusContributor/AssetStatusContributor.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AssetStatusContributor` build rule is `Developer/AssetStatusContributor/AssetStatusContributor.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AssetStatusContributor`：它向其他模块提供 C++ API/功能；构建规则 `Developer/AssetStatusContributor/AssetStatusContributor.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AssetStatusContributor`: it exposes C++ API/functionality to other modules; build rule `Developer/AssetStatusContributor/AssetStatusContributor.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "assettagseditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`AssetTagsEditor` 位于 `Editor`，构建规则 `Editor/AssetTagsEditor/AssetTagsEditor.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Slate`, `SlateCore`。",
+      "`AssetTagsEditor`（Asset Tags Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/AssetTagsEditor/AssetTagsEditor.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`Slate`、`SlateCore`。",
+      "部署：`AssetTagsEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AssetTagsEditor\" });`；对外暴露 `AssetTagsEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AssetTagsEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `AssetTagsEditor.h` / `AssetTagsEditorModule.h`），再用 `FModuleManager::LoadModulePtr<AssetTagsEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`AssetTagsEditor` 还依赖 `Core`, `CoreUObject`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AssetTagsEditor` lives under `Editor`; build rule `Editor/AssetTagsEditor/AssetTagsEditor.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Slate`, `SlateCore`.",
+      "`AssetTagsEditor` (Asset Tags Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/AssetTagsEditor/AssetTagsEditor.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `Slate`, `SlateCore`.",
+      "Placement: `AssetTagsEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AssetTagsEditor\" });`. Use Public when exposing `AssetTagsEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AssetTagsEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `AssetTagsEditor.h` / `AssetTagsEditorModule.h`), then use `FModuleManager::LoadModulePtr<AssetTagsEditorModule>` or the exported types directly.",
-      "Transitive deps: `AssetTagsEditor` also needs `Core`, `CoreUObject`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AssetTagsEditor` 的构建规则位于 `Editor/AssetTagsEditor/AssetTagsEditor.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`AssetTagsEditor` build rule is `Editor/AssetTagsEditor/AssetTagsEditor.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`AssetTagsEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/AssetTagsEditor/AssetTagsEditor.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`AssetTagsEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/AssetTagsEditor/AssetTagsEditor.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "assettools",
     "kind": "module",
     "cn_steps": [
-      "用途：`AssetTools` 位于 `Developer`，构建规则 `Developer/AssetTools/AssetTools.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `BlueprintGraph`, `ClassViewer`, `ContentBrowserData`, `Core`, `CoreUObject`。",
+      "`AssetTools`（Asset Tools）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Developer`，构建规则 `Developer/AssetTools/AssetTools.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`AssetDefinition`、`AssetRegistry`、`BlueprintGraph`、`ClassViewer` 等。",
+      "部署：`AssetTools` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AssetTools\" });`；对外暴露 `AssetTools` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AssetTools` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `AssetTools.h` / `AssetToolsModule.h`），再用 `FModuleManager::LoadModulePtr<AssetToolsModule>` 或直接使用导出类型。",
-      "传递依赖：`AssetTools` 还依赖 `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `BlueprintGraph`, `ClassViewer`, `ContentBrowserData`, `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AssetTools` lives under `Developer`; build rule `Developer/AssetTools/AssetTools.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `BlueprintGraph`, `ClassViewer`, `ContentBrowserData`, `Core`, `CoreUObject`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AssetTools\" });`. Use Public when exposing `AssetTools` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`AssetTools` (Asset Tools): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Developer`; build rule `Developer/AssetTools/AssetTools.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `BlueprintGraph`, `ClassViewer` etc.",
       "Placement: `AssetTools` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `AssetTools.h` / `AssetToolsModule.h`), then use `FModuleManager::LoadModulePtr<AssetToolsModule>` or the exported types directly.",
-      "Transitive deps: `AssetTools` also needs `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `BlueprintGraph`, `ClassViewer`, `ContentBrowserData`, `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AssetTools\" });`. Use Public when exposing `AssetTools` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AssetTools` 的构建规则位于 `Developer/AssetTools/AssetTools.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AssetTools` build rule is `Developer/AssetTools/AssetTools.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AssetTools`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Developer/AssetTools/AssetTools.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AssetTools`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Developer/AssetTools/AssetTools.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "astcenc",
     "kind": "module",
     "cn_steps": [
-      "用途：`astcenc` 位于 `ThirdParty`，构建规则 `ThirdParty/astcenc/astcenc.Build.cs`。描述符未声明依赖。",
+      "`astcenc`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/astcenc/astcenc.Build.cs`。描述符未声明依赖。",
+      "部署：`astcenc` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"astcenc\" });`；对外暴露 `astcenc` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`astcenc` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `astcenc.h` / `astcencModule.h`），再用 `FModuleManager::LoadModulePtr<astcencModule>` 或直接使用导出类型。",
-      "传递依赖：`astcenc` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `astcenc` lives under `ThirdParty`; build rule `ThirdParty/astcenc/astcenc.Build.cs`.The descriptor declares no dependencies.",
+      "`astcenc`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/astcenc/astcenc.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `astcenc` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"astcenc\" });`. Use Public when exposing `astcenc` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `astcenc` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `astcenc.h` / `astcencModule.h`), then use `FModuleManager::LoadModulePtr<astcencModule>` or the exported types directly.",
-      "Transitive deps: `astcenc` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`astcenc` 的构建规则位于 `ThirdParty/astcenc/astcenc.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`astcenc` build rule is `ThirdParty/astcenc/astcenc.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`astcenc`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/astcenc/astcenc.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`astcenc`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/astcenc/astcenc.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "asyncfunctionresult",
     "kind": "module",
     "cn_steps": [
-      "用途：`AsyncFunctionResult` 位于 `Runtime`，构建规则 `Runtime/AsyncFunctionResult/AsyncFunctionResult.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Json`, `JsonUtilities`。",
+      "`AsyncFunctionResult`（Async Function Result）：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）。位于 `Runtime`，构建规则 `Runtime/AsyncFunctionResult/AsyncFunctionResult.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`Json`、`JsonUtilities`。",
+      "部署：`AsyncFunctionResult` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：几乎被所有模块间接依赖；一般无需显式添加，除非你在写底层插件或工具。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AsyncFunctionResult\" });`；对外暴露 `AsyncFunctionResult` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AsyncFunctionResult` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AsyncFunctionResult.h` / `AsyncFunctionResultModule.h`），再用 `FModuleManager::LoadModulePtr<AsyncFunctionResultModule>` 或直接使用导出类型。",
-      "传递依赖：`AsyncFunctionResult` 还依赖 `Core`, `CoreUObject`, `Json`, `JsonUtilities`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AsyncFunctionResult` lives under `Runtime`; build rule `Runtime/AsyncFunctionResult/AsyncFunctionResult.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Json`, `JsonUtilities`.",
+      "`AsyncFunctionResult` (Async Function Result): it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata). Located under `Runtime`; build rule `Runtime/AsyncFunctionResult/AsyncFunctionResult.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `Json`, `JsonUtilities`.",
+      "Placement: `AsyncFunctionResult` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: almost every module depends on it transitively; you rarely add it explicitly unless writing low-level plugins/tools.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AsyncFunctionResult\" });`. Use Public when exposing `AsyncFunctionResult` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AsyncFunctionResult` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AsyncFunctionResult.h` / `AsyncFunctionResultModule.h`), then use `FModuleManager::LoadModulePtr<AsyncFunctionResultModule>` or the exported types directly.",
-      "Transitive deps: `AsyncFunctionResult` also needs `Core`, `CoreUObject`, `Json`, `JsonUtilities`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AsyncFunctionResult` 的构建规则位于 `Runtime/AsyncFunctionResult/AsyncFunctionResult.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`AsyncFunctionResult` build rule is `Runtime/AsyncFunctionResult/AsyncFunctionResult.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`AsyncFunctionResult`：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）；构建规则 `Runtime/AsyncFunctionResult/AsyncFunctionResult.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`AsyncFunctionResult`: it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata); build rule `Runtime/AsyncFunctionResult/AsyncFunctionResult.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "asyncfunctionresulteditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`AsyncFunctionResultEditor` 位于 `Editor`，构建规则 `Editor/AsyncFunctionResultEditor/AsyncFunctionResultEditor.Build.cs`。它直接依赖 5 个模块：`AsyncFunctionResult`, `Core`, `CoreUObject`, `Engine`, `UnrealEd`。",
+      "`AsyncFunctionResultEditor`（Async Function Result Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/AsyncFunctionResultEditor/AsyncFunctionResultEditor.Build.cs`。直接依赖 5 个模块：`AsyncFunctionResult`、`Core`、`CoreUObject`、`Engine`、`UnrealEd`。",
+      "部署：`AsyncFunctionResultEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AsyncFunctionResultEditor\" });`；对外暴露 `AsyncFunctionResultEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AsyncFunctionResultEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `AsyncFunctionResultEditor.h` / `AsyncFunctionResultEditorModule.h`），再用 `FModuleManager::LoadModulePtr<AsyncFunctionResultEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`AsyncFunctionResultEditor` 还依赖 `AsyncFunctionResult`, `Core`, `CoreUObject`, `Engine`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AsyncFunctionResultEditor` lives under `Editor`; build rule `Editor/AsyncFunctionResultEditor/AsyncFunctionResultEditor.Build.cs`.It directly depends on 5 modules: `AsyncFunctionResult`, `Core`, `CoreUObject`, `Engine`, `UnrealEd`.",
+      "`AsyncFunctionResultEditor` (Async Function Result Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/AsyncFunctionResultEditor/AsyncFunctionResultEditor.Build.cs`. It directly depends on 5 modules: `AsyncFunctionResult`, `Core`, `CoreUObject`, `Engine`, `UnrealEd`.",
+      "Placement: `AsyncFunctionResultEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AsyncFunctionResultEditor\" });`. Use Public when exposing `AsyncFunctionResultEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AsyncFunctionResultEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `AsyncFunctionResultEditor.h` / `AsyncFunctionResultEditorModule.h`), then use `FModuleManager::LoadModulePtr<AsyncFunctionResultEditorModule>` or the exported types directly.",
-      "Transitive deps: `AsyncFunctionResultEditor` also needs `AsyncFunctionResult`, `Core`, `CoreUObject`, `Engine`, `UnrealEd`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AsyncFunctionResultEditor` 的构建规则位于 `Editor/AsyncFunctionResultEditor/AsyncFunctionResultEditor.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`AsyncFunctionResultEditor` build rule is `Editor/AsyncFunctionResultEditor/AsyncFunctionResultEditor.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`AsyncFunctionResultEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/AsyncFunctionResultEditor/AsyncFunctionResultEditor.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`AsyncFunctionResultEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/AsyncFunctionResultEditor/AsyncFunctionResultEditor.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "atomicqueue",
     "kind": "module",
     "cn_steps": [
-      "用途：`AtomicQueue` 位于 `ThirdParty`，构建规则 `ThirdParty/AtomicQueue/AtomicQueue.Build.cs`。描述符未声明依赖。",
+      "`AtomicQueue`（Atomic Queue）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/AtomicQueue/AtomicQueue.Build.cs`。描述符未声明依赖。",
+      "部署：`AtomicQueue` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AtomicQueue\" });`；对外暴露 `AtomicQueue` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AtomicQueue` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `AtomicQueue.h` / `AtomicQueueModule.h`），再用 `FModuleManager::LoadModulePtr<AtomicQueueModule>` 或直接使用导出类型。",
-      "传递依赖：`AtomicQueue` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `AtomicQueue` lives under `ThirdParty`; build rule `ThirdParty/AtomicQueue/AtomicQueue.Build.cs`.The descriptor declares no dependencies.",
+      "`AtomicQueue` (Atomic Queue): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/AtomicQueue/AtomicQueue.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `AtomicQueue` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AtomicQueue\" });`. Use Public when exposing `AtomicQueue` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AtomicQueue` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `AtomicQueue.h` / `AtomicQueueModule.h`), then use `FModuleManager::LoadModulePtr<AtomicQueueModule>` or the exported types directly.",
-      "Transitive deps: `AtomicQueue` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`AtomicQueue` 的构建规则位于 `ThirdParty/AtomicQueue/AtomicQueue.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`AtomicQueue` build rule is `ThirdParty/AtomicQueue/AtomicQueue.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`AtomicQueue`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/AtomicQueue/AtomicQueue.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`AtomicQueue`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/AtomicQueue/AtomicQueue.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "audioanalyzer",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioAnalyzer` 位于 `Runtime`，构建规则 `Runtime/AudioAnalyzer/AudioAnalyzer.Build.cs`。它直接依赖 5 个模块：`AudioMixer`, `Core`, `CoreUObject`, `Engine`, `SignalProcessing`。",
+      "`AudioAnalyzer`（Audio Analyzer）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioAnalyzer/AudioAnalyzer.Build.cs`。直接依赖 5 个模块：`AudioMixer`、`Core`、`CoreUObject`、`Engine`、`SignalProcessing`。",
+      "部署：`AudioAnalyzer` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioAnalyzer\" });`；对外暴露 `AudioAnalyzer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioAnalyzer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioAnalyzer.h` / `AudioAnalyzerModule.h`），再用 `FModuleManager::LoadModulePtr<AudioAnalyzerModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioAnalyzer` 还依赖 `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioAnalyzer` lives under `Runtime`; build rule `Runtime/AudioAnalyzer/AudioAnalyzer.Build.cs`.It directly depends on 5 modules: `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `SignalProcessing`.",
+      "`AudioAnalyzer` (Audio Analyzer): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioAnalyzer/AudioAnalyzer.Build.cs`. It directly depends on 5 modules: `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `SignalProcessing`.",
+      "Placement: `AudioAnalyzer` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioAnalyzer\" });`. Use Public when exposing `AudioAnalyzer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioAnalyzer` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioAnalyzer.h` / `AudioAnalyzerModule.h`), then use `FModuleManager::LoadModulePtr<AudioAnalyzerModule>` or the exported types directly.",
-      "Transitive deps: `AudioAnalyzer` also needs `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `SignalProcessing`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioAnalyzer` 的构建规则位于 `Runtime/AudioAnalyzer/AudioAnalyzer.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`AudioAnalyzer` build rule is `Runtime/AudioAnalyzer/AudioAnalyzer.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`AudioAnalyzer`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioAnalyzer/AudioAnalyzer.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`AudioAnalyzer`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioAnalyzer/AudioAnalyzer.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "audiocaptureandroid",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioCaptureAndroid` 位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/Android/AudioCaptureAndroid/AudioCaptureAndroid.Build.cs`。它直接依赖 3 个模块：`AudioCaptureCore`, `Core`, `GoogleOboe`。",
+      "`AudioCaptureAndroid`（Audio Capture Android）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/Android/AudioCaptureAndroid/AudioCaptureAndroid.Build.cs`。直接依赖 3 个模块：`AudioCaptureCore`、`Core`、`GoogleOboe`。",
+      "部署：`AudioCaptureAndroid` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureAndroid\" });`；对外暴露 `AudioCaptureAndroid` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioCaptureAndroid` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioCaptureAndroid.h` / `AudioCaptureAndroidModule.h`），再用 `FModuleManager::LoadModulePtr<AudioCaptureAndroidModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioCaptureAndroid` 还依赖 `AudioCaptureCore`, `Core`, `GoogleOboe`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioCaptureAndroid` lives under `Runtime`; build rule `Runtime/AudioCaptureImplementations/Android/AudioCaptureAndroid/AudioCaptureAndroid.Build.cs`.It directly depends on 3 modules: `AudioCaptureCore`, `Core`, `GoogleOboe`.",
+      "`AudioCaptureAndroid` (Audio Capture Android): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Runtime`; build rule `Runtime/AudioCaptureImplementations/Android/AudioCaptureAndroid/AudioCaptureAndroid.Build.cs`. It directly depends on 3 modules: `AudioCaptureCore`, `Core`, `GoogleOboe`.",
+      "Placement: `AudioCaptureAndroid` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureAndroid\" });`. Use Public when exposing `AudioCaptureAndroid` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioCaptureAndroid` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioCaptureAndroid.h` / `AudioCaptureAndroidModule.h`), then use `FModuleManager::LoadModulePtr<AudioCaptureAndroidModule>` or the exported types directly.",
-      "Transitive deps: `AudioCaptureAndroid` also needs `AudioCaptureCore`, `Core`, `GoogleOboe`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioCaptureAndroid` 的构建规则位于 `Runtime/AudioCaptureImplementations/Android/AudioCaptureAndroid/AudioCaptureAndroid.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AudioCaptureAndroid` build rule is `Runtime/AudioCaptureImplementations/Android/AudioCaptureAndroid/AudioCaptureAndroid.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AudioCaptureAndroid`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Runtime/AudioCaptureImplementations/Android/AudioCaptureAndroid/AudioCaptureAndroid.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AudioCaptureAndroid`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Runtime/AudioCaptureImplementations/Android/AudioCaptureAndroid/AudioCaptureAndroid.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "audiocaptureaudiounit",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioCaptureAudioUnit` 位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/IOS/AudioCaptureAudioUnit/AudioCaptureAudioUnit.Build.cs`。它直接依赖 2 个模块：`AudioCaptureCore`, `Core`。",
+      "`AudioCaptureAudioUnit`（Audio Capture Audio Unit）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/IOS/AudioCaptureAudioUnit/AudioCaptureAudioUnit.Build.cs`。直接依赖 2 个模块：`AudioCaptureCore`、`Core`。",
+      "部署：`AudioCaptureAudioUnit` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureAudioUnit\" });`；对外暴露 `AudioCaptureAudioUnit` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioCaptureAudioUnit` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioCaptureAudioUnit.h` / `AudioCaptureAudioUnitModule.h`），再用 `FModuleManager::LoadModulePtr<AudioCaptureAudioUnitModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioCaptureAudioUnit` 还依赖 `AudioCaptureCore`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioCaptureAudioUnit` lives under `Runtime`; build rule `Runtime/AudioCaptureImplementations/IOS/AudioCaptureAudioUnit/AudioCaptureAudioUnit.Build.cs`.It directly depends on 2 modules: `AudioCaptureCore`, `Core`.",
+      "`AudioCaptureAudioUnit` (Audio Capture Audio Unit): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioCaptureImplementations/IOS/AudioCaptureAudioUnit/AudioCaptureAudioUnit.Build.cs`. It directly depends on 2 modules: `AudioCaptureCore`, `Core`.",
+      "Placement: `AudioCaptureAudioUnit` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureAudioUnit\" });`. Use Public when exposing `AudioCaptureAudioUnit` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioCaptureAudioUnit` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioCaptureAudioUnit.h` / `AudioCaptureAudioUnitModule.h`), then use `FModuleManager::LoadModulePtr<AudioCaptureAudioUnitModule>` or the exported types directly.",
-      "Transitive deps: `AudioCaptureAudioUnit` also needs `AudioCaptureCore`, `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioCaptureAudioUnit` 的构建规则位于 `Runtime/AudioCaptureImplementations/IOS/AudioCaptureAudioUnit/AudioCaptureAudioUnit.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`AudioCaptureAudioUnit` build rule is `Runtime/AudioCaptureImplementations/IOS/AudioCaptureAudioUnit/AudioCaptureAudioUnit.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`AudioCaptureAudioUnit`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioCaptureImplementations/IOS/AudioCaptureAudioUnit/AudioCaptureAudioUnit.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`AudioCaptureAudioUnit`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioCaptureImplementations/IOS/AudioCaptureAudioUnit/AudioCaptureAudioUnit.Build.cs`; depends on 2 modules."
   }
 ]

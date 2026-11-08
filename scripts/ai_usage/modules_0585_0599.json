@@ -1,302 +1,302 @@
 [
   {
+    "slug": "persona",
+    "kind": "module",
+    "cn_steps": [
+      "`Persona`：它属于动画系统（骨架、动画图、Control Rig、IK、姿态、MetaHuman/DNA）。位于 `Editor`，构建规则 `Editor/Persona/Persona.Build.cs`。直接依赖 8 个模块：`AdvancedPreviewScene`、`AnimGraph`、`AnimGraphRuntime`、`AnimationBlueprintLibrary`、`AnimationEditMode` 等。",
+      "部署：`Persona` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：把资产挂到骨架网格体、在动画蓝图或 Sequencer 轨道采样；动画逻辑放在 AnimGraph 或 C++ AnimNode。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Persona\" });`；对外暴露 `Persona` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`Persona`: it is part of the animation system (skeleton, anim graph, Control Rig, IK, pose, MetaHuman/DNA). Located under `Editor`; build rule `Editor/Persona/Persona.Build.cs`. It directly depends on 8 modules: `AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `AnimationBlueprintLibrary`, `AnimationEditMode` etc.",
+      "Placement: `Persona` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: attach assets to a skeletal mesh and sample in AnimBP or Sequencer; animation logic lives in AnimGraph or C++ AnimNodes.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Persona\" });`. Use Public when exposing `Persona` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`Persona`：它属于动画系统（骨架、动画图、Control Rig、IK、姿态、MetaHuman/DNA）；构建规则 `Editor/Persona/Persona.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`Persona`: it is part of the animation system (skeleton, anim graph, Control Rig, IK, pose, MetaHuman/DNA); build rule `Editor/Persona/Persona.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "physicsasseteditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`PhysicsAssetEditor` 位于 `Editor`，构建规则 `Editor/PhysicsAssetEditor/PhysicsAssetEditor.Build.cs`。它直接依赖 8 个模块：`AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `ApplicationCore`, `Core`, `CoreUObject`, `DetailCustomizations`, `EditorFramework`。",
+      "`PhysicsAssetEditor`（Physics Asset Editor）：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）。位于 `Editor`，构建规则 `Editor/PhysicsAssetEditor/PhysicsAssetEditor.Build.cs`。直接依赖 8 个模块：`AdvancedPreviewScene`、`AnimGraph`、`AnimGraphRuntime`、`ApplicationCore`、`Core` 等。",
+      "部署：`PhysicsAssetEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：给网格开启物理/Chaos，放置字段或破坏资产；运行时由物理系统模拟，代码里查询碰撞与物理状态。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PhysicsAssetEditor\" });`；对外暴露 `PhysicsAssetEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PhysicsAssetEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `PhysicsAssetEditor.h` / `PhysicsAssetEditorModule.h`），再用 `FModuleManager::LoadModulePtr<PhysicsAssetEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`PhysicsAssetEditor` 还依赖 `AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `ApplicationCore`, `Core`, `CoreUObject`, `DetailCustomizations`, `EditorFramework`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PhysicsAssetEditor` lives under `Editor`; build rule `Editor/PhysicsAssetEditor/PhysicsAssetEditor.Build.cs`.It directly depends on 8 modules: `AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `ApplicationCore`, `Core`, `CoreUObject`, `DetailCustomizations`, `EditorFramework`.",
+      "`PhysicsAssetEditor` (Physics Asset Editor): it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields). Located under `Editor`; build rule `Editor/PhysicsAssetEditor/PhysicsAssetEditor.Build.cs`. It directly depends on 8 modules: `AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `ApplicationCore`, `Core` etc.",
+      "Placement: `PhysicsAssetEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: enable physics/Chaos on meshes and place fields or destruction assets; the physics system simulates at runtime and you query collisions/state from code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PhysicsAssetEditor\" });`. Use Public when exposing `PhysicsAssetEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PhysicsAssetEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `PhysicsAssetEditor.h` / `PhysicsAssetEditorModule.h`), then use `FModuleManager::LoadModulePtr<PhysicsAssetEditorModule>` or the exported types directly.",
-      "Transitive deps: `PhysicsAssetEditor` also needs `AdvancedPreviewScene`, `AnimGraph`, `AnimGraphRuntime`, `ApplicationCore`, `Core`, `CoreUObject`, `DetailCustomizations`, `EditorFramework`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PhysicsAssetEditor` 的构建规则位于 `Editor/PhysicsAssetEditor/PhysicsAssetEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`PhysicsAssetEditor` build rule is `Editor/PhysicsAssetEditor/PhysicsAssetEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`PhysicsAssetEditor`：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）；构建规则 `Editor/PhysicsAssetEditor/PhysicsAssetEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`PhysicsAssetEditor`: it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields); build rule `Editor/PhysicsAssetEditor/PhysicsAssetEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "physicscore",
     "kind": "module",
     "cn_steps": [
-      "用途：`PhysicsCore` 位于 `Runtime`，构建规则 `Runtime/PhysicsCore/PhysicsCore.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `DeveloperSettings`。",
+      "`PhysicsCore`（Physics Core）：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）。位于 `Runtime`，构建规则 `Runtime/PhysicsCore/PhysicsCore.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`DeveloperSettings`。",
+      "部署：`PhysicsCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给网格开启物理/Chaos，放置字段或破坏资产；运行时由物理系统模拟，代码里查询碰撞与物理状态。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PhysicsCore\" });`；对外暴露 `PhysicsCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PhysicsCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `PhysicsCore.h` / `PhysicsCoreModule.h`），再用 `FModuleManager::LoadModulePtr<PhysicsCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`PhysicsCore` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PhysicsCore` lives under `Runtime`; build rule `Runtime/PhysicsCore/PhysicsCore.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `DeveloperSettings`.",
+      "`PhysicsCore` (Physics Core): it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields). Located under `Runtime`; build rule `Runtime/PhysicsCore/PhysicsCore.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `DeveloperSettings`.",
+      "Placement: `PhysicsCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: enable physics/Chaos on meshes and place fields or destruction assets; the physics system simulates at runtime and you query collisions/state from code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PhysicsCore\" });`. Use Public when exposing `PhysicsCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PhysicsCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `PhysicsCore.h` / `PhysicsCoreModule.h`), then use `FModuleManager::LoadModulePtr<PhysicsCoreModule>` or the exported types directly.",
-      "Transitive deps: `PhysicsCore` also needs `Core`, `CoreUObject`, `DeveloperSettings`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PhysicsCore` 的构建规则位于 `Runtime/PhysicsCore/PhysicsCore.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`PhysicsCore` build rule is `Runtime/PhysicsCore/PhysicsCore.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`PhysicsCore`：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）；构建规则 `Runtime/PhysicsCore/PhysicsCore.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`PhysicsCore`: it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields); build rule `Runtime/PhysicsCore/PhysicsCore.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "physicsutilities",
     "kind": "module",
     "cn_steps": [
-      "用途：`PhysicsUtilities` 位于 `Developer`，构建规则 `Developer/PhysicsUtilities/PhysicsUtilities.Build.cs`。它直接依赖 8 个模块：`Chaos`, `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `MeshUtilitiesCommon`, `MeshUtilitiesEngine`, `PhysicsCore`。",
+      "`PhysicsUtilities`（Physics Utilities）：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）。位于 `Developer`，构建规则 `Developer/PhysicsUtilities/PhysicsUtilities.Build.cs`。直接依赖 8 个模块：`Chaos`、`Core`、`CoreUObject`、`Engine`、`GeometryCore` 等。",
+      "部署：`PhysicsUtilities` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：给网格开启物理/Chaos，放置字段或破坏资产；运行时由物理系统模拟，代码里查询碰撞与物理状态。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PhysicsUtilities\" });`；对外暴露 `PhysicsUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PhysicsUtilities` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `PhysicsUtilities.h` / `PhysicsUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<PhysicsUtilitiesModule>` 或直接使用导出类型。",
-      "传递依赖：`PhysicsUtilities` 还依赖 `Chaos`, `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `MeshUtilitiesCommon`, `MeshUtilitiesEngine`, `PhysicsCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PhysicsUtilities` lives under `Developer`; build rule `Developer/PhysicsUtilities/PhysicsUtilities.Build.cs`.It directly depends on 8 modules: `Chaos`, `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `MeshUtilitiesCommon`, `MeshUtilitiesEngine`, `PhysicsCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PhysicsUtilities\" });`. Use Public when exposing `PhysicsUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`PhysicsUtilities` (Physics Utilities): it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields). Located under `Developer`; build rule `Developer/PhysicsUtilities/PhysicsUtilities.Build.cs`. It directly depends on 8 modules: `Chaos`, `Core`, `CoreUObject`, `Engine`, `GeometryCore` etc.",
       "Placement: `PhysicsUtilities` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `PhysicsUtilities.h` / `PhysicsUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<PhysicsUtilitiesModule>` or the exported types directly.",
-      "Transitive deps: `PhysicsUtilities` also needs `Chaos`, `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `MeshUtilitiesCommon`, `MeshUtilitiesEngine`, `PhysicsCore`; do not re-list them unless you include their headers."
+      "How to use: enable physics/Chaos on meshes and place fields or destruction assets; the physics system simulates at runtime and you query collisions/state from code.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PhysicsUtilities\" });`. Use Public when exposing `PhysicsUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PhysicsUtilities` 的构建规则位于 `Developer/PhysicsUtilities/PhysicsUtilities.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`PhysicsUtilities` build rule is `Developer/PhysicsUtilities/PhysicsUtilities.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`PhysicsUtilities`：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）；构建规则 `Developer/PhysicsUtilities/PhysicsUtilities.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`PhysicsUtilities`: it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields); build rule `Developer/PhysicsUtilities/PhysicsUtilities.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "piepreviewdeviceprofileselector",
     "kind": "module",
     "cn_steps": [
-      "用途：`PIEPreviewDeviceProfileSelector` 位于 `Editor`，构建规则 `Editor/PIEPreviewDeviceProfileSelector/PIEPreviewDeviceProfileSelector.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Json`, `JsonUtilities`, `MaterialShaderQualitySettings`。",
+      "`PIEPreviewDeviceProfileSelector`（PIE Preview Device Profile Selector）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Editor`，构建规则 `Editor/PIEPreviewDeviceProfileSelector/PIEPreviewDeviceProfileSelector.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`EditorFramework`、`Engine` 等。",
+      "部署：`PIEPreviewDeviceProfileSelector` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PIEPreviewDeviceProfileSelector\" });`；对外暴露 `PIEPreviewDeviceProfileSelector` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PIEPreviewDeviceProfileSelector` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `PIEPreviewDeviceProfileSelector.h` / `PIEPreviewDeviceProfileSelectorModule.h`），再用 `FModuleManager::LoadModulePtr<PIEPreviewDeviceProfileSelectorModule>` 或直接使用导出类型。",
-      "传递依赖：`PIEPreviewDeviceProfileSelector` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Json`, `JsonUtilities`, `MaterialShaderQualitySettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PIEPreviewDeviceProfileSelector` lives under `Editor`; build rule `Editor/PIEPreviewDeviceProfileSelector/PIEPreviewDeviceProfileSelector.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Json`, `JsonUtilities`, `MaterialShaderQualitySettings`.",
+      "`PIEPreviewDeviceProfileSelector` (PIE Preview Device Profile Selector): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Editor`; build rule `Editor/PIEPreviewDeviceProfileSelector/PIEPreviewDeviceProfileSelector.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine` etc.",
+      "Placement: `PIEPreviewDeviceProfileSelector` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PIEPreviewDeviceProfileSelector\" });`. Use Public when exposing `PIEPreviewDeviceProfileSelector` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PIEPreviewDeviceProfileSelector` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `PIEPreviewDeviceProfileSelector.h` / `PIEPreviewDeviceProfileSelectorModule.h`), then use `FModuleManager::LoadModulePtr<PIEPreviewDeviceProfileSelectorModule>` or the exported types directly.",
-      "Transitive deps: `PIEPreviewDeviceProfileSelector` also needs `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Json`, `JsonUtilities`, `MaterialShaderQualitySettings`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PIEPreviewDeviceProfileSelector` 的构建规则位于 `Editor/PIEPreviewDeviceProfileSelector/PIEPreviewDeviceProfileSelector.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`PIEPreviewDeviceProfileSelector` build rule is `Editor/PIEPreviewDeviceProfileSelector/PIEPreviewDeviceProfileSelector.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`PIEPreviewDeviceProfileSelector`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Editor/PIEPreviewDeviceProfileSelector/PIEPreviewDeviceProfileSelector.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`PIEPreviewDeviceProfileSelector`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Editor/PIEPreviewDeviceProfileSelector/PIEPreviewDeviceProfileSelector.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "piepreviewdevicespecification",
     "kind": "module",
     "cn_steps": [
-      "用途：`PIEPreviewDeviceSpecification` 位于 `Editor`，构建规则 `Editor/PIEPreviewDeviceSpecification/PIEPreviewDeviceSpecification.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`PIEPreviewDeviceSpecification`（PIE Preview Device Specification）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/PIEPreviewDeviceSpecification/PIEPreviewDeviceSpecification.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`PIEPreviewDeviceSpecification` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PIEPreviewDeviceSpecification\" });`；对外暴露 `PIEPreviewDeviceSpecification` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PIEPreviewDeviceSpecification` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `PIEPreviewDeviceSpecification.h` / `PIEPreviewDeviceSpecificationModule.h`），再用 `FModuleManager::LoadModulePtr<PIEPreviewDeviceSpecificationModule>` 或直接使用导出类型。",
-      "传递依赖：`PIEPreviewDeviceSpecification` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PIEPreviewDeviceSpecification` lives under `Editor`; build rule `Editor/PIEPreviewDeviceSpecification/PIEPreviewDeviceSpecification.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`PIEPreviewDeviceSpecification` (PIE Preview Device Specification): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/PIEPreviewDeviceSpecification/PIEPreviewDeviceSpecification.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `PIEPreviewDeviceSpecification` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PIEPreviewDeviceSpecification\" });`. Use Public when exposing `PIEPreviewDeviceSpecification` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PIEPreviewDeviceSpecification` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `PIEPreviewDeviceSpecification.h` / `PIEPreviewDeviceSpecificationModule.h`), then use `FModuleManager::LoadModulePtr<PIEPreviewDeviceSpecificationModule>` or the exported types directly.",
-      "Transitive deps: `PIEPreviewDeviceSpecification` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PIEPreviewDeviceSpecification` 的构建规则位于 `Editor/PIEPreviewDeviceSpecification/PIEPreviewDeviceSpecification.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`PIEPreviewDeviceSpecification` build rule is `Editor/PIEPreviewDeviceSpecification/PIEPreviewDeviceSpecification.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`PIEPreviewDeviceSpecification`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/PIEPreviewDeviceSpecification/PIEPreviewDeviceSpecification.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`PIEPreviewDeviceSpecification`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/PIEPreviewDeviceSpecification/PIEPreviewDeviceSpecification.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "pinnedcommandlist",
     "kind": "module",
     "cn_steps": [
-      "用途：`PinnedCommandList` 位于 `Editor`，构建规则 `Editor/PinnedCommandList/PinnedCommandList.Build.cs`。它直接依赖 6 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`。",
+      "`PinnedCommandList`（Pinned Command List）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/PinnedCommandList/PinnedCommandList.Build.cs`。直接依赖 6 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`InputCore`、`Slate` 等。",
+      "部署：`PinnedCommandList` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PinnedCommandList\" });`；对外暴露 `PinnedCommandList` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PinnedCommandList` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `PinnedCommandList.h` / `PinnedCommandListModule.h`），再用 `FModuleManager::LoadModulePtr<PinnedCommandListModule>` 或直接使用导出类型。",
-      "传递依赖：`PinnedCommandList` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PinnedCommandList` lives under `Editor`; build rule `Editor/PinnedCommandList/PinnedCommandList.Build.cs`.It directly depends on 6 modules: `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`.",
+      "`PinnedCommandList` (Pinned Command List): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/PinnedCommandList/PinnedCommandList.Build.cs`. It directly depends on 6 modules: `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate` etc.",
+      "Placement: `PinnedCommandList` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PinnedCommandList\" });`. Use Public when exposing `PinnedCommandList` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PinnedCommandList` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `PinnedCommandList.h` / `PinnedCommandListModule.h`), then use `FModuleManager::LoadModulePtr<PinnedCommandListModule>` or the exported types directly.",
-      "Transitive deps: `PinnedCommandList` also needs `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PinnedCommandList` 的构建规则位于 `Editor/PinnedCommandList/PinnedCommandList.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`PinnedCommandList` build rule is `Editor/PinnedCommandList/PinnedCommandList.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`PinnedCommandList`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/PinnedCommandList/PinnedCommandList.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`PinnedCommandList`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/PinnedCommandList/PinnedCommandList.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "pixelinspectormodule",
     "kind": "module",
     "cn_steps": [
-      "用途：`PixelInspectorModule` 位于 `Editor`，构建规则 `Editor/PixelInspector/PixelInspectorModule.Build.cs`。它直接依赖 8 个模块：`AsyncFunctionResult`, `Core`, `CoreUObject`, `EditorFramework`, `EditorSubsystem`, `EditorViewport`, `Engine`, `InputCore`。",
+      "`PixelInspectorModule`（Pixel Inspector Module）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/PixelInspector/PixelInspectorModule.Build.cs`。直接依赖 8 个模块：`AsyncFunctionResult`、`Core`、`CoreUObject`、`EditorFramework`、`EditorSubsystem` 等。",
+      "部署：`PixelInspectorModule` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PixelInspectorModule\" });`；对外暴露 `PixelInspectorModule` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PixelInspectorModule` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `PixelInspectorModule.h` / `PixelInspectorModuleModule.h`），再用 `FModuleManager::LoadModulePtr<PixelInspectorModuleModule>` 或直接使用导出类型。",
-      "传递依赖：`PixelInspectorModule` 还依赖 `AsyncFunctionResult`, `Core`, `CoreUObject`, `EditorFramework`, `EditorSubsystem`, `EditorViewport`, `Engine`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PixelInspectorModule` lives under `Editor`; build rule `Editor/PixelInspector/PixelInspectorModule.Build.cs`.It directly depends on 8 modules: `AsyncFunctionResult`, `Core`, `CoreUObject`, `EditorFramework`, `EditorSubsystem`, `EditorViewport`, `Engine`, `InputCore`.",
+      "`PixelInspectorModule` (Pixel Inspector Module): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/PixelInspector/PixelInspectorModule.Build.cs`. It directly depends on 8 modules: `AsyncFunctionResult`, `Core`, `CoreUObject`, `EditorFramework`, `EditorSubsystem` etc.",
+      "Placement: `PixelInspectorModule` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PixelInspectorModule\" });`. Use Public when exposing `PixelInspectorModule` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PixelInspectorModule` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `PixelInspectorModule.h` / `PixelInspectorModuleModule.h`), then use `FModuleManager::LoadModulePtr<PixelInspectorModuleModule>` or the exported types directly.",
-      "Transitive deps: `PixelInspectorModule` also needs `AsyncFunctionResult`, `Core`, `CoreUObject`, `EditorFramework`, `EditorSubsystem`, `EditorViewport`, `Engine`, `InputCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PixelInspectorModule` 的构建规则位于 `Editor/PixelInspector/PixelInspectorModule.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`PixelInspectorModule` build rule is `Editor/PixelInspector/PixelInspectorModule.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`PixelInspectorModule`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/PixelInspector/PixelInspectorModule.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`PixelInspectorModule`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/PixelInspector/PixelInspectorModule.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "placementmode",
     "kind": "module",
     "cn_steps": [
-      "用途：`PlacementMode` 位于 `Editor`，构建规则 `Editor/PlacementMode/PlacementMode.Build.cs`。它直接依赖 8 个模块：`AssetTools`, `BlueprintGraph`, `CollectionManager`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`。",
+      "`PlacementMode`（Placement Mode）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/PlacementMode/PlacementMode.Build.cs`。直接依赖 8 个模块：`AssetTools`、`BlueprintGraph`、`CollectionManager`、`ContentBrowser`、`ContentBrowserData` 等。",
+      "部署：`PlacementMode` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PlacementMode\" });`；对外暴露 `PlacementMode` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PlacementMode` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `PlacementMode.h` / `PlacementModeModule.h`），再用 `FModuleManager::LoadModulePtr<PlacementModeModule>` 或直接使用导出类型。",
-      "传递依赖：`PlacementMode` 还依赖 `AssetTools`, `BlueprintGraph`, `CollectionManager`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PlacementMode` lives under `Editor`; build rule `Editor/PlacementMode/PlacementMode.Build.cs`.It directly depends on 8 modules: `AssetTools`, `BlueprintGraph`, `CollectionManager`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`.",
+      "`PlacementMode` (Placement Mode): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/PlacementMode/PlacementMode.Build.cs`. It directly depends on 8 modules: `AssetTools`, `BlueprintGraph`, `CollectionManager`, `ContentBrowser`, `ContentBrowserData` etc.",
+      "Placement: `PlacementMode` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PlacementMode\" });`. Use Public when exposing `PlacementMode` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PlacementMode` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `PlacementMode.h` / `PlacementModeModule.h`), then use `FModuleManager::LoadModulePtr<PlacementModeModule>` or the exported types directly.",
-      "Transitive deps: `PlacementMode` also needs `AssetTools`, `BlueprintGraph`, `CollectionManager`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PlacementMode` 的构建规则位于 `Editor/PlacementMode/PlacementMode.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`PlacementMode` build rule is `Editor/PlacementMode/PlacementMode.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`PlacementMode`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/PlacementMode/PlacementMode.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`PlacementMode`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/PlacementMode/PlacementMode.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "plainpropstests",
     "kind": "module",
     "cn_steps": [
-      "用途：`PlainPropsTests` 位于 `Engine`，构建规则 `Engine/Source/Programs/PlainPropsTests/PlainPropsTests.Build.cs`。描述符未声明依赖。",
+      "`PlainPropsTests`（Plain Props Tests）：它是测试模块/测试套件（自动化、Gauntlet、Mock）。位于 `Engine`，构建规则 `Engine/Source/Programs/PlainPropsTests/PlainPropsTests.Build.cs`。描述符未声明依赖。",
+      "部署：`PlainPropsTests` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Session Frontend/自动化里运行，或由 CI 触发对应自动化目标；不要打进发行版本。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PlainPropsTests\" });`；对外暴露 `PlainPropsTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PlainPropsTests` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `PlainPropsTests.h` / `PlainPropsTestsModule.h`），再用 `FModuleManager::LoadModulePtr<PlainPropsTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`PlainPropsTests` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PlainPropsTests` lives under `Engine`; build rule `Engine/Source/Programs/PlainPropsTests/PlainPropsTests.Build.cs`.The descriptor declares no dependencies.",
+      "`PlainPropsTests` (Plain Props Tests): it is a test module/suite (automation, Gauntlet, mocks). Located under `Engine`; build rule `Engine/Source/Programs/PlainPropsTests/PlainPropsTests.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `PlainPropsTests` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: run it from Session Frontend/automation or trigger the matching target from CI; do not ship it.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PlainPropsTests\" });`. Use Public when exposing `PlainPropsTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PlainPropsTests` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `PlainPropsTests.h` / `PlainPropsTestsModule.h`), then use `FModuleManager::LoadModulePtr<PlainPropsTestsModule>` or the exported types directly.",
-      "Transitive deps: `PlainPropsTests` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PlainPropsTests` 的构建规则位于 `Engine/Source/Programs/PlainPropsTests/PlainPropsTests.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`PlainPropsTests` build rule is `Engine/Source/Programs/PlainPropsTests/PlainPropsTests.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`PlainPropsTests`：它是测试模块/测试套件（自动化、Gauntlet、Mock）；构建规则 `Engine/Source/Programs/PlainPropsTests/PlainPropsTests.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`PlainPropsTests`: it is a test module/suite (automation, Gauntlet, mocks); build rule `Engine/Source/Programs/PlainPropsTests/PlainPropsTests.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "platformwritedebug",
     "kind": "module",
     "cn_steps": [
-      "用途：`PlatformWriteDebug` 位于 `Runtime`，构建规则 `Runtime/PlatformWriteDebug/PlatformWriteDebug.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `Engine`, `PlatformWriteMonitor`, `RenderCore`。",
+      "`PlatformWriteDebug`（Platform Write Debug）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/PlatformWriteDebug/PlatformWriteDebug.Build.cs`。直接依赖 5 个模块：`Core`、`CoreUObject`、`Engine`、`PlatformWriteMonitor`、`RenderCore`。",
+      "部署：`PlatformWriteDebug` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PlatformWriteDebug\" });`；对外暴露 `PlatformWriteDebug` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PlatformWriteDebug` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `PlatformWriteDebug.h` / `PlatformWriteDebugModule.h`），再用 `FModuleManager::LoadModulePtr<PlatformWriteDebugModule>` 或直接使用导出类型。",
-      "传递依赖：`PlatformWriteDebug` 还依赖 `Core`, `CoreUObject`, `Engine`, `PlatformWriteMonitor`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PlatformWriteDebug` lives under `Runtime`; build rule `Runtime/PlatformWriteDebug/PlatformWriteDebug.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `Engine`, `PlatformWriteMonitor`, `RenderCore`.",
+      "`PlatformWriteDebug` (Platform Write Debug): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/PlatformWriteDebug/PlatformWriteDebug.Build.cs`. It directly depends on 5 modules: `Core`, `CoreUObject`, `Engine`, `PlatformWriteMonitor`, `RenderCore`.",
+      "Placement: `PlatformWriteDebug` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PlatformWriteDebug\" });`. Use Public when exposing `PlatformWriteDebug` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PlatformWriteDebug` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `PlatformWriteDebug.h` / `PlatformWriteDebugModule.h`), then use `FModuleManager::LoadModulePtr<PlatformWriteDebugModule>` or the exported types directly.",
-      "Transitive deps: `PlatformWriteDebug` also needs `Core`, `CoreUObject`, `Engine`, `PlatformWriteMonitor`, `RenderCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PlatformWriteDebug` 的构建规则位于 `Runtime/PlatformWriteDebug/PlatformWriteDebug.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`PlatformWriteDebug` build rule is `Runtime/PlatformWriteDebug/PlatformWriteDebug.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`PlatformWriteDebug`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/PlatformWriteDebug/PlatformWriteDebug.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`PlatformWriteDebug`: it exposes C++ API/functionality to other modules; build rule `Runtime/PlatformWriteDebug/PlatformWriteDebug.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "platformwritemonitor",
     "kind": "module",
     "cn_steps": [
-      "用途：`PlatformWriteMonitor` 位于 `Runtime`，构建规则 `Runtime/PlatformWriteMonitor/PlatformWriteMonitor.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`PlatformWriteMonitor`（Platform Write Monitor）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/PlatformWriteMonitor/PlatformWriteMonitor.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`PlatformWriteMonitor` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PlatformWriteMonitor\" });`；对外暴露 `PlatformWriteMonitor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PlatformWriteMonitor` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `PlatformWriteMonitor.h` / `PlatformWriteMonitorModule.h`），再用 `FModuleManager::LoadModulePtr<PlatformWriteMonitorModule>` 或直接使用导出类型。",
-      "传递依赖：`PlatformWriteMonitor` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PlatformWriteMonitor` lives under `Runtime`; build rule `Runtime/PlatformWriteMonitor/PlatformWriteMonitor.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`PlatformWriteMonitor` (Platform Write Monitor): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/PlatformWriteMonitor/PlatformWriteMonitor.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `PlatformWriteMonitor` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PlatformWriteMonitor\" });`. Use Public when exposing `PlatformWriteMonitor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PlatformWriteMonitor` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `PlatformWriteMonitor.h` / `PlatformWriteMonitorModule.h`), then use `FModuleManager::LoadModulePtr<PlatformWriteMonitorModule>` or the exported types directly.",
-      "Transitive deps: `PlatformWriteMonitor` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PlatformWriteMonitor` 的构建规则位于 `Runtime/PlatformWriteMonitor/PlatformWriteMonitor.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`PlatformWriteMonitor` build rule is `Runtime/PlatformWriteMonitor/PlatformWriteMonitor.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`PlatformWriteMonitor`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/PlatformWriteMonitor/PlatformWriteMonitor.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`PlatformWriteMonitor`: it exposes C++ API/functionality to other modules; build rule `Runtime/PlatformWriteMonitor/PlatformWriteMonitor.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "playerinputdebuggerlaunch",
     "kind": "module",
     "cn_steps": [
-      "用途：`PlayerInputDebuggerLaunch` 位于 `Programs`，构建规则 `Programs/PlayerInputDebugger/PlayerInputDebuggerLaunch.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Messaging`, `MessagingCommon`, `OutputLog`。",
+      "`PlayerInputDebuggerLaunch`（Player Input Debugger Launch）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/PlayerInputDebugger/PlayerInputDebuggerLaunch.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`DesktopPlatform`、`InputCore` 等。",
+      "部署：`PlayerInputDebuggerLaunch` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PlayerInputDebuggerLaunch\" });`；对外暴露 `PlayerInputDebuggerLaunch` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PlayerInputDebuggerLaunch` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `PlayerInputDebuggerLaunch.h` / `PlayerInputDebuggerLaunchModule.h`），再用 `FModuleManager::LoadModulePtr<PlayerInputDebuggerLaunchModule>` 或直接使用导出类型。",
-      "传递依赖：`PlayerInputDebuggerLaunch` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Messaging`, `MessagingCommon`, `OutputLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `PlayerInputDebuggerLaunch` lives under `Programs`; build rule `Programs/PlayerInputDebugger/PlayerInputDebuggerLaunch.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Messaging`, `MessagingCommon`, `OutputLog`.",
+      "`PlayerInputDebuggerLaunch` (Player Input Debugger Launch): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/PlayerInputDebugger/PlayerInputDebuggerLaunch.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore` etc.",
+      "Placement: `PlayerInputDebuggerLaunch` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PlayerInputDebuggerLaunch\" });`. Use Public when exposing `PlayerInputDebuggerLaunch` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PlayerInputDebuggerLaunch` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `PlayerInputDebuggerLaunch.h` / `PlayerInputDebuggerLaunchModule.h`), then use `FModuleManager::LoadModulePtr<PlayerInputDebuggerLaunchModule>` or the exported types directly.",
-      "Transitive deps: `PlayerInputDebuggerLaunch` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Messaging`, `MessagingCommon`, `OutputLog`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`PlayerInputDebuggerLaunch` 的构建规则位于 `Programs/PlayerInputDebugger/PlayerInputDebuggerLaunch.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`PlayerInputDebuggerLaunch` build rule is `Programs/PlayerInputDebugger/PlayerInputDebuggerLaunch.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`PlayerInputDebuggerLaunch`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/PlayerInputDebugger/PlayerInputDebuggerLaunch.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`PlayerInputDebuggerLaunch`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/PlayerInputDebugger/PlayerInputDebuggerLaunch.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "plcrashreporter",
     "kind": "module",
     "cn_steps": [
-      "用途：`PLCrashReporter` 位于 `ThirdParty`，构建规则 `ThirdParty/PLCrashReporter/PLCrashReporter.Build.cs`。描述符未声明依赖。",
+      "`PLCrashReporter`（PL Crash Reporter）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/PLCrashReporter/PLCrashReporter.Build.cs`。描述符未声明依赖。",
+      "部署：`PLCrashReporter` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PLCrashReporter\" });`；对外暴露 `PLCrashReporter` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PLCrashReporter` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `PLCrashReporter.h` / `PLCrashReporterModule.h`），再用 `FModuleManager::LoadModulePtr<PLCrashReporterModule>` 或直接使用导出类型。",
-      "传递依赖：`PLCrashReporter` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `PLCrashReporter` lives under `ThirdParty`; build rule `ThirdParty/PLCrashReporter/PLCrashReporter.Build.cs`.The descriptor declares no dependencies.",
+      "`PLCrashReporter` (PL Crash Reporter): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/PLCrashReporter/PLCrashReporter.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `PLCrashReporter` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PLCrashReporter\" });`. Use Public when exposing `PLCrashReporter` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PLCrashReporter` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `PLCrashReporter.h` / `PLCrashReporterModule.h`), then use `FModuleManager::LoadModulePtr<PLCrashReporterModule>` or the exported types directly.",
-      "Transitive deps: `PLCrashReporter` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`PLCrashReporter` 的构建规则位于 `ThirdParty/PLCrashReporter/PLCrashReporter.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`PLCrashReporter` build rule is `ThirdParty/PLCrashReporter/PLCrashReporter.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`PLCrashReporter`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/PLCrashReporter/PLCrashReporter.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`PLCrashReporter`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/PLCrashReporter/PLCrashReporter.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "plisteditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`PListEditor` 位于 `Editor`，构建规则 `Editor/PListEditor/PListEditor.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`, `XmlParser`。",
+      "`PListEditor`（P List Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/PListEditor/PListEditor.Build.cs`。直接依赖 7 个模块：`Core`、`CoreUObject`、`DesktopPlatform`、`InputCore`、`Slate` 等。",
+      "部署：`PListEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PListEditor\" });`；对外暴露 `PListEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PListEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `PListEditor.h` / `PListEditorModule.h`），再用 `FModuleManager::LoadModulePtr<PListEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`PListEditor` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`, `XmlParser`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `PListEditor` lives under `Editor`; build rule `Editor/PListEditor/PListEditor.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`, `XmlParser`.",
+      "`PListEditor` (P List Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/PListEditor/PListEditor.Build.cs`. It directly depends on 7 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate` etc.",
+      "Placement: `PListEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PListEditor\" });`. Use Public when exposing `PListEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PListEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `PListEditor.h` / `PListEditorModule.h`), then use `FModuleManager::LoadModulePtr<PListEditorModule>` or the exported types directly.",
-      "Transitive deps: `PListEditor` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`, `XmlParser`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`PListEditor` 的构建规则位于 `Editor/PListEditor/PListEditor.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`PListEditor` build rule is `Editor/PListEditor/PListEditor.Build.cs`; depends on 7 modules; category Module."
-  },
-  {
-    "slug": "pluginwarden",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`PluginWarden` 位于 `Editor`，构建规则 `Editor/PluginWarden/PluginWarden.Build.cs`。它直接依赖 8 个模块：`Analytics`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LauncherPlatform`, `PortalServices`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PluginWarden\" });`；对外暴露 `PluginWarden` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PluginWarden` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `PluginWarden.h` / `PluginWardenModule.h`），再用 `FModuleManager::LoadModulePtr<PluginWardenModule>` 或直接使用导出类型。",
-      "传递依赖：`PluginWarden` 还依赖 `Analytics`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LauncherPlatform`, `PortalServices`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `PluginWarden` lives under `Editor`; build rule `Editor/PluginWarden/PluginWarden.Build.cs`.It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LauncherPlatform`, `PortalServices`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PluginWarden\" });`. Use Public when exposing `PluginWarden` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PluginWarden` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `PluginWarden.h` / `PluginWardenModule.h`), then use `FModuleManager::LoadModulePtr<PluginWardenModule>` or the exported types directly.",
-      "Transitive deps: `PluginWarden` also needs `Analytics`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LauncherPlatform`, `PortalServices`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`PluginWarden` 的构建规则位于 `Editor/PluginWarden/PluginWarden.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`PluginWarden` build rule is `Editor/PluginWarden/PluginWarden.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`PListEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/PListEditor/PListEditor.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`PListEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/PListEditor/PListEditor.Build.cs`; depends on 7 modules."
   }
 ]

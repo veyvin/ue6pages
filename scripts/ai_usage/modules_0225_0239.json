@@ -1,306 +1,302 @@
 [
   {
+    "slug": "diffassetbulkdata",
+    "kind": "module",
+    "cn_steps": [
+      "`DiffAssetBulkData`（Diff Asset Bulk Data）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/DiffAssetBulkData/DiffAssetBulkData.Build.cs`。直接依赖 6 个模块：`ApplicationCore`、`AssetRegistry`、`Core`、`CoreUObject`、`Json` 等。",
+      "部署：`DiffAssetBulkData` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DiffAssetBulkData\" });`；对外暴露 `DiffAssetBulkData` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
+    ],
+    "en_steps": [
+      "`DiffAssetBulkData` (Diff Asset Bulk Data): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/DiffAssetBulkData/DiffAssetBulkData.Build.cs`. It directly depends on 6 modules: `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `Json` etc.",
+      "Placement: `DiffAssetBulkData` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DiffAssetBulkData\" });`. Use Public when exposing `DiffAssetBulkData` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
+    ],
+    "note_cn": "`DiffAssetBulkData`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/DiffAssetBulkData/DiffAssetBulkData.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`DiffAssetBulkData`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/DiffAssetBulkData/DiffAssetBulkData.Build.cs`; depends on 6 modules."
+  },
+  {
     "slug": "directlink",
     "kind": "module",
     "cn_steps": [
-      "用途：`DirectLink` 位于 `Runtime`，构建规则 `Runtime/Datasmith/DirectLink/DirectLink.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Messaging`, `MessagingCommon`。",
+      "`DirectLink`（Direct Link）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/Datasmith/DirectLink/DirectLink.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`Messaging`、`MessagingCommon`。",
+      "部署：`DirectLink` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DirectLink\" });`；对外暴露 `DirectLink` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DirectLink` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `DirectLink.h` / `DirectLinkModule.h`），再用 `FModuleManager::LoadModulePtr<DirectLinkModule>` 或直接使用导出类型。",
-      "传递依赖：`DirectLink` 还依赖 `Core`, `CoreUObject`, `Messaging`, `MessagingCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DirectLink` lives under `Runtime`; build rule `Runtime/Datasmith/DirectLink/DirectLink.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Messaging`, `MessagingCommon`.",
+      "`DirectLink` (Direct Link): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/Datasmith/DirectLink/DirectLink.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `Messaging`, `MessagingCommon`.",
+      "Placement: `DirectLink` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DirectLink\" });`. Use Public when exposing `DirectLink` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DirectLink` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `DirectLink.h` / `DirectLinkModule.h`), then use `FModuleManager::LoadModulePtr<DirectLinkModule>` or the exported types directly.",
-      "Transitive deps: `DirectLink` also needs `Core`, `CoreUObject`, `Messaging`, `MessagingCommon`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DirectLink` 的构建规则位于 `Runtime/Datasmith/DirectLink/DirectLink.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`DirectLink` build rule is `Runtime/Datasmith/DirectLink/DirectLink.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`DirectLink`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/Datasmith/DirectLink/DirectLink.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`DirectLink`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/Datasmith/DirectLink/DirectLink.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "directml",
     "kind": "module",
     "cn_steps": [
-      "用途：`DirectML` 位于 `ThirdParty`，构建规则 `ThirdParty/DirectML/DirectML.Build.cs`。描述符未声明依赖。",
+      "`DirectML`（Direct ML）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/DirectML/DirectML.Build.cs`。描述符未声明依赖。",
+      "部署：`DirectML` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DirectML\" });`；对外暴露 `DirectML` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DirectML` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DirectML.h` / `DirectMLModule.h`），再用 `FModuleManager::LoadModulePtr<DirectMLModule>` 或直接使用导出类型。",
-      "传递依赖：`DirectML` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DirectML` lives under `ThirdParty`; build rule `ThirdParty/DirectML/DirectML.Build.cs`.The descriptor declares no dependencies.",
+      "`DirectML` (Direct ML): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/DirectML/DirectML.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DirectML` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DirectML\" });`. Use Public when exposing `DirectML` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DirectML` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DirectML.h` / `DirectMLModule.h`), then use `FModuleManager::LoadModulePtr<DirectMLModule>` or the exported types directly.",
-      "Transitive deps: `DirectML` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DirectML` 的构建规则位于 `ThirdParty/DirectML/DirectML.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`DirectML` build rule is `ThirdParty/DirectML/DirectML.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`DirectML`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/DirectML/DirectML.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DirectML`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/DirectML/DirectML.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "directorywatcher",
     "kind": "module",
     "cn_steps": [
-      "用途：`DirectoryWatcher` 位于 `Developer`，构建规则 `Developer/DirectoryWatcher/DirectoryWatcher.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`DirectoryWatcher`（Directory Watcher）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/DirectoryWatcher/DirectoryWatcher.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`DirectoryWatcher` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DirectoryWatcher\" });`；对外暴露 `DirectoryWatcher` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DirectoryWatcher` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `DirectoryWatcher.h` / `DirectoryWatcherModule.h`），再用 `FModuleManager::LoadModulePtr<DirectoryWatcherModule>` 或直接使用导出类型。",
-      "传递依赖：`DirectoryWatcher` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DirectoryWatcher` lives under `Developer`; build rule `Developer/DirectoryWatcher/DirectoryWatcher.Build.cs`.It directly depends on 1 modules: `Core`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DirectoryWatcher\" });`. Use Public when exposing `DirectoryWatcher` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`DirectoryWatcher` (Directory Watcher): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/DirectoryWatcher/DirectoryWatcher.Build.cs`. It directly depends on 1 modules: `Core`.",
       "Placement: `DirectoryWatcher` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `DirectoryWatcher.h` / `DirectoryWatcherModule.h`), then use `FModuleManager::LoadModulePtr<DirectoryWatcherModule>` or the exported types directly.",
-      "Transitive deps: `DirectoryWatcher` also needs `Core`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DirectoryWatcher\" });`. Use Public when exposing `DirectoryWatcher` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DirectoryWatcher` 的构建规则位于 `Developer/DirectoryWatcher/DirectoryWatcher.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`DirectoryWatcher` build rule is `Developer/DirectoryWatcher/DirectoryWatcher.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`DirectoryWatcher`：它向其他模块提供 C++ API/功能；构建规则 `Developer/DirectoryWatcher/DirectoryWatcher.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`DirectoryWatcher`: it exposes C++ API/functionality to other modules; build rule `Developer/DirectoryWatcher/DirectoryWatcher.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "directshow",
     "kind": "module",
     "cn_steps": [
-      "用途：`DirectShow` 位于 `ThirdParty`，构建规则 `ThirdParty/DirectShow/DirectShow.Build.cs`。描述符未声明依赖。",
+      "`DirectShow`（Direct Show）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/DirectShow/DirectShow.Build.cs`。描述符未声明依赖。",
+      "部署：`DirectShow` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DirectShow\" });`；对外暴露 `DirectShow` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DirectShow` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DirectShow.h` / `DirectShowModule.h`），再用 `FModuleManager::LoadModulePtr<DirectShowModule>` 或直接使用导出类型。",
-      "传递依赖：`DirectShow` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DirectShow` lives under `ThirdParty`; build rule `ThirdParty/DirectShow/DirectShow.Build.cs`.The descriptor declares no dependencies.",
+      "`DirectShow` (Direct Show): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/DirectShow/DirectShow.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DirectShow` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DirectShow\" });`. Use Public when exposing `DirectShow` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DirectShow` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DirectShow.h` / `DirectShowModule.h`), then use `FModuleManager::LoadModulePtr<DirectShowModule>` or the exported types directly.",
-      "Transitive deps: `DirectShow` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DirectShow` 的构建规则位于 `ThirdParty/DirectShow/DirectShow.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`DirectShow` build rule is `ThirdParty/DirectShow/DirectShow.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`DirectShow`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/DirectShow/DirectShow.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DirectShow`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/DirectShow/DirectShow.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "directsound",
     "kind": "module",
     "cn_steps": [
-      "用途：`DirectSound` 位于 `ThirdParty`，构建规则 `ThirdParty/Windows/DirectSound/DirectSound.Build.cs`。描述符未声明依赖。",
+      "`DirectSound`（Direct Sound）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Windows/DirectSound/DirectSound.Build.cs`。描述符未声明依赖。",
+      "部署：`DirectSound` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DirectSound\" });`；对外暴露 `DirectSound` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DirectSound` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DirectSound.h` / `DirectSoundModule.h`），再用 `FModuleManager::LoadModulePtr<DirectSoundModule>` 或直接使用导出类型。",
-      "传递依赖：`DirectSound` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DirectSound` lives under `ThirdParty`; build rule `ThirdParty/Windows/DirectSound/DirectSound.Build.cs`.The descriptor declares no dependencies.",
+      "`DirectSound` (Direct Sound): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Windows/DirectSound/DirectSound.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DirectSound` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DirectSound\" });`. Use Public when exposing `DirectSound` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DirectSound` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DirectSound.h` / `DirectSoundModule.h`), then use `FModuleManager::LoadModulePtr<DirectSoundModule>` or the exported types directly.",
-      "Transitive deps: `DirectSound` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DirectSound` 的构建规则位于 `ThirdParty/Windows/DirectSound/DirectSound.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`DirectSound` build rule is `ThirdParty/Windows/DirectSound/DirectSound.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`DirectSound`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Windows/DirectSound/DirectSound.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DirectSound`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Windows/DirectSound/DirectSound.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "directstorage",
     "kind": "module",
     "cn_steps": [
-      "用途：`DirectStorage` 位于 `ThirdParty`，构建规则 `ThirdParty/Windows/DirectStorage/DirectStorage.Build.cs`。描述符未声明依赖。",
+      "`DirectStorage`（Direct Storage）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Windows/DirectStorage/DirectStorage.Build.cs`。描述符未声明依赖。",
+      "部署：`DirectStorage` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DirectStorage\" });`；对外暴露 `DirectStorage` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DirectStorage` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DirectStorage.h` / `DirectStorageModule.h`），再用 `FModuleManager::LoadModulePtr<DirectStorageModule>` 或直接使用导出类型。",
-      "传递依赖：`DirectStorage` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DirectStorage` lives under `ThirdParty`; build rule `ThirdParty/Windows/DirectStorage/DirectStorage.Build.cs`.The descriptor declares no dependencies.",
+      "`DirectStorage` (Direct Storage): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Windows/DirectStorage/DirectStorage.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DirectStorage` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DirectStorage\" });`. Use Public when exposing `DirectStorage` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DirectStorage` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DirectStorage.h` / `DirectStorageModule.h`), then use `FModuleManager::LoadModulePtr<DirectStorageModule>` or the exported types directly.",
-      "Transitive deps: `DirectStorage` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DirectStorage` 的构建规则位于 `ThirdParty/Windows/DirectStorage/DirectStorage.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`DirectStorage` build rule is `ThirdParty/Windows/DirectStorage/DirectStorage.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`DirectStorage`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Windows/DirectStorage/DirectStorage.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DirectStorage`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Windows/DirectStorage/DirectStorage.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "directx",
     "kind": "module",
     "cn_steps": [
-      "用途：`DirectX` 位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/DirectX/DirectX.Build.cs`。描述符未声明依赖。",
+      "`DirectX`（Direct X）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/DirectX/DirectX.Build.cs`。描述符未声明依赖。",
+      "部署：`DirectX` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DirectX\" });`；对外暴露 `DirectX` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DirectX` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DirectX.h` / `DirectXModule.h`），再用 `FModuleManager::LoadModulePtr<DirectXModule>` 或直接使用导出类型。",
-      "传递依赖：`DirectX` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DirectX` lives under `Engine`; build rule `Engine/Source/ThirdParty/Windows/DirectX/DirectX.Build.cs`.The descriptor declares no dependencies.",
+      "`DirectX` (Direct X): it wraps a third-party library and exposes its functionality to the engine. Located under `Engine`; build rule `Engine/Source/ThirdParty/Windows/DirectX/DirectX.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DirectX` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DirectX\" });`. Use Public when exposing `DirectX` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DirectX` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DirectX.h` / `DirectXModule.h`), then use `FModuleManager::LoadModulePtr<DirectXModule>` or the exported types directly.",
-      "Transitive deps: `DirectX` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DirectX` 的构建规则位于 `Engine/Source/ThirdParty/Windows/DirectX/DirectX.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`DirectX` build rule is `Engine/Source/ThirdParty/Windows/DirectX/DirectX.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`DirectX`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `Engine/Source/ThirdParty/Windows/DirectX/DirectX.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DirectX`: it wraps a third-party library and exposes its functionality to the engine; build rule `Engine/Source/ThirdParty/Windows/DirectX/DirectX.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "distcurveeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`DistCurveEditor` 位于 `Editor`，构建规则 `Editor/DistCurveEditor/DistCurveEditor.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LevelEditor`, `RenderCore`。",
+      "`DistCurveEditor`（Dist Curve Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/DistCurveEditor/DistCurveEditor.Build.cs`。直接依赖 8 个模块：`AppFramework`、`Core`、`CoreUObject`、`EditorFramework`、`Engine` 等。",
+      "部署：`DistCurveEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DistCurveEditor\" });`；对外暴露 `DistCurveEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DistCurveEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `DistCurveEditor.h` / `DistCurveEditorModule.h`），再用 `FModuleManager::LoadModulePtr<DistCurveEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`DistCurveEditor` 还依赖 `AppFramework`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LevelEditor`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DistCurveEditor` lives under `Editor`; build rule `Editor/DistCurveEditor/DistCurveEditor.Build.cs`.It directly depends on 8 modules: `AppFramework`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LevelEditor`, `RenderCore`.",
+      "`DistCurveEditor` (Dist Curve Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/DistCurveEditor/DistCurveEditor.Build.cs`. It directly depends on 8 modules: `AppFramework`, `Core`, `CoreUObject`, `EditorFramework`, `Engine` etc.",
+      "Placement: `DistCurveEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DistCurveEditor\" });`. Use Public when exposing `DistCurveEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DistCurveEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `DistCurveEditor.h` / `DistCurveEditorModule.h`), then use `FModuleManager::LoadModulePtr<DistCurveEditorModule>` or the exported types directly.",
-      "Transitive deps: `DistCurveEditor` also needs `AppFramework`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LevelEditor`, `RenderCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DistCurveEditor` 的构建规则位于 `Editor/DistCurveEditor/DistCurveEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`DistCurveEditor` build rule is `Editor/DistCurveEditor/DistCurveEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`DistCurveEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/DistCurveEditor/DistCurveEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`DistCurveEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/DistCurveEditor/DistCurveEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "dnxhr",
     "kind": "module",
     "cn_steps": [
-      "用途：`DNxHR` 位于 `ThirdParty`，构建规则 `ThirdParty/AvidDNxHD/DNxHR/DNxHR.Build.cs`。描述符未声明依赖。",
+      "`DNxHR`（D Nx HR）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/AvidDNxHD/DNxHR/DNxHR.Build.cs`。描述符未声明依赖。",
+      "部署：`DNxHR` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DNxHR\" });`；对外暴露 `DNxHR` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DNxHR` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DNxHR.h` / `DNxHRModule.h`），再用 `FModuleManager::LoadModulePtr<DNxHRModule>` 或直接使用导出类型。",
-      "传递依赖：`DNxHR` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DNxHR` lives under `ThirdParty`; build rule `ThirdParty/AvidDNxHD/DNxHR/DNxHR.Build.cs`.The descriptor declares no dependencies.",
+      "`DNxHR` (D Nx HR): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/AvidDNxHD/DNxHR/DNxHR.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DNxHR` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DNxHR\" });`. Use Public when exposing `DNxHR` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DNxHR` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DNxHR.h` / `DNxHRModule.h`), then use `FModuleManager::LoadModulePtr<DNxHRModule>` or the exported types directly.",
-      "Transitive deps: `DNxHR` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DNxHR` 的构建规则位于 `ThirdParty/AvidDNxHD/DNxHR/DNxHR.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`DNxHR` build rule is `ThirdParty/AvidDNxHD/DNxHR/DNxHR.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`DNxHR`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/AvidDNxHD/DNxHR/DNxHR.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DNxHR`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/AvidDNxHD/DNxHR/DNxHR.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "dnxmxf",
     "kind": "module",
     "cn_steps": [
-      "用途：`DNxMXF` 位于 `ThirdParty`，构建规则 `ThirdParty/AvidDNxHD/DNxMXF/DNxMXF.Build.cs`。描述符未声明依赖。",
+      "`DNxMXF`（D Nx MXF）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/AvidDNxHD/DNxMXF/DNxMXF.Build.cs`。描述符未声明依赖。",
+      "部署：`DNxMXF` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DNxMXF\" });`；对外暴露 `DNxMXF` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DNxMXF` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DNxMXF.h` / `DNxMXFModule.h`），再用 `FModuleManager::LoadModulePtr<DNxMXFModule>` 或直接使用导出类型。",
-      "传递依赖：`DNxMXF` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DNxMXF` lives under `ThirdParty`; build rule `ThirdParty/AvidDNxHD/DNxMXF/DNxMXF.Build.cs`.The descriptor declares no dependencies.",
+      "`DNxMXF` (D Nx MXF): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/AvidDNxHD/DNxMXF/DNxMXF.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DNxMXF` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DNxMXF\" });`. Use Public when exposing `DNxMXF` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DNxMXF` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DNxMXF.h` / `DNxMXFModule.h`), then use `FModuleManager::LoadModulePtr<DNxMXFModule>` or the exported types directly.",
-      "Transitive deps: `DNxMXF` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DNxMXF` 的构建规则位于 `ThirdParty/AvidDNxHD/DNxMXF/DNxMXF.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`DNxMXF` build rule is `ThirdParty/AvidDNxHD/DNxMXF/DNxMXF.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`DNxMXF`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/AvidDNxHD/DNxMXF/DNxMXF.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DNxMXF`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/AvidDNxHD/DNxMXF/DNxMXF.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "dnxuncompressed",
     "kind": "module",
     "cn_steps": [
-      "用途：`DNxUncompressed` 位于 `ThirdParty`，构建规则 `ThirdParty/AvidDNxHD/DNxUncompressed/DNxUncompressed.Build.cs`。描述符未声明依赖。",
+      "`DNxUncompressed`（D Nx Uncompressed）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/AvidDNxHD/DNxUncompressed/DNxUncompressed.Build.cs`。描述符未声明依赖。",
+      "部署：`DNxUncompressed` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DNxUncompressed\" });`；对外暴露 `DNxUncompressed` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DNxUncompressed` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DNxUncompressed.h` / `DNxUncompressedModule.h`），再用 `FModuleManager::LoadModulePtr<DNxUncompressedModule>` 或直接使用导出类型。",
-      "传递依赖：`DNxUncompressed` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DNxUncompressed` lives under `ThirdParty`; build rule `ThirdParty/AvidDNxHD/DNxUncompressed/DNxUncompressed.Build.cs`.The descriptor declares no dependencies.",
+      "`DNxUncompressed` (D Nx Uncompressed): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/AvidDNxHD/DNxUncompressed/DNxUncompressed.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DNxUncompressed` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DNxUncompressed\" });`. Use Public when exposing `DNxUncompressed` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DNxUncompressed` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DNxUncompressed.h` / `DNxUncompressedModule.h`), then use `FModuleManager::LoadModulePtr<DNxUncompressedModule>` or the exported types directly.",
-      "Transitive deps: `DNxUncompressed` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DNxUncompressed` 的构建规则位于 `ThirdParty/AvidDNxHD/DNxUncompressed/DNxUncompressed.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`DNxUncompressed` build rule is `ThirdParty/AvidDNxHD/DNxUncompressed/DNxUncompressed.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`DNxUncompressed`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/AvidDNxHD/DNxUncompressed/DNxUncompressed.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DNxUncompressed`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/AvidDNxHD/DNxUncompressed/DNxUncompressed.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "documentation",
     "kind": "module",
     "cn_steps": [
-      "用途：`Documentation` 位于 `Editor`，构建规则 `Editor/Documentation/Documentation.Build.cs`。它直接依赖 8 个模块：`Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`。",
+      "`Documentation`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/Documentation/Documentation.Build.cs`。直接依赖 8 个模块：`Analytics`、`Core`、`CoreUObject`、`DesktopPlatform`、`DeveloperSettings` 等。",
+      "部署：`Documentation` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Documentation\" });`；对外暴露 `Documentation` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Documentation` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `Documentation.h` / `DocumentationModule.h`），再用 `FModuleManager::LoadModulePtr<DocumentationModule>` 或直接使用导出类型。",
-      "传递依赖：`Documentation` 还依赖 `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Documentation` lives under `Editor`; build rule `Editor/Documentation/Documentation.Build.cs`.It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`.",
+      "`Documentation`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/Documentation/Documentation.Build.cs`. It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings` etc.",
+      "Placement: `Documentation` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Documentation\" });`. Use Public when exposing `Documentation` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Documentation` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `Documentation.h` / `DocumentationModule.h`), then use `FModuleManager::LoadModulePtr<DocumentationModule>` or the exported types directly.",
-      "Transitive deps: `Documentation` also needs `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Documentation` 的构建规则位于 `Editor/Documentation/Documentation.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`Documentation` build rule is `Editor/Documentation/Documentation.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`Documentation`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/Documentation/Documentation.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`Documentation`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/Documentation/Documentation.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "dotnetperforcelib",
     "kind": "module",
     "cn_steps": [
-      "用途：`DotNetPerforceLib` 位于 `Programs`，构建规则 `Programs/Shared/EpicGames.Perforce.Native/DotNetPerforceLib.Build.cs`。它直接依赖 1 个模块：`OpenSSL`。",
+      "`DotNetPerforceLib`（Dot Net Perforce Lib）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Shared/EpicGames.Perforce.Native/DotNetPerforceLib.Build.cs`。直接依赖 1 个模块：`OpenSSL`。",
+      "部署：`DotNetPerforceLib` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DotNetPerforceLib\" });`；对外暴露 `DotNetPerforceLib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DotNetPerforceLib` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `DotNetPerforceLib.h` / `DotNetPerforceLibModule.h`），再用 `FModuleManager::LoadModulePtr<DotNetPerforceLibModule>` 或直接使用导出类型。",
-      "传递依赖：`DotNetPerforceLib` 还依赖 `OpenSSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `DotNetPerforceLib` lives under `Programs`; build rule `Programs/Shared/EpicGames.Perforce.Native/DotNetPerforceLib.Build.cs`.It directly depends on 1 modules: `OpenSSL`.",
+      "`DotNetPerforceLib` (Dot Net Perforce Lib): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Shared/EpicGames.Perforce.Native/DotNetPerforceLib.Build.cs`. It directly depends on 1 modules: `OpenSSL`.",
+      "Placement: `DotNetPerforceLib` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DotNetPerforceLib\" });`. Use Public when exposing `DotNetPerforceLib` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DotNetPerforceLib` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `DotNetPerforceLib.h` / `DotNetPerforceLibModule.h`), then use `FModuleManager::LoadModulePtr<DotNetPerforceLibModule>` or the exported types directly.",
-      "Transitive deps: `DotNetPerforceLib` also needs `OpenSSL`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`DotNetPerforceLib` 的构建规则位于 `Programs/Shared/EpicGames.Perforce.Native/DotNetPerforceLib.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`DotNetPerforceLib` build rule is `Programs/Shared/EpicGames.Perforce.Native/DotNetPerforceLib.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`DotNetPerforceLib`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Shared/EpicGames.Perforce.Native/DotNetPerforceLib.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`DotNetPerforceLib`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Shared/EpicGames.Perforce.Native/DotNetPerforceLib.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "downlinkbandwidthallocator",
     "kind": "module",
     "cn_steps": [
-      "用途：`DownlinkBandwidthAllocator` 位于 `Runtime`，构建规则 `Runtime/Online/Experimental/DownlinkBandwidthAllocator/DownlinkBandwidthAllocator.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `DownlinkBandwidthManager`, `Engine`。",
+      "`DownlinkBandwidthAllocator`（Downlink Bandwidth Allocator）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/Experimental/DownlinkBandwidthAllocator/DownlinkBandwidthAllocator.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`DownlinkBandwidthManager`、`Engine`。",
+      "部署：`DownlinkBandwidthAllocator` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DownlinkBandwidthAllocator\" });`；对外暴露 `DownlinkBandwidthAllocator` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DownlinkBandwidthAllocator` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `DownlinkBandwidthAllocator.h` / `DownlinkBandwidthAllocatorModule.h`），再用 `FModuleManager::LoadModulePtr<DownlinkBandwidthAllocatorModule>` 或直接使用导出类型。",
-      "传递依赖：`DownlinkBandwidthAllocator` 还依赖 `Core`, `CoreUObject`, `DownlinkBandwidthManager`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`DownlinkBandwidthAllocator` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DownlinkBandwidthAllocator` lives under `Runtime`; build rule `Runtime/Online/Experimental/DownlinkBandwidthAllocator/DownlinkBandwidthAllocator.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `DownlinkBandwidthManager`, `Engine`.",
+      "`DownlinkBandwidthAllocator` (Downlink Bandwidth Allocator): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/Experimental/DownlinkBandwidthAllocator/DownlinkBandwidthAllocator.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `DownlinkBandwidthManager`, `Engine`.",
+      "Placement: `DownlinkBandwidthAllocator` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DownlinkBandwidthAllocator\" });`. Use Public when exposing `DownlinkBandwidthAllocator` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DownlinkBandwidthAllocator` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `DownlinkBandwidthAllocator.h` / `DownlinkBandwidthAllocatorModule.h`), then use `FModuleManager::LoadModulePtr<DownlinkBandwidthAllocatorModule>` or the exported types directly.",
-      "Transitive deps: `DownlinkBandwidthAllocator` also needs `Core`, `CoreUObject`, `DownlinkBandwidthManager`, `Engine`; do not re-list them unless you include their headers.",
-      "Note: `DownlinkBandwidthAllocator` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DownlinkBandwidthAllocator` 的构建规则位于 `Runtime/Online/Experimental/DownlinkBandwidthAllocator/DownlinkBandwidthAllocator.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`DownlinkBandwidthAllocator` build rule is `Runtime/Online/Experimental/DownlinkBandwidthAllocator/DownlinkBandwidthAllocator.Build.cs`; depends on 4 modules; category Module."
-  },
-  {
-    "slug": "downlinkbandwidthmanager",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`DownlinkBandwidthManager` 位于 `Runtime`，构建规则 `Runtime/Online/Experimental/DownlinkBandwidthManager/DownlinkBandwidthManager.Build.cs`。它直接依赖 3 个模块：`BandwidthDebugDelegates`, `Core`, `CoreUObject`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DownlinkBandwidthManager\" });`；对外暴露 `DownlinkBandwidthManager` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DownlinkBandwidthManager` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `DownlinkBandwidthManager.h` / `DownlinkBandwidthManagerModule.h`），再用 `FModuleManager::LoadModulePtr<DownlinkBandwidthManagerModule>` 或直接使用导出类型。",
-      "传递依赖：`DownlinkBandwidthManager` 还依赖 `BandwidthDebugDelegates`, `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`DownlinkBandwidthManager` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
-    ],
-    "en_steps": [
-      "Purpose: `DownlinkBandwidthManager` lives under `Runtime`; build rule `Runtime/Online/Experimental/DownlinkBandwidthManager/DownlinkBandwidthManager.Build.cs`.It directly depends on 3 modules: `BandwidthDebugDelegates`, `Core`, `CoreUObject`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DownlinkBandwidthManager\" });`. Use Public when exposing `DownlinkBandwidthManager` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DownlinkBandwidthManager` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `DownlinkBandwidthManager.h` / `DownlinkBandwidthManagerModule.h`), then use `FModuleManager::LoadModulePtr<DownlinkBandwidthManagerModule>` or the exported types directly.",
-      "Transitive deps: `DownlinkBandwidthManager` also needs `BandwidthDebugDelegates`, `Core`, `CoreUObject`; do not re-list them unless you include their headers.",
-      "Note: `DownlinkBandwidthManager` is under Experimental and may change; prove it in an empty project before production."
-    ],
-    "note_cn": "`DownlinkBandwidthManager` 的构建规则位于 `Runtime/Online/Experimental/DownlinkBandwidthManager/DownlinkBandwidthManager.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`DownlinkBandwidthManager` build rule is `Runtime/Online/Experimental/DownlinkBandwidthManager/DownlinkBandwidthManager.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`DownlinkBandwidthAllocator`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/Experimental/DownlinkBandwidthAllocator/DownlinkBandwidthAllocator.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`DownlinkBandwidthAllocator`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/Experimental/DownlinkBandwidthAllocator/DownlinkBandwidthAllocator.Build.cs`; depends on 4 modules."
   }
 ]

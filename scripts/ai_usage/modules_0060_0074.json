@@ -3,300 +3,300 @@
     "slug": "audiocapturecore",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioCaptureCore` 位于 `Runtime`，构建规则 `Runtime/AudioCaptureCore/AudioCaptureCore.Build.cs`。它直接依赖 3 个模块：`Core`, `Engine`, `SignalProcessing`。",
+      "`AudioCaptureCore`（Audio Capture Core）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioCaptureCore/AudioCaptureCore.Build.cs`。直接依赖 3 个模块：`Core`、`Engine`、`SignalProcessing`。",
+      "部署：`AudioCaptureCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureCore\" });`；对外暴露 `AudioCaptureCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioCaptureCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioCaptureCore.h` / `AudioCaptureCoreModule.h`），再用 `FModuleManager::LoadModulePtr<AudioCaptureCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioCaptureCore` 还依赖 `Core`, `Engine`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioCaptureCore` lives under `Runtime`; build rule `Runtime/AudioCaptureCore/AudioCaptureCore.Build.cs`.It directly depends on 3 modules: `Core`, `Engine`, `SignalProcessing`.",
+      "`AudioCaptureCore` (Audio Capture Core): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioCaptureCore/AudioCaptureCore.Build.cs`. It directly depends on 3 modules: `Core`, `Engine`, `SignalProcessing`.",
+      "Placement: `AudioCaptureCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureCore\" });`. Use Public when exposing `AudioCaptureCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioCaptureCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioCaptureCore.h` / `AudioCaptureCoreModule.h`), then use `FModuleManager::LoadModulePtr<AudioCaptureCoreModule>` or the exported types directly.",
-      "Transitive deps: `AudioCaptureCore` also needs `Core`, `Engine`, `SignalProcessing`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioCaptureCore` 的构建规则位于 `Runtime/AudioCaptureCore/AudioCaptureCore.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AudioCaptureCore` build rule is `Runtime/AudioCaptureCore/AudioCaptureCore.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AudioCaptureCore`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioCaptureCore/AudioCaptureCore.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AudioCaptureCore`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioCaptureCore/AudioCaptureCore.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "audiocapturertaudio",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioCaptureRtAudio` 位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/AudioCaptureRtAudio/AudioCaptureRtAudio.Build.cs`。它直接依赖 2 个模块：`AudioCaptureCore`, `Core`。",
+      "`AudioCaptureRtAudio`（Audio Capture Rt Audio）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/AudioCaptureRtAudio/AudioCaptureRtAudio.Build.cs`。直接依赖 2 个模块：`AudioCaptureCore`、`Core`。",
+      "部署：`AudioCaptureRtAudio` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureRtAudio\" });`；对外暴露 `AudioCaptureRtAudio` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioCaptureRtAudio` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioCaptureRtAudio.h` / `AudioCaptureRtAudioModule.h`），再用 `FModuleManager::LoadModulePtr<AudioCaptureRtAudioModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioCaptureRtAudio` 还依赖 `AudioCaptureCore`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioCaptureRtAudio` lives under `Runtime`; build rule `Runtime/AudioCaptureImplementations/AudioCaptureRtAudio/AudioCaptureRtAudio.Build.cs`.It directly depends on 2 modules: `AudioCaptureCore`, `Core`.",
+      "`AudioCaptureRtAudio` (Audio Capture Rt Audio): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioCaptureImplementations/AudioCaptureRtAudio/AudioCaptureRtAudio.Build.cs`. It directly depends on 2 modules: `AudioCaptureCore`, `Core`.",
+      "Placement: `AudioCaptureRtAudio` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureRtAudio\" });`. Use Public when exposing `AudioCaptureRtAudio` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioCaptureRtAudio` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioCaptureRtAudio.h` / `AudioCaptureRtAudioModule.h`), then use `FModuleManager::LoadModulePtr<AudioCaptureRtAudioModule>` or the exported types directly.",
-      "Transitive deps: `AudioCaptureRtAudio` also needs `AudioCaptureCore`, `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioCaptureRtAudio` 的构建规则位于 `Runtime/AudioCaptureImplementations/AudioCaptureRtAudio/AudioCaptureRtAudio.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`AudioCaptureRtAudio` build rule is `Runtime/AudioCaptureImplementations/AudioCaptureRtAudio/AudioCaptureRtAudio.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`AudioCaptureRtAudio`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioCaptureImplementations/AudioCaptureRtAudio/AudioCaptureRtAudio.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`AudioCaptureRtAudio`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioCaptureImplementations/AudioCaptureRtAudio/AudioCaptureRtAudio.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "audiocapturesdl",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioCaptureSDL` 位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/Linux/AudioCaptureSDL/AudioCaptureSDL.Build.cs`。它直接依赖 3 个模块：`ApplicationCore`, `AudioCaptureCore`, `Core`。",
+      "`AudioCaptureSDL`（Audio Capture SDL）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/Linux/AudioCaptureSDL/AudioCaptureSDL.Build.cs`。直接依赖 3 个模块：`ApplicationCore`、`AudioCaptureCore`、`Core`。",
+      "部署：`AudioCaptureSDL` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureSDL\" });`；对外暴露 `AudioCaptureSDL` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioCaptureSDL` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioCaptureSDL.h` / `AudioCaptureSDLModule.h`），再用 `FModuleManager::LoadModulePtr<AudioCaptureSDLModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioCaptureSDL` 还依赖 `ApplicationCore`, `AudioCaptureCore`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioCaptureSDL` lives under `Runtime`; build rule `Runtime/AudioCaptureImplementations/Linux/AudioCaptureSDL/AudioCaptureSDL.Build.cs`.It directly depends on 3 modules: `ApplicationCore`, `AudioCaptureCore`, `Core`.",
+      "`AudioCaptureSDL` (Audio Capture SDL): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioCaptureImplementations/Linux/AudioCaptureSDL/AudioCaptureSDL.Build.cs`. It directly depends on 3 modules: `ApplicationCore`, `AudioCaptureCore`, `Core`.",
+      "Placement: `AudioCaptureSDL` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureSDL\" });`. Use Public when exposing `AudioCaptureSDL` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioCaptureSDL` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioCaptureSDL.h` / `AudioCaptureSDLModule.h`), then use `FModuleManager::LoadModulePtr<AudioCaptureSDLModule>` or the exported types directly.",
-      "Transitive deps: `AudioCaptureSDL` also needs `ApplicationCore`, `AudioCaptureCore`, `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioCaptureSDL` 的构建规则位于 `Runtime/AudioCaptureImplementations/Linux/AudioCaptureSDL/AudioCaptureSDL.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AudioCaptureSDL` build rule is `Runtime/AudioCaptureImplementations/Linux/AudioCaptureSDL/AudioCaptureSDL.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AudioCaptureSDL`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioCaptureImplementations/Linux/AudioCaptureSDL/AudioCaptureSDL.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AudioCaptureSDL`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioCaptureImplementations/Linux/AudioCaptureSDL/AudioCaptureSDL.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "audiocapturewasapi",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioCaptureWasapi` 位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/Windows/AudioCaputureWasapi/AudioCaptureWasapi.Build.cs`。它直接依赖 3 个模块：`AudioCaptureCore`, `AudioPlatformSupportWasapi`, `Core`。",
+      "`AudioCaptureWasapi`（Audio Capture Wasapi）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioCaptureImplementations/Windows/AudioCaputureWasapi/AudioCaptureWasapi.Build.cs`。直接依赖 3 个模块：`AudioCaptureCore`、`AudioPlatformSupportWasapi`、`Core`。",
+      "部署：`AudioCaptureWasapi` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureWasapi\" });`；对外暴露 `AudioCaptureWasapi` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioCaptureWasapi` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioCaptureWasapi.h` / `AudioCaptureWasapiModule.h`），再用 `FModuleManager::LoadModulePtr<AudioCaptureWasapiModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioCaptureWasapi` 还依赖 `AudioCaptureCore`, `AudioPlatformSupportWasapi`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioCaptureWasapi` lives under `Runtime`; build rule `Runtime/AudioCaptureImplementations/Windows/AudioCaputureWasapi/AudioCaptureWasapi.Build.cs`.It directly depends on 3 modules: `AudioCaptureCore`, `AudioPlatformSupportWasapi`, `Core`.",
+      "`AudioCaptureWasapi` (Audio Capture Wasapi): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioCaptureImplementations/Windows/AudioCaputureWasapi/AudioCaptureWasapi.Build.cs`. It directly depends on 3 modules: `AudioCaptureCore`, `AudioPlatformSupportWasapi`, `Core`.",
+      "Placement: `AudioCaptureWasapi` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioCaptureWasapi\" });`. Use Public when exposing `AudioCaptureWasapi` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioCaptureWasapi` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioCaptureWasapi.h` / `AudioCaptureWasapiModule.h`), then use `FModuleManager::LoadModulePtr<AudioCaptureWasapiModule>` or the exported types directly.",
-      "Transitive deps: `AudioCaptureWasapi` also needs `AudioCaptureCore`, `AudioPlatformSupportWasapi`, `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioCaptureWasapi` 的构建规则位于 `Runtime/AudioCaptureImplementations/Windows/AudioCaputureWasapi/AudioCaptureWasapi.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AudioCaptureWasapi` build rule is `Runtime/AudioCaptureImplementations/Windows/AudioCaputureWasapi/AudioCaptureWasapi.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AudioCaptureWasapi`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioCaptureImplementations/Windows/AudioCaputureWasapi/AudioCaptureWasapi.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AudioCaptureWasapi`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioCaptureImplementations/Windows/AudioCaputureWasapi/AudioCaptureWasapi.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "audiochannelagnosticcore",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioChannelAgnosticCore` 位于 `Runtime`，构建规则 `Runtime/AudioChannelAgnosticCore/AudioChannelAgnosticCore.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `SignalProcessing`。",
+      "`AudioChannelAgnosticCore`（Audio Channel Agnostic Core）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioChannelAgnosticCore/AudioChannelAgnosticCore.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`SignalProcessing`。",
+      "部署：`AudioChannelAgnosticCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioChannelAgnosticCore\" });`；对外暴露 `AudioChannelAgnosticCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioChannelAgnosticCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioChannelAgnosticCore.h` / `AudioChannelAgnosticCoreModule.h`），再用 `FModuleManager::LoadModulePtr<AudioChannelAgnosticCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioChannelAgnosticCore` 还依赖 `Core`, `CoreUObject`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioChannelAgnosticCore` lives under `Runtime`; build rule `Runtime/AudioChannelAgnosticCore/AudioChannelAgnosticCore.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `SignalProcessing`.",
+      "`AudioChannelAgnosticCore` (Audio Channel Agnostic Core): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioChannelAgnosticCore/AudioChannelAgnosticCore.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `SignalProcessing`.",
+      "Placement: `AudioChannelAgnosticCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioChannelAgnosticCore\" });`. Use Public when exposing `AudioChannelAgnosticCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioChannelAgnosticCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioChannelAgnosticCore.h` / `AudioChannelAgnosticCoreModule.h`), then use `FModuleManager::LoadModulePtr<AudioChannelAgnosticCoreModule>` or the exported types directly.",
-      "Transitive deps: `AudioChannelAgnosticCore` also needs `Core`, `CoreUObject`, `SignalProcessing`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioChannelAgnosticCore` 的构建规则位于 `Runtime/AudioChannelAgnosticCore/AudioChannelAgnosticCore.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AudioChannelAgnosticCore` build rule is `Runtime/AudioChannelAgnosticCore/AudioChannelAgnosticCore.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AudioChannelAgnosticCore`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioChannelAgnosticCore/AudioChannelAgnosticCore.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AudioChannelAgnosticCore`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioChannelAgnosticCore/AudioChannelAgnosticCore.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "audioeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioEditor` 位于 `Editor`，构建规则 `Editor/AudioEditor/AudioEditor.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetDefinition`, `AsyncFunctionResult`, `AudioExtensions`, `AudioLinkEngine`, `AudioMixer`, `BlueprintGraph`, `ClassViewer`。",
+      "`AudioEditor`（Audio Editor）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Editor`，构建规则 `Editor/AudioEditor/AudioEditor.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`AssetDefinition`、`AsyncFunctionResult`、`AudioExtensions`、`AudioLinkEngine` 等。",
+      "部署：`AudioEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioEditor\" });`；对外暴露 `AudioEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `AudioEditor.h` / `AudioEditorModule.h`），再用 `FModuleManager::LoadModulePtr<AudioEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioEditor` 还依赖 `ApplicationCore`, `AssetDefinition`, `AsyncFunctionResult`, `AudioExtensions`, `AudioLinkEngine`, `AudioMixer`, `BlueprintGraph`, `ClassViewer`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioEditor` lives under `Editor`; build rule `Editor/AudioEditor/AudioEditor.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetDefinition`, `AsyncFunctionResult`, `AudioExtensions`, `AudioLinkEngine`, `AudioMixer`, `BlueprintGraph`, `ClassViewer`.",
+      "`AudioEditor` (Audio Editor): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Editor`; build rule `Editor/AudioEditor/AudioEditor.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `AssetDefinition`, `AsyncFunctionResult`, `AudioExtensions`, `AudioLinkEngine` etc.",
+      "Placement: `AudioEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioEditor\" });`. Use Public when exposing `AudioEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `AudioEditor.h` / `AudioEditorModule.h`), then use `FModuleManager::LoadModulePtr<AudioEditorModule>` or the exported types directly.",
-      "Transitive deps: `AudioEditor` also needs `ApplicationCore`, `AssetDefinition`, `AsyncFunctionResult`, `AudioExtensions`, `AudioLinkEngine`, `AudioMixer`, `BlueprintGraph`, `ClassViewer`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioEditor` 的构建规则位于 `Editor/AudioEditor/AudioEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AudioEditor` build rule is `Editor/AudioEditor/AudioEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AudioEditor`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Editor/AudioEditor/AudioEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AudioEditor`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Editor/AudioEditor/AudioEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "audioextensions",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioExtensions` 位于 `Runtime`，构建规则 `Runtime/AudioExtensions/AudioExtensions.Build.cs`。它直接依赖 4 个模块：`AudioMixerCore`, `Core`, `CoreUObject`, `SignalProcessing`。",
+      "`AudioExtensions`（Audio Extensions）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioExtensions/AudioExtensions.Build.cs`。直接依赖 4 个模块：`AudioMixerCore`、`Core`、`CoreUObject`、`SignalProcessing`。",
+      "部署：`AudioExtensions` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioExtensions\" });`；对外暴露 `AudioExtensions` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioExtensions` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioExtensions.h` / `AudioExtensionsModule.h`），再用 `FModuleManager::LoadModulePtr<AudioExtensionsModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioExtensions` 还依赖 `AudioMixerCore`, `Core`, `CoreUObject`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioExtensions` lives under `Runtime`; build rule `Runtime/AudioExtensions/AudioExtensions.Build.cs`.It directly depends on 4 modules: `AudioMixerCore`, `Core`, `CoreUObject`, `SignalProcessing`.",
+      "`AudioExtensions` (Audio Extensions): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioExtensions/AudioExtensions.Build.cs`. It directly depends on 4 modules: `AudioMixerCore`, `Core`, `CoreUObject`, `SignalProcessing`.",
+      "Placement: `AudioExtensions` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioExtensions\" });`. Use Public when exposing `AudioExtensions` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioExtensions` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioExtensions.h` / `AudioExtensionsModule.h`), then use `FModuleManager::LoadModulePtr<AudioExtensionsModule>` or the exported types directly.",
-      "Transitive deps: `AudioExtensions` also needs `AudioMixerCore`, `Core`, `CoreUObject`, `SignalProcessing`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioExtensions` 的构建规则位于 `Runtime/AudioExtensions/AudioExtensions.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`AudioExtensions` build rule is `Runtime/AudioExtensions/AudioExtensions.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`AudioExtensions`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioExtensions/AudioExtensions.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`AudioExtensions`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioExtensions/AudioExtensions.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "audioformatadpcm",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioFormatADPCM` 位于 `Developer`，构建规则 `Developer/AudioFormatADPCM/AudioFormatADPCM.Build.cs`。它直接依赖 3 个模块：`AdpcmAudioDecoder`, `Core`, `Engine`。",
+      "`AudioFormatADPCM`（Audio Format ADPCM）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Developer`，构建规则 `Developer/AudioFormatADPCM/AudioFormatADPCM.Build.cs`。直接依赖 3 个模块：`AdpcmAudioDecoder`、`Core`、`Engine`。",
+      "部署：`AudioFormatADPCM` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatADPCM\" });`；对外暴露 `AudioFormatADPCM` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioFormatADPCM` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `AudioFormatADPCM.h` / `AudioFormatADPCMModule.h`），再用 `FModuleManager::LoadModulePtr<AudioFormatADPCMModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioFormatADPCM` 还依赖 `AdpcmAudioDecoder`, `Core`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioFormatADPCM` lives under `Developer`; build rule `Developer/AudioFormatADPCM/AudioFormatADPCM.Build.cs`.It directly depends on 3 modules: `AdpcmAudioDecoder`, `Core`, `Engine`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatADPCM\" });`. Use Public when exposing `AudioFormatADPCM` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`AudioFormatADPCM` (Audio Format ADPCM): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Developer`; build rule `Developer/AudioFormatADPCM/AudioFormatADPCM.Build.cs`. It directly depends on 3 modules: `AdpcmAudioDecoder`, `Core`, `Engine`.",
       "Placement: `AudioFormatADPCM` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `AudioFormatADPCM.h` / `AudioFormatADPCMModule.h`), then use `FModuleManager::LoadModulePtr<AudioFormatADPCMModule>` or the exported types directly.",
-      "Transitive deps: `AudioFormatADPCM` also needs `AdpcmAudioDecoder`, `Core`, `Engine`; do not re-list them unless you include their headers."
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatADPCM\" });`. Use Public when exposing `AudioFormatADPCM` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioFormatADPCM` 的构建规则位于 `Developer/AudioFormatADPCM/AudioFormatADPCM.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AudioFormatADPCM` build rule is `Developer/AudioFormatADPCM/AudioFormatADPCM.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AudioFormatADPCM`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Developer/AudioFormatADPCM/AudioFormatADPCM.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AudioFormatADPCM`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Developer/AudioFormatADPCM/AudioFormatADPCM.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "audioformatbink",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioFormatBink` 位于 `Developer`，构建规则 `Developer/AudioFormatBink/AudioFormatBink.Build.cs`。它直接依赖 2 个模块：`Core`, `Engine`。",
+      "`AudioFormatBink`（Audio Format Bink）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Developer`，构建规则 `Developer/AudioFormatBink/AudioFormatBink.Build.cs`。直接依赖 2 个模块：`Core`、`Engine`。",
+      "部署：`AudioFormatBink` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatBink\" });`；对外暴露 `AudioFormatBink` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioFormatBink` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `AudioFormatBink.h` / `AudioFormatBinkModule.h`），再用 `FModuleManager::LoadModulePtr<AudioFormatBinkModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioFormatBink` 还依赖 `Core`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioFormatBink` lives under `Developer`; build rule `Developer/AudioFormatBink/AudioFormatBink.Build.cs`.It directly depends on 2 modules: `Core`, `Engine`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatBink\" });`. Use Public when exposing `AudioFormatBink` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`AudioFormatBink` (Audio Format Bink): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Developer`; build rule `Developer/AudioFormatBink/AudioFormatBink.Build.cs`. It directly depends on 2 modules: `Core`, `Engine`.",
       "Placement: `AudioFormatBink` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `AudioFormatBink.h` / `AudioFormatBinkModule.h`), then use `FModuleManager::LoadModulePtr<AudioFormatBinkModule>` or the exported types directly.",
-      "Transitive deps: `AudioFormatBink` also needs `Core`, `Engine`; do not re-list them unless you include their headers."
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatBink\" });`. Use Public when exposing `AudioFormatBink` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioFormatBink` 的构建规则位于 `Developer/AudioFormatBink/AudioFormatBink.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`AudioFormatBink` build rule is `Developer/AudioFormatBink/AudioFormatBink.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`AudioFormatBink`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Developer/AudioFormatBink/AudioFormatBink.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`AudioFormatBink`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Developer/AudioFormatBink/AudioFormatBink.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "audioformatogg",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioFormatOgg` 位于 `Developer`，构建规则 `Developer/AudioFormatOgg/AudioFormatOgg.Build.cs`。它直接依赖 3 个模块：`Core`, `Engine`, `VorbisAudioDecoder`。",
+      "`AudioFormatOgg`（Audio Format Ogg）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Developer`，构建规则 `Developer/AudioFormatOgg/AudioFormatOgg.Build.cs`。直接依赖 3 个模块：`Core`、`Engine`、`VorbisAudioDecoder`。",
+      "部署：`AudioFormatOgg` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatOgg\" });`；对外暴露 `AudioFormatOgg` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioFormatOgg` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `AudioFormatOgg.h` / `AudioFormatOggModule.h`），再用 `FModuleManager::LoadModulePtr<AudioFormatOggModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioFormatOgg` 还依赖 `Core`, `Engine`, `VorbisAudioDecoder`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioFormatOgg` lives under `Developer`; build rule `Developer/AudioFormatOgg/AudioFormatOgg.Build.cs`.It directly depends on 3 modules: `Core`, `Engine`, `VorbisAudioDecoder`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatOgg\" });`. Use Public when exposing `AudioFormatOgg` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`AudioFormatOgg` (Audio Format Ogg): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Developer`; build rule `Developer/AudioFormatOgg/AudioFormatOgg.Build.cs`. It directly depends on 3 modules: `Core`, `Engine`, `VorbisAudioDecoder`.",
       "Placement: `AudioFormatOgg` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `AudioFormatOgg.h` / `AudioFormatOggModule.h`), then use `FModuleManager::LoadModulePtr<AudioFormatOggModule>` or the exported types directly.",
-      "Transitive deps: `AudioFormatOgg` also needs `Core`, `Engine`, `VorbisAudioDecoder`; do not re-list them unless you include their headers."
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatOgg\" });`. Use Public when exposing `AudioFormatOgg` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioFormatOgg` 的构建规则位于 `Developer/AudioFormatOgg/AudioFormatOgg.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AudioFormatOgg` build rule is `Developer/AudioFormatOgg/AudioFormatOgg.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AudioFormatOgg`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Developer/AudioFormatOgg/AudioFormatOgg.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AudioFormatOgg`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Developer/AudioFormatOgg/AudioFormatOgg.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "audioformatopus",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioFormatOpus` 位于 `Developer`，构建规则 `Developer/AudioFormatOpus/AudioFormatOpus.Build.cs`。它直接依赖 4 个模块：`Core`, `Engine`, `OpusAudioDecoder`, `VorbisAudioDecoder`。",
+      "`AudioFormatOpus`（Audio Format Opus）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Developer`，构建规则 `Developer/AudioFormatOpus/AudioFormatOpus.Build.cs`。直接依赖 4 个模块：`Core`、`Engine`、`OpusAudioDecoder`、`VorbisAudioDecoder`。",
+      "部署：`AudioFormatOpus` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatOpus\" });`；对外暴露 `AudioFormatOpus` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioFormatOpus` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `AudioFormatOpus.h` / `AudioFormatOpusModule.h`），再用 `FModuleManager::LoadModulePtr<AudioFormatOpusModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioFormatOpus` 还依赖 `Core`, `Engine`, `OpusAudioDecoder`, `VorbisAudioDecoder`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioFormatOpus` lives under `Developer`; build rule `Developer/AudioFormatOpus/AudioFormatOpus.Build.cs`.It directly depends on 4 modules: `Core`, `Engine`, `OpusAudioDecoder`, `VorbisAudioDecoder`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatOpus\" });`. Use Public when exposing `AudioFormatOpus` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`AudioFormatOpus` (Audio Format Opus): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Developer`; build rule `Developer/AudioFormatOpus/AudioFormatOpus.Build.cs`. It directly depends on 4 modules: `Core`, `Engine`, `OpusAudioDecoder`, `VorbisAudioDecoder`.",
       "Placement: `AudioFormatOpus` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `AudioFormatOpus.h` / `AudioFormatOpusModule.h`), then use `FModuleManager::LoadModulePtr<AudioFormatOpusModule>` or the exported types directly.",
-      "Transitive deps: `AudioFormatOpus` also needs `Core`, `Engine`, `OpusAudioDecoder`, `VorbisAudioDecoder`; do not re-list them unless you include their headers."
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatOpus\" });`. Use Public when exposing `AudioFormatOpus` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioFormatOpus` 的构建规则位于 `Developer/AudioFormatOpus/AudioFormatOpus.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`AudioFormatOpus` build rule is `Developer/AudioFormatOpus/AudioFormatOpus.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`AudioFormatOpus`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Developer/AudioFormatOpus/AudioFormatOpus.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`AudioFormatOpus`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Developer/AudioFormatOpus/AudioFormatOpus.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "audioformatrad",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioFormatRad` 位于 `Developer`，构建规则 `Developer/AudioFormatRad/AudioFormatRad.Build.cs`。它直接依赖 2 个模块：`Core`, `Engine`。",
+      "`AudioFormatRad`（Audio Format Rad）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Developer`，构建规则 `Developer/AudioFormatRad/AudioFormatRad.Build.cs`。直接依赖 2 个模块：`Core`、`Engine`。",
+      "部署：`AudioFormatRad` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatRad\" });`；对外暴露 `AudioFormatRad` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioFormatRad` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `AudioFormatRad.h` / `AudioFormatRadModule.h`），再用 `FModuleManager::LoadModulePtr<AudioFormatRadModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioFormatRad` 还依赖 `Core`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioFormatRad` lives under `Developer`; build rule `Developer/AudioFormatRad/AudioFormatRad.Build.cs`.It directly depends on 2 modules: `Core`, `Engine`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatRad\" });`. Use Public when exposing `AudioFormatRad` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`AudioFormatRad` (Audio Format Rad): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Developer`; build rule `Developer/AudioFormatRad/AudioFormatRad.Build.cs`. It directly depends on 2 modules: `Core`, `Engine`.",
       "Placement: `AudioFormatRad` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `AudioFormatRad.h` / `AudioFormatRadModule.h`), then use `FModuleManager::LoadModulePtr<AudioFormatRadModule>` or the exported types directly.",
-      "Transitive deps: `AudioFormatRad` also needs `Core`, `Engine`; do not re-list them unless you include their headers."
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioFormatRad\" });`. Use Public when exposing `AudioFormatRad` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioFormatRad` 的构建规则位于 `Developer/AudioFormatRad/AudioFormatRad.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`AudioFormatRad` build rule is `Developer/AudioFormatRad/AudioFormatRad.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`AudioFormatRad`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Developer/AudioFormatRad/AudioFormatRad.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`AudioFormatRad`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Developer/AudioFormatRad/AudioFormatRad.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "audiolinkcore",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioLinkCore` 位于 `Runtime`，构建规则 `Runtime/AudioLink/AudioLinkCore/AudioLinkCore.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`AudioLinkCore`（Audio Link Core）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioLink/AudioLinkCore/AudioLinkCore.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`AudioLinkCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioLinkCore\" });`；对外暴露 `AudioLinkCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioLinkCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioLinkCore.h` / `AudioLinkCoreModule.h`），再用 `FModuleManager::LoadModulePtr<AudioLinkCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioLinkCore` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioLinkCore` lives under `Runtime`; build rule `Runtime/AudioLink/AudioLinkCore/AudioLinkCore.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`AudioLinkCore` (Audio Link Core): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioLink/AudioLinkCore/AudioLinkCore.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `AudioLinkCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioLinkCore\" });`. Use Public when exposing `AudioLinkCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioLinkCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioLinkCore.h` / `AudioLinkCoreModule.h`), then use `FModuleManager::LoadModulePtr<AudioLinkCoreModule>` or the exported types directly.",
-      "Transitive deps: `AudioLinkCore` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioLinkCore` 的构建规则位于 `Runtime/AudioLink/AudioLinkCore/AudioLinkCore.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`AudioLinkCore` build rule is `Runtime/AudioLink/AudioLinkCore/AudioLinkCore.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`AudioLinkCore`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioLink/AudioLinkCore/AudioLinkCore.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`AudioLinkCore`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioLink/AudioLinkCore/AudioLinkCore.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "audiolinkengine",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioLinkEngine` 位于 `Runtime`，构建规则 `Runtime/AudioLink/AudioLinkEngine/AudioLinkEngine.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Engine`, `SignalProcessing`。",
+      "`AudioLinkEngine`（Audio Link Engine）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioLink/AudioLinkEngine/AudioLinkEngine.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`Engine`、`SignalProcessing`。",
+      "部署：`AudioLinkEngine` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioLinkEngine\" });`；对外暴露 `AudioLinkEngine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioLinkEngine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioLinkEngine.h` / `AudioLinkEngineModule.h`），再用 `FModuleManager::LoadModulePtr<AudioLinkEngineModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioLinkEngine` 还依赖 `Core`, `CoreUObject`, `Engine`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioLinkEngine` lives under `Runtime`; build rule `Runtime/AudioLink/AudioLinkEngine/AudioLinkEngine.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Engine`, `SignalProcessing`.",
+      "`AudioLinkEngine` (Audio Link Engine): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioLink/AudioLinkEngine/AudioLinkEngine.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `Engine`, `SignalProcessing`.",
+      "Placement: `AudioLinkEngine` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioLinkEngine\" });`. Use Public when exposing `AudioLinkEngine` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioLinkEngine` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioLinkEngine.h` / `AudioLinkEngineModule.h`), then use `FModuleManager::LoadModulePtr<AudioLinkEngineModule>` or the exported types directly.",
-      "Transitive deps: `AudioLinkEngine` also needs `Core`, `CoreUObject`, `Engine`, `SignalProcessing`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioLinkEngine` 的构建规则位于 `Runtime/AudioLink/AudioLinkEngine/AudioLinkEngine.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`AudioLinkEngine` build rule is `Runtime/AudioLink/AudioLinkEngine/AudioLinkEngine.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`AudioLinkEngine`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioLink/AudioLinkEngine/AudioLinkEngine.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`AudioLinkEngine`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioLink/AudioLinkEngine/AudioLinkEngine.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "audiomixer",
     "kind": "module",
     "cn_steps": [
-      "用途：`AudioMixer` 位于 `Runtime`，构建规则 `Runtime/AudioMixer/AudioMixer.Build.cs`。它直接依赖 8 个模块：`AudioExtensions`, `AudioLinkCore`, `AudioLinkEngine`, `AudioMixerCore`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`。",
+      "`AudioMixer`（Audio Mixer）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AudioMixer/AudioMixer.Build.cs`。直接依赖 8 个模块：`AudioExtensions`、`AudioLinkCore`、`AudioLinkEngine`、`AudioMixerCore`、`AudioPlatformConfiguration` 等。",
+      "部署：`AudioMixer` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AudioMixer\" });`；对外暴露 `AudioMixer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AudioMixer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AudioMixer.h` / `AudioMixerModule.h`），再用 `FModuleManager::LoadModulePtr<AudioMixerModule>` 或直接使用导出类型。",
-      "传递依赖：`AudioMixer` 还依赖 `AudioExtensions`, `AudioLinkCore`, `AudioLinkEngine`, `AudioMixerCore`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AudioMixer` lives under `Runtime`; build rule `Runtime/AudioMixer/AudioMixer.Build.cs`.It directly depends on 8 modules: `AudioExtensions`, `AudioLinkCore`, `AudioLinkEngine`, `AudioMixerCore`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`.",
+      "`AudioMixer` (Audio Mixer): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AudioMixer/AudioMixer.Build.cs`. It directly depends on 8 modules: `AudioExtensions`, `AudioLinkCore`, `AudioLinkEngine`, `AudioMixerCore`, `AudioPlatformConfiguration` etc.",
+      "Placement: `AudioMixer` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AudioMixer\" });`. Use Public when exposing `AudioMixer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AudioMixer` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AudioMixer.h` / `AudioMixerModule.h`), then use `FModuleManager::LoadModulePtr<AudioMixerModule>` or the exported types directly.",
-      "Transitive deps: `AudioMixer` also needs `AudioExtensions`, `AudioLinkCore`, `AudioLinkEngine`, `AudioMixerCore`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AudioMixer` 的构建规则位于 `Runtime/AudioMixer/AudioMixer.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AudioMixer` build rule is `Runtime/AudioMixer/AudioMixer.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AudioMixer`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AudioMixer/AudioMixer.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AudioMixer`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AudioMixer/AudioMixer.Build.cs`; depends on 8 modules."
   }
 ]

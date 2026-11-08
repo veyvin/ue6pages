@@ -1,304 +1,302 @@
 [
   {
+    "slug": "verseprogramhostservices",
+    "kind": "module",
+    "cn_steps": [
+      "`VerseProgramHostServices`（Verse Program Host Services）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Solaris/VerseProgramHostServices/VerseProgramHostServices.Build.cs`。直接依赖 2 个模块：`VerseCompiler`、`uLangCore`。",
+      "部署：`VerseProgramHostServices` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseProgramHostServices\" });`；对外暴露 `VerseProgramHostServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
+    ],
+    "en_steps": [
+      "`VerseProgramHostServices` (Verse Program Host Services): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Solaris/VerseProgramHostServices/VerseProgramHostServices.Build.cs`. It directly depends on 2 modules: `VerseCompiler`, `uLangCore`.",
+      "Placement: `VerseProgramHostServices` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseProgramHostServices\" });`. Use Public when exposing `VerseProgramHostServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
+    ],
+    "note_cn": "`VerseProgramHostServices`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Solaris/VerseProgramHostServices/VerseProgramHostServices.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`VerseProgramHostServices`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Solaris/VerseProgramHostServices/VerseProgramHostServices.Build.cs`; depends on 2 modules."
+  },
+  {
+    "slug": "verserefactoringtools",
+    "kind": "module",
+    "cn_steps": [
+      "`VerseRefactoringTools`（Verse Refactoring Tools）：它属于 Verse 脚本运行时（面向 UEFN/Fortnite 体验）。位于 `Developer`，构建规则 `Developer/VerseRefactoringTools/VerseRefactoringTools.Build.cs`。直接依赖 3 个模块：`Core`、`VerseCompiler`、`uLangCore`。",
+      "部署：`VerseRefactoringTools` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在 Verse 项目/设备里调用其 API；改完 Verse 代码后编译并推到会话。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseRefactoringTools\" });`；对外暴露 `VerseRefactoringTools` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`VerseRefactoringTools` (Verse Refactoring Tools): it is part of the Verse scripting runtime (for UEFN/Fortnite experiences). Located under `Developer`; build rule `Developer/VerseRefactoringTools/VerseRefactoringTools.Build.cs`. It directly depends on 3 modules: `Core`, `VerseCompiler`, `uLangCore`.",
+      "Placement: `VerseRefactoringTools` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "How to use: call its API from Verse projects/devices; compile Verse and push to the session after edits.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseRefactoringTools\" });`. Use Public when exposing `VerseRefactoringTools` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`VerseRefactoringTools`：它属于 Verse 脚本运行时（面向 UEFN/Fortnite 体验）；构建规则 `Developer/VerseRefactoringTools/VerseRefactoringTools.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`VerseRefactoringTools`: it is part of the Verse scripting runtime (for UEFN/Fortnite experiences); build rule `Developer/VerseRefactoringTools/VerseRefactoringTools.Build.cs`; depends on 3 modules."
+  },
+  {
     "slug": "verserefactoringtoolstests",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseRefactoringToolsTests` 位于 `Programs`，构建规则 `Programs/LowLevelTests/VerseRefactoringToolsTests/VerseRefactoringToolsTests.Build.cs`。它直接依赖 4 个模块：`Core`, `VerseCompiler`, `VerseProgramHostServices`, `VerseRefactoringTools`。",
+      "`VerseRefactoringToolsTests`（Verse Refactoring Tools Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/LowLevelTests/VerseRefactoringToolsTests/VerseRefactoringToolsTests.Build.cs`。直接依赖 4 个模块：`Core`、`VerseCompiler`、`VerseProgramHostServices`、`VerseRefactoringTools`。",
+      "部署：`VerseRefactoringToolsTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseRefactoringToolsTests\" });`；对外暴露 `VerseRefactoringToolsTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseRefactoringToolsTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseRefactoringToolsTests.h` / `VerseRefactoringToolsTestsModule.h`），再用 `FModuleManager::LoadModulePtr<VerseRefactoringToolsTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseRefactoringToolsTests` 还依赖 `Core`, `VerseCompiler`, `VerseProgramHostServices`, `VerseRefactoringTools`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `VerseRefactoringToolsTests` lives under `Programs`; build rule `Programs/LowLevelTests/VerseRefactoringToolsTests/VerseRefactoringToolsTests.Build.cs`.It directly depends on 4 modules: `Core`, `VerseCompiler`, `VerseProgramHostServices`, `VerseRefactoringTools`.",
+      "`VerseRefactoringToolsTests` (Verse Refactoring Tools Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/LowLevelTests/VerseRefactoringToolsTests/VerseRefactoringToolsTests.Build.cs`. It directly depends on 4 modules: `Core`, `VerseCompiler`, `VerseProgramHostServices`, `VerseRefactoringTools`.",
+      "Placement: `VerseRefactoringToolsTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseRefactoringToolsTests\" });`. Use Public when exposing `VerseRefactoringToolsTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseRefactoringToolsTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseRefactoringToolsTests.h` / `VerseRefactoringToolsTestsModule.h`), then use `FModuleManager::LoadModulePtr<VerseRefactoringToolsTestsModule>` or the exported types directly.",
-      "Transitive deps: `VerseRefactoringToolsTests` also needs `Core`, `VerseCompiler`, `VerseProgramHostServices`, `VerseRefactoringTools`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`VerseRefactoringToolsTests` 的构建规则位于 `Programs/LowLevelTests/VerseRefactoringToolsTests/VerseRefactoringToolsTests.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`VerseRefactoringToolsTests` build rule is `Programs/LowLevelTests/VerseRefactoringToolsTests/VerseRefactoringToolsTests.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`VerseRefactoringToolsTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/LowLevelTests/VerseRefactoringToolsTests/VerseRefactoringToolsTests.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`VerseRefactoringToolsTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/LowLevelTests/VerseRefactoringToolsTests/VerseRefactoringToolsTests.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "verseruntimetests",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseRuntimeTests` 位于 `Programs`，构建规则 `Programs/VerseRuntimeTests/VerseRuntimeTests.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`, `VerseCompiler`。",
+      "`VerseRuntimeTests`（Verse Runtime Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/VerseRuntimeTests/VerseRuntimeTests.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`Projects`、`Solaris` 等。",
+      "部署：`VerseRuntimeTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseRuntimeTests\" });`；对外暴露 `VerseRuntimeTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseRuntimeTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseRuntimeTests.h` / `VerseRuntimeTestsModule.h`），再用 `FModuleManager::LoadModulePtr<VerseRuntimeTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseRuntimeTests` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`, `VerseCompiler`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `VerseRuntimeTests` lives under `Programs`; build rule `Programs/VerseRuntimeTests/VerseRuntimeTests.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`, `VerseCompiler`.",
+      "`VerseRuntimeTests` (Verse Runtime Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/VerseRuntimeTests/VerseRuntimeTests.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `Solaris` etc.",
+      "Placement: `VerseRuntimeTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseRuntimeTests\" });`. Use Public when exposing `VerseRuntimeTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseRuntimeTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseRuntimeTests.h` / `VerseRuntimeTestsModule.h`), then use `FModuleManager::LoadModulePtr<VerseRuntimeTestsModule>` or the exported types directly.",
-      "Transitive deps: `VerseRuntimeTests` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`, `VerseCompiler`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`VerseRuntimeTests` 的构建规则位于 `Programs/VerseRuntimeTests/VerseRuntimeTests.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`VerseRuntimeTests` build rule is `Programs/VerseRuntimeTests/VerseRuntimeTests.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`VerseRuntimeTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/VerseRuntimeTests/VerseRuntimeTests.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`VerseRuntimeTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/VerseRuntimeTests/VerseRuntimeTests.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "versetestscriptcmd",
     "kind": "module",
     "cn_steps": [
-      "用途：`VerseTestScriptCmd` 位于 `Programs`，构建规则 `Programs/VerseTestScriptCmd/VerseTestScriptCmd.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`。",
+      "`VerseTestScriptCmd`（Verse Test Script Cmd）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/VerseTestScriptCmd/VerseTestScriptCmd.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`Projects`、`ScriptDisassembler` 等。",
+      "部署：`VerseTestScriptCmd` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VerseTestScriptCmd\" });`；对外暴露 `VerseTestScriptCmd` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VerseTestScriptCmd` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `VerseTestScriptCmd.h` / `VerseTestScriptCmdModule.h`），再用 `FModuleManager::LoadModulePtr<VerseTestScriptCmdModule>` 或直接使用导出类型。",
-      "传递依赖：`VerseTestScriptCmd` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `VerseTestScriptCmd` lives under `Programs`; build rule `Programs/VerseTestScriptCmd/VerseTestScriptCmd.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`.",
+      "`VerseTestScriptCmd` (Verse Test Script Cmd): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/VerseTestScriptCmd/VerseTestScriptCmd.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler` etc.",
+      "Placement: `VerseTestScriptCmd` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VerseTestScriptCmd\" });`. Use Public when exposing `VerseTestScriptCmd` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VerseTestScriptCmd` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `VerseTestScriptCmd.h` / `VerseTestScriptCmdModule.h`), then use `FModuleManager::LoadModulePtr<VerseTestScriptCmdModule>` or the exported types directly.",
-      "Transitive deps: `VerseTestScriptCmd` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Projects`, `ScriptDisassembler`, `Solaris`, `SolarisBridge`, `SolarisTestUtils`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`VerseTestScriptCmd` 的构建规则位于 `Programs/VerseTestScriptCmd/VerseTestScriptCmd.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`VerseTestScriptCmd` build rule is `Programs/VerseTestScriptCmd/VerseTestScriptCmd.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`VerseTestScriptCmd`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/VerseTestScriptCmd/VerseTestScriptCmd.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`VerseTestScriptCmd`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/VerseTestScriptCmd/VerseTestScriptCmd.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "vhacd",
     "kind": "module",
     "cn_steps": [
-      "用途：`VHACD` 位于 `ThirdParty`，构建规则 `ThirdParty/VHACD/VHACD.Build.cs`。描述符未声明依赖。",
+      "`VHACD`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/VHACD/VHACD.Build.cs`。描述符未声明依赖。",
+      "部署：`VHACD` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VHACD\" });`；对外暴露 `VHACD` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VHACD` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `VHACD.h` / `VHACDModule.h`），再用 `FModuleManager::LoadModulePtr<VHACDModule>` 或直接使用导出类型。",
-      "传递依赖：`VHACD` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `VHACD` lives under `ThirdParty`; build rule `ThirdParty/VHACD/VHACD.Build.cs`.The descriptor declares no dependencies.",
+      "`VHACD`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/VHACD/VHACD.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `VHACD` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VHACD\" });`. Use Public when exposing `VHACD` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VHACD` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `VHACD.h` / `VHACDModule.h`), then use `FModuleManager::LoadModulePtr<VHACDModule>` or the exported types directly.",
-      "Transitive deps: `VHACD` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`VHACD` 的构建规则位于 `ThirdParty/VHACD/VHACD.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`VHACD` build rule is `ThirdParty/VHACD/VHACD.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`VHACD`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/VHACD/VHACD.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`VHACD`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/VHACD/VHACD.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "viewportinteraction",
     "kind": "module",
     "cn_steps": [
-      "用途：`ViewportInteraction` 位于 `Editor`，构建规则 `Editor/ViewportInteraction/ViewportInteraction.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `EditorViewport`, `Engine`, `InputCore`, `LevelEditor`, `RHI`。",
+      "`ViewportInteraction`（Viewport Interaction）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/ViewportInteraction/ViewportInteraction.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`EditorFramework`、`EditorViewport`、`Engine` 等。",
+      "部署：`ViewportInteraction` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ViewportInteraction\" });`；对外暴露 `ViewportInteraction` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ViewportInteraction` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `ViewportInteraction.h` / `ViewportInteractionModule.h`），再用 `FModuleManager::LoadModulePtr<ViewportInteractionModule>` 或直接使用导出类型。",
-      "传递依赖：`ViewportInteraction` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `EditorViewport`, `Engine`, `InputCore`, `LevelEditor`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ViewportInteraction` lives under `Editor`; build rule `Editor/ViewportInteraction/ViewportInteraction.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorViewport`, `Engine`, `InputCore`, `LevelEditor`, `RHI`.",
+      "`ViewportInteraction` (Viewport Interaction): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/ViewportInteraction/ViewportInteraction.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorViewport`, `Engine` etc.",
+      "Placement: `ViewportInteraction` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ViewportInteraction\" });`. Use Public when exposing `ViewportInteraction` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ViewportInteraction` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `ViewportInteraction.h` / `ViewportInteractionModule.h`), then use `FModuleManager::LoadModulePtr<ViewportInteractionModule>` or the exported types directly.",
-      "Transitive deps: `ViewportInteraction` also needs `Core`, `CoreUObject`, `EditorFramework`, `EditorViewport`, `Engine`, `InputCore`, `LevelEditor`, `RHI`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ViewportInteraction` 的构建规则位于 `Editor/ViewportInteraction/ViewportInteraction.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`ViewportInteraction` build rule is `Editor/ViewportInteraction/ViewportInteraction.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`ViewportInteraction`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/ViewportInteraction/ViewportInteraction.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`ViewportInteraction`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/ViewportInteraction/ViewportInteraction.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "viewportpanelstyle",
     "kind": "module",
     "cn_steps": [
-      "用途：`ViewportPanelStyle` 位于 `Editor`，构建规则 `Editor/Experimental/ViewportPanelStyle/ViewportPanelStyle.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Slate`, `SlateCore`。",
+      "`ViewportPanelStyle`（Viewport Panel Style）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/Experimental/ViewportPanelStyle/ViewportPanelStyle.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`Slate`、`SlateCore`。",
+      "部署：`ViewportPanelStyle` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ViewportPanelStyle\" });`；对外暴露 `ViewportPanelStyle` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ViewportPanelStyle` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `ViewportPanelStyle.h` / `ViewportPanelStyleModule.h`），再用 `FModuleManager::LoadModulePtr<ViewportPanelStyleModule>` 或直接使用导出类型。",
-      "传递依赖：`ViewportPanelStyle` 还依赖 `Core`, `CoreUObject`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`ViewportPanelStyle` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ViewportPanelStyle` lives under `Editor`; build rule `Editor/Experimental/ViewportPanelStyle/ViewportPanelStyle.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Slate`, `SlateCore`.",
+      "`ViewportPanelStyle` (Viewport Panel Style): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/Experimental/ViewportPanelStyle/ViewportPanelStyle.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `Slate`, `SlateCore`.",
+      "Placement: `ViewportPanelStyle` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ViewportPanelStyle\" });`. Use Public when exposing `ViewportPanelStyle` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ViewportPanelStyle` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `ViewportPanelStyle.h` / `ViewportPanelStyleModule.h`), then use `FModuleManager::LoadModulePtr<ViewportPanelStyleModule>` or the exported types directly.",
-      "Transitive deps: `ViewportPanelStyle` also needs `Core`, `CoreUObject`, `Slate`, `SlateCore`; do not re-list them unless you include their headers.",
-      "Note: `ViewportPanelStyle` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ViewportPanelStyle` 的构建规则位于 `Editor/Experimental/ViewportPanelStyle/ViewportPanelStyle.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`ViewportPanelStyle` build rule is `Editor/Experimental/ViewportPanelStyle/ViewportPanelStyle.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`ViewportPanelStyle`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/Experimental/ViewportPanelStyle/ViewportPanelStyle.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`ViewportPanelStyle`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/Experimental/ViewportPanelStyle/ViewportPanelStyle.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "viewportsnapping",
     "kind": "module",
     "cn_steps": [
-      "用途：`ViewportSnapping` 位于 `Editor`，构建规则 `Editor/ViewportSnapping/ViewportSnapping.Build.cs`。它直接依赖 3 个模块：`Core`, `RHI`, `RenderCore`。",
+      "`ViewportSnapping`（Viewport Snapping）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/ViewportSnapping/ViewportSnapping.Build.cs`。直接依赖 3 个模块：`Core`、`RHI`、`RenderCore`。",
+      "部署：`ViewportSnapping` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ViewportSnapping\" });`；对外暴露 `ViewportSnapping` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ViewportSnapping` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `ViewportSnapping.h` / `ViewportSnappingModule.h`），再用 `FModuleManager::LoadModulePtr<ViewportSnappingModule>` 或直接使用导出类型。",
-      "传递依赖：`ViewportSnapping` 还依赖 `Core`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ViewportSnapping` lives under `Editor`; build rule `Editor/ViewportSnapping/ViewportSnapping.Build.cs`.It directly depends on 3 modules: `Core`, `RHI`, `RenderCore`.",
+      "`ViewportSnapping` (Viewport Snapping): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/ViewportSnapping/ViewportSnapping.Build.cs`. It directly depends on 3 modules: `Core`, `RHI`, `RenderCore`.",
+      "Placement: `ViewportSnapping` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ViewportSnapping\" });`. Use Public when exposing `ViewportSnapping` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ViewportSnapping` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `ViewportSnapping.h` / `ViewportSnappingModule.h`), then use `FModuleManager::LoadModulePtr<ViewportSnappingModule>` or the exported types directly.",
-      "Transitive deps: `ViewportSnapping` also needs `Core`, `RHI`, `RenderCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ViewportSnapping` 的构建规则位于 `Editor/ViewportSnapping/ViewportSnapping.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`ViewportSnapping` build rule is `Editor/ViewportSnapping/ViewportSnapping.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`ViewportSnapping`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/ViewportSnapping/ViewportSnapping.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`ViewportSnapping`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/ViewportSnapping/ViewportSnapping.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "virtualization",
     "kind": "module",
     "cn_steps": [
-      "用途：`Virtualization` 位于 `Developer`，构建规则 `Developer/Virtualization/Virtualization.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DerivedDataCache`, `MessageLog`, `NetworkCacheStores`, `Projects`, `Slate`, `SlateCore`。",
+      "`Virtualization`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Developer`，构建规则 `Developer/Virtualization/Virtualization.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DerivedDataCache`、`MessageLog`、`NetworkCacheStores` 等。",
+      "部署：`Virtualization` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Virtualization\" });`；对外暴露 `Virtualization` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Virtualization` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `Virtualization.h` / `VirtualizationModule.h`），再用 `FModuleManager::LoadModulePtr<VirtualizationModule>` 或直接使用导出类型。",
-      "传递依赖：`Virtualization` 还依赖 `Core`, `CoreUObject`, `DerivedDataCache`, `MessageLog`, `NetworkCacheStores`, `Projects`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Virtualization` lives under `Developer`; build rule `Developer/Virtualization/Virtualization.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DerivedDataCache`, `MessageLog`, `NetworkCacheStores`, `Projects`, `Slate`, `SlateCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Virtualization\" });`. Use Public when exposing `Virtualization` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`Virtualization`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Developer`; build rule `Developer/Virtualization/Virtualization.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DerivedDataCache`, `MessageLog`, `NetworkCacheStores` etc.",
       "Placement: `Virtualization` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `Virtualization.h` / `VirtualizationModule.h`), then use `FModuleManager::LoadModulePtr<VirtualizationModule>` or the exported types directly.",
-      "Transitive deps: `Virtualization` also needs `Core`, `CoreUObject`, `DerivedDataCache`, `MessageLog`, `NetworkCacheStores`, `Projects`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Virtualization\" });`. Use Public when exposing `Virtualization` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Virtualization` 的构建规则位于 `Developer/Virtualization/Virtualization.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`Virtualization` build rule is `Developer/Virtualization/Virtualization.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`Virtualization`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Developer/Virtualization/Virtualization.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`Virtualization`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Developer/Virtualization/Virtualization.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "virtualizationeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`VirtualizationEditor` 位于 `Editor`，构建规则 `Editor/VirtualizationEditor/VirtualizationEditor.Build.cs`。它直接依赖 8 个模块：`ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine`, `Slate`, `SlateCore`, `SourceControl`。",
+      "`VirtualizationEditor`（Virtualization Editor）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Editor`，构建规则 `Editor/VirtualizationEditor/VirtualizationEditor.Build.cs`。直接依赖 8 个模块：`ContentBrowserData`、`Core`、`CoreUObject`、`DeveloperToolSettings`、`Engine` 等。",
+      "部署：`VirtualizationEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VirtualizationEditor\" });`；对外暴露 `VirtualizationEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VirtualizationEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `VirtualizationEditor.h` / `VirtualizationEditorModule.h`），再用 `FModuleManager::LoadModulePtr<VirtualizationEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`VirtualizationEditor` 还依赖 `ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine`, `Slate`, `SlateCore`, `SourceControl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VirtualizationEditor` lives under `Editor`; build rule `Editor/VirtualizationEditor/VirtualizationEditor.Build.cs`.It directly depends on 8 modules: `ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine`, `Slate`, `SlateCore`, `SourceControl`.",
+      "`VirtualizationEditor` (Virtualization Editor): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Editor`; build rule `Editor/VirtualizationEditor/VirtualizationEditor.Build.cs`. It directly depends on 8 modules: `ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine` etc.",
+      "Placement: `VirtualizationEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VirtualizationEditor\" });`. Use Public when exposing `VirtualizationEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VirtualizationEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `VirtualizationEditor.h` / `VirtualizationEditorModule.h`), then use `FModuleManager::LoadModulePtr<VirtualizationEditorModule>` or the exported types directly.",
-      "Transitive deps: `VirtualizationEditor` also needs `ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Engine`, `Slate`, `SlateCore`, `SourceControl`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VirtualizationEditor` 的构建规则位于 `Editor/VirtualizationEditor/VirtualizationEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`VirtualizationEditor` build rule is `Editor/VirtualizationEditor/VirtualizationEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`VirtualizationEditor`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Editor/VirtualizationEditor/VirtualizationEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`VirtualizationEditor`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Editor/VirtualizationEditor/VirtualizationEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "virtualtexturingeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`VirtualTexturingEditor` 位于 `Editor`，构建规则 `Editor/VirtualTexturingEditor/VirtualTexturingEditor.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `AssetDefinition`, `AssetRegistry`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`。",
+      "`VirtualTexturingEditor`（Virtual Texturing Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/VirtualTexturingEditor/VirtualTexturingEditor.Build.cs`。直接依赖 8 个模块：`AppFramework`、`AssetDefinition`、`AssetRegistry`、`ContentBrowser`、`Core` 等。",
+      "部署：`VirtualTexturingEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VirtualTexturingEditor\" });`；对外暴露 `VirtualTexturingEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VirtualTexturingEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `VirtualTexturingEditor.h` / `VirtualTexturingEditorModule.h`），再用 `FModuleManager::LoadModulePtr<VirtualTexturingEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`VirtualTexturingEditor` 还依赖 `AppFramework`, `AssetDefinition`, `AssetRegistry`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VirtualTexturingEditor` lives under `Editor`; build rule `Editor/VirtualTexturingEditor/VirtualTexturingEditor.Build.cs`.It directly depends on 8 modules: `AppFramework`, `AssetDefinition`, `AssetRegistry`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`.",
+      "`VirtualTexturingEditor` (Virtual Texturing Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/VirtualTexturingEditor/VirtualTexturingEditor.Build.cs`. It directly depends on 8 modules: `AppFramework`, `AssetDefinition`, `AssetRegistry`, `ContentBrowser`, `Core` etc.",
+      "Placement: `VirtualTexturingEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VirtualTexturingEditor\" });`. Use Public when exposing `VirtualTexturingEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VirtualTexturingEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `VirtualTexturingEditor.h` / `VirtualTexturingEditorModule.h`), then use `FModuleManager::LoadModulePtr<VirtualTexturingEditorModule>` or the exported types directly.",
-      "Transitive deps: `VirtualTexturingEditor` also needs `AppFramework`, `AssetDefinition`, `AssetRegistry`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VirtualTexturingEditor` 的构建规则位于 `Editor/VirtualTexturingEditor/VirtualTexturingEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`VirtualTexturingEditor` build rule is `Editor/VirtualTexturingEditor/VirtualTexturingEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`VirtualTexturingEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/VirtualTexturingEditor/VirtualTexturingEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`VirtualTexturingEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/VirtualTexturingEditor/VirtualTexturingEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "visualgraphutils",
     "kind": "module",
     "cn_steps": [
-      "用途：`VisualGraphUtils` 位于 `Developer`，构建规则 `Developer/VisualGraphUtils/VisualGraphUtils.Build.cs`。它直接依赖 4 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Engine`。",
+      "`VisualGraphUtils`（Visual Graph Utils）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/VisualGraphUtils/VisualGraphUtils.Build.cs`。直接依赖 4 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`Engine`。",
+      "部署：`VisualGraphUtils` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VisualGraphUtils\" });`；对外暴露 `VisualGraphUtils` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VisualGraphUtils` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `VisualGraphUtils.h` / `VisualGraphUtilsModule.h`），再用 `FModuleManager::LoadModulePtr<VisualGraphUtilsModule>` 或直接使用导出类型。",
-      "传递依赖：`VisualGraphUtils` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `VisualGraphUtils` lives under `Developer`; build rule `Developer/VisualGraphUtils/VisualGraphUtils.Build.cs`.It directly depends on 4 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Engine`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VisualGraphUtils\" });`. Use Public when exposing `VisualGraphUtils` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`VisualGraphUtils` (Visual Graph Utils): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/VisualGraphUtils/VisualGraphUtils.Build.cs`. It directly depends on 4 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Engine`.",
       "Placement: `VisualGraphUtils` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `VisualGraphUtils.h` / `VisualGraphUtilsModule.h`), then use `FModuleManager::LoadModulePtr<VisualGraphUtilsModule>` or the exported types directly.",
-      "Transitive deps: `VisualGraphUtils` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VisualGraphUtils\" });`. Use Public when exposing `VisualGraphUtils` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`VisualGraphUtils` 的构建规则位于 `Developer/VisualGraphUtils/VisualGraphUtils.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`VisualGraphUtils` build rule is `Developer/VisualGraphUtils/VisualGraphUtils.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`VisualGraphUtils`：它向其他模块提供 C++ API/功能；构建规则 `Developer/VisualGraphUtils/VisualGraphUtils.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`VisualGraphUtils`: it exposes C++ API/functionality to other modules; build rule `Developer/VisualGraphUtils/VisualGraphUtils.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "visualstudiodte",
     "kind": "module",
     "cn_steps": [
-      "用途：`VisualStudioDTE` 位于 `ThirdParty`，构建规则 `ThirdParty/Windows/VisualStudioDTE/VisualStudioDTE.Build.cs`。描述符未声明依赖。",
+      "`VisualStudioDTE`（Visual Studio DTE）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Windows/VisualStudioDTE/VisualStudioDTE.Build.cs`。描述符未声明依赖。",
+      "部署：`VisualStudioDTE` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VisualStudioDTE\" });`；对外暴露 `VisualStudioDTE` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VisualStudioDTE` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `VisualStudioDTE.h` / `VisualStudioDTEModule.h`），再用 `FModuleManager::LoadModulePtr<VisualStudioDTEModule>` 或直接使用导出类型。",
-      "传递依赖：`VisualStudioDTE` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `VisualStudioDTE` lives under `ThirdParty`; build rule `ThirdParty/Windows/VisualStudioDTE/VisualStudioDTE.Build.cs`.The descriptor declares no dependencies.",
+      "`VisualStudioDTE` (Visual Studio DTE): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Windows/VisualStudioDTE/VisualStudioDTE.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `VisualStudioDTE` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VisualStudioDTE\" });`. Use Public when exposing `VisualStudioDTE` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VisualStudioDTE` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `VisualStudioDTE.h` / `VisualStudioDTEModule.h`), then use `FModuleManager::LoadModulePtr<VisualStudioDTEModule>` or the exported types directly.",
-      "Transitive deps: `VisualStudioDTE` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`VisualStudioDTE` 的构建规则位于 `ThirdParty/Windows/VisualStudioDTE/VisualStudioDTE.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`VisualStudioDTE` build rule is `ThirdParty/Windows/VisualStudioDTE/VisualStudioDTE.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`VisualStudioDTE`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Windows/VisualStudioDTE/VisualStudioDTE.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`VisualStudioDTE`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Windows/VisualStudioDTE/VisualStudioDTE.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "vkquality",
     "kind": "module",
     "cn_steps": [
-      "用途：`VKQuality` 位于 `ThirdParty`，构建规则 `ThirdParty/vkquality/VKQuality.Build.cs`。描述符未声明依赖。",
+      "`VKQuality`（VK Quality）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/vkquality/VKQuality.Build.cs`。描述符未声明依赖。",
+      "部署：`VKQuality` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"VKQuality\" });`；对外暴露 `VKQuality` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`VKQuality` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `VKQuality.h` / `VKQualityModule.h`），再用 `FModuleManager::LoadModulePtr<VKQualityModule>` 或直接使用导出类型。",
-      "传递依赖：`VKQuality` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `VKQuality` lives under `ThirdParty`; build rule `ThirdParty/vkquality/VKQuality.Build.cs`.The descriptor declares no dependencies.",
+      "`VKQuality` (VK Quality): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/vkquality/VKQuality.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `VKQuality` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"VKQuality\" });`. Use Public when exposing `VKQuality` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `VKQuality` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `VKQuality.h` / `VKQualityModule.h`), then use `FModuleManager::LoadModulePtr<VKQualityModule>` or the exported types directly.",
-      "Transitive deps: `VKQuality` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`VKQuality` 的构建规则位于 `ThirdParty/vkquality/VKQuality.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`VKQuality` build rule is `ThirdParty/vkquality/VKQuality.Build.cs`; depends on 0 modules; category External."
-  },
-  {
-    "slug": "voice",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`Voice` 位于 `Runtime`，构建规则 `Runtime/Online/Voice/Voice.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `AudioMixer`, `Core`, `Engine`, `SignalProcessing`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Voice\" });`；对外暴露 `Voice` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Voice` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Voice.h` / `VoiceModule.h`），再用 `FModuleManager::LoadModulePtr<VoiceModule>` 或直接使用导出类型。",
-      "传递依赖：`Voice` 还依赖 `ApplicationCore`, `AudioMixer`, `Core`, `Engine`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `Voice` lives under `Runtime`; build rule `Runtime/Online/Voice/Voice.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `AudioMixer`, `Core`, `Engine`, `SignalProcessing`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Voice\" });`. Use Public when exposing `Voice` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Voice` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Voice.h` / `VoiceModule.h`), then use `FModuleManager::LoadModulePtr<VoiceModule>` or the exported types directly.",
-      "Transitive deps: `Voice` also needs `ApplicationCore`, `AudioMixer`, `Core`, `Engine`, `SignalProcessing`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`Voice` 的构建规则位于 `Runtime/Online/Voice/Voice.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`Voice` build rule is `Runtime/Online/Voice/Voice.Build.cs`; depends on 5 modules; category Module."
-  },
-  {
-    "slug": "vorbis",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`Vorbis` 位于 `ThirdParty`，构建规则 `ThirdParty/Vorbis/Vorbis.Build.cs`。描述符未声明依赖。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Vorbis\" });`；对外暴露 `Vorbis` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Vorbis` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Vorbis.h` / `VorbisModule.h`），再用 `FModuleManager::LoadModulePtr<VorbisModule>` 或直接使用导出类型。",
-      "传递依赖：`Vorbis` 未声明额外公开依赖，通常只依赖引擎基础层。"
-    ],
-    "en_steps": [
-      "Purpose: `Vorbis` lives under `ThirdParty`; build rule `ThirdParty/Vorbis/Vorbis.Build.cs`.The descriptor declares no dependencies.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Vorbis\" });`. Use Public when exposing `Vorbis` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Vorbis` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Vorbis.h` / `VorbisModule.h`), then use `FModuleManager::LoadModulePtr<VorbisModule>` or the exported types directly.",
-      "Transitive deps: `Vorbis` declares no extra public deps; it typically relies on engine basics."
-    ],
-    "note_cn": "`Vorbis` 的构建规则位于 `ThirdParty/Vorbis/Vorbis.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Vorbis` build rule is `ThirdParty/Vorbis/Vorbis.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`VKQuality`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/vkquality/VKQuality.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`VKQuality`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/vkquality/VKQuality.Build.cs`; depends on 0 modules."
   }
 ]

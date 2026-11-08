@@ -1,302 +1,302 @@
 [
   {
+    "slug": "netcore",
+    "kind": "module",
+    "cn_steps": [
+      "`NetCore`（Net Core）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Net/Core/NetCore.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`NetCommon`、`TraceLog`。",
+      "部署：`NetCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NetCore\" });`；对外暴露 `NetCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`NetCore` (Net Core): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Net/Core/NetCore.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `NetCommon`, `TraceLog`.",
+      "Placement: `NetCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetCore\" });`. Use Public when exposing `NetCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`NetCore`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Net/Core/NetCore.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`NetCore`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Net/Core/NetCore.Build.cs`; depends on 4 modules."
+  },
+  {
     "slug": "nettrafficcontroltests",
     "kind": "module",
     "cn_steps": [
-      "用途：`NetTrafficControlTests` 位于 `Programs`，构建规则 `Programs/NetTrafficControlTests/NetTrafficControlTests.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Engine`, `NetCore`。",
+      "`NetTrafficControlTests`（Net Traffic Control Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/NetTrafficControlTests/NetTrafficControlTests.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`Engine`、`NetCore`。",
+      "部署：`NetTrafficControlTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NetTrafficControlTests\" });`；对外暴露 `NetTrafficControlTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NetTrafficControlTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `NetTrafficControlTests.h` / `NetTrafficControlTestsModule.h`），再用 `FModuleManager::LoadModulePtr<NetTrafficControlTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`NetTrafficControlTests` 还依赖 `Core`, `CoreUObject`, `Engine`, `NetCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `NetTrafficControlTests` lives under `Programs`; build rule `Programs/NetTrafficControlTests/NetTrafficControlTests.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Engine`, `NetCore`.",
+      "`NetTrafficControlTests` (Net Traffic Control Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/NetTrafficControlTests/NetTrafficControlTests.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `Engine`, `NetCore`.",
+      "Placement: `NetTrafficControlTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetTrafficControlTests\" });`. Use Public when exposing `NetTrafficControlTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NetTrafficControlTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `NetTrafficControlTests.h` / `NetTrafficControlTestsModule.h`), then use `FModuleManager::LoadModulePtr<NetTrafficControlTestsModule>` or the exported types directly.",
-      "Transitive deps: `NetTrafficControlTests` also needs `Core`, `CoreUObject`, `Engine`, `NetCore`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`NetTrafficControlTests` 的构建规则位于 `Programs/NetTrafficControlTests/NetTrafficControlTests.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`NetTrafficControlTests` build rule is `Programs/NetTrafficControlTests/NetTrafficControlTests.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`NetTrafficControlTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/NetTrafficControlTests/NetTrafficControlTests.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`NetTrafficControlTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/NetTrafficControlTests/NetTrafficControlTests.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "networkcachestores",
     "kind": "module",
     "cn_steps": [
-      "用途：`NetworkCacheStores` 位于 `Developer`，构建规则 `Developer/NetworkCacheStores/NetworkCacheStores.Build.cs`。它直接依赖 7 个模块：`Core`, `DerivedDataCache`, `DesktopPlatform`, `DevHttp`, `Json`, `SSL`, `Zen`。",
+      "`NetworkCacheStores`（Network Cache Stores）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Developer`，构建规则 `Developer/NetworkCacheStores/NetworkCacheStores.Build.cs`。直接依赖 7 个模块：`Core`、`DerivedDataCache`、`DesktopPlatform`、`DevHttp`、`Json` 等。",
+      "部署：`NetworkCacheStores` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkCacheStores\" });`；对外暴露 `NetworkCacheStores` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NetworkCacheStores` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `NetworkCacheStores.h` / `NetworkCacheStoresModule.h`），再用 `FModuleManager::LoadModulePtr<NetworkCacheStoresModule>` 或直接使用导出类型。",
-      "传递依赖：`NetworkCacheStores` 还依赖 `Core`, `DerivedDataCache`, `DesktopPlatform`, `DevHttp`, `Json`, `SSL`, `Zen`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NetworkCacheStores` lives under `Developer`; build rule `Developer/NetworkCacheStores/NetworkCacheStores.Build.cs`.It directly depends on 7 modules: `Core`, `DerivedDataCache`, `DesktopPlatform`, `DevHttp`, `Json`, `SSL`, `Zen`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkCacheStores\" });`. Use Public when exposing `NetworkCacheStores` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`NetworkCacheStores` (Network Cache Stores): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Developer`; build rule `Developer/NetworkCacheStores/NetworkCacheStores.Build.cs`. It directly depends on 7 modules: `Core`, `DerivedDataCache`, `DesktopPlatform`, `DevHttp`, `Json` etc.",
       "Placement: `NetworkCacheStores` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `NetworkCacheStores.h` / `NetworkCacheStoresModule.h`), then use `FModuleManager::LoadModulePtr<NetworkCacheStoresModule>` or the exported types directly.",
-      "Transitive deps: `NetworkCacheStores` also needs `Core`, `DerivedDataCache`, `DesktopPlatform`, `DevHttp`, `Json`, `SSL`, `Zen`; do not re-list them unless you include their headers."
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkCacheStores\" });`. Use Public when exposing `NetworkCacheStores` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NetworkCacheStores` 的构建规则位于 `Developer/NetworkCacheStores/NetworkCacheStores.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`NetworkCacheStores` build rule is `Developer/NetworkCacheStores/NetworkCacheStores.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`NetworkCacheStores`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Developer/NetworkCacheStores/NetworkCacheStores.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`NetworkCacheStores`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Developer/NetworkCacheStores/NetworkCacheStores.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "networkfile",
     "kind": "module",
     "cn_steps": [
-      "用途：`NetworkFile` 位于 `Runtime`，构建规则 `Runtime/NetworkFile/NetworkFile.Build.cs`。它直接依赖 4 个模块：`CookOnTheFly`, `Core`, `CoreUObject`, `Sockets`。",
+      "`NetworkFile`（Network File）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/NetworkFile/NetworkFile.Build.cs`。直接依赖 4 个模块：`CookOnTheFly`、`Core`、`CoreUObject`、`Sockets`。",
+      "部署：`NetworkFile` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkFile\" });`；对外暴露 `NetworkFile` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NetworkFile` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NetworkFile.h` / `NetworkFileModule.h`），再用 `FModuleManager::LoadModulePtr<NetworkFileModule>` 或直接使用导出类型。",
-      "传递依赖：`NetworkFile` 还依赖 `CookOnTheFly`, `Core`, `CoreUObject`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NetworkFile` lives under `Runtime`; build rule `Runtime/NetworkFile/NetworkFile.Build.cs`.It directly depends on 4 modules: `CookOnTheFly`, `Core`, `CoreUObject`, `Sockets`.",
+      "`NetworkFile` (Network File): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/NetworkFile/NetworkFile.Build.cs`. It directly depends on 4 modules: `CookOnTheFly`, `Core`, `CoreUObject`, `Sockets`.",
+      "Placement: `NetworkFile` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkFile\" });`. Use Public when exposing `NetworkFile` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NetworkFile` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NetworkFile.h` / `NetworkFileModule.h`), then use `FModuleManager::LoadModulePtr<NetworkFileModule>` or the exported types directly.",
-      "Transitive deps: `NetworkFile` also needs `CookOnTheFly`, `Core`, `CoreUObject`, `Sockets`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NetworkFile` 的构建规则位于 `Runtime/NetworkFile/NetworkFile.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`NetworkFile` build rule is `Runtime/NetworkFile/NetworkFile.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`NetworkFile`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/NetworkFile/NetworkFile.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`NetworkFile`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/NetworkFile/NetworkFile.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "networkfilesystem",
     "kind": "module",
     "cn_steps": [
-      "用途：`NetworkFileSystem` 位于 `Runtime`，构建规则 `Runtime/NetworkFileSystem/NetworkFileSystem.Build.cs`。它直接依赖 8 个模块：`CookOnTheFly`, `CookOnTheFlyNetServer`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `Projects`, `SandboxFile`。",
+      "`NetworkFileSystem`（Network File System）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/NetworkFileSystem/NetworkFileSystem.Build.cs`。直接依赖 8 个模块：`CookOnTheFly`、`CookOnTheFlyNetServer`、`Core`、`CoreUObject`、`DesktopPlatform` 等。",
+      "部署：`NetworkFileSystem` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkFileSystem\" });`；对外暴露 `NetworkFileSystem` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NetworkFileSystem` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NetworkFileSystem.h` / `NetworkFileSystemModule.h`），再用 `FModuleManager::LoadModulePtr<NetworkFileSystemModule>` 或直接使用导出类型。",
-      "传递依赖：`NetworkFileSystem` 还依赖 `CookOnTheFly`, `CookOnTheFlyNetServer`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `Projects`, `SandboxFile`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NetworkFileSystem` lives under `Runtime`; build rule `Runtime/NetworkFileSystem/NetworkFileSystem.Build.cs`.It directly depends on 8 modules: `CookOnTheFly`, `CookOnTheFlyNetServer`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `Projects`, `SandboxFile`.",
+      "`NetworkFileSystem` (Network File System): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/NetworkFileSystem/NetworkFileSystem.Build.cs`. It directly depends on 8 modules: `CookOnTheFly`, `CookOnTheFlyNetServer`, `Core`, `CoreUObject`, `DesktopPlatform` etc.",
+      "Placement: `NetworkFileSystem` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkFileSystem\" });`. Use Public when exposing `NetworkFileSystem` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NetworkFileSystem` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NetworkFileSystem.h` / `NetworkFileSystemModule.h`), then use `FModuleManager::LoadModulePtr<NetworkFileSystemModule>` or the exported types directly.",
-      "Transitive deps: `NetworkFileSystem` also needs `CookOnTheFly`, `CookOnTheFlyNetServer`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `Projects`, `SandboxFile`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NetworkFileSystem` 的构建规则位于 `Runtime/NetworkFileSystem/NetworkFileSystem.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`NetworkFileSystem` build rule is `Runtime/NetworkFileSystem/NetworkFileSystem.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`NetworkFileSystem`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/NetworkFileSystem/NetworkFileSystem.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`NetworkFileSystem`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/NetworkFileSystem/NetworkFileSystem.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "networking",
     "kind": "module",
     "cn_steps": [
-      "用途：`Networking` 位于 `Runtime`，构建规则 `Runtime/Networking/Networking.Build.cs`。它直接依赖 2 个模块：`Core`, `Sockets`。",
+      "`Networking`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Networking/Networking.Build.cs`。直接依赖 2 个模块：`Core`、`Sockets`。",
+      "部署：`Networking` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Networking\" });`；对外暴露 `Networking` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Networking` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Networking.h` / `NetworkingModule.h`），再用 `FModuleManager::LoadModulePtr<NetworkingModule>` 或直接使用导出类型。",
-      "传递依赖：`Networking` 还依赖 `Core`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Networking` lives under `Runtime`; build rule `Runtime/Networking/Networking.Build.cs`.It directly depends on 2 modules: `Core`, `Sockets`.",
+      "`Networking`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Networking/Networking.Build.cs`. It directly depends on 2 modules: `Core`, `Sockets`.",
+      "Placement: `Networking` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Networking\" });`. Use Public when exposing `Networking` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Networking` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Networking.h` / `NetworkingModule.h`), then use `FModuleManager::LoadModulePtr<NetworkingModule>` or the exported types directly.",
-      "Transitive deps: `Networking` also needs `Core`, `Sockets`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Networking` 的构建规则位于 `Runtime/Networking/Networking.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`Networking` build rule is `Runtime/Networking/Networking.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`Networking`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Networking/Networking.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`Networking`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Networking/Networking.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "networkpredictiontests",
     "kind": "module",
     "cn_steps": [
-      "用途：`NetworkPredictionTests` 位于 `Programs`，构建规则 `Programs/NetworkPredictionTests/NetworkPredictionTests.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `NetworkPrediction`。",
+      "`NetworkPredictionTests`（Network Prediction Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/NetworkPredictionTests/NetworkPredictionTests.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`NetworkPrediction`。",
+      "部署：`NetworkPredictionTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkPredictionTests\" });`；对外暴露 `NetworkPredictionTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NetworkPredictionTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `NetworkPredictionTests.h` / `NetworkPredictionTestsModule.h`），再用 `FModuleManager::LoadModulePtr<NetworkPredictionTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`NetworkPredictionTests` 还依赖 `Core`, `CoreUObject`, `NetworkPrediction`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `NetworkPredictionTests` lives under `Programs`; build rule `Programs/NetworkPredictionTests/NetworkPredictionTests.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `NetworkPrediction`.",
+      "`NetworkPredictionTests` (Network Prediction Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/NetworkPredictionTests/NetworkPredictionTests.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `NetworkPrediction`.",
+      "Placement: `NetworkPredictionTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkPredictionTests\" });`. Use Public when exposing `NetworkPredictionTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NetworkPredictionTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `NetworkPredictionTests.h` / `NetworkPredictionTestsModule.h`), then use `FModuleManager::LoadModulePtr<NetworkPredictionTestsModule>` or the exported types directly.",
-      "Transitive deps: `NetworkPredictionTests` also needs `Core`, `CoreUObject`, `NetworkPrediction`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`NetworkPredictionTests` 的构建规则位于 `Programs/NetworkPredictionTests/NetworkPredictionTests.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`NetworkPredictionTests` build rule is `Programs/NetworkPredictionTests/NetworkPredictionTests.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`NetworkPredictionTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/NetworkPredictionTests/NetworkPredictionTests.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`NetworkPredictionTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/NetworkPredictionTests/NetworkPredictionTests.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "networkreplaystreaming",
     "kind": "module",
     "cn_steps": [
-      "用途：`NetworkReplayStreaming` 位于 `Runtime`，构建规则 `Runtime/NetworkReplayStreaming/NetworkReplayStreaming/NetworkReplayStreaming.Build.cs`。它直接依赖 4 个模块：`Analytics`, `Core`, `Json`, `NetCore`。",
+      "`NetworkReplayStreaming`（Network Replay Streaming）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/NetworkReplayStreaming/NetworkReplayStreaming/NetworkReplayStreaming.Build.cs`。直接依赖 4 个模块：`Analytics`、`Core`、`Json`、`NetCore`。",
+      "部署：`NetworkReplayStreaming` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkReplayStreaming\" });`；对外暴露 `NetworkReplayStreaming` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NetworkReplayStreaming` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NetworkReplayStreaming.h` / `NetworkReplayStreamingModule.h`），再用 `FModuleManager::LoadModulePtr<NetworkReplayStreamingModule>` 或直接使用导出类型。",
-      "传递依赖：`NetworkReplayStreaming` 还依赖 `Analytics`, `Core`, `Json`, `NetCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NetworkReplayStreaming` lives under `Runtime`; build rule `Runtime/NetworkReplayStreaming/NetworkReplayStreaming/NetworkReplayStreaming.Build.cs`.It directly depends on 4 modules: `Analytics`, `Core`, `Json`, `NetCore`.",
+      "`NetworkReplayStreaming` (Network Replay Streaming): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/NetworkReplayStreaming/NetworkReplayStreaming/NetworkReplayStreaming.Build.cs`. It directly depends on 4 modules: `Analytics`, `Core`, `Json`, `NetCore`.",
+      "Placement: `NetworkReplayStreaming` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetworkReplayStreaming\" });`. Use Public when exposing `NetworkReplayStreaming` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NetworkReplayStreaming` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NetworkReplayStreaming.h` / `NetworkReplayStreamingModule.h`), then use `FModuleManager::LoadModulePtr<NetworkReplayStreamingModule>` or the exported types directly.",
-      "Transitive deps: `NetworkReplayStreaming` also needs `Analytics`, `Core`, `Json`, `NetCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NetworkReplayStreaming` 的构建规则位于 `Runtime/NetworkReplayStreaming/NetworkReplayStreaming/NetworkReplayStreaming.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`NetworkReplayStreaming` build rule is `Runtime/NetworkReplayStreaming/NetworkReplayStreaming/NetworkReplayStreaming.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`NetworkReplayStreaming`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/NetworkReplayStreaming/NetworkReplayStreaming/NetworkReplayStreaming.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`NetworkReplayStreaming`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/NetworkReplayStreaming/NetworkReplayStreaming/NetworkReplayStreaming.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "newleveldialog",
     "kind": "module",
     "cn_steps": [
-      "用途：`NewLevelDialog` 位于 `Editor`，构建规则 `Editor/NewLevelDialog/NewLevelDialog.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `ToolWidgets`, `UnrealEd`。",
+      "`NewLevelDialog`（New Level Dialog）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/NewLevelDialog/NewLevelDialog.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`Engine`、`InputCore`、`Slate` 等。",
+      "部署：`NewLevelDialog` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NewLevelDialog\" });`；对外暴露 `NewLevelDialog` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NewLevelDialog` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `NewLevelDialog.h` / `NewLevelDialogModule.h`），再用 `FModuleManager::LoadModulePtr<NewLevelDialogModule>` 或直接使用导出类型。",
-      "传递依赖：`NewLevelDialog` 还依赖 `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `ToolWidgets`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NewLevelDialog` lives under `Editor`; build rule `Editor/NewLevelDialog/NewLevelDialog.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `ToolWidgets`, `UnrealEd`.",
+      "`NewLevelDialog` (New Level Dialog): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/NewLevelDialog/NewLevelDialog.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate` etc.",
+      "Placement: `NewLevelDialog` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NewLevelDialog\" });`. Use Public when exposing `NewLevelDialog` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NewLevelDialog` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `NewLevelDialog.h` / `NewLevelDialogModule.h`), then use `FModuleManager::LoadModulePtr<NewLevelDialogModule>` or the exported types directly.",
-      "Transitive deps: `NewLevelDialog` also needs `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `ToolWidgets`, `UnrealEd`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NewLevelDialog` 的构建规则位于 `Editor/NewLevelDialog/NewLevelDialog.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`NewLevelDialog` build rule is `Editor/NewLevelDialog/NewLevelDialog.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`NewLevelDialog`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/NewLevelDialog/NewLevelDialog.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`NewLevelDialog`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/NewLevelDialog/NewLevelDialog.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "nghttp2",
     "kind": "module",
     "cn_steps": [
-      "用途：`nghttp2` 位于 `ThirdParty`，构建规则 `ThirdParty/nghttp2/nghttp2.Build.cs`。描述符未声明依赖。",
+      "`nghttp2`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/nghttp2/nghttp2.Build.cs`。描述符未声明依赖。",
+      "部署：`nghttp2` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"nghttp2\" });`；对外暴露 `nghttp2` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`nghttp2` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `nghttp2.h` / `nghttp2Module.h`），再用 `FModuleManager::LoadModulePtr<nghttp2Module>` 或直接使用导出类型。",
-      "传递依赖：`nghttp2` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `nghttp2` lives under `ThirdParty`; build rule `ThirdParty/nghttp2/nghttp2.Build.cs`.The descriptor declares no dependencies.",
+      "`nghttp2`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/nghttp2/nghttp2.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `nghttp2` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"nghttp2\" });`. Use Public when exposing `nghttp2` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `nghttp2` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `nghttp2.h` / `nghttp2Module.h`), then use `FModuleManager::LoadModulePtr<nghttp2Module>` or the exported types directly.",
-      "Transitive deps: `nghttp2` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`nghttp2` 的构建规则位于 `ThirdParty/nghttp2/nghttp2.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`nghttp2` build rule is `ThirdParty/nghttp2/nghttp2.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`nghttp2`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/nghttp2/nghttp2.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`nghttp2`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/nghttp2/nghttp2.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "nne",
     "kind": "module",
     "cn_steps": [
-      "用途：`NNE` 位于 `Runtime`，构建规则 `Runtime/NNE/NNE.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `DerivedDataCache`。",
+      "`NNE`：它是神经网络/推理模块（NNE 等模型部署与推理）。位于 `Runtime`，构建规则 `Runtime/NNE/NNE.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`DerivedDataCache`。",
+      "部署：`NNE` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：把训练好的模型部署进项目，通过 NNE/推理接口在运行时做前向计算。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NNE\" });`；对外暴露 `NNE` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NNE` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NNE.h` / `NNEModule.h`），再用 `FModuleManager::LoadModulePtr<NNEModule>` 或直接使用导出类型。",
-      "传递依赖：`NNE` 还依赖 `Core`, `CoreUObject`, `DerivedDataCache`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NNE` lives under `Runtime`; build rule `Runtime/NNE/NNE.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `DerivedDataCache`.",
+      "`NNE`: it is a neural-network/inference module (NNE model deployment and inference). Located under `Runtime`; build rule `Runtime/NNE/NNE.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `DerivedDataCache`.",
+      "Placement: `NNE` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: deploy a trained model into the project and run forward inference at runtime through the NNE/inference interface.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NNE\" });`. Use Public when exposing `NNE` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NNE` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NNE.h` / `NNEModule.h`), then use `FModuleManager::LoadModulePtr<NNEModule>` or the exported types directly.",
-      "Transitive deps: `NNE` also needs `Core`, `CoreUObject`, `DerivedDataCache`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NNE` 的构建规则位于 `Runtime/NNE/NNE.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`NNE` build rule is `Runtime/NNE/NNE.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`NNE`：它是神经网络/推理模块（NNE 等模型部署与推理）；构建规则 `Runtime/NNE/NNE.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`NNE`: it is a neural-network/inference module (NNE model deployment and inference); build rule `Runtime/NNE/NNE.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "nneeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`NNEEditor` 位于 `Editor`，构建规则 `Editor/NNEEditor/NNEEditor.Build.cs`。它直接依赖 8 个模块：`AssetTools`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `NNE`, `Slate`, `SlateCore`。",
+      "`NNEEditor`（NNE Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/NNEEditor/NNEEditor.Build.cs`。直接依赖 8 个模块：`AssetTools`、`Core`、`CoreUObject`、`DeveloperSettings`、`Engine` 等。",
+      "部署：`NNEEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NNEEditor\" });`；对外暴露 `NNEEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NNEEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `NNEEditor.h` / `NNEEditorModule.h`），再用 `FModuleManager::LoadModulePtr<NNEEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`NNEEditor` 还依赖 `AssetTools`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `NNE`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NNEEditor` lives under `Editor`; build rule `Editor/NNEEditor/NNEEditor.Build.cs`.It directly depends on 8 modules: `AssetTools`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `NNE`, `Slate`, `SlateCore`.",
+      "`NNEEditor` (NNE Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/NNEEditor/NNEEditor.Build.cs`. It directly depends on 8 modules: `AssetTools`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine` etc.",
+      "Placement: `NNEEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NNEEditor\" });`. Use Public when exposing `NNEEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NNEEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `NNEEditor.h` / `NNEEditorModule.h`), then use `FModuleManager::LoadModulePtr<NNEEditorModule>` or the exported types directly.",
-      "Transitive deps: `NNEEditor` also needs `AssetTools`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `NNE`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NNEEditor` 的构建规则位于 `Editor/NNEEditor/NNEEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`NNEEditor` build rule is `Editor/NNEEditor/NNEEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`NNEEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/NNEEditor/NNEEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`NNEEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/NNEEditor/NNEEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "nonrealtimeaudiorenderer",
     "kind": "module",
     "cn_steps": [
-      "用途：`NonRealtimeAudioRenderer` 位于 `Runtime`，构建规则 `Runtime/NonRealtimeAudioRenderer/NonRealtimeAudioRenderer.Build.cs`。它直接依赖 6 个模块：`AudioMixer`, `AudioMixerCore`, `Core`, `CoreUObject`, `Engine`, `SignalProcessing`。",
+      "`NonRealtimeAudioRenderer`（Non Realtime Audio Renderer）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/NonRealtimeAudioRenderer/NonRealtimeAudioRenderer.Build.cs`。直接依赖 6 个模块：`AudioMixer`、`AudioMixerCore`、`Core`、`CoreUObject`、`Engine` 等。",
+      "部署：`NonRealtimeAudioRenderer` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NonRealtimeAudioRenderer\" });`；对外暴露 `NonRealtimeAudioRenderer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NonRealtimeAudioRenderer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NonRealtimeAudioRenderer.h` / `NonRealtimeAudioRendererModule.h`），再用 `FModuleManager::LoadModulePtr<NonRealtimeAudioRendererModule>` 或直接使用导出类型。",
-      "传递依赖：`NonRealtimeAudioRenderer` 还依赖 `AudioMixer`, `AudioMixerCore`, `Core`, `CoreUObject`, `Engine`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NonRealtimeAudioRenderer` lives under `Runtime`; build rule `Runtime/NonRealtimeAudioRenderer/NonRealtimeAudioRenderer.Build.cs`.It directly depends on 6 modules: `AudioMixer`, `AudioMixerCore`, `Core`, `CoreUObject`, `Engine`, `SignalProcessing`.",
+      "`NonRealtimeAudioRenderer` (Non Realtime Audio Renderer): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/NonRealtimeAudioRenderer/NonRealtimeAudioRenderer.Build.cs`. It directly depends on 6 modules: `AudioMixer`, `AudioMixerCore`, `Core`, `CoreUObject`, `Engine` etc.",
+      "Placement: `NonRealtimeAudioRenderer` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NonRealtimeAudioRenderer\" });`. Use Public when exposing `NonRealtimeAudioRenderer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NonRealtimeAudioRenderer` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NonRealtimeAudioRenderer.h` / `NonRealtimeAudioRendererModule.h`), then use `FModuleManager::LoadModulePtr<NonRealtimeAudioRendererModule>` or the exported types directly.",
-      "Transitive deps: `NonRealtimeAudioRenderer` also needs `AudioMixer`, `AudioMixerCore`, `Core`, `CoreUObject`, `Engine`, `SignalProcessing`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NonRealtimeAudioRenderer` 的构建规则位于 `Runtime/NonRealtimeAudioRenderer/NonRealtimeAudioRenderer.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`NonRealtimeAudioRenderer` build rule is `Runtime/NonRealtimeAudioRenderer/NonRealtimeAudioRenderer.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`NonRealtimeAudioRenderer`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/NonRealtimeAudioRenderer/NonRealtimeAudioRenderer.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`NonRealtimeAudioRenderer`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/NonRealtimeAudioRenderer/NonRealtimeAudioRenderer.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "nulldrv",
     "kind": "module",
     "cn_steps": [
-      "用途：`NullDrv` 位于 `Runtime`，构建规则 `Runtime/NullDrv/NullDrv.Build.cs`。它直接依赖 3 个模块：`Core`, `RHI`, `RenderCore`。",
+      "`NullDrv`（Null Drv）：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）。位于 `Runtime`，构建规则 `Runtime/NullDrv/NullDrv.Build.cs`。直接依赖 3 个模块：`Core`、`RHI`、`RenderCore`。",
+      "部署：`NullDrv` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：几乎被所有模块间接依赖；一般无需显式添加，除非你在写底层插件或工具。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NullDrv\" });`；对外暴露 `NullDrv` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NullDrv` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NullDrv.h` / `NullDrvModule.h`），再用 `FModuleManager::LoadModulePtr<NullDrvModule>` 或直接使用导出类型。",
-      "传递依赖：`NullDrv` 还依赖 `Core`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NullDrv` lives under `Runtime`; build rule `Runtime/NullDrv/NullDrv.Build.cs`.It directly depends on 3 modules: `Core`, `RHI`, `RenderCore`.",
+      "`NullDrv` (Null Drv): it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata). Located under `Runtime`; build rule `Runtime/NullDrv/NullDrv.Build.cs`. It directly depends on 3 modules: `Core`, `RHI`, `RenderCore`.",
+      "Placement: `NullDrv` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: almost every module depends on it transitively; you rarely add it explicitly unless writing low-level plugins/tools.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NullDrv\" });`. Use Public when exposing `NullDrv` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NullDrv` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NullDrv.h` / `NullDrvModule.h`), then use `FModuleManager::LoadModulePtr<NullDrvModule>` or the exported types directly.",
-      "Transitive deps: `NullDrv` also needs `Core`, `RHI`, `RenderCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NullDrv` 的构建规则位于 `Runtime/NullDrv/NullDrv.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`NullDrv` build rule is `Runtime/NullDrv/NullDrv.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`NullDrv`：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）；构建规则 `Runtime/NullDrv/NullDrv.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`NullDrv`: it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata); build rule `Runtime/NullDrv/NullDrv.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "nvaftermath",
     "kind": "module",
     "cn_steps": [
-      "用途：`NVAftermath` 位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/NVaftermath/NVaftermath.Build.cs`。描述符未声明依赖。",
+      "`NVAftermath`（NV Aftermath）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/NVaftermath/NVaftermath.Build.cs`。描述符未声明依赖。",
+      "部署：`NVAftermath` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NVAftermath\" });`；对外暴露 `NVAftermath` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NVAftermath` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `NVAftermath.h` / `NVAftermathModule.h`），再用 `FModuleManager::LoadModulePtr<NVAftermathModule>` 或直接使用导出类型。",
-      "传递依赖：`NVAftermath` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `NVAftermath` lives under `ThirdParty`; build rule `ThirdParty/NVIDIA/NVaftermath/NVaftermath.Build.cs`.The descriptor declares no dependencies.",
+      "`NVAftermath` (NV Aftermath): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/NVIDIA/NVaftermath/NVaftermath.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `NVAftermath` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NVAftermath\" });`. Use Public when exposing `NVAftermath` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NVAftermath` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `NVAftermath.h` / `NVAftermathModule.h`), then use `FModuleManager::LoadModulePtr<NVAftermathModule>` or the exported types directly.",
-      "Transitive deps: `NVAftermath` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`NVAftermath` 的构建规则位于 `ThirdParty/NVIDIA/NVaftermath/NVaftermath.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`NVAftermath` build rule is `ThirdParty/NVIDIA/NVaftermath/NVaftermath.Build.cs`; depends on 0 modules; category External."
-  },
-  {
-    "slug": "nvapi",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`NVAPI` 位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/nvapi/NVAPI.Build.cs`。描述符未声明依赖。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NVAPI\" });`；对外暴露 `NVAPI` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NVAPI` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `NVAPI.h` / `NVAPIModule.h`），再用 `FModuleManager::LoadModulePtr<NVAPIModule>` 或直接使用导出类型。",
-      "传递依赖：`NVAPI` 未声明额外公开依赖，通常只依赖引擎基础层。"
-    ],
-    "en_steps": [
-      "Purpose: `NVAPI` lives under `ThirdParty`; build rule `ThirdParty/NVIDIA/nvapi/NVAPI.Build.cs`.The descriptor declares no dependencies.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NVAPI\" });`. Use Public when exposing `NVAPI` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NVAPI` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `NVAPI.h` / `NVAPIModule.h`), then use `FModuleManager::LoadModulePtr<NVAPIModule>` or the exported types directly.",
-      "Transitive deps: `NVAPI` declares no extra public deps; it typically relies on engine basics."
-    ],
-    "note_cn": "`NVAPI` 的构建规则位于 `ThirdParty/NVIDIA/nvapi/NVAPI.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`NVAPI` build rule is `ThirdParty/NVIDIA/nvapi/NVAPI.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`NVAftermath`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/NVIDIA/NVaftermath/NVaftermath.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`NVAftermath`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/NVIDIA/NVaftermath/NVaftermath.Build.cs`; depends on 0 modules."
   }
 ]

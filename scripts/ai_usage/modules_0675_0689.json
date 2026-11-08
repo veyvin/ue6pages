@@ -1,302 +1,302 @@
 [
   {
+    "slug": "shaderformatd3d",
+    "kind": "module",
+    "cn_steps": [
+      "`ShaderFormatD3D`（Shader Format D3 D）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/Windows/ShaderFormatD3D/ShaderFormatD3D.Build.cs`。直接依赖 6 个模块：`Core`、`HlslParser`、`RenderCore`、`ShaderBuild`、`ShaderCompilerCommon` 等。",
+      "部署：`ShaderFormatD3D` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatD3D\" });`；对外暴露 `ShaderFormatD3D` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`ShaderFormatD3D` (Shader Format D3 D): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/Windows/ShaderFormatD3D/ShaderFormatD3D.Build.cs`. It directly depends on 6 modules: `Core`, `HlslParser`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon` etc.",
+      "Placement: `ShaderFormatD3D` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatD3D\" });`. Use Public when exposing `ShaderFormatD3D` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`ShaderFormatD3D`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/Windows/ShaderFormatD3D/ShaderFormatD3D.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`ShaderFormatD3D`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/Windows/ShaderFormatD3D/ShaderFormatD3D.Build.cs`; depends on 6 modules."
+  },
+  {
     "slug": "shaderformatopengl",
     "kind": "module",
     "cn_steps": [
-      "用途：`ShaderFormatOpenGL` 位于 `Developer`，构建规则 `Developer/ShaderFormatOpenGL/ShaderFormatOpenGL.Build.cs`。它直接依赖 6 个模块：`Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`。",
+      "`ShaderFormatOpenGL`（Shader Format Open GL）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/ShaderFormatOpenGL/ShaderFormatOpenGL.Build.cs`。直接依赖 6 个模块：`Core`、`RHI`、`RenderCore`、`ShaderBuild`、`ShaderCompilerCommon` 等。",
+      "部署：`ShaderFormatOpenGL` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatOpenGL\" });`；对外暴露 `ShaderFormatOpenGL` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ShaderFormatOpenGL` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `ShaderFormatOpenGL.h` / `ShaderFormatOpenGLModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderFormatOpenGLModule>` 或直接使用导出类型。",
-      "传递依赖：`ShaderFormatOpenGL` 还依赖 `Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ShaderFormatOpenGL` lives under `Developer`; build rule `Developer/ShaderFormatOpenGL/ShaderFormatOpenGL.Build.cs`.It directly depends on 6 modules: `Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatOpenGL\" });`. Use Public when exposing `ShaderFormatOpenGL` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`ShaderFormatOpenGL` (Shader Format Open GL): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/ShaderFormatOpenGL/ShaderFormatOpenGL.Build.cs`. It directly depends on 6 modules: `Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon` etc.",
       "Placement: `ShaderFormatOpenGL` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `ShaderFormatOpenGL.h` / `ShaderFormatOpenGLModule.h`), then use `FModuleManager::LoadModulePtr<ShaderFormatOpenGLModule>` or the exported types directly.",
-      "Transitive deps: `ShaderFormatOpenGL` also needs `Core`, `RHI`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`; do not re-list them unless you include their headers."
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatOpenGL\" });`. Use Public when exposing `ShaderFormatOpenGL` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ShaderFormatOpenGL` 的构建规则位于 `Developer/ShaderFormatOpenGL/ShaderFormatOpenGL.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`ShaderFormatOpenGL` build rule is `Developer/ShaderFormatOpenGL/ShaderFormatOpenGL.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`ShaderFormatOpenGL`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/ShaderFormatOpenGL/ShaderFormatOpenGL.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`ShaderFormatOpenGL`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/ShaderFormatOpenGL/ShaderFormatOpenGL.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "shaderformatvectorvm",
     "kind": "module",
     "cn_steps": [
-      "用途：`ShaderFormatVectorVM` 位于 `Developer`，构建规则 `Developer/ShaderFormatVectorVM/ShaderFormatVectorVM.Build.cs`。它直接依赖 6 个模块：`Core`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`, `VectorVM`。",
+      "`ShaderFormatVectorVM`（Shader Format Vector VM）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/ShaderFormatVectorVM/ShaderFormatVectorVM.Build.cs`。直接依赖 6 个模块：`Core`、`RenderCore`、`ShaderBuild`、`ShaderCompilerCommon`、`ShaderPreprocessor` 等。",
+      "部署：`ShaderFormatVectorVM` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatVectorVM\" });`；对外暴露 `ShaderFormatVectorVM` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ShaderFormatVectorVM` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `ShaderFormatVectorVM.h` / `ShaderFormatVectorVMModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderFormatVectorVMModule>` 或直接使用导出类型。",
-      "传递依赖：`ShaderFormatVectorVM` 还依赖 `Core`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`, `VectorVM`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ShaderFormatVectorVM` lives under `Developer`; build rule `Developer/ShaderFormatVectorVM/ShaderFormatVectorVM.Build.cs`.It directly depends on 6 modules: `Core`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`, `VectorVM`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatVectorVM\" });`. Use Public when exposing `ShaderFormatVectorVM` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`ShaderFormatVectorVM` (Shader Format Vector VM): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/ShaderFormatVectorVM/ShaderFormatVectorVM.Build.cs`. It directly depends on 6 modules: `Core`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor` etc.",
       "Placement: `ShaderFormatVectorVM` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `ShaderFormatVectorVM.h` / `ShaderFormatVectorVMModule.h`), then use `FModuleManager::LoadModulePtr<ShaderFormatVectorVMModule>` or the exported types directly.",
-      "Transitive deps: `ShaderFormatVectorVM` also needs `Core`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`, `VectorVM`; do not re-list them unless you include their headers."
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatVectorVM\" });`. Use Public when exposing `ShaderFormatVectorVM` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ShaderFormatVectorVM` 的构建规则位于 `Developer/ShaderFormatVectorVM/ShaderFormatVectorVM.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`ShaderFormatVectorVM` build rule is `Developer/ShaderFormatVectorVM/ShaderFormatVectorVM.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`ShaderFormatVectorVM`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/ShaderFormatVectorVM/ShaderFormatVectorVM.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`ShaderFormatVectorVM`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/ShaderFormatVectorVM/ShaderFormatVectorVM.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "shaderplatformconfigeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`ShaderPlatformConfigEditor` 位于 `Developer`，构建规则 `Developer/ShaderPlatformConfigEditor/ShaderPlatformConfigEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `RHI`, `RenderCore`, `Slate`。",
+      "`ShaderPlatformConfigEditor`（Shader Platform Config Editor）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/ShaderPlatformConfigEditor/ShaderPlatformConfigEditor.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`Engine`、`InputCore`、`PropertyEditor` 等。",
+      "部署：`ShaderPlatformConfigEditor` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderPlatformConfigEditor\" });`；对外暴露 `ShaderPlatformConfigEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ShaderPlatformConfigEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `ShaderPlatformConfigEditor.h` / `ShaderPlatformConfigEditorModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderPlatformConfigEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`ShaderPlatformConfigEditor` 还依赖 `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `RHI`, `RenderCore`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ShaderPlatformConfigEditor` lives under `Developer`; build rule `Developer/ShaderPlatformConfigEditor/ShaderPlatformConfigEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `RHI`, `RenderCore`, `Slate`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderPlatformConfigEditor\" });`. Use Public when exposing `ShaderPlatformConfigEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`ShaderPlatformConfigEditor` (Shader Platform Config Editor): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/ShaderPlatformConfigEditor/ShaderPlatformConfigEditor.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor` etc.",
       "Placement: `ShaderPlatformConfigEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `ShaderPlatformConfigEditor.h` / `ShaderPlatformConfigEditorModule.h`), then use `FModuleManager::LoadModulePtr<ShaderPlatformConfigEditorModule>` or the exported types directly.",
-      "Transitive deps: `ShaderPlatformConfigEditor` also needs `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `RHI`, `RenderCore`, `Slate`; do not re-list them unless you include their headers."
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderPlatformConfigEditor\" });`. Use Public when exposing `ShaderPlatformConfigEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ShaderPlatformConfigEditor` 的构建规则位于 `Developer/ShaderPlatformConfigEditor/ShaderPlatformConfigEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`ShaderPlatformConfigEditor` build rule is `Developer/ShaderPlatformConfigEditor/ShaderPlatformConfigEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`ShaderPlatformConfigEditor`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/ShaderPlatformConfigEditor/ShaderPlatformConfigEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`ShaderPlatformConfigEditor`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/ShaderPlatformConfigEditor/ShaderPlatformConfigEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "shaderpreprocessor",
     "kind": "module",
     "cn_steps": [
-      "用途：`ShaderPreprocessor` 位于 `Developer`，构建规则 `Developer/ShaderPreprocessor/ShaderPreprocessor.Build.cs`。它直接依赖 2 个模块：`Core`, `RenderCore`。",
+      "`ShaderPreprocessor`（Shader Preprocessor）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/ShaderPreprocessor/ShaderPreprocessor.Build.cs`。直接依赖 2 个模块：`Core`、`RenderCore`。",
+      "部署：`ShaderPreprocessor` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderPreprocessor\" });`；对外暴露 `ShaderPreprocessor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ShaderPreprocessor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `ShaderPreprocessor.h` / `ShaderPreprocessorModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderPreprocessorModule>` 或直接使用导出类型。",
-      "传递依赖：`ShaderPreprocessor` 还依赖 `Core`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ShaderPreprocessor` lives under `Developer`; build rule `Developer/ShaderPreprocessor/ShaderPreprocessor.Build.cs`.It directly depends on 2 modules: `Core`, `RenderCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderPreprocessor\" });`. Use Public when exposing `ShaderPreprocessor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`ShaderPreprocessor` (Shader Preprocessor): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/ShaderPreprocessor/ShaderPreprocessor.Build.cs`. It directly depends on 2 modules: `Core`, `RenderCore`.",
       "Placement: `ShaderPreprocessor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `ShaderPreprocessor.h` / `ShaderPreprocessorModule.h`), then use `FModuleManager::LoadModulePtr<ShaderPreprocessorModule>` or the exported types directly.",
-      "Transitive deps: `ShaderPreprocessor` also needs `Core`, `RenderCore`; do not re-list them unless you include their headers."
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderPreprocessor\" });`. Use Public when exposing `ShaderPreprocessor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ShaderPreprocessor` 的构建规则位于 `Developer/ShaderPreprocessor/ShaderPreprocessor.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`ShaderPreprocessor` build rule is `Developer/ShaderPreprocessor/ShaderPreprocessor.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`ShaderPreprocessor`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/ShaderPreprocessor/ShaderPreprocessor.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`ShaderPreprocessor`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/ShaderPreprocessor/ShaderPreprocessor.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "shaderruntime",
     "kind": "module",
     "cn_steps": [
-      "用途：`ShaderRuntime` 位于 `Runtime`，构建规则 `Runtime/ShaderRuntime/ShaderRuntime.Build.cs`。描述符未声明依赖。",
+      "`ShaderRuntime`（Shader Runtime）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/ShaderRuntime/ShaderRuntime.Build.cs`。描述符未声明依赖。",
+      "部署：`ShaderRuntime` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderRuntime\" });`；对外暴露 `ShaderRuntime` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ShaderRuntime` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `ShaderRuntime.h` / `ShaderRuntimeModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderRuntimeModule>` 或直接使用导出类型。",
-      "传递依赖：`ShaderRuntime` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ShaderRuntime` lives under `Runtime`; build rule `Runtime/ShaderRuntime/ShaderRuntime.Build.cs`.The descriptor declares no dependencies.",
+      "`ShaderRuntime` (Shader Runtime): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/ShaderRuntime/ShaderRuntime.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `ShaderRuntime` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderRuntime\" });`. Use Public when exposing `ShaderRuntime` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ShaderRuntime` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `ShaderRuntime.h` / `ShaderRuntimeModule.h`), then use `FModuleManager::LoadModulePtr<ShaderRuntimeModule>` or the exported types directly.",
-      "Transitive deps: `ShaderRuntime` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ShaderRuntime` 的构建规则位于 `Runtime/ShaderRuntime/ShaderRuntime.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`ShaderRuntime` build rule is `Runtime/ShaderRuntime/ShaderRuntime.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`ShaderRuntime`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/ShaderRuntime/ShaderRuntime.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`ShaderRuntime`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/ShaderRuntime/ShaderRuntime.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "shadersymboltool",
     "kind": "module",
     "cn_steps": [
-      "用途：`ShaderSymbolTool` 位于 `Programs`，构建规则 `Programs/ShaderSymbolTool/ShaderSymbolTool.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `Core`, `DerivedDataCache`, `NetworkCacheStores`, `Projects`。",
+      "`ShaderSymbolTool`（Shader Symbol Tool）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/ShaderSymbolTool/ShaderSymbolTool.Build.cs`。直接依赖 5 个模块：`ApplicationCore`、`Core`、`DerivedDataCache`、`NetworkCacheStores`、`Projects`。",
+      "部署：`ShaderSymbolTool` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderSymbolTool\" });`；对外暴露 `ShaderSymbolTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ShaderSymbolTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `ShaderSymbolTool.h` / `ShaderSymbolToolModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderSymbolToolModule>` 或直接使用导出类型。",
-      "传递依赖：`ShaderSymbolTool` 还依赖 `ApplicationCore`, `Core`, `DerivedDataCache`, `NetworkCacheStores`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `ShaderSymbolTool` lives under `Programs`; build rule `Programs/ShaderSymbolTool/ShaderSymbolTool.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `Core`, `DerivedDataCache`, `NetworkCacheStores`, `Projects`.",
+      "`ShaderSymbolTool` (Shader Symbol Tool): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/ShaderSymbolTool/ShaderSymbolTool.Build.cs`. It directly depends on 5 modules: `ApplicationCore`, `Core`, `DerivedDataCache`, `NetworkCacheStores`, `Projects`.",
+      "Placement: `ShaderSymbolTool` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderSymbolTool\" });`. Use Public when exposing `ShaderSymbolTool` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ShaderSymbolTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `ShaderSymbolTool.h` / `ShaderSymbolToolModule.h`), then use `FModuleManager::LoadModulePtr<ShaderSymbolToolModule>` or the exported types directly.",
-      "Transitive deps: `ShaderSymbolTool` also needs `ApplicationCore`, `Core`, `DerivedDataCache`, `NetworkCacheStores`, `Projects`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`ShaderSymbolTool` 的构建规则位于 `Programs/ShaderSymbolTool/ShaderSymbolTool.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`ShaderSymbolTool` build rule is `Programs/ShaderSymbolTool/ShaderSymbolTool.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`ShaderSymbolTool`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/ShaderSymbolTool/ShaderSymbolTool.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`ShaderSymbolTool`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/ShaderSymbolTool/ShaderSymbolTool.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "sharedsettingswidgets",
     "kind": "module",
     "cn_steps": [
-      "用途：`SharedSettingsWidgets` 位于 `Developer`，构建规则 `Developer/SharedSettingsWidgets/SharedSettingsWidgets.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `ExternalImagePicker`, `InputCore`, `RHI`, `Slate`, `SlateCore`。",
+      "`SharedSettingsWidgets`（Shared Settings Widgets）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Developer`，构建规则 `Developer/SharedSettingsWidgets/SharedSettingsWidgets.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`Engine`、`ExternalImagePicker`、`InputCore` 等。",
+      "部署：`SharedSettingsWidgets` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SharedSettingsWidgets\" });`；对外暴露 `SharedSettingsWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SharedSettingsWidgets` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `SharedSettingsWidgets.h` / `SharedSettingsWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<SharedSettingsWidgetsModule>` 或直接使用导出类型。",
-      "传递依赖：`SharedSettingsWidgets` 还依赖 `Core`, `CoreUObject`, `Engine`, `ExternalImagePicker`, `InputCore`, `RHI`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SharedSettingsWidgets` lives under `Developer`; build rule `Developer/SharedSettingsWidgets/SharedSettingsWidgets.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `ExternalImagePicker`, `InputCore`, `RHI`, `Slate`, `SlateCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SharedSettingsWidgets\" });`. Use Public when exposing `SharedSettingsWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`SharedSettingsWidgets` (Shared Settings Widgets): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Developer`; build rule `Developer/SharedSettingsWidgets/SharedSettingsWidgets.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `ExternalImagePicker`, `InputCore` etc.",
       "Placement: `SharedSettingsWidgets` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `SharedSettingsWidgets.h` / `SharedSettingsWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<SharedSettingsWidgetsModule>` or the exported types directly.",
-      "Transitive deps: `SharedSettingsWidgets` also needs `Core`, `CoreUObject`, `Engine`, `ExternalImagePicker`, `InputCore`, `RHI`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SharedSettingsWidgets\" });`. Use Public when exposing `SharedSettingsWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SharedSettingsWidgets` 的构建规则位于 `Developer/SharedSettingsWidgets/SharedSettingsWidgets.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SharedSettingsWidgets` build rule is `Developer/SharedSettingsWidgets/SharedSettingsWidgets.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SharedSettingsWidgets`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Developer/SharedSettingsWidgets/SharedSettingsWidgets.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SharedSettingsWidgets`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Developer/SharedSettingsWidgets/SharedSettingsWidgets.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "signalprocessing",
     "kind": "module",
     "cn_steps": [
-      "用途：`SignalProcessing` 位于 `Runtime`，构建规则 `Runtime/SignalProcessing/SignalProcessing.Build.cs`。它直接依赖 3 个模块：`Core`, `IntelISPC`, `MathCore`。",
+      "`SignalProcessing`（Signal Processing）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/SignalProcessing/SignalProcessing.Build.cs`。直接依赖 3 个模块：`Core`、`IntelISPC`、`MathCore`。",
+      "部署：`SignalProcessing` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SignalProcessing\" });`；对外暴露 `SignalProcessing` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SignalProcessing` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `SignalProcessing.h` / `SignalProcessingModule.h`），再用 `FModuleManager::LoadModulePtr<SignalProcessingModule>` 或直接使用导出类型。",
-      "传递依赖：`SignalProcessing` 还依赖 `Core`, `IntelISPC`, `MathCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SignalProcessing` lives under `Runtime`; build rule `Runtime/SignalProcessing/SignalProcessing.Build.cs`.It directly depends on 3 modules: `Core`, `IntelISPC`, `MathCore`.",
+      "`SignalProcessing` (Signal Processing): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/SignalProcessing/SignalProcessing.Build.cs`. It directly depends on 3 modules: `Core`, `IntelISPC`, `MathCore`.",
+      "Placement: `SignalProcessing` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SignalProcessing\" });`. Use Public when exposing `SignalProcessing` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SignalProcessing` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `SignalProcessing.h` / `SignalProcessingModule.h`), then use `FModuleManager::LoadModulePtr<SignalProcessingModule>` or the exported types directly.",
-      "Transitive deps: `SignalProcessing` also needs `Core`, `IntelISPC`, `MathCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SignalProcessing` 的构建规则位于 `Runtime/SignalProcessing/SignalProcessing.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`SignalProcessing` build rule is `Runtime/SignalProcessing/SignalProcessing.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`SignalProcessing`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/SignalProcessing/SignalProcessing.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`SignalProcessing`: it exposes C++ API/functionality to other modules; build rule `Runtime/SignalProcessing/SignalProcessing.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "simde",
     "kind": "module",
     "cn_steps": [
-      "用途：`simde` 位于 `ThirdParty`，构建规则 `ThirdParty/simde/simde.Build.cs`。描述符未声明依赖。",
+      "`simde`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/simde/simde.Build.cs`。描述符未声明依赖。",
+      "部署：`simde` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"simde\" });`；对外暴露 `simde` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`simde` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `simde.h` / `simdeModule.h`），再用 `FModuleManager::LoadModulePtr<simdeModule>` 或直接使用导出类型。",
-      "传递依赖：`simde` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `simde` lives under `ThirdParty`; build rule `ThirdParty/simde/simde.Build.cs`.The descriptor declares no dependencies.",
+      "`simde`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/simde/simde.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `simde` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"simde\" });`. Use Public when exposing `simde` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `simde` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `simde.h` / `simdeModule.h`), then use `FModuleManager::LoadModulePtr<simdeModule>` or the exported types directly.",
-      "Transitive deps: `simde` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`simde` 的构建规则位于 `ThirdParty/simde/simde.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`simde` build rule is `ThirdParty/simde/simde.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`simde`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/simde/simde.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`simde`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/simde/simde.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "skeletalmeshdescription",
     "kind": "module",
     "cn_steps": [
-      "用途：`SkeletalMeshDescription` 位于 `Runtime`，构建规则 `Runtime/SkeletalMeshDescription/SkeletalMeshDescription.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `MeshDescription`, `StaticMeshDescription`。",
+      "`SkeletalMeshDescription`（Skeletal Mesh Description）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/SkeletalMeshDescription/SkeletalMeshDescription.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`MeshDescription`、`StaticMeshDescription`。",
+      "部署：`SkeletalMeshDescription` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SkeletalMeshDescription\" });`；对外暴露 `SkeletalMeshDescription` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SkeletalMeshDescription` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `SkeletalMeshDescription.h` / `SkeletalMeshDescriptionModule.h`），再用 `FModuleManager::LoadModulePtr<SkeletalMeshDescriptionModule>` 或直接使用导出类型。",
-      "传递依赖：`SkeletalMeshDescription` 还依赖 `Core`, `CoreUObject`, `MeshDescription`, `StaticMeshDescription`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SkeletalMeshDescription` lives under `Runtime`; build rule `Runtime/SkeletalMeshDescription/SkeletalMeshDescription.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `MeshDescription`, `StaticMeshDescription`.",
+      "`SkeletalMeshDescription` (Skeletal Mesh Description): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/SkeletalMeshDescription/SkeletalMeshDescription.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `MeshDescription`, `StaticMeshDescription`.",
+      "Placement: `SkeletalMeshDescription` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SkeletalMeshDescription\" });`. Use Public when exposing `SkeletalMeshDescription` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SkeletalMeshDescription` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `SkeletalMeshDescription.h` / `SkeletalMeshDescriptionModule.h`), then use `FModuleManager::LoadModulePtr<SkeletalMeshDescriptionModule>` or the exported types directly.",
-      "Transitive deps: `SkeletalMeshDescription` also needs `Core`, `CoreUObject`, `MeshDescription`, `StaticMeshDescription`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SkeletalMeshDescription` 的构建规则位于 `Runtime/SkeletalMeshDescription/SkeletalMeshDescription.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`SkeletalMeshDescription` build rule is `Runtime/SkeletalMeshDescription/SkeletalMeshDescription.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`SkeletalMeshDescription`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/SkeletalMeshDescription/SkeletalMeshDescription.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`SkeletalMeshDescription`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/SkeletalMeshDescription/SkeletalMeshDescription.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "skeletalmesheditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`SkeletalMeshEditor` 位于 `Editor`，构建规则 `Editor/SkeletalMeshEditor/SkeletalMeshEditor.Build.cs`。它直接依赖 8 个模块：`ActorPickerMode`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`。",
+      "`SkeletalMeshEditor`（Skeletal Mesh Editor）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Editor`，构建规则 `Editor/SkeletalMeshEditor/SkeletalMeshEditor.Build.cs`。直接依赖 8 个模块：`ActorPickerMode`、`ClothingSystemEditorInterface`、`ClothingSystemRuntimeCommon`、`ClothingSystemRuntimeInterface`、`Core` 等。",
+      "部署：`SkeletalMeshEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SkeletalMeshEditor\" });`；对外暴露 `SkeletalMeshEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SkeletalMeshEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `SkeletalMeshEditor.h` / `SkeletalMeshEditorModule.h`），再用 `FModuleManager::LoadModulePtr<SkeletalMeshEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`SkeletalMeshEditor` 还依赖 `ActorPickerMode`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SkeletalMeshEditor` lives under `Editor`; build rule `Editor/SkeletalMeshEditor/SkeletalMeshEditor.Build.cs`.It directly depends on 8 modules: `ActorPickerMode`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`.",
+      "`SkeletalMeshEditor` (Skeletal Mesh Editor): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Editor`; build rule `Editor/SkeletalMeshEditor/SkeletalMeshEditor.Build.cs`. It directly depends on 8 modules: `ActorPickerMode`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `Core` etc.",
+      "Placement: `SkeletalMeshEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SkeletalMeshEditor\" });`. Use Public when exposing `SkeletalMeshEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SkeletalMeshEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `SkeletalMeshEditor.h` / `SkeletalMeshEditorModule.h`), then use `FModuleManager::LoadModulePtr<SkeletalMeshEditorModule>` or the exported types directly.",
-      "Transitive deps: `SkeletalMeshEditor` also needs `ActorPickerMode`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SkeletalMeshEditor` 的构建规则位于 `Editor/SkeletalMeshEditor/SkeletalMeshEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SkeletalMeshEditor` build rule is `Editor/SkeletalMeshEditor/SkeletalMeshEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SkeletalMeshEditor`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Editor/SkeletalMeshEditor/SkeletalMeshEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SkeletalMeshEditor`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Editor/SkeletalMeshEditor/SkeletalMeshEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "skeletalmeshutilitiescommon",
     "kind": "module",
     "cn_steps": [
-      "用途：`SkeletalMeshUtilitiesCommon` 位于 `Developer`，构建规则 `Developer/SkeletalMeshUtilitiesCommon/SkeletalMeshUtilitiesCommon.Build.cs`。它直接依赖 8 个模块：`ClothingSystemRuntimeCommon`, `Core`, `CoreUObject`, `Engine`, `ImageCore`, `InterchangeCore`, `MeshDescription`, `MeshUtilitiesCommon`。",
+      "`SkeletalMeshUtilitiesCommon`（Skeletal Mesh Utilities Common）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Developer`，构建规则 `Developer/SkeletalMeshUtilitiesCommon/SkeletalMeshUtilitiesCommon.Build.cs`。直接依赖 8 个模块：`ClothingSystemRuntimeCommon`、`Core`、`CoreUObject`、`Engine`、`ImageCore` 等。",
+      "部署：`SkeletalMeshUtilitiesCommon` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SkeletalMeshUtilitiesCommon\" });`；对外暴露 `SkeletalMeshUtilitiesCommon` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SkeletalMeshUtilitiesCommon` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `SkeletalMeshUtilitiesCommon.h` / `SkeletalMeshUtilitiesCommonModule.h`），再用 `FModuleManager::LoadModulePtr<SkeletalMeshUtilitiesCommonModule>` 或直接使用导出类型。",
-      "传递依赖：`SkeletalMeshUtilitiesCommon` 还依赖 `ClothingSystemRuntimeCommon`, `Core`, `CoreUObject`, `Engine`, `ImageCore`, `InterchangeCore`, `MeshDescription`, `MeshUtilitiesCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SkeletalMeshUtilitiesCommon` lives under `Developer`; build rule `Developer/SkeletalMeshUtilitiesCommon/SkeletalMeshUtilitiesCommon.Build.cs`.It directly depends on 8 modules: `ClothingSystemRuntimeCommon`, `Core`, `CoreUObject`, `Engine`, `ImageCore`, `InterchangeCore`, `MeshDescription`, `MeshUtilitiesCommon`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SkeletalMeshUtilitiesCommon\" });`. Use Public when exposing `SkeletalMeshUtilitiesCommon` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`SkeletalMeshUtilitiesCommon` (Skeletal Mesh Utilities Common): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Developer`; build rule `Developer/SkeletalMeshUtilitiesCommon/SkeletalMeshUtilitiesCommon.Build.cs`. It directly depends on 8 modules: `ClothingSystemRuntimeCommon`, `Core`, `CoreUObject`, `Engine`, `ImageCore` etc.",
       "Placement: `SkeletalMeshUtilitiesCommon` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `SkeletalMeshUtilitiesCommon.h` / `SkeletalMeshUtilitiesCommonModule.h`), then use `FModuleManager::LoadModulePtr<SkeletalMeshUtilitiesCommonModule>` or the exported types directly.",
-      "Transitive deps: `SkeletalMeshUtilitiesCommon` also needs `ClothingSystemRuntimeCommon`, `Core`, `CoreUObject`, `Engine`, `ImageCore`, `InterchangeCore`, `MeshDescription`, `MeshUtilitiesCommon`; do not re-list them unless you include their headers."
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SkeletalMeshUtilitiesCommon\" });`. Use Public when exposing `SkeletalMeshUtilitiesCommon` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SkeletalMeshUtilitiesCommon` 的构建规则位于 `Developer/SkeletalMeshUtilitiesCommon/SkeletalMeshUtilitiesCommon.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SkeletalMeshUtilitiesCommon` build rule is `Developer/SkeletalMeshUtilitiesCommon/SkeletalMeshUtilitiesCommon.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SkeletalMeshUtilitiesCommon`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Developer/SkeletalMeshUtilitiesCommon/SkeletalMeshUtilitiesCommon.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SkeletalMeshUtilitiesCommon`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Developer/SkeletalMeshUtilitiesCommon/SkeletalMeshUtilitiesCommon.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "skeletoneditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`SkeletonEditor` 位于 `Editor`，构建规则 `Editor/SkeletonEditor/SkeletonEditor.Build.cs`。它直接依赖 8 个模块：`AnimGraph`, `AnimGraphRuntime`, `AnimationCore`, `AnimationWidgets`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `ContentBrowser`。",
+      "`SkeletonEditor`（Skeleton Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/SkeletonEditor/SkeletonEditor.Build.cs`。直接依赖 8 个模块：`AnimGraph`、`AnimGraphRuntime`、`AnimationCore`、`AnimationWidgets`、`ApplicationCore` 等。",
+      "部署：`SkeletonEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SkeletonEditor\" });`；对外暴露 `SkeletonEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SkeletonEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `SkeletonEditor.h` / `SkeletonEditorModule.h`），再用 `FModuleManager::LoadModulePtr<SkeletonEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`SkeletonEditor` 还依赖 `AnimGraph`, `AnimGraphRuntime`, `AnimationCore`, `AnimationWidgets`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `ContentBrowser`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SkeletonEditor` lives under `Editor`; build rule `Editor/SkeletonEditor/SkeletonEditor.Build.cs`.It directly depends on 8 modules: `AnimGraph`, `AnimGraphRuntime`, `AnimationCore`, `AnimationWidgets`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `ContentBrowser`.",
+      "`SkeletonEditor` (Skeleton Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/SkeletonEditor/SkeletonEditor.Build.cs`. It directly depends on 8 modules: `AnimGraph`, `AnimGraphRuntime`, `AnimationCore`, `AnimationWidgets`, `ApplicationCore` etc.",
+      "Placement: `SkeletonEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SkeletonEditor\" });`. Use Public when exposing `SkeletonEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SkeletonEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `SkeletonEditor.h` / `SkeletonEditorModule.h`), then use `FModuleManager::LoadModulePtr<SkeletonEditorModule>` or the exported types directly.",
-      "Transitive deps: `SkeletonEditor` also needs `AnimGraph`, `AnimGraphRuntime`, `AnimationCore`, `AnimationWidgets`, `ApplicationCore`, `AssetRegistry`, `BlueprintGraph`, `ContentBrowser`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SkeletonEditor` 的构建规则位于 `Editor/SkeletonEditor/SkeletonEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SkeletonEditor` build rule is `Editor/SkeletonEditor/SkeletonEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SkeletonEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/SkeletonEditor/SkeletonEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SkeletonEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/SkeletonEditor/SkeletonEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "slackintegrations",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlackIntegrations` 位于 `Developer`，构建规则 `Developer/SlackIntegrations/SlackIntegrations.Build.cs`。它直接依赖 2 个模块：`Core`, `HTTP`。",
+      "`SlackIntegrations`（Slack Integrations）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/SlackIntegrations/SlackIntegrations.Build.cs`。直接依赖 2 个模块：`Core`、`HTTP`。",
+      "部署：`SlackIntegrations` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlackIntegrations\" });`；对外暴露 `SlackIntegrations` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlackIntegrations` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `SlackIntegrations.h` / `SlackIntegrationsModule.h`），再用 `FModuleManager::LoadModulePtr<SlackIntegrationsModule>` 或直接使用导出类型。",
-      "传递依赖：`SlackIntegrations` 还依赖 `Core`, `HTTP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SlackIntegrations` lives under `Developer`; build rule `Developer/SlackIntegrations/SlackIntegrations.Build.cs`.It directly depends on 2 modules: `Core`, `HTTP`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlackIntegrations\" });`. Use Public when exposing `SlackIntegrations` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`SlackIntegrations` (Slack Integrations): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/SlackIntegrations/SlackIntegrations.Build.cs`. It directly depends on 2 modules: `Core`, `HTTP`.",
       "Placement: `SlackIntegrations` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `SlackIntegrations.h` / `SlackIntegrationsModule.h`), then use `FModuleManager::LoadModulePtr<SlackIntegrationsModule>` or the exported types directly.",
-      "Transitive deps: `SlackIntegrations` also needs `Core`, `HTTP`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlackIntegrations\" });`. Use Public when exposing `SlackIntegrations` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SlackIntegrations` 的构建规则位于 `Developer/SlackIntegrations/SlackIntegrations.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`SlackIntegrations` build rule is `Developer/SlackIntegrations/SlackIntegrations.Build.cs`; depends on 2 modules; category Module."
-  },
-  {
-    "slug": "slate",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`Slate` 位于 `Runtime`，构建规则 `Runtime/Slate/Slate.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `ImageWrapper`, `InputCore`, `Json`, `SlateCore`, `TraceLog`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Slate\" });`；对外暴露 `Slate` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Slate` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Slate.h` / `SlateModule.h`），再用 `FModuleManager::LoadModulePtr<SlateModule>` 或直接使用导出类型。",
-      "传递依赖：`Slate` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `ImageWrapper`, `InputCore`, `Json`, `SlateCore`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `Slate` lives under `Runtime`; build rule `Runtime/Slate/Slate.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `ImageWrapper`, `InputCore`, `Json`, `SlateCore`, `TraceLog`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Slate\" });`. Use Public when exposing `Slate` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Slate` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Slate.h` / `SlateModule.h`), then use `FModuleManager::LoadModulePtr<SlateModule>` or the exported types directly.",
-      "Transitive deps: `Slate` also needs `ApplicationCore`, `Core`, `CoreUObject`, `ImageWrapper`, `InputCore`, `Json`, `SlateCore`, `TraceLog`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`Slate` 的构建规则位于 `Runtime/Slate/Slate.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`Slate` build rule is `Runtime/Slate/Slate.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SlackIntegrations`：它向其他模块提供 C++ API/功能；构建规则 `Developer/SlackIntegrations/SlackIntegrations.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`SlackIntegrations`: it exposes C++ API/functionality to other modules; build rule `Developer/SlackIntegrations/SlackIntegrations.Build.cs`; depends on 2 modules."
   }
 ]

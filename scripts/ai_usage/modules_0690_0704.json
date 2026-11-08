@@ -1,302 +1,302 @@
 [
   {
+    "slug": "slate",
+    "kind": "module",
+    "cn_steps": [
+      "`Slate`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Runtime`，构建规则 `Runtime/Slate/Slate.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`ImageWrapper`、`InputCore` 等。",
+      "部署：`Slate` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Slate\" });`；对外暴露 `Slate` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`Slate`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Runtime`; build rule `Runtime/Slate/Slate.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `ImageWrapper`, `InputCore` etc.",
+      "Placement: `Slate` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Slate\" });`. Use Public when exposing `Slate` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`Slate`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Runtime/Slate/Slate.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`Slate`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Runtime/Slate/Slate.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "slatebaserenderer",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateBaseRenderer` 位于 `Runtime`，构建规则 `Runtime/SlateBaseRenderer/SlateBaseRenderer.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`。",
+      "`SlateBaseRenderer`（Slate Base Renderer）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/SlateBaseRenderer/SlateBaseRenderer.Build.cs`。直接依赖 5 个模块：`Core`、`CoreUObject`、`Engine`、`Slate`、`SlateCore`。",
+      "部署：`SlateBaseRenderer` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateBaseRenderer\" });`；对外暴露 `SlateBaseRenderer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateBaseRenderer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `SlateBaseRenderer.h` / `SlateBaseRendererModule.h`），再用 `FModuleManager::LoadModulePtr<SlateBaseRendererModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateBaseRenderer` 还依赖 `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SlateBaseRenderer` lives under `Runtime`; build rule `Runtime/SlateBaseRenderer/SlateBaseRenderer.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`.",
+      "`SlateBaseRenderer` (Slate Base Renderer): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/SlateBaseRenderer/SlateBaseRenderer.Build.cs`. It directly depends on 5 modules: `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`.",
+      "Placement: `SlateBaseRenderer` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateBaseRenderer\" });`. Use Public when exposing `SlateBaseRenderer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SlateBaseRenderer` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `SlateBaseRenderer.h` / `SlateBaseRendererModule.h`), then use `FModuleManager::LoadModulePtr<SlateBaseRendererModule>` or the exported types directly.",
-      "Transitive deps: `SlateBaseRenderer` also needs `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SlateBaseRenderer` 的构建规则位于 `Runtime/SlateBaseRenderer/SlateBaseRenderer.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`SlateBaseRenderer` build rule is `Runtime/SlateBaseRenderer/SlateBaseRenderer.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`SlateBaseRenderer`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/SlateBaseRenderer/SlateBaseRenderer.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`SlateBaseRenderer`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/SlateBaseRenderer/SlateBaseRenderer.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "slatecore",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateCore` 位于 `Runtime`，构建规则 `Runtime/SlateCore/SlateCore.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DeveloperSettings`, `InputCore`, `Json`, `TraceLog`。",
+      "`SlateCore`（Slate Core）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Runtime`，构建规则 `Runtime/SlateCore/SlateCore.Build.cs`。直接依赖 7 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`DeveloperSettings`、`InputCore` 等。",
+      "部署：`SlateCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateCore\" });`；对外暴露 `SlateCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `SlateCore.h` / `SlateCoreModule.h`），再用 `FModuleManager::LoadModulePtr<SlateCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateCore` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperSettings`, `InputCore`, `Json`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SlateCore` lives under `Runtime`; build rule `Runtime/SlateCore/SlateCore.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperSettings`, `InputCore`, `Json`, `TraceLog`.",
+      "`SlateCore` (Slate Core): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Runtime`; build rule `Runtime/SlateCore/SlateCore.Build.cs`. It directly depends on 7 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperSettings`, `InputCore` etc.",
+      "Placement: `SlateCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateCore\" });`. Use Public when exposing `SlateCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SlateCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `SlateCore.h` / `SlateCoreModule.h`), then use `FModuleManager::LoadModulePtr<SlateCoreModule>` or the exported types directly.",
-      "Transitive deps: `SlateCore` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperSettings`, `InputCore`, `Json`, `TraceLog`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SlateCore` 的构建规则位于 `Runtime/SlateCore/SlateCore.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`SlateCore` build rule is `Runtime/SlateCore/SlateCore.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`SlateCore`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Runtime/SlateCore/SlateCore.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`SlateCore`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Runtime/SlateCore/SlateCore.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "slatefiledialogs",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateFileDialogs` 位于 `Developer`，构建规则 `Developer/SlateFileDialogs/SlateFileDialogs.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `DirectoryWatcher`, `InputCore`, `Slate`, `SlateCore`。",
+      "`SlateFileDialogs`（Slate File Dialogs）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Developer`，构建规则 `Developer/SlateFileDialogs/SlateFileDialogs.Build.cs`。直接依赖 6 个模块：`Core`、`CoreUObject`、`DirectoryWatcher`、`InputCore`、`Slate` 等。",
+      "部署：`SlateFileDialogs` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateFileDialogs\" });`；对外暴露 `SlateFileDialogs` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateFileDialogs` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `SlateFileDialogs.h` / `SlateFileDialogsModule.h`），再用 `FModuleManager::LoadModulePtr<SlateFileDialogsModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateFileDialogs` 还依赖 `Core`, `CoreUObject`, `DirectoryWatcher`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SlateFileDialogs` lives under `Developer`; build rule `Developer/SlateFileDialogs/SlateFileDialogs.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `DirectoryWatcher`, `InputCore`, `Slate`, `SlateCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateFileDialogs\" });`. Use Public when exposing `SlateFileDialogs` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`SlateFileDialogs` (Slate File Dialogs): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Developer`; build rule `Developer/SlateFileDialogs/SlateFileDialogs.Build.cs`. It directly depends on 6 modules: `Core`, `CoreUObject`, `DirectoryWatcher`, `InputCore`, `Slate` etc.",
       "Placement: `SlateFileDialogs` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `SlateFileDialogs.h` / `SlateFileDialogsModule.h`), then use `FModuleManager::LoadModulePtr<SlateFileDialogsModule>` or the exported types directly.",
-      "Transitive deps: `SlateFileDialogs` also needs `Core`, `CoreUObject`, `DirectoryWatcher`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateFileDialogs\" });`. Use Public when exposing `SlateFileDialogs` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SlateFileDialogs` 的构建规则位于 `Developer/SlateFileDialogs/SlateFileDialogs.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`SlateFileDialogs` build rule is `Developer/SlateFileDialogs/SlateFileDialogs.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`SlateFileDialogs`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Developer/SlateFileDialogs/SlateFileDialogs.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`SlateFileDialogs`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Developer/SlateFileDialogs/SlateFileDialogs.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "slatefontdialog",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateFontDialog` 位于 `Developer`，构建规则 `Developer/SlateFontDialog/SlateFontDialog.Build.cs`。它直接依赖 6 个模块：`AppFramework`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`。",
+      "`SlateFontDialog`（Slate Font Dialog）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Developer`，构建规则 `Developer/SlateFontDialog/SlateFontDialog.Build.cs`。直接依赖 6 个模块：`AppFramework`、`Core`、`CoreUObject`、`InputCore`、`Slate` 等。",
+      "部署：`SlateFontDialog` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateFontDialog\" });`；对外暴露 `SlateFontDialog` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateFontDialog` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `SlateFontDialog.h` / `SlateFontDialogModule.h`），再用 `FModuleManager::LoadModulePtr<SlateFontDialogModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateFontDialog` 还依赖 `AppFramework`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SlateFontDialog` lives under `Developer`; build rule `Developer/SlateFontDialog/SlateFontDialog.Build.cs`.It directly depends on 6 modules: `AppFramework`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateFontDialog\" });`. Use Public when exposing `SlateFontDialog` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`SlateFontDialog` (Slate Font Dialog): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Developer`; build rule `Developer/SlateFontDialog/SlateFontDialog.Build.cs`. It directly depends on 6 modules: `AppFramework`, `Core`, `CoreUObject`, `InputCore`, `Slate` etc.",
       "Placement: `SlateFontDialog` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `SlateFontDialog.h` / `SlateFontDialogModule.h`), then use `FModuleManager::LoadModulePtr<SlateFontDialogModule>` or the exported types directly.",
-      "Transitive deps: `SlateFontDialog` also needs `AppFramework`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateFontDialog\" });`. Use Public when exposing `SlateFontDialog` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SlateFontDialog` 的构建规则位于 `Developer/SlateFontDialog/SlateFontDialog.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`SlateFontDialog` build rule is `Developer/SlateFontDialog/SlateFontDialog.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`SlateFontDialog`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Developer/SlateFontDialog/SlateFontDialog.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`SlateFontDialog`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Developer/SlateFontDialog/SlateFontDialog.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "slatenullrenderer",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateNullRenderer` 位于 `Runtime`，构建规则 `Runtime/SlateNullRenderer/SlateNullRenderer.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`, `SlateBaseRenderer`, `SlateCore`。",
+      "`SlateNullRenderer`（Slate Null Renderer）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/SlateNullRenderer/SlateNullRenderer.Build.cs`。直接依赖 7 个模块：`Core`、`CoreUObject`、`Engine`、`RHI`、`RenderCore` 等。",
+      "部署：`SlateNullRenderer` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateNullRenderer\" });`；对外暴露 `SlateNullRenderer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateNullRenderer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `SlateNullRenderer.h` / `SlateNullRendererModule.h`），再用 `FModuleManager::LoadModulePtr<SlateNullRendererModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateNullRenderer` 还依赖 `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`, `SlateBaseRenderer`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SlateNullRenderer` lives under `Runtime`; build rule `Runtime/SlateNullRenderer/SlateNullRenderer.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`, `SlateBaseRenderer`, `SlateCore`.",
+      "`SlateNullRenderer` (Slate Null Renderer): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/SlateNullRenderer/SlateNullRenderer.Build.cs`. It directly depends on 7 modules: `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore` etc.",
+      "Placement: `SlateNullRenderer` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateNullRenderer\" });`. Use Public when exposing `SlateNullRenderer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SlateNullRenderer` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `SlateNullRenderer.h` / `SlateNullRendererModule.h`), then use `FModuleManager::LoadModulePtr<SlateNullRendererModule>` or the exported types directly.",
-      "Transitive deps: `SlateNullRenderer` also needs `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`, `SlateBaseRenderer`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SlateNullRenderer` 的构建规则位于 `Runtime/SlateNullRenderer/SlateNullRenderer.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`SlateNullRenderer` build rule is `Runtime/SlateNullRenderer/SlateNullRenderer.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`SlateNullRenderer`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/SlateNullRenderer/SlateNullRenderer.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`SlateNullRenderer`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/SlateNullRenderer/SlateNullRenderer.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "slatereflector",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateReflector` 位于 `Developer`，构建规则 `Developer/SlateReflector/SlateReflector.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `ImageCore`, `ImageWrapper`。",
+      "`SlateReflector`（Slate Reflector）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Developer`，构建规则 `Developer/SlateReflector/SlateReflector.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`AssetRegistry`、`Core`、`CoreUObject`、`DesktopPlatform` 等。",
+      "部署：`SlateReflector` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateReflector\" });`；对外暴露 `SlateReflector` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateReflector` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `SlateReflector.h` / `SlateReflectorModule.h`），再用 `FModuleManager::LoadModulePtr<SlateReflectorModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateReflector` 还依赖 `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `ImageCore`, `ImageWrapper`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SlateReflector` lives under `Developer`; build rule `Developer/SlateReflector/SlateReflector.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `ImageCore`, `ImageWrapper`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateReflector\" });`. Use Public when exposing `SlateReflector` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`SlateReflector` (Slate Reflector): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Developer`; build rule `Developer/SlateReflector/SlateReflector.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `DesktopPlatform` etc.",
       "Placement: `SlateReflector` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `SlateReflector.h` / `SlateReflectorModule.h`), then use `FModuleManager::LoadModulePtr<SlateReflectorModule>` or the exported types directly.",
-      "Transitive deps: `SlateReflector` also needs `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `ImageCore`, `ImageWrapper`; do not re-list them unless you include their headers."
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateReflector\" });`. Use Public when exposing `SlateReflector` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SlateReflector` 的构建规则位于 `Developer/SlateReflector/SlateReflector.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SlateReflector` build rule is `Developer/SlateReflector/SlateReflector.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SlateReflector`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Developer/SlateReflector/SlateReflector.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SlateReflector`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Developer/SlateReflector/SlateReflector.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "slaterhirenderer",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateRHIRenderer` 位于 `Runtime`，构建规则 `Runtime/SlateRHIRenderer/SlateRHIRenderer.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `HeadMountedDisplay`, `ImageCore`, `PreLoadScreen`, `RHI`。",
+      "`SlateRHIRenderer`（Slate RHI Renderer）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/SlateRHIRenderer/SlateRHIRenderer.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DeveloperSettings`、`Engine`、`HeadMountedDisplay` 等。",
+      "部署：`SlateRHIRenderer` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateRHIRenderer\" });`；对外暴露 `SlateRHIRenderer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateRHIRenderer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `SlateRHIRenderer.h` / `SlateRHIRendererModule.h`），再用 `FModuleManager::LoadModulePtr<SlateRHIRendererModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateRHIRenderer` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `HeadMountedDisplay`, `ImageCore`, `PreLoadScreen`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SlateRHIRenderer` lives under `Runtime`; build rule `Runtime/SlateRHIRenderer/SlateRHIRenderer.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `HeadMountedDisplay`, `ImageCore`, `PreLoadScreen`, `RHI`.",
+      "`SlateRHIRenderer` (Slate RHI Renderer): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/SlateRHIRenderer/SlateRHIRenderer.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `HeadMountedDisplay` etc.",
+      "Placement: `SlateRHIRenderer` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateRHIRenderer\" });`. Use Public when exposing `SlateRHIRenderer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SlateRHIRenderer` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `SlateRHIRenderer.h` / `SlateRHIRendererModule.h`), then use `FModuleManager::LoadModulePtr<SlateRHIRendererModule>` or the exported types directly.",
-      "Transitive deps: `SlateRHIRenderer` also needs `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `HeadMountedDisplay`, `ImageCore`, `PreLoadScreen`, `RHI`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SlateRHIRenderer` 的构建规则位于 `Runtime/SlateRHIRenderer/SlateRHIRenderer.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SlateRHIRenderer` build rule is `Runtime/SlateRHIRenderer/SlateRHIRenderer.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SlateRHIRenderer`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/SlateRHIRenderer/SlateRHIRenderer.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SlateRHIRenderer`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/SlateRHIRenderer/SlateRHIRenderer.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "slatetests",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateTests` 位于 `Programs`，构建规则 `Programs/SlateTests/SlateTests.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Private`, `Runtime`, `Slate`, `SlateCore`, `Source`。",
+      "`SlateTests`（Slate Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/SlateTests/SlateTests.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DesktopPlatform`、`Private`、`Runtime` 等。",
+      "部署：`SlateTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateTests\" });`；对外暴露 `SlateTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `SlateTests.h` / `SlateTestsModule.h`），再用 `FModuleManager::LoadModulePtr<SlateTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateTests` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Private`, `Runtime`, `Slate`, `SlateCore`, `Source`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `SlateTests` lives under `Programs`; build rule `Programs/SlateTests/SlateTests.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Private`, `Runtime`, `Slate`, `SlateCore`, `Source`.",
+      "`SlateTests` (Slate Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/SlateTests/SlateTests.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Private`, `Runtime` etc.",
+      "Placement: `SlateTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateTests\" });`. Use Public when exposing `SlateTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SlateTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `SlateTests.h` / `SlateTestsModule.h`), then use `FModuleManager::LoadModulePtr<SlateTestsModule>` or the exported types directly.",
-      "Transitive deps: `SlateTests` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Private`, `Runtime`, `Slate`, `SlateCore`, `Source`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`SlateTests` 的构建规则位于 `Programs/SlateTests/SlateTests.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SlateTests` build rule is `Programs/SlateTests/SlateTests.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SlateTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/SlateTests/SlateTests.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SlateTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/SlateTests/SlateTests.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "slateugs",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateUGS` 位于 `Programs`，构建规则 `Programs/SlateUGS/SlateUGS.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `ApplicationCore`, `Core`, `DesktopPlatform`, `PakFile`, `Projects`, `Slate`, `SlateCore`。",
+      "`SlateUGS`（Slate UGS）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/SlateUGS/SlateUGS.Build.cs`。直接依赖 8 个模块：`AppFramework`、`ApplicationCore`、`Core`、`DesktopPlatform`、`PakFile` 等。",
+      "部署：`SlateUGS` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateUGS\" });`；对外暴露 `SlateUGS` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateUGS` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `SlateUGS.h` / `SlateUGSModule.h`），再用 `FModuleManager::LoadModulePtr<SlateUGSModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateUGS` 还依赖 `AppFramework`, `ApplicationCore`, `Core`, `DesktopPlatform`, `PakFile`, `Projects`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `SlateUGS` lives under `Programs`; build rule `Programs/SlateUGS/SlateUGS.Build.cs`.It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `DesktopPlatform`, `PakFile`, `Projects`, `Slate`, `SlateCore`.",
+      "`SlateUGS` (Slate UGS): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/SlateUGS/SlateUGS.Build.cs`. It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `DesktopPlatform`, `PakFile` etc.",
+      "Placement: `SlateUGS` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateUGS\" });`. Use Public when exposing `SlateUGS` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SlateUGS` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `SlateUGS.h` / `SlateUGSModule.h`), then use `FModuleManager::LoadModulePtr<SlateUGSModule>` or the exported types directly.",
-      "Transitive deps: `SlateUGS` also needs `AppFramework`, `ApplicationCore`, `Core`, `DesktopPlatform`, `PakFile`, `Projects`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`SlateUGS` 的构建规则位于 `Programs/SlateUGS/SlateUGS.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SlateUGS` build rule is `Programs/SlateUGS/SlateUGS.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SlateUGS`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/SlateUGS/SlateUGS.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SlateUGS`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/SlateUGS/SlateUGS.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "slateviewer",
     "kind": "module",
     "cn_steps": [
-      "用途：`SlateViewer` 位于 `Programs`，构建规则 `Programs/SlateViewer/SlateViewer.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `ApplicationCore`, `Core`, `Projects`, `Slate`, `SlateCore`, `SourceCodeAccess`, `StandaloneRenderer`。",
+      "`SlateViewer`（Slate Viewer）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/SlateViewer/SlateViewer.Build.cs`。直接依赖 8 个模块：`AppFramework`、`ApplicationCore`、`Core`、`Projects`、`Slate` 等。",
+      "部署：`SlateViewer` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SlateViewer\" });`；对外暴露 `SlateViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SlateViewer` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `SlateViewer.h` / `SlateViewerModule.h`），再用 `FModuleManager::LoadModulePtr<SlateViewerModule>` 或直接使用导出类型。",
-      "传递依赖：`SlateViewer` 还依赖 `AppFramework`, `ApplicationCore`, `Core`, `Projects`, `Slate`, `SlateCore`, `SourceCodeAccess`, `StandaloneRenderer`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `SlateViewer` lives under `Programs`; build rule `Programs/SlateViewer/SlateViewer.Build.cs`.It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `Projects`, `Slate`, `SlateCore`, `SourceCodeAccess`, `StandaloneRenderer`.",
+      "`SlateViewer` (Slate Viewer): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/SlateViewer/SlateViewer.Build.cs`. It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `Projects`, `Slate` etc.",
+      "Placement: `SlateViewer` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SlateViewer\" });`. Use Public when exposing `SlateViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SlateViewer` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `SlateViewer.h` / `SlateViewerModule.h`), then use `FModuleManager::LoadModulePtr<SlateViewerModule>` or the exported types directly.",
-      "Transitive deps: `SlateViewer` also needs `AppFramework`, `ApplicationCore`, `Core`, `Projects`, `Slate`, `SlateCore`, `SourceCodeAccess`, `StandaloneRenderer`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`SlateViewer` 的构建规则位于 `Programs/SlateViewer/SlateViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`SlateViewer` build rule is `Programs/SlateViewer/SlateViewer.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`SlateViewer`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/SlateViewer/SlateViewer.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`SlateViewer`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/SlateViewer/SlateViewer.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "snappylib",
     "kind": "module",
     "cn_steps": [
-      "用途：`SnappyLib` 位于 `ThirdParty`，构建规则 `ThirdParty/HAPMedia/SnappyLib/SnappyLib.Build.cs`。描述符未声明依赖。",
+      "`SnappyLib`（Snappy Lib）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/HAPMedia/SnappyLib/SnappyLib.Build.cs`。描述符未声明依赖。",
+      "部署：`SnappyLib` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SnappyLib\" });`；对外暴露 `SnappyLib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SnappyLib` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `SnappyLib.h` / `SnappyLibModule.h`），再用 `FModuleManager::LoadModulePtr<SnappyLibModule>` 或直接使用导出类型。",
-      "传递依赖：`SnappyLib` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `SnappyLib` lives under `ThirdParty`; build rule `ThirdParty/HAPMedia/SnappyLib/SnappyLib.Build.cs`.The descriptor declares no dependencies.",
+      "`SnappyLib` (Snappy Lib): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/HAPMedia/SnappyLib/SnappyLib.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `SnappyLib` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SnappyLib\" });`. Use Public when exposing `SnappyLib` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SnappyLib` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `SnappyLib.h` / `SnappyLibModule.h`), then use `FModuleManager::LoadModulePtr<SnappyLibModule>` or the exported types directly.",
-      "Transitive deps: `SnappyLib` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`SnappyLib` 的构建规则位于 `ThirdParty/HAPMedia/SnappyLib/SnappyLib.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`SnappyLib` build rule is `ThirdParty/HAPMedia/SnappyLib/SnappyLib.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`SnappyLib`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/HAPMedia/SnappyLib/SnappyLib.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`SnappyLib`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/HAPMedia/SnappyLib/SnappyLib.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "sockets",
     "kind": "module",
     "cn_steps": [
-      "用途：`Sockets` 位于 `Runtime`，构建规则 `Runtime/Sockets/Sockets.Build.cs`。它直接依赖 2 个模块：`Core`, `NetCommon`。",
+      "`Sockets`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Sockets/Sockets.Build.cs`。直接依赖 2 个模块：`Core`、`NetCommon`。",
+      "部署：`Sockets` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Sockets\" });`；对外暴露 `Sockets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Sockets` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Sockets.h` / `SocketsModule.h`），再用 `FModuleManager::LoadModulePtr<SocketsModule>` 或直接使用导出类型。",
-      "传递依赖：`Sockets` 还依赖 `Core`, `NetCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Sockets` lives under `Runtime`; build rule `Runtime/Sockets/Sockets.Build.cs`.It directly depends on 2 modules: `Core`, `NetCommon`.",
+      "`Sockets`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Sockets/Sockets.Build.cs`. It directly depends on 2 modules: `Core`, `NetCommon`.",
+      "Placement: `Sockets` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Sockets\" });`. Use Public when exposing `Sockets` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Sockets` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Sockets.h` / `SocketsModule.h`), then use `FModuleManager::LoadModulePtr<SocketsModule>` or the exported types directly.",
-      "Transitive deps: `Sockets` also needs `Core`, `NetCommon`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Sockets` 的构建规则位于 `Runtime/Sockets/Sockets.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`Sockets` build rule is `Runtime/Sockets/Sockets.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`Sockets`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Sockets/Sockets.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`Sockets`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Sockets/Sockets.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "solarisbridge",
     "kind": "module",
     "cn_steps": [
-      "用途：`SolarisBridge` 位于 `Runtime`，构建规则 `Runtime/Solaris/SolarisBridge/SolarisBridge.Build.cs`。它直接依赖 4 个模块：`Core`, `VerseCompiler`, `uLangCore`, `uLangDigests`。",
+      "`SolarisBridge`（Solaris Bridge）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/Solaris/SolarisBridge/SolarisBridge.Build.cs`。直接依赖 4 个模块：`Core`、`VerseCompiler`、`uLangCore`、`uLangDigests`。",
+      "部署：`SolarisBridge` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SolarisBridge\" });`；对外暴露 `SolarisBridge` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SolarisBridge` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `SolarisBridge.h` / `SolarisBridgeModule.h`），再用 `FModuleManager::LoadModulePtr<SolarisBridgeModule>` 或直接使用导出类型。",
-      "传递依赖：`SolarisBridge` 还依赖 `Core`, `VerseCompiler`, `uLangCore`, `uLangDigests`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SolarisBridge` lives under `Runtime`; build rule `Runtime/Solaris/SolarisBridge/SolarisBridge.Build.cs`.It directly depends on 4 modules: `Core`, `VerseCompiler`, `uLangCore`, `uLangDigests`.",
+      "`SolarisBridge` (Solaris Bridge): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/Solaris/SolarisBridge/SolarisBridge.Build.cs`. It directly depends on 4 modules: `Core`, `VerseCompiler`, `uLangCore`, `uLangDigests`.",
+      "Placement: `SolarisBridge` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SolarisBridge\" });`. Use Public when exposing `SolarisBridge` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SolarisBridge` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `SolarisBridge.h` / `SolarisBridgeModule.h`), then use `FModuleManager::LoadModulePtr<SolarisBridgeModule>` or the exported types directly.",
-      "Transitive deps: `SolarisBridge` also needs `Core`, `VerseCompiler`, `uLangCore`, `uLangDigests`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SolarisBridge` 的构建规则位于 `Runtime/Solaris/SolarisBridge/SolarisBridge.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`SolarisBridge` build rule is `Runtime/Solaris/SolarisBridge/SolarisBridge.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`SolarisBridge`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/Solaris/SolarisBridge/SolarisBridge.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`SolarisBridge`: it exposes C++ API/functionality to other modules; build rule `Runtime/Solaris/SolarisBridge/SolarisBridge.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "soundfieldrendering",
     "kind": "module",
     "cn_steps": [
-      "用途：`SoundFieldRendering` 位于 `Runtime`，构建规则 `Runtime/SoundFieldRendering/SoundFieldRendering.Build.cs`。它直接依赖 4 个模块：`AudioExtensions`, `Core`, `Engine`, `SignalProcessing`。",
+      "`SoundFieldRendering`（Sound Field Rendering）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/SoundFieldRendering/SoundFieldRendering.Build.cs`。直接依赖 4 个模块：`AudioExtensions`、`Core`、`Engine`、`SignalProcessing`。",
+      "部署：`SoundFieldRendering` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SoundFieldRendering\" });`；对外暴露 `SoundFieldRendering` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SoundFieldRendering` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `SoundFieldRendering.h` / `SoundFieldRenderingModule.h`），再用 `FModuleManager::LoadModulePtr<SoundFieldRenderingModule>` 或直接使用导出类型。",
-      "传递依赖：`SoundFieldRendering` 还依赖 `AudioExtensions`, `Core`, `Engine`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `SoundFieldRendering` lives under `Runtime`; build rule `Runtime/SoundFieldRendering/SoundFieldRendering.Build.cs`.It directly depends on 4 modules: `AudioExtensions`, `Core`, `Engine`, `SignalProcessing`.",
+      "`SoundFieldRendering` (Sound Field Rendering): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/SoundFieldRendering/SoundFieldRendering.Build.cs`. It directly depends on 4 modules: `AudioExtensions`, `Core`, `Engine`, `SignalProcessing`.",
+      "Placement: `SoundFieldRendering` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SoundFieldRendering\" });`. Use Public when exposing `SoundFieldRendering` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SoundFieldRendering` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `SoundFieldRendering.h` / `SoundFieldRenderingModule.h`), then use `FModuleManager::LoadModulePtr<SoundFieldRenderingModule>` or the exported types directly.",
-      "Transitive deps: `SoundFieldRendering` also needs `AudioExtensions`, `Core`, `Engine`, `SignalProcessing`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`SoundFieldRendering` 的构建规则位于 `Runtime/SoundFieldRendering/SoundFieldRendering.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`SoundFieldRendering` build rule is `Runtime/SoundFieldRendering/SoundFieldRendering.Build.cs`; depends on 4 modules; category Module."
-  },
-  {
-    "slug": "soundswitch",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`SoundSwitch` 位于 `ThirdParty`，构建规则 `ThirdParty/IOS/SoundSwitch/SoundSwitch.Build.cs`。描述符未声明依赖。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SoundSwitch\" });`；对外暴露 `SoundSwitch` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`SoundSwitch` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `SoundSwitch.h` / `SoundSwitchModule.h`），再用 `FModuleManager::LoadModulePtr<SoundSwitchModule>` 或直接使用导出类型。",
-      "传递依赖：`SoundSwitch` 未声明额外公开依赖，通常只依赖引擎基础层。"
-    ],
-    "en_steps": [
-      "Purpose: `SoundSwitch` lives under `ThirdParty`; build rule `ThirdParty/IOS/SoundSwitch/SoundSwitch.Build.cs`.The descriptor declares no dependencies.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SoundSwitch\" });`. Use Public when exposing `SoundSwitch` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `SoundSwitch` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `SoundSwitch.h` / `SoundSwitchModule.h`), then use `FModuleManager::LoadModulePtr<SoundSwitchModule>` or the exported types directly.",
-      "Transitive deps: `SoundSwitch` declares no extra public deps; it typically relies on engine basics."
-    ],
-    "note_cn": "`SoundSwitch` 的构建规则位于 `ThirdParty/IOS/SoundSwitch/SoundSwitch.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`SoundSwitch` build rule is `ThirdParty/IOS/SoundSwitch/SoundSwitch.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`SoundFieldRendering`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/SoundFieldRendering/SoundFieldRendering.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`SoundFieldRendering`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/SoundFieldRendering/SoundFieldRendering.Build.cs`; depends on 4 modules."
   }
 ]

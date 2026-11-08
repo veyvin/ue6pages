@@ -1,302 +1,302 @@
 [
   {
+    "slug": "propertypath",
+    "kind": "module",
+    "cn_steps": [
+      "`PropertyPath`（Property Path）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/PropertyPath/PropertyPath.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`PropertyPath` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PropertyPath\" });`；对外暴露 `PropertyPath` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`PropertyPath` (Property Path): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/PropertyPath/PropertyPath.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `PropertyPath` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PropertyPath\" });`. Use Public when exposing `PropertyPath` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`PropertyPath`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/PropertyPath/PropertyPath.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`PropertyPath`: it exposes C++ API/functionality to other modules; build rule `Runtime/PropertyPath/PropertyPath.Build.cs`; depends on 2 modules."
+  },
+  {
     "slug": "proreslib",
     "kind": "module",
     "cn_steps": [
-      "用途：`ProResLib` 位于 `ThirdParty`，构建规则 `ThirdParty/ProResLib/ProResLib.Build.cs`。描述符未声明依赖。",
+      "`ProResLib`（Pro Res Lib）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/ProResLib/ProResLib.Build.cs`。描述符未声明依赖。",
+      "部署：`ProResLib` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ProResLib\" });`；对外暴露 `ProResLib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ProResLib` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `ProResLib.h` / `ProResLibModule.h`），再用 `FModuleManager::LoadModulePtr<ProResLibModule>` 或直接使用导出类型。",
-      "传递依赖：`ProResLib` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `ProResLib` lives under `ThirdParty`; build rule `ThirdParty/ProResLib/ProResLib.Build.cs`.The descriptor declares no dependencies.",
+      "`ProResLib` (Pro Res Lib): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/ProResLib/ProResLib.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `ProResLib` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ProResLib\" });`. Use Public when exposing `ProResLib` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ProResLib` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `ProResLib.h` / `ProResLibModule.h`), then use `FModuleManager::LoadModulePtr<ProResLibModule>` or the exported types directly.",
-      "Transitive deps: `ProResLib` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`ProResLib` 的构建规则位于 `ThirdParty/ProResLib/ProResLib.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`ProResLib` build rule is `ThirdParty/ProResLib/ProResLib.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`ProResLib`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/ProResLib/ProResLib.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`ProResLib`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/ProResLib/ProResLib.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "protobuf",
     "kind": "module",
     "cn_steps": [
-      "用途：`Protobuf` 位于 `ThirdParty`，构建规则 `ThirdParty/Protobuf/Protobuf.Build.cs`。它直接依赖 2 个模块：`abseil`, `zlib`。",
+      "`Protobuf`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Protobuf/Protobuf.Build.cs`。直接依赖 2 个模块：`abseil`、`zlib`。",
+      "部署：`Protobuf` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Protobuf\" });`；对外暴露 `Protobuf` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Protobuf` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Protobuf.h` / `ProtobufModule.h`），再用 `FModuleManager::LoadModulePtr<ProtobufModule>` 或直接使用导出类型。",
-      "传递依赖：`Protobuf` 还依赖 `abseil`, `zlib`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Protobuf` lives under `ThirdParty`; build rule `ThirdParty/Protobuf/Protobuf.Build.cs`.It directly depends on 2 modules: `abseil`, `zlib`.",
+      "`Protobuf`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Protobuf/Protobuf.Build.cs`. It directly depends on 2 modules: `abseil`, `zlib`.",
+      "Placement: `Protobuf` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Protobuf\" });`. Use Public when exposing `Protobuf` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Protobuf` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Protobuf.h` / `ProtobufModule.h`), then use `FModuleManager::LoadModulePtr<ProtobufModule>` or the exported types directly.",
-      "Transitive deps: `Protobuf` also needs `abseil`, `zlib`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Protobuf` 的构建规则位于 `ThirdParty/Protobuf/Protobuf.Build.cs`，直接依赖 2 个模块，分类 External。",
-    "note_en": "`Protobuf` build rule is `ThirdParty/Protobuf/Protobuf.Build.cs`; depends on 2 modules; category External."
+    "note_cn": "`Protobuf`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Protobuf/Protobuf.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`Protobuf`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Protobuf/Protobuf.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "protolem",
     "kind": "module",
     "cn_steps": [
-      "用途：`ProtoLem` 位于 `Runtime`，构建规则 `Runtime/Solaris/ProtoLem/ProtoLem.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DirectoryWatcher`, `Engine`, `InputCore`, `Json`。",
+      "`ProtoLem`（Proto Lem）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/Solaris/ProtoLem/ProtoLem.Build.cs`。直接依赖 8 个模块：`AppFramework`、`ApplicationCore`、`Core`、`CoreUObject`、`DirectoryWatcher` 等。",
+      "部署：`ProtoLem` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ProtoLem\" });`；对外暴露 `ProtoLem` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ProtoLem` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `ProtoLem.h` / `ProtoLemModule.h`），再用 `FModuleManager::LoadModulePtr<ProtoLemModule>` 或直接使用导出类型。",
-      "传递依赖：`ProtoLem` 还依赖 `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DirectoryWatcher`, `Engine`, `InputCore`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ProtoLem` lives under `Runtime`; build rule `Runtime/Solaris/ProtoLem/ProtoLem.Build.cs`.It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DirectoryWatcher`, `Engine`, `InputCore`, `Json`.",
+      "`ProtoLem` (Proto Lem): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/Solaris/ProtoLem/ProtoLem.Build.cs`. It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DirectoryWatcher` etc.",
+      "Placement: `ProtoLem` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ProtoLem\" });`. Use Public when exposing `ProtoLem` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ProtoLem` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `ProtoLem.h` / `ProtoLemModule.h`), then use `FModuleManager::LoadModulePtr<ProtoLemModule>` or the exported types directly.",
-      "Transitive deps: `ProtoLem` also needs `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DirectoryWatcher`, `Engine`, `InputCore`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ProtoLem` 的构建规则位于 `Runtime/Solaris/ProtoLem/ProtoLem.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`ProtoLem` build rule is `Runtime/Solaris/ProtoLem/ProtoLem.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`ProtoLem`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/Solaris/ProtoLem/ProtoLem.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`ProtoLem`: it exposes C++ API/functionality to other modules; build rule `Runtime/Solaris/ProtoLem/ProtoLem.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "psdsdk",
     "kind": "module",
     "cn_steps": [
-      "用途：`PsdSDK` 位于 `ThirdParty`，构建规则 `ThirdParty/PsdSDK/PsdSDK.Build.cs`。描述符未声明依赖。",
+      "`PsdSDK`（Psd SDK）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/PsdSDK/PsdSDK.Build.cs`。描述符未声明依赖。",
+      "部署：`PsdSDK` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PsdSDK\" });`；对外暴露 `PsdSDK` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`PsdSDK` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `PsdSDK.h` / `PsdSDKModule.h`），再用 `FModuleManager::LoadModulePtr<PsdSDKModule>` 或直接使用导出类型。",
-      "传递依赖：`PsdSDK` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `PsdSDK` lives under `ThirdParty`; build rule `ThirdParty/PsdSDK/PsdSDK.Build.cs`.The descriptor declares no dependencies.",
+      "`PsdSDK` (Psd SDK): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/PsdSDK/PsdSDK.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `PsdSDK` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PsdSDK\" });`. Use Public when exposing `PsdSDK` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `PsdSDK` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `PsdSDK.h` / `PsdSDKModule.h`), then use `FModuleManager::LoadModulePtr<PsdSDKModule>` or the exported types directly.",
-      "Transitive deps: `PsdSDK` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`PsdSDK` 的构建规则位于 `ThirdParty/PsdSDK/PsdSDK.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`PsdSDK` build rule is `ThirdParty/PsdSDK/PsdSDK.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`PsdSDK`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/PsdSDK/PsdSDK.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`PsdSDK`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/PsdSDK/PsdSDK.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "pugixml",
     "kind": "module",
     "cn_steps": [
-      "用途：`pugixml` 位于 `ThirdParty`，构建规则 `ThirdParty/pugixml/pugixml.Build.cs`。描述符未声明依赖。",
+      "`pugixml`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/pugixml/pugixml.Build.cs`。描述符未声明依赖。",
+      "部署：`pugixml` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"pugixml\" });`；对外暴露 `pugixml` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`pugixml` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `pugixml.h` / `pugixmlModule.h`），再用 `FModuleManager::LoadModulePtr<pugixmlModule>` 或直接使用导出类型。",
-      "传递依赖：`pugixml` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `pugixml` lives under `ThirdParty`; build rule `ThirdParty/pugixml/pugixml.Build.cs`.The descriptor declares no dependencies.",
+      "`pugixml`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/pugixml/pugixml.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `pugixml` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"pugixml\" });`. Use Public when exposing `pugixml` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `pugixml` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `pugixml.h` / `pugixmlModule.h`), then use `FModuleManager::LoadModulePtr<pugixmlModule>` or the exported types directly.",
-      "Transitive deps: `pugixml` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`pugixml` 的构建规则位于 `ThirdParty/pugixml/pugixml.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`pugixml` build rule is `ThirdParty/pugixml/pugixml.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`pugixml`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/pugixml/pugixml.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`pugixml`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/pugixml/pugixml.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "python3",
     "kind": "module",
     "cn_steps": [
-      "用途：`Python3` 位于 `ThirdParty`，构建规则 `ThirdParty/Python3/Python3.Build.cs`。描述符未声明依赖。",
+      "`Python3`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Python3/Python3.Build.cs`。描述符未声明依赖。",
+      "部署：`Python3` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Python3\" });`；对外暴露 `Python3` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Python3` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Python3.h` / `Python3Module.h`），再用 `FModuleManager::LoadModulePtr<Python3Module>` 或直接使用导出类型。",
-      "传递依赖：`Python3` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Python3` lives under `ThirdParty`; build rule `ThirdParty/Python3/Python3.Build.cs`.The descriptor declares no dependencies.",
+      "`Python3`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Python3/Python3.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Python3` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Python3\" });`. Use Public when exposing `Python3` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Python3` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Python3.h` / `Python3Module.h`), then use `FModuleManager::LoadModulePtr<Python3Module>` or the exported types directly.",
-      "Transitive deps: `Python3` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Python3` 的构建规则位于 `ThirdParty/Python3/Python3.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Python3` build rule is `ThirdParty/Python3/Python3.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`Python3`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Python3/Python3.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Python3`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Python3/Python3.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "quadricmeshreduction",
     "kind": "module",
     "cn_steps": [
-      "用途：`QuadricMeshReduction` 位于 `Developer`，构建规则 `Developer/MeshSimplifier/QuadricMeshReduction.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `MeshDescription`, `MeshUtilitiesCommon`, `NaniteUtilities`, `RenderCore`, `StaticMeshDescription`。",
+      "`QuadricMeshReduction`（Quadric Mesh Reduction）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Developer`，构建规则 `Developer/MeshSimplifier/QuadricMeshReduction.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`Engine`、`MeshDescription`、`MeshUtilitiesCommon` 等。",
+      "部署：`QuadricMeshReduction` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"QuadricMeshReduction\" });`；对外暴露 `QuadricMeshReduction` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`QuadricMeshReduction` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `QuadricMeshReduction.h` / `QuadricMeshReductionModule.h`），再用 `FModuleManager::LoadModulePtr<QuadricMeshReductionModule>` 或直接使用导出类型。",
-      "传递依赖：`QuadricMeshReduction` 还依赖 `Core`, `CoreUObject`, `Engine`, `MeshDescription`, `MeshUtilitiesCommon`, `NaniteUtilities`, `RenderCore`, `StaticMeshDescription`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `QuadricMeshReduction` lives under `Developer`; build rule `Developer/MeshSimplifier/QuadricMeshReduction.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `MeshDescription`, `MeshUtilitiesCommon`, `NaniteUtilities`, `RenderCore`, `StaticMeshDescription`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"QuadricMeshReduction\" });`. Use Public when exposing `QuadricMeshReduction` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`QuadricMeshReduction` (Quadric Mesh Reduction): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Developer`; build rule `Developer/MeshSimplifier/QuadricMeshReduction.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `MeshDescription`, `MeshUtilitiesCommon` etc.",
       "Placement: `QuadricMeshReduction` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `QuadricMeshReduction.h` / `QuadricMeshReductionModule.h`), then use `FModuleManager::LoadModulePtr<QuadricMeshReductionModule>` or the exported types directly.",
-      "Transitive deps: `QuadricMeshReduction` also needs `Core`, `CoreUObject`, `Engine`, `MeshDescription`, `MeshUtilitiesCommon`, `NaniteUtilities`, `RenderCore`, `StaticMeshDescription`; do not re-list them unless you include their headers."
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"QuadricMeshReduction\" });`. Use Public when exposing `QuadricMeshReduction` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`QuadricMeshReduction` 的构建规则位于 `Developer/MeshSimplifier/QuadricMeshReduction.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`QuadricMeshReduction` build rule is `Developer/MeshSimplifier/QuadricMeshReduction.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`QuadricMeshReduction`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Developer/MeshSimplifier/QuadricMeshReduction.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`QuadricMeshReduction`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Developer/MeshSimplifier/QuadricMeshReduction.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "radaudiodecoder",
     "kind": "module",
     "cn_steps": [
-      "用途：`RadAudioDecoder` 位于 `Runtime`，构建规则 `Runtime/RadAudioCodec/Module/RadAudioDecoder.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "`RadAudioDecoder`（Rad Audio Decoder）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/RadAudioCodec/Module/RadAudioDecoder.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`Engine`。",
+      "部署：`RadAudioDecoder` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RadAudioDecoder\" });`；对外暴露 `RadAudioDecoder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`RadAudioDecoder` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `RadAudioDecoder.h` / `RadAudioDecoderModule.h`），再用 `FModuleManager::LoadModulePtr<RadAudioDecoderModule>` 或直接使用导出类型。",
-      "传递依赖：`RadAudioDecoder` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `RadAudioDecoder` lives under `Runtime`; build rule `Runtime/RadAudioCodec/Module/RadAudioDecoder.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "`RadAudioDecoder` (Rad Audio Decoder): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/RadAudioCodec/Module/RadAudioDecoder.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Placement: `RadAudioDecoder` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RadAudioDecoder\" });`. Use Public when exposing `RadAudioDecoder` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `RadAudioDecoder` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `RadAudioDecoder.h` / `RadAudioDecoderModule.h`), then use `FModuleManager::LoadModulePtr<RadAudioDecoderModule>` or the exported types directly.",
-      "Transitive deps: `RadAudioDecoder` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`RadAudioDecoder` 的构建规则位于 `Runtime/RadAudioCodec/Module/RadAudioDecoder.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`RadAudioDecoder` build rule is `Runtime/RadAudioCodec/Module/RadAudioDecoder.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`RadAudioDecoder`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/RadAudioCodec/Module/RadAudioDecoder.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`RadAudioDecoder`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/RadAudioCodec/Module/RadAudioDecoder.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "rapidfuzzcpp",
     "kind": "module",
     "cn_steps": [
-      "用途：`RapidFuzzCPP` 位于 `ThirdParty`，构建规则 `ThirdParty/RapidFuzzCPP/RapidFuzzCPP.Build.cs`。描述符未声明依赖。",
+      "`RapidFuzzCPP`（Rapid Fuzz CPP）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/RapidFuzzCPP/RapidFuzzCPP.Build.cs`。描述符未声明依赖。",
+      "部署：`RapidFuzzCPP` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RapidFuzzCPP\" });`；对外暴露 `RapidFuzzCPP` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`RapidFuzzCPP` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `RapidFuzzCPP.h` / `RapidFuzzCPPModule.h`），再用 `FModuleManager::LoadModulePtr<RapidFuzzCPPModule>` 或直接使用导出类型。",
-      "传递依赖：`RapidFuzzCPP` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `RapidFuzzCPP` lives under `ThirdParty`; build rule `ThirdParty/RapidFuzzCPP/RapidFuzzCPP.Build.cs`.The descriptor declares no dependencies.",
+      "`RapidFuzzCPP` (Rapid Fuzz CPP): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/RapidFuzzCPP/RapidFuzzCPP.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `RapidFuzzCPP` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RapidFuzzCPP\" });`. Use Public when exposing `RapidFuzzCPP` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `RapidFuzzCPP` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `RapidFuzzCPP.h` / `RapidFuzzCPPModule.h`), then use `FModuleManager::LoadModulePtr<RapidFuzzCPPModule>` or the exported types directly.",
-      "Transitive deps: `RapidFuzzCPP` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`RapidFuzzCPP` 的构建规则位于 `ThirdParty/RapidFuzzCPP/RapidFuzzCPP.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`RapidFuzzCPP` build rule is `ThirdParty/RapidFuzzCPP/RapidFuzzCPP.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`RapidFuzzCPP`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/RapidFuzzCPP/RapidFuzzCPP.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`RapidFuzzCPP`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/RapidFuzzCPP/RapidFuzzCPP.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "rapidjson",
     "kind": "module",
     "cn_steps": [
-      "用途：`RapidJSON` 位于 `ThirdParty`，构建规则 `ThirdParty/RapidJSON/RapidJSON.Build.cs`。描述符未声明依赖。",
+      "`RapidJSON`（Rapid JSON）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/RapidJSON/RapidJSON.Build.cs`。描述符未声明依赖。",
+      "部署：`RapidJSON` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RapidJSON\" });`；对外暴露 `RapidJSON` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`RapidJSON` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `RapidJSON.h` / `RapidJSONModule.h`），再用 `FModuleManager::LoadModulePtr<RapidJSONModule>` 或直接使用导出类型。",
-      "传递依赖：`RapidJSON` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `RapidJSON` lives under `ThirdParty`; build rule `ThirdParty/RapidJSON/RapidJSON.Build.cs`.The descriptor declares no dependencies.",
+      "`RapidJSON` (Rapid JSON): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/RapidJSON/RapidJSON.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `RapidJSON` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RapidJSON\" });`. Use Public when exposing `RapidJSON` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `RapidJSON` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `RapidJSON.h` / `RapidJSONModule.h`), then use `FModuleManager::LoadModulePtr<RapidJSONModule>` or the exported types directly.",
-      "Transitive deps: `RapidJSON` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`RapidJSON` 的构建规则位于 `ThirdParty/RapidJSON/RapidJSON.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`RapidJSON` build rule is `ThirdParty/RapidJSON/RapidJSON.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`RapidJSON`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/RapidJSON/RapidJSON.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`RapidJSON`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/RapidJSON/RapidJSON.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "rawmesh",
     "kind": "module",
     "cn_steps": [
-      "用途：`RawMesh` 位于 `Runtime`，构建规则 `Runtime/RawMesh/RawMesh.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`RawMesh`（Raw Mesh）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/RawMesh/RawMesh.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`RawMesh` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RawMesh\" });`；对外暴露 `RawMesh` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`RawMesh` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `RawMesh.h` / `RawMeshModule.h`），再用 `FModuleManager::LoadModulePtr<RawMeshModule>` 或直接使用导出类型。",
-      "传递依赖：`RawMesh` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `RawMesh` lives under `Runtime`; build rule `Runtime/RawMesh/RawMesh.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`RawMesh` (Raw Mesh): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/RawMesh/RawMesh.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `RawMesh` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RawMesh\" });`. Use Public when exposing `RawMesh` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `RawMesh` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `RawMesh.h` / `RawMeshModule.h`), then use `FModuleManager::LoadModulePtr<RawMeshModule>` or the exported types directly.",
-      "Transitive deps: `RawMesh` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`RawMesh` 的构建规则位于 `Runtime/RawMesh/RawMesh.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`RawMesh` build rule is `Runtime/RawMesh/RawMesh.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`RawMesh`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/RawMesh/RawMesh.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`RawMesh`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/RawMesh/RawMesh.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "rawpdb",
     "kind": "module",
     "cn_steps": [
-      "用途：`RawPDB` 位于 `ThirdParty`，构建规则 `ThirdParty/RawPDB/RawPDB.Build.cs`。描述符未声明依赖。",
+      "`RawPDB`（Raw PDB）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/RawPDB/RawPDB.Build.cs`。描述符未声明依赖。",
+      "部署：`RawPDB` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RawPDB\" });`；对外暴露 `RawPDB` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`RawPDB` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `RawPDB.h` / `RawPDBModule.h`），再用 `FModuleManager::LoadModulePtr<RawPDBModule>` 或直接使用导出类型。",
-      "传递依赖：`RawPDB` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `RawPDB` lives under `ThirdParty`; build rule `ThirdParty/RawPDB/RawPDB.Build.cs`.The descriptor declares no dependencies.",
+      "`RawPDB` (Raw PDB): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/RawPDB/RawPDB.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `RawPDB` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RawPDB\" });`. Use Public when exposing `RawPDB` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `RawPDB` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `RawPDB.h` / `RawPDBModule.h`), then use `FModuleManager::LoadModulePtr<RawPDBModule>` or the exported types directly.",
-      "Transitive deps: `RawPDB` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`RawPDB` 的构建规则位于 `ThirdParty/RawPDB/RawPDB.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`RawPDB` build rule is `ThirdParty/RawPDB/RawPDB.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`RawPDB`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/RawPDB/RawPDB.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`RawPDB`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/RawPDB/RawPDB.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "re2",
     "kind": "module",
     "cn_steps": [
-      "用途：`Re2` 位于 `ThirdParty`，构建规则 `ThirdParty/Re2/Re2.Build.cs`。描述符未声明依赖。",
+      "`Re2`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Re2/Re2.Build.cs`。描述符未声明依赖。",
+      "部署：`Re2` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Re2\" });`；对外暴露 `Re2` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Re2` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Re2.h` / `Re2Module.h`），再用 `FModuleManager::LoadModulePtr<Re2Module>` 或直接使用导出类型。",
-      "传递依赖：`Re2` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Re2` lives under `ThirdParty`; build rule `ThirdParty/Re2/Re2.Build.cs`.The descriptor declares no dependencies.",
+      "`Re2`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Re2/Re2.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Re2` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Re2\" });`. Use Public when exposing `Re2` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Re2` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Re2.h` / `Re2Module.h`), then use `FModuleManager::LoadModulePtr<Re2Module>` or the exported types directly.",
-      "Transitive deps: `Re2` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Re2` 的构建规则位于 `ThirdParty/Re2/Re2.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Re2` build rule is `ThirdParty/Re2/Re2.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`Re2`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Re2/Re2.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Re2`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Re2/Re2.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "rendercore",
     "kind": "module",
     "cn_steps": [
-      "用途：`RenderCore` 位于 `Runtime`，构建规则 `Runtime/RenderCore/RenderCore.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `BuildSettings`, `Core`, `CoreUObject`, `DerivedDataCache`, `FileUtilities`, `ImageWrapper`, `Json`。",
+      "`RenderCore`（Render Core）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/RenderCore/RenderCore.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`BuildSettings`、`Core`、`CoreUObject`、`DerivedDataCache` 等。",
+      "部署：`RenderCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RenderCore\" });`；对外暴露 `RenderCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`RenderCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `RenderCore.h` / `RenderCoreModule.h`），再用 `FModuleManager::LoadModulePtr<RenderCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`RenderCore` 还依赖 `ApplicationCore`, `BuildSettings`, `Core`, `CoreUObject`, `DerivedDataCache`, `FileUtilities`, `ImageWrapper`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `RenderCore` lives under `Runtime`; build rule `Runtime/RenderCore/RenderCore.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `BuildSettings`, `Core`, `CoreUObject`, `DerivedDataCache`, `FileUtilities`, `ImageWrapper`, `Json`.",
+      "`RenderCore` (Render Core): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/RenderCore/RenderCore.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `BuildSettings`, `Core`, `CoreUObject`, `DerivedDataCache` etc.",
+      "Placement: `RenderCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RenderCore\" });`. Use Public when exposing `RenderCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `RenderCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `RenderCore.h` / `RenderCoreModule.h`), then use `FModuleManager::LoadModulePtr<RenderCoreModule>` or the exported types directly.",
-      "Transitive deps: `RenderCore` also needs `ApplicationCore`, `BuildSettings`, `Core`, `CoreUObject`, `DerivedDataCache`, `FileUtilities`, `ImageWrapper`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`RenderCore` 的构建规则位于 `Runtime/RenderCore/RenderCore.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`RenderCore` build rule is `Runtime/RenderCore/RenderCore.Build.cs`; depends on 8 modules; category Module."
-  },
-  {
-    "slug": "renderdoc",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`RenderDoc` 位于 `ThirdParty`，构建规则 `ThirdParty/RenderDoc/RenderDoc.Build.cs`。描述符未声明依赖。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RenderDoc\" });`；对外暴露 `RenderDoc` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`RenderDoc` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `RenderDoc.h` / `RenderDocModule.h`），再用 `FModuleManager::LoadModulePtr<RenderDocModule>` 或直接使用导出类型。",
-      "传递依赖：`RenderDoc` 未声明额外公开依赖，通常只依赖引擎基础层。"
-    ],
-    "en_steps": [
-      "Purpose: `RenderDoc` lives under `ThirdParty`; build rule `ThirdParty/RenderDoc/RenderDoc.Build.cs`.The descriptor declares no dependencies.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RenderDoc\" });`. Use Public when exposing `RenderDoc` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `RenderDoc` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `RenderDoc.h` / `RenderDocModule.h`), then use `FModuleManager::LoadModulePtr<RenderDocModule>` or the exported types directly.",
-      "Transitive deps: `RenderDoc` declares no extra public deps; it typically relies on engine basics."
-    ],
-    "note_cn": "`RenderDoc` 的构建规则位于 `ThirdParty/RenderDoc/RenderDoc.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`RenderDoc` build rule is `ThirdParty/RenderDoc/RenderDoc.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`RenderCore`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/RenderCore/RenderCore.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`RenderCore`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/RenderCore/RenderCore.Build.cs`; depends on 8 modules."
   }
 ]

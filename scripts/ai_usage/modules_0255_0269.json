@@ -1,302 +1,302 @@
 [
   {
+    "slug": "editorinteractivetoolsframework",
+    "kind": "module",
+    "cn_steps": [
+      "`EditorInteractiveToolsFramework`（Editor Interactive Tools Framework）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/Experimental/EditorInteractiveToolsFramework/EditorInteractiveToolsFramework.Build.cs`。直接依赖 8 个模块：`AnimationCore`、`ApplicationCore`、`Core`、`CoreUObject`、`DesktopPlatform` 等。",
+      "部署：`EditorInteractiveToolsFramework` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorInteractiveToolsFramework\" });`；对外暴露 `EditorInteractiveToolsFramework` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`EditorInteractiveToolsFramework` (Editor Interactive Tools Framework): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/Experimental/EditorInteractiveToolsFramework/EditorInteractiveToolsFramework.Build.cs`. It directly depends on 8 modules: `AnimationCore`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform` etc.",
+      "Placement: `EditorInteractiveToolsFramework` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorInteractiveToolsFramework\" });`. Use Public when exposing `EditorInteractiveToolsFramework` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`EditorInteractiveToolsFramework`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/Experimental/EditorInteractiveToolsFramework/EditorInteractiveToolsFramework.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`EditorInteractiveToolsFramework`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/Experimental/EditorInteractiveToolsFramework/EditorInteractiveToolsFramework.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "editorsettingsviewer",
     "kind": "module",
     "cn_steps": [
-      "用途：`EditorSettingsViewer` 位于 `Editor`，构建规则 `Editor/EditorSettingsViewer/EditorSettingsViewer.Build.cs`。它直接依赖 8 个模块：`Analytics`, `BlueprintGraph`, `Core`, `CoreUObject`, `CurveEditor`, `DeveloperToolSettings`, `EditorFramework`, `Engine`。",
+      "`EditorSettingsViewer`（Editor Settings Viewer）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/EditorSettingsViewer/EditorSettingsViewer.Build.cs`。直接依赖 8 个模块：`Analytics`、`BlueprintGraph`、`Core`、`CoreUObject`、`CurveEditor` 等。",
+      "部署：`EditorSettingsViewer` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorSettingsViewer\" });`；对外暴露 `EditorSettingsViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorSettingsViewer` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EditorSettingsViewer.h` / `EditorSettingsViewerModule.h`），再用 `FModuleManager::LoadModulePtr<EditorSettingsViewerModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorSettingsViewer` 还依赖 `Analytics`, `BlueprintGraph`, `Core`, `CoreUObject`, `CurveEditor`, `DeveloperToolSettings`, `EditorFramework`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EditorSettingsViewer` lives under `Editor`; build rule `Editor/EditorSettingsViewer/EditorSettingsViewer.Build.cs`.It directly depends on 8 modules: `Analytics`, `BlueprintGraph`, `Core`, `CoreUObject`, `CurveEditor`, `DeveloperToolSettings`, `EditorFramework`, `Engine`.",
+      "`EditorSettingsViewer` (Editor Settings Viewer): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/EditorSettingsViewer/EditorSettingsViewer.Build.cs`. It directly depends on 8 modules: `Analytics`, `BlueprintGraph`, `Core`, `CoreUObject`, `CurveEditor` etc.",
+      "Placement: `EditorSettingsViewer` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorSettingsViewer\" });`. Use Public when exposing `EditorSettingsViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EditorSettingsViewer` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EditorSettingsViewer.h` / `EditorSettingsViewerModule.h`), then use `FModuleManager::LoadModulePtr<EditorSettingsViewerModule>` or the exported types directly.",
-      "Transitive deps: `EditorSettingsViewer` also needs `Analytics`, `BlueprintGraph`, `Core`, `CoreUObject`, `CurveEditor`, `DeveloperToolSettings`, `EditorFramework`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EditorSettingsViewer` 的构建规则位于 `Editor/EditorSettingsViewer/EditorSettingsViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`EditorSettingsViewer` build rule is `Editor/EditorSettingsViewer/EditorSettingsViewer.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`EditorSettingsViewer`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/EditorSettingsViewer/EditorSettingsViewer.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`EditorSettingsViewer`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/EditorSettingsViewer/EditorSettingsViewer.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "editorstyle",
     "kind": "module",
     "cn_steps": [
-      "用途：`EditorStyle` 位于 `Editor`，构建规则 `Editor/EditorStyle/EditorStyle.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Slate`, `SlateCore`。",
+      "`EditorStyle`（Editor Style）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/EditorStyle/EditorStyle.Build.cs`。直接依赖 6 个模块：`Core`、`CoreUObject`、`DesktopPlatform`、`EditorFramework`、`Slate` 等。",
+      "部署：`EditorStyle` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorStyle\" });`；对外暴露 `EditorStyle` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorStyle` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EditorStyle.h` / `EditorStyleModule.h`），再用 `FModuleManager::LoadModulePtr<EditorStyleModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorStyle` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EditorStyle` lives under `Editor`; build rule `Editor/EditorStyle/EditorStyle.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Slate`, `SlateCore`.",
+      "`EditorStyle` (Editor Style): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/EditorStyle/EditorStyle.Build.cs`. It directly depends on 6 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Slate` etc.",
+      "Placement: `EditorStyle` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorStyle\" });`. Use Public when exposing `EditorStyle` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EditorStyle` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EditorStyle.h` / `EditorStyleModule.h`), then use `FModuleManager::LoadModulePtr<EditorStyleModule>` or the exported types directly.",
-      "Transitive deps: `EditorStyle` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EditorStyle` 的构建规则位于 `Editor/EditorStyle/EditorStyle.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`EditorStyle` build rule is `Editor/EditorStyle/EditorStyle.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`EditorStyle`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/EditorStyle/EditorStyle.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`EditorStyle`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/EditorStyle/EditorStyle.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "editorsubsystem",
     "kind": "module",
     "cn_steps": [
-      "用途：`EditorSubsystem` 位于 `Editor`，构建规则 `Editor/EditorSubsystem/EditorSubsystem.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "`EditorSubsystem`（Editor Subsystem）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/EditorSubsystem/EditorSubsystem.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`Engine`。",
+      "部署：`EditorSubsystem` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorSubsystem\" });`；对外暴露 `EditorSubsystem` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorSubsystem` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EditorSubsystem.h` / `EditorSubsystemModule.h`），再用 `FModuleManager::LoadModulePtr<EditorSubsystemModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorSubsystem` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EditorSubsystem` lives under `Editor`; build rule `Editor/EditorSubsystem/EditorSubsystem.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "`EditorSubsystem` (Editor Subsystem): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/EditorSubsystem/EditorSubsystem.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Placement: `EditorSubsystem` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorSubsystem\" });`. Use Public when exposing `EditorSubsystem` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EditorSubsystem` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EditorSubsystem.h` / `EditorSubsystemModule.h`), then use `FModuleManager::LoadModulePtr<EditorSubsystemModule>` or the exported types directly.",
-      "Transitive deps: `EditorSubsystem` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EditorSubsystem` 的构建规则位于 `Editor/EditorSubsystem/EditorSubsystem.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`EditorSubsystem` build rule is `Editor/EditorSubsystem/EditorSubsystem.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`EditorSubsystem`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/EditorSubsystem/EditorSubsystem.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`EditorSubsystem`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/EditorSubsystem/EditorSubsystem.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "editortoolevents",
     "kind": "module",
     "cn_steps": [
-      "用途：`EditorToolEvents` 位于 `Editor`，构建规则 `Editor/EditorToolEvents/EditorToolEvents.Build.cs`。它直接依赖 4 个模块：`Core`, `Json`, `Slate`, `SlateCore`。",
+      "`EditorToolEvents`（Editor Tool Events）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/EditorToolEvents/EditorToolEvents.Build.cs`。直接依赖 4 个模块：`Core`、`Json`、`Slate`、`SlateCore`。",
+      "部署：`EditorToolEvents` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorToolEvents\" });`；对外暴露 `EditorToolEvents` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorToolEvents` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EditorToolEvents.h` / `EditorToolEventsModule.h`），再用 `FModuleManager::LoadModulePtr<EditorToolEventsModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorToolEvents` 还依赖 `Core`, `Json`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EditorToolEvents` lives under `Editor`; build rule `Editor/EditorToolEvents/EditorToolEvents.Build.cs`.It directly depends on 4 modules: `Core`, `Json`, `Slate`, `SlateCore`.",
+      "`EditorToolEvents` (Editor Tool Events): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/EditorToolEvents/EditorToolEvents.Build.cs`. It directly depends on 4 modules: `Core`, `Json`, `Slate`, `SlateCore`.",
+      "Placement: `EditorToolEvents` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorToolEvents\" });`. Use Public when exposing `EditorToolEvents` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EditorToolEvents` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EditorToolEvents.h` / `EditorToolEventsModule.h`), then use `FModuleManager::LoadModulePtr<EditorToolEventsModule>` or the exported types directly.",
-      "Transitive deps: `EditorToolEvents` also needs `Core`, `Json`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EditorToolEvents` 的构建规则位于 `Editor/EditorToolEvents/EditorToolEvents.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`EditorToolEvents` build rule is `Editor/EditorToolEvents/EditorToolEvents.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`EditorToolEvents`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/EditorToolEvents/EditorToolEvents.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`EditorToolEvents`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/EditorToolEvents/EditorToolEvents.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "editorviewport",
     "kind": "module",
     "cn_steps": [
-      "用途：`EditorViewport` 位于 `Editor`，构建规则 `Editor/EditorViewport/EditorViewport.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`。",
+      "`EditorViewport`（Editor Viewport）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/EditorViewport/EditorViewport.Build.cs`。直接依赖 7 个模块：`Core`、`CoreUObject`、`EditorFramework`、`Engine`、`InputCore` 等。",
+      "部署：`EditorViewport` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorViewport\" });`；对外暴露 `EditorViewport` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorViewport` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EditorViewport.h` / `EditorViewportModule.h`），再用 `FModuleManager::LoadModulePtr<EditorViewportModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorViewport` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EditorViewport` lives under `Editor`; build rule `Editor/EditorViewport/EditorViewport.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`.",
+      "`EditorViewport` (Editor Viewport): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/EditorViewport/EditorViewport.Build.cs`. It directly depends on 7 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore` etc.",
+      "Placement: `EditorViewport` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorViewport\" });`. Use Public when exposing `EditorViewport` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EditorViewport` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EditorViewport.h` / `EditorViewportModule.h`), then use `FModuleManager::LoadModulePtr<EditorViewportModule>` or the exported types directly.",
-      "Transitive deps: `EditorViewport` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EditorViewport` 的构建规则位于 `Editor/EditorViewport/EditorViewport.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`EditorViewport` build rule is `Editor/EditorViewport/EditorViewport.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`EditorViewport`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/EditorViewport/EditorViewport.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`EditorViewport`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/EditorViewport/EditorViewport.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "editorwidgets",
     "kind": "module",
     "cn_steps": [
-      "用途：`EditorWidgets` 位于 `Editor`，构建规则 `Editor/EditorWidgets/EditorWidgets.Build.cs`。它直接依赖 8 个模块：`AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig`, `Engine`, `InputCore`, `Slate`, `SlateCore`。",
+      "`EditorWidgets`（Editor Widgets）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Editor`，构建规则 `Editor/EditorWidgets/EditorWidgets.Build.cs`。直接依赖 8 个模块：`AssetDefinition`、`Core`、`CoreUObject`、`EditorConfig`、`Engine` 等。",
+      "部署：`EditorWidgets` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorWidgets\" });`；对外暴露 `EditorWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorWidgets` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EditorWidgets.h` / `EditorWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<EditorWidgetsModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorWidgets` 还依赖 `AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig`, `Engine`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EditorWidgets` lives under `Editor`; build rule `Editor/EditorWidgets/EditorWidgets.Build.cs`.It directly depends on 8 modules: `AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig`, `Engine`, `InputCore`, `Slate`, `SlateCore`.",
+      "`EditorWidgets` (Editor Widgets): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Editor`; build rule `Editor/EditorWidgets/EditorWidgets.Build.cs`. It directly depends on 8 modules: `AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig`, `Engine` etc.",
+      "Placement: `EditorWidgets` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorWidgets\" });`. Use Public when exposing `EditorWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EditorWidgets` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EditorWidgets.h` / `EditorWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<EditorWidgetsModule>` or the exported types directly.",
-      "Transitive deps: `EditorWidgets` also needs `AssetDefinition`, `Core`, `CoreUObject`, `EditorConfig`, `Engine`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EditorWidgets` 的构建规则位于 `Editor/EditorWidgets/EditorWidgets.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`EditorWidgets` build rule is `Editor/EditorWidgets/EditorWidgets.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`EditorWidgets`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Editor/EditorWidgets/EditorWidgets.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`EditorWidgets`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Editor/EditorWidgets/EditorWidgets.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "eigen",
     "kind": "module",
     "cn_steps": [
-      "用途：`Eigen` 位于 `ThirdParty`，构建规则 `ThirdParty/Eigen/Eigen.Build.cs`。描述符未声明依赖。",
+      "`Eigen`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Eigen/Eigen.Build.cs`。描述符未声明依赖。",
+      "部署：`Eigen` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Eigen\" });`；对外暴露 `Eigen` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Eigen` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Eigen.h` / `EigenModule.h`），再用 `FModuleManager::LoadModulePtr<EigenModule>` 或直接使用导出类型。",
-      "传递依赖：`Eigen` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Eigen` lives under `ThirdParty`; build rule `ThirdParty/Eigen/Eigen.Build.cs`.The descriptor declares no dependencies.",
+      "`Eigen`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Eigen/Eigen.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Eigen` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Eigen\" });`. Use Public when exposing `Eigen` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Eigen` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Eigen.h` / `EigenModule.h`), then use `FModuleManager::LoadModulePtr<EigenModule>` or the exported types directly.",
-      "Transitive deps: `Eigen` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Eigen` 的构建规则位于 `ThirdParty/Eigen/Eigen.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Eigen` build rule is `ThirdParty/Eigen/Eigen.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`Eigen`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Eigen/Eigen.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Eigen`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Eigen/Eigen.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "embree",
     "kind": "module",
     "cn_steps": [
-      "用途：`Embree` 位于 `ThirdParty`，构建规则 `ThirdParty/Intel/Embree/Embree.Build.cs`。它直接依赖 1 个模块：`IntelTBB`。",
+      "`Embree`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Intel/Embree/Embree.Build.cs`。直接依赖 1 个模块：`IntelTBB`。",
+      "部署：`Embree` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Embree\" });`；对外暴露 `Embree` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Embree` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Embree.h` / `EmbreeModule.h`），再用 `FModuleManager::LoadModulePtr<EmbreeModule>` 或直接使用导出类型。",
-      "传递依赖：`Embree` 还依赖 `IntelTBB`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Embree` lives under `ThirdParty`; build rule `ThirdParty/Intel/Embree/Embree.Build.cs`.It directly depends on 1 modules: `IntelTBB`.",
+      "`Embree`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Intel/Embree/Embree.Build.cs`. It directly depends on 1 modules: `IntelTBB`.",
+      "Placement: `Embree` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Embree\" });`. Use Public when exposing `Embree` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Embree` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Embree.h` / `EmbreeModule.h`), then use `FModuleManager::LoadModulePtr<EmbreeModule>` or the exported types directly.",
-      "Transitive deps: `Embree` also needs `IntelTBB`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Embree` 的构建规则位于 `ThirdParty/Intel/Embree/Embree.Build.cs`，直接依赖 1 个模块，分类 External。",
-    "note_en": "`Embree` build rule is `ThirdParty/Intel/Embree/Embree.Build.cs`; depends on 1 modules; category External."
+    "note_cn": "`Embree`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Intel/Embree/Embree.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`Embree`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Intel/Embree/Embree.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "engine",
     "kind": "module",
     "cn_steps": [
-      "用途：`Engine` 位于 `Runtime`，构建规则 `Runtime/Engine/Engine.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeInterface`, `DesktopPlatform`, `DeveloperToolSettings`, `EditorToolEvents`, `IoStoreOnDemand`, `PerfCounters`。",
+      "`Engine`：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）。位于 `Runtime`，构建规则 `Runtime/Engine/Engine.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`ClothingSystemEditorInterface`、`ClothingSystemRuntimeInterface`、`DesktopPlatform`、`DeveloperToolSettings` 等。",
+      "部署：`Engine` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：几乎被所有模块间接依赖；一般无需显式添加，除非你在写底层插件或工具。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Engine\" });`；对外暴露 `Engine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Engine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Engine.h` / `EngineModule.h`），再用 `FModuleManager::LoadModulePtr<EngineModule>` 或直接使用导出类型。",
-      "传递依赖：`Engine` 还依赖 `ApplicationCore`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeInterface`, `DesktopPlatform`, `DeveloperToolSettings`, `EditorToolEvents`, `IoStoreOnDemand`, `PerfCounters`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Engine` lives under `Runtime`; build rule `Runtime/Engine/Engine.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeInterface`, `DesktopPlatform`, `DeveloperToolSettings`, `EditorToolEvents`, `IoStoreOnDemand`, `PerfCounters`.",
+      "`Engine`: it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata). Located under `Runtime`; build rule `Runtime/Engine/Engine.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeInterface`, `DesktopPlatform`, `DeveloperToolSettings` etc.",
+      "Placement: `Engine` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: almost every module depends on it transitively; you rarely add it explicitly unless writing low-level plugins/tools.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Engine\" });`. Use Public when exposing `Engine` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Engine` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Engine.h` / `EngineModule.h`), then use `FModuleManager::LoadModulePtr<EngineModule>` or the exported types directly.",
-      "Transitive deps: `Engine` also needs `ApplicationCore`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeInterface`, `DesktopPlatform`, `DeveloperToolSettings`, `EditorToolEvents`, `IoStoreOnDemand`, `PerfCounters`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Engine` 的构建规则位于 `Runtime/Engine/Engine.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`Engine` build rule is `Runtime/Engine/Engine.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`Engine`：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）；构建规则 `Runtime/Engine/Engine.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`Engine`: it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata); build rule `Runtime/Engine/Engine.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "enginemessages",
     "kind": "module",
     "cn_steps": [
-      "用途：`EngineMessages` 位于 `Runtime`，构建规则 `Runtime/EngineMessages/EngineMessages.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`EngineMessages`（Engine Messages）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/EngineMessages/EngineMessages.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`EngineMessages` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EngineMessages\" });`；对外暴露 `EngineMessages` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EngineMessages` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `EngineMessages.h` / `EngineMessagesModule.h`），再用 `FModuleManager::LoadModulePtr<EngineMessagesModule>` 或直接使用导出类型。",
-      "传递依赖：`EngineMessages` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EngineMessages` lives under `Runtime`; build rule `Runtime/EngineMessages/EngineMessages.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`EngineMessages` (Engine Messages): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/EngineMessages/EngineMessages.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `EngineMessages` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EngineMessages\" });`. Use Public when exposing `EngineMessages` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EngineMessages` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `EngineMessages.h` / `EngineMessagesModule.h`), then use `FModuleManager::LoadModulePtr<EngineMessagesModule>` or the exported types directly.",
-      "Transitive deps: `EngineMessages` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EngineMessages` 的构建规则位于 `Runtime/EngineMessages/EngineMessages.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`EngineMessages` build rule is `Runtime/EngineMessages/EngineMessages.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`EngineMessages`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/EngineMessages/EngineMessages.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`EngineMessages`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/EngineMessages/EngineMessages.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "enginesettings",
     "kind": "module",
     "cn_steps": [
-      "用途：`EngineSettings` 位于 `Runtime`，构建规则 `Runtime/EngineSettings/EngineSettings.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`EngineSettings`（Engine Settings）：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）。位于 `Runtime`，构建规则 `Runtime/EngineSettings/EngineSettings.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`EngineSettings` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：游戏逻辑主体；在 C++/蓝图里直接用其类型或相关子系统。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EngineSettings\" });`；对外暴露 `EngineSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EngineSettings` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `EngineSettings.h` / `EngineSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<EngineSettingsModule>` 或直接使用导出类型。",
-      "传递依赖：`EngineSettings` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EngineSettings` lives under `Runtime`; build rule `Runtime/EngineSettings/EngineSettings.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`EngineSettings` (Engine Settings): it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems). Located under `Runtime`; build rule `Runtime/EngineSettings/EngineSettings.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `EngineSettings` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: core game logic; use its types or related subsystems directly from C++/Blueprint.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EngineSettings\" });`. Use Public when exposing `EngineSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EngineSettings` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `EngineSettings.h` / `EngineSettingsModule.h`), then use `FModuleManager::LoadModulePtr<EngineSettingsModule>` or the exported types directly.",
-      "Transitive deps: `EngineSettings` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EngineSettings` 的构建规则位于 `Runtime/EngineSettings/EngineSettings.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`EngineSettings` build rule is `Runtime/EngineSettings/EngineSettings.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`EngineSettings`：它属于玩法/引擎框架（Actor、Pawn、World、Blueprint 运行时、Gameplay 系统）；构建规则 `Runtime/EngineSettings/EngineSettings.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`EngineSettings`: it is part of the gameplay/engine framework (Actor, Pawn, World, Blueprint runtime, Gameplay systems); build rule `Runtime/EngineSettings/EngineSettings.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "enhancedinputtests",
     "kind": "module",
     "cn_steps": [
-      "用途：`EnhancedInputTests` 位于 `Programs`，构建规则 `Programs/EnhancedInputTests/EnhancedInputTests.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `Engine`, `EnhancedInput`, `EnhancedInputTestSuite`, `InputCore`。",
+      "`EnhancedInputTests`（Enhanced Input Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/EnhancedInputTests/EnhancedInputTests.Build.cs`。直接依赖 6 个模块：`Core`、`CoreUObject`、`Engine`、`EnhancedInput`、`EnhancedInputTestSuite` 等。",
+      "部署：`EnhancedInputTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EnhancedInputTests\" });`；对外暴露 `EnhancedInputTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EnhancedInputTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `EnhancedInputTests.h` / `EnhancedInputTestsModule.h`），再用 `FModuleManager::LoadModulePtr<EnhancedInputTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`EnhancedInputTests` 还依赖 `Core`, `CoreUObject`, `Engine`, `EnhancedInput`, `EnhancedInputTestSuite`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `EnhancedInputTests` lives under `Programs`; build rule `Programs/EnhancedInputTests/EnhancedInputTests.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `Engine`, `EnhancedInput`, `EnhancedInputTestSuite`, `InputCore`.",
+      "`EnhancedInputTests` (Enhanced Input Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/EnhancedInputTests/EnhancedInputTests.Build.cs`. It directly depends on 6 modules: `Core`, `CoreUObject`, `Engine`, `EnhancedInput`, `EnhancedInputTestSuite` etc.",
+      "Placement: `EnhancedInputTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EnhancedInputTests\" });`. Use Public when exposing `EnhancedInputTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EnhancedInputTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `EnhancedInputTests.h` / `EnhancedInputTestsModule.h`), then use `FModuleManager::LoadModulePtr<EnhancedInputTestsModule>` or the exported types directly.",
-      "Transitive deps: `EnhancedInputTests` also needs `Core`, `CoreUObject`, `Engine`, `EnhancedInput`, `EnhancedInputTestSuite`, `InputCore`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`EnhancedInputTests` 的构建规则位于 `Programs/EnhancedInputTests/EnhancedInputTests.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`EnhancedInputTests` build rule is `Programs/EnhancedInputTests/EnhancedInputTests.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`EnhancedInputTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/EnhancedInputTests/EnhancedInputTests.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`EnhancedInputTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/EnhancedInputTests/EnhancedInputTests.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "environmentlightingviewer",
     "kind": "module",
     "cn_steps": [
-      "用途：`EnvironmentLightingViewer` 位于 `Editor`，构建规则 `Editor/EnvironmentLightingViewer/EnvironmentLightingViewer.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `InputCore`, `Settings`, `Slate`, `SlateCore`, `UnrealEd`。",
+      "`EnvironmentLightingViewer`（Environment Lighting Viewer）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/EnvironmentLightingViewer/EnvironmentLightingViewer.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`Engine`、`InputCore`、`Settings` 等。",
+      "部署：`EnvironmentLightingViewer` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EnvironmentLightingViewer\" });`；对外暴露 `EnvironmentLightingViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EnvironmentLightingViewer` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EnvironmentLightingViewer.h` / `EnvironmentLightingViewerModule.h`），再用 `FModuleManager::LoadModulePtr<EnvironmentLightingViewerModule>` 或直接使用导出类型。",
-      "传递依赖：`EnvironmentLightingViewer` 还依赖 `Core`, `CoreUObject`, `Engine`, `InputCore`, `Settings`, `Slate`, `SlateCore`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EnvironmentLightingViewer` lives under `Editor`; build rule `Editor/EnvironmentLightingViewer/EnvironmentLightingViewer.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `Settings`, `Slate`, `SlateCore`, `UnrealEd`.",
+      "`EnvironmentLightingViewer` (Environment Lighting Viewer): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/EnvironmentLightingViewer/EnvironmentLightingViewer.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `Settings` etc.",
+      "Placement: `EnvironmentLightingViewer` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EnvironmentLightingViewer\" });`. Use Public when exposing `EnvironmentLightingViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EnvironmentLightingViewer` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EnvironmentLightingViewer.h` / `EnvironmentLightingViewerModule.h`), then use `FModuleManager::LoadModulePtr<EnvironmentLightingViewerModule>` or the exported types directly.",
-      "Transitive deps: `EnvironmentLightingViewer` also needs `Core`, `CoreUObject`, `Engine`, `InputCore`, `Settings`, `Slate`, `SlateCore`, `UnrealEd`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EnvironmentLightingViewer` 的构建规则位于 `Editor/EnvironmentLightingViewer/EnvironmentLightingViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`EnvironmentLightingViewer` build rule is `Editor/EnvironmentLightingViewer/EnvironmentLightingViewer.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`EnvironmentLightingViewer`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/EnvironmentLightingViewer/EnvironmentLightingViewer.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`EnvironmentLightingViewer`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/EnvironmentLightingViewer/EnvironmentLightingViewer.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "eossdk",
     "kind": "module",
     "cn_steps": [
-      "用途：`EOSSDK` 位于 `ThirdParty`，构建规则 `ThirdParty/EOSSDK/EOSSDK.Build.cs`。描述符未声明依赖。",
+      "`EOSSDK`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/EOSSDK/EOSSDK.Build.cs`。描述符未声明依赖。",
+      "部署：`EOSSDK` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EOSSDK\" });`；对外暴露 `EOSSDK` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EOSSDK` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `EOSSDK.h` / `EOSSDKModule.h`），再用 `FModuleManager::LoadModulePtr<EOSSDKModule>` 或直接使用导出类型。",
-      "传递依赖：`EOSSDK` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `EOSSDK` lives under `ThirdParty`; build rule `ThirdParty/EOSSDK/EOSSDK.Build.cs`.The descriptor declares no dependencies.",
+      "`EOSSDK`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/EOSSDK/EOSSDK.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `EOSSDK` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EOSSDK\" });`. Use Public when exposing `EOSSDK` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EOSSDK` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `EOSSDK.h` / `EOSSDKModule.h`), then use `FModuleManager::LoadModulePtr<EOSSDKModule>` or the exported types directly.",
-      "Transitive deps: `EOSSDK` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`EOSSDK` 的构建规则位于 `ThirdParty/EOSSDK/EOSSDK.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`EOSSDK` build rule is `ThirdParty/EOSSDK/EOSSDK.Build.cs`; depends on 0 modules; category External."
-  },
-  {
-    "slug": "epicwebhelper",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`EpicWebHelper` 位于 `Programs`，构建规则 `Programs/EpicWebHelper/EpicWebHelper.Build.cs`。它直接依赖 4 个模块：`ApplicationCore`, `CEF3Utils`, `Core`, `Projects`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EpicWebHelper\" });`；对外暴露 `EpicWebHelper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EpicWebHelper` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `EpicWebHelper.h` / `EpicWebHelperModule.h`），再用 `FModuleManager::LoadModulePtr<EpicWebHelperModule>` 或直接使用导出类型。",
-      "传递依赖：`EpicWebHelper` 还依赖 `ApplicationCore`, `CEF3Utils`, `Core`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `EpicWebHelper` lives under `Programs`; build rule `Programs/EpicWebHelper/EpicWebHelper.Build.cs`.It directly depends on 4 modules: `ApplicationCore`, `CEF3Utils`, `Core`, `Projects`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EpicWebHelper\" });`. Use Public when exposing `EpicWebHelper` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EpicWebHelper` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `EpicWebHelper.h` / `EpicWebHelperModule.h`), then use `FModuleManager::LoadModulePtr<EpicWebHelperModule>` or the exported types directly.",
-      "Transitive deps: `EpicWebHelper` also needs `ApplicationCore`, `CEF3Utils`, `Core`, `Projects`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`EpicWebHelper` 的构建规则位于 `Programs/EpicWebHelper/EpicWebHelper.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`EpicWebHelper` build rule is `Programs/EpicWebHelper/EpicWebHelper.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`EOSSDK`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/EOSSDK/EOSSDK.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`EOSSDK`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/EOSSDK/EOSSDK.Build.cs`; depends on 0 modules."
   }
 ]

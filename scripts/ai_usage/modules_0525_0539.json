@@ -1,302 +1,302 @@
 [
   {
+    "slug": "moviescenetracks",
+    "kind": "module",
+    "cn_steps": [
+      "`MovieSceneTracks`（Movie Scene Tracks）：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）。位于 `Runtime`，构建规则 `Runtime/MovieSceneTracks/MovieSceneTracks.Build.cs`。直接依赖 8 个模块：`AnimGraphRuntime`、`AnimationCore`、`AssetRegistry`、`AudioMixer`、`Constraints` 等。",
+      "部署：`MovieSceneTracks` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：建 Media Player + Media Source，用 Media Texture 把视频贴到材质/Media Plate 上播放；解码器会接到 Electra/Media Framework。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneTracks\" });`；对外暴露 `MovieSceneTracks` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`MovieSceneTracks` (Movie Scene Tracks): it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs). Located under `Runtime`; build rule `Runtime/MovieSceneTracks/MovieSceneTracks.Build.cs`. It directly depends on 8 modules: `AnimGraphRuntime`, `AnimationCore`, `AssetRegistry`, `AudioMixer`, `Constraints` etc.",
+      "Placement: `MovieSceneTracks` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: create a Media Player + Media Source and play via Media Texture on a material/Media Plate; decoders plug into Electra/Media Framework.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneTracks\" });`. Use Public when exposing `MovieSceneTracks` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`MovieSceneTracks`：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）；构建规则 `Runtime/MovieSceneTracks/MovieSceneTracks.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MovieSceneTracks`: it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs); build rule `Runtime/MovieSceneTracks/MovieSceneTracks.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "msgamestoreplatformfeatures",
     "kind": "module",
     "cn_steps": [
-      "用途：`MSGameStorePlatformFeatures` 位于 `Runtime`，构建规则 `Runtime/Windows/MSGaming/MSGameStorePlatformFeatures/MSGameStorePlatformFeatures.Build.cs`。它直接依赖 4 个模块：`Core`, `Engine`, `GRDK`, `WindowsPlatformFeatures`。",
+      "`MSGameStorePlatformFeatures`（MS Game Store Platform Features）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Runtime`，构建规则 `Runtime/Windows/MSGaming/MSGameStorePlatformFeatures/MSGameStorePlatformFeatures.Build.cs`。直接依赖 4 个模块：`Core`、`Engine`、`GRDK`、`WindowsPlatformFeatures`。",
+      "部署：`MSGameStorePlatformFeatures` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MSGameStorePlatformFeatures\" });`；对外暴露 `MSGameStorePlatformFeatures` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MSGameStorePlatformFeatures` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MSGameStorePlatformFeatures.h` / `MSGameStorePlatformFeaturesModule.h`），再用 `FModuleManager::LoadModulePtr<MSGameStorePlatformFeaturesModule>` 或直接使用导出类型。",
-      "传递依赖：`MSGameStorePlatformFeatures` 还依赖 `Core`, `Engine`, `GRDK`, `WindowsPlatformFeatures`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MSGameStorePlatformFeatures` lives under `Runtime`; build rule `Runtime/Windows/MSGaming/MSGameStorePlatformFeatures/MSGameStorePlatformFeatures.Build.cs`.It directly depends on 4 modules: `Core`, `Engine`, `GRDK`, `WindowsPlatformFeatures`.",
+      "`MSGameStorePlatformFeatures` (MS Game Store Platform Features): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Runtime`; build rule `Runtime/Windows/MSGaming/MSGameStorePlatformFeatures/MSGameStorePlatformFeatures.Build.cs`. It directly depends on 4 modules: `Core`, `Engine`, `GRDK`, `WindowsPlatformFeatures`.",
+      "Placement: `MSGameStorePlatformFeatures` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MSGameStorePlatformFeatures\" });`. Use Public when exposing `MSGameStorePlatformFeatures` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MSGameStorePlatformFeatures` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MSGameStorePlatformFeatures.h` / `MSGameStorePlatformFeaturesModule.h`), then use `FModuleManager::LoadModulePtr<MSGameStorePlatformFeaturesModule>` or the exported types directly.",
-      "Transitive deps: `MSGameStorePlatformFeatures` also needs `Core`, `Engine`, `GRDK`, `WindowsPlatformFeatures`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MSGameStorePlatformFeatures` 的构建规则位于 `Runtime/Windows/MSGaming/MSGameStorePlatformFeatures/MSGameStorePlatformFeatures.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`MSGameStorePlatformFeatures` build rule is `Runtime/Windows/MSGaming/MSGameStorePlatformFeatures/MSGameStorePlatformFeatures.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`MSGameStorePlatformFeatures`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Runtime/Windows/MSGaming/MSGameStorePlatformFeatures/MSGameStorePlatformFeatures.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`MSGameStorePlatformFeatures`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Runtime/Windows/MSGaming/MSGameStorePlatformFeatures/MSGameStorePlatformFeatures.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "msquic",
     "kind": "module",
     "cn_steps": [
-      "用途：`MsQuic` 位于 `ThirdParty`，构建规则 `ThirdParty/MsQuic/MsQuic.Build.cs`。描述符未声明依赖。",
+      "`MsQuic`（Ms Quic）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/MsQuic/MsQuic.Build.cs`。描述符未声明依赖。",
+      "部署：`MsQuic` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MsQuic\" });`；对外暴露 `MsQuic` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MsQuic` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `MsQuic.h` / `MsQuicModule.h`），再用 `FModuleManager::LoadModulePtr<MsQuicModule>` 或直接使用导出类型。",
-      "传递依赖：`MsQuic` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `MsQuic` lives under `ThirdParty`; build rule `ThirdParty/MsQuic/MsQuic.Build.cs`.The descriptor declares no dependencies.",
+      "`MsQuic` (Ms Quic): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/MsQuic/MsQuic.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `MsQuic` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MsQuic\" });`. Use Public when exposing `MsQuic` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MsQuic` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `MsQuic.h` / `MsQuicModule.h`), then use `FModuleManager::LoadModulePtr<MsQuicModule>` or the exported types directly.",
-      "Transitive deps: `MsQuic` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`MsQuic` 的构建规则位于 `ThirdParty/MsQuic/MsQuic.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`MsQuic` build rule is `ThirdParty/MsQuic/MsQuic.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`MsQuic`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/MsQuic/MsQuic.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`MsQuic`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/MsQuic/MsQuic.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "nanitebuilder",
     "kind": "module",
     "cn_steps": [
-      "用途：`NaniteBuilder` 位于 `Developer`，构建规则 `Developer/NaniteBuilder/NaniteBuilder.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `GeometryCore`, `ImageCore`, `NaniteUtilities`, `QuadricMeshReduction`, `RenderCore`。",
+      "`NaniteBuilder`（Nanite Builder）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/NaniteBuilder/NaniteBuilder.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`Engine`、`GeometryCore`、`ImageCore` 等。",
+      "部署：`NaniteBuilder` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NaniteBuilder\" });`；对外暴露 `NaniteBuilder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NaniteBuilder` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `NaniteBuilder.h` / `NaniteBuilderModule.h`），再用 `FModuleManager::LoadModulePtr<NaniteBuilderModule>` 或直接使用导出类型。",
-      "传递依赖：`NaniteBuilder` 还依赖 `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `ImageCore`, `NaniteUtilities`, `QuadricMeshReduction`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NaniteBuilder` lives under `Developer`; build rule `Developer/NaniteBuilder/NaniteBuilder.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `ImageCore`, `NaniteUtilities`, `QuadricMeshReduction`, `RenderCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NaniteBuilder\" });`. Use Public when exposing `NaniteBuilder` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`NaniteBuilder` (Nanite Builder): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/NaniteBuilder/NaniteBuilder.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `ImageCore` etc.",
       "Placement: `NaniteBuilder` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `NaniteBuilder.h` / `NaniteBuilderModule.h`), then use `FModuleManager::LoadModulePtr<NaniteBuilderModule>` or the exported types directly.",
-      "Transitive deps: `NaniteBuilder` also needs `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `ImageCore`, `NaniteUtilities`, `QuadricMeshReduction`, `RenderCore`; do not re-list them unless you include their headers."
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NaniteBuilder\" });`. Use Public when exposing `NaniteBuilder` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NaniteBuilder` 的构建规则位于 `Developer/NaniteBuilder/NaniteBuilder.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`NaniteBuilder` build rule is `Developer/NaniteBuilder/NaniteBuilder.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`NaniteBuilder`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/NaniteBuilder/NaniteBuilder.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`NaniteBuilder`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/NaniteBuilder/NaniteBuilder.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "naniteutilities",
     "kind": "module",
     "cn_steps": [
-      "用途：`NaniteUtilities` 位于 `Developer`，构建规则 `Developer/NaniteUtilities/NaniteUtilities.Build.cs`。它直接依赖 5 个模块：`Core`, `DesktopWidgets`, `Engine`, `GeometryCore`, `ImageCore`。",
+      "`NaniteUtilities`（Nanite Utilities）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/NaniteUtilities/NaniteUtilities.Build.cs`。直接依赖 5 个模块：`Core`、`DesktopWidgets`、`Engine`、`GeometryCore`、`ImageCore`。",
+      "部署：`NaniteUtilities` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NaniteUtilities\" });`；对外暴露 `NaniteUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NaniteUtilities` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `NaniteUtilities.h` / `NaniteUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<NaniteUtilitiesModule>` 或直接使用导出类型。",
-      "传递依赖：`NaniteUtilities` 还依赖 `Core`, `DesktopWidgets`, `Engine`, `GeometryCore`, `ImageCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NaniteUtilities` lives under `Developer`; build rule `Developer/NaniteUtilities/NaniteUtilities.Build.cs`.It directly depends on 5 modules: `Core`, `DesktopWidgets`, `Engine`, `GeometryCore`, `ImageCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NaniteUtilities\" });`. Use Public when exposing `NaniteUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`NaniteUtilities` (Nanite Utilities): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/NaniteUtilities/NaniteUtilities.Build.cs`. It directly depends on 5 modules: `Core`, `DesktopWidgets`, `Engine`, `GeometryCore`, `ImageCore`.",
       "Placement: `NaniteUtilities` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `NaniteUtilities.h` / `NaniteUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<NaniteUtilitiesModule>` or the exported types directly.",
-      "Transitive deps: `NaniteUtilities` also needs `Core`, `DesktopWidgets`, `Engine`, `GeometryCore`, `ImageCore`; do not re-list them unless you include their headers."
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NaniteUtilities\" });`. Use Public when exposing `NaniteUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NaniteUtilities` 的构建规则位于 `Developer/NaniteUtilities/NaniteUtilities.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`NaniteUtilities` build rule is `Developer/NaniteUtilities/NaniteUtilities.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`NaniteUtilities`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/NaniteUtilities/NaniteUtilities.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`NaniteUtilities`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/NaniteUtilities/NaniteUtilities.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "nanoflann",
     "kind": "module",
     "cn_steps": [
-      "用途：`nanoflann` 位于 `ThirdParty`，构建规则 `ThirdParty/nanoflann/nanoflann.Build.cs`。描述符未声明依赖。",
+      "`nanoflann`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/nanoflann/nanoflann.Build.cs`。描述符未声明依赖。",
+      "部署：`nanoflann` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"nanoflann\" });`；对外暴露 `nanoflann` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`nanoflann` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `nanoflann.h` / `nanoflannModule.h`），再用 `FModuleManager::LoadModulePtr<nanoflannModule>` 或直接使用导出类型。",
-      "传递依赖：`nanoflann` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `nanoflann` lives under `ThirdParty`; build rule `ThirdParty/nanoflann/nanoflann.Build.cs`.The descriptor declares no dependencies.",
+      "`nanoflann`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/nanoflann/nanoflann.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `nanoflann` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"nanoflann\" });`. Use Public when exposing `nanoflann` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `nanoflann` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `nanoflann.h` / `nanoflannModule.h`), then use `FModuleManager::LoadModulePtr<nanoflannModule>` or the exported types directly.",
-      "Transitive deps: `nanoflann` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`nanoflann` 的构建规则位于 `ThirdParty/nanoflann/nanoflann.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`nanoflann` build rule is `ThirdParty/nanoflann/nanoflann.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`nanoflann`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/nanoflann/nanoflann.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`nanoflann`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/nanoflann/nanoflann.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "nanosvg",
     "kind": "module",
     "cn_steps": [
-      "用途：`Nanosvg` 位于 `ThirdParty`，构建规则 `ThirdParty/nanosvg/nanosvg.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`Nanosvg`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/nanosvg/nanosvg.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`Nanosvg` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Nanosvg\" });`；对外暴露 `Nanosvg` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Nanosvg` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Nanosvg.h` / `NanosvgModule.h`），再用 `FModuleManager::LoadModulePtr<NanosvgModule>` 或直接使用导出类型。",
-      "传递依赖：`Nanosvg` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Nanosvg` lives under `ThirdParty`; build rule `ThirdParty/nanosvg/nanosvg.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`Nanosvg`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/nanosvg/nanosvg.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `Nanosvg` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Nanosvg\" });`. Use Public when exposing `Nanosvg` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Nanosvg` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Nanosvg.h` / `NanosvgModule.h`), then use `FModuleManager::LoadModulePtr<NanosvgModule>` or the exported types directly.",
-      "Transitive deps: `Nanosvg` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Nanosvg` 的构建规则位于 `ThirdParty/nanosvg/nanosvg.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`Nanosvg` build rule is `ThirdParty/nanosvg/nanosvg.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`Nanosvg`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/nanosvg/nanosvg.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`Nanosvg`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/nanosvg/nanosvg.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "navigationsystem",
     "kind": "module",
     "cn_steps": [
-      "用途：`NavigationSystem` 位于 `Runtime`，构建规则 `Runtime/NavigationSystem/NavigationSystem.Build.cs`。它直接依赖 8 个模块：`Chaos`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GeometryCollectionEngine`, `Navmesh`, `RHI`。",
+      "`NavigationSystem`（Navigation System）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Runtime`，构建规则 `Runtime/NavigationSystem/NavigationSystem.Build.cs`。直接依赖 8 个模块：`Chaos`、`Core`、`CoreUObject`、`EditorFramework`、`Engine` 等。",
+      "部署：`NavigationSystem` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NavigationSystem\" });`；对外暴露 `NavigationSystem` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NavigationSystem` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NavigationSystem.h` / `NavigationSystemModule.h`），再用 `FModuleManager::LoadModulePtr<NavigationSystemModule>` 或直接使用导出类型。",
-      "传递依赖：`NavigationSystem` 还依赖 `Chaos`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GeometryCollectionEngine`, `Navmesh`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NavigationSystem` lives under `Runtime`; build rule `Runtime/NavigationSystem/NavigationSystem.Build.cs`.It directly depends on 8 modules: `Chaos`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GeometryCollectionEngine`, `Navmesh`, `RHI`.",
+      "`NavigationSystem` (Navigation System): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Runtime`; build rule `Runtime/NavigationSystem/NavigationSystem.Build.cs`. It directly depends on 8 modules: `Chaos`, `Core`, `CoreUObject`, `EditorFramework`, `Engine` etc.",
+      "Placement: `NavigationSystem` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NavigationSystem\" });`. Use Public when exposing `NavigationSystem` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NavigationSystem` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NavigationSystem.h` / `NavigationSystemModule.h`), then use `FModuleManager::LoadModulePtr<NavigationSystemModule>` or the exported types directly.",
-      "Transitive deps: `NavigationSystem` also needs `Chaos`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GeometryCollectionEngine`, `Navmesh`, `RHI`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NavigationSystem` 的构建规则位于 `Runtime/NavigationSystem/NavigationSystem.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`NavigationSystem` build rule is `Runtime/NavigationSystem/NavigationSystem.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`NavigationSystem`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Runtime/NavigationSystem/NavigationSystem.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`NavigationSystem`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Runtime/NavigationSystem/NavigationSystem.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "navigationtestsuite",
     "kind": "module",
     "cn_steps": [
-      "用途：`NavigationTestSuite` 位于 `Developer`，构建规则 `Developer/NavigationTestSuite/NavigationTestSuite.Build.cs`。它直接依赖 7 个模块：`AITestSuite`, `Core`, `CoreUObject`, `Engine`, `NavigationSystem`, `Navmesh`, `UnrealEd`。",
+      "`NavigationTestSuite`（Navigation Test Suite）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Developer`，构建规则 `Developer/NavigationTestSuite/NavigationTestSuite.Build.cs`。直接依赖 7 个模块：`AITestSuite`、`Core`、`CoreUObject`、`Engine`、`NavigationSystem` 等。",
+      "部署：`NavigationTestSuite` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NavigationTestSuite\" });`；对外暴露 `NavigationTestSuite` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NavigationTestSuite` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `NavigationTestSuite.h` / `NavigationTestSuiteModule.h`），再用 `FModuleManager::LoadModulePtr<NavigationTestSuiteModule>` 或直接使用导出类型。",
-      "传递依赖：`NavigationTestSuite` 还依赖 `AITestSuite`, `Core`, `CoreUObject`, `Engine`, `NavigationSystem`, `Navmesh`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NavigationTestSuite` lives under `Developer`; build rule `Developer/NavigationTestSuite/NavigationTestSuite.Build.cs`.It directly depends on 7 modules: `AITestSuite`, `Core`, `CoreUObject`, `Engine`, `NavigationSystem`, `Navmesh`, `UnrealEd`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NavigationTestSuite\" });`. Use Public when exposing `NavigationTestSuite` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`NavigationTestSuite` (Navigation Test Suite): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Developer`; build rule `Developer/NavigationTestSuite/NavigationTestSuite.Build.cs`. It directly depends on 7 modules: `AITestSuite`, `Core`, `CoreUObject`, `Engine`, `NavigationSystem` etc.",
       "Placement: `NavigationTestSuite` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `NavigationTestSuite.h` / `NavigationTestSuiteModule.h`), then use `FModuleManager::LoadModulePtr<NavigationTestSuiteModule>` or the exported types directly.",
-      "Transitive deps: `NavigationTestSuite` also needs `AITestSuite`, `Core`, `CoreUObject`, `Engine`, `NavigationSystem`, `Navmesh`, `UnrealEd`; do not re-list them unless you include their headers."
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NavigationTestSuite\" });`. Use Public when exposing `NavigationTestSuite` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NavigationTestSuite` 的构建规则位于 `Developer/NavigationTestSuite/NavigationTestSuite.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`NavigationTestSuite` build rule is `Developer/NavigationTestSuite/NavigationTestSuite.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`NavigationTestSuite`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Developer/NavigationTestSuite/NavigationTestSuite.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`NavigationTestSuite`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Developer/NavigationTestSuite/NavigationTestSuite.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "navmesh",
     "kind": "module",
     "cn_steps": [
-      "用途：`Navmesh` 位于 `Runtime`，构建规则 `Runtime/Navmesh/Navmesh.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`Navmesh`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/Navmesh/Navmesh.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`Navmesh` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Navmesh\" });`；对外暴露 `Navmesh` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Navmesh` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Navmesh.h` / `NavmeshModule.h`），再用 `FModuleManager::LoadModulePtr<NavmeshModule>` 或直接使用导出类型。",
-      "传递依赖：`Navmesh` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Navmesh` lives under `Runtime`; build rule `Runtime/Navmesh/Navmesh.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`Navmesh`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/Navmesh/Navmesh.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `Navmesh` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Navmesh\" });`. Use Public when exposing `Navmesh` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Navmesh` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Navmesh.h` / `NavmeshModule.h`), then use `FModuleManager::LoadModulePtr<NavmeshModule>` or the exported types directly.",
-      "Transitive deps: `Navmesh` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Navmesh` 的构建规则位于 `Runtime/Navmesh/Navmesh.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`Navmesh` build rule is `Runtime/Navmesh/Navmesh.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`Navmesh`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/Navmesh/Navmesh.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`Navmesh`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/Navmesh/Navmesh.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "nesscore",
     "kind": "module",
     "cn_steps": [
-      "用途：`NessCore` 位于 `Runtime`，构建规则 `Runtime/Ness/NessCore/NessCore.Build.cs`。它直接依赖 2 个模块：`Core`, `CorePreciseFP`。",
+      "`NessCore`（Ness Core）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/Ness/NessCore/NessCore.Build.cs`。直接依赖 2 个模块：`Core`、`CorePreciseFP`。",
+      "部署：`NessCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NessCore\" });`；对外暴露 `NessCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NessCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NessCore.h` / `NessCoreModule.h`），再用 `FModuleManager::LoadModulePtr<NessCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`NessCore` 还依赖 `Core`, `CorePreciseFP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NessCore` lives under `Runtime`; build rule `Runtime/Ness/NessCore/NessCore.Build.cs`.It directly depends on 2 modules: `Core`, `CorePreciseFP`.",
+      "`NessCore` (Ness Core): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/Ness/NessCore/NessCore.Build.cs`. It directly depends on 2 modules: `Core`, `CorePreciseFP`.",
+      "Placement: `NessCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NessCore\" });`. Use Public when exposing `NessCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NessCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NessCore.h` / `NessCoreModule.h`), then use `FModuleManager::LoadModulePtr<NessCoreModule>` or the exported types directly.",
-      "Transitive deps: `NessCore` also needs `Core`, `CorePreciseFP`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NessCore` 的构建规则位于 `Runtime/Ness/NessCore/NessCore.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`NessCore` build rule is `Runtime/Ness/NessCore/NessCore.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`NessCore`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/Ness/NessCore/NessCore.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`NessCore`: it exposes C++ API/functionality to other modules; build rule `Runtime/Ness/NessCore/NessCore.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "nesscoretests",
     "kind": "module",
     "cn_steps": [
-      "用途：`NessCoreTests` 位于 `Programs`，构建规则 `Programs/NessCoreTests/NessCoreTests.Build.cs`。它直接依赖 1 个模块：`NessCore`。",
+      "`NessCoreTests`（Ness Core Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/NessCoreTests/NessCoreTests.Build.cs`。直接依赖 1 个模块：`NessCore`。",
+      "部署：`NessCoreTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NessCoreTests\" });`；对外暴露 `NessCoreTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NessCoreTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `NessCoreTests.h` / `NessCoreTestsModule.h`），再用 `FModuleManager::LoadModulePtr<NessCoreTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`NessCoreTests` 还依赖 `NessCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `NessCoreTests` lives under `Programs`; build rule `Programs/NessCoreTests/NessCoreTests.Build.cs`.It directly depends on 1 modules: `NessCore`.",
+      "`NessCoreTests` (Ness Core Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/NessCoreTests/NessCoreTests.Build.cs`. It directly depends on 1 modules: `NessCore`.",
+      "Placement: `NessCoreTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NessCoreTests\" });`. Use Public when exposing `NessCoreTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NessCoreTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `NessCoreTests.h` / `NessCoreTestsModule.h`), then use `FModuleManager::LoadModulePtr<NessCoreTestsModule>` or the exported types directly.",
-      "Transitive deps: `NessCoreTests` also needs `NessCore`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`NessCoreTests` 的构建规则位于 `Programs/NessCoreTests/NessCoreTests.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`NessCoreTests` build rule is `Programs/NessCoreTests/NessCoreTests.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`NessCoreTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/NessCoreTests/NessCoreTests.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`NessCoreTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/NessCoreTests/NessCoreTests.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "nessuobject",
     "kind": "module",
     "cn_steps": [
-      "用途：`NessUObject` 位于 `Runtime`，构建规则 `Runtime/Ness/NessUObject/NessUObject.Build.cs`。它直接依赖 5 个模块：`Core`, `CorePreciseFP`, `CoreUObject`, `JsonObjectGraph`, `NessCore`。",
+      "`NessUObject`（Ness U Object）：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）。位于 `Runtime`，构建规则 `Runtime/Ness/NessUObject/NessUObject.Build.cs`。直接依赖 5 个模块：`Core`、`CorePreciseFP`、`CoreUObject`、`JsonObjectGraph`、`NessCore`。",
+      "部署：`NessUObject` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要读写结构化数据或配置的代码里 include 其头文件，直接调用其序列化/解析 API。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NessUObject\" });`；对外暴露 `NessUObject` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NessUObject` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NessUObject.h` / `NessUObjectModule.h`），再用 `FModuleManager::LoadModulePtr<NessUObjectModule>` 或直接使用导出类型。",
-      "传递依赖：`NessUObject` 还依赖 `Core`, `CorePreciseFP`, `CoreUObject`, `JsonObjectGraph`, `NessCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NessUObject` lives under `Runtime`; build rule `Runtime/Ness/NessUObject/NessUObject.Build.cs`.It directly depends on 5 modules: `Core`, `CorePreciseFP`, `CoreUObject`, `JsonObjectGraph`, `NessCore`.",
+      "`NessUObject` (Ness U Object): it is part of data/serialization (JSON/XML/Config/struct serialization/logging). Located under `Runtime`; build rule `Runtime/Ness/NessUObject/NessUObject.Build.cs`. It directly depends on 5 modules: `Core`, `CorePreciseFP`, `CoreUObject`, `JsonObjectGraph`, `NessCore`.",
+      "Placement: `NessUObject` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: include its headers where you read/write structured data or config and call its serialization/parse API.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NessUObject\" });`. Use Public when exposing `NessUObject` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NessUObject` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NessUObject.h` / `NessUObjectModule.h`), then use `FModuleManager::LoadModulePtr<NessUObjectModule>` or the exported types directly.",
-      "Transitive deps: `NessUObject` also needs `Core`, `CorePreciseFP`, `CoreUObject`, `JsonObjectGraph`, `NessCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NessUObject` 的构建规则位于 `Runtime/Ness/NessUObject/NessUObject.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`NessUObject` build rule is `Runtime/Ness/NessUObject/NessUObject.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`NessUObject`：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）；构建规则 `Runtime/Ness/NessUObject/NessUObject.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`NessUObject`: it is part of data/serialization (JSON/XML/Config/struct serialization/logging); build rule `Runtime/Ness/NessUObject/NessUObject.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "nessuobjecttests",
     "kind": "module",
     "cn_steps": [
-      "用途：`NessUObjectTests` 位于 `Programs`，构建规则 `Programs/NessUObjectTests/NessUObjectTests.Build.cs`。描述符未声明依赖。",
+      "`NessUObjectTests`（Ness U Object Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/NessUObjectTests/NessUObjectTests.Build.cs`。描述符未声明依赖。",
+      "部署：`NessUObjectTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NessUObjectTests\" });`；对外暴露 `NessUObjectTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NessUObjectTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `NessUObjectTests.h` / `NessUObjectTestsModule.h`），再用 `FModuleManager::LoadModulePtr<NessUObjectTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`NessUObjectTests` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `NessUObjectTests` lives under `Programs`; build rule `Programs/NessUObjectTests/NessUObjectTests.Build.cs`.The descriptor declares no dependencies.",
+      "`NessUObjectTests` (Ness U Object Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/NessUObjectTests/NessUObjectTests.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `NessUObjectTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NessUObjectTests\" });`. Use Public when exposing `NessUObjectTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NessUObjectTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `NessUObjectTests.h` / `NessUObjectTestsModule.h`), then use `FModuleManager::LoadModulePtr<NessUObjectTestsModule>` or the exported types directly.",
-      "Transitive deps: `NessUObjectTests` declares no extra public deps; it typically relies on engine basics."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`NessUObjectTests` 的构建规则位于 `Programs/NessUObjectTests/NessUObjectTests.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`NessUObjectTests` build rule is `Programs/NessUObjectTests/NessUObjectTests.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`NessUObjectTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/NessUObjectTests/NessUObjectTests.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`NessUObjectTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/NessUObjectTests/NessUObjectTests.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "netcommon",
     "kind": "module",
     "cn_steps": [
-      "用途：`NetCommon` 位于 `Runtime`，构建规则 `Runtime/Net/Common/NetCommon.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`NetCommon`（Net Common）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Net/Common/NetCommon.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`NetCommon` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NetCommon\" });`；对外暴露 `NetCommon` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NetCommon` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NetCommon.h` / `NetCommonModule.h`），再用 `FModuleManager::LoadModulePtr<NetCommonModule>` 或直接使用导出类型。",
-      "传递依赖：`NetCommon` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `NetCommon` lives under `Runtime`; build rule `Runtime/Net/Common/NetCommon.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`NetCommon` (Net Common): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Net/Common/NetCommon.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `NetCommon` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetCommon\" });`. Use Public when exposing `NetCommon` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NetCommon` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NetCommon.h` / `NetCommonModule.h`), then use `FModuleManager::LoadModulePtr<NetCommonModule>` or the exported types directly.",
-      "Transitive deps: `NetCommon` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`NetCommon` 的构建规则位于 `Runtime/Net/Common/NetCommon.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`NetCommon` build rule is `Runtime/Net/Common/NetCommon.Build.cs`; depends on 1 modules; category Module."
-  },
-  {
-    "slug": "netcore",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`NetCore` 位于 `Runtime`，构建规则 `Runtime/Net/Core/NetCore.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `NetCommon`, `TraceLog`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NetCore\" });`；对外暴露 `NetCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`NetCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `NetCore.h` / `NetCoreModule.h`），再用 `FModuleManager::LoadModulePtr<NetCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`NetCore` 还依赖 `Core`, `CoreUObject`, `NetCommon`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `NetCore` lives under `Runtime`; build rule `Runtime/Net/Core/NetCore.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `NetCommon`, `TraceLog`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NetCore\" });`. Use Public when exposing `NetCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `NetCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `NetCore.h` / `NetCoreModule.h`), then use `FModuleManager::LoadModulePtr<NetCoreModule>` or the exported types directly.",
-      "Transitive deps: `NetCore` also needs `Core`, `CoreUObject`, `NetCommon`, `TraceLog`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`NetCore` 的构建规则位于 `Runtime/Net/Core/NetCore.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`NetCore` build rule is `Runtime/Net/Core/NetCore.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`NetCommon`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Net/Common/NetCommon.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`NetCommon`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Net/Common/NetCommon.Build.cs`; depends on 1 modules."
   }
 ]

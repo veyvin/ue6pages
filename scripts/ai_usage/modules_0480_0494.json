@@ -1,302 +1,302 @@
 [
   {
+    "slug": "materialshaderqualitysettingseditor",
+    "kind": "module",
+    "cn_steps": [
+      "`MaterialShaderQualitySettingsEditor`（Material Shader Quality Settings Editor）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Editor`，构建规则 `Editor/MaterialShaderQualitySettingsEditor/MaterialShaderQualitySettingsEditor.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`InputCore`、`MaterialShaderQualitySettings`、`PropertyEditor` 等。",
+      "部署：`MaterialShaderQualitySettingsEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialShaderQualitySettingsEditor\" });`；对外暴露 `MaterialShaderQualitySettingsEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`MaterialShaderQualitySettingsEditor` (Material Shader Quality Settings Editor): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Editor`; build rule `Editor/MaterialShaderQualitySettingsEditor/MaterialShaderQualitySettingsEditor.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `InputCore`, `MaterialShaderQualitySettings`, `PropertyEditor` etc.",
+      "Placement: `MaterialShaderQualitySettingsEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialShaderQualitySettingsEditor\" });`. Use Public when exposing `MaterialShaderQualitySettingsEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`MaterialShaderQualitySettingsEditor`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Editor/MaterialShaderQualitySettingsEditor/MaterialShaderQualitySettingsEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MaterialShaderQualitySettingsEditor`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Editor/MaterialShaderQualitySettingsEditor/MaterialShaderQualitySettingsEditor.Build.cs`; depends on 8 modules."
+  },
+  {
     "slug": "materialutilities",
     "kind": "module",
     "cn_steps": [
-      "用途：`MaterialUtilities` 位于 `Developer`，构建规则 `Developer/MaterialUtilities/MaterialUtilities.Build.cs`。描述符未声明依赖。",
+      "`MaterialUtilities`（Material Utilities）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Developer`，构建规则 `Developer/MaterialUtilities/MaterialUtilities.Build.cs`。描述符未声明依赖。",
+      "部署：`MaterialUtilities` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialUtilities\" });`；对外暴露 `MaterialUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MaterialUtilities` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `MaterialUtilities.h` / `MaterialUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<MaterialUtilitiesModule>` 或直接使用导出类型。",
-      "传递依赖：`MaterialUtilities` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MaterialUtilities` lives under `Developer`; build rule `Developer/MaterialUtilities/MaterialUtilities.Build.cs`.The descriptor declares no dependencies.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialUtilities\" });`. Use Public when exposing `MaterialUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`MaterialUtilities` (Material Utilities): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Developer`; build rule `Developer/MaterialUtilities/MaterialUtilities.Build.cs`. The descriptor declares no dependencies.",
       "Placement: `MaterialUtilities` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `MaterialUtilities.h` / `MaterialUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<MaterialUtilitiesModule>` or the exported types directly.",
-      "Transitive deps: `MaterialUtilities` declares no extra public deps; it typically relies on engine basics."
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialUtilities\" });`. Use Public when exposing `MaterialUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MaterialUtilities` 的构建规则位于 `Developer/MaterialUtilities/MaterialUtilities.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`MaterialUtilities` build rule is `Developer/MaterialUtilities/MaterialUtilities.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`MaterialUtilities`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Developer/MaterialUtilities/MaterialUtilities.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`MaterialUtilities`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Developer/MaterialUtilities/MaterialUtilities.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "materialx",
     "kind": "module",
     "cn_steps": [
-      "用途：`MaterialX` 位于 `ThirdParty`，构建规则 `ThirdParty/MaterialX/MaterialX.Build.cs`。描述符未声明依赖。",
+      "`MaterialX`（Material X）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/MaterialX/MaterialX.Build.cs`。描述符未声明依赖。",
+      "部署：`MaterialX` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialX\" });`；对外暴露 `MaterialX` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MaterialX` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `MaterialX.h` / `MaterialXModule.h`），再用 `FModuleManager::LoadModulePtr<MaterialXModule>` 或直接使用导出类型。",
-      "传递依赖：`MaterialX` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `MaterialX` lives under `ThirdParty`; build rule `ThirdParty/MaterialX/MaterialX.Build.cs`.The descriptor declares no dependencies.",
+      "`MaterialX` (Material X): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/MaterialX/MaterialX.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `MaterialX` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MaterialX\" });`. Use Public when exposing `MaterialX` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MaterialX` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `MaterialX.h` / `MaterialXModule.h`), then use `FModuleManager::LoadModulePtr<MaterialXModule>` or the exported types directly.",
-      "Transitive deps: `MaterialX` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`MaterialX` 的构建规则位于 `ThirdParty/MaterialX/MaterialX.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`MaterialX` build rule is `ThirdParty/MaterialX/MaterialX.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`MaterialX`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/MaterialX/MaterialX.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`MaterialX`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/MaterialX/MaterialX.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "mathcore",
     "kind": "module",
     "cn_steps": [
-      "用途：`MathCore` 位于 `Runtime`，构建规则 `Runtime/MathCore/MathCore.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`MathCore`（Math Core）：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）。位于 `Runtime`，构建规则 `Runtime/MathCore/MathCore.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`MathCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要读写结构化数据或配置的代码里 include 其头文件，直接调用其序列化/解析 API。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MathCore\" });`；对外暴露 `MathCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MathCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MathCore.h` / `MathCoreModule.h`），再用 `FModuleManager::LoadModulePtr<MathCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`MathCore` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MathCore` lives under `Runtime`; build rule `Runtime/MathCore/MathCore.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`MathCore` (Math Core): it is part of data/serialization (JSON/XML/Config/struct serialization/logging). Located under `Runtime`; build rule `Runtime/MathCore/MathCore.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `MathCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: include its headers where you read/write structured data or config and call its serialization/parse API.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MathCore\" });`. Use Public when exposing `MathCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MathCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MathCore.h` / `MathCoreModule.h`), then use `FModuleManager::LoadModulePtr<MathCoreModule>` or the exported types directly.",
-      "Transitive deps: `MathCore` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MathCore` 的构建规则位于 `Runtime/MathCore/MathCore.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`MathCore` build rule is `Runtime/MathCore/MathCore.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`MathCore`：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）；构建规则 `Runtime/MathCore/MathCore.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`MathCore`: it is part of data/serialization (JSON/XML/Config/struct serialization/logging); build rule `Runtime/MathCore/MathCore.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "mathcoretests",
     "kind": "module",
     "cn_steps": [
-      "用途：`MathCoreTests` 位于 `Programs`，构建规则 `Programs/LowLevelTests/MathCoreTests/MathCoreTests.Build.cs`。描述符未声明依赖。",
+      "`MathCoreTests`（Math Core Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/LowLevelTests/MathCoreTests/MathCoreTests.Build.cs`。描述符未声明依赖。",
+      "部署：`MathCoreTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MathCoreTests\" });`；对外暴露 `MathCoreTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MathCoreTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `MathCoreTests.h` / `MathCoreTestsModule.h`），再用 `FModuleManager::LoadModulePtr<MathCoreTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`MathCoreTests` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `MathCoreTests` lives under `Programs`; build rule `Programs/LowLevelTests/MathCoreTests/MathCoreTests.Build.cs`.The descriptor declares no dependencies.",
+      "`MathCoreTests` (Math Core Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/LowLevelTests/MathCoreTests/MathCoreTests.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `MathCoreTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MathCoreTests\" });`. Use Public when exposing `MathCoreTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MathCoreTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `MathCoreTests.h` / `MathCoreTestsModule.h`), then use `FModuleManager::LoadModulePtr<MathCoreTestsModule>` or the exported types directly.",
-      "Transitive deps: `MathCoreTests` declares no extra public deps; it typically relies on engine basics."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`MathCoreTests` 的构建规则位于 `Programs/LowLevelTests/MathCoreTests/MathCoreTests.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`MathCoreTests` build rule is `Programs/LowLevelTests/MathCoreTests/MathCoreTests.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`MathCoreTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/LowLevelTests/MathCoreTests/MathCoreTests.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`MathCoreTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/LowLevelTests/MathCoreTests/MathCoreTests.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "media",
     "kind": "module",
     "cn_steps": [
-      "用途：`Media` 位于 `Runtime`，构建规则 `Runtime/Media/Media.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `RenderCore`。",
+      "`Media`：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）。位于 `Runtime`，构建规则 `Runtime/Media/Media.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`RenderCore`。",
+      "部署：`Media` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：建 Media Player + Media Source，用 Media Texture 把视频贴到材质/Media Plate 上播放；解码器会接到 Electra/Media Framework。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Media\" });`；对外暴露 `Media` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Media` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Media.h` / `MediaModule.h`），再用 `FModuleManager::LoadModulePtr<MediaModule>` 或直接使用导出类型。",
-      "传递依赖：`Media` 还依赖 `Core`, `CoreUObject`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Media` lives under `Runtime`; build rule `Runtime/Media/Media.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `RenderCore`.",
+      "`Media`: it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs). Located under `Runtime`; build rule `Runtime/Media/Media.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `RenderCore`.",
+      "Placement: `Media` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: create a Media Player + Media Source and play via Media Texture on a material/Media Plate; decoders plug into Electra/Media Framework.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Media\" });`. Use Public when exposing `Media` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Media` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Media.h` / `MediaModule.h`), then use `FModuleManager::LoadModulePtr<MediaModule>` or the exported types directly.",
-      "Transitive deps: `Media` also needs `Core`, `CoreUObject`, `RenderCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Media` 的构建规则位于 `Runtime/Media/Media.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`Media` build rule is `Runtime/Media/Media.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`Media`：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）；构建规则 `Runtime/Media/Media.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`Media`: it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs); build rule `Runtime/Media/Media.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "mediaassets",
     "kind": "module",
     "cn_steps": [
-      "用途：`MediaAssets` 位于 `Runtime`，构建规则 `Runtime/MediaAssets/MediaAssets.Build.cs`。它直接依赖 8 个模块：`AudioExtensions`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `Media`, `MediaUtils`, `RHI`。",
+      "`MediaAssets`（Media Assets）：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）。位于 `Runtime`，构建规则 `Runtime/MediaAssets/MediaAssets.Build.cs`。直接依赖 8 个模块：`AudioExtensions`、`AudioMixer`、`Core`、`CoreUObject`、`Engine` 等。",
+      "部署：`MediaAssets` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：建 Media Player + Media Source，用 Media Texture 把视频贴到材质/Media Plate 上播放；解码器会接到 Electra/Media Framework。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MediaAssets\" });`；对外暴露 `MediaAssets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MediaAssets` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MediaAssets.h` / `MediaAssetsModule.h`），再用 `FModuleManager::LoadModulePtr<MediaAssetsModule>` 或直接使用导出类型。",
-      "传递依赖：`MediaAssets` 还依赖 `AudioExtensions`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `Media`, `MediaUtils`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MediaAssets` lives under `Runtime`; build rule `Runtime/MediaAssets/MediaAssets.Build.cs`.It directly depends on 8 modules: `AudioExtensions`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `Media`, `MediaUtils`, `RHI`.",
+      "`MediaAssets` (Media Assets): it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs). Located under `Runtime`; build rule `Runtime/MediaAssets/MediaAssets.Build.cs`. It directly depends on 8 modules: `AudioExtensions`, `AudioMixer`, `Core`, `CoreUObject`, `Engine` etc.",
+      "Placement: `MediaAssets` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: create a Media Player + Media Source and play via Media Texture on a material/Media Plate; decoders plug into Electra/Media Framework.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MediaAssets\" });`. Use Public when exposing `MediaAssets` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MediaAssets` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MediaAssets.h` / `MediaAssetsModule.h`), then use `FModuleManager::LoadModulePtr<MediaAssetsModule>` or the exported types directly.",
-      "Transitive deps: `MediaAssets` also needs `AudioExtensions`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `Media`, `MediaUtils`, `RHI`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MediaAssets` 的构建规则位于 `Runtime/MediaAssets/MediaAssets.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MediaAssets` build rule is `Runtime/MediaAssets/MediaAssets.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`MediaAssets`：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）；构建规则 `Runtime/MediaAssets/MediaAssets.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MediaAssets`: it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs); build rule `Runtime/MediaAssets/MediaAssets.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "mediautils",
     "kind": "module",
     "cn_steps": [
-      "用途：`MediaUtils` 位于 `Runtime`，构建规则 `Runtime/MediaUtils/MediaUtils.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `ImageWrapper`, `ImageWriteQueue`, `Media`, `SignalProcessing`。",
+      "`MediaUtils`（Media Utils）：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）。位于 `Runtime`，构建规则 `Runtime/MediaUtils/MediaUtils.Build.cs`。直接依赖 6 个模块：`Core`、`CoreUObject`、`ImageWrapper`、`ImageWriteQueue`、`Media` 等。",
+      "部署：`MediaUtils` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：建 Media Player + Media Source，用 Media Texture 把视频贴到材质/Media Plate 上播放；解码器会接到 Electra/Media Framework。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MediaUtils\" });`；对外暴露 `MediaUtils` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MediaUtils` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MediaUtils.h` / `MediaUtilsModule.h`），再用 `FModuleManager::LoadModulePtr<MediaUtilsModule>` 或直接使用导出类型。",
-      "传递依赖：`MediaUtils` 还依赖 `Core`, `CoreUObject`, `ImageWrapper`, `ImageWriteQueue`, `Media`, `SignalProcessing`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MediaUtils` lives under `Runtime`; build rule `Runtime/MediaUtils/MediaUtils.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `ImageWrapper`, `ImageWriteQueue`, `Media`, `SignalProcessing`.",
+      "`MediaUtils` (Media Utils): it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs). Located under `Runtime`; build rule `Runtime/MediaUtils/MediaUtils.Build.cs`. It directly depends on 6 modules: `Core`, `CoreUObject`, `ImageWrapper`, `ImageWriteQueue`, `Media` etc.",
+      "Placement: `MediaUtils` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: create a Media Player + Media Source and play via Media Texture on a material/Media Plate; decoders plug into Electra/Media Framework.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MediaUtils\" });`. Use Public when exposing `MediaUtils` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MediaUtils` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MediaUtils.h` / `MediaUtilsModule.h`), then use `FModuleManager::LoadModulePtr<MediaUtilsModule>` or the exported types directly.",
-      "Transitive deps: `MediaUtils` also needs `Core`, `CoreUObject`, `ImageWrapper`, `ImageWriteQueue`, `Media`, `SignalProcessing`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MediaUtils` 的构建规则位于 `Runtime/MediaUtils/MediaUtils.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`MediaUtils` build rule is `Runtime/MediaUtils/MediaUtils.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`MediaUtils`：它属于媒体/视频框架（播放器、解码/编码器、Movie、Electra、编解码）；构建规则 `Runtime/MediaUtils/MediaUtils.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`MediaUtils`: it is part of the media/video framework (players, decoders/encoders, Movie, Electra, codecs); build rule `Runtime/MediaUtils/MediaUtils.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "merge",
     "kind": "module",
     "cn_steps": [
-      "用途：`Merge` 位于 `Developer`，构建规则 `Developer/Merge/Merge.Build.cs`。它直接依赖 8 个模块：`AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GraphEditor`, `InputCore`。",
+      "`Merge`：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/Merge/Merge.Build.cs`。直接依赖 8 个模块：`AssetTools`、`BlueprintGraph`、`Core`、`CoreUObject`、`EditorFramework` 等。",
+      "部署：`Merge` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Merge\" });`；对外暴露 `Merge` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Merge` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `Merge.h` / `MergeModule.h`），再用 `FModuleManager::LoadModulePtr<MergeModule>` 或直接使用导出类型。",
-      "传递依赖：`Merge` 还依赖 `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GraphEditor`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Merge` lives under `Developer`; build rule `Developer/Merge/Merge.Build.cs`.It directly depends on 8 modules: `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GraphEditor`, `InputCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Merge\" });`. Use Public when exposing `Merge` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`Merge`: it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/Merge/Merge.Build.cs`. It directly depends on 8 modules: `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework` etc.",
       "Placement: `Merge` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `Merge.h` / `MergeModule.h`), then use `FModuleManager::LoadModulePtr<MergeModule>` or the exported types directly.",
-      "Transitive deps: `Merge` also needs `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GraphEditor`, `InputCore`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Merge\" });`. Use Public when exposing `Merge` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Merge` 的构建规则位于 `Developer/Merge/Merge.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`Merge` build rule is `Developer/Merge/Merge.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`Merge`：它向其他模块提供 C++ API/功能；构建规则 `Developer/Merge/Merge.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`Merge`: it exposes C++ API/functionality to other modules; build rule `Developer/Merge/Merge.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "mergeactors",
     "kind": "module",
     "cn_steps": [
-      "用途：`MergeActors` 位于 `Editor`，构建规则 `Editor/MergeActors/MergeActors.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MaterialUtilities`, `Slate`, `SlateCore`。",
+      "`MergeActors`（Merge Actors）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/MergeActors/MergeActors.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`EditorFramework`、`Engine`、`InputCore` 等。",
+      "部署：`MergeActors` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MergeActors\" });`；对外暴露 `MergeActors` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MergeActors` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `MergeActors.h` / `MergeActorsModule.h`），再用 `FModuleManager::LoadModulePtr<MergeActorsModule>` 或直接使用导出类型。",
-      "传递依赖：`MergeActors` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MaterialUtilities`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MergeActors` lives under `Editor`; build rule `Editor/MergeActors/MergeActors.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MaterialUtilities`, `Slate`, `SlateCore`.",
+      "`MergeActors` (Merge Actors): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/MergeActors/MergeActors.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore` etc.",
+      "Placement: `MergeActors` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MergeActors\" });`. Use Public when exposing `MergeActors` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MergeActors` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `MergeActors.h` / `MergeActorsModule.h`), then use `FModuleManager::LoadModulePtr<MergeActorsModule>` or the exported types directly.",
-      "Transitive deps: `MergeActors` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MaterialUtilities`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MergeActors` 的构建规则位于 `Editor/MergeActors/MergeActors.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MergeActors` build rule is `Editor/MergeActors/MergeActors.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`MergeActors`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/MergeActors/MergeActors.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MergeActors`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/MergeActors/MergeActors.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "meshbonereduction",
     "kind": "module",
     "cn_steps": [
-      "用途：`MeshBoneReduction` 位于 `Developer`，构建规则 `Developer/MeshBoneReduction/MeshBoneReduction.Build.cs`。它直接依赖 6 个模块：`AnimationBlueprintLibrary`, `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`。",
+      "`MeshBoneReduction`（Mesh Bone Reduction）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Developer`，构建规则 `Developer/MeshBoneReduction/MeshBoneReduction.Build.cs`。直接依赖 6 个模块：`AnimationBlueprintLibrary`、`Core`、`CoreUObject`、`Engine`、`RHI` 等。",
+      "部署：`MeshBoneReduction` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MeshBoneReduction\" });`；对外暴露 `MeshBoneReduction` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MeshBoneReduction` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `MeshBoneReduction.h` / `MeshBoneReductionModule.h`），再用 `FModuleManager::LoadModulePtr<MeshBoneReductionModule>` 或直接使用导出类型。",
-      "传递依赖：`MeshBoneReduction` 还依赖 `AnimationBlueprintLibrary`, `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MeshBoneReduction` lives under `Developer`; build rule `Developer/MeshBoneReduction/MeshBoneReduction.Build.cs`.It directly depends on 6 modules: `AnimationBlueprintLibrary`, `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MeshBoneReduction\" });`. Use Public when exposing `MeshBoneReduction` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`MeshBoneReduction` (Mesh Bone Reduction): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Developer`; build rule `Developer/MeshBoneReduction/MeshBoneReduction.Build.cs`. It directly depends on 6 modules: `AnimationBlueprintLibrary`, `Core`, `CoreUObject`, `Engine`, `RHI` etc.",
       "Placement: `MeshBoneReduction` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `MeshBoneReduction.h` / `MeshBoneReductionModule.h`), then use `FModuleManager::LoadModulePtr<MeshBoneReductionModule>` or the exported types directly.",
-      "Transitive deps: `MeshBoneReduction` also needs `AnimationBlueprintLibrary`, `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`; do not re-list them unless you include their headers."
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MeshBoneReduction\" });`. Use Public when exposing `MeshBoneReduction` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MeshBoneReduction` 的构建规则位于 `Developer/MeshBoneReduction/MeshBoneReduction.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`MeshBoneReduction` build rule is `Developer/MeshBoneReduction/MeshBoneReduction.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`MeshBoneReduction`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Developer/MeshBoneReduction/MeshBoneReduction.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`MeshBoneReduction`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Developer/MeshBoneReduction/MeshBoneReduction.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "meshbuilder",
     "kind": "module",
     "cn_steps": [
-      "用途：`MeshBuilder` 位于 `Developer`，构建规则 `Developer/MeshBuilder/MeshBuilder.Build.cs`。它直接依赖 8 个模块：`ClothingSystemRuntimeNv`, `Core`, `CoreUObject`, `DerivedDataCache`, `Engine`, `MeshBoneReduction`, `MeshBuilderCommon`, `MeshDescription`。",
+      "`MeshBuilder`（Mesh Builder）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Developer`，构建规则 `Developer/MeshBuilder/MeshBuilder.Build.cs`。直接依赖 8 个模块：`ClothingSystemRuntimeNv`、`Core`、`CoreUObject`、`DerivedDataCache`、`Engine` 等。",
+      "部署：`MeshBuilder` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MeshBuilder\" });`；对外暴露 `MeshBuilder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MeshBuilder` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `MeshBuilder.h` / `MeshBuilderModule.h`），再用 `FModuleManager::LoadModulePtr<MeshBuilderModule>` 或直接使用导出类型。",
-      "传递依赖：`MeshBuilder` 还依赖 `ClothingSystemRuntimeNv`, `Core`, `CoreUObject`, `DerivedDataCache`, `Engine`, `MeshBoneReduction`, `MeshBuilderCommon`, `MeshDescription`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MeshBuilder` lives under `Developer`; build rule `Developer/MeshBuilder/MeshBuilder.Build.cs`.It directly depends on 8 modules: `ClothingSystemRuntimeNv`, `Core`, `CoreUObject`, `DerivedDataCache`, `Engine`, `MeshBoneReduction`, `MeshBuilderCommon`, `MeshDescription`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MeshBuilder\" });`. Use Public when exposing `MeshBuilder` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`MeshBuilder` (Mesh Builder): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Developer`; build rule `Developer/MeshBuilder/MeshBuilder.Build.cs`. It directly depends on 8 modules: `ClothingSystemRuntimeNv`, `Core`, `CoreUObject`, `DerivedDataCache`, `Engine` etc.",
       "Placement: `MeshBuilder` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `MeshBuilder.h` / `MeshBuilderModule.h`), then use `FModuleManager::LoadModulePtr<MeshBuilderModule>` or the exported types directly.",
-      "Transitive deps: `MeshBuilder` also needs `ClothingSystemRuntimeNv`, `Core`, `CoreUObject`, `DerivedDataCache`, `Engine`, `MeshBoneReduction`, `MeshBuilderCommon`, `MeshDescription`; do not re-list them unless you include their headers."
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MeshBuilder\" });`. Use Public when exposing `MeshBuilder` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MeshBuilder` 的构建规则位于 `Developer/MeshBuilder/MeshBuilder.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MeshBuilder` build rule is `Developer/MeshBuilder/MeshBuilder.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`MeshBuilder`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Developer/MeshBuilder/MeshBuilder.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MeshBuilder`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Developer/MeshBuilder/MeshBuilder.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "meshbuildercommon",
     "kind": "module",
     "cn_steps": [
-      "用途：`MeshBuilderCommon` 位于 `Developer`，构建规则 `Developer/MeshBuilderCommon/MeshBuilderCommon.Build.cs`。它直接依赖 2 个模块：`Core`, `Engine`。",
+      "`MeshBuilderCommon`（Mesh Builder Common）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Developer`，构建规则 `Developer/MeshBuilderCommon/MeshBuilderCommon.Build.cs`。直接依赖 2 个模块：`Core`、`Engine`。",
+      "部署：`MeshBuilderCommon` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MeshBuilderCommon\" });`；对外暴露 `MeshBuilderCommon` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MeshBuilderCommon` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `MeshBuilderCommon.h` / `MeshBuilderCommonModule.h`），再用 `FModuleManager::LoadModulePtr<MeshBuilderCommonModule>` 或直接使用导出类型。",
-      "传递依赖：`MeshBuilderCommon` 还依赖 `Core`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MeshBuilderCommon` lives under `Developer`; build rule `Developer/MeshBuilderCommon/MeshBuilderCommon.Build.cs`.It directly depends on 2 modules: `Core`, `Engine`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MeshBuilderCommon\" });`. Use Public when exposing `MeshBuilderCommon` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`MeshBuilderCommon` (Mesh Builder Common): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Developer`; build rule `Developer/MeshBuilderCommon/MeshBuilderCommon.Build.cs`. It directly depends on 2 modules: `Core`, `Engine`.",
       "Placement: `MeshBuilderCommon` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `MeshBuilderCommon.h` / `MeshBuilderCommonModule.h`), then use `FModuleManager::LoadModulePtr<MeshBuilderCommonModule>` or the exported types directly.",
-      "Transitive deps: `MeshBuilderCommon` also needs `Core`, `Engine`; do not re-list them unless you include their headers."
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MeshBuilderCommon\" });`. Use Public when exposing `MeshBuilderCommon` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MeshBuilderCommon` 的构建规则位于 `Developer/MeshBuilderCommon/MeshBuilderCommon.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`MeshBuilderCommon` build rule is `Developer/MeshBuilderCommon/MeshBuilderCommon.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`MeshBuilderCommon`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Developer/MeshBuilderCommon/MeshBuilderCommon.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`MeshBuilderCommon`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Developer/MeshBuilderCommon/MeshBuilderCommon.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "meshconversion",
     "kind": "module",
     "cn_steps": [
-      "用途：`MeshConversion` 位于 `Runtime`，构建规则 `Runtime/MeshConversion/MeshConversion.Build.cs`。它直接依赖 5 个模块：`Core`, `GeometryCore`, `MeshDescription`, `SkeletalMeshDescription`, `StaticMeshDescription`。",
+      "`MeshConversion`（Mesh Conversion）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/MeshConversion/MeshConversion.Build.cs`。直接依赖 5 个模块：`Core`、`GeometryCore`、`MeshDescription`、`SkeletalMeshDescription`、`StaticMeshDescription`。",
+      "部署：`MeshConversion` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MeshConversion\" });`；对外暴露 `MeshConversion` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MeshConversion` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MeshConversion.h` / `MeshConversionModule.h`），再用 `FModuleManager::LoadModulePtr<MeshConversionModule>` 或直接使用导出类型。",
-      "传递依赖：`MeshConversion` 还依赖 `Core`, `GeometryCore`, `MeshDescription`, `SkeletalMeshDescription`, `StaticMeshDescription`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MeshConversion` lives under `Runtime`; build rule `Runtime/MeshConversion/MeshConversion.Build.cs`.It directly depends on 5 modules: `Core`, `GeometryCore`, `MeshDescription`, `SkeletalMeshDescription`, `StaticMeshDescription`.",
+      "`MeshConversion` (Mesh Conversion): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/MeshConversion/MeshConversion.Build.cs`. It directly depends on 5 modules: `Core`, `GeometryCore`, `MeshDescription`, `SkeletalMeshDescription`, `StaticMeshDescription`.",
+      "Placement: `MeshConversion` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MeshConversion\" });`. Use Public when exposing `MeshConversion` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MeshConversion` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MeshConversion.h` / `MeshConversionModule.h`), then use `FModuleManager::LoadModulePtr<MeshConversionModule>` or the exported types directly.",
-      "Transitive deps: `MeshConversion` also needs `Core`, `GeometryCore`, `MeshDescription`, `SkeletalMeshDescription`, `StaticMeshDescription`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MeshConversion` 的构建规则位于 `Runtime/MeshConversion/MeshConversion.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`MeshConversion` build rule is `Runtime/MeshConversion/MeshConversion.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`MeshConversion`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/MeshConversion/MeshConversion.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`MeshConversion`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/MeshConversion/MeshConversion.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "meshconversionenginetypes",
     "kind": "module",
     "cn_steps": [
-      "用途：`MeshConversionEngineTypes` 位于 `Runtime`，构建规则 `Runtime/MeshConversionEngineTypes/MeshConversionEngineTypes.Build.cs`。它直接依赖 8 个模块：`Chaos`, `Core`, `Engine`, `GeometryCore`, `MeshConversion`, `MeshDescription`, `SkeletalMeshDescription`, `StaticMeshDescription`。",
+      "`MeshConversionEngineTypes`（Mesh Conversion Engine Types）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/MeshConversionEngineTypes/MeshConversionEngineTypes.Build.cs`。直接依赖 8 个模块：`Chaos`、`Core`、`Engine`、`GeometryCore`、`MeshConversion` 等。",
+      "部署：`MeshConversionEngineTypes` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MeshConversionEngineTypes\" });`；对外暴露 `MeshConversionEngineTypes` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MeshConversionEngineTypes` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MeshConversionEngineTypes.h` / `MeshConversionEngineTypesModule.h`），再用 `FModuleManager::LoadModulePtr<MeshConversionEngineTypesModule>` 或直接使用导出类型。",
-      "传递依赖：`MeshConversionEngineTypes` 还依赖 `Chaos`, `Core`, `Engine`, `GeometryCore`, `MeshConversion`, `MeshDescription`, `SkeletalMeshDescription`, `StaticMeshDescription`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `MeshConversionEngineTypes` lives under `Runtime`; build rule `Runtime/MeshConversionEngineTypes/MeshConversionEngineTypes.Build.cs`.It directly depends on 8 modules: `Chaos`, `Core`, `Engine`, `GeometryCore`, `MeshConversion`, `MeshDescription`, `SkeletalMeshDescription`, `StaticMeshDescription`.",
+      "`MeshConversionEngineTypes` (Mesh Conversion Engine Types): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/MeshConversionEngineTypes/MeshConversionEngineTypes.Build.cs`. It directly depends on 8 modules: `Chaos`, `Core`, `Engine`, `GeometryCore`, `MeshConversion` etc.",
+      "Placement: `MeshConversionEngineTypes` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MeshConversionEngineTypes\" });`. Use Public when exposing `MeshConversionEngineTypes` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MeshConversionEngineTypes` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MeshConversionEngineTypes.h` / `MeshConversionEngineTypesModule.h`), then use `FModuleManager::LoadModulePtr<MeshConversionEngineTypesModule>` or the exported types directly.",
-      "Transitive deps: `MeshConversionEngineTypes` also needs `Chaos`, `Core`, `Engine`, `GeometryCore`, `MeshConversion`, `MeshDescription`, `SkeletalMeshDescription`, `StaticMeshDescription`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`MeshConversionEngineTypes` 的构建规则位于 `Runtime/MeshConversionEngineTypes/MeshConversionEngineTypes.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`MeshConversionEngineTypes` build rule is `Runtime/MeshConversionEngineTypes/MeshConversionEngineTypes.Build.cs`; depends on 8 modules; category Module."
-  },
-  {
-    "slug": "meshdescription",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`MeshDescription` 位于 `Runtime`，构建规则 `Runtime/MeshDescription/MeshDescription.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `DerivedDataCache`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MeshDescription\" });`；对外暴露 `MeshDescription` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`MeshDescription` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `MeshDescription.h` / `MeshDescriptionModule.h`），再用 `FModuleManager::LoadModulePtr<MeshDescriptionModule>` 或直接使用导出类型。",
-      "传递依赖：`MeshDescription` 还依赖 `Core`, `CoreUObject`, `DerivedDataCache`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `MeshDescription` lives under `Runtime`; build rule `Runtime/MeshDescription/MeshDescription.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `DerivedDataCache`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MeshDescription\" });`. Use Public when exposing `MeshDescription` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `MeshDescription` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `MeshDescription.h` / `MeshDescriptionModule.h`), then use `FModuleManager::LoadModulePtr<MeshDescriptionModule>` or the exported types directly.",
-      "Transitive deps: `MeshDescription` also needs `Core`, `CoreUObject`, `DerivedDataCache`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`MeshDescription` 的构建规则位于 `Runtime/MeshDescription/MeshDescription.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`MeshDescription` build rule is `Runtime/MeshDescription/MeshDescription.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`MeshConversionEngineTypes`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/MeshConversionEngineTypes/MeshConversionEngineTypes.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`MeshConversionEngineTypes`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/MeshConversionEngineTypes/MeshConversionEngineTypes.Build.cs`; depends on 8 modules."
   }
 ]

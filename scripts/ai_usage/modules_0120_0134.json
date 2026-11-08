@@ -3,306 +3,300 @@
     "slug": "buildpatchtool",
     "kind": "module",
     "cn_steps": [
-      "用途：`BuildPatchTool` 位于 `Programs`，构建规则 `Programs/BuildPatchTool/BuildPatchTool.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AutomationController`, `AutomationWorker`, `BuildPatchServices`, `BuildSettings`, `Core`, `CoreUObject`, `GoogleTest`。",
+      "`BuildPatchTool`（Build Patch Tool）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/BuildPatchTool/BuildPatchTool.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`AutomationController`、`AutomationWorker`、`BuildPatchServices`、`BuildSettings` 等。",
+      "部署：`BuildPatchTool` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BuildPatchTool\" });`；对外暴露 `BuildPatchTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BuildPatchTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `BuildPatchTool.h` / `BuildPatchToolModule.h`），再用 `FModuleManager::LoadModulePtr<BuildPatchToolModule>` 或直接使用导出类型。",
-      "传递依赖：`BuildPatchTool` 还依赖 `ApplicationCore`, `AutomationController`, `AutomationWorker`, `BuildPatchServices`, `BuildSettings`, `Core`, `CoreUObject`, `GoogleTest`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `BuildPatchTool` lives under `Programs`; build rule `Programs/BuildPatchTool/BuildPatchTool.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AutomationController`, `AutomationWorker`, `BuildPatchServices`, `BuildSettings`, `Core`, `CoreUObject`, `GoogleTest`.",
+      "`BuildPatchTool` (Build Patch Tool): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/BuildPatchTool/BuildPatchTool.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `AutomationController`, `AutomationWorker`, `BuildPatchServices`, `BuildSettings` etc.",
+      "Placement: `BuildPatchTool` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BuildPatchTool\" });`. Use Public when exposing `BuildPatchTool` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BuildPatchTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `BuildPatchTool.h` / `BuildPatchToolModule.h`), then use `FModuleManager::LoadModulePtr<BuildPatchToolModule>` or the exported types directly.",
-      "Transitive deps: `BuildPatchTool` also needs `ApplicationCore`, `AutomationController`, `AutomationWorker`, `BuildPatchServices`, `BuildSettings`, `Core`, `CoreUObject`, `GoogleTest`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`BuildPatchTool` 的构建规则位于 `Programs/BuildPatchTool/BuildPatchTool.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`BuildPatchTool` build rule is `Programs/BuildPatchTool/BuildPatchTool.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`BuildPatchTool`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/BuildPatchTool/BuildPatchTool.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`BuildPatchTool`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/BuildPatchTool/BuildPatchTool.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "buildsettings",
     "kind": "module",
     "cn_steps": [
-      "用途：`BuildSettings` 位于 `Runtime`，构建规则 `Runtime/BuildSettings/BuildSettings.Build.cs`。描述符未声明依赖。",
+      "`BuildSettings`（Build Settings）：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）。位于 `Runtime`，构建规则 `Runtime/BuildSettings/BuildSettings.Build.cs`。描述符未声明依赖。",
+      "部署：`BuildSettings` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：几乎被所有模块间接依赖；一般无需显式添加，除非你在写底层插件或工具。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BuildSettings\" });`；对外暴露 `BuildSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BuildSettings` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `BuildSettings.h` / `BuildSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<BuildSettingsModule>` 或直接使用导出类型。",
-      "传递依赖：`BuildSettings` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `BuildSettings` lives under `Runtime`; build rule `Runtime/BuildSettings/BuildSettings.Build.cs`.The descriptor declares no dependencies.",
+      "`BuildSettings` (Build Settings): it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata). Located under `Runtime`; build rule `Runtime/BuildSettings/BuildSettings.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `BuildSettings` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: almost every module depends on it transitively; you rarely add it explicitly unless writing low-level plugins/tools.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BuildSettings\" });`. Use Public when exposing `BuildSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BuildSettings` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `BuildSettings.h` / `BuildSettingsModule.h`), then use `FModuleManager::LoadModulePtr<BuildSettingsModule>` or the exported types directly.",
-      "Transitive deps: `BuildSettings` declares no extra public deps; it typically relies on engine basics."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`BuildSettings` 的构建规则位于 `Runtime/BuildSettings/BuildSettings.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`BuildSettings` build rule is `Runtime/BuildSettings/BuildSettings.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`BuildSettings`：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）；构建规则 `Runtime/BuildSettings/BuildSettings.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`BuildSettings`: it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata); build rule `Runtime/BuildSettings/BuildSettings.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "buildstoragetool",
     "kind": "module",
     "cn_steps": [
-      "用途：`BuildStorageTool` 位于 `Programs`，构建规则 `Programs/BuildStorageTool/BuildStorageTool.Build.cs`。它直接依赖 8 个模块：`Analytics`, `ApplicationCore`, `Core`, `DesktopPlatform`, `Json`, `OutputLog`, `PakFile`, `Projects`。",
+      "`BuildStorageTool`（Build Storage Tool）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/BuildStorageTool/BuildStorageTool.Build.cs`。直接依赖 8 个模块：`Analytics`、`ApplicationCore`、`Core`、`DesktopPlatform`、`Json` 等。",
+      "部署：`BuildStorageTool` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BuildStorageTool\" });`；对外暴露 `BuildStorageTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`BuildStorageTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `BuildStorageTool.h` / `BuildStorageToolModule.h`），再用 `FModuleManager::LoadModulePtr<BuildStorageToolModule>` 或直接使用导出类型。",
-      "传递依赖：`BuildStorageTool` 还依赖 `Analytics`, `ApplicationCore`, `Core`, `DesktopPlatform`, `Json`, `OutputLog`, `PakFile`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `BuildStorageTool` lives under `Programs`; build rule `Programs/BuildStorageTool/BuildStorageTool.Build.cs`.It directly depends on 8 modules: `Analytics`, `ApplicationCore`, `Core`, `DesktopPlatform`, `Json`, `OutputLog`, `PakFile`, `Projects`.",
+      "`BuildStorageTool` (Build Storage Tool): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/BuildStorageTool/BuildStorageTool.Build.cs`. It directly depends on 8 modules: `Analytics`, `ApplicationCore`, `Core`, `DesktopPlatform`, `Json` etc.",
+      "Placement: `BuildStorageTool` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BuildStorageTool\" });`. Use Public when exposing `BuildStorageTool` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `BuildStorageTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `BuildStorageTool.h` / `BuildStorageToolModule.h`), then use `FModuleManager::LoadModulePtr<BuildStorageToolModule>` or the exported types directly.",
-      "Transitive deps: `BuildStorageTool` also needs `Analytics`, `ApplicationCore`, `Core`, `DesktopPlatform`, `Json`, `OutputLog`, `PakFile`, `Projects`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`BuildStorageTool` 的构建规则位于 `Programs/BuildStorageTool/BuildStorageTool.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`BuildStorageTool` build rule is `Programs/BuildStorageTool/BuildStorageTool.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`BuildStorageTool`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/BuildStorageTool/BuildStorageTool.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`BuildStorageTool`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/BuildStorageTool/BuildStorageTool.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "cadkernel",
     "kind": "module",
     "cn_steps": [
-      "用途：`CADKernel` 位于 `Runtime`，构建规则 `Runtime/Datasmith/CADKernel/Base/CADKernel.Build.cs`。它直接依赖 2 个模块：`Core`, `GeometryCore`。",
+      "`CADKernel`（CAD Kernel）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/Datasmith/CADKernel/Base/CADKernel.Build.cs`。直接依赖 2 个模块：`Core`、`GeometryCore`。",
+      "部署：`CADKernel` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CADKernel\" });`；对外暴露 `CADKernel` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CADKernel` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `CADKernel.h` / `CADKernelModule.h`），再用 `FModuleManager::LoadModulePtr<CADKernelModule>` 或直接使用导出类型。",
-      "传递依赖：`CADKernel` 还依赖 `Core`, `GeometryCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `CADKernel` lives under `Runtime`; build rule `Runtime/Datasmith/CADKernel/Base/CADKernel.Build.cs`.It directly depends on 2 modules: `Core`, `GeometryCore`.",
+      "`CADKernel` (CAD Kernel): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/Datasmith/CADKernel/Base/CADKernel.Build.cs`. It directly depends on 2 modules: `Core`, `GeometryCore`.",
+      "Placement: `CADKernel` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CADKernel\" });`. Use Public when exposing `CADKernel` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CADKernel` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `CADKernel.h` / `CADKernelModule.h`), then use `FModuleManager::LoadModulePtr<CADKernelModule>` or the exported types directly.",
-      "Transitive deps: `CADKernel` also needs `Core`, `GeometryCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`CADKernel` 的构建规则位于 `Runtime/Datasmith/CADKernel/Base/CADKernel.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`CADKernel` build rule is `Runtime/Datasmith/CADKernel/Base/CADKernel.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`CADKernel`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/Datasmith/CADKernel/Base/CADKernel.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`CADKernel`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/Datasmith/CADKernel/Base/CADKernel.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "cadkerneleditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`CADKernelEditor` 位于 `Runtime`，构建规则 `Runtime/Datasmith/CADKernel/Editor/CADKernelEditor.Build.cs`。它直接依赖 8 个模块：`CADKernel`, `CADKernelEngine`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Slate`。",
+      "`CADKernelEditor`（CAD Kernel Editor）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/Datasmith/CADKernel/Editor/CADKernelEditor.Build.cs`。直接依赖 8 个模块：`CADKernel`、`CADKernelEngine`、`ContentBrowser`、`Core`、`CoreUObject` 等。",
+      "部署：`CADKernelEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CADKernelEditor\" });`；对外暴露 `CADKernelEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CADKernelEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `CADKernelEditor.h` / `CADKernelEditorModule.h`），再用 `FModuleManager::LoadModulePtr<CADKernelEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`CADKernelEditor` 还依赖 `CADKernel`, `CADKernelEngine`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `CADKernelEditor` lives under `Runtime`; build rule `Runtime/Datasmith/CADKernel/Editor/CADKernelEditor.Build.cs`.It directly depends on 8 modules: `CADKernel`, `CADKernelEngine`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Slate`.",
+      "`CADKernelEditor` (CAD Kernel Editor): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/Datasmith/CADKernel/Editor/CADKernelEditor.Build.cs`. It directly depends on 8 modules: `CADKernel`, `CADKernelEngine`, `ContentBrowser`, `Core`, `CoreUObject` etc.",
+      "Placement: `CADKernelEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CADKernelEditor\" });`. Use Public when exposing `CADKernelEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CADKernelEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `CADKernelEditor.h` / `CADKernelEditorModule.h`), then use `FModuleManager::LoadModulePtr<CADKernelEditorModule>` or the exported types directly.",
-      "Transitive deps: `CADKernelEditor` also needs `CADKernel`, `CADKernelEngine`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `Slate`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`CADKernelEditor` 的构建规则位于 `Runtime/Datasmith/CADKernel/Editor/CADKernelEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`CADKernelEditor` build rule is `Runtime/Datasmith/CADKernel/Editor/CADKernelEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`CADKernelEditor`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/Datasmith/CADKernel/Editor/CADKernelEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`CADKernelEditor`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/Datasmith/CADKernel/Editor/CADKernelEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "cadkernelengine",
     "kind": "module",
     "cn_steps": [
-      "用途：`CADKernelEngine` 位于 `Runtime`，构建规则 `Runtime/Datasmith/CADKernel/Engine/CADKernelEngine.Build.cs`。它直接依赖 8 个模块：`CADKernel`, `Core`, `CoreUObject`, `GeometryCore`, `Json`, `MeshConversion`, `MeshDescription`, `StaticMeshDescription`。",
+      "`CADKernelEngine`（CAD Kernel Engine）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Runtime`，构建规则 `Runtime/Datasmith/CADKernel/Engine/CADKernelEngine.Build.cs`。直接依赖 8 个模块：`CADKernel`、`Core`、`CoreUObject`、`GeometryCore`、`Json` 等。",
+      "部署：`CADKernelEngine` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CADKernelEngine\" });`；对外暴露 `CADKernelEngine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CADKernelEngine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `CADKernelEngine.h` / `CADKernelEngineModule.h`），再用 `FModuleManager::LoadModulePtr<CADKernelEngineModule>` 或直接使用导出类型。",
-      "传递依赖：`CADKernelEngine` 还依赖 `CADKernel`, `Core`, `CoreUObject`, `GeometryCore`, `Json`, `MeshConversion`, `MeshDescription`, `StaticMeshDescription`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `CADKernelEngine` lives under `Runtime`; build rule `Runtime/Datasmith/CADKernel/Engine/CADKernelEngine.Build.cs`.It directly depends on 8 modules: `CADKernel`, `Core`, `CoreUObject`, `GeometryCore`, `Json`, `MeshConversion`, `MeshDescription`, `StaticMeshDescription`.",
+      "`CADKernelEngine` (CAD Kernel Engine): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Runtime`; build rule `Runtime/Datasmith/CADKernel/Engine/CADKernelEngine.Build.cs`. It directly depends on 8 modules: `CADKernel`, `Core`, `CoreUObject`, `GeometryCore`, `Json` etc.",
+      "Placement: `CADKernelEngine` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CADKernelEngine\" });`. Use Public when exposing `CADKernelEngine` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CADKernelEngine` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `CADKernelEngine.h` / `CADKernelEngineModule.h`), then use `FModuleManager::LoadModulePtr<CADKernelEngineModule>` or the exported types directly.",
-      "Transitive deps: `CADKernelEngine` also needs `CADKernel`, `Core`, `CoreUObject`, `GeometryCore`, `Json`, `MeshConversion`, `MeshDescription`, `StaticMeshDescription`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`CADKernelEngine` 的构建规则位于 `Runtime/Datasmith/CADKernel/Engine/CADKernelEngine.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`CADKernelEngine` build rule is `Runtime/Datasmith/CADKernel/Engine/CADKernelEngine.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`CADKernelEngine`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Runtime/Datasmith/CADKernel/Engine/CADKernelEngine.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`CADKernelEngine`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Runtime/Datasmith/CADKernel/Engine/CADKernelEngine.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "cares",
     "kind": "module",
     "cn_steps": [
-      "用途：`cares` 位于 `ThirdParty`，构建规则 `ThirdParty/cares/cares.Build.cs`。描述符未声明依赖。",
+      "`cares`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/cares/cares.Build.cs`。描述符未声明依赖。",
+      "部署：`cares` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"cares\" });`；对外暴露 `cares` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`cares` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `cares.h` / `caresModule.h`），再用 `FModuleManager::LoadModulePtr<caresModule>` 或直接使用导出类型。",
-      "传递依赖：`cares` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `cares` lives under `ThirdParty`; build rule `ThirdParty/cares/cares.Build.cs`.The descriptor declares no dependencies.",
+      "`cares`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/cares/cares.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `cares` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"cares\" });`. Use Public when exposing `cares` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `cares` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `cares.h` / `caresModule.h`), then use `FModuleManager::LoadModulePtr<caresModule>` or the exported types directly.",
-      "Transitive deps: `cares` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`cares` 的构建规则位于 `ThirdParty/cares/cares.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`cares` build rule is `ThirdParty/cares/cares.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`cares`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/cares/cares.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`cares`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/cares/cares.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "catch2extras",
     "kind": "module",
     "cn_steps": [
-      "用途：`Catch2Extras` 位于 `ThirdParty`，构建规则 `ThirdParty/Catch2/Catch2Extras.Build.cs`。描述符未声明依赖。",
+      "`Catch2Extras`（Catch2 Extras）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Catch2/Catch2Extras.Build.cs`。描述符未声明依赖。",
+      "部署：`Catch2Extras` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Catch2Extras\" });`；对外暴露 `Catch2Extras` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Catch2Extras` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Catch2Extras.h` / `Catch2ExtrasModule.h`），再用 `FModuleManager::LoadModulePtr<Catch2ExtrasModule>` 或直接使用导出类型。",
-      "传递依赖：`Catch2Extras` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Catch2Extras` lives under `ThirdParty`; build rule `ThirdParty/Catch2/Catch2Extras.Build.cs`.The descriptor declares no dependencies.",
+      "`Catch2Extras` (Catch2 Extras): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Catch2/Catch2Extras.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Catch2Extras` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Catch2Extras\" });`. Use Public when exposing `Catch2Extras` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Catch2Extras` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Catch2Extras.h` / `Catch2ExtrasModule.h`), then use `FModuleManager::LoadModulePtr<Catch2ExtrasModule>` or the exported types directly.",
-      "Transitive deps: `Catch2Extras` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Catch2Extras` 的构建规则位于 `ThirdParty/Catch2/Catch2Extras.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Catch2Extras` build rule is `ThirdParty/Catch2/Catch2Extras.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`Catch2Extras`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Catch2/Catch2Extras.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Catch2Extras`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Catch2/Catch2Extras.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "cbor",
     "kind": "module",
     "cn_steps": [
-      "用途：`Cbor` 位于 `Runtime`，构建规则 `Runtime/Cbor/Cbor.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`Cbor`：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）。位于 `Runtime`，构建规则 `Runtime/Cbor/Cbor.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`Cbor` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要读写结构化数据或配置的代码里 include 其头文件，直接调用其序列化/解析 API。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Cbor\" });`；对外暴露 `Cbor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Cbor` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Cbor.h` / `CborModule.h`），再用 `FModuleManager::LoadModulePtr<CborModule>` 或直接使用导出类型。",
-      "传递依赖：`Cbor` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Cbor` lives under `Runtime`; build rule `Runtime/Cbor/Cbor.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`Cbor`: it is part of data/serialization (JSON/XML/Config/struct serialization/logging). Located under `Runtime`; build rule `Runtime/Cbor/Cbor.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `Cbor` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: include its headers where you read/write structured data or config and call its serialization/parse API.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Cbor\" });`. Use Public when exposing `Cbor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Cbor` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Cbor.h` / `CborModule.h`), then use `FModuleManager::LoadModulePtr<CborModule>` or the exported types directly.",
-      "Transitive deps: `Cbor` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Cbor` 的构建规则位于 `Runtime/Cbor/Cbor.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`Cbor` build rule is `Runtime/Cbor/Cbor.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`Cbor`：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）；构建规则 `Runtime/Cbor/Cbor.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`Cbor`: it is part of data/serialization (JSON/XML/Config/struct serialization/logging); build rule `Runtime/Cbor/Cbor.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "cef3utils",
     "kind": "module",
     "cn_steps": [
-      "用途：`CEF3Utils` 位于 `Runtime`，构建规则 `Runtime/CEF3Utils/CEF3Utils.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`CEF3Utils`（CEF3 Utils）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Runtime`，构建规则 `Runtime/CEF3Utils/CEF3Utils.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`CEF3Utils` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CEF3Utils\" });`；对外暴露 `CEF3Utils` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CEF3Utils` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `CEF3Utils.h` / `CEF3UtilsModule.h`），再用 `FModuleManager::LoadModulePtr<CEF3UtilsModule>` 或直接使用导出类型。",
-      "传递依赖：`CEF3Utils` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `CEF3Utils` lives under `Runtime`; build rule `Runtime/CEF3Utils/CEF3Utils.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`CEF3Utils` (CEF3 Utils): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Runtime`; build rule `Runtime/CEF3Utils/CEF3Utils.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `CEF3Utils` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CEF3Utils\" });`. Use Public when exposing `CEF3Utils` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CEF3Utils` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `CEF3Utils.h` / `CEF3UtilsModule.h`), then use `FModuleManager::LoadModulePtr<CEF3UtilsModule>` or the exported types directly.",
-      "Transitive deps: `CEF3Utils` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`CEF3Utils` 的构建规则位于 `Runtime/CEF3Utils/CEF3Utils.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`CEF3Utils` build rule is `Runtime/CEF3Utils/CEF3Utils.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`CEF3Utils`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Runtime/CEF3Utils/CEF3Utils.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`CEF3Utils`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Runtime/CEF3Utils/CEF3Utils.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "celspec",
     "kind": "module",
     "cn_steps": [
-      "用途：`CelSpec` 位于 `ThirdParty`，构建规则 `ThirdParty/cel-spec/CelSpec.Build.cs`。它直接依赖 2 个模块：`Core`, `Protobuf`。",
+      "`CelSpec`（Cel Spec）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/cel-spec/CelSpec.Build.cs`。直接依赖 2 个模块：`Core`、`Protobuf`。",
+      "部署：`CelSpec` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CelSpec\" });`；对外暴露 `CelSpec` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CelSpec` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `CelSpec.h` / `CelSpecModule.h`），再用 `FModuleManager::LoadModulePtr<CelSpecModule>` 或直接使用导出类型。",
-      "传递依赖：`CelSpec` 还依赖 `Core`, `Protobuf`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `CelSpec` lives under `ThirdParty`; build rule `ThirdParty/cel-spec/CelSpec.Build.cs`.It directly depends on 2 modules: `Core`, `Protobuf`.",
+      "`CelSpec` (Cel Spec): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/cel-spec/CelSpec.Build.cs`. It directly depends on 2 modules: `Core`, `Protobuf`.",
+      "Placement: `CelSpec` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CelSpec\" });`. Use Public when exposing `CelSpec` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CelSpec` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `CelSpec.h` / `CelSpecModule.h`), then use `FModuleManager::LoadModulePtr<CelSpecModule>` or the exported types directly.",
-      "Transitive deps: `CelSpec` also needs `Core`, `Protobuf`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`CelSpec` 的构建规则位于 `ThirdParty/cel-spec/CelSpec.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`CelSpec` build rule is `ThirdParty/cel-spec/CelSpec.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`CelSpec`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/cel-spec/CelSpec.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`CelSpec`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/cel-spec/CelSpec.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "chaos",
     "kind": "module",
     "cn_steps": [
-      "用途：`Chaos` 位于 `Runtime`，构建规则 `Runtime/Experimental/Chaos/Chaos.Build.cs`。它直接依赖 8 个模块：`AutoRTFM`, `ChaosCore`, `ChaosVDRuntime`, `Core`, `CoreUObject`, `Eigen`, `GeometryCore`, `IntelISPC`。",
+      "`Chaos`：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）。位于 `Runtime`，构建规则 `Runtime/Experimental/Chaos/Chaos.Build.cs`。直接依赖 8 个模块：`AutoRTFM`、`ChaosCore`、`ChaosVDRuntime`、`Core`、`CoreUObject` 等。",
+      "部署：`Chaos` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给网格开启物理/Chaos，放置字段或破坏资产；运行时由物理系统模拟，代码里查询碰撞与物理状态。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Chaos\" });`；对外暴露 `Chaos` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Chaos` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Chaos.h` / `ChaosModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosModule>` 或直接使用导出类型。",
-      "传递依赖：`Chaos` 还依赖 `AutoRTFM`, `ChaosCore`, `ChaosVDRuntime`, `Core`, `CoreUObject`, `Eigen`, `GeometryCore`, `IntelISPC`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`Chaos` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Chaos` lives under `Runtime`; build rule `Runtime/Experimental/Chaos/Chaos.Build.cs`.It directly depends on 8 modules: `AutoRTFM`, `ChaosCore`, `ChaosVDRuntime`, `Core`, `CoreUObject`, `Eigen`, `GeometryCore`, `IntelISPC`.",
+      "`Chaos`: it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields). Located under `Runtime`; build rule `Runtime/Experimental/Chaos/Chaos.Build.cs`. It directly depends on 8 modules: `AutoRTFM`, `ChaosCore`, `ChaosVDRuntime`, `Core`, `CoreUObject` etc.",
+      "Placement: `Chaos` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: enable physics/Chaos on meshes and place fields or destruction assets; the physics system simulates at runtime and you query collisions/state from code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Chaos\" });`. Use Public when exposing `Chaos` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Chaos` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Chaos.h` / `ChaosModule.h`), then use `FModuleManager::LoadModulePtr<ChaosModule>` or the exported types directly.",
-      "Transitive deps: `Chaos` also needs `AutoRTFM`, `ChaosCore`, `ChaosVDRuntime`, `Core`, `CoreUObject`, `Eigen`, `GeometryCore`, `IntelISPC`; do not re-list them unless you include their headers.",
-      "Note: `Chaos` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Chaos` 的构建规则位于 `Runtime/Experimental/Chaos/Chaos.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`Chaos` build rule is `Runtime/Experimental/Chaos/Chaos.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`Chaos`：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）；构建规则 `Runtime/Experimental/Chaos/Chaos.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`Chaos`: it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields); build rule `Runtime/Experimental/Chaos/Chaos.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "chaoscore",
     "kind": "module",
     "cn_steps": [
-      "用途：`ChaosCore` 位于 `Runtime`，构建规则 `Runtime/Experimental/ChaosCore/ChaosCore.Build.cs`。它直接依赖 2 个模块：`Core`, `IntelISPC`。",
+      "`ChaosCore`（Chaos Core）：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）。位于 `Runtime`，构建规则 `Runtime/Experimental/ChaosCore/ChaosCore.Build.cs`。直接依赖 2 个模块：`Core`、`IntelISPC`。",
+      "部署：`ChaosCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给网格开启物理/Chaos，放置字段或破坏资产；运行时由物理系统模拟，代码里查询碰撞与物理状态。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosCore\" });`；对外暴露 `ChaosCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ChaosCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `ChaosCore.h` / `ChaosCoreModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`ChaosCore` 还依赖 `Core`, `IntelISPC`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`ChaosCore` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ChaosCore` lives under `Runtime`; build rule `Runtime/Experimental/ChaosCore/ChaosCore.Build.cs`.It directly depends on 2 modules: `Core`, `IntelISPC`.",
+      "`ChaosCore` (Chaos Core): it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields). Located under `Runtime`; build rule `Runtime/Experimental/ChaosCore/ChaosCore.Build.cs`. It directly depends on 2 modules: `Core`, `IntelISPC`.",
+      "Placement: `ChaosCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: enable physics/Chaos on meshes and place fields or destruction assets; the physics system simulates at runtime and you query collisions/state from code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosCore\" });`. Use Public when exposing `ChaosCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ChaosCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `ChaosCore.h` / `ChaosCoreModule.h`), then use `FModuleManager::LoadModulePtr<ChaosCoreModule>` or the exported types directly.",
-      "Transitive deps: `ChaosCore` also needs `Core`, `IntelISPC`; do not re-list them unless you include their headers.",
-      "Note: `ChaosCore` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ChaosCore` 的构建规则位于 `Runtime/Experimental/ChaosCore/ChaosCore.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`ChaosCore` build rule is `Runtime/Experimental/ChaosCore/ChaosCore.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`ChaosCore`：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）；构建规则 `Runtime/Experimental/ChaosCore/ChaosCore.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`ChaosCore`: it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields); build rule `Runtime/Experimental/ChaosCore/ChaosCore.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "chaosphysicstests",
     "kind": "module",
     "cn_steps": [
-      "用途：`ChaosPhysicsTests` 位于 `Programs`，构建规则 `Programs/ChaosPhysicsTests/ChaosPhysicsTests.Build.cs`。它直接依赖 4 个模块：`ChaosTestHarness`, `Core`, `CoreUObject`, `Engine`。",
+      "`ChaosPhysicsTests`（Chaos Physics Tests）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/ChaosPhysicsTests/ChaosPhysicsTests.Build.cs`。直接依赖 4 个模块：`ChaosTestHarness`、`Core`、`CoreUObject`、`Engine`。",
+      "部署：`ChaosPhysicsTests` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosPhysicsTests\" });`；对外暴露 `ChaosPhysicsTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ChaosPhysicsTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `ChaosPhysicsTests.h` / `ChaosPhysicsTestsModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosPhysicsTestsModule>` 或直接使用导出类型。",
-      "传递依赖：`ChaosPhysicsTests` 还依赖 `ChaosTestHarness`, `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `ChaosPhysicsTests` lives under `Programs`; build rule `Programs/ChaosPhysicsTests/ChaosPhysicsTests.Build.cs`.It directly depends on 4 modules: `ChaosTestHarness`, `Core`, `CoreUObject`, `Engine`.",
+      "`ChaosPhysicsTests` (Chaos Physics Tests): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/ChaosPhysicsTests/ChaosPhysicsTests.Build.cs`. It directly depends on 4 modules: `ChaosTestHarness`, `Core`, `CoreUObject`, `Engine`.",
+      "Placement: `ChaosPhysicsTests` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosPhysicsTests\" });`. Use Public when exposing `ChaosPhysicsTests` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ChaosPhysicsTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `ChaosPhysicsTests.h` / `ChaosPhysicsTestsModule.h`), then use `FModuleManager::LoadModulePtr<ChaosPhysicsTestsModule>` or the exported types directly.",
-      "Transitive deps: `ChaosPhysicsTests` also needs `ChaosTestHarness`, `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`ChaosPhysicsTests` 的构建规则位于 `Programs/ChaosPhysicsTests/ChaosPhysicsTests.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`ChaosPhysicsTests` build rule is `Programs/ChaosPhysicsTests/ChaosPhysicsTests.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`ChaosPhysicsTests`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/ChaosPhysicsTests/ChaosPhysicsTests.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`ChaosPhysicsTests`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/ChaosPhysicsTests/ChaosPhysicsTests.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "chaossolverengine",
     "kind": "module",
     "cn_steps": [
-      "用途：`ChaosSolverEngine` 位于 `Runtime`，构建规则 `Runtime/Experimental/ChaosSolverEngine/ChaosSolverEngine.Build.cs`。它直接依赖 8 个模块：`ChaosVDRuntime`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `DataflowSimulation`, `DeveloperSettings`, `Engine`。",
+      "`ChaosSolverEngine`（Chaos Solver Engine）：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）。位于 `Runtime`，构建规则 `Runtime/Experimental/ChaosSolverEngine/ChaosSolverEngine.Build.cs`。直接依赖 8 个模块：`ChaosVDRuntime`、`Core`、`CoreUObject`、`DataflowCore`、`DataflowEngine` 等。",
+      "部署：`ChaosSolverEngine` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给网格开启物理/Chaos，放置字段或破坏资产；运行时由物理系统模拟，代码里查询碰撞与物理状态。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosSolverEngine\" });`；对外暴露 `ChaosSolverEngine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ChaosSolverEngine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `ChaosSolverEngine.h` / `ChaosSolverEngineModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosSolverEngineModule>` 或直接使用导出类型。",
-      "传递依赖：`ChaosSolverEngine` 还依赖 `ChaosVDRuntime`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `DataflowSimulation`, `DeveloperSettings`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`ChaosSolverEngine` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ChaosSolverEngine` lives under `Runtime`; build rule `Runtime/Experimental/ChaosSolverEngine/ChaosSolverEngine.Build.cs`.It directly depends on 8 modules: `ChaosVDRuntime`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `DataflowSimulation`, `DeveloperSettings`, `Engine`.",
+      "`ChaosSolverEngine` (Chaos Solver Engine): it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields). Located under `Runtime`; build rule `Runtime/Experimental/ChaosSolverEngine/ChaosSolverEngine.Build.cs`. It directly depends on 8 modules: `ChaosVDRuntime`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine` etc.",
+      "Placement: `ChaosSolverEngine` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: enable physics/Chaos on meshes and place fields or destruction assets; the physics system simulates at runtime and you query collisions/state from code.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosSolverEngine\" });`. Use Public when exposing `ChaosSolverEngine` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ChaosSolverEngine` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `ChaosSolverEngine.h` / `ChaosSolverEngineModule.h`), then use `FModuleManager::LoadModulePtr<ChaosSolverEngineModule>` or the exported types directly.",
-      "Transitive deps: `ChaosSolverEngine` also needs `ChaosVDRuntime`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `DataflowSimulation`, `DeveloperSettings`, `Engine`; do not re-list them unless you include their headers.",
-      "Note: `ChaosSolverEngine` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ChaosSolverEngine` 的构建规则位于 `Runtime/Experimental/ChaosSolverEngine/ChaosSolverEngine.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`ChaosSolverEngine` build rule is `Runtime/Experimental/ChaosSolverEngine/ChaosSolverEngine.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`ChaosSolverEngine`：它属于物理/Chaos（刚体、碰撞、破坏、车辆、布料、物理场）；构建规则 `Runtime/Experimental/ChaosSolverEngine/ChaosSolverEngine.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`ChaosSolverEngine`: it is part of physics/Chaos (rigid bodies, collisions, destruction, vehicles, cloth, fields); build rule `Runtime/Experimental/ChaosSolverEngine/ChaosSolverEngine.Build.cs`; depends on 8 modules."
   }
 ]

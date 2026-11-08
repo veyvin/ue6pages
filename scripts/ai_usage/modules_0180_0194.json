@@ -3,300 +3,300 @@
     "slug": "cuda",
     "kind": "module",
     "cn_steps": [
-      "用途：`CUDA` 位于 `Runtime`，构建规则 `Runtime/CUDA/Source/CUDA.Build.cs`。它直接依赖 1 个模块：`CUDAHeader`。",
+      "`CUDA`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/CUDA/Source/CUDA.Build.cs`。直接依赖 1 个模块：`CUDAHeader`。",
+      "部署：`CUDA` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CUDA\" });`；对外暴露 `CUDA` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CUDA` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `CUDA.h` / `CUDAModule.h`），再用 `FModuleManager::LoadModulePtr<CUDAModule>` 或直接使用导出类型。",
-      "传递依赖：`CUDA` 还依赖 `CUDAHeader`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `CUDA` lives under `Runtime`; build rule `Runtime/CUDA/Source/CUDA.Build.cs`.It directly depends on 1 modules: `CUDAHeader`.",
+      "`CUDA`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/CUDA/Source/CUDA.Build.cs`. It directly depends on 1 modules: `CUDAHeader`.",
+      "Placement: `CUDA` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CUDA\" });`. Use Public when exposing `CUDA` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CUDA` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `CUDA.h` / `CUDAModule.h`), then use `FModuleManager::LoadModulePtr<CUDAModule>` or the exported types directly.",
-      "Transitive deps: `CUDA` also needs `CUDAHeader`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`CUDA` 的构建规则位于 `Runtime/CUDA/Source/CUDA.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`CUDA` build rule is `Runtime/CUDA/Source/CUDA.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`CUDA`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/CUDA/Source/CUDA.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`CUDA`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/CUDA/Source/CUDA.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "cudaheader",
     "kind": "module",
     "cn_steps": [
-      "用途：`CUDAHeader` 位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/CUDA/CUDAHeader.Build.cs`。描述符未声明依赖。",
+      "`CUDAHeader`（CUDA Header）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/CUDA/CUDAHeader.Build.cs`。描述符未声明依赖。",
+      "部署：`CUDAHeader` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CUDAHeader\" });`；对外暴露 `CUDAHeader` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CUDAHeader` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `CUDAHeader.h` / `CUDAHeaderModule.h`），再用 `FModuleManager::LoadModulePtr<CUDAHeaderModule>` 或直接使用导出类型。",
-      "传递依赖：`CUDAHeader` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `CUDAHeader` lives under `ThirdParty`; build rule `ThirdParty/NVIDIA/CUDA/CUDAHeader.Build.cs`.The descriptor declares no dependencies.",
+      "`CUDAHeader` (CUDA Header): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/NVIDIA/CUDA/CUDAHeader.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `CUDAHeader` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CUDAHeader\" });`. Use Public when exposing `CUDAHeader` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CUDAHeader` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `CUDAHeader.h` / `CUDAHeaderModule.h`), then use `FModuleManager::LoadModulePtr<CUDAHeaderModule>` or the exported types directly.",
-      "Transitive deps: `CUDAHeader` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`CUDAHeader` 的构建规则位于 `ThirdParty/NVIDIA/CUDA/CUDAHeader.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`CUDAHeader` build rule is `ThirdParty/NVIDIA/CUDA/CUDAHeader.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`CUDAHeader`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/NVIDIA/CUDA/CUDAHeader.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`CUDAHeader`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/NVIDIA/CUDA/CUDAHeader.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "curveasseteditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`CurveAssetEditor` 位于 `Editor`，构建规则 `Editor/CurveAssetEditor/CurveAssetEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`。",
+      "`CurveAssetEditor`（Curve Asset Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/CurveAssetEditor/CurveAssetEditor.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`CurveEditor`、`EditorFramework`、`Engine` 等。",
+      "部署：`CurveAssetEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CurveAssetEditor\" });`；对外暴露 `CurveAssetEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CurveAssetEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `CurveAssetEditor.h` / `CurveAssetEditorModule.h`），再用 `FModuleManager::LoadModulePtr<CurveAssetEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`CurveAssetEditor` 还依赖 `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `CurveAssetEditor` lives under `Editor`; build rule `Editor/CurveAssetEditor/CurveAssetEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`.",
+      "`CurveAssetEditor` (Curve Asset Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/CurveAssetEditor/CurveAssetEditor.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `Engine` etc.",
+      "Placement: `CurveAssetEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CurveAssetEditor\" });`. Use Public when exposing `CurveAssetEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CurveAssetEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `CurveAssetEditor.h` / `CurveAssetEditorModule.h`), then use `FModuleManager::LoadModulePtr<CurveAssetEditorModule>` or the exported types directly.",
-      "Transitive deps: `CurveAssetEditor` also needs `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `Engine`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`CurveAssetEditor` 的构建规则位于 `Editor/CurveAssetEditor/CurveAssetEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`CurveAssetEditor` build rule is `Editor/CurveAssetEditor/CurveAssetEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`CurveAssetEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/CurveAssetEditor/CurveAssetEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`CurveAssetEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/CurveAssetEditor/CurveAssetEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "curveeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`CurveEditor` 位于 `Editor`，构建规则 `Editor/CurveEditor/CurveEditor.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`。",
+      "`CurveEditor`（Curve Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/CurveEditor/CurveEditor.Build.cs`。直接依赖 8 个模块：`AppFramework`、`ApplicationCore`、`Core`、`CoreUObject`、`EditorFramework` 等。",
+      "部署：`CurveEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CurveEditor\" });`；对外暴露 `CurveEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CurveEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `CurveEditor.h` / `CurveEditorModule.h`），再用 `FModuleManager::LoadModulePtr<CurveEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`CurveEditor` 还依赖 `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `CurveEditor` lives under `Editor`; build rule `Editor/CurveEditor/CurveEditor.Build.cs`.It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`.",
+      "`CurveEditor` (Curve Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/CurveEditor/CurveEditor.Build.cs`. It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework` etc.",
+      "Placement: `CurveEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CurveEditor\" });`. Use Public when exposing `CurveEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CurveEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `CurveEditor.h` / `CurveEditorModule.h`), then use `FModuleManager::LoadModulePtr<CurveEditorModule>` or the exported types directly.",
-      "Transitive deps: `CurveEditor` also needs `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`CurveEditor` 的构建规则位于 `Editor/CurveEditor/CurveEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`CurveEditor` build rule is `Editor/CurveEditor/CurveEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`CurveEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/CurveEditor/CurveEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`CurveEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/CurveEditor/CurveEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "curvetableeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`CurveTableEditor` 位于 `Editor`，构建规则 `Editor/CurveTableEditor/CurveTableEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `Slate`。",
+      "`CurveTableEditor`（Curve Table Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/CurveTableEditor/CurveTableEditor.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`CurveEditor`、`EditorFramework`、`EditorWidgets` 等。",
+      "部署：`CurveTableEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CurveTableEditor\" });`；对外暴露 `CurveTableEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`CurveTableEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `CurveTableEditor.h` / `CurveTableEditorModule.h`），再用 `FModuleManager::LoadModulePtr<CurveTableEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`CurveTableEditor` 还依赖 `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `CurveTableEditor` lives under `Editor`; build rule `Editor/CurveTableEditor/CurveTableEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `Slate`.",
+      "`CurveTableEditor` (Curve Table Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/CurveTableEditor/CurveTableEditor.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorWidgets` etc.",
+      "Placement: `CurveTableEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CurveTableEditor\" });`. Use Public when exposing `CurveTableEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `CurveTableEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `CurveTableEditor.h` / `CurveTableEditorModule.h`), then use `FModuleManager::LoadModulePtr<CurveTableEditorModule>` or the exported types directly.",
-      "Transitive deps: `CurveTableEditor` also needs `Core`, `CoreUObject`, `CurveEditor`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `Slate`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`CurveTableEditor` 的构建规则位于 `Editor/CurveTableEditor/CurveTableEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`CurveTableEditor` build rule is `Editor/CurveTableEditor/CurveTableEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`CurveTableEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/CurveTableEditor/CurveTableEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`CurveTableEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/CurveTableEditor/CurveTableEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "cxademangle",
     "kind": "module",
     "cn_steps": [
-      "用途：`cxademangle` 位于 `ThirdParty`，构建规则 `ThirdParty/Android/cxa_demangle/cxademangle.Build.cs`。描述符未声明依赖。",
+      "`cxademangle`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Android/cxa_demangle/cxademangle.Build.cs`。描述符未声明依赖。",
+      "部署：`cxademangle` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"cxademangle\" });`；对外暴露 `cxademangle` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`cxademangle` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `cxademangle.h` / `cxademangleModule.h`），再用 `FModuleManager::LoadModulePtr<cxademangleModule>` 或直接使用导出类型。",
-      "传递依赖：`cxademangle` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `cxademangle` lives under `ThirdParty`; build rule `ThirdParty/Android/cxa_demangle/cxademangle.Build.cs`.The descriptor declares no dependencies.",
+      "`cxademangle`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Android/cxa_demangle/cxademangle.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `cxademangle` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"cxademangle\" });`. Use Public when exposing `cxademangle` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `cxademangle` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `cxademangle.h` / `cxademangleModule.h`), then use `FModuleManager::LoadModulePtr<cxademangleModule>` or the exported types directly.",
-      "Transitive deps: `cxademangle` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`cxademangle` 的构建规则位于 `ThirdParty/Android/cxa_demangle/cxademangle.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`cxademangle` build rule is `ThirdParty/Android/cxa_demangle/cxademangle.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`cxademangle`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Android/cxa_demangle/cxademangle.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`cxademangle`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Android/cxa_demangle/cxademangle.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "d3d11rhi",
     "kind": "module",
     "cn_steps": [
-      "用途：`D3D11RHI` 位于 `Runtime`，构建规则 `Runtime/Windows/D3D11RHI/D3D11RHI.Build.cs`。它直接依赖 2 个模块：`HeadMountedDisplay`, `WindowsD3D`。",
+      "`D3D11RHI`（D3 D11 RHI）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/Windows/D3D11RHI/D3D11RHI.Build.cs`。直接依赖 2 个模块：`HeadMountedDisplay`、`WindowsD3D`。",
+      "部署：`D3D11RHI` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"D3D11RHI\" });`；对外暴露 `D3D11RHI` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`D3D11RHI` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `D3D11RHI.h` / `D3D11RHIModule.h`），再用 `FModuleManager::LoadModulePtr<D3D11RHIModule>` 或直接使用导出类型。",
-      "传递依赖：`D3D11RHI` 还依赖 `HeadMountedDisplay`, `WindowsD3D`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `D3D11RHI` lives under `Runtime`; build rule `Runtime/Windows/D3D11RHI/D3D11RHI.Build.cs`.It directly depends on 2 modules: `HeadMountedDisplay`, `WindowsD3D`.",
+      "`D3D11RHI` (D3 D11 RHI): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/Windows/D3D11RHI/D3D11RHI.Build.cs`. It directly depends on 2 modules: `HeadMountedDisplay`, `WindowsD3D`.",
+      "Placement: `D3D11RHI` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"D3D11RHI\" });`. Use Public when exposing `D3D11RHI` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `D3D11RHI` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `D3D11RHI.h` / `D3D11RHIModule.h`), then use `FModuleManager::LoadModulePtr<D3D11RHIModule>` or the exported types directly.",
-      "Transitive deps: `D3D11RHI` also needs `HeadMountedDisplay`, `WindowsD3D`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`D3D11RHI` 的构建规则位于 `Runtime/Windows/D3D11RHI/D3D11RHI.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`D3D11RHI` build rule is `Runtime/Windows/D3D11RHI/D3D11RHI.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`D3D11RHI`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/Windows/D3D11RHI/D3D11RHI.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`D3D11RHI`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/Windows/D3D11RHI/D3D11RHI.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "d3d12rhi",
     "kind": "module",
     "cn_steps": [
-      "用途：`D3D12RHI` 位于 `Runtime`，构建规则 `Runtime/D3D12RHI/D3D12RHI.Build.cs`。它直接依赖 5 个模块：`ASDCore`, `Engine`, `HeadMountedDisplay`, `WinPixEventRuntime`, `WindowsD3D`。",
+      "`D3D12RHI`（D3 D12 RHI）：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）。位于 `Runtime`，构建规则 `Runtime/D3D12RHI/D3D12RHI.Build.cs`。直接依赖 5 个模块：`ASDCore`、`Engine`、`HeadMountedDisplay`、`WinPixEventRuntime`、`WindowsD3D`。",
+      "部署：`D3D12RHI` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在渲染线程/材质/后处理相关代码里使用；不要从游戏线程直接改 RHI 资源，需遵守渲染线程约束。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"D3D12RHI\" });`；对外暴露 `D3D12RHI` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`D3D12RHI` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `D3D12RHI.h` / `D3D12RHIModule.h`），再用 `FModuleManager::LoadModulePtr<D3D12RHIModule>` 或直接使用导出类型。",
-      "传递依赖：`D3D12RHI` 还依赖 `ASDCore`, `Engine`, `HeadMountedDisplay`, `WinPixEventRuntime`, `WindowsD3D`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `D3D12RHI` lives under `Runtime`; build rule `Runtime/D3D12RHI/D3D12RHI.Build.cs`.It directly depends on 5 modules: `ASDCore`, `Engine`, `HeadMountedDisplay`, `WinPixEventRuntime`, `WindowsD3D`.",
+      "`D3D12RHI` (D3 D12 RHI): it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process). Located under `Runtime`; build rule `Runtime/D3D12RHI/D3D12RHI.Build.cs`. It directly depends on 5 modules: `ASDCore`, `Engine`, `HeadMountedDisplay`, `WinPixEventRuntime`, `WindowsD3D`.",
+      "Placement: `D3D12RHI` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from render-thread/material/post-process code; never mutate RHI resources from the game thread — respect render-thread rules.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"D3D12RHI\" });`. Use Public when exposing `D3D12RHI` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `D3D12RHI` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `D3D12RHI.h` / `D3D12RHIModule.h`), then use `FModuleManager::LoadModulePtr<D3D12RHIModule>` or the exported types directly.",
-      "Transitive deps: `D3D12RHI` also needs `ASDCore`, `Engine`, `HeadMountedDisplay`, `WinPixEventRuntime`, `WindowsD3D`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`D3D12RHI` 的构建规则位于 `Runtime/D3D12RHI/D3D12RHI.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`D3D12RHI` build rule is `Runtime/D3D12RHI/D3D12RHI.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`D3D12RHI`：它属于渲染/RHI 层（图形后端、着色器、渲染管线、纹理/后处理）；构建规则 `Runtime/D3D12RHI/D3D12RHI.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`D3D12RHI`: it is part of the rendering/RHI layer (graphics backend, shaders, pipeline, textures/post-process); build rule `Runtime/D3D12RHI/D3D12RHI.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "dataflowcore",
     "kind": "module",
     "cn_steps": [
-      "用途：`DataflowCore` 位于 `Runtime`，构建规则 `Runtime/Dataflow/Core/DataflowCore.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetRegistry`, `Chaos`, `Core`, `CoreUObject`, `DeveloperSettings`, `ImageCore`, `InputCore`。",
+      "`DataflowCore`（Dataflow Core）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/Dataflow/Core/DataflowCore.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`AssetRegistry`、`Chaos`、`Core`、`CoreUObject` 等。",
+      "部署：`DataflowCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DataflowCore\" });`；对外暴露 `DataflowCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DataflowCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `DataflowCore.h` / `DataflowCoreModule.h`），再用 `FModuleManager::LoadModulePtr<DataflowCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`DataflowCore` 还依赖 `ApplicationCore`, `AssetRegistry`, `Chaos`, `Core`, `CoreUObject`, `DeveloperSettings`, `ImageCore`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DataflowCore` lives under `Runtime`; build rule `Runtime/Dataflow/Core/DataflowCore.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `Chaos`, `Core`, `CoreUObject`, `DeveloperSettings`, `ImageCore`, `InputCore`.",
+      "`DataflowCore` (Dataflow Core): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/Dataflow/Core/DataflowCore.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `Chaos`, `Core`, `CoreUObject` etc.",
+      "Placement: `DataflowCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DataflowCore\" });`. Use Public when exposing `DataflowCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DataflowCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `DataflowCore.h` / `DataflowCoreModule.h`), then use `FModuleManager::LoadModulePtr<DataflowCoreModule>` or the exported types directly.",
-      "Transitive deps: `DataflowCore` also needs `ApplicationCore`, `AssetRegistry`, `Chaos`, `Core`, `CoreUObject`, `DeveloperSettings`, `ImageCore`, `InputCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DataflowCore` 的构建规则位于 `Runtime/Dataflow/Core/DataflowCore.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`DataflowCore` build rule is `Runtime/Dataflow/Core/DataflowCore.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`DataflowCore`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/Dataflow/Core/DataflowCore.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`DataflowCore`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/Dataflow/Core/DataflowCore.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "dataflowengine",
     "kind": "module",
     "cn_steps": [
-      "用途：`DataflowEngine` 位于 `Runtime`，构建规则 `Runtime/Dataflow/Engine/DataflowEngine.Build.cs`。它直接依赖 8 个模块：`Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `Engine`, `GeometryCore`, `ImageCore`, `SlateCore`。",
+      "`DataflowEngine`（Dataflow Engine）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/Dataflow/Engine/DataflowEngine.Build.cs`。直接依赖 8 个模块：`Chaos`、`Core`、`CoreUObject`、`DataflowCore`、`Engine` 等。",
+      "部署：`DataflowEngine` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DataflowEngine\" });`；对外暴露 `DataflowEngine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DataflowEngine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `DataflowEngine.h` / `DataflowEngineModule.h`），再用 `FModuleManager::LoadModulePtr<DataflowEngineModule>` 或直接使用导出类型。",
-      "传递依赖：`DataflowEngine` 还依赖 `Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `Engine`, `GeometryCore`, `ImageCore`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DataflowEngine` lives under `Runtime`; build rule `Runtime/Dataflow/Engine/DataflowEngine.Build.cs`.It directly depends on 8 modules: `Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `Engine`, `GeometryCore`, `ImageCore`, `SlateCore`.",
+      "`DataflowEngine` (Dataflow Engine): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/Dataflow/Engine/DataflowEngine.Build.cs`. It directly depends on 8 modules: `Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `Engine` etc.",
+      "Placement: `DataflowEngine` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DataflowEngine\" });`. Use Public when exposing `DataflowEngine` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DataflowEngine` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `DataflowEngine.h` / `DataflowEngineModule.h`), then use `FModuleManager::LoadModulePtr<DataflowEngineModule>` or the exported types directly.",
-      "Transitive deps: `DataflowEngine` also needs `Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `Engine`, `GeometryCore`, `ImageCore`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DataflowEngine` 的构建规则位于 `Runtime/Dataflow/Engine/DataflowEngine.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`DataflowEngine` build rule is `Runtime/Dataflow/Engine/DataflowEngine.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`DataflowEngine`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/Dataflow/Engine/DataflowEngine.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`DataflowEngine`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/Dataflow/Engine/DataflowEngine.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "dataflowsimulation",
     "kind": "module",
     "cn_steps": [
-      "用途：`DataflowSimulation` 位于 `Runtime`，构建规则 `Runtime/Dataflow/Simulation/DataflowSimulation.Build.cs`。它直接依赖 8 个模块：`Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `Engine`, `RHI`, `RenderCore`。",
+      "`DataflowSimulation`（Dataflow Simulation）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/Dataflow/Simulation/DataflowSimulation.Build.cs`。直接依赖 8 个模块：`Chaos`、`Core`、`CoreUObject`、`DataflowCore`、`DataflowEngine` 等。",
+      "部署：`DataflowSimulation` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DataflowSimulation\" });`；对外暴露 `DataflowSimulation` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DataflowSimulation` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `DataflowSimulation.h` / `DataflowSimulationModule.h`），再用 `FModuleManager::LoadModulePtr<DataflowSimulationModule>` 或直接使用导出类型。",
-      "传递依赖：`DataflowSimulation` 还依赖 `Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `Engine`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DataflowSimulation` lives under `Runtime`; build rule `Runtime/Dataflow/Simulation/DataflowSimulation.Build.cs`.It directly depends on 8 modules: `Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `Engine`, `RHI`, `RenderCore`.",
+      "`DataflowSimulation` (Dataflow Simulation): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/Dataflow/Simulation/DataflowSimulation.Build.cs`. It directly depends on 8 modules: `Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine` etc.",
+      "Placement: `DataflowSimulation` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DataflowSimulation\" });`. Use Public when exposing `DataflowSimulation` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DataflowSimulation` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `DataflowSimulation.h` / `DataflowSimulationModule.h`), then use `FModuleManager::LoadModulePtr<DataflowSimulationModule>` or the exported types directly.",
-      "Transitive deps: `DataflowSimulation` also needs `Chaos`, `Core`, `CoreUObject`, `DataflowCore`, `DataflowEngine`, `Engine`, `RHI`, `RenderCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DataflowSimulation` 的构建规则位于 `Runtime/Dataflow/Simulation/DataflowSimulation.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`DataflowSimulation` build rule is `Runtime/Dataflow/Simulation/DataflowSimulation.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`DataflowSimulation`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/Dataflow/Simulation/DataflowSimulation.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`DataflowSimulation`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/Dataflow/Simulation/DataflowSimulation.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "datahierarchyeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`DataHierarchyEditor` 位于 `Editor`，构建规则 `Editor/DataHierarchyEditor/DataHierarchyEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `Slate`, `SlateCore`。",
+      "`DataHierarchyEditor`（Data Hierarchy Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/DataHierarchyEditor/DataHierarchyEditor.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`EditorFramework`、`EditorWidgets`、`Engine` 等。",
+      "部署：`DataHierarchyEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DataHierarchyEditor\" });`；对外暴露 `DataHierarchyEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DataHierarchyEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `DataHierarchyEditor.h` / `DataHierarchyEditorModule.h`），再用 `FModuleManager::LoadModulePtr<DataHierarchyEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`DataHierarchyEditor` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DataHierarchyEditor` lives under `Editor`; build rule `Editor/DataHierarchyEditor/DataHierarchyEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `Slate`, `SlateCore`.",
+      "`DataHierarchyEditor` (Data Hierarchy Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/DataHierarchyEditor/DataHierarchyEditor.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine` etc.",
+      "Placement: `DataHierarchyEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DataHierarchyEditor\" });`. Use Public when exposing `DataHierarchyEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DataHierarchyEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `DataHierarchyEditor.h` / `DataHierarchyEditorModule.h`), then use `FModuleManager::LoadModulePtr<DataHierarchyEditorModule>` or the exported types directly.",
-      "Transitive deps: `DataHierarchyEditor` also needs `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DataHierarchyEditor` 的构建规则位于 `Editor/DataHierarchyEditor/DataHierarchyEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`DataHierarchyEditor` build rule is `Editor/DataHierarchyEditor/DataHierarchyEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`DataHierarchyEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/DataHierarchyEditor/DataHierarchyEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`DataHierarchyEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/DataHierarchyEditor/DataHierarchyEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "datalayereditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`DataLayerEditor` 位于 `Editor`，构建规则 `Editor/DataLayerEditor/DataLayerEditor.Build.cs`。它直接依赖 8 个模块：`AssetTools`, `ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `EditorSubsystem`, `EditorWidgets`。",
+      "`DataLayerEditor`（Data Layer Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/DataLayerEditor/DataLayerEditor.Build.cs`。直接依赖 8 个模块：`AssetTools`、`ContentBrowserData`、`Core`、`CoreUObject`、`DeveloperToolSettings` 等。",
+      "部署：`DataLayerEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DataLayerEditor\" });`；对外暴露 `DataLayerEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DataLayerEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `DataLayerEditor.h` / `DataLayerEditorModule.h`），再用 `FModuleManager::LoadModulePtr<DataLayerEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`DataLayerEditor` 还依赖 `AssetTools`, `ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `EditorSubsystem`, `EditorWidgets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DataLayerEditor` lives under `Editor`; build rule `Editor/DataLayerEditor/DataLayerEditor.Build.cs`.It directly depends on 8 modules: `AssetTools`, `ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `EditorSubsystem`, `EditorWidgets`.",
+      "`DataLayerEditor` (Data Layer Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/DataLayerEditor/DataLayerEditor.Build.cs`. It directly depends on 8 modules: `AssetTools`, `ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings` etc.",
+      "Placement: `DataLayerEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DataLayerEditor\" });`. Use Public when exposing `DataLayerEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DataLayerEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `DataLayerEditor.h` / `DataLayerEditorModule.h`), then use `FModuleManager::LoadModulePtr<DataLayerEditorModule>` or the exported types directly.",
-      "Transitive deps: `DataLayerEditor` also needs `AssetTools`, `ContentBrowserData`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `EditorSubsystem`, `EditorWidgets`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DataLayerEditor` 的构建规则位于 `Editor/DataLayerEditor/DataLayerEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`DataLayerEditor` build rule is `Editor/DataLayerEditor/DataLayerEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`DataLayerEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/DataLayerEditor/DataLayerEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`DataLayerEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/DataLayerEditor/DataLayerEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "datasmithcadworker",
     "kind": "module",
     "cn_steps": [
-      "用途：`DatasmithCADWorker` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithCADWorker/DatasmithCADWorker.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `CADInterfaces`, `CADTools`, `Core`, `DatasmithDispatcher`, `Projects`, `Sockets`。",
+      "`DatasmithCADWorker`（Datasmith CAD Worker）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithCADWorker/DatasmithCADWorker.Build.cs`。直接依赖 7 个模块：`ApplicationCore`、`CADInterfaces`、`CADTools`、`Core`、`DatasmithDispatcher` 等。",
+      "部署：`DatasmithCADWorker` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithCADWorker\" });`；对外暴露 `DatasmithCADWorker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DatasmithCADWorker` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `DatasmithCADWorker.h` / `DatasmithCADWorkerModule.h`），再用 `FModuleManager::LoadModulePtr<DatasmithCADWorkerModule>` 或直接使用导出类型。",
-      "传递依赖：`DatasmithCADWorker` 还依赖 `ApplicationCore`, `CADInterfaces`, `CADTools`, `Core`, `DatasmithDispatcher`, `Projects`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `DatasmithCADWorker` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithCADWorker/DatasmithCADWorker.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `CADInterfaces`, `CADTools`, `Core`, `DatasmithDispatcher`, `Projects`, `Sockets`.",
+      "`DatasmithCADWorker` (Datasmith CAD Worker): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithCADWorker/DatasmithCADWorker.Build.cs`. It directly depends on 7 modules: `ApplicationCore`, `CADInterfaces`, `CADTools`, `Core`, `DatasmithDispatcher` etc.",
+      "Placement: `DatasmithCADWorker` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithCADWorker\" });`. Use Public when exposing `DatasmithCADWorker` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DatasmithCADWorker` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `DatasmithCADWorker.h` / `DatasmithCADWorkerModule.h`), then use `FModuleManager::LoadModulePtr<DatasmithCADWorkerModule>` or the exported types directly.",
-      "Transitive deps: `DatasmithCADWorker` also needs `ApplicationCore`, `CADInterfaces`, `CADTools`, `Core`, `DatasmithDispatcher`, `Projects`, `Sockets`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`DatasmithCADWorker` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithCADWorker/DatasmithCADWorker.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`DatasmithCADWorker` build rule is `Programs/Enterprise/Datasmith/DatasmithCADWorker/DatasmithCADWorker.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`DatasmithCADWorker`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Enterprise/Datasmith/DatasmithCADWorker/DatasmithCADWorker.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`DatasmithCADWorker`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Enterprise/Datasmith/DatasmithCADWorker/DatasmithCADWorker.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "datasmithcore",
     "kind": "module",
     "cn_steps": [
-      "用途：`DatasmithCore` 位于 `Runtime`，构建规则 `Runtime/Datasmith/DatasmithCore/DatasmithCore.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DirectLink`, `Json`, `MeshDescription`, `RawMesh`, `StaticMeshDescription`, `XmlParser`。",
+      "`DatasmithCore`（Datasmith Core）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/Datasmith/DatasmithCore/DatasmithCore.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DirectLink`、`Json`、`MeshDescription` 等。",
+      "部署：`DatasmithCore` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithCore\" });`；对外暴露 `DatasmithCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DatasmithCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `DatasmithCore.h` / `DatasmithCoreModule.h`），再用 `FModuleManager::LoadModulePtr<DatasmithCoreModule>` 或直接使用导出类型。",
-      "传递依赖：`DatasmithCore` 还依赖 `Core`, `CoreUObject`, `DirectLink`, `Json`, `MeshDescription`, `RawMesh`, `StaticMeshDescription`, `XmlParser`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DatasmithCore` lives under `Runtime`; build rule `Runtime/Datasmith/DatasmithCore/DatasmithCore.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DirectLink`, `Json`, `MeshDescription`, `RawMesh`, `StaticMeshDescription`, `XmlParser`.",
+      "`DatasmithCore` (Datasmith Core): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/Datasmith/DatasmithCore/DatasmithCore.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DirectLink`, `Json`, `MeshDescription` etc.",
+      "Placement: `DatasmithCore` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithCore\" });`. Use Public when exposing `DatasmithCore` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DatasmithCore` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `DatasmithCore.h` / `DatasmithCoreModule.h`), then use `FModuleManager::LoadModulePtr<DatasmithCoreModule>` or the exported types directly.",
-      "Transitive deps: `DatasmithCore` also needs `Core`, `CoreUObject`, `DirectLink`, `Json`, `MeshDescription`, `RawMesh`, `StaticMeshDescription`, `XmlParser`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DatasmithCore` 的构建规则位于 `Runtime/Datasmith/DatasmithCore/DatasmithCore.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`DatasmithCore` build rule is `Runtime/Datasmith/DatasmithCore/DatasmithCore.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`DatasmithCore`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/Datasmith/DatasmithCore/DatasmithCore.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`DatasmithCore`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/Datasmith/DatasmithCore/DatasmithCore.Build.cs`; depends on 8 modules."
   }
 ]

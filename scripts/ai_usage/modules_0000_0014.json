@@ -3,300 +3,300 @@
     "slug": "abseil",
     "kind": "module",
     "cn_steps": [
-      "用途：`abseil` 位于 `ThirdParty`，构建规则 `ThirdParty/abseil/abseil.Build.cs`。描述符未声明依赖。",
+      "`abseil`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/abseil/abseil.Build.cs`。描述符未声明依赖。",
+      "部署：`abseil` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"abseil\" });`；对外暴露 `abseil` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`abseil` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `abseil.h` / `abseilModule.h`），再用 `FModuleManager::LoadModulePtr<abseilModule>` 或直接使用导出类型。",
-      "传递依赖：`abseil` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `abseil` lives under `ThirdParty`; build rule `ThirdParty/abseil/abseil.Build.cs`.The descriptor declares no dependencies.",
+      "`abseil`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/abseil/abseil.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `abseil` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"abseil\" });`. Use Public when exposing `abseil` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `abseil` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `abseil.h` / `abseilModule.h`), then use `FModuleManager::LoadModulePtr<abseilModule>` or the exported types directly.",
-      "Transitive deps: `abseil` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`abseil` 的构建规则位于 `ThirdParty/abseil/abseil.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`abseil` build rule is `ThirdParty/abseil/abseil.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`abseil`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/abseil/abseil.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`abseil`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/abseil/abseil.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "actorpickermode",
     "kind": "module",
     "cn_steps": [
-      "用途：`ActorPickerMode` 位于 `Editor`，构建规则 `Editor/ActorPickerMode/ActorPickerMode.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `InteractiveToolsFramework`, `Slate`。",
+      "`ActorPickerMode`（Actor Picker Mode）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/ActorPickerMode/ActorPickerMode.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`EditorFramework`、`EditorInteractiveToolsFramework`、`Engine` 等。",
+      "部署：`ActorPickerMode` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ActorPickerMode\" });`；对外暴露 `ActorPickerMode` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`ActorPickerMode` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `ActorPickerMode.h` / `ActorPickerModeModule.h`），再用 `FModuleManager::LoadModulePtr<ActorPickerModeModule>` 或直接使用导出类型。",
-      "传递依赖：`ActorPickerMode` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `InteractiveToolsFramework`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `ActorPickerMode` lives under `Editor`; build rule `Editor/ActorPickerMode/ActorPickerMode.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `InteractiveToolsFramework`, `Slate`.",
+      "`ActorPickerMode` (Actor Picker Mode): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/ActorPickerMode/ActorPickerMode.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine` etc.",
+      "Placement: `ActorPickerMode` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ActorPickerMode\" });`. Use Public when exposing `ActorPickerMode` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `ActorPickerMode` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `ActorPickerMode.h` / `ActorPickerModeModule.h`), then use `FModuleManager::LoadModulePtr<ActorPickerModeModule>` or the exported types directly.",
-      "Transitive deps: `ActorPickerMode` also needs `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `InteractiveToolsFramework`, `Slate`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`ActorPickerMode` 的构建规则位于 `Editor/ActorPickerMode/ActorPickerMode.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`ActorPickerMode` build rule is `Editor/ActorPickerMode/ActorPickerMode.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`ActorPickerMode`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/ActorPickerMode/ActorPickerMode.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`ActorPickerMode`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/ActorPickerMode/ActorPickerMode.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "addcontentdialog",
     "kind": "module",
     "cn_steps": [
-      "用途：`AddContentDialog` 位于 `Editor`，构建规则 `Editor/AddContentDialog/AddContentDialog.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DirectoryWatcher`, `EditorFramework`, `Engine`, `ImageWrapper`。",
+      "`AddContentDialog`（Add Content Dialog）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/AddContentDialog/AddContentDialog.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`DesktopPlatform`、`DirectoryWatcher` 等。",
+      "部署：`AddContentDialog` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AddContentDialog\" });`；对外暴露 `AddContentDialog` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AddContentDialog` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `AddContentDialog.h` / `AddContentDialogModule.h`），再用 `FModuleManager::LoadModulePtr<AddContentDialogModule>` 或直接使用导出类型。",
-      "传递依赖：`AddContentDialog` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DirectoryWatcher`, `EditorFramework`, `Engine`, `ImageWrapper`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AddContentDialog` lives under `Editor`; build rule `Editor/AddContentDialog/AddContentDialog.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DirectoryWatcher`, `EditorFramework`, `Engine`, `ImageWrapper`.",
+      "`AddContentDialog` (Add Content Dialog): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/AddContentDialog/AddContentDialog.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DirectoryWatcher` etc.",
+      "Placement: `AddContentDialog` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AddContentDialog\" });`. Use Public when exposing `AddContentDialog` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AddContentDialog` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `AddContentDialog.h` / `AddContentDialogModule.h`), then use `FModuleManager::LoadModulePtr<AddContentDialogModule>` or the exported types directly.",
-      "Transitive deps: `AddContentDialog` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DirectoryWatcher`, `EditorFramework`, `Engine`, `ImageWrapper`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AddContentDialog` 的构建规则位于 `Editor/AddContentDialog/AddContentDialog.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AddContentDialog` build rule is `Editor/AddContentDialog/AddContentDialog.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AddContentDialog`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/AddContentDialog/AddContentDialog.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AddContentDialog`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/AddContentDialog/AddContentDialog.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "adpcmaudiodecoder",
     "kind": "module",
     "cn_steps": [
-      "用途：`AdpcmAudioDecoder` 位于 `Runtime`，构建规则 `Runtime/AdpcmAudioDecoder/Module/AdpcmAudioDecoder.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "`AdpcmAudioDecoder`（Adpcm Audio Decoder）：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）。位于 `Runtime`，构建规则 `Runtime/AdpcmAudioDecoder/Module/AdpcmAudioDecoder.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`Engine`。",
+      "部署：`AdpcmAudioDecoder` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：创建 Sound/MetaSound 或用音频组件播放时会用到；在 项目设置 > Audio 里配置子混音与编解码器。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AdpcmAudioDecoder\" });`；对外暴露 `AdpcmAudioDecoder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AdpcmAudioDecoder` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AdpcmAudioDecoder.h` / `AdpcmAudioDecoderModule.h`），再用 `FModuleManager::LoadModulePtr<AdpcmAudioDecoderModule>` 或直接使用导出类型。",
-      "传递依赖：`AdpcmAudioDecoder` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AdpcmAudioDecoder` lives under `Runtime`; build rule `Runtime/AdpcmAudioDecoder/Module/AdpcmAudioDecoder.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "`AdpcmAudioDecoder` (Adpcm Audio Decoder): it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs). Located under `Runtime`; build rule `Runtime/AdpcmAudioDecoder/Module/AdpcmAudioDecoder.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Placement: `AdpcmAudioDecoder` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: used when authoring Sound/MetaSound or playing through audio components; configure submixes and codecs in Project Settings > Audio.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AdpcmAudioDecoder\" });`. Use Public when exposing `AdpcmAudioDecoder` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AdpcmAudioDecoder` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AdpcmAudioDecoder.h` / `AdpcmAudioDecoderModule.h`), then use `FModuleManager::LoadModulePtr<AdpcmAudioDecoderModule>` or the exported types directly.",
-      "Transitive deps: `AdpcmAudioDecoder` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AdpcmAudioDecoder` 的构建规则位于 `Runtime/AdpcmAudioDecoder/Module/AdpcmAudioDecoder.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`AdpcmAudioDecoder` build rule is `Runtime/AdpcmAudioDecoder/Module/AdpcmAudioDecoder.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`AdpcmAudioDecoder`：它属于音频系统（混音、解码、合成、DSP、空间音频、编解码）；构建规则 `Runtime/AdpcmAudioDecoder/Module/AdpcmAudioDecoder.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`AdpcmAudioDecoder`: it is part of the audio system (mixing, decoding, synthesis, DSP, spatial audio, codecs); build rule `Runtime/AdpcmAudioDecoder/Module/AdpcmAudioDecoder.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "advancedpreviewscene",
     "kind": "module",
     "cn_steps": [
-      "用途：`AdvancedPreviewScene` 位于 `Editor`，构建规则 `Editor/AdvancedPreviewScene/AdvancedPreviewScene.Build.cs`。它直接依赖 8 个模块：`CommonMenuExtensions`, `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `Slate`。",
+      "`AdvancedPreviewScene`（Advanced Preview Scene）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/AdvancedPreviewScene/AdvancedPreviewScene.Build.cs`。直接依赖 8 个模块：`CommonMenuExtensions`、`Core`、`CoreUObject`、`EditorFramework`、`EditorInteractiveToolsFramework` 等。",
+      "部署：`AdvancedPreviewScene` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AdvancedPreviewScene\" });`；对外暴露 `AdvancedPreviewScene` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AdvancedPreviewScene` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `AdvancedPreviewScene.h` / `AdvancedPreviewSceneModule.h`），再用 `FModuleManager::LoadModulePtr<AdvancedPreviewSceneModule>` 或直接使用导出类型。",
-      "传递依赖：`AdvancedPreviewScene` 还依赖 `CommonMenuExtensions`, `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AdvancedPreviewScene` lives under `Editor`; build rule `Editor/AdvancedPreviewScene/AdvancedPreviewScene.Build.cs`.It directly depends on 8 modules: `CommonMenuExtensions`, `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `Slate`.",
+      "`AdvancedPreviewScene` (Advanced Preview Scene): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/AdvancedPreviewScene/AdvancedPreviewScene.Build.cs`. It directly depends on 8 modules: `CommonMenuExtensions`, `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework` etc.",
+      "Placement: `AdvancedPreviewScene` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AdvancedPreviewScene\" });`. Use Public when exposing `AdvancedPreviewScene` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AdvancedPreviewScene` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `AdvancedPreviewScene.h` / `AdvancedPreviewSceneModule.h`), then use `FModuleManager::LoadModulePtr<AdvancedPreviewSceneModule>` or the exported types directly.",
-      "Transitive deps: `AdvancedPreviewScene` also needs `CommonMenuExtensions`, `Core`, `CoreUObject`, `EditorFramework`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `Slate`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AdvancedPreviewScene` 的构建规则位于 `Editor/AdvancedPreviewScene/AdvancedPreviewScene.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AdvancedPreviewScene` build rule is `Editor/AdvancedPreviewScene/AdvancedPreviewScene.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AdvancedPreviewScene`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/AdvancedPreviewScene/AdvancedPreviewScene.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AdvancedPreviewScene`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/AdvancedPreviewScene/AdvancedPreviewScene.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "advancedwidgets",
     "kind": "module",
     "cn_steps": [
-      "用途：`AdvancedWidgets` 位于 `Runtime`，构建规则 `Runtime/AdvancedWidgets/AdvancedWidgets.Build.cs`。它直接依赖 8 个模块：`BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `Slate`, `SlateCore`。",
+      "`AdvancedWidgets`（Advanced Widgets）：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）。位于 `Runtime`，构建规则 `Runtime/AdvancedWidgets/AdvancedWidgets.Build.cs`。直接依赖 8 个模块：`BlueprintGraph`、`Core`、`CoreUObject`、`Engine`、`InputCore` 等。",
+      "部署：`AdvancedWidgets` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在 Widget Blueprint 或 Slate C++ 里使用；把它们和 Slate/SlateCore/UMG 一起加入依赖。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AdvancedWidgets\" });`；对外暴露 `AdvancedWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AdvancedWidgets` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AdvancedWidgets.h` / `AdvancedWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<AdvancedWidgetsModule>` 或直接使用导出类型。",
-      "传递依赖：`AdvancedWidgets` 还依赖 `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AdvancedWidgets` lives under `Runtime`; build rule `Runtime/AdvancedWidgets/AdvancedWidgets.Build.cs`.It directly depends on 8 modules: `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `Slate`, `SlateCore`.",
+      "`AdvancedWidgets` (Advanced Widgets): it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework). Located under `Runtime`; build rule `Runtime/AdvancedWidgets/AdvancedWidgets.Build.cs`. It directly depends on 8 modules: `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `InputCore` etc.",
+      "Placement: `AdvancedWidgets` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: use it from Widget Blueprints or Slate C++; list it alongside Slate/SlateCore/UMG.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AdvancedWidgets\" });`. Use Public when exposing `AdvancedWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AdvancedWidgets` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AdvancedWidgets.h` / `AdvancedWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<AdvancedWidgetsModule>` or the exported types directly.",
-      "Transitive deps: `AdvancedWidgets` also needs `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AdvancedWidgets` 的构建规则位于 `Runtime/AdvancedWidgets/AdvancedWidgets.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AdvancedWidgets` build rule is `Runtime/AdvancedWidgets/AdvancedWidgets.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AdvancedWidgets`：它属于 UI 层（Slate/UMG/Widget/Overlay/CommonUI/AppFramework）；构建规则 `Runtime/AdvancedWidgets/AdvancedWidgets.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AdvancedWidgets`: it is part of the UI layer (Slate/UMG/Widget/Overlay/CommonUI/AppFramework); build rule `Runtime/AdvancedWidgets/AdvancedWidgets.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "advertising",
     "kind": "module",
     "cn_steps": [
-      "用途：`Advertising` 位于 `Runtime`，构建规则 `Runtime/Advertising/Advertising/Advertising.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`Advertising`：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/Advertising/Advertising/Advertising.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`Advertising` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Advertising\" });`；对外暴露 `Advertising` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Advertising` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Advertising.h` / `AdvertisingModule.h`），再用 `FModuleManager::LoadModulePtr<AdvertisingModule>` 或直接使用导出类型。",
-      "传递依赖：`Advertising` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Advertising` lives under `Runtime`; build rule `Runtime/Advertising/Advertising/Advertising.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`Advertising`: it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/Advertising/Advertising/Advertising.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `Advertising` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Advertising\" });`. Use Public when exposing `Advertising` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Advertising` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Advertising.h` / `AdvertisingModule.h`), then use `FModuleManager::LoadModulePtr<AdvertisingModule>` or the exported types directly.",
-      "Transitive deps: `Advertising` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Advertising` 的构建规则位于 `Runtime/Advertising/Advertising/Advertising.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`Advertising` build rule is `Runtime/Advertising/Advertising/Advertising.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`Advertising`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/Advertising/Advertising/Advertising.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`Advertising`: it exposes C++ API/functionality to other modules; build rule `Runtime/Advertising/Advertising/Advertising.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "agilitysdk",
     "kind": "module",
     "cn_steps": [
-      "用途：`AgilitySDK` 位于 `ThirdParty`，构建规则 `ThirdParty/Windows/AgilitySDK/AgilitySDK.Build.cs`。描述符未声明依赖。",
+      "`AgilitySDK`（Agility SDK）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Windows/AgilitySDK/AgilitySDK.Build.cs`。描述符未声明依赖。",
+      "部署：`AgilitySDK` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AgilitySDK\" });`；对外暴露 `AgilitySDK` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AgilitySDK` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `AgilitySDK.h` / `AgilitySDKModule.h`），再用 `FModuleManager::LoadModulePtr<AgilitySDKModule>` 或直接使用导出类型。",
-      "传递依赖：`AgilitySDK` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `AgilitySDK` lives under `ThirdParty`; build rule `ThirdParty/Windows/AgilitySDK/AgilitySDK.Build.cs`.The descriptor declares no dependencies.",
+      "`AgilitySDK` (Agility SDK): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Windows/AgilitySDK/AgilitySDK.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `AgilitySDK` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AgilitySDK\" });`. Use Public when exposing `AgilitySDK` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AgilitySDK` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `AgilitySDK.h` / `AgilitySDKModule.h`), then use `FModuleManager::LoadModulePtr<AgilitySDKModule>` or the exported types directly.",
-      "Transitive deps: `AgilitySDK` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`AgilitySDK` 的构建规则位于 `ThirdParty/Windows/AgilitySDK/AgilitySDK.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`AgilitySDK` build rule is `ThirdParty/Windows/AgilitySDK/AgilitySDK.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`AgilitySDK`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Windows/AgilitySDK/AgilitySDK.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`AgilitySDK`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Windows/AgilitySDK/AgilitySDK.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "aigraph",
     "kind": "module",
     "cn_steps": [
-      "用途：`AIGraph` 位于 `Editor`，构建规则 `Editor/AIGraph/AIGraph.Build.cs`。它直接依赖 8 个模块：`AIModule`, `ApplicationCore`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `Engine`。",
+      "`AIGraph`（AI Graph）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Editor`，构建规则 `Editor/AIGraph/AIGraph.Build.cs`。直接依赖 8 个模块：`AIModule`、`ApplicationCore`、`BlueprintGraph`、`Core`、`CoreUObject` 等。",
+      "部署：`AIGraph` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AIGraph\" });`；对外暴露 `AIGraph` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AIGraph` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `AIGraph.h` / `AIGraphModule.h`），再用 `FModuleManager::LoadModulePtr<AIGraphModule>` 或直接使用导出类型。",
-      "传递依赖：`AIGraph` 还依赖 `AIModule`, `ApplicationCore`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AIGraph` lives under `Editor`; build rule `Editor/AIGraph/AIGraph.Build.cs`.It directly depends on 8 modules: `AIModule`, `ApplicationCore`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `Engine`.",
+      "`AIGraph` (AI Graph): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Editor`; build rule `Editor/AIGraph/AIGraph.Build.cs`. It directly depends on 8 modules: `AIModule`, `ApplicationCore`, `BlueprintGraph`, `Core`, `CoreUObject` etc.",
+      "Placement: `AIGraph` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AIGraph\" });`. Use Public when exposing `AIGraph` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AIGraph` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `AIGraph.h` / `AIGraphModule.h`), then use `FModuleManager::LoadModulePtr<AIGraphModule>` or the exported types directly.",
-      "Transitive deps: `AIGraph` also needs `AIModule`, `ApplicationCore`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `Engine`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AIGraph` 的构建规则位于 `Editor/AIGraph/AIGraph.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AIGraph` build rule is `Editor/AIGraph/AIGraph.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AIGraph`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Editor/AIGraph/AIGraph.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AIGraph`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Editor/AIGraph/AIGraph.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "aimodule",
     "kind": "module",
     "cn_steps": [
-      "用途：`AIModule` 位于 `Runtime`，构建规则 `Runtime/AIModule/AIModule.Build.cs`。它直接依赖 8 个模块：`AutoRTFM`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GameplayTags`, `GameplayTasks`。",
+      "`AIModule`（AI Module）：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）。位于 `Runtime`，构建规则 `Runtime/AIModule/AIModule.Build.cs`。直接依赖 8 个模块：`AutoRTFM`、`BlueprintGraph`、`Core`、`CoreUObject`、`EditorFramework` 等。",
+      "部署：`AIModule` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：给角色加 AI 组件、放 NavMesh/Volume 或 Smart Object，在行为树/StateTree/Mass 里驱动行为。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AIModule\" });`；对外暴露 `AIModule` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AIModule` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `AIModule.h` / `AIModuleModule.h`），再用 `FModuleManager::LoadModulePtr<AIModuleModule>` 或直接使用导出类型。",
-      "传递依赖：`AIModule` 还依赖 `AutoRTFM`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GameplayTags`, `GameplayTasks`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AIModule` lives under `Runtime`; build rule `Runtime/AIModule/AIModule.Build.cs`.It directly depends on 8 modules: `AutoRTFM`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GameplayTags`, `GameplayTasks`.",
+      "`AIModule` (AI Module): it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph). Located under `Runtime`; build rule `Runtime/AIModule/AIModule.Build.cs`. It directly depends on 8 modules: `AutoRTFM`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework` etc.",
+      "Placement: `AIModule` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: add AI components to characters and place NavMesh/volumes or Smart Objects; drive behavior via Behavior Tree/StateTree/Mass.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AIModule\" });`. Use Public when exposing `AIModule` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AIModule` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `AIModule.h` / `AIModuleModule.h`), then use `FModuleManager::LoadModulePtr<AIModuleModule>` or the exported types directly.",
-      "Transitive deps: `AIModule` also needs `AutoRTFM`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `GameplayTags`, `GameplayTasks`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AIModule` 的构建规则位于 `Runtime/AIModule/AIModule.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`AIModule` build rule is `Runtime/AIModule/AIModule.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`AIModule`：它属于 AI/导航（行为树、StateTree、寻路、Mass、感知、Smart Object、ZoneGraph）；构建规则 `Runtime/AIModule/AIModule.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`AIModule`: it is part of AI/navigation (Behavior Tree, StateTree, pathing, Mass, perception, Smart Objects, ZoneGraph); build rule `Runtime/AIModule/AIModule.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "aitestsuite",
     "kind": "module",
     "cn_steps": [
-      "用途：`AITestSuite` 位于 `Developer`，构建规则 `Developer/AITestSuite/AITestSuite.Build.cs`。它直接依赖 6 个模块：`AIModule`, `CQTest`, `Core`, `CoreUObject`, `Engine`, `GameplayTasks`。",
+      "`AITestSuite`（AI Test Suite）：它是测试模块/测试套件（自动化、Gauntlet、Mock）。位于 `Developer`，构建规则 `Developer/AITestSuite/AITestSuite.Build.cs`。直接依赖 6 个模块：`AIModule`、`CQTest`、`Core`、`CoreUObject`、`Engine` 等。",
+      "部署：`AITestSuite` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在 Session Frontend/自动化里运行，或由 CI 触发对应自动化目标；不要打进发行版本。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AITestSuite\" });`；对外暴露 `AITestSuite` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AITestSuite` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `AITestSuite.h` / `AITestSuiteModule.h`），再用 `FModuleManager::LoadModulePtr<AITestSuiteModule>` 或直接使用导出类型。",
-      "传递依赖：`AITestSuite` 还依赖 `AIModule`, `CQTest`, `Core`, `CoreUObject`, `Engine`, `GameplayTasks`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `AITestSuite` lives under `Developer`; build rule `Developer/AITestSuite/AITestSuite.Build.cs`.It directly depends on 6 modules: `AIModule`, `CQTest`, `Core`, `CoreUObject`, `Engine`, `GameplayTasks`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AITestSuite\" });`. Use Public when exposing `AITestSuite` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`AITestSuite` (AI Test Suite): it is a test module/suite (automation, Gauntlet, mocks). Located under `Developer`; build rule `Developer/AITestSuite/AITestSuite.Build.cs`. It directly depends on 6 modules: `AIModule`, `CQTest`, `Core`, `CoreUObject`, `Engine` etc.",
       "Placement: `AITestSuite` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `AITestSuite.h` / `AITestSuiteModule.h`), then use `FModuleManager::LoadModulePtr<AITestSuiteModule>` or the exported types directly.",
-      "Transitive deps: `AITestSuite` also needs `AIModule`, `CQTest`, `Core`, `CoreUObject`, `Engine`, `GameplayTasks`; do not re-list them unless you include their headers."
+      "How to use: run it from Session Frontend/automation or trigger the matching target from CI; do not ship it.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AITestSuite\" });`. Use Public when exposing `AITestSuite` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`AITestSuite` 的构建规则位于 `Developer/AITestSuite/AITestSuite.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`AITestSuite` build rule is `Developer/AITestSuite/AITestSuite.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`AITestSuite`：它是测试模块/测试套件（自动化、Gauntlet、Mock）；构建规则 `Developer/AITestSuite/AITestSuite.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`AITestSuite`: it is a test module/suite (automation, Gauntlet, mocks); build rule `Developer/AITestSuite/AITestSuite.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "alembiclib",
     "kind": "module",
     "cn_steps": [
-      "用途：`AlembicLib` 位于 `ThirdParty`，构建规则 `ThirdParty/Alembic/AlembicLib.Build.cs`。它直接依赖 1 个模块：`Imath`。",
+      "`AlembicLib`（Alembic Lib）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Alembic/AlembicLib.Build.cs`。直接依赖 1 个模块：`Imath`。",
+      "部署：`AlembicLib` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AlembicLib\" });`；对外暴露 `AlembicLib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AlembicLib` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `AlembicLib.h` / `AlembicLibModule.h`），再用 `FModuleManager::LoadModulePtr<AlembicLibModule>` 或直接使用导出类型。",
-      "传递依赖：`AlembicLib` 还依赖 `Imath`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `AlembicLib` lives under `ThirdParty`; build rule `ThirdParty/Alembic/AlembicLib.Build.cs`.It directly depends on 1 modules: `Imath`.",
+      "`AlembicLib` (Alembic Lib): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Alembic/AlembicLib.Build.cs`. It directly depends on 1 modules: `Imath`.",
+      "Placement: `AlembicLib` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AlembicLib\" });`. Use Public when exposing `AlembicLib` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AlembicLib` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `AlembicLib.h` / `AlembicLibModule.h`), then use `FModuleManager::LoadModulePtr<AlembicLibModule>` or the exported types directly.",
-      "Transitive deps: `AlembicLib` also needs `Imath`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`AlembicLib` 的构建规则位于 `ThirdParty/Alembic/AlembicLib.Build.cs`，直接依赖 1 个模块，分类 External。",
-    "note_en": "`AlembicLib` build rule is `ThirdParty/Alembic/AlembicLib.Build.cs`; depends on 1 modules; category External."
+    "note_cn": "`AlembicLib`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Alembic/AlembicLib.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`AlembicLib`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Alembic/AlembicLib.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "amd_ags",
     "kind": "module",
     "cn_steps": [
-      "用途：`AMD_AGS` 位于 `ThirdParty`，构建规则 `ThirdParty/AMD/AMD_AGS/AMD_AGS.Build.cs`。描述符未声明依赖。",
+      "`AMD_AGS`（AMD AGS）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/AMD/AMD_AGS/AMD_AGS.Build.cs`。描述符未声明依赖。",
+      "部署：`AMD_AGS` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AMD_AGS\" });`；对外暴露 `AMD_AGS` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`AMD_AGS` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `AMDAGS.h` / `AMDAGSModule.h`），再用 `FModuleManager::LoadModulePtr<AMDAGSModule>` 或直接使用导出类型。",
-      "传递依赖：`AMD_AGS` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `AMD_AGS` lives under `ThirdParty`; build rule `ThirdParty/AMD/AMD_AGS/AMD_AGS.Build.cs`.The descriptor declares no dependencies.",
+      "`AMD_AGS` (AMD AGS): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/AMD/AMD_AGS/AMD_AGS.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `AMD_AGS` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AMD_AGS\" });`. Use Public when exposing `AMD_AGS` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `AMD_AGS` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `AMDAGS.h` / `AMDAGSModule.h`), then use `FModuleManager::LoadModulePtr<AMDAGSModule>` or the exported types directly.",
-      "Transitive deps: `AMD_AGS` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`AMD_AGS` 的构建规则位于 `ThirdParty/AMD/AMD_AGS/AMD_AGS.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`AMD_AGS` build rule is `ThirdParty/AMD/AMD_AGS/AMD_AGS.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`AMD_AGS`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/AMD/AMD_AGS/AMD_AGS.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`AMD_AGS`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/AMD/AMD_AGS/AMD_AGS.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "amf",
     "kind": "module",
     "cn_steps": [
-      "用途：`Amf` 位于 `ThirdParty`，构建规则 `ThirdParty/AMD/Amf/Amf.Build.cs`。描述符未声明依赖。",
+      "`Amf`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/AMD/Amf/Amf.Build.cs`。描述符未声明依赖。",
+      "部署：`Amf` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Amf\" });`；对外暴露 `Amf` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Amf` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `Amf.h` / `AmfModule.h`），再用 `FModuleManager::LoadModulePtr<AmfModule>` 或直接使用导出类型。",
-      "传递依赖：`Amf` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `Amf` lives under `ThirdParty`; build rule `ThirdParty/AMD/Amf/Amf.Build.cs`.The descriptor declares no dependencies.",
+      "`Amf`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/AMD/Amf/Amf.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `Amf` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Amf\" });`. Use Public when exposing `Amf` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Amf` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `Amf.h` / `AmfModule.h`), then use `FModuleManager::LoadModulePtr<AmfModule>` or the exported types directly.",
-      "Transitive deps: `Amf` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`Amf` 的构建规则位于 `ThirdParty/AMD/Amf/Amf.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`Amf` build rule is `ThirdParty/AMD/Amf/Amf.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`Amf`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/AMD/Amf/Amf.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`Amf`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/AMD/Amf/Amf.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "analytics",
     "kind": "module",
     "cn_steps": [
-      "用途：`Analytics` 位于 `Runtime`，构建规则 `Runtime/Analytics/Analytics/Analytics.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`Analytics`：它属于遥测/分析（Analytics Provider，把事件上报到后端）。位于 `Runtime`，构建规则 `Runtime/Analytics/Analytics/Analytics.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`Analytics` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过项目的 AnalyticsProvider 配置后端（如 ET/Swrve/Horde），业务侧调用 RecordEvent 上报事件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Analytics\" });`；对外暴露 `Analytics` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`Analytics` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `Analytics.h` / `AnalyticsModule.h`），再用 `FModuleManager::LoadModulePtr<AnalyticsModule>` 或直接使用导出类型。",
-      "传递依赖：`Analytics` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `Analytics` lives under `Runtime`; build rule `Runtime/Analytics/Analytics/Analytics.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`Analytics`: it is part of telemetry/analytics (Analytics Provider reporting events to a backend). Located under `Runtime`; build rule `Runtime/Analytics/Analytics/Analytics.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `Analytics` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: configure the backend via the project's AnalyticsProvider (e.g. ET/Swrve/Horde) and report events from gameplay via RecordEvent.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Analytics\" });`. Use Public when exposing `Analytics` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `Analytics` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `Analytics.h` / `AnalyticsModule.h`), then use `FModuleManager::LoadModulePtr<AnalyticsModule>` or the exported types directly.",
-      "Transitive deps: `Analytics` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`Analytics` 的构建规则位于 `Runtime/Analytics/Analytics/Analytics.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`Analytics` build rule is `Runtime/Analytics/Analytics/Analytics.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`Analytics`：它属于遥测/分析（Analytics Provider，把事件上报到后端）；构建规则 `Runtime/Analytics/Analytics/Analytics.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`Analytics`: it is part of telemetry/analytics (Analytics Provider reporting events to a backend); build rule `Runtime/Analytics/Analytics/Analytics.Build.cs`; depends on 1 modules."
   }
 ]

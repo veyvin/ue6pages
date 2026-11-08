@@ -1,302 +1,302 @@
 [
   {
+    "slug": "geometryprocessing",
+    "kind": "module",
+    "cn_steps": [
+      "`GeometryProcessing`（Geometry Processing）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/GeometryProcessing/GeometryProcessing.Build.cs`。直接依赖 7 个模块：`Core`、`CoreUObject`、`DynamicMesh`、`GeometryAlgorithms`、`GeometryCore` 等。",
+      "部署：`GeometryProcessing` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryProcessing\" });`；对外暴露 `GeometryProcessing` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
+    ],
+    "en_steps": [
+      "`GeometryProcessing` (Geometry Processing): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/GeometryProcessing/GeometryProcessing.Build.cs`. It directly depends on 7 modules: `Core`, `CoreUObject`, `DynamicMesh`, `GeometryAlgorithms`, `GeometryCore` etc.",
+      "Placement: `GeometryProcessing` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryProcessing\" });`. Use Public when exposing `GeometryProcessing` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
+    ],
+    "note_cn": "`GeometryProcessing`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/GeometryProcessing/GeometryProcessing.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`GeometryProcessing`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/GeometryProcessing/GeometryProcessing.Build.cs`; depends on 7 modules."
+  },
+  {
     "slug": "geometryprocessinginterfaces",
     "kind": "module",
     "cn_steps": [
-      "用途：`GeometryProcessingInterfaces` 位于 `Developer`，构建规则 `Developer/GeometryProcessingInterfaces/GeometryProcessingInterfaces.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Engine`, `GeometryCore`。",
+      "`GeometryProcessingInterfaces`（Geometry Processing Interfaces）：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）。位于 `Developer`，构建规则 `Developer/GeometryProcessingInterfaces/GeometryProcessingInterfaces.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`Engine`、`GeometryCore`。",
+      "部署：`GeometryProcessingInterfaces` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在建模模式、几何脚本、Landscape/Foliage 编辑或 CAD 导入时用；几何算法多在 GeometryScript/MeshDescription 之上。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryProcessingInterfaces\" });`；对外暴露 `GeometryProcessingInterfaces` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GeometryProcessingInterfaces` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `GeometryProcessingInterfaces.h` / `GeometryProcessingInterfacesModule.h`），再用 `FModuleManager::LoadModulePtr<GeometryProcessingInterfacesModule>` 或直接使用导出类型。",
-      "传递依赖：`GeometryProcessingInterfaces` 还依赖 `Core`, `CoreUObject`, `Engine`, `GeometryCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GeometryProcessingInterfaces` lives under `Developer`; build rule `Developer/GeometryProcessingInterfaces/GeometryProcessingInterfaces.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Engine`, `GeometryCore`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryProcessingInterfaces\" });`. Use Public when exposing `GeometryProcessingInterfaces` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`GeometryProcessingInterfaces` (Geometry Processing Interfaces): it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP). Located under `Developer`; build rule `Developer/GeometryProcessingInterfaces/GeometryProcessingInterfaces.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `Engine`, `GeometryCore`.",
       "Placement: `GeometryProcessingInterfaces` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `GeometryProcessingInterfaces.h` / `GeometryProcessingInterfacesModule.h`), then use `FModuleManager::LoadModulePtr<GeometryProcessingInterfacesModule>` or the exported types directly.",
-      "Transitive deps: `GeometryProcessingInterfaces` also needs `Core`, `CoreUObject`, `Engine`, `GeometryCore`; do not re-list them unless you include their headers."
+      "How to use: used in Modeling mode, geometry scripts, Landscape/Foliage editing, or CAD import; geometry algorithms sit atop GeometryScript/MeshDescription.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GeometryProcessingInterfaces\" });`. Use Public when exposing `GeometryProcessingInterfaces` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GeometryProcessingInterfaces` 的构建规则位于 `Developer/GeometryProcessingInterfaces/GeometryProcessingInterfaces.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`GeometryProcessingInterfaces` build rule is `Developer/GeometryProcessingInterfaces/GeometryProcessingInterfaces.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`GeometryProcessingInterfaces`：它属于几何/网格/世界构建（Mesh、Geometry、Landscape、Foliage、CAD、BSP）；构建规则 `Developer/GeometryProcessingInterfaces/GeometryProcessingInterfaces.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`GeometryProcessingInterfaces`: it is part of geometry/mesh/world building (Mesh, Geometry, Landscape, Foliage, CAD, BSP); build rule `Developer/GeometryProcessingInterfaces/GeometryProcessingInterfaces.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "gklib",
     "kind": "module",
     "cn_steps": [
-      "用途：`GKlib` 位于 `ThirdParty`，构建规则 `ThirdParty/GKlib/GKlib.Build.cs`。描述符未声明依赖。",
+      "`GKlib`（G Klib）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/GKlib/GKlib.Build.cs`。描述符未声明依赖。",
+      "部署：`GKlib` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GKlib\" });`；对外暴露 `GKlib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GKlib` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GKlib.h` / `GKlibModule.h`），再用 `FModuleManager::LoadModulePtr<GKlibModule>` 或直接使用导出类型。",
-      "传递依赖：`GKlib` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GKlib` lives under `ThirdParty`; build rule `ThirdParty/GKlib/GKlib.Build.cs`.The descriptor declares no dependencies.",
+      "`GKlib` (G Klib): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/GKlib/GKlib.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GKlib` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GKlib\" });`. Use Public when exposing `GKlib` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GKlib` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GKlib.h` / `GKlibModule.h`), then use `FModuleManager::LoadModulePtr<GKlibModule>` or the exported types directly.",
-      "Transitive deps: `GKlib` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GKlib` 的构建规则位于 `ThirdParty/GKlib/GKlib.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`GKlib` build rule is `ThirdParty/GKlib/GKlib.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`GKlib`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/GKlib/GKlib.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GKlib`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/GKlib/GKlib.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "gltftoolkit",
     "kind": "module",
     "cn_steps": [
-      "用途：`gltfToolkit` 位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/glTF-Toolkit/gltfToolkit.Build.cs`。描述符未声明依赖。",
+      "`gltfToolkit`（gltf Toolkit）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/glTF-Toolkit/gltfToolkit.Build.cs`。描述符未声明依赖。",
+      "部署：`gltfToolkit` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"gltfToolkit\" });`；对外暴露 `gltfToolkit` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`gltfToolkit` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `gltfToolkit.h` / `gltfToolkitModule.h`），再用 `FModuleManager::LoadModulePtr<gltfToolkitModule>` 或直接使用导出类型。",
-      "传递依赖：`gltfToolkit` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `gltfToolkit` lives under `Engine`; build rule `Engine/Source/ThirdParty/Windows/glTF-Toolkit/gltfToolkit.Build.cs`.The descriptor declares no dependencies.",
+      "`gltfToolkit` (gltf Toolkit): it wraps a third-party library and exposes its functionality to the engine. Located under `Engine`; build rule `Engine/Source/ThirdParty/Windows/glTF-Toolkit/gltfToolkit.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `gltfToolkit` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"gltfToolkit\" });`. Use Public when exposing `gltfToolkit` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `gltfToolkit` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `gltfToolkit.h` / `gltfToolkitModule.h`), then use `FModuleManager::LoadModulePtr<gltfToolkitModule>` or the exported types directly.",
-      "Transitive deps: `gltfToolkit` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`gltfToolkit` 的构建规则位于 `Engine/Source/ThirdParty/Windows/glTF-Toolkit/gltfToolkit.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`gltfToolkit` build rule is `Engine/Source/ThirdParty/Windows/glTF-Toolkit/gltfToolkit.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`gltfToolkit`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `Engine/Source/ThirdParty/Windows/glTF-Toolkit/gltfToolkit.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`gltfToolkit`: it wraps a third-party library and exposes its functionality to the engine; build rule `Engine/Source/ThirdParty/Windows/glTF-Toolkit/gltfToolkit.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "googlegamesdk",
     "kind": "module",
     "cn_steps": [
-      "用途：`GoogleGameSDK` 位于 `ThirdParty`，构建规则 `ThirdParty/GoogleGameSDK/GoogleGameSDK.Build.cs`。描述符未声明依赖。",
+      "`GoogleGameSDK`（Google Game SDK）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/GoogleGameSDK/GoogleGameSDK.Build.cs`。描述符未声明依赖。",
+      "部署：`GoogleGameSDK` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GoogleGameSDK\" });`；对外暴露 `GoogleGameSDK` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GoogleGameSDK` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GoogleGameSDK.h` / `GoogleGameSDKModule.h`），再用 `FModuleManager::LoadModulePtr<GoogleGameSDKModule>` 或直接使用导出类型。",
-      "传递依赖：`GoogleGameSDK` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GoogleGameSDK` lives under `ThirdParty`; build rule `ThirdParty/GoogleGameSDK/GoogleGameSDK.Build.cs`.The descriptor declares no dependencies.",
+      "`GoogleGameSDK` (Google Game SDK): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/GoogleGameSDK/GoogleGameSDK.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GoogleGameSDK` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GoogleGameSDK\" });`. Use Public when exposing `GoogleGameSDK` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GoogleGameSDK` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GoogleGameSDK.h` / `GoogleGameSDKModule.h`), then use `FModuleManager::LoadModulePtr<GoogleGameSDKModule>` or the exported types directly.",
-      "Transitive deps: `GoogleGameSDK` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GoogleGameSDK` 的构建规则位于 `ThirdParty/GoogleGameSDK/GoogleGameSDK.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`GoogleGameSDK` build rule is `ThirdParty/GoogleGameSDK/GoogleGameSDK.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`GoogleGameSDK`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/GoogleGameSDK/GoogleGameSDK.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GoogleGameSDK`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/GoogleGameSDK/GoogleGameSDK.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "googleoboe",
     "kind": "module",
     "cn_steps": [
-      "用途：`GoogleOboe` 位于 `ThirdParty`，构建规则 `ThirdParty/GoogleOboe/GoogleOboe.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`GoogleOboe`（Google Oboe）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/GoogleOboe/GoogleOboe.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`GoogleOboe` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GoogleOboe\" });`；对外暴露 `GoogleOboe` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GoogleOboe` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GoogleOboe.h` / `GoogleOboeModule.h`），再用 `FModuleManager::LoadModulePtr<GoogleOboeModule>` 或直接使用导出类型。",
-      "传递依赖：`GoogleOboe` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GoogleOboe` lives under `ThirdParty`; build rule `ThirdParty/GoogleOboe/GoogleOboe.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`GoogleOboe` (Google Oboe): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/GoogleOboe/GoogleOboe.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `GoogleOboe` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GoogleOboe\" });`. Use Public when exposing `GoogleOboe` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GoogleOboe` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GoogleOboe.h` / `GoogleOboeModule.h`), then use `FModuleManager::LoadModulePtr<GoogleOboeModule>` or the exported types directly.",
-      "Transitive deps: `GoogleOboe` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GoogleOboe` 的构建规则位于 `ThirdParty/GoogleOboe/GoogleOboe.Build.cs`，直接依赖 1 个模块，分类 CPlusPlus。",
-    "note_en": "`GoogleOboe` build rule is `ThirdParty/GoogleOboe/GoogleOboe.Build.cs`; depends on 1 modules; category CPlusPlus."
+    "note_cn": "`GoogleOboe`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/GoogleOboe/GoogleOboe.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`GoogleOboe`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/GoogleOboe/GoogleOboe.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "googletest",
     "kind": "module",
     "cn_steps": [
-      "用途：`GoogleTest` 位于 `ThirdParty`，构建规则 `ThirdParty/GoogleTest/GoogleTest.Build.cs`。描述符未声明依赖。",
+      "`GoogleTest`（Google Test）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/GoogleTest/GoogleTest.Build.cs`。描述符未声明依赖。",
+      "部署：`GoogleTest` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GoogleTest\" });`；对外暴露 `GoogleTest` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GoogleTest` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GoogleTest.h` / `GoogleTestModule.h`），再用 `FModuleManager::LoadModulePtr<GoogleTestModule>` 或直接使用导出类型。",
-      "传递依赖：`GoogleTest` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GoogleTest` lives under `ThirdParty`; build rule `ThirdParty/GoogleTest/GoogleTest.Build.cs`.The descriptor declares no dependencies.",
+      "`GoogleTest` (Google Test): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/GoogleTest/GoogleTest.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GoogleTest` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GoogleTest\" });`. Use Public when exposing `GoogleTest` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GoogleTest` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GoogleTest.h` / `GoogleTestModule.h`), then use `FModuleManager::LoadModulePtr<GoogleTestModule>` or the exported types directly.",
-      "Transitive deps: `GoogleTest` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GoogleTest` 的构建规则位于 `ThirdParty/GoogleTest/GoogleTest.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`GoogleTest` build rule is `ThirdParty/GoogleTest/GoogleTest.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`GoogleTest`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/GoogleTest/GoogleTest.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GoogleTest`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/GoogleTest/GoogleTest.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "gpudirect",
     "kind": "module",
     "cn_steps": [
-      "用途：`GPUDirect` 位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/GPUDirect/GPUDirect.Build.cs`。描述符未声明依赖。",
+      "`GPUDirect`（GPU Direct）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/GPUDirect/GPUDirect.Build.cs`。描述符未声明依赖。",
+      "部署：`GPUDirect` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GPUDirect\" });`；对外暴露 `GPUDirect` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GPUDirect` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GPUDirect.h` / `GPUDirectModule.h`），再用 `FModuleManager::LoadModulePtr<GPUDirectModule>` 或直接使用导出类型。",
-      "传递依赖：`GPUDirect` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GPUDirect` lives under `ThirdParty`; build rule `ThirdParty/NVIDIA/GPUDirect/GPUDirect.Build.cs`.The descriptor declares no dependencies.",
+      "`GPUDirect` (GPU Direct): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/NVIDIA/GPUDirect/GPUDirect.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GPUDirect` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GPUDirect\" });`. Use Public when exposing `GPUDirect` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GPUDirect` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GPUDirect.h` / `GPUDirectModule.h`), then use `FModuleManager::LoadModulePtr<GPUDirectModule>` or the exported types directly.",
-      "Transitive deps: `GPUDirect` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GPUDirect` 的构建规则位于 `ThirdParty/NVIDIA/GPUDirect/GPUDirect.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`GPUDirect` build rule is `ThirdParty/NVIDIA/GPUDirect/GPUDirect.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`GPUDirect`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/NVIDIA/GPUDirect/GPUDirect.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GPUDirect`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/NVIDIA/GPUDirect/GPUDirect.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "gpureshapebootstrapper",
     "kind": "module",
     "cn_steps": [
-      "用途：`GPUReshapeBootstrapper` 位于 `Programs`，构建规则 `Programs/GPUReshape/Source/GPUReshapeBootstrapper/GPUReshapeBootstrapper.Build.cs`。它直接依赖 2 个模块：`Core`, `Projects`。",
+      "`GPUReshapeBootstrapper`（GPU Reshape Bootstrapper）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/GPUReshape/Source/GPUReshapeBootstrapper/GPUReshapeBootstrapper.Build.cs`。直接依赖 2 个模块：`Core`、`Projects`。",
+      "部署：`GPUReshapeBootstrapper` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GPUReshapeBootstrapper\" });`；对外暴露 `GPUReshapeBootstrapper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GPUReshapeBootstrapper` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `GPUReshapeBootstrapper.h` / `GPUReshapeBootstrapperModule.h`），再用 `FModuleManager::LoadModulePtr<GPUReshapeBootstrapperModule>` 或直接使用导出类型。",
-      "传递依赖：`GPUReshapeBootstrapper` 还依赖 `Core`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `GPUReshapeBootstrapper` lives under `Programs`; build rule `Programs/GPUReshape/Source/GPUReshapeBootstrapper/GPUReshapeBootstrapper.Build.cs`.It directly depends on 2 modules: `Core`, `Projects`.",
+      "`GPUReshapeBootstrapper` (GPU Reshape Bootstrapper): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/GPUReshape/Source/GPUReshapeBootstrapper/GPUReshapeBootstrapper.Build.cs`. It directly depends on 2 modules: `Core`, `Projects`.",
+      "Placement: `GPUReshapeBootstrapper` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GPUReshapeBootstrapper\" });`. Use Public when exposing `GPUReshapeBootstrapper` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GPUReshapeBootstrapper` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `GPUReshapeBootstrapper.h` / `GPUReshapeBootstrapperModule.h`), then use `FModuleManager::LoadModulePtr<GPUReshapeBootstrapperModule>` or the exported types directly.",
-      "Transitive deps: `GPUReshapeBootstrapper` also needs `Core`, `Projects`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`GPUReshapeBootstrapper` 的构建规则位于 `Programs/GPUReshape/Source/GPUReshapeBootstrapper/GPUReshapeBootstrapper.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`GPUReshapeBootstrapper` build rule is `Programs/GPUReshape/Source/GPUReshapeBootstrapper/GPUReshapeBootstrapper.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`GPUReshapeBootstrapper`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/GPUReshape/Source/GPUReshapeBootstrapper/GPUReshapeBootstrapper.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`GPUReshapeBootstrapper`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/GPUReshape/Source/GPUReshapeBootstrapper/GPUReshapeBootstrapper.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "gpureshapenative",
     "kind": "module",
     "cn_steps": [
-      "用途：`GPUReshapeNative` 位于 `ThirdParty`，构建规则 `ThirdParty/GPUReshape/Source/GPUReshapeNative/GPUReshapeNative.Build.cs`。描述符未声明依赖。",
+      "`GPUReshapeNative`（GPU Reshape Native）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/GPUReshape/Source/GPUReshapeNative/GPUReshapeNative.Build.cs`。描述符未声明依赖。",
+      "部署：`GPUReshapeNative` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GPUReshapeNative\" });`；对外暴露 `GPUReshapeNative` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GPUReshapeNative` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GPUReshapeNative.h` / `GPUReshapeNativeModule.h`），再用 `FModuleManager::LoadModulePtr<GPUReshapeNativeModule>` 或直接使用导出类型。",
-      "传递依赖：`GPUReshapeNative` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GPUReshapeNative` lives under `ThirdParty`; build rule `ThirdParty/GPUReshape/Source/GPUReshapeNative/GPUReshapeNative.Build.cs`.The descriptor declares no dependencies.",
+      "`GPUReshapeNative` (GPU Reshape Native): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/GPUReshape/Source/GPUReshapeNative/GPUReshapeNative.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GPUReshapeNative` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GPUReshapeNative\" });`. Use Public when exposing `GPUReshapeNative` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GPUReshapeNative` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GPUReshapeNative.h` / `GPUReshapeNativeModule.h`), then use `FModuleManager::LoadModulePtr<GPUReshapeNativeModule>` or the exported types directly.",
-      "Transitive deps: `GPUReshapeNative` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GPUReshapeNative` 的构建规则位于 `ThirdParty/GPUReshape/Source/GPUReshapeNative/GPUReshapeNative.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`GPUReshapeNative` build rule is `ThirdParty/GPUReshape/Source/GPUReshapeNative/GPUReshapeNative.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`GPUReshapeNative`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/GPUReshape/Source/GPUReshapeNative/GPUReshapeNative.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GPUReshapeNative`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/GPUReshape/Source/GPUReshapeNative/GPUReshapeNative.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "gpureshapeue",
     "kind": "module",
     "cn_steps": [
-      "用途：`GPUReshapeUE` 位于 `ThirdParty`，构建规则 `ThirdParty/GPUReshape/Source/GPUReshapeUE/GPUReshapeUE.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`GPUReshapeUE`（GPU Reshape UE）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/GPUReshape/Source/GPUReshapeUE/GPUReshapeUE.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`GPUReshapeUE` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GPUReshapeUE\" });`；对外暴露 `GPUReshapeUE` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GPUReshapeUE` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GPUReshapeUE.h` / `GPUReshapeUEModule.h`），再用 `FModuleManager::LoadModulePtr<GPUReshapeUEModule>` 或直接使用导出类型。",
-      "传递依赖：`GPUReshapeUE` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GPUReshapeUE` lives under `ThirdParty`; build rule `ThirdParty/GPUReshape/Source/GPUReshapeUE/GPUReshapeUE.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "`GPUReshapeUE` (GPU Reshape UE): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/GPUReshape/Source/GPUReshapeUE/GPUReshapeUE.Build.cs`. It directly depends on 1 modules: `Core`.",
+      "Placement: `GPUReshapeUE` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GPUReshapeUE\" });`. Use Public when exposing `GPUReshapeUE` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GPUReshapeUE` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GPUReshapeUE.h` / `GPUReshapeUEModule.h`), then use `FModuleManager::LoadModulePtr<GPUReshapeUEModule>` or the exported types directly.",
-      "Transitive deps: `GPUReshapeUE` also needs `Core`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GPUReshapeUE` 的构建规则位于 `ThirdParty/GPUReshape/Source/GPUReshapeUE/GPUReshapeUE.Build.cs`，直接依赖 1 个模块，分类 CPlusPlus。",
-    "note_en": "`GPUReshapeUE` build rule is `ThirdParty/GPUReshape/Source/GPUReshapeUE/GPUReshapeUE.Build.cs`; depends on 1 modules; category CPlusPlus."
+    "note_cn": "`GPUReshapeUE`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/GPUReshape/Source/GPUReshapeUE/GPUReshapeUE.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`GPUReshapeUE`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/GPUReshape/Source/GPUReshapeUE/GPUReshapeUE.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "graphcolor",
     "kind": "module",
     "cn_steps": [
-      "用途：`GraphColor` 位于 `Developer`，构建规则 `Developer/GraphColor/GraphColor.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`GraphColor`（Graph Color）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/GraphColor/GraphColor.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`GraphColor` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GraphColor\" });`；对外暴露 `GraphColor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GraphColor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `GraphColor.h` / `GraphColorModule.h`），再用 `FModuleManager::LoadModulePtr<GraphColorModule>` 或直接使用导出类型。",
-      "传递依赖：`GraphColor` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GraphColor` lives under `Developer`; build rule `Developer/GraphColor/GraphColor.Build.cs`.It directly depends on 1 modules: `Core`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GraphColor\" });`. Use Public when exposing `GraphColor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`GraphColor` (Graph Color): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/GraphColor/GraphColor.Build.cs`. It directly depends on 1 modules: `Core`.",
       "Placement: `GraphColor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `GraphColor.h` / `GraphColorModule.h`), then use `FModuleManager::LoadModulePtr<GraphColorModule>` or the exported types directly.",
-      "Transitive deps: `GraphColor` also needs `Core`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GraphColor\" });`. Use Public when exposing `GraphColor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GraphColor` 的构建规则位于 `Developer/GraphColor/GraphColor.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`GraphColor` build rule is `Developer/GraphColor/GraphColor.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`GraphColor`：它向其他模块提供 C++ API/功能；构建规则 `Developer/GraphColor/GraphColor.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`GraphColor`: it exposes C++ API/functionality to other modules; build rule `Developer/GraphColor/GraphColor.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "grapheditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`GraphEditor` 位于 `Editor`，构建规则 `Editor/GraphEditor/GraphEditor.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Documentation`, `EditorFramework`, `EditorStyle`。",
+      "`GraphEditor`（Graph Editor）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/GraphEditor/GraphEditor.Build.cs`。直接依赖 8 个模块：`AppFramework`、`AssetRegistry`、`Core`、`CoreUObject`、`DeveloperToolSettings` 等。",
+      "部署：`GraphEditor` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GraphEditor\" });`；对外暴露 `GraphEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GraphEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `GraphEditor.h` / `GraphEditorModule.h`），再用 `FModuleManager::LoadModulePtr<GraphEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`GraphEditor` 还依赖 `AppFramework`, `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Documentation`, `EditorFramework`, `EditorStyle`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `GraphEditor` lives under `Editor`; build rule `Editor/GraphEditor/GraphEditor.Build.cs`.It directly depends on 8 modules: `AppFramework`, `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Documentation`, `EditorFramework`, `EditorStyle`.",
+      "`GraphEditor` (Graph Editor): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/GraphEditor/GraphEditor.Build.cs`. It directly depends on 8 modules: `AppFramework`, `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperToolSettings` etc.",
+      "Placement: `GraphEditor` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GraphEditor\" });`. Use Public when exposing `GraphEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GraphEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `GraphEditor.h` / `GraphEditorModule.h`), then use `FModuleManager::LoadModulePtr<GraphEditorModule>` or the exported types directly.",
-      "Transitive deps: `GraphEditor` also needs `AppFramework`, `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Documentation`, `EditorFramework`, `EditorStyle`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`GraphEditor` 的构建规则位于 `Editor/GraphEditor/GraphEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`GraphEditor` build rule is `Editor/GraphEditor/GraphEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`GraphEditor`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/GraphEditor/GraphEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`GraphEditor`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/GraphEditor/GraphEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "grdk",
     "kind": "module",
     "cn_steps": [
-      "用途：`GRDK` 位于 `ThirdParty`，构建规则 `ThirdParty/Microsoft/GRDK/GRDK.Build.cs`。描述符未声明依赖。",
+      "`GRDK`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Microsoft/GRDK/GRDK.Build.cs`。描述符未声明依赖。",
+      "部署：`GRDK` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GRDK\" });`；对外暴露 `GRDK` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GRDK` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GRDK.h` / `GRDKModule.h`），再用 `FModuleManager::LoadModulePtr<GRDKModule>` 或直接使用导出类型。",
-      "传递依赖：`GRDK` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GRDK` lives under `ThirdParty`; build rule `ThirdParty/Microsoft/GRDK/GRDK.Build.cs`.The descriptor declares no dependencies.",
+      "`GRDK`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Microsoft/GRDK/GRDK.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GRDK` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GRDK\" });`. Use Public when exposing `GRDK` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GRDK` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GRDK.h` / `GRDKModule.h`), then use `FModuleManager::LoadModulePtr<GRDKModule>` or the exported types directly.",
-      "Transitive deps: `GRDK` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GRDK` 的构建规则位于 `ThirdParty/Microsoft/GRDK/GRDK.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`GRDK` build rule is `ThirdParty/Microsoft/GRDK/GRDK.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`GRDK`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Microsoft/GRDK/GRDK.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GRDK`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Microsoft/GRDK/GRDK.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "guidelinessupportlibrary",
     "kind": "module",
     "cn_steps": [
-      "用途：`GuidelinesSupportLibrary` 位于 `ThirdParty`，构建规则 `ThirdParty/GuidelinesSupportLibrary/GuidelinesSupportLibrary.Build.cs`。描述符未声明依赖。",
+      "`GuidelinesSupportLibrary`（Guidelines Support Library）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/GuidelinesSupportLibrary/GuidelinesSupportLibrary.Build.cs`。描述符未声明依赖。",
+      "部署：`GuidelinesSupportLibrary` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GuidelinesSupportLibrary\" });`；对外暴露 `GuidelinesSupportLibrary` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`GuidelinesSupportLibrary` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `GuidelinesSupportLibrary.h` / `GuidelinesSupportLibraryModule.h`），再用 `FModuleManager::LoadModulePtr<GuidelinesSupportLibraryModule>` 或直接使用导出类型。",
-      "传递依赖：`GuidelinesSupportLibrary` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `GuidelinesSupportLibrary` lives under `ThirdParty`; build rule `ThirdParty/GuidelinesSupportLibrary/GuidelinesSupportLibrary.Build.cs`.The descriptor declares no dependencies.",
+      "`GuidelinesSupportLibrary` (Guidelines Support Library): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/GuidelinesSupportLibrary/GuidelinesSupportLibrary.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `GuidelinesSupportLibrary` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GuidelinesSupportLibrary\" });`. Use Public when exposing `GuidelinesSupportLibrary` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `GuidelinesSupportLibrary` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `GuidelinesSupportLibrary.h` / `GuidelinesSupportLibraryModule.h`), then use `FModuleManager::LoadModulePtr<GuidelinesSupportLibraryModule>` or the exported types directly.",
-      "Transitive deps: `GuidelinesSupportLibrary` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`GuidelinesSupportLibrary` 的构建规则位于 `ThirdParty/GuidelinesSupportLibrary/GuidelinesSupportLibrary.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`GuidelinesSupportLibrary` build rule is `ThirdParty/GuidelinesSupportLibrary/GuidelinesSupportLibrary.Build.cs`; depends on 0 modules; category External."
-  },
-  {
-    "slug": "haplib",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`HAPLib` 位于 `ThirdParty`，构建规则 `ThirdParty/HAPMedia/HAPLib/HAPLib.Build.cs`。描述符未声明依赖。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HAPLib\" });`；对外暴露 `HAPLib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`HAPLib` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `HAPLib.h` / `HAPLibModule.h`），再用 `FModuleManager::LoadModulePtr<HAPLibModule>` 或直接使用导出类型。",
-      "传递依赖：`HAPLib` 未声明额外公开依赖，通常只依赖引擎基础层。"
-    ],
-    "en_steps": [
-      "Purpose: `HAPLib` lives under `ThirdParty`; build rule `ThirdParty/HAPMedia/HAPLib/HAPLib.Build.cs`.The descriptor declares no dependencies.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HAPLib\" });`. Use Public when exposing `HAPLib` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `HAPLib` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `HAPLib.h` / `HAPLibModule.h`), then use `FModuleManager::LoadModulePtr<HAPLibModule>` or the exported types directly.",
-      "Transitive deps: `HAPLib` declares no extra public deps; it typically relies on engine basics."
-    ],
-    "note_cn": "`HAPLib` 的构建规则位于 `ThirdParty/HAPMedia/HAPLib/HAPLib.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`HAPLib` build rule is `ThirdParty/HAPMedia/HAPLib/HAPLib.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`GuidelinesSupportLibrary`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/GuidelinesSupportLibrary/GuidelinesSupportLibrary.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`GuidelinesSupportLibrary`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/GuidelinesSupportLibrary/GuidelinesSupportLibrary.Build.cs`; depends on 0 modules."
   }
 ]

@@ -1,308 +1,302 @@
 [
   {
+    "slug": "downlinkbandwidthmanager",
+    "kind": "module",
+    "cn_steps": [
+      "`DownlinkBandwidthManager`（Downlink Bandwidth Manager）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/Experimental/DownlinkBandwidthManager/DownlinkBandwidthManager.Build.cs`。直接依赖 3 个模块：`BandwidthDebugDelegates`、`Core`、`CoreUObject`。",
+      "部署：`DownlinkBandwidthManager` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DownlinkBandwidthManager\" });`；对外暴露 `DownlinkBandwidthManager` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`DownlinkBandwidthManager` (Downlink Bandwidth Manager): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/Experimental/DownlinkBandwidthManager/DownlinkBandwidthManager.Build.cs`. It directly depends on 3 modules: `BandwidthDebugDelegates`, `Core`, `CoreUObject`.",
+      "Placement: `DownlinkBandwidthManager` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DownlinkBandwidthManager\" });`. Use Public when exposing `DownlinkBandwidthManager` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`DownlinkBandwidthManager`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/Experimental/DownlinkBandwidthManager/DownlinkBandwidthManager.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`DownlinkBandwidthManager`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/Experimental/DownlinkBandwidthManager/DownlinkBandwidthManager.Build.cs`; depends on 3 modules."
+  },
+  {
     "slug": "downlinkbandwidthmeasurementtool",
     "kind": "module",
     "cn_steps": [
-      "用途：`DownlinkBandwidthMeasurementTool` 位于 `Runtime`，构建规则 `Runtime/Online/Experimental/DownlinkBandwidthMeasurementTool/DownlinkBandwidthMeasurementTool.Build.cs`。它直接依赖 5 个模块：`BandwidthDebugDelegates`, `Core`, `CoreUObject`, `Engine`, `HTTP`。",
+      "`DownlinkBandwidthMeasurementTool`（Downlink Bandwidth Measurement Tool）：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）。位于 `Runtime`，构建规则 `Runtime/Online/Experimental/DownlinkBandwidthMeasurementTool/DownlinkBandwidthMeasurementTool.Build.cs`。直接依赖 5 个模块：`BandwidthDebugDelegates`、`Core`、`CoreUObject`、`Engine`、`HTTP`。",
+      "部署：`DownlinkBandwidthMeasurementTool` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：联网代码要在 client 与 server Target 都列出；在线服务在 DefaultEngine.ini 指定实现并配置凭证。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DownlinkBandwidthMeasurementTool\" });`；对外暴露 `DownlinkBandwidthMeasurementTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DownlinkBandwidthMeasurementTool` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `DownlinkBandwidthMeasurementTool.h` / `DownlinkBandwidthMeasurementToolModule.h`），再用 `FModuleManager::LoadModulePtr<DownlinkBandwidthMeasurementToolModule>` 或直接使用导出类型。",
-      "传递依赖：`DownlinkBandwidthMeasurementTool` 还依赖 `BandwidthDebugDelegates`, `Core`, `CoreUObject`, `Engine`, `HTTP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`DownlinkBandwidthMeasurementTool` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DownlinkBandwidthMeasurementTool` lives under `Runtime`; build rule `Runtime/Online/Experimental/DownlinkBandwidthMeasurementTool/DownlinkBandwidthMeasurementTool.Build.cs`.It directly depends on 5 modules: `BandwidthDebugDelegates`, `Core`, `CoreUObject`, `Engine`, `HTTP`.",
+      "`DownlinkBandwidthMeasurementTool` (Downlink Bandwidth Measurement Tool): it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP). Located under `Runtime`; build rule `Runtime/Online/Experimental/DownlinkBandwidthMeasurementTool/DownlinkBandwidthMeasurementTool.Build.cs`. It directly depends on 5 modules: `BandwidthDebugDelegates`, `Core`, `CoreUObject`, `Engine`, `HTTP`.",
+      "Placement: `DownlinkBandwidthMeasurementTool` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: list it on both client and server targets; point DefaultEngine.ini at the Online implementation and add credentials.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DownlinkBandwidthMeasurementTool\" });`. Use Public when exposing `DownlinkBandwidthMeasurementTool` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DownlinkBandwidthMeasurementTool` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `DownlinkBandwidthMeasurementTool.h` / `DownlinkBandwidthMeasurementToolModule.h`), then use `FModuleManager::LoadModulePtr<DownlinkBandwidthMeasurementToolModule>` or the exported types directly.",
-      "Transitive deps: `DownlinkBandwidthMeasurementTool` also needs `BandwidthDebugDelegates`, `Core`, `CoreUObject`, `Engine`, `HTTP`; do not re-list them unless you include their headers.",
-      "Note: `DownlinkBandwidthMeasurementTool` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DownlinkBandwidthMeasurementTool` 的构建规则位于 `Runtime/Online/Experimental/DownlinkBandwidthMeasurementTool/DownlinkBandwidthMeasurementTool.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`DownlinkBandwidthMeasurementTool` build rule is `Runtime/Online/Experimental/DownlinkBandwidthMeasurementTool/DownlinkBandwidthMeasurementTool.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`DownlinkBandwidthMeasurementTool`：它属于网络/在线（复制、Iris、Sockets、HTTP/RPC、Online 子系统、消息总线、MCP）；构建规则 `Runtime/Online/Experimental/DownlinkBandwidthMeasurementTool/DownlinkBandwidthMeasurementTool.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`DownlinkBandwidthMeasurementTool`: it is part of networking/online (replication, Iris, Sockets, HTTP/RPC, Online subsystem, message bus, MCP); build rule `Runtime/Online/Experimental/DownlinkBandwidthMeasurementTool/DownlinkBandwidthMeasurementTool.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "dr_libs",
     "kind": "module",
     "cn_steps": [
-      "用途：`dr_libs` 位于 `ThirdParty`，构建规则 `ThirdParty/dr_libs/dr_libs.Build.cs`。描述符未声明依赖。",
+      "`dr_libs`（dr libs）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/dr_libs/dr_libs.Build.cs`。描述符未声明依赖。",
+      "部署：`dr_libs` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"dr_libs\" });`；对外暴露 `dr_libs` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`dr_libs` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `drlibs.h` / `drlibsModule.h`），再用 `FModuleManager::LoadModulePtr<drlibsModule>` 或直接使用导出类型。",
-      "传递依赖：`dr_libs` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `dr_libs` lives under `ThirdParty`; build rule `ThirdParty/dr_libs/dr_libs.Build.cs`.The descriptor declares no dependencies.",
+      "`dr_libs` (dr libs): it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/dr_libs/dr_libs.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `dr_libs` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"dr_libs\" });`. Use Public when exposing `dr_libs` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `dr_libs` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `drlibs.h` / `drlibsModule.h`), then use `FModuleManager::LoadModulePtr<drlibsModule>` or the exported types directly.",
-      "Transitive deps: `dr_libs` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`dr_libs` 的构建规则位于 `ThirdParty/dr_libs/dr_libs.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`dr_libs` build rule is `ThirdParty/dr_libs/dr_libs.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`dr_libs`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/dr_libs/dr_libs.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`dr_libs`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/dr_libs/dr_libs.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "drawprimitivedebugger",
     "kind": "module",
     "cn_steps": [
-      "用途：`DrawPrimitiveDebugger` 位于 `Developer`，构建规则 `Developer/DrawPrimitiveDebugger/DrawPrimitiveDebugger.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InputCore`, `RHI`, `RenderCore`, `Renderer`。",
+      "`DrawPrimitiveDebugger`（Draw Primitive Debugger）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/DrawPrimitiveDebugger/DrawPrimitiveDebugger.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DeveloperSettings`、`Engine`、`InputCore` 等。",
+      "部署：`DrawPrimitiveDebugger` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DrawPrimitiveDebugger\" });`；对外暴露 `DrawPrimitiveDebugger` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DrawPrimitiveDebugger` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `DrawPrimitiveDebugger.h` / `DrawPrimitiveDebuggerModule.h`），再用 `FModuleManager::LoadModulePtr<DrawPrimitiveDebuggerModule>` 或直接使用导出类型。",
-      "传递依赖：`DrawPrimitiveDebugger` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InputCore`, `RHI`, `RenderCore`, `Renderer`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DrawPrimitiveDebugger` lives under `Developer`; build rule `Developer/DrawPrimitiveDebugger/DrawPrimitiveDebugger.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InputCore`, `RHI`, `RenderCore`, `Renderer`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DrawPrimitiveDebugger\" });`. Use Public when exposing `DrawPrimitiveDebugger` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`DrawPrimitiveDebugger` (Draw Primitive Debugger): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/DrawPrimitiveDebugger/DrawPrimitiveDebugger.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InputCore` etc.",
       "Placement: `DrawPrimitiveDebugger` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `DrawPrimitiveDebugger.h` / `DrawPrimitiveDebuggerModule.h`), then use `FModuleManager::LoadModulePtr<DrawPrimitiveDebuggerModule>` or the exported types directly.",
-      "Transitive deps: `DrawPrimitiveDebugger` also needs `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InputCore`, `RHI`, `RenderCore`, `Renderer`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DrawPrimitiveDebugger\" });`. Use Public when exposing `DrawPrimitiveDebugger` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DrawPrimitiveDebugger` 的构建规则位于 `Developer/DrawPrimitiveDebugger/DrawPrimitiveDebugger.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`DrawPrimitiveDebugger` build rule is `Developer/DrawPrimitiveDebugger/DrawPrimitiveDebugger.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`DrawPrimitiveDebugger`：它向其他模块提供 C++ API/功能；构建规则 `Developer/DrawPrimitiveDebugger/DrawPrimitiveDebugger.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`DrawPrimitiveDebugger`: it exposes C++ API/functionality to other modules; build rule `Developer/DrawPrimitiveDebugger/DrawPrimitiveDebugger.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "dsymexporter",
     "kind": "module",
     "cn_steps": [
-      "用途：`DsymExporter` 位于 `Programs`，构建规则 `Programs/Mac/DsymExporter/DsymExporter.Build.cs`。它直接依赖 3 个模块：`ApplicationCore`, `Core`, `Projects`。",
+      "`DsymExporter`（Dsym Exporter）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/Mac/DsymExporter/DsymExporter.Build.cs`。直接依赖 3 个模块：`ApplicationCore`、`Core`、`Projects`。",
+      "部署：`DsymExporter` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DsymExporter\" });`；对外暴露 `DsymExporter` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DsymExporter` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `DsymExporter.h` / `DsymExporterModule.h`），再用 `FModuleManager::LoadModulePtr<DsymExporterModule>` 或直接使用导出类型。",
-      "传递依赖：`DsymExporter` 还依赖 `ApplicationCore`, `Core`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `DsymExporter` lives under `Programs`; build rule `Programs/Mac/DsymExporter/DsymExporter.Build.cs`.It directly depends on 3 modules: `ApplicationCore`, `Core`, `Projects`.",
+      "`DsymExporter` (Dsym Exporter): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/Mac/DsymExporter/DsymExporter.Build.cs`. It directly depends on 3 modules: `ApplicationCore`, `Core`, `Projects`.",
+      "Placement: `DsymExporter` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DsymExporter\" });`. Use Public when exposing `DsymExporter` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DsymExporter` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `DsymExporter.h` / `DsymExporterModule.h`), then use `FModuleManager::LoadModulePtr<DsymExporterModule>` or the exported types directly.",
-      "Transitive deps: `DsymExporter` also needs `ApplicationCore`, `Core`, `Projects`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`DsymExporter` 的构建规则位于 `Programs/Mac/DsymExporter/DsymExporter.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`DsymExporter` build rule is `Programs/Mac/DsymExporter/DsymExporter.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`DsymExporter`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/Mac/DsymExporter/DsymExporter.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`DsymExporter`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/Mac/DsymExporter/DsymExporter.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "dumppackagetojson",
     "kind": "module",
     "cn_steps": [
-      "用途：`DumpPackageToJson` 位于 `Runtime`，构建规则 `Runtime/Experimental/DumpPackageToJson/DumpPackageToJson.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `JsonObjectGraph`, `StorageServerClient`。",
+      "`DumpPackageToJson`（Dump Package To Json）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Runtime`，构建规则 `Runtime/Experimental/DumpPackageToJson/DumpPackageToJson.Build.cs`。直接依赖 4 个模块：`Core`、`CoreUObject`、`JsonObjectGraph`、`StorageServerClient`。",
+      "部署：`DumpPackageToJson` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DumpPackageToJson\" });`；对外暴露 `DumpPackageToJson` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DumpPackageToJson` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `DumpPackageToJson.h` / `DumpPackageToJsonModule.h`），再用 `FModuleManager::LoadModulePtr<DumpPackageToJsonModule>` 或直接使用导出类型。",
-      "传递依赖：`DumpPackageToJson` 还依赖 `Core`, `CoreUObject`, `JsonObjectGraph`, `StorageServerClient`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`DumpPackageToJson` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `DumpPackageToJson` lives under `Runtime`; build rule `Runtime/Experimental/DumpPackageToJson/DumpPackageToJson.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `JsonObjectGraph`, `StorageServerClient`.",
+      "`DumpPackageToJson` (Dump Package To Json): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Runtime`; build rule `Runtime/Experimental/DumpPackageToJson/DumpPackageToJson.Build.cs`. It directly depends on 4 modules: `Core`, `CoreUObject`, `JsonObjectGraph`, `StorageServerClient`.",
+      "Placement: `DumpPackageToJson` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DumpPackageToJson\" });`. Use Public when exposing `DumpPackageToJson` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DumpPackageToJson` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `DumpPackageToJson.h` / `DumpPackageToJsonModule.h`), then use `FModuleManager::LoadModulePtr<DumpPackageToJsonModule>` or the exported types directly.",
-      "Transitive deps: `DumpPackageToJson` also needs `Core`, `CoreUObject`, `JsonObjectGraph`, `StorageServerClient`; do not re-list them unless you include their headers.",
-      "Note: `DumpPackageToJson` is under Experimental and may change; prove it in an empty project before production."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`DumpPackageToJson` 的构建规则位于 `Runtime/Experimental/DumpPackageToJson/DumpPackageToJson.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`DumpPackageToJson` build rule is `Runtime/Experimental/DumpPackageToJson/DumpPackageToJson.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`DumpPackageToJson`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Runtime/Experimental/DumpPackageToJson/DumpPackageToJson.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`DumpPackageToJson`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Runtime/Experimental/DumpPackageToJson/DumpPackageToJson.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "dumpsyms",
     "kind": "module",
     "cn_steps": [
-      "用途：`DumpSyms` 位于 `Programs`，构建规则 `Programs/DumpSyms/DumpSyms.Build.cs`。它直接依赖 8 个模块：`Breakpad`, `DiaSdk`, `Source`, `ThirdParty`, `llvm`, `mimalloc`, `src`, `third_party`。",
+      "`DumpSyms`（Dump Syms）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/DumpSyms/DumpSyms.Build.cs`。直接依赖 8 个模块：`Breakpad`、`DiaSdk`、`Source`、`ThirdParty`、`llvm` 等。",
+      "部署：`DumpSyms` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DumpSyms\" });`；对外暴露 `DumpSyms` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DumpSyms` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `DumpSyms.h` / `DumpSymsModule.h`），再用 `FModuleManager::LoadModulePtr<DumpSymsModule>` 或直接使用导出类型。",
-      "传递依赖：`DumpSyms` 还依赖 `Breakpad`, `DiaSdk`, `Source`, `ThirdParty`, `llvm`, `mimalloc`, `src`, `third_party`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `DumpSyms` lives under `Programs`; build rule `Programs/DumpSyms/DumpSyms.Build.cs`.It directly depends on 8 modules: `Breakpad`, `DiaSdk`, `Source`, `ThirdParty`, `llvm`, `mimalloc`, `src`, `third_party`.",
+      "`DumpSyms` (Dump Syms): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/DumpSyms/DumpSyms.Build.cs`. It directly depends on 8 modules: `Breakpad`, `DiaSdk`, `Source`, `ThirdParty`, `llvm` etc.",
+      "Placement: `DumpSyms` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DumpSyms\" });`. Use Public when exposing `DumpSyms` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DumpSyms` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `DumpSyms.h` / `DumpSymsModule.h`), then use `FModuleManager::LoadModulePtr<DumpSymsModule>` or the exported types directly.",
-      "Transitive deps: `DumpSyms` also needs `Breakpad`, `DiaSdk`, `Source`, `ThirdParty`, `llvm`, `mimalloc`, `src`, `third_party`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`DumpSyms` 的构建规则位于 `Programs/DumpSyms/DumpSyms.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`DumpSyms` build rule is `Programs/DumpSyms/DumpSyms.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`DumpSyms`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/DumpSyms/DumpSyms.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`DumpSyms`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/DumpSyms/DumpSyms.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "dx11",
     "kind": "module",
     "cn_steps": [
-      "用途：`DX11` 位于 `ThirdParty`，构建规则 `ThirdParty/Windows/DX11/DX11.Build.cs`。描述符未声明依赖。",
+      "`DX11`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Windows/DX11/DX11.Build.cs`。描述符未声明依赖。",
+      "部署：`DX11` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DX11\" });`；对外暴露 `DX11` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DX11` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DX11.h` / `DX11Module.h`），再用 `FModuleManager::LoadModulePtr<DX11Module>` 或直接使用导出类型。",
-      "传递依赖：`DX11` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DX11` lives under `ThirdParty`; build rule `ThirdParty/Windows/DX11/DX11.Build.cs`.The descriptor declares no dependencies.",
+      "`DX11`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Windows/DX11/DX11.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DX11` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DX11\" });`. Use Public when exposing `DX11` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DX11` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DX11.h` / `DX11Module.h`), then use `FModuleManager::LoadModulePtr<DX11Module>` or the exported types directly.",
-      "Transitive deps: `DX11` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DX11` 的构建规则位于 `ThirdParty/Windows/DX11/DX11.Build.cs`，直接依赖 0 个模块，分类 External。",
-    "note_en": "`DX11` build rule is `ThirdParty/Windows/DX11/DX11.Build.cs`; depends on 0 modules; category External."
+    "note_cn": "`DX11`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Windows/DX11/DX11.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DX11`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Windows/DX11/DX11.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "dx11audio",
     "kind": "module",
     "cn_steps": [
-      "用途：`DX11Audio` 位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/DX11/DX11Audio.Build.cs`。描述符未声明依赖。",
+      "`DX11Audio`（DX11 Audio）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/DX11/DX11Audio.Build.cs`。描述符未声明依赖。",
+      "部署：`DX11Audio` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DX11Audio\" });`；对外暴露 `DX11Audio` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DX11Audio` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DX11Audio.h` / `DX11AudioModule.h`），再用 `FModuleManager::LoadModulePtr<DX11AudioModule>` 或直接使用导出类型。",
-      "传递依赖：`DX11Audio` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DX11Audio` lives under `Engine`; build rule `Engine/Source/ThirdParty/Windows/DX11/DX11Audio.Build.cs`.The descriptor declares no dependencies.",
+      "`DX11Audio` (DX11 Audio): it wraps a third-party library and exposes its functionality to the engine. Located under `Engine`; build rule `Engine/Source/ThirdParty/Windows/DX11/DX11Audio.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DX11Audio` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DX11Audio\" });`. Use Public when exposing `DX11Audio` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DX11Audio` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DX11Audio.h` / `DX11AudioModule.h`), then use `FModuleManager::LoadModulePtr<DX11AudioModule>` or the exported types directly.",
-      "Transitive deps: `DX11Audio` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DX11Audio` 的构建规则位于 `Engine/Source/ThirdParty/Windows/DX11/DX11Audio.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`DX11Audio` build rule is `Engine/Source/ThirdParty/Windows/DX11/DX11Audio.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`DX11Audio`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `Engine/Source/ThirdParty/Windows/DX11/DX11Audio.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DX11Audio`: it wraps a third-party library and exposes its functionality to the engine; build rule `Engine/Source/ThirdParty/Windows/DX11/DX11Audio.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "dx11input",
     "kind": "module",
     "cn_steps": [
-      "用途：`DX11Input` 位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/DX11/DX11Input.Build.cs`。描述符未声明依赖。",
+      "`DX11Input`（DX11 Input）：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/DX11/DX11Input.Build.cs`。描述符未声明依赖。",
+      "部署：`DX11Input` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DX11Input\" });`；对外暴露 `DX11Input` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DX11Input` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DX11Input.h` / `DX11InputModule.h`），再用 `FModuleManager::LoadModulePtr<DX11InputModule>` 或直接使用导出类型。",
-      "传递依赖：`DX11Input` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DX11Input` lives under `Engine`; build rule `Engine/Source/ThirdParty/Windows/DX11/DX11Input.Build.cs`.The descriptor declares no dependencies.",
+      "`DX11Input` (DX11 Input): it wraps a third-party library and exposes its functionality to the engine. Located under `Engine`; build rule `Engine/Source/ThirdParty/Windows/DX11/DX11Input.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DX11Input` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DX11Input\" });`. Use Public when exposing `DX11Input` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DX11Input` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DX11Input.h` / `DX11InputModule.h`), then use `FModuleManager::LoadModulePtr<DX11InputModule>` or the exported types directly.",
-      "Transitive deps: `DX11Input` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DX11Input` 的构建规则位于 `Engine/Source/ThirdParty/Windows/DX11/DX11Input.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`DX11Input` build rule is `Engine/Source/ThirdParty/Windows/DX11/DX11Input.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`DX11Input`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `Engine/Source/ThirdParty/Windows/DX11/DX11Input.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DX11Input`: it wraps a third-party library and exposes its functionality to the engine; build rule `Engine/Source/ThirdParty/Windows/DX11/DX11Input.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "dx12",
     "kind": "module",
     "cn_steps": [
-      "用途：`DX12` 位于 `ThirdParty`，构建规则 `ThirdParty/Windows/DX12/DX12.Build.cs`。它直接依赖 1 个模块：`AgilitySDK`。",
+      "`DX12`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/Windows/DX12/DX12.Build.cs`。直接依赖 1 个模块：`AgilitySDK`。",
+      "部署：`DX12` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DX12\" });`；对外暴露 `DX12` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DX12` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DX12.h` / `DX12Module.h`），再用 `FModuleManager::LoadModulePtr<DX12Module>` 或直接使用导出类型。",
-      "传递依赖：`DX12` 还依赖 `AgilitySDK`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DX12` lives under `ThirdParty`; build rule `ThirdParty/Windows/DX12/DX12.Build.cs`.It directly depends on 1 modules: `AgilitySDK`.",
+      "`DX12`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/Windows/DX12/DX12.Build.cs`. It directly depends on 1 modules: `AgilitySDK`.",
+      "Placement: `DX12` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DX12\" });`. Use Public when exposing `DX12` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DX12` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DX12.h` / `DX12Module.h`), then use `FModuleManager::LoadModulePtr<DX12Module>` or the exported types directly.",
-      "Transitive deps: `DX12` also needs `AgilitySDK`; do not re-list them unless you include their headers."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DX12` 的构建规则位于 `ThirdParty/Windows/DX12/DX12.Build.cs`，直接依赖 1 个模块，分类 External。",
-    "note_en": "`DX12` build rule is `ThirdParty/Windows/DX12/DX12.Build.cs`; depends on 1 modules; category External."
+    "note_cn": "`DX12`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/Windows/DX12/DX12.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`DX12`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/Windows/DX12/DX12.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "dx9",
     "kind": "module",
     "cn_steps": [
-      "用途：`DX9` 位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/DX9/DX9.Build.cs`。描述符未声明依赖。",
+      "`DX9`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/DX9/DX9.Build.cs`。描述符未声明依赖。",
+      "部署：`DX9` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DX9\" });`；对外暴露 `DX9` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`DX9` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
-      "调用：#include 其 Public 头（常见 `DX9.h` / `DX9Module.h`），再用 `FModuleManager::LoadModulePtr<DX9Module>` 或直接使用导出类型。",
-      "传递依赖：`DX9` 未声明额外公开依赖，通常只依赖引擎基础层。"
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
     ],
     "en_steps": [
-      "Purpose: `DX9` lives under `Engine`; build rule `Engine/Source/ThirdParty/Windows/DX9/DX9.Build.cs`.The descriptor declares no dependencies.",
+      "`DX9`: it wraps a third-party library and exposes its functionality to the engine. Located under `Engine`; build rule `Engine/Source/ThirdParty/Windows/DX9/DX9.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `DX9` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DX9\" });`. Use Public when exposing `DX9` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `DX9` wraps a third-party library. Prefer the engine module that already wraps it.",
-      "Call: include Public headers (often `DX9.h` / `DX9Module.h`), then use `FModuleManager::LoadModulePtr<DX9Module>` or the exported types directly.",
-      "Transitive deps: `DX9` declares no extra public deps; it typically relies on engine basics."
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
     ],
-    "note_cn": "`DX9` 的构建规则位于 `Engine/Source/ThirdParty/Windows/DX9/DX9.Build.cs`，直接依赖 0 个模块，分类 Module。",
-    "note_en": "`DX9` build rule is `Engine/Source/ThirdParty/Windows/DX9/DX9.Build.cs`; depends on 0 modules; category Module."
+    "note_cn": "`DX9`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `Engine/Source/ThirdParty/Windows/DX9/DX9.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`DX9`: it wraps a third-party library and exposes its functionality to the engine; build rule `Engine/Source/ThirdParty/Windows/DX9/DX9.Build.cs`; depends on 0 modules."
   },
   {
     "slug": "editoranalyticssession",
     "kind": "module",
     "cn_steps": [
-      "用途：`EditorAnalyticsSession` 位于 `Developer`，构建规则 `Developer/EditorAnalyticsSession/EditorAnalyticsSession.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "`EditorAnalyticsSession`（Editor Analytics Session）：它属于遥测/分析（Analytics Provider，把事件上报到后端）。位于 `Developer`，构建规则 `Developer/EditorAnalyticsSession/EditorAnalyticsSession.Build.cs`。直接依赖 1 个模块：`Core`。",
+      "部署：`EditorAnalyticsSession` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：通过项目的 AnalyticsProvider 配置后端（如 ET/Swrve/Horde），业务侧调用 RecordEvent 上报事件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorAnalyticsSession\" });`；对外暴露 `EditorAnalyticsSession` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorAnalyticsSession` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `EditorAnalyticsSession.h` / `EditorAnalyticsSessionModule.h`），再用 `FModuleManager::LoadModulePtr<EditorAnalyticsSessionModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorAnalyticsSession` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EditorAnalyticsSession` lives under `Developer`; build rule `Developer/EditorAnalyticsSession/EditorAnalyticsSession.Build.cs`.It directly depends on 1 modules: `Core`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorAnalyticsSession\" });`. Use Public when exposing `EditorAnalyticsSession` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`EditorAnalyticsSession` (Editor Analytics Session): it is part of telemetry/analytics (Analytics Provider reporting events to a backend). Located under `Developer`; build rule `Developer/EditorAnalyticsSession/EditorAnalyticsSession.Build.cs`. It directly depends on 1 modules: `Core`.",
       "Placement: `EditorAnalyticsSession` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `EditorAnalyticsSession.h` / `EditorAnalyticsSessionModule.h`), then use `FModuleManager::LoadModulePtr<EditorAnalyticsSessionModule>` or the exported types directly.",
-      "Transitive deps: `EditorAnalyticsSession` also needs `Core`; do not re-list them unless you include their headers."
+      "How to use: configure the backend via the project's AnalyticsProvider (e.g. ET/Swrve/Horde) and report events from gameplay via RecordEvent.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorAnalyticsSession\" });`. Use Public when exposing `EditorAnalyticsSession` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EditorAnalyticsSession` 的构建规则位于 `Developer/EditorAnalyticsSession/EditorAnalyticsSession.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`EditorAnalyticsSession` build rule is `Developer/EditorAnalyticsSession/EditorAnalyticsSession.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`EditorAnalyticsSession`：它属于遥测/分析（Analytics Provider，把事件上报到后端）；构建规则 `Developer/EditorAnalyticsSession/EditorAnalyticsSession.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`EditorAnalyticsSession`: it is part of telemetry/analytics (Analytics Provider reporting events to a backend); build rule `Developer/EditorAnalyticsSession/EditorAnalyticsSession.Build.cs`; depends on 1 modules."
   },
   {
     "slug": "editorconfig",
     "kind": "module",
     "cn_steps": [
-      "用途：`EditorConfig` 位于 `Editor`，构建规则 `Editor/EditorConfig/EditorConfig.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Json`。",
+      "`EditorConfig`（Editor Config）：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）。位于 `Editor`，构建规则 `Editor/EditorConfig/EditorConfig.Build.cs`。直接依赖 5 个模块：`Core`、`CoreUObject`、`EditorSubsystem`、`Engine`、`Json`。",
+      "部署：`EditorConfig` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：在需要读写结构化数据或配置的代码里 include 其头文件，直接调用其序列化/解析 API。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorConfig\" });`；对外暴露 `EditorConfig` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorConfig` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EditorConfig.h` / `EditorConfigModule.h`），再用 `FModuleManager::LoadModulePtr<EditorConfigModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorConfig` 还依赖 `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EditorConfig` lives under `Editor`; build rule `Editor/EditorConfig/EditorConfig.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Json`.",
+      "`EditorConfig` (Editor Config): it is part of data/serialization (JSON/XML/Config/struct serialization/logging). Located under `Editor`; build rule `Editor/EditorConfig/EditorConfig.Build.cs`. It directly depends on 5 modules: `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Json`.",
+      "Placement: `EditorConfig` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: include its headers where you read/write structured data or config and call its serialization/parse API.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorConfig\" });`. Use Public when exposing `EditorConfig` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EditorConfig` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EditorConfig.h` / `EditorConfigModule.h`), then use `FModuleManager::LoadModulePtr<EditorConfigModule>` or the exported types directly.",
-      "Transitive deps: `EditorConfig` also needs `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Json`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EditorConfig` 的构建规则位于 `Editor/EditorConfig/EditorConfig.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`EditorConfig` build rule is `Editor/EditorConfig/EditorConfig.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`EditorConfig`：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）；构建规则 `Editor/EditorConfig/EditorConfig.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`EditorConfig`: it is part of data/serialization (JSON/XML/Config/struct serialization/logging); build rule `Editor/EditorConfig/EditorConfig.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "editorframework",
     "kind": "module",
     "cn_steps": [
-      "用途：`EditorFramework` 位于 `Editor`，构建规则 `Editor/EditorFramework/EditorFramework.Build.cs`。它直接依赖 8 个模块：`Analytics`, `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `InteractiveToolsFramework`, `Slate`, `SlateCore`。",
+      "`EditorFramework`（Editor Framework）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/EditorFramework/EditorFramework.Build.cs`。直接依赖 8 个模块：`Analytics`、`Core`、`CoreUObject`、`EditorSubsystem`、`Engine` 等。",
+      "部署：`EditorFramework` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorFramework\" });`；对外暴露 `EditorFramework` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorFramework` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EditorFramework.h` / `EditorFrameworkModule.h`），再用 `FModuleManager::LoadModulePtr<EditorFrameworkModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorFramework` 还依赖 `Analytics`, `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `InteractiveToolsFramework`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `EditorFramework` lives under `Editor`; build rule `Editor/EditorFramework/EditorFramework.Build.cs`.It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `InteractiveToolsFramework`, `Slate`, `SlateCore`.",
+      "`EditorFramework` (Editor Framework): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/EditorFramework/EditorFramework.Build.cs`. It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `EditorSubsystem`, `Engine` etc.",
+      "Placement: `EditorFramework` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorFramework\" });`. Use Public when exposing `EditorFramework` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EditorFramework` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EditorFramework.h` / `EditorFrameworkModule.h`), then use `FModuleManager::LoadModulePtr<EditorFrameworkModule>` or the exported types directly.",
-      "Transitive deps: `EditorFramework` also needs `Analytics`, `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `InteractiveToolsFramework`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`EditorFramework` 的构建规则位于 `Editor/EditorFramework/EditorFramework.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`EditorFramework` build rule is `Editor/EditorFramework/EditorFramework.Build.cs`; depends on 8 modules; category Module."
-  },
-  {
-    "slug": "editorinteractivetoolsframework",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`EditorInteractiveToolsFramework` 位于 `Editor`，构建规则 `Editor/Experimental/EditorInteractiveToolsFramework/EditorInteractiveToolsFramework.Build.cs`。它直接依赖 8 个模块：`AnimationCore`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorFramework`, `EditorStyle`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"EditorInteractiveToolsFramework\" });`；对外暴露 `EditorInteractiveToolsFramework` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`EditorInteractiveToolsFramework` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `EditorInteractiveToolsFramework.h` / `EditorInteractiveToolsFrameworkModule.h`），再用 `FModuleManager::LoadModulePtr<EditorInteractiveToolsFrameworkModule>` 或直接使用导出类型。",
-      "传递依赖：`EditorInteractiveToolsFramework` 还依赖 `AnimationCore`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorFramework`, `EditorStyle`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
-      "注意：`EditorInteractiveToolsFramework` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
-    ],
-    "en_steps": [
-      "Purpose: `EditorInteractiveToolsFramework` lives under `Editor`; build rule `Editor/Experimental/EditorInteractiveToolsFramework/EditorInteractiveToolsFramework.Build.cs`.It directly depends on 8 modules: `AnimationCore`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorFramework`, `EditorStyle`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"EditorInteractiveToolsFramework\" });`. Use Public when exposing `EditorInteractiveToolsFramework` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `EditorInteractiveToolsFramework` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `EditorInteractiveToolsFramework.h` / `EditorInteractiveToolsFrameworkModule.h`), then use `FModuleManager::LoadModulePtr<EditorInteractiveToolsFrameworkModule>` or the exported types directly.",
-      "Transitive deps: `EditorInteractiveToolsFramework` also needs `AnimationCore`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorFramework`, `EditorStyle`; do not re-list them unless you include their headers.",
-      "Note: `EditorInteractiveToolsFramework` is under Experimental and may change; prove it in an empty project before production."
-    ],
-    "note_cn": "`EditorInteractiveToolsFramework` 的构建规则位于 `Editor/Experimental/EditorInteractiveToolsFramework/EditorInteractiveToolsFramework.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`EditorInteractiveToolsFramework` build rule is `Editor/Experimental/EditorInteractiveToolsFramework/EditorInteractiveToolsFramework.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`EditorFramework`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/EditorFramework/EditorFramework.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`EditorFramework`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/EditorFramework/EditorFramework.Build.cs`; depends on 8 modules."
   }
 ]

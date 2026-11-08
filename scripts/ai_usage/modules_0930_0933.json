@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "zenoplogdifftool",
+    "kind": "module",
+    "cn_steps": [
+      "`ZenOplogDiffTool`（Zen Oplog Diff Tool）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/ZenOplogDiffTool/ZenOplogDiffTool.Build.cs`。直接依赖 5 个模块：`ApplicationCore`、`Core`、`DesktopPlatform`、`Projects`、`ZenOplogUtils`。",
+      "部署：`ZenOplogDiffTool` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ZenOplogDiffTool\" });`；对外暴露 `ZenOplogDiffTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
+    ],
+    "en_steps": [
+      "`ZenOplogDiffTool` (Zen Oplog Diff Tool): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/ZenOplogDiffTool/ZenOplogDiffTool.Build.cs`. It directly depends on 5 modules: `ApplicationCore`, `Core`, `DesktopPlatform`, `Projects`, `ZenOplogUtils`.",
+      "Placement: `ZenOplogDiffTool` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ZenOplogDiffTool\" });`. Use Public when exposing `ZenOplogDiffTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
+    ],
+    "note_cn": "`ZenOplogDiffTool`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/ZenOplogDiffTool/ZenOplogDiffTool.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`ZenOplogDiffTool`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/ZenOplogDiffTool/ZenOplogDiffTool.Build.cs`; depends on 5 modules."
+  },
+  {
+    "slug": "zenoplogutils",
+    "kind": "module",
+    "cn_steps": [
+      "`ZenOplogUtils`（Zen Oplog Utils）：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）。位于 `Developer`，构建规则 `Developer/ZenOplogUtils/ZenOplogUtils.Build.cs`。直接依赖 3 个模块：`Core`、`Json`、`Zen`。",
+      "部署：`ZenOplogUtils` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：通过内容浏览器导入或 Datasmith/USD 菜单走此管线；Cook/打包会自动参与，注意单位、材质、碰撞。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ZenOplogUtils\" });`；对外暴露 `ZenOplogUtils` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`ZenOplogUtils` (Zen Oplog Utils): it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry). Located under `Developer`; build rule `Developer/ZenOplogUtils/ZenOplogUtils.Build.cs`. It directly depends on 3 modules: `Core`, `Json`, `Zen`.",
+      "Placement: `ZenOplogUtils` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "How to use: import via Content Browser or Datasmith/USD menus; Cook/packaging uses it automatically — watch units, materials, collision.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ZenOplogUtils\" });`. Use Public when exposing `ZenOplogUtils` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`ZenOplogUtils`：它属于资产管线（导入/交换、Datasmith/USD、DDC、Cook、Pak、资产注册）；构建规则 `Developer/ZenOplogUtils/ZenOplogUtils.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`ZenOplogUtils`: it is part of the asset pipeline (import/interchange, Datasmith/USD, DDC, Cook, Pak, asset registry); build rule `Developer/ZenOplogUtils/ZenOplogUtils.Build.cs`; depends on 3 modules."
+  },
+  {
+    "slug": "zlib",
+    "kind": "module",
+    "cn_steps": [
+      "`zlib`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/zlib/zlib.Build.cs`。描述符未声明依赖。",
+      "部署：`zlib` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"zlib\" });`；对外暴露 `zlib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
+    ],
+    "en_steps": [
+      "`zlib`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/zlib/zlib.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `zlib` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"zlib\" });`. Use Public when exposing `zlib` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
+    ],
+    "note_cn": "`zlib`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/zlib/zlib.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`zlib`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/zlib/zlib.Build.cs`; depends on 0 modules."
+  },
+  {
+    "slug": "zstd",
+    "kind": "module",
+    "cn_steps": [
+      "`zstd`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能。位于 `ThirdParty`，构建规则 `ThirdParty/zstd/zstd.Build.cs`。描述符未声明依赖。",
+      "部署：`zstd` 第三方库封装，优先依赖引擎已包好的上层模块。",
+      "怎么用：一般不要直接依赖它；优先用引擎里已封装好该库的上层模块。确需使用时把本模块加进 Build.cs，并包含其第三方头文件。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"zstd\" });`；对外暴露 `zstd` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：不要 include 引擎模块头去用它；优先用引擎里封装该库的上层模块，仅必要时包含 ThirdParty 目录下的第三方头文件。"
+    ],
+    "en_steps": [
+      "`zstd`: it wraps a third-party library and exposes its functionality to the engine. Located under `ThirdParty`; build rule `ThirdParty/zstd/zstd.Build.cs`. The descriptor declares no dependencies.",
+      "Placement: `zstd` is a third-party library wrapper; prefer the engine module that wraps it.",
+      "How to use: usually do not depend on it directly; prefer the engine module that already wraps it. If truly needed, add it to Build.cs and include the third-party headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"zstd\" });`. Use Public when exposing `zstd` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: do not include engine module headers to use it; use the engine module that wraps this library, and only include its ThirdParty headers when truly needed."
+    ],
+    "note_cn": "`zstd`：它是对一个第三方库的 UBT 封装，向引擎暴露该库的功能；构建规则 `ThirdParty/zstd/zstd.Build.cs`，直接依赖 0 个模块。",
+    "note_en": "`zstd`: it wraps a third-party library and exposes its functionality to the engine; build rule `ThirdParty/zstd/zstd.Build.cs`; depends on 0 modules."
+  }
+]

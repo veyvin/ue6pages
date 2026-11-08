@@ -1,302 +1,302 @@
 [
   {
+    "slug": "tracelog",
+    "kind": "module",
+    "cn_steps": [
+      "`TraceLog`（Trace Log）：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）。位于 `Runtime`，构建规则 `Runtime/TraceLog/TraceLog.Build.cs`。直接依赖 1 个模块：`OpenSSL`。",
+      "部署：`TraceLog` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要读写结构化数据或配置的代码里 include 其头文件，直接调用其序列化/解析 API。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TraceLog\" });`；对外暴露 `TraceLog` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
+    ],
+    "en_steps": [
+      "`TraceLog` (Trace Log): it is part of data/serialization (JSON/XML/Config/struct serialization/logging). Located under `Runtime`; build rule `Runtime/TraceLog/TraceLog.Build.cs`. It directly depends on 1 modules: `OpenSSL`.",
+      "Placement: `TraceLog` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: include its headers where you read/write structured data or config and call its serialization/parse API.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TraceLog\" });`. Use Public when exposing `TraceLog` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
+    ],
+    "note_cn": "`TraceLog`：它属于数据/序列化（JSON/XML/Config/结构体序列化/日志）；构建规则 `Runtime/TraceLog/TraceLog.Build.cs`，直接依赖 1 个模块。",
+    "note_en": "`TraceLog`: it is part of data/serialization (JSON/XML/Config/struct serialization/logging); build rule `Runtime/TraceLog/TraceLog.Build.cs`; depends on 1 modules."
+  },
+  {
     "slug": "tracequery",
     "kind": "module",
     "cn_steps": [
-      "用途：`TraceQuery` 位于 `Programs`，构建规则 `Programs/TraceQuery/TraceQuery.Build.cs`。它直接依赖 5 个模块：`Core`, `Json`, `Projects`, `TraceAnalysis`, `TraceServices`。",
+      "`TraceQuery`（Trace Query）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/TraceQuery/TraceQuery.Build.cs`。直接依赖 5 个模块：`Core`、`Json`、`Projects`、`TraceAnalysis`、`TraceServices`。",
+      "部署：`TraceQuery` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TraceQuery\" });`；对外暴露 `TraceQuery` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TraceQuery` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `TraceQuery.h` / `TraceQueryModule.h`），再用 `FModuleManager::LoadModulePtr<TraceQueryModule>` 或直接使用导出类型。",
-      "传递依赖：`TraceQuery` 还依赖 `Core`, `Json`, `Projects`, `TraceAnalysis`, `TraceServices`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `TraceQuery` lives under `Programs`; build rule `Programs/TraceQuery/TraceQuery.Build.cs`.It directly depends on 5 modules: `Core`, `Json`, `Projects`, `TraceAnalysis`, `TraceServices`.",
+      "`TraceQuery` (Trace Query): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/TraceQuery/TraceQuery.Build.cs`. It directly depends on 5 modules: `Core`, `Json`, `Projects`, `TraceAnalysis`, `TraceServices`.",
+      "Placement: `TraceQuery` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TraceQuery\" });`. Use Public when exposing `TraceQuery` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `TraceQuery` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `TraceQuery.h` / `TraceQueryModule.h`), then use `FModuleManager::LoadModulePtr<TraceQueryModule>` or the exported types directly.",
-      "Transitive deps: `TraceQuery` also needs `Core`, `Json`, `Projects`, `TraceAnalysis`, `TraceServices`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`TraceQuery` 的构建规则位于 `Programs/TraceQuery/TraceQuery.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`TraceQuery` build rule is `Programs/TraceQuery/TraceQuery.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`TraceQuery`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/TraceQuery/TraceQuery.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`TraceQuery`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/TraceQuery/TraceQuery.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "traceservices",
     "kind": "module",
     "cn_steps": [
-      "用途：`TraceServices` 位于 `Developer`，构建规则 `Developer/TraceServices/TraceServices.Build.cs`。它直接依赖 5 个模块：`Cbor`, `Core`, `CoreUObject`, `SymsLib`, `TraceAnalysis`。",
+      "`TraceServices`（Trace Services）：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）。位于 `Developer`，构建规则 `Developer/TraceServices/TraceServices.Build.cs`。直接依赖 5 个模块：`Cbor`、`Core`、`CoreUObject`、`SymsLib`、`TraceAnalysis`。",
+      "部署：`TraceServices` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：几乎被所有模块间接依赖；一般无需显式添加，除非你在写底层插件或工具。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TraceServices\" });`；对外暴露 `TraceServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TraceServices` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `TraceServices.h` / `TraceServicesModule.h`），再用 `FModuleManager::LoadModulePtr<TraceServicesModule>` 或直接使用导出类型。",
-      "传递依赖：`TraceServices` 还依赖 `Cbor`, `Core`, `CoreUObject`, `SymsLib`, `TraceAnalysis`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `TraceServices` lives under `Developer`; build rule `Developer/TraceServices/TraceServices.Build.cs`.It directly depends on 5 modules: `Cbor`, `Core`, `CoreUObject`, `SymsLib`, `TraceAnalysis`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TraceServices\" });`. Use Public when exposing `TraceServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`TraceServices` (Trace Services): it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata). Located under `Developer`; build rule `Developer/TraceServices/TraceServices.Build.cs`. It directly depends on 5 modules: `Cbor`, `Core`, `CoreUObject`, `SymsLib`, `TraceAnalysis`.",
       "Placement: `TraceServices` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `TraceServices.h` / `TraceServicesModule.h`), then use `FModuleManager::LoadModulePtr<TraceServicesModule>` or the exported types directly.",
-      "Transitive deps: `TraceServices` also needs `Cbor`, `Core`, `CoreUObject`, `SymsLib`, `TraceAnalysis`; do not re-list them unless you include their headers."
+      "How to use: almost every module depends on it transitively; you rarely add it explicitly unless writing low-level plugins/tools.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TraceServices\" });`. Use Public when exposing `TraceServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`TraceServices` 的构建规则位于 `Developer/TraceServices/TraceServices.Build.cs`，直接依赖 5 个模块，分类 Module。",
-    "note_en": "`TraceServices` build rule is `Developer/TraceServices/TraceServices.Build.cs`; depends on 5 modules; category Module."
+    "note_cn": "`TraceServices`：它属于核心基础设施（容器、日志、内存、平台抽象、模块加载、构建元数据）；构建规则 `Developer/TraceServices/TraceServices.Build.cs`，直接依赖 5 个模块。",
+    "note_en": "`TraceServices`: it is core infrastructure (containers, logging, memory, platform abstraction, module loading, build metadata); build rule `Developer/TraceServices/TraceServices.Build.cs`; depends on 5 modules."
   },
   {
     "slug": "tracetrimmer",
     "kind": "module",
     "cn_steps": [
-      "用途：`TraceTrimmer` 位于 `Programs`，构建规则 `Programs/TraceTrimmer/TraceTrimmer.Build.cs`。它直接依赖 4 个模块：`Core`, `Projects`, `TraceAnalysis`, `TraceServices`。",
+      "`TraceTrimmer`（Trace Trimmer）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/TraceTrimmer/TraceTrimmer.Build.cs`。直接依赖 4 个模块：`Core`、`Projects`、`TraceAnalysis`、`TraceServices`。",
+      "部署：`TraceTrimmer` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TraceTrimmer\" });`；对外暴露 `TraceTrimmer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TraceTrimmer` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `TraceTrimmer.h` / `TraceTrimmerModule.h`），再用 `FModuleManager::LoadModulePtr<TraceTrimmerModule>` 或直接使用导出类型。",
-      "传递依赖：`TraceTrimmer` 还依赖 `Core`, `Projects`, `TraceAnalysis`, `TraceServices`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `TraceTrimmer` lives under `Programs`; build rule `Programs/TraceTrimmer/TraceTrimmer.Build.cs`.It directly depends on 4 modules: `Core`, `Projects`, `TraceAnalysis`, `TraceServices`.",
+      "`TraceTrimmer` (Trace Trimmer): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/TraceTrimmer/TraceTrimmer.Build.cs`. It directly depends on 4 modules: `Core`, `Projects`, `TraceAnalysis`, `TraceServices`.",
+      "Placement: `TraceTrimmer` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TraceTrimmer\" });`. Use Public when exposing `TraceTrimmer` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `TraceTrimmer` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `TraceTrimmer.h` / `TraceTrimmerModule.h`), then use `FModuleManager::LoadModulePtr<TraceTrimmerModule>` or the exported types directly.",
-      "Transitive deps: `TraceTrimmer` also needs `Core`, `Projects`, `TraceAnalysis`, `TraceServices`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`TraceTrimmer` 的构建规则位于 `Programs/TraceTrimmer/TraceTrimmer.Build.cs`，直接依赖 4 个模块，分类 Module。",
-    "note_en": "`TraceTrimmer` build rule is `Programs/TraceTrimmer/TraceTrimmer.Build.cs`; depends on 4 modules; category Module."
+    "note_cn": "`TraceTrimmer`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/TraceTrimmer/TraceTrimmer.Build.cs`，直接依赖 4 个模块。",
+    "note_en": "`TraceTrimmer`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/TraceTrimmer/TraceTrimmer.Build.cs`; depends on 4 modules."
   },
   {
     "slug": "translationeditor",
     "kind": "module",
     "cn_steps": [
-      "用途：`TranslationEditor` 位于 `Developer`，构建规则 `Developer/TranslationEditor/TranslationEditor.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Documentation`, `EditorFramework`, `Engine`, `EngineSettings`。",
+      "`TranslationEditor`（Translation Editor）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/TranslationEditor/TranslationEditor.Build.cs`。直接依赖 8 个模块：`ApplicationCore`、`Core`、`CoreUObject`、`DeveloperToolSettings`、`Documentation` 等。",
+      "部署：`TranslationEditor` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TranslationEditor\" });`；对外暴露 `TranslationEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TranslationEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `TranslationEditor.h` / `TranslationEditorModule.h`），再用 `FModuleManager::LoadModulePtr<TranslationEditorModule>` 或直接使用导出类型。",
-      "传递依赖：`TranslationEditor` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Documentation`, `EditorFramework`, `Engine`, `EngineSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `TranslationEditor` lives under `Developer`; build rule `Developer/TranslationEditor/TranslationEditor.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Documentation`, `EditorFramework`, `Engine`, `EngineSettings`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TranslationEditor\" });`. Use Public when exposing `TranslationEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`TranslationEditor` (Translation Editor): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/TranslationEditor/TranslationEditor.Build.cs`. It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Documentation` etc.",
       "Placement: `TranslationEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `TranslationEditor.h` / `TranslationEditorModule.h`), then use `FModuleManager::LoadModulePtr<TranslationEditorModule>` or the exported types directly.",
-      "Transitive deps: `TranslationEditor` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `Documentation`, `EditorFramework`, `Engine`, `EngineSettings`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TranslationEditor\" });`. Use Public when exposing `TranslationEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`TranslationEditor` 的构建规则位于 `Developer/TranslationEditor/TranslationEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`TranslationEditor` build rule is `Developer/TranslationEditor/TranslationEditor.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`TranslationEditor`：它向其他模块提供 C++ API/功能；构建规则 `Developer/TranslationEditor/TranslationEditor.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`TranslationEditor`: it exposes C++ API/functionality to other modules; build rule `Developer/TranslationEditor/TranslationEditor.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "treemap",
     "kind": "module",
     "cn_steps": [
-      "用途：`TreeMap` 位于 `Developer`，构建规则 `Developer/TreeMap/TreeMap.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `XmlParser`。",
+      "`TreeMap`（Tree Map）：它向其他模块提供 C++ API/功能。位于 `Developer`，构建规则 `Developer/TreeMap/TreeMap.Build.cs`。直接依赖 6 个模块：`Core`、`CoreUObject`、`InputCore`、`Slate`、`SlateCore` 等。",
+      "部署：`TreeMap` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TreeMap\" });`；对外暴露 `TreeMap` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TreeMap` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `TreeMap.h` / `TreeMapModule.h`），再用 `FModuleManager::LoadModulePtr<TreeMapModule>` 或直接使用导出类型。",
-      "传递依赖：`TreeMap` 还依赖 `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `XmlParser`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `TreeMap` lives under `Developer`; build rule `Developer/TreeMap/TreeMap.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `XmlParser`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TreeMap\" });`. Use Public when exposing `TreeMap` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`TreeMap` (Tree Map): it exposes C++ API/functionality to other modules. Located under `Developer`; build rule `Developer/TreeMap/TreeMap.Build.cs`. It directly depends on 6 modules: `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore` etc.",
       "Placement: `TreeMap` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `TreeMap.h` / `TreeMapModule.h`), then use `FModuleManager::LoadModulePtr<TreeMapModule>` or the exported types directly.",
-      "Transitive deps: `TreeMap` also needs `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `XmlParser`; do not re-list them unless you include their headers."
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TreeMap\" });`. Use Public when exposing `TreeMap` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`TreeMap` 的构建规则位于 `Developer/TreeMap/TreeMap.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`TreeMap` build rule is `Developer/TreeMap/TreeMap.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`TreeMap`：它向其他模块提供 C++ API/功能；构建规则 `Developer/TreeMap/TreeMap.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`TreeMap`: it exposes C++ API/functionality to other modules; build rule `Developer/TreeMap/TreeMap.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "turnkeyio",
     "kind": "module",
     "cn_steps": [
-      "用途：`TurnkeyIO` 位于 `Developer`，构建规则 `Developer/TurnkeyIO/TurnkeyIO.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `Json`, `Slate`, `SlateCore`, `Sockets`, `ToolWidgets`。",
+      "`TurnkeyIO`（Turnkey IO）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Developer`，构建规则 `Developer/TurnkeyIO/TurnkeyIO.Build.cs`。直接依赖 7 个模块：`Core`、`CoreUObject`、`Json`、`Slate`、`SlateCore` 等。",
+      "部署：`TurnkeyIO` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TurnkeyIO\" });`；对外暴露 `TurnkeyIO` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TurnkeyIO` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `TurnkeyIO.h` / `TurnkeyIOModule.h`），再用 `FModuleManager::LoadModulePtr<TurnkeyIOModule>` 或直接使用导出类型。",
-      "传递依赖：`TurnkeyIO` 还依赖 `Core`, `CoreUObject`, `Json`, `Slate`, `SlateCore`, `Sockets`, `ToolWidgets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `TurnkeyIO` lives under `Developer`; build rule `Developer/TurnkeyIO/TurnkeyIO.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `Json`, `Slate`, `SlateCore`, `Sockets`, `ToolWidgets`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TurnkeyIO\" });`. Use Public when exposing `TurnkeyIO` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`TurnkeyIO` (Turnkey IO): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Developer`; build rule `Developer/TurnkeyIO/TurnkeyIO.Build.cs`. It directly depends on 7 modules: `Core`, `CoreUObject`, `Json`, `Slate`, `SlateCore` etc.",
       "Placement: `TurnkeyIO` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `TurnkeyIO.h` / `TurnkeyIOModule.h`), then use `FModuleManager::LoadModulePtr<TurnkeyIOModule>` or the exported types directly.",
-      "Transitive deps: `TurnkeyIO` also needs `Core`, `CoreUObject`, `Json`, `Slate`, `SlateCore`, `Sockets`, `ToolWidgets`; do not re-list them unless you include their headers."
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TurnkeyIO\" });`. Use Public when exposing `TurnkeyIO` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`TurnkeyIO` 的构建规则位于 `Developer/TurnkeyIO/TurnkeyIO.Build.cs`，直接依赖 7 个模块，分类 Module。",
-    "note_en": "`TurnkeyIO` build rule is `Developer/TurnkeyIO/TurnkeyIO.Build.cs`; depends on 7 modules; category Module."
+    "note_cn": "`TurnkeyIO`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Developer/TurnkeyIO/TurnkeyIO.Build.cs`，直接依赖 7 个模块。",
+    "note_en": "`TurnkeyIO`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Developer/TurnkeyIO/TurnkeyIO.Build.cs`; depends on 7 modules."
   },
   {
     "slug": "turnkeysupport",
     "kind": "module",
     "cn_steps": [
-      "用途：`TurnkeySupport` 位于 `Editor`，构建规则 `Editor/TurnkeySupport/TurnkeySupport.Build.cs`。它直接依赖 8 个模块：`Analytics`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `EngineSettings`, `InputCore`。",
+      "`TurnkeySupport`（Turnkey Support）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Editor`，构建规则 `Editor/TurnkeySupport/TurnkeySupport.Build.cs`。直接依赖 8 个模块：`Analytics`、`ApplicationCore`、`Core`、`CoreUObject`、`DesktopPlatform` 等。",
+      "部署：`TurnkeySupport` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TurnkeySupport\" });`；对外暴露 `TurnkeySupport` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TurnkeySupport` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `TurnkeySupport.h` / `TurnkeySupportModule.h`），再用 `FModuleManager::LoadModulePtr<TurnkeySupportModule>` 或直接使用导出类型。",
-      "传递依赖：`TurnkeySupport` 还依赖 `Analytics`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `EngineSettings`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `TurnkeySupport` lives under `Editor`; build rule `Editor/TurnkeySupport/TurnkeySupport.Build.cs`.It directly depends on 8 modules: `Analytics`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `EngineSettings`, `InputCore`.",
+      "`TurnkeySupport` (Turnkey Support): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Editor`; build rule `Editor/TurnkeySupport/TurnkeySupport.Build.cs`. It directly depends on 8 modules: `Analytics`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform` etc.",
+      "Placement: `TurnkeySupport` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TurnkeySupport\" });`. Use Public when exposing `TurnkeySupport` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `TurnkeySupport` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `TurnkeySupport.h` / `TurnkeySupportModule.h`), then use `FModuleManager::LoadModulePtr<TurnkeySupportModule>` or the exported types directly.",
-      "Transitive deps: `TurnkeySupport` also needs `Analytics`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `EngineSettings`, `InputCore`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`TurnkeySupport` 的构建规则位于 `Editor/TurnkeySupport/TurnkeySupport.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`TurnkeySupport` build rule is `Editor/TurnkeySupport/TurnkeySupport.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`TurnkeySupport`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Editor/TurnkeySupport/TurnkeySupport.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`TurnkeySupport`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Editor/TurnkeySupport/TurnkeySupport.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "tvostargetplatform",
     "kind": "module",
     "cn_steps": [
-      "用途：`TVOSTargetPlatform` 位于 `Developer`，构建规则 `Developer/IOS/TVOSTargetPlatform/TVOSTargetPlatform.Build.cs`。它直接依赖 3 个模块：`Core`, `DesktopPlatform`, `TargetPlatform`。",
+      "`TVOSTargetPlatform`（TVOS Target Platform）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Developer`，构建规则 `Developer/IOS/TVOSTargetPlatform/TVOSTargetPlatform.Build.cs`。直接依赖 3 个模块：`Core`、`DesktopPlatform`、`TargetPlatform`。",
+      "部署：`TVOSTargetPlatform` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TVOSTargetPlatform\" });`；对外暴露 `TVOSTargetPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TVOSTargetPlatform` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `TVOSTargetPlatform.h` / `TVOSTargetPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<TVOSTargetPlatformModule>` 或直接使用导出类型。",
-      "传递依赖：`TVOSTargetPlatform` 还依赖 `Core`, `DesktopPlatform`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `TVOSTargetPlatform` lives under `Developer`; build rule `Developer/IOS/TVOSTargetPlatform/TVOSTargetPlatform.Build.cs`.It directly depends on 3 modules: `Core`, `DesktopPlatform`, `TargetPlatform`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TVOSTargetPlatform\" });`. Use Public when exposing `TVOSTargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`TVOSTargetPlatform` (TVOS Target Platform): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Developer`; build rule `Developer/IOS/TVOSTargetPlatform/TVOSTargetPlatform.Build.cs`. It directly depends on 3 modules: `Core`, `DesktopPlatform`, `TargetPlatform`.",
       "Placement: `TVOSTargetPlatform` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `TVOSTargetPlatform.h` / `TVOSTargetPlatformModule.h`), then use `FModuleManager::LoadModulePtr<TVOSTargetPlatformModule>` or the exported types directly.",
-      "Transitive deps: `TVOSTargetPlatform` also needs `Core`, `DesktopPlatform`, `TargetPlatform`; do not re-list them unless you include their headers."
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TVOSTargetPlatform\" });`. Use Public when exposing `TVOSTargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`TVOSTargetPlatform` 的构建规则位于 `Developer/IOS/TVOSTargetPlatform/TVOSTargetPlatform.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`TVOSTargetPlatform` build rule is `Developer/IOS/TVOSTargetPlatform/TVOSTargetPlatform.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`TVOSTargetPlatform`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Developer/IOS/TVOSTargetPlatform/TVOSTargetPlatform.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`TVOSTargetPlatform`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Developer/IOS/TVOSTargetPlatform/TVOSTargetPlatform.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "tvostargetplatformcontrols",
     "kind": "module",
     "cn_steps": [
-      "用途：`TVOSTargetPlatformControls` 位于 `Developer`，构建规则 `Developer/IOS/TVOSTargetPlatformControls/TVOSTargetPlatformControls.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformControls`, `LaunchDaemonMessages`, `Projects`, `TargetPlatform`。",
+      "`TVOSTargetPlatformControls`（TVOS Target Platform Controls）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Developer`，构建规则 `Developer/IOS/TVOSTargetPlatformControls/TVOSTargetPlatformControls.Build.cs`。直接依赖 8 个模块：`Core`、`CoreUObject`、`DesktopPlatform`、`Engine`、`IOSTargetPlatformControls` 等。",
+      "部署：`TVOSTargetPlatformControls` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TVOSTargetPlatformControls\" });`；对外暴露 `TVOSTargetPlatformControls` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TVOSTargetPlatformControls` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `TVOSTargetPlatformControls.h` / `TVOSTargetPlatformControlsModule.h`），再用 `FModuleManager::LoadModulePtr<TVOSTargetPlatformControlsModule>` 或直接使用导出类型。",
-      "传递依赖：`TVOSTargetPlatformControls` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformControls`, `LaunchDaemonMessages`, `Projects`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `TVOSTargetPlatformControls` lives under `Developer`; build rule `Developer/IOS/TVOSTargetPlatformControls/TVOSTargetPlatformControls.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformControls`, `LaunchDaemonMessages`, `Projects`, `TargetPlatform`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TVOSTargetPlatformControls\" });`. Use Public when exposing `TVOSTargetPlatformControls` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`TVOSTargetPlatformControls` (TVOS Target Platform Controls): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Developer`; build rule `Developer/IOS/TVOSTargetPlatformControls/TVOSTargetPlatformControls.Build.cs`. It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformControls` etc.",
       "Placement: `TVOSTargetPlatformControls` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `TVOSTargetPlatformControls.h` / `TVOSTargetPlatformControlsModule.h`), then use `FModuleManager::LoadModulePtr<TVOSTargetPlatformControlsModule>` or the exported types directly.",
-      "Transitive deps: `TVOSTargetPlatformControls` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformControls`, `LaunchDaemonMessages`, `Projects`, `TargetPlatform`; do not re-list them unless you include their headers."
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TVOSTargetPlatformControls\" });`. Use Public when exposing `TVOSTargetPlatformControls` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`TVOSTargetPlatformControls` 的构建规则位于 `Developer/IOS/TVOSTargetPlatformControls/TVOSTargetPlatformControls.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`TVOSTargetPlatformControls` build rule is `Developer/IOS/TVOSTargetPlatformControls/TVOSTargetPlatformControls.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`TVOSTargetPlatformControls`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Developer/IOS/TVOSTargetPlatformControls/TVOSTargetPlatformControls.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`TVOSTargetPlatformControls`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Developer/IOS/TVOSTargetPlatformControls/TVOSTargetPlatformControls.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "tvostargetplatformsettings",
     "kind": "module",
     "cn_steps": [
-      "用途：`TVOSTargetPlatformSettings` 位于 `Developer`，构建规则 `Developer/IOS/TVOSTargetPlatformSettings/TVOSTargetPlatformSettings.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformSettings`, `TargetPlatform`。",
+      "`TVOSTargetPlatformSettings`（TVOS Target Platform Settings）：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）。位于 `Developer`，构建规则 `Developer/IOS/TVOSTargetPlatformSettings/TVOSTargetPlatformSettings.Build.cs`。直接依赖 6 个模块：`Core`、`CoreUObject`、`DesktopPlatform`、`Engine`、`IOSTargetPlatformSettings` 等。",
+      "部署：`TVOSTargetPlatformSettings` 开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "怎么用：平台能力会在切换目标平台或打包时自动带出，通常不需要在游戏模块里显式依赖；只有写平台相关原生代码时才直接 include。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TVOSTargetPlatformSettings\" });`；对外暴露 `TVOSTargetPlatformSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TVOSTargetPlatformSettings` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
-      "调用：#include 其 Public 头（常见 `TVOSTargetPlatformSettings.h` / `TVOSTargetPlatformSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<TVOSTargetPlatformSettingsModule>` 或直接使用导出类型。",
-      "传递依赖：`TVOSTargetPlatformSettings` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformSettings`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `TVOSTargetPlatformSettings` lives under `Developer`; build rule `Developer/IOS/TVOSTargetPlatformSettings/TVOSTargetPlatformSettings.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformSettings`, `TargetPlatform`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TVOSTargetPlatformSettings\" });`. Use Public when exposing `TVOSTargetPlatformSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "`TVOSTargetPlatformSettings` (TVOS Target Platform Settings): it provides support for a target platform/device (detection, settings, packaging, device probing). Located under `Developer`; build rule `Developer/IOS/TVOSTargetPlatformSettings/TVOSTargetPlatformSettings.Build.cs`. It directly depends on 6 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformSettings` etc.",
       "Placement: `TVOSTargetPlatformSettings` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
-      "Call: include Public headers (often `TVOSTargetPlatformSettings.h` / `TVOSTargetPlatformSettingsModule.h`), then use `FModuleManager::LoadModulePtr<TVOSTargetPlatformSettingsModule>` or the exported types directly.",
-      "Transitive deps: `TVOSTargetPlatformSettings` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformSettings`, `TargetPlatform`; do not re-list them unless you include their headers."
+      "How to use: platform support is pulled in automatically when targeting/packaging for that platform; you rarely depend on it directly — only include it for platform-specific native code.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TVOSTargetPlatformSettings\" });`. Use Public when exposing `TVOSTargetPlatformSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`TVOSTargetPlatformSettings` 的构建规则位于 `Developer/IOS/TVOSTargetPlatformSettings/TVOSTargetPlatformSettings.Build.cs`，直接依赖 6 个模块，分类 Module。",
-    "note_en": "`TVOSTargetPlatformSettings` build rule is `Developer/IOS/TVOSTargetPlatformSettings/TVOSTargetPlatformSettings.Build.cs`; depends on 6 modules; category Module."
+    "note_cn": "`TVOSTargetPlatformSettings`：它提供某个目标平台/设备的支持（平台识别、设置、打包、设备探测）；构建规则 `Developer/IOS/TVOSTargetPlatformSettings/TVOSTargetPlatformSettings.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`TVOSTargetPlatformSettings`: it provides support for a target platform/device (detection, settings, packaging, device probing); build rule `Developer/IOS/TVOSTargetPlatformSettings/TVOSTargetPlatformSettings.Build.cs`; depends on 6 modules."
   },
   {
     "slug": "typedelementframework",
     "kind": "module",
     "cn_steps": [
-      "用途：`TypedElementFramework` 位于 `Runtime`，构建规则 `Runtime/TypedElementFramework/TypedElementFramework.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "`TypedElementFramework`（Typed Element Framework）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/TypedElementFramework/TypedElementFramework.Build.cs`。直接依赖 2 个模块：`Core`、`CoreUObject`。",
+      "部署：`TypedElementFramework` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TypedElementFramework\" });`；对外暴露 `TypedElementFramework` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TypedElementFramework` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `TypedElementFramework.h` / `TypedElementFrameworkModule.h`），再用 `FModuleManager::LoadModulePtr<TypedElementFrameworkModule>` 或直接使用导出类型。",
-      "传递依赖：`TypedElementFramework` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `TypedElementFramework` lives under `Runtime`; build rule `Runtime/TypedElementFramework/TypedElementFramework.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "`TypedElementFramework` (Typed Element Framework): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/TypedElementFramework/TypedElementFramework.Build.cs`. It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Placement: `TypedElementFramework` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TypedElementFramework\" });`. Use Public when exposing `TypedElementFramework` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `TypedElementFramework` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `TypedElementFramework.h` / `TypedElementFrameworkModule.h`), then use `FModuleManager::LoadModulePtr<TypedElementFrameworkModule>` or the exported types directly.",
-      "Transitive deps: `TypedElementFramework` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`TypedElementFramework` 的构建规则位于 `Runtime/TypedElementFramework/TypedElementFramework.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`TypedElementFramework` build rule is `Runtime/TypedElementFramework/TypedElementFramework.Build.cs`; depends on 2 modules; category Module."
+    "note_cn": "`TypedElementFramework`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/TypedElementFramework/TypedElementFramework.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`TypedElementFramework`: it exposes C++ API/functionality to other modules; build rule `Runtime/TypedElementFramework/TypedElementFramework.Build.cs`; depends on 2 modules."
   },
   {
     "slug": "typedelementruntime",
     "kind": "module",
     "cn_steps": [
-      "用途：`TypedElementRuntime` 位于 `Runtime`，构建规则 `Runtime/TypedElementRuntime/TypedElementRuntime.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `TypedElementFramework`。",
+      "`TypedElementRuntime`（Typed Element Runtime）：它向其他模块提供 C++ API/功能。位于 `Runtime`，构建规则 `Runtime/TypedElementRuntime/TypedElementRuntime.Build.cs`。直接依赖 3 个模块：`Core`、`CoreUObject`、`TypedElementFramework`。",
+      "部署：`TypedElementRuntime` 运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "怎么用：在需要其类型或函数的模块里声明依赖，然后包含其 Public 头文件。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TypedElementRuntime\" });`；对外暴露 `TypedElementRuntime` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`TypedElementRuntime` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
-      "调用：#include 其 Public 头（常见 `TypedElementRuntime.h` / `TypedElementRuntimeModule.h`），再用 `FModuleManager::LoadModulePtr<TypedElementRuntimeModule>` 或直接使用导出类型。",
-      "传递依赖：`TypedElementRuntime` 还依赖 `Core`, `CoreUObject`, `TypedElementFramework`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `TypedElementRuntime` lives under `Runtime`; build rule `Runtime/TypedElementRuntime/TypedElementRuntime.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `TypedElementFramework`.",
+      "`TypedElementRuntime` (Typed Element Runtime): it exposes C++ API/functionality to other modules. Located under `Runtime`; build rule `Runtime/TypedElementRuntime/TypedElementRuntime.Build.cs`. It directly depends on 3 modules: `Core`, `CoreUObject`, `TypedElementFramework`.",
+      "Placement: `TypedElementRuntime` is a runtime module and can ship; depend on it only where you call its API.",
+      "How to use: declare a dependency from the module that needs its types and include its Public headers.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TypedElementRuntime\" });`. Use Public when exposing `TypedElementRuntime` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `TypedElementRuntime` is a runtime module and can ship. Depend on it only where you call its API.",
-      "Call: include Public headers (often `TypedElementRuntime.h` / `TypedElementRuntimeModule.h`), then use `FModuleManager::LoadModulePtr<TypedElementRuntimeModule>` or the exported types directly.",
-      "Transitive deps: `TypedElementRuntime` also needs `Core`, `CoreUObject`, `TypedElementFramework`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`TypedElementRuntime` 的构建规则位于 `Runtime/TypedElementRuntime/TypedElementRuntime.Build.cs`，直接依赖 3 个模块，分类 Module。",
-    "note_en": "`TypedElementRuntime` build rule is `Runtime/TypedElementRuntime/TypedElementRuntime.Build.cs`; depends on 3 modules; category Module."
+    "note_cn": "`TypedElementRuntime`：它向其他模块提供 C++ API/功能；构建规则 `Runtime/TypedElementRuntime/TypedElementRuntime.Build.cs`，直接依赖 3 个模块。",
+    "note_en": "`TypedElementRuntime`: it exposes C++ API/functionality to other modules; build rule `Runtime/TypedElementRuntime/TypedElementRuntime.Build.cs`; depends on 3 modules."
   },
   {
     "slug": "uathelper",
     "kind": "module",
     "cn_steps": [
-      "用途：`UATHelper` 位于 `Editor`，构建规则 `Editor/UATHelper/UATHelper.Build.cs`。它直接依赖 8 个模块：`Analytics`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `OutputLog`。",
+      "`UATHelper`（UAT Helper）：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）。位于 `Editor`，构建规则 `Editor/UATHelper/UATHelper.Build.cs`。直接依赖 8 个模块：`Analytics`、`Core`、`CoreUObject`、`EditorFramework`、`Engine` 等。",
+      "部署：`UATHelper` 编辑器模块，只能写进 *Editor.Build.cs 或编辑器插件，加进 Game Target 会链接失败。",
+      "怎么用：仅编辑器使用，写进 *Editor.Build.cs；重启后在 Window/Tools 菜单或资产编辑器里找对应面板。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UATHelper\" });`；对外暴露 `UATHelper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UATHelper` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
-      "调用：#include 其 Public 头（常见 `UATHelper.h` / `UATHelperModule.h`），再用 `FModuleManager::LoadModulePtr<UATHelperModule>` 或直接使用导出类型。",
-      "传递依赖：`UATHelper` 还依赖 `Analytics`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `OutputLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：包含其 `Public/` 头文件以使用导出类型；模块由引擎/插件系统自动加载，通常无需手动 `LoadModulePtr`（仅懒加载时才用 `FModuleManager::LoadModuleChecked`）。"
     ],
     "en_steps": [
-      "Purpose: `UATHelper` lives under `Editor`; build rule `Editor/UATHelper/UATHelper.Build.cs`.It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `OutputLog`.",
+      "`UATHelper` (UAT Helper): it is an editor-side tool module (editor UI, panels, detail customization, asset editors). Located under `Editor`; build rule `Editor/UATHelper/UATHelper.Build.cs`. It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `EditorFramework`, `Engine` etc.",
+      "Placement: `UATHelper` is a editor-only; put it in *Editor.Build.cs or an editor plugin — never a Game target.",
+      "How to use: editor-only; put it in *Editor.Build.cs. After restart, find the panel under Window/Tools or in the relevant asset editor.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UATHelper\" });`. Use Public when exposing `UATHelper` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UATHelper` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
-      "Call: include Public headers (often `UATHelper.h` / `UATHelperModule.h`), then use `FModuleManager::LoadModulePtr<UATHelperModule>` or the exported types directly.",
-      "Transitive deps: `UATHelper` also needs `Analytics`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `OutputLog`; do not re-list them unless you include their headers."
+      "Call: include its `Public/` headers to use exported types; the engine/plugin system loads the module automatically — no manual `LoadModulePtr` needed (use `FModuleManager::LoadModuleChecked` only for lazy loading)."
     ],
-    "note_cn": "`UATHelper` 的构建规则位于 `Editor/UATHelper/UATHelper.Build.cs`，直接依赖 8 个模块，分类 Module。",
-    "note_en": "`UATHelper` build rule is `Editor/UATHelper/UATHelper.Build.cs`; depends on 8 modules; category Module."
+    "note_cn": "`UATHelper`：它是编辑器侧工具模块（编辑器 UI、面板、细节定制、资产编辑器）；构建规则 `Editor/UATHelper/UATHelper.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`UATHelper`: it is an editor-side tool module (editor UI, panels, detail customization, asset editors); build rule `Editor/UATHelper/UATHelper.Build.cs`; depends on 8 modules."
   },
   {
     "slug": "ubaagent",
     "kind": "module",
     "cn_steps": [
-      "用途：`UbaAgent` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Agent/UbaAgent.Build.cs`。它直接依赖 2 个模块：`SentryNative`, `UbaCommon`。",
+      "`UbaAgent`（Uba Agent）：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）。位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Agent/UbaAgent.Build.cs`。直接依赖 2 个模块：`SentryNative`、`UbaCommon`。",
+      "部署：`UbaAgent` 独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "怎么用：作为独立程序或命令行工具运行，不进游戏运行时；用于构建、CI、性能分析等。",
       "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaAgent\" });`；对外暴露 `UbaAgent` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UbaAgent` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `UbaAgent.h` / `UbaAgentModule.h`），再用 `FModuleManager::LoadModulePtr<UbaAgentModule>` 或直接使用导出类型。",
-      "传递依赖：`UbaAgent` 还依赖 `SentryNative`, `UbaCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+      "调用：作为独立程序/命令运行，或在工具代码里 include 其 Public 头。"
     ],
     "en_steps": [
-      "Purpose: `UbaAgent` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Agent/UbaAgent.Build.cs`.It directly depends on 2 modules: `SentryNative`, `UbaCommon`.",
+      "`UbaAgent` (Uba Agent): it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI). Located under `Programs`; build rule `Programs/UnrealBuildAccelerator/Agent/UbaAgent.Build.cs`. It directly depends on 2 modules: `SentryNative`, `UbaCommon`.",
+      "Placement: `UbaAgent` is a standalone Program; used by CLI/tools, not game runtime.",
+      "How to use: run it as a standalone program/CLI; it does not ship in the game — used for builds, CI, profiling.",
       "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaAgent\" });`. Use Public when exposing `UbaAgent` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UbaAgent` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `UbaAgent.h` / `UbaAgentModule.h`), then use `FModuleManager::LoadModulePtr<UbaAgentModule>` or the exported types directly.",
-      "Transitive deps: `UbaAgent` also needs `SentryNative`, `UbaCommon`; do not re-list them unless you include their headers."
+      "Call: run it as a standalone program/command, or include its Public headers from tool code."
     ],
-    "note_cn": "`UbaAgent` 的构建规则位于 `Programs/UnrealBuildAccelerator/Agent/UbaAgent.Build.cs`，直接依赖 2 个模块，分类 Module。",
-    "note_en": "`UbaAgent` build rule is `Programs/UnrealBuildAccelerator/Agent/UbaAgent.Build.cs`; depends on 2 modules; category Module."
-  },
-  {
-    "slug": "ubacacheservice",
-    "kind": "module",
-    "cn_steps": [
-      "用途：`UbaCacheService` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/CacheService/UbaCacheService.Build.cs`。它直接依赖 1 个模块：`UbaCommon`。",
-      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCacheService\" });`；对外暴露 `UbaCacheService` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
-      "部署：`UbaCacheService` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
-      "调用：#include 其 Public 头（常见 `UbaCacheService.h` / `UbaCacheServiceModule.h`），再用 `FModuleManager::LoadModulePtr<UbaCacheServiceModule>` 或直接使用导出类型。",
-      "传递依赖：`UbaCacheService` 还依赖 `UbaCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
-    ],
-    "en_steps": [
-      "Purpose: `UbaCacheService` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/CacheService/UbaCacheService.Build.cs`.It directly depends on 1 modules: `UbaCommon`.",
-      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCacheService\" });`. Use Public when exposing `UbaCacheService` types, Private if only calling it; then Generate Project Files and rebuild.",
-      "Placement: `UbaCacheService` belongs to a standalone Program; used by CLI/tools, not game runtime.",
-      "Call: include Public headers (often `UbaCacheService.h` / `UbaCacheServiceModule.h`), then use `FModuleManager::LoadModulePtr<UbaCacheServiceModule>` or the exported types directly.",
-      "Transitive deps: `UbaCacheService` also needs `UbaCommon`; do not re-list them unless you include their headers."
-    ],
-    "note_cn": "`UbaCacheService` 的构建规则位于 `Programs/UnrealBuildAccelerator/CacheService/UbaCacheService.Build.cs`，直接依赖 1 个模块，分类 Module。",
-    "note_en": "`UbaCacheService` build rule is `Programs/UnrealBuildAccelerator/CacheService/UbaCacheService.Build.cs`; depends on 1 modules; category Module."
+    "note_cn": "`UbaAgent`：它是构建/工具/独立程序（UBT、Horde、Insights、Automation、命令行 Program）；构建规则 `Programs/UnrealBuildAccelerator/Agent/UbaAgent.Build.cs`，直接依赖 2 个模块。",
+    "note_en": "`UbaAgent`: it is a build/tool/standalone Program (UBT, Horde, Insights, Automation, CLI); build rule `Programs/UnrealBuildAccelerator/Agent/UbaAgent.Build.cs`; depends on 2 modules."
   }
 ]
