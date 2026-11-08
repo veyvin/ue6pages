@@ -3162,6 +3162,23 @@
 ]
 },
 {
+"slug": "deriveddatabuildexecutor",
+"kind": "module",
+"name": "DerivedDataBuildExecutor",
+"desc_en": "This module depends on 6 other module(s): Core, DerivedDataCache, DesktopPlatform, Json, TraceLog, Zen.",
+"desc_cn": "该模块依赖于其他 6 个模块：Core、DerivedDataCache、DesktopPlatform、Json、TraceLog、Zen。",
+"path": "Developer/DerivedDataBuildExecutor/DerivedDataBuildExecutor.Build.cs",
+"category": "Module",
+"modules": [
+"Core",
+"DerivedDataCache",
+"DesktopPlatform",
+"Json",
+"TraceLog",
+"Zen"
+]
+},
+{
 "slug": "deriveddatabuildworker",
 "kind": "module",
 "name": "DerivedDataBuildWorker",
@@ -12622,6 +12639,25 @@
 "OutputLog",
 "Projects",
 "SessionFrontend"
+]
+},
+{
+"slug": "unrealinsightsmcp",
+"kind": "module",
+"name": "UnrealInsightsMCP",
+"desc_en": "This module depends on 11 other module(s): Core, CoreUObject, Json, JsonUtilities, Messaging, Projects, SessionServices, Sockets, TraceAnalysis, TraceServices, UdpMessaging.",
+"desc_cn": "该模块依赖于其他 11 个模块：Core、CoreUObject、Json、JsonUtilities、Messaging、Projects、SessionServices、Sockets、TraceAnalysis、TraceServices、UdpMessaging。",
+"path": "Programs/UnrealInsightsMCP/UnrealInsightsMCP.Build.cs",
+"category": "Module",
+"modules": [
+"Core",
+"CoreUObject",
+"Json",
+"JsonUtilities",
+"Messaging",
+"Projects",
+"SessionServices",
+"Sockets"
 ]
 },
 {

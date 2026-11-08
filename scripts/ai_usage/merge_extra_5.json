@@ -1,0 +1,96 @@
+[
+  {
+    "slug": "ai-awareness-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `AI Awareness Insights`（运行时 `AIAwarenessTrace`，编辑器 `AIAwarenessInsights`），属 Insights。",
+      "它记录 AI 意识状态（噪声、感知、警报级别），并在 Spatial and Timing Insights 中可视化。",
+      "调试 AI 时先采集 trace，再到 Unreal Insights 的 Spatial/Timing 视图查看感知范围与警报变化。",
+      "Game 模块依赖 `AIAwarenessTrace`；`AIAwarenessInsights` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `AI Awareness Insights` (runtime `AIAwarenessTrace`, editor `AIAwarenessInsights`), part of Insights.",
+      "It records AI awareness (noise, perception, alert levels) and visualizes it in Spatial and Timing Insights.",
+      "When debugging AI, capture a trace, then inspect perception ranges and alert changes in Unreal Insights' Spatial/Timing views.",
+      "Game modules depend on `AIAwarenessTrace`; `AIAwarenessInsights` is Editor-target only."
+    ],
+    "note_cn": "记录 AI 意识并在 Spatial/Timing Insights 中可视化。",
+    "note_en": "Records AI awareness and visualizes it in Spatial/Timing Insights."
+  },
+  {
+    "slug": "dnacalib2-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DNACalib2 Plugin`（运行时 `DNACalib2Lib`，测试 `DNACalib2LibTest`）。",
+      "它提供 DNA 校准（DNA Calibration）2 工具，用于修改/校准 MetaHuman 的 .dna 资产（骨骼、关节、表情绑定数据）。",
+      "在 MetaHuman/DNA 工作流里用其库/工具对 .dna 做校准与调整。",
+      "Game 模块依赖 `DNACalib2Lib`；测试模块不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable `DNACalib2 Plugin` (runtime `DNACalib2Lib`, tests `DNACalib2LibTest`).",
+      "It provides DNA Calibration 2 tools to modify/calibrate MetaHuman .dna assets (skeleton, joints, expression binding data).",
+      "In a MetaHuman/DNA workflow, use its library/tools to calibrate and adjust .dna.",
+      "Game modules depend on `DNACalib2Lib`; keep the test module out of production."
+    ],
+    "note_cn": "DNA 校准 2 工具（MetaHuman .dna 修改/校准）。",
+    "note_en": "DNA Calibration 2 tools (modify/calibrate MetaHuman .dna)."
+  },
+  {
+    "slug": "unreal-assistant",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Unreal Assistant`（运行时 `AIAssistant`，编辑器 `AIAssistantEditor`）。",
+      "它是编辑器内的 AI 助手插件（在编辑器 UI 里与 AI 助手交互、辅助操作与问答）。",
+      "重启后在编辑器窗口打开 Assistant 面板，按需配置后端/凭据后使用。",
+      "Experimental：接口可能变动；Game 模块依赖 `AIAssistant`，`AIAssistantEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Unreal Assistant` (runtime `AIAssistant`, editor `AIAssistantEditor`).",
+      "It is an in-editor AI assistant plugin (interact with an AI assistant, get help/operations inside the editor UI).",
+      "After restart, open the Assistant panel in the editor and configure the backend/credentials as needed.",
+      "Experimental: contract may change; Game modules depend on `AIAssistant`, `AIAssistantEditor` is Editor-target only."
+    ],
+    "note_cn": "编辑器内的 AI 助手插件，实验性。",
+    "note_en": "An in-editor AI assistant plugin, experimental."
+  },
+  {
+    "slug": "deriveddatabuildexecutor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DerivedDataBuildExecutor` 位于 `Developer`，构建规则 `Developer/DerivedDataBuildExecutor/DerivedDataBuildExecutor.Build.cs`。它直接依赖 6 个模块：`Core`、`DerivedDataCache`、`DesktopPlatform`、`Json`、`TraceLog`、`Zen`。",
+      "部署：它属于开发者/工具模块，用于执行派生数据(DDC)构建，供编辑器/命令行工具链使用，不要当游戏运行时依赖。",
+      "依赖：只有当你在编写构建/DDC 相关工具时才在对应模块的 `Build.cs` 里加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataBuildExecutor\" });`。",
+      "调用：#include 其 Public 头（常见 `DerivedDataBuildExecutor.h`），通过派生数据构建执行器 API 触发构建。",
+      "传递依赖：`DerivedDataBuildExecutor` 还依赖 `DerivedDataCache`、`DesktopPlatform`、`Json`、`TraceLog`、`Zen`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DerivedDataBuildExecutor` lives under `Developer`; build rule `Developer/DerivedDataBuildExecutor/DerivedDataBuildExecutor.Build.cs`. It depends on 6 modules: `Core`, `DerivedDataCache`, `DesktopPlatform`, `Json`, `TraceLog`, `Zen`.",
+      "Placement: a developer/tool module that executes derived-data (DDC) builds for the editor/CLI toolchain; not a game runtime dependency.",
+      "Depend: only when building build/DDC tooling, add `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataBuildExecutor\" });` to the relevant Build.cs.",
+      "Call: include its Public header (often `DerivedDataBuildExecutor.h`) and trigger builds through the derived-data build executor API.",
+      "Transitive deps: `DerivedDataBuildExecutor` also needs `DerivedDataCache`, `DesktopPlatform`, `Json`, `TraceLog`, `Zen`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DerivedDataBuildExecutor` 的构建规则位于 `Developer/DerivedDataBuildExecutor/DerivedDataBuildExecutor.Build.cs`，直接依赖 6 个模块。",
+    "note_en": "`DerivedDataBuildExecutor` build rule is `Developer/DerivedDataBuildExecutor/DerivedDataBuildExecutor.Build.cs`; depends on 6 modules."
+  },
+  {
+    "slug": "unrealinsightsmcp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealInsightsMCP` 位于 `Programs`，构建规则 `Programs/UnrealInsightsMCP/UnrealInsightsMCP.Build.cs`。它直接依赖 8 个模块：`Core`、`CoreUObject`、`Json`、`JsonUtilities`、`Messaging`、`Projects`、`SessionServices`、`Sockets`。",
+      "部署：它属于独立程序(Programs)，是为 Unreal Insights 提供 MCP(Model Context Protocol) 服务的命令行/工具程序，不进游戏运行时。",
+      "依赖：一般无需在自己的模块里依赖它；它作为独立程序构建运行。若确实要复用其代码，再在 Build.cs 加 `PublicDependencyModuleNames` 声明。",
+      "调用：作为程序运行入口启动 MCP 服务，通过 `Messaging`/`SessionServices` 与 Insights 会话交互。",
+      "传递依赖：`UnrealInsightsMCP` 还依赖 `Json`、`JsonUtilities`、`Messaging`、`SessionServices`、`Sockets` 等；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealInsightsMCP` lives under `Programs`; build rule `Programs/UnrealInsightsMCP/UnrealInsightsMCP.Build.cs`. It depends on 8 modules: `Core`, `CoreUObject`, `Json`, `JsonUtilities`, `Messaging`, `Projects`, `SessionServices`, `Sockets`.",
+      "Placement: a standalone Program that serves MCP (Model Context Protocol) for Unreal Insights via CLI/tool; it does not run in the game.",
+      "Depend: usually you do not depend on it from your own modules; it builds/runs as a standalone program. Only if you truly reuse its code, add it to your Build.cs.",
+      "Call: run it as a program entry to start the MCP service and interact with Insights sessions via `Messaging`/`SessionServices`.",
+      "Transitive deps: `UnrealInsightsMCP` also needs `Json`, `JsonUtilities`, `Messaging`, `SessionServices`, `Sockets`, etc.; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealInsightsMCP` 的构建规则位于 `Programs/UnrealInsightsMCP/UnrealInsightsMCP.Build.cs`，直接依赖 8 个模块。",
+    "note_en": "`UnrealInsightsMCP` build rule is `Programs/UnrealInsightsMCP/UnrealInsightsMCP.Build.cs`; depends on 8 modules."
+  }
+]
