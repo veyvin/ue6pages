@@ -3,7 +3,6 @@ layout: default
 title: 人工智能意识洞察 / AI Awareness Insights
 ---
 
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -26,6 +25,8 @@ title: 人工智能意识洞察 / AI Awareness Insights
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">记录 AI 意识（噪声、感知、警报级别）并在 Spatial and Timing Insights 中将其可视化。</div><div class="lang-content">Records AI awareness (noise, perception, alert levels) and visualizes it in Spatial and Timing Insights.</div></div></div>
     </div>
     
+    
+
     
 
     <div class="card usage-card" id="usage" data-usage-source="ai">

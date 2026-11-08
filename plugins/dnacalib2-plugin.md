@@ -3,7 +3,6 @@ layout: default
 title: DNACalib2 插件 / DNACalib2 Plugin
 ---
 
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -26,6 +25,8 @@ title: DNACalib2 插件 / DNACalib2 Plugin
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">DNA 校准 2 工具插件</div><div class="lang-content">DNA Calibration 2 tool plugin</div></div></div>
     </div>
     
+    
+
     
 
     <div class="card usage-card" id="usage" data-usage-source="ai">

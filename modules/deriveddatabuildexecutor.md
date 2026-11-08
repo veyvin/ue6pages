@@ -3,7 +3,6 @@ layout: default
 title: DerivedDataBuildExecutor
 ---
 
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -38,6 +37,8 @@ title: DerivedDataBuildExecutor
 <div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 6 个模块：Core、DerivedDataCache、DesktopPlatform、Json、TraceLog、Zen。</div><div class="lang-content">This module depends on 6 other module(s): Core, DerivedDataCache, DesktopPlatform, Json, TraceLog, Zen.</div></div>
       </div>
     </div>
+    
+
     
 
     <div class="card usage-card" id="usage" data-usage-source="ai">

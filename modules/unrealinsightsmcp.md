@@ -3,7 +3,6 @@ layout: default
 title: UnrealInsightsMCP
 ---
 
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -38,6 +37,8 @@ title: UnrealInsightsMCP
 <div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 11 个模块：Core、CoreUObject、Json、JsonUtilities、Messaging、Projects、SessionServices、Sockets、TraceAnalysis、TraceServices、UdpMessaging。</div><div class="lang-content">This module depends on 11 other module(s): Core, CoreUObject, Json, JsonUtilities, Messaging, Projects, SessionServices, Sockets, TraceAnalysis, TraceServices, UdpMessaging.</div></div>
       </div>
     </div>
+    
+
     
 
     <div class="card usage-card" id="usage" data-usage-source="ai">
