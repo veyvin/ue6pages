@@ -1,0 +1,306 @@
+[
+  {
+    "slug": "animation-curve-expressions",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 Experimental 的 `Animation Curve Expressions`（运行时 `CurveExpression`，图节点在 `CurveExpressionEditor`）并重启。",
+      "内容浏览器 `Add > Miscellaneous > Data Asset`，选 `CurveExpressionsDataAsset`，为每条目标曲线写简单数学表达式（可用源曲线名、常量与四则运算）。",
+      "打开角色 `AnimBP`，在 AnimGraph 加入 `Remap Curves`（`FAnimNode_RemapCurves` / `UAnimGraphNode_RemapCurves`），`Expression Source` 指向该 Data Asset，或在节点上填内联 `curve_expressions`。",
+      "需要从另一网格体抄曲线时改用 `Remap Curves From Mesh`（`FAnimNode_RemapCurvesFromMesh`）：指定 `Source Mesh Component`，或勾选 `Use Attached Parent` 读父级 `SkeletalMeshComponent`。",
+      "表达式运行时不变时勾选 `Expressions Immutable` 以跳过每帧重解析；游戏模块只依赖 `CurveExpression`，不要把 `CurveExpressionEditor` 写进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Animation Curve Expressions` (`CurveExpression` runtime, `CurveExpressionEditor` graph nodes) under `Edit > Plugins` and restart.",
+      "Create `Add > Miscellaneous > Data Asset` of class `CurveExpressionsDataAsset` and write a simple math expression per destination curve (source curve names, constants, arithmetic).",
+      "In the character `AnimBP` AnimGraph add `Remap Curves` (`FAnimNode_RemapCurves` / `UAnimGraphNode_RemapCurves`); point `Expression Source` at the data asset or fill inline `curve_expressions`.",
+      "To copy curves from another mesh use `Remap Curves From Mesh` (`FAnimNode_RemapCurvesFromMesh`): set `Source Mesh Component`, or enable `Use Attached Parent` to read the parent `SkeletalMeshComponent`.",
+      "Tick `Expressions Immutable` when the map will not change at runtime; game modules depend on `CurveExpression` only, never `CurveExpressionEditor`."
+    ],
+    "note_cn": "Experimental 曲线重映射器；表达式语法以 `ExpressionEvaluator.h` 为准，不要当通用 Modify Curve 节点用。",
+    "note_en": "Experimental curve remapper; expression syntax lives in `ExpressionEvaluator.h`. This is not the stock Modify Curve node."
+  },
+  {
+    "slug": "animation-data",
+    "kind": "plugin",
+    "cn_steps": [
+      "确认 `Animation Data` 已启用（模块 `AnimationData`，描述符 `AnimationData.uplugin`）；它是 `UAnimSequence` 在编辑器里的 Sequencer 数据模型，不是可挂到 Actor 上的组件。",
+      "打开任意 `AnimSequence`，在 Animation Editor 里编辑骨骼轨道、曲线与帧率——底层由 `UAnimationSequencerDataModel`（`AnimSequencerDataModel.h`）以 `MovieScene` + FK Control Rig 保存。",
+      "Python/编辑器脚本对模型调用 `get_bone_animation_tracks`、`get_bone_track_by_name`、`get_frame_rate`、`get_play_length`；改数据走引擎的 `IAnimationDataController`（Open/Close Bracket、Set Bone Track Keys），不要手改压缩块。",
+      "游戏或工具模块若要读该模型，在 `Build.cs` 加入 `AnimationData`；运行时播放仍用普通 `UAnimSequence` / AnimBP，不必直接持有 Data Model。"
+    ],
+    "en_steps": [
+      "Keep `Animation Data` enabled (module `AnimationData`, `AnimationData.uplugin`); it is the Sequencer-backed data model for `UAnimSequence` in the editor, not a component you add to an actor.",
+      "Open an `AnimSequence` and edit bone tracks, curves, and frame rate in the Animation Editor — storage is `UAnimationSequencerDataModel` (`AnimSequencerDataModel.h`) via `MovieScene` plus FK Control Rig.",
+      "From Python/editor scripts call `get_bone_animation_tracks`, `get_bone_track_by_name`, `get_frame_rate`, `get_play_length`; mutate through `IAnimationDataController` (Open/Close Bracket, Set Bone Track Keys), not compressed chunks.",
+      "If a tool module must read the model, add `AnimationData` to `Build.cs`. Runtime playback still uses `UAnimSequence` / AnimBP; you do not hold the data model at runtime."
+    ],
+    "note_cn": "这是动画序列的编辑器数据后端；关掉插件会导致 Persona 无法用 Sequencer 模型打开骨骼轨道。",
+    "note_en": "Editor storage backend for animation sequences; disabling it breaks Persona’s Sequencer-model bone tracks."
+  },
+  {
+    "slug": "animation-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Insights`（`GameplayInsights.uplugin`：`GameplayInsights`、`RewindDebugger`、`RewindDebuggerRuntime`、`RewindDebuggerVLog` 等）并重启。",
+      "打开 `Tools > Debug > Rewind Debugger` 与 `Tools > Debug > Rewind Debugger Details`，需要曲线/日志时再开 Visual Logger（`RewindDebuggerVLog`）。",
+      "PIE 后点 Rewind Debugger 的录制，停录后用 Object Outliner / 滴管选中角色及其 `SkeletalMeshComponent`。",
+      "时间轴上展开 AnimBP、Montage、Notifies、曲线与姿态轨道，拖动红色播放头对照视口；选中轨道后在 Details 里看混合权重与状态机。",
+      "要做帧耗时分析时 `Tools > Launch Unreal Insights`，对 `animation` / AnimGraph 相关 Trace 通道录 `.utrace`，不要把 `GameplayInsightsEditor` 链进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Animation Insights` (`GameplayInsights.uplugin`: `GameplayInsights`, `RewindDebugger`, `RewindDebuggerRuntime`, `RewindDebuggerVLog`, …) and restart.",
+      "Open `Tools > Debug > Rewind Debugger` and `Tools > Debug > Rewind Debugger Details`; add Visual Logger (`RewindDebuggerVLog`) when you need logged curves.",
+      "Play in Editor, record in Rewind Debugger, then pick the character and its `SkeletalMeshComponent` with the Object Outliner / dropper.",
+      "Expand AnimBP, montage, notify, curve, and pose tracks; scrub the red playhead against the viewport and inspect blend weights / state machines in Details.",
+      "For frame-cost work use `Tools > Launch Unreal Insights` and trace `animation` / AnimGraph channels to a `.utrace`. Do not link `GameplayInsightsEditor` into a Game target."
+    ],
+    "note_cn": "这是 Insights/Rewind 调试器，不是给骨架网格体挂的动画资产。",
+    "note_en": "Insights/Rewind debugging only — not an animation asset you attach to a skeletal mesh."
+  },
+  {
+    "slug": "animation-layering",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `Animation Layering`（运行时 `AnimationLayering`，未烹饪图节点在 `AnimationLayeringUncookedOnly`）并重启。",
+      "打开角色 `AnimBP` 的 AnimGraph，在节点面板找本插件新增的强化骨骼遮罩与骨对骨拷贝/运动传播节点（不要当成引擎自带的 `Linked Anim Layer`）。",
+      "把这些节点接在运动匹配或 Locomotion 输出之后、Output Pose 之前，用遮罩把上半身子/持物层叠到基础姿态上。",
+      "C++ 游戏模块只加 `AnimationLayering`；`AnimationLayeringUncookedOnly` 仅能出现在编辑器/未烹饪模块。",
+      "先在空关卡对照 Pose Watch 验证分层，再进正式角色；Experimental 节点名可能随夜构建变化。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Animation Layering` (runtime `AnimationLayering`, uncooked graph nodes in `AnimationLayeringUncookedOnly`) and restart.",
+      "In the character `AnimBP` AnimGraph, find this plugin’s enhanced bone-mask and bone-to-bone copy / motion-propagation nodes (not engine `Linked Anim Layer`).",
+      "Wire them after locomotion or motion matching and before Output Pose so an upper-body / item layer composites onto the base pose.",
+      "Game modules depend on `AnimationLayering` only; `AnimationLayeringUncookedOnly` belongs in editor/uncooked modules.",
+      "Prove the stack with Pose Watch in an empty map before production characters; Experimental node names can change on nightlies."
+    ],
+    "note_cn": "UE 5.8 Experimental 的 AnimBP 分层节点集，与 UAF 的 `UAFLayering` 不是同一插件。",
+    "note_en": "UE 5.8 Experimental AnimBP layering nodes; not the same plugin as UAF `UAFLayering`."
+  },
+  {
+    "slug": "animation-locomotion-library",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Locomotion Library`（运行时 `AnimationLocomotionLibraryRuntime`，编辑器修饰器在 `AnimationLocomotionLibraryEditor`）。",
+      "打开带 Root Motion 的起步/停步/转向 `AnimSequence`，`Window > Animation Data Modifiers` 添加 `DistanceCurveModifier`，设置 `Curve Name`、`Axis`（位移多用 XY，跳跃用 Z）、`Sample Rate` 后 `Apply All Modifiers`。",
+      "在 `AnimBP` 放 `Sequence Evaluator`，Explicit Time 设为 Dynamic；在该节点的 On Update 绑定里调用 `UAnimDistanceMatchingLibrary`：停步用 `PredictGroundMovementStopLocation`（`UAnimCharacterMovementLibrary`）再 `DistanceMatchToTarget`，循环步用 `AdvanceTimeByDistanceMatching`，恒速循环可用 `SetPlayRateToMatchSpeed`。",
+      "On Update 必须是 Thread Safe，CMC 字段用 Property Access 喂给预测函数；播放速率用 `Play Rate Clamp`（默认约 0.75–1.25）限制。",
+      "滑步仍在时再叠 `Animation Warping` 的 Stride Warping；游戏模块只依赖 `AnimationLocomotionLibraryRuntime`。"
+    ],
+    "en_steps": [
+      "Enable `Animation Locomotion Library` (runtime `AnimationLocomotionLibraryRuntime`, editor modifiers in `AnimationLocomotionLibraryEditor`).",
+      "Open a root-motion start/stop/pivot `AnimSequence`, `Window > Animation Data Modifiers`, add `DistanceCurveModifier`, set `Curve Name`, `Axis` (XY for travel, Z for jumps), `Sample Rate`, then `Apply All Modifiers`.",
+      "In the `AnimBP` use a `Sequence Evaluator` with Dynamic Explicit Time. On its On Update binding call `UAnimDistanceMatchingLibrary`: stops use `PredictGroundMovementStopLocation` (`UAnimCharacterMovementLibrary`) then `DistanceMatchToTarget`; cycles use `AdvanceTimeByDistanceMatching`; constant-speed loops may use `SetPlayRateToMatchSpeed`.",
+      "Keep On Update thread-safe and feed CMC fields via Property Access; clamp effective play rate (`Play Rate Clamp`, typically ~0.75–1.25).",
+      "If feet still slide, layer Stride Warping from `Animation Warping`. Game modules depend on `AnimationLocomotionLibraryRuntime` only."
+    ],
+    "note_cn": "`DistanceCurveModifier` 必须有 Root Motion；没有位移数据时曲线会是一条平线。",
+    "note_en": "`DistanceCurveModifier` needs root motion; without travel data the curve is a flat line."
+  },
+  {
+    "slug": "animation-modifier-library",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Modifier Library`（模块 `AnimationModifierLibrary`，通常默认开）。",
+      "打开目标 `AnimSequence`，菜单 `Window > Animation Data Modifiers`，`Add Modifier` 选 `MotionExtractorModifier`。",
+      "填写 `Bone Name`（如 `foot_l`）、`Motion Type`（Translation / Rotation / Speed 等）、`Axis`、`Space`；需要自定义曲线名时勾选 `Use Custom Curve Name`。",
+      "点 `Apply All Modifiers`，在曲线编辑器检查生成的 float 曲线；同一骨骼多轴需各加一条 modifier。",
+      "批量处理可在骨架或动画上保留 modifier 并勾选 `Reapply Post Owner Change`；脚本侧用 `UMotionExtractorUtilityLibrary` 的 `GenerateCurveName` / `GetMovingRangesFromRootMotion`。",
+      "游戏运行时不必依赖本模块——曲线已经烤进 `AnimSequence`。"
+    ],
+    "en_steps": [
+      "Enable `Animation Modifier Library` (module `AnimationModifierLibrary`; usually on by default).",
+      "Open the target `AnimSequence`, `Window > Animation Data Modifiers`, `Add Modifier` → `MotionExtractorModifier`.",
+      "Set `Bone Name` (e.g. `foot_l`), `Motion Type` (Translation / Rotation / Speed, …), `Axis`, and `Space`; tick `Use Custom Curve Name` when you need a fixed curve name.",
+      "Click `Apply All Modifiers` and inspect the baked float curve; add one modifier per axis if you need several.",
+      "For bulk work leave the modifier on the skeleton/animation with `Reapply Post Owner Change`; scripts can use `UMotionExtractorUtilityLibrary` (`GenerateCurveName`, `GetMovingRangesFromRootMotion`).",
+      "Gameplay does not need this module at runtime — the curves live on the `AnimSequence`."
+    ],
+    "note_cn": "这是编辑器 Animation Modifier 集合；距离曲线请用 Locomotion 库的 `DistanceCurveModifier`，不要和本插件的 Motion Extractor 搞混。",
+    "note_en": "Editor Animation Modifier collection. Distance curves come from Locomotion’s `DistanceCurveModifier`, not this plugin’s Motion Extractor."
+  },
+  {
+    "slug": "animation-sharing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Sharing`（运行时 `AnimationSharing`，资产编辑 `AnimationSharingEd`）。",
+      "内容浏览器 `Add > Animation > Advanced > Animation Sharing Setup`，得到 `UAnimationSharingSetup`。",
+      "在 Setup 的 `Skeleton Setups` 填 `Skeleton` / 调试用 `Skeletal Mesh`；指定 `AnimSharingTransitionInstance` 子类作混合 AnimBP、`AnimSharingAdditiveInstance` 子类作叠加、以及 `UAnimationSharingStateProcessor` 子类判断状态。",
+      "在 `Animation States` 里为每个桶指定 `UAnimSharingStateInstance` 子类、要播的 `AnimSequence`、是否 On Demand / Additive，并调 `Scalability Settings`。",
+      "关卡蓝图 BeginPlay：`Create Animation Sharing Manager` 并传入该 Setup；角色 BeginPlay：`Get Animation Sharing Manager` → `Register Actor`（`RegisterActorWithSkeletonBP`），Sharing Skeleton 必须与 Setup 中的骨架一致。",
+      "游戏模块只依赖 `AnimationSharing`；`AnimationSharingEd` 仅编辑器。"
+    ],
+    "en_steps": [
+      "Enable `Animation Sharing` (runtime `AnimationSharing`, asset editor `AnimationSharingEd`).",
+      "Create `Add > Animation > Advanced > Animation Sharing Setup` (`UAnimationSharingSetup`).",
+      "Fill `Skeleton Setups` with `Skeleton` and a debug `Skeletal Mesh`; assign an `AnimSharingTransitionInstance` subclass for blends, an `AnimSharingAdditiveInstance` subclass for additives, and a `UAnimationSharingStateProcessor` subclass for state.",
+      "Under `Animation States` configure each bucket’s `UAnimSharingStateInstance` subclass, `AnimSequence`, On Demand / Additive flags, then tune `Scalability Settings`.",
+      "Level Blueprint BeginPlay: `Create Animation Sharing Manager` with that Setup. Character BeginPlay: `Get Animation Sharing Manager` → `Register Actor` (`RegisterActorWithSkeletonBP`); Sharing Skeleton must match the Setup.",
+      "Game modules depend on `AnimationSharing` only; `AnimationSharingEd` is editor-only."
+    ],
+    "note_cn": "Leader-Follower 姿态共享给人群用；每个角色仍跑完整 AnimBP 时不要启用。",
+    "note_en": "Leader-follower pose sharing for crowds; do not use it if every character still evaluates a full AnimBP."
+  },
+  {
+    "slug": "animation-validation",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `Data Validation` 与 `Animation Validation`（模块 `AnimationValidation`），重启编辑器。",
+      "对单个 `AnimSequence` / `AnimBlueprint` / `Skeleton` / Blend Space：内容浏览器右键 `Asset Actions > Validate Assets`（需要依赖时用 `Validate Assets and Dependencies`）。",
+      "整包检查用 `Tools > Validate Data...`，或命令行 `UnrealEditor-Cmd.exe YourGame.uproject -run=DataValidation`。",
+      "在 Message Log 的 Asset Check 页阅读失败项（缺 Skeleton、损坏压缩数据等引擎动画规则）。",
+      "保存资源时也会跑这些校验；不要把 `AnimationValidation` 写进 Shipping 游戏模块。"
+    ],
+    "en_steps": [
+      "Enable both `Data Validation` and `Animation Validation` (module `AnimationValidation`) and restart.",
+      "For one `AnimSequence` / `AnimBlueprint` / `Skeleton` / Blend Space: Content Browser `Asset Actions > Validate Assets` (or `Validate Assets and Dependencies`).",
+      "For the whole project use `Tools > Validate Data...` or `UnrealEditor-Cmd.exe YourGame.uproject -run=DataValidation`.",
+      "Read failures in Message Log → Asset Check (missing skeleton, bad compressed data, and other engine animation rules).",
+      "The same validators also run on save. Do not link `AnimationValidation` into a shipping game module."
+    ],
+    "note_cn": "编辑器数据校验器，依赖 Data Validation 管线；不是运行时动画组件。",
+    "note_en": "Editor data validators on the Data Validation pipeline, not a runtime animation component."
+  },
+  {
+    "slug": "animation-warping",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Warping`（运行时 `AnimationWarpingRuntime`，图节点 `AnimationWarpingEditor`）。",
+      "在 Locomotion `AnimBP` 里，于 Sequence Player / Motion Matching 之后加入 `Orientation Warping`（腿 IK + 脊柱扭转对齐移动方向）、`Stride Warping`（按胶囊体速度缩放步幅）、需要贴地时再加 `Slope Warping`。",
+      "配置对应骨骼（骨盆、IK 脚、脊柱链）和 Warp 轴；方向角通常来自 Movement Component 或 Root Motion。",
+      "胶囊体驱动位移时在图末加 `Offset Root Bone`，用 `EOffsetRootBoneMode`（Accumulate / Interpolate / Hold / Release）控制网格相对胶囊体的根偏移；蓝图可用 `UAnimationWarpingLibrary::GetOffsetRootTransform`。",
+      "调试用 `a.AnimNode.OrientationWarping.Debug`、`a.AnimNode.StrideWarping.Debug`、`a.AnimNode.SlopeWarping.Enable`；游戏模块只依赖 `AnimationWarpingRuntime`。"
+    ],
+    "en_steps": [
+      "Enable `Animation Warping` (runtime `AnimationWarpingRuntime`, graph nodes in `AnimationWarpingEditor`).",
+      "After Sequence Player / Motion Matching in the locomotion `AnimBP`, add `Orientation Warping` (leg IK + spine twist vs move direction), `Stride Warping` (scale stride to capsule speed), and `Slope Warping` when feet must follow the floor.",
+      "Set pelvis, IK feet, spine chain, and warp axis; feed facing from the movement component or root motion.",
+      "When the capsule drives translation, finish with `Offset Root Bone` and `EOffsetRootBoneMode` (Accumulate / Interpolate / Hold / Release). Blueprints can call `UAnimationWarpingLibrary::GetOffsetRootTransform`.",
+      "Debug with `a.AnimNode.OrientationWarping.Debug`, `a.AnimNode.StrideWarping.Debug`, `a.AnimNode.SlopeWarping.Enable`. Game modules depend on `AnimationWarpingRuntime` only."
+    ],
+    "note_cn": "插件还提供 Root Motion Delta 动画属性；Stride Warping 常与 Distance Matching 一起补速率夹紧后的步长差。",
+    "note_en": "Also ships the Root Motion Delta animation attribute. Stride Warping often fills the gap after Distance Matching clamps play rate."
+  },
+  {
+    "slug": "animationassistanttoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `AnimationAssistantToolset`，并确保 `Toolset Registry`（以及要用的 MCP / AI Assistant）已开。",
+      "在编辑器 AI 助手或外部 MCP 客户端里选用 Animation 工具集，而不是自己往关卡里拖组件。",
+      "用该工具集提供的 Control Rig / Sequencer / `LevelSequence` 接口建序列、加绑定、改 Rig 层次（对应 `animation_toolset` 下的 Sequencer 与 Control Rig 工具）。",
+      "操作后在 Sequencer 与 Control Rig 编辑器核对轨道/骨骼是否写回资产。",
+      "不要把 `AnimationAssistantToolset` 加入 Game Target 或 Shipping；它只给助手自动化。"
+    ],
+    "en_steps": [
+      "Enable Experimental `AnimationAssistantToolset` and keep `Toolset Registry` (plus MCP / AI Assistant if you use them) on.",
+      "Pick the Animation toolset in the in-editor assistant or an external MCP client — do not drop a component into the level.",
+      "Drive Control Rig, Sequencer, and `LevelSequence` through those tools (create sequences, add bindings, edit rig hierarchy — the `animation_toolset` Sequencer and Control Rig tools).",
+      "After a call, confirm tracks/bones actually landed in Sequencer and the Control Rig editor.",
+      "Do not add `AnimationAssistantToolset` to a Game target or shipping build; it is assistant automation only."
+    ],
+    "note_cn": "Experimental Toolset：给编辑器 AI/自动化的读写工具，不是运行时动画系统。",
+    "note_en": "Experimental toolset for the editor AI/automation, not a runtime animation system."
+  },
+  {
+    "slug": "animator-gizmos",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `Animator Gizmos`（描述符 `GizmoFramework.uplugin`，模块 `GizmoSettings`）并重启。",
+      "打开 `Edit > Editor Preferences`，在 `Viewport-related transform tools` / New TRS Gizmo 里勾选启用新 Gizmo（旧版在 General 的 `Enable New Gizmos`）。",
+      "关卡或 Sequencer 视口用 W/E/R 切换平移/旋转/缩放，确认新 TRS 操纵器（轴向长度、弧球旋转、组合平移旋转）出现。",
+      "按需调整 Gizmo 尺寸、Arcball、Screen Rotate；这是视口工具，不是 Actor 组件。",
+      "不要把 `GizmoSettings` 写进游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Animator Gizmos` (`GizmoFramework.uplugin`, module `GizmoSettings`) and restart.",
+      "Open `Edit > Editor Preferences` and turn on the new gizmos under `Viewport-related transform tools` / New TRS Gizmo (older builds: General → `Enable New Gizmos`).",
+      "In the level or Sequencer viewport, use W/E/R and confirm the new TRS manipulator (axis length, arcball, combined translate-rotate).",
+      "Tune gizmo size, arcball, and screen rotate as needed. This is a viewport tool, not an actor component.",
+      "Do not add `GizmoSettings` to a game `Build.cs`."
+    ],
+    "note_cn": "只负责切换新 TRS Gizmo；自动化测试见独立的 `5.8 Gizmo Testing` 插件。",
+    "note_en": "Toggles the new TRS gizmos only; automation lives in the separate `5.8 Gizmo Testing` plugin."
+  },
+  {
+    "slug": "animator-kit",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animator Kit`（模块 `AnimatorKitSettings`）并重启，以便 Sequencer 使用官方 Deformer Control Rig。",
+      "打开 `Level Sequence`，把带 `SkeletalMeshComponent` 的 Actor 加进序列。",
+      "在骨骼网格体轨道点 `+` → `Control Rig`，过滤器选 Deformer；内容选择器打开 `Show Plugin Content` / `Show Engine Content`，需要时关闭 Filter Asset by Skeleton。",
+      "选用 `Lattice`、`Camera Space Lattice` 或 `Sculpt Deformer`：Camera Space Lattice 要把 `CameraHandle` Constraint 到 Sequencer 摄像机，并取消 Maintain Offset。",
+      "切到 Animation Mode，可开 `Only Select Rig Controls` 去挪格子点并打关键帧；同一 Deformer 可多实例（Class Settings → Sequencer → Allow Multiple Instances）。"
+    ],
+    "en_steps": [
+      "Enable `Animator Kit` (module `AnimatorKitSettings`) and restart so Sequencer can use the shipped Deformer Control Rigs.",
+      "Open a `Level Sequence` and add an actor with a `SkeletalMeshComponent`.",
+      "On the skeletal mesh track click `+` → `Control Rig`, filter Deformer; in the picker enable `Show Plugin Content` / `Show Engine Content` and disable Filter Asset by Skeleton if needed.",
+      "Pick `Lattice`, `Camera Space Lattice`, or `Sculpt Deformer`. For Camera Space Lattice, constraint `CameraHandle` to the Sequencer camera with Maintain Offset off.",
+      "Switch to Animation Mode, optionally `Only Select Rig Controls`, move lattice points and key them. Multiple instances of the same deformer are allowed (Class Settings → Sequencer → Allow Multiple Instances)."
+    ],
+    "note_cn": "给 Sequencer 里的动画师工具（Deformer 等），不是游戏 AnimBP 节点库。",
+    "note_en": "Sequencer animator utilities (Deformers, etc.), not a gameplay AnimBP node pack."
+  },
+  {
+    "slug": "animdatabase",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `AnimDatabase`（运行时 `AnimDatabase`，编辑器 `AnimDatabaseEditor`）；若要训练生成模型同时启用 `AnimGen`。",
+      "内容浏览器创建 Anim Database 资产，把同骨架的 `AnimSequence` 加进库。",
+      "源动画打开 `Enable Root Motion` 与 Force Root Lock，否则后续提取轨迹/根位移会失败，AnimGen 也容易 T-Pose。",
+      "在资产编辑器里烘焙/提取逐帧属性，并用查询接口按属性检索帧（本资产就是带帧属性的可搜索动画库）。",
+      "把该 Database 交给 `AnimGen` 的 AutoEncoder / Controller 作为训练输入；游戏模块若只读库则依赖 `AnimDatabase`，编辑器窗口不要链进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `AnimDatabase` (runtime `AnimDatabase`, editor `AnimDatabaseEditor`); also enable `AnimGen` if you will train a generator.",
+      "Create an Anim Database asset and add same-skeleton `AnimSequence` clips.",
+      "Turn on `Enable Root Motion` and Force Root Lock on source clips, or trajectory/root extraction fails and AnimGen often T-poses.",
+      "Bake/extract per-frame attributes in the asset editor and query frames by those attributes — the asset is a searchable, frame-attributed animation database.",
+      "Feed the database into `AnimGen` AutoEncoder / Controller training. Runtime readers depend on `AnimDatabase`; keep editor UI off Game targets."
+    ],
+    "note_cn": "Experimental 帧属性动画库，主要给 AnimGen 当训练集，不是蒙太奇播放器。",
+    "note_en": "Experimental frame-attributed animation database, mainly a training source for AnimGen, not a montage player."
+  },
+  {
+    "slug": "animgen",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `AnimGen` 与 `AnimDatabase`（模块 `AnimGen` / `AnimGenEditor`）并重启。",
+      "建好带 Root Motion 的 Anim Database，创建 AutoEncoder 资产并 Train（先对齐浅色/深色调试骨架）。",
+      "创建 `AnimGenController`，指定 Database 与 AutoEncoder，用状态 Tag 与 Control Operator（如 Trajectory Follow）标记片段后 Train。",
+      "角色 `AnimBP` Event Graph 用 `MakeControlObject` 构造控制对象，向 `AGCElement` 填运行时 Tag 与轨迹，再连到 AnimGraph 的 `AnimGenController` 节点。",
+      "PIE 看生成运动；若输出 T-Pose，检查是否漏了 `MakeControlObject`、Root Motion 设置或 Mover 原点。",
+      "运行时只依赖 `AnimGen`；训练/资产编辑走 `AnimGenEditor`。规模上限约 128 个同时控制角色。"
+    ],
+    "en_steps": [
+      "Enable Experimental `AnimGen` and `AnimDatabase` (modules `AnimGen` / `AnimGenEditor`) and restart.",
+      "Build a root-motion Anim Database, create an AutoEncoder asset, and Train (debug skeletons should line up).",
+      "Create an `AnimGenController`, assign Database + AutoEncoder, tag clips with state tags and control operators (e.g. Trajectory Follow), then Train.",
+      "In the character `AnimBP` Event Graph, `MakeControlObject`, fill `AGCElement` with runtime tags and trajectory, and wire it into the AnimGraph `AnimGenController` node.",
+      "PIE the generated motion. A T-pose usually means a missing `MakeControlObject`, bad root-motion flags, or a mover stuck at the origin.",
+      "Runtime depends on `AnimGen` only; training/authoring uses `AnimGenEditor`. Scale is on the order of 128 simultaneous characters."
+    ],
+    "note_cn": "编辑器内训练、运行时推理的 ML 角色控制器；先看官方 AnimGen Example。",
+    "note_en": "Train-in-editor, evaluate-at-runtime ML character controller. Start from Epic’s AnimGen Example."
+  },
+  {
+    "slug": "animgenoffline",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `AnimGenOffline`（运行时 `AnimGenOfflineRuntime`，编辑器 `AnimGenOffline`）；离线烘焙通常还需 `AnimGen` / `AnimDatabase`。",
+      "用 AnimGen 管线在编辑器里生成运动，导出/保存为标准 `AnimSequence`，而不是在 PIE 里每帧跑神经网络。",
+      "新建 `Level Sequence`，绑定带 `SkeletalMeshComponent` 的 Actor，添加 `MovieSceneSkeletalAnimationTrack`。",
+      "把离线生成的 `AnimSequence` 赋给 `MovieSceneSkeletalAnimationSection`，对齐序列帧范围后播放/渲染。",
+      "游戏若只需播已烘焙片段，依赖 `AnimGenOfflineRuntime` 即可；不要把编辑器模块写进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `AnimGenOffline` (runtime `AnimGenOfflineRuntime`, editor `AnimGenOffline`); offline bake usually also needs `AnimGen` / `AnimDatabase`.",
+      "Generate motion with the AnimGen pipeline in the editor and save a normal `AnimSequence` instead of evaluating the network every PIE frame.",
+      "Create a `Level Sequence`, bind an actor with a `SkeletalMeshComponent`, and add a `MovieSceneSkeletalAnimationTrack`.",
+      "Assign the offline `AnimSequence` to a `MovieSceneSkeletalAnimationSection`, match the sequence range, then play or render.",
+      "If the game only plays baked clips, depend on `AnimGenOfflineRuntime`; keep the editor module off Game targets."
+    ],
+    "note_cn": "职责是让 Sequencer 使用离线生成的动画；不要把它当成运行时 AnimGenController。",
+    "note_en": "Adds Sequencer support for offline-generated clips; it is not the runtime AnimGenController."
+  }
+]

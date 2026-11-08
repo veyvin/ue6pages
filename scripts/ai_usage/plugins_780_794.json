@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "procedural-vegetation-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Vegetation Editor`（运行时 `ProceduralVegetation`，编辑器 `ProceduralVegetationEditor`）。",
+      "它是基于节点图的编辑器，可直接在引擎里做 Nanite Foliage 就绪植被。",
+      "加载含物种预构建数据的程序植被预设，再用节点图自定义/做变体。",
+      "属实验性植被工具；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Vegetation Editor` (runtime `ProceduralVegetation`, editor `ProceduralVegetationEditor`).",
+      "It is a node-graph editor for creating Nanite Foliage-ready vegetation in-engine.",
+      "Load Procedural Vegetation Presets with prebuilt species data, then customize/create variants in the graph.",
+      "It is an experimental vegetation tool; editor modules are Editor-target only."
+    ],
+    "note_cn": "节点图编辑器：在引擎里做 Nanite Foliage 植被。",
+    "note_en": "Node-graph editor for Nanite Foliage-ready vegetation."
+  },
+  {
+    "slug": "project-launcher",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Project Launcher`（模块 `ProjectLauncher`、`CommonLaunchExtensions`）。",
+      "它用来配置自定义项目启动配置文件（平台、cook、运行参数）。",
+      "在编辑器 Project Launcher 里建 profile，一键 cook/部署/运行到目标。",
+      "属编辑器开发者工具；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Project Launcher` (modules `ProjectLauncher`, `CommonLaunchExtensions`).",
+      "It configures custom project launch profiles (platform, cook, run args).",
+      "Build profiles in the editor Project Launcher to cook/deploy/run to a target in one step.",
+      "It is an editor/developer tool; it does not ship by default."
+    ],
+    "note_cn": "配置自定义项目启动/cook/部署 profile。",
+    "note_en": "Configure custom project launch/cook/deploy profiles."
+  },
+  {
+    "slug": "projects-module-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Projects Module Tests`（模块 `ProjectsModuleTests`）。",
+      "它是 Projects 模块的 MTF 伴侣测试：插件发现、安装和瞬时注册。",
+      "跑这些测试来校验插件发现/挂载/瞬时注册行为。",
+      "属测试插件；一般只进测试/Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Projects Module Tests` (module `ProjectsModuleTests`).",
+      "It is the MTF companion testing the Projects module: plugin discovery, mounting, and transient registration.",
+      "Run these tests to validate plugin discovery/mounting/transient registration.",
+      "It is a test plugin; typically Editor/test targets only."
+    ],
+    "note_cn": "Projects 模块的插件发现/挂载自动化测试。",
+    "note_en": "MTF tests for Projects-module plugin discovery/mounting."
+  },
+  {
+    "slug": "property-access-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Property Access Editor`（模块 `PropertyAccessEditor`）。",
+      "它提供把属性从一个对象复制到另一个对象的编辑器支持。",
+      "动画和 UMG 系统正常工作需要它（属性通路编辑）。",
+      "属编辑器支持插件；动画/UMG 项目应保持启用。"
+    ],
+    "en_steps": [
+      "Enable `Property Access Editor` (module `PropertyAccessEditor`).",
+      "It provides editor support for copying properties from one object to another.",
+      "Required for Animation and UMG systems to function correctly (property-access editing).",
+      "It is an editor-support plugin; keep it enabled for Animation/UMG projects."
+    ],
+    "note_cn": "属性复制/通路的编辑器支持（动画与 UMG 需要）。",
+    "note_en": "Editor support for property copy/access (needed by Animation and UMG)."
+  },
+  {
+    "slug": "property-access-node",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Property Access Node`（模块 `PropertyAccessNode`）。",
+      "它提供通过属性路径访问属性的蓝图节点。",
+      "在蓝图里用该节点按路径读写对象属性，而不手写一长串 Get。",
+      "属编辑器蓝图节点插件；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Property Access Node` (module `PropertyAccessNode`).",
+      "It is a Blueprint node that accesses properties via a property path.",
+      "Use it in Blueprints to read/write object properties by path instead of a long Get chain.",
+      "It is an editor Blueprint-node plugin; it does not ship by default."
+    ],
+    "note_cn": "按属性路径访问属性的蓝图节点。",
+    "note_en": "Blueprint node to access properties via a property path."
+  },
+  {
+    "slug": "property-animator-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Property Animator Core`（运行时 `PropertyAnimatorCore`，编辑器 `PropertyAnimatorCoreEditor`）。",
+      "它提供在运行时和编辑器中控制属性的可复用行为（核心层）。",
+      "作为 `Property Animator` 的底层依赖，不要单独当最终动画工具。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Property Animator Core` (runtime `PropertyAnimatorCore`, editor `PropertyAnimatorCoreEditor`).",
+      "It provides reusable behaviors to control properties at runtime and in the editor (the core layer).",
+      "A low-level dependency for `Property Animator`; not the end-user animator by itself.",
+      "Game modules depend on runtime modules; editor modules are Editor-target only."
+    ],
+    "note_cn": "属性动画器的核心：可复用的属性控制行为。",
+    "note_en": "Property Animator core: reusable property-control behaviors."
+  },
+  {
+    "slug": "property-animator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Property Animator`（运行时 `PropertyAnimator`，编辑器 `PropertyAnimatorEditor`）。",
+      "它提供可复用行为，用来驱动一个或多个属性的值。",
+      "在 Actor 上加 Property Animator，给位置/颜色等属性做循环或程序化动画。",
+      "需 `Property Animator Core`；Game 模块依赖运行时模块。"
+    ],
+    "en_steps": [
+      "Enable `Property Animator` (runtime `PropertyAnimator`, editor `PropertyAnimatorEditor`).",
+      "It provides reusable behaviors to animate the value of one or more properties.",
+      "Add a Property Animator on an actor to loop or procedurally animate location/color/etc.",
+      "Requires `Property Animator Core`; game modules depend on runtime modules."
+    ],
+    "note_cn": "用可复用行为驱动一个或多个属性的动画。",
+    "note_en": "Reusable behaviors to animate one or more property values."
+  },
+  {
+    "slug": "property-editor-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Property Editor Tests`（模块 `PropertyEditorTests`）。",
+      "它是 PropertyEditor 模块的自动化测试。",
+      "跑这些测试来校验细节面板/属性编辑器行为。",
+      "属测试插件；一般只进测试/Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Property Editor Tests` (module `PropertyEditorTests`).",
+      "It is automation tests for the PropertyEditor module.",
+      "Run these tests to validate Details panel / property-editor behavior.",
+      "It is a test plugin; typically Editor/test targets only."
+    ],
+    "note_cn": "PropertyEditor 模块的自动化测试。",
+    "note_en": "Automation tests for the PropertyEditor module."
+  },
+  {
+    "slug": "propertybindingutils",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PropertyBindingUtils`（模块 `PropertyBindingUtils`、`PropertyBindingUtilsEditor`、`PropertyBindingUtilsTestSuite`）。",
+      "它提供实现属性绑定的实用代码。",
+      "写自定义绑定/动画通路时依赖这些工具，而不是从零实现路径解析。",
+      "运行时模块可进游戏包；编辑器/测试模块只进对应 Target。"
+    ],
+    "en_steps": [
+      "Enable `PropertyBindingUtils` (modules `PropertyBindingUtils`, `PropertyBindingUtilsEditor`, `PropertyBindingUtilsTestSuite`).",
+      "It provides utility code for implementing property bindings.",
+      "Depend on these utils when writing custom binding/anim access instead of parsing paths from scratch.",
+      "Runtime modules can ship in a cooked game; editor/test modules go to matching targets only."
+    ],
+    "note_cn": "实现属性绑定的实用代码。",
+    "note_en": "Utility code for implementing property bindings."
+  },
+  {
+    "slug": "provenancec2pa",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ProvenanceC2PA`（模块 `ProvenanceC2PA`）。",
+      "它用 C2PA 内容凭证标准实现 AssetProvenance 的读/写来源数据。",
+      "在需要资产出处/内容凭证的管线里启用，读写 C2PA 元数据。",
+      "属来源/凭证插件；按合规需求启用。"
+    ],
+    "en_steps": [
+      "Enable `ProvenanceC2PA` (module `ProvenanceC2PA`).",
+      "It implements AssetProvenance read/write using the C2PA content-credentials standard.",
+      "Enable it in pipelines that need asset provenance/content credentials to read/write C2PA metadata.",
+      "It is a provenance/credentials plugin; enable per compliance need."
+    ],
+    "note_cn": "用 C2PA 内容凭证读写资产来源数据。",
+    "note_en": "Read/write asset provenance via C2PA content credentials."
+  },
+  {
+    "slug": "proxy-lod-plugin-experimental",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Proxy LOD Plugin (Experimental)`（模块 `ProxyLODMeshReduction`）。",
+      "它用于生成代理 LOD（把多网格合并简化成远景代理）。",
+      "在 HLOD/代理网格流程里用它生成远距离替代网格。",
+      "属实验性编辑器简化工具；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Proxy LOD Plugin (Experimental)` (module `ProxyLODMeshReduction`).",
+      "It generates Proxy LOD systems (merge/simplify meshes into a distant proxy).",
+      "Use it in HLOD/proxy-mesh flows to build far-distance stand-in meshes.",
+      "It is an experimental editor reduction tool; it does not ship by default."
+    ],
+    "note_cn": "生成代理 LOD（远景合并简化网格）。",
+    "note_en": "Generate Proxy LODs (merged/simplified distant meshes)."
+  },
+  {
+    "slug": "psd-importer-material-designer-bridge",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PSD Importer Material Designer Bridge`（模块 `PSDImporterMaterialDesignerBridge`）。",
+      "它在 PSD 导入器与 Material Designer 之间做桥接。",
+      "导入 PSD 图层后，把图层接到 Material Designer 材质图，而不是只当普通纹理。",
+      "属实验性导入桥；需 PSD Importer 与 Material Designer。"
+    ],
+    "en_steps": [
+      "Enable `PSD Importer Material Designer Bridge` (module `PSDImporterMaterialDesignerBridge`).",
+      "It bridges the PSD Importer and Material Designer.",
+      "After importing PSD layers, wire them into a Material Designer graph instead of plain textures only.",
+      "It is an experimental import bridge; requires PSD Importer and Material Designer."
+    ],
+    "note_cn": "PSD 导入器与 Material Designer 的桥接。",
+    "note_en": "Bridge between PSD Importer and Material Designer."
+  },
+  {
+    "slug": "psd-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PSD Importer`（模块 `PSDImporterEditor`、`PSDImporter`、`PSDImporterCore`）。",
+      "它把 Photoshop PSD 导入为引擎可用的图层/纹理资产。",
+      "把 `.psd` 拖进内容浏览器，按图层生成纹理或继续走 Material Designer 桥。",
+      "属实验性导入器；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `PSD Importer` (modules `PSDImporterEditor`, `PSDImporter`, `PSDImporterCore`).",
+      "It imports Photoshop PSD files as engine-ready layer/texture assets.",
+      "Drop a `.psd` into the Content Browser to generate per-layer textures, or continue through the Material Designer bridge.",
+      "It is an experimental importer; editor modules are Editor-target only."
+    ],
+    "note_cn": "把 Photoshop PSD 导入为图层/纹理资产。",
+    "note_en": "Import Photoshop PSDs as layer/texture assets."
+  },
+  {
+    "slug": "python-automation-test",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Python Automation Test`（模块 `PythonAutomationTest`）。",
+      "它提供 Python 自动化测试支持（在编辑器自动化框架里跑 Python 用例）。",
+      "编写 Python 测试并纳入自动化会话，校验编辑器脚本行为。",
+      "属测试插件；需 Python 脚本插件。"
+    ],
+    "en_steps": [
+      "Enable `Python Automation Test` (module `PythonAutomationTest`).",
+      "It supports Python automation tests (run Python cases in the editor automation framework).",
+      "Write Python tests and include them in automation sessions to validate editor scripting.",
+      "It is a test plugin; requires the Python script plugin."
+    ],
+    "note_cn": "在编辑器自动化框架里跑 Python 测试。",
+    "note_en": "Run Python tests in the editor automation framework."
+  },
+  {
+    "slug": "python-editor-script-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Python Editor Script Plugin`（模块 `PythonScriptPluginPreload`、`PythonScriptPlugin`）。",
+      "它为虚幻编辑器提供 Python 集成（解释器、脚本执行、编辑器 API）。",
+      "在输出窗口/脚本编辑器里跑 Python，或用 `unreal` 模块做批处理。",
+      "属实验性编辑器脚本插件；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Python Editor Script Plugin` (modules `PythonScriptPluginPreload`, `PythonScriptPlugin`).",
+      "It provides Python integration for the Unreal Editor (interpreter, script execution, editor API).",
+      "Run Python in the Output Log/script editor, or batch through the `unreal` module.",
+      "It is an experimental editor-scripting plugin; it does not ship by default."
+    ],
+    "note_cn": "虚幻编辑器的 Python 集成。",
+    "note_en": "Python integration for the Unreal Editor."
+  }
+]

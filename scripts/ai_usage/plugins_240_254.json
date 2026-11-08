@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "datasmith-c4d-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 Cinema 4D 里安装 Epic 官方的 Datasmith C4D Exporter，并让它与目标引擎版本匹配，否则导出的 `.udatasmith` 可能读不进。",
+      "在 C4D 中整理好场景、材质与相机，通过 `扩展 → Datasmith Exporter` 导出为 `.udatasmith`，把贴图放在同目录一起导出。",
+      "启用 `Datasmith C4D Importer`（会自动带上 `Datasmith Importer`），重启编辑器。",
+      "把 `.udatasmith` 拖进内容浏览器或走 `文件 → 导入`，在 Datasmith 导入选项里核对坐标系、单位缩放和材质导入方式。",
+      "导入后检查材质与贴图引用是否丢失，把生成的静态网格摆进关卡，并用 C4D 里的相机构图对照摆放。"
+    ],
+    "en_steps": [
+      "Install Epic's Datasmith C4D Exporter inside Cinema 4D and match it to your engine version, or the exported `.udatasmith` may fail to read.",
+      "Tidy up geometry, materials, and cameras in C4D, then export from `Extensions → Datasmith Exporter` to a `.udatasmith`, keeping textures in the same folder.",
+      "Enable `Datasmith C4D Importer` (it pulls in `Datasmith Importer`), then restart the editor.",
+      "Drag the `.udatasmith` into the Content Browser or use `File → Import`, and in the Datasmith import options verify coordinate system, unit scale, and material import.",
+      "After import, check for missing materials/texture references, drop the static meshes into a level, and compare framing against the camera you set up in C4D."
+    ],
+    "note_cn": "导出器与引擎版本必须一致；贴图路径丢失时优先在导出目录里补全贴图而非手动重建材质。",
+    "note_en": "Keep exporter and engine versions in lockstep; fix missing textures by completing the export folder rather than rebuilding materials by hand."
+  },
+  {
+    "slug": "datasmith-cad-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Datasmith CAD Importer` 通过 `CADLibrary` 与 OpenNurbs 内核读取 STEP/IGES/JT/SolidWorks 等 CAD 文件，先确认源文件格式被支持。",
+      "启用 `Datasmith CAD Importer` 并重启；导入时实际调用 `CADInterfaces` 与 `CADTools` 提供的内核做解析。",
+      "在内容浏览器用 `导入` 选择 CAD 文件，弹出「CAD Import Options」细分对话框。",
+      "在对话框里设定细分质量：弦高、法线容差、最大边长，以及是否合并共面、保留缝合边与是否生成碰撞。",
+      "导入后对生成的 `DatasmithSceneActor` 源资产执行「重新导入」，调整细分参数再烘焙一次，并核对面数、法线与碰撞体。"
+    ],
+    "en_steps": [
+      "`Datasmith CAD Importer` reads STEP/IGES/JT/SolidWorks through the `CADLibrary` and OpenNurbs kernels, so first confirm the source format is supported.",
+      "Enable `Datasmith CAD Importer` and restart; the actual parse is done by the kernels exposed via `CADInterfaces` and `CADTools`.",
+      "In the Content Browser use `Import` to pick the CAD file, which opens the CAD Import Options tessellation dialog.",
+      "In that dialog set tessellation quality: chord height, normal tolerance, max edge length, plus coplanar merge, sewing edges, and collision generation.",
+      "After import, use Reimport on the generated `DatasmithSceneActor` source asset with new tessellation values, then verify triangle count, normals, and collision."
+    ],
+    "note_cn": "CAD 细分是质量与面数的取舍：细节件调小弦高，大场景先粗细分再按需重新导入。",
+    "note_en": "CAD tessellation trades quality against triangle count: use tighter chord height on detail parts, coarse first then reimport for big scenes."
+  },
+  {
+    "slug": "datasmith-content",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Datasmith Content` 本身不提供导入入口，它是所有 Datasmith 翻译器共享的资产类型库：`DatasmithScene`、`DatasmithAssetUserData`、变体集。",
+      "启用后，任意翻译器导入的内容都以这些类型保存；在内容浏览器打开生成的 `DatasmithScene` 即可查看层级。",
+      "选中导入的 Actor，在细节面板的 Datasmith 分区里查看/编辑 `DatasmithAssetUserData` 携带的元数据（DCC 对象名、材质名、原始路径）。",
+      "用变体管理器（菜单 `Window → Virtual Production → Variant Manager`）从导入的变体集生成可切换的状态。",
+      "在关卡蓝图里按标签或元数据筛选 `DatasmithScene` 下的对象做批量材质覆盖或显隐切换。"
+    ],
+    "en_steps": [
+      "`Datasmith Content` has no import entry of its own; it is the shared asset-type library for every Datasmith translator: `DatasmithScene`, `DatasmithAssetUserData`, and variant sets.",
+      "Once enabled, content imported by any translator is stored with these types; open the resulting `DatasmithScene` in the Content Browser to inspect the hierarchy.",
+      "Select an imported actor and read or edit the metadata in `DatasmithAssetUserData` from the Datasmith section of the Details panel (DCC object name, material name, original path).",
+      "Use the Variant Manager (menu `Window → Virtual Production → Variant Manager`) to build switchable states from the imported variant set.",
+      "In the level Blueprint, filter actors under the `DatasmithScene` by tag or metadata to batch material overrides or toggle visibility."
+    ],
+    "note_cn": "运行时目标只需依赖 `DatasmithContent`；`DatasmithContentEditor` 是纯编辑器模块，别加进 Game Target。",
+    "note_en": "Runtime targets only need `DatasmithContent`; `DatasmithContentEditor` is editor-only and must not go into a Game target."
+  },
+  {
+    "slug": "datasmith-fbx-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "该插件面向 DeltaGen 与 VRED 的 FBX 管线，走 `DatasmithFBXTranslator`；它们导出的 FBX 常带变体描述与材质目录。",
+      "从 DeltaGen 或 VRED 导出 FBX 时，把材质文件夹、贴图和变体描述文件一起导出到同一目录结构。",
+      "启用 `Datasmith FBX Importer` 并重启，导入对话框会识别 DeltaGen/VRED 的目录约定。",
+      "用 `File → Import` 选择 FBX，在导入选项里指定变体描述文件位置与材质搜索路径。",
+      "导入后在 `DatasmithScene` 里打开变体集，用变体管理器切换配置，并核对材质与 UV 是否跟随变体正确切换。"
+    ],
+    "en_steps": [
+      "This plugin targets the DeltaGen and VRED FBX pipeline through `DatasmithFBXTranslator`; their FBX exports usually carry variant descriptions and material directories.",
+      "When exporting from DeltaGen or VRED, keep material folders, textures, and the variant description files in one directory tree.",
+      "Enable `Datasmith FBX Importer` and restart; the import dialog recognizes the DeltaGen/VRED directory conventions.",
+      "Use `File → Import` to pick the FBX, and in the import options point at the variant description file and the material search paths.",
+      "After import, open the variant set on the `DatasmithScene`, switch configurations in the Variant Manager, and confirm materials and UVs follow each variant correctly."
+    ],
+    "note_cn": "变体描述文件缺了就只能得到单套静态模型；导出前务必带上变体与材质映射。",
+    "note_en": "Without the variant description you only get a single static model; always ship the variant and material mapping with the export."
+  },
+  {
+    "slug": "datasmith-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Datasmith Importer` 是核心：读取 `.udatasmith` 并把 `DatasmithScene` 转成关卡内容，同时提供 Direct Link 实时同步通道。",
+      "启用后把任意受支持 DCC 导出的 `.udatasmith` 拖进内容浏览器，或走 `File → Import` 打开。",
+      "在导入选项里选择生成方式（关卡/Actor）、是否合并静态网格、光照与材质处理策略。",
+      "实时联动：在 DCC 端装好 Direct Link 插件，在引擎的 Datasmith Direct Link 面板建立连接，DCC 改动会同步推过来。",
+      "要自定义导入流程时实现 `DatasmithTranslator` 接口并在 `DirectLinkExtension` 上注册接收回调。"
+    ],
+    "en_steps": [
+      "`Datasmith Importer` is the core: it reads `.udatasmith` and converts `DatasmithScene` into level content, and also carries the Direct Link live-sync channel.",
+      "Enable it, then drag a `.udatasmith` exported from any supported DCC into the Content Browser, or open it via `File → Import`.",
+      "In the import options choose the generation mode (level/actors), whether to merge static meshes, and the lighting/material handling.",
+      "For live sync, install the Direct Link plugin on the DCC side and connect from the engine's Datasmith Direct Link panel; DCC edits are pushed across.",
+      "To customize the pipeline, implement the `DatasmithTranslator` interface and register a receive callback on `DirectLinkExtension`."
+    ],
+    "note_cn": "Direct Link 与 `.udatasmith` 文件导入是两条路径：做迭代用 Direct Link，做可复现资产用文件导入。",
+    "note_en": "Direct Link and file `.udatasmith` import are two paths: iterate with Direct Link, produce reproducible assets via file import."
+  },
+  {
+    "slug": "datasmith-mvr",
+    "kind": "plugin",
+    "cn_steps": [
+      "先在灯光设计软件（如 grandMA、Vectorworks）里导出 MVR 文件，再经 Datasmith 管线打包成带 MVR 内容的 `.udatasmith`。",
+      "启用 `Datasmith MVR`，连同 DMX 相关插件一起启用，然后重启编辑器。",
+      "导入 `.udatasmith` 后，`DatasmithMVRTranslator` 会把灯具、GDTF 参数和 DMX 地址解析成 DMX 库资产与灯具 Actor。",
+      "在 DMX 库面板（菜单 `Window → DMX → DMX Library`）里核对解析出的灯具型号、universe 与 patch 是否正确。",
+      "用 DMX 控制台或 DMX 预览驱动这些灯具，比对舞台布光与 MVR 设计是否一致。"
+    ],
+    "en_steps": [
+      "Export the MVR from your lighting design tool (grandMA, Vectorworks, etc.), then package it into a `.udatasmith` with MVR content through the Datasmith pipeline.",
+      "Enable `Datasmith MVR` together with the DMX-related plugins, then restart the editor.",
+      "On import, `DatasmithMVRTranslator` parses fixtures, GDTF parameters, and DMX addresses into DMX Library assets and fixture actors.",
+      "In the DMX Library panel (menu `Window → DMX → DMX Library`) verify the parsed fixture types, universes, and patch addresses.",
+      "Drive the fixtures from a DMX console or DMX preview and compare the stage lighting with the original MVR design."
+    ],
+    "note_cn": "MVR 里灯具依赖 GDTF 描述；缺 GDTF 时灯具只能得到占位形状，需补齐 GDTF 再导入。",
+    "note_en": "MVR fixtures rely on GDTF descriptions; missing GDTF yields placeholder shapes, so add the GDTF and reimport."
+  },
+  {
+    "slug": "datasmith-runtime",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Datasmith Runtime` 让你在打包后的游戏运行时加载 Datasmith 内容，而不是在编辑器里预先导入。",
+      "启用插件，并在 `DefaultEngine.ini` 里把 Datasmith 运行时加载相关设置指向该实现。",
+      "在蓝图里取 Datasmith Runtime 子系统，调用加载 `.udatasmith` 的节点，指定文件 URL/路径与导出到场景的方式。",
+      "监听加载完成回调，再对生成的对象做材质覆盖、坐标校正和碰撞设置。",
+      "它是 Experimental：先用空关卡验证加载耗时与内存峰值，再接入正式关卡流。"
+    ],
+    "en_steps": [
+      "`Datasmith Runtime` loads Datasmith content while the packaged game runs, instead of importing ahead of time in the editor.",
+      "Enable the plugin and point the Datasmith runtime-loading settings in `DefaultEngine.ini` at this implementation.",
+      "In Blueprint, grab the Datasmith Runtime subsystem and call its load-`.udatasmith` node with the file URL/path and the spawn-into-scene mode.",
+      "Hook the completion callback, then apply material overrides, coordinate fixes, and collision setup to the spawned objects.",
+      "It is Experimental: validate load time and peak memory in an empty level before wiring it into live level streaming."
+    ],
+    "note_cn": "运行时加载在并发/线程上更敏感；正式项目里必须评估大场景加载卡顿与内存峰值。",
+    "note_en": "Runtime loading is sensitive to concurrency and threading; profile hitching and peak memory for large scenes before shipping."
+  },
+  {
+    "slug": "daysequence",
+    "kind": "plugin",
+    "cn_steps": [
+      "`DaySequence` 用 Sequencer 驱动一整天的时间变化（太阳/月亮/天空），适合开放世界的昼夜系统。",
+      "启用后在关卡里放置 `DaySequenceActor`，把 Directional Light、Sky、SkyAtmosphere、Post Process 绑定到它的轨道。",
+      "打开 DaySequence 资产（Sequencer 时间轴），用关键帧或曲线定义 0–24 小时的太阳角度、色温和云量。",
+      "在关卡蓝图里用 `Set Time of Day` / `Play` 节点按游戏时钟推进，或把参数暴露给天气系统统一驱动。",
+      "`DaySequenceEditor` 只提供编辑器 UI，打包只依赖运行时模块 `DaySequence`。"
+    ],
+    "en_steps": [
+      "`DaySequence` drives a full day of time-of-day changes (sun/moon/sky) through Sequencer, ideal for open-world day-night systems.",
+      "After enabling, place a `DaySequenceActor` in the level and bind the Directional Light, Sky, SkyAtmosphere, and Post Process to its tracks.",
+      "Open the DaySequence asset (a Sequencer timeline) and key or curve the sun angle, color temperature, and cloud cover across 0–24 hours.",
+      "In the level Blueprint, drive it with `Set Time of Day` / `Play` nodes from the game clock, or expose the parameters to a weather system.",
+      "`DaySequenceEditor` is the editor UI only; shipping depends solely on the runtime module `DaySequence`."
+    ],
+    "note_cn": "它是 Experimental：与大世界时间同步时注意 Sequencer 帧率与确定性，避免昼夜跳变。",
+    "note_en": "Experimental: when syncing with a large-world clock, watch Sequencer framerate and determinism to avoid day-night jumps."
+  },
+  {
+    "slug": "debugdraw",
+    "kind": "plugin",
+    "cn_steps": [
+      "`DebugDraw` 是 `UE::DebugDraw::*` 系列 API，绕开 `ULineBatchComponent`，做高吞吐量、无锁、色调映射后的调试线/形状绘制。",
+      "启用后把代码里的 `DrawDebugLine`/`ULineBatchComponent` 调用换成 `UE::DebugDraw::Line/Box/Sphere` 等函数。",
+      "把绘制写进每帧的 `FDebugDrawContext` 回调里，避免在渲染线程加锁，从而支撑成千上万条调试图元。",
+      "用对应 cvar（`r.DebugDraw.*` 之类）开关和限流，只在需要时打开，定位只在调试构建出现的高频绘制问题。",
+      "因为它在 tonemap 之后渲染且是 Experimental，先在目标 RHI（DX12/Vulkan）下验证，再决定是否替换旧的 DrawDebug 路径。"
+    ],
+    "en_steps": [
+      "`DebugDraw` is the `UE::DebugDraw::*` API family; it bypasses `ULineBatchComponent` to draw debug lines/shapes lock-free and post-tonemap at high throughput.",
+      "After enabling, replace `DrawDebugLine`/`ULineBatchComponent` calls in your code with `UE::DebugDraw::Line/Box/Sphere` and friends.",
+      "Emit the draws from a per-frame `FDebugDrawContext` callback to avoid locking the render thread, sustaining thousands of debug primitives.",
+      "Gate and throttle it with the related cvars (`r.DebugDraw.*` and similar) so it is only on when needed, for high-frequency draw problems.",
+      "Because it draws after tonemap and is Experimental, verify on your target RHI (DX12/Vulkan) before replacing older DrawDebug paths."
+    ],
+    "note_cn": "色调映射后渲染意味着颜色/透明度与普通 DrawDebug 不同；对比截图时别把它当旧接口的等价替代。",
+    "note_en": "Post-tonemap rendering means colors/opacity differ from plain DrawDebug; don't treat it as a drop-in match when comparing screenshots."
+  },
+  {
+    "slug": "default-install-bundle-manager",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Default Install Bundle Manager` 是 `InstallBundleManager` 的默认实现，运行时负责下载、打补丁并挂载内容包（chunk）。",
+      "在 `DefaultGame.ini` 的 `[/Script/InstallBundleManager.InstallBundleManager]` 配置安装来源（如 HTTPChunkInstall）与 bundle 定义。",
+      "启用插件后，通过 `UInstallBundleManager` 子系统调用 `RequestAsyncInstallBundle` 下载指定 bundle，并轮询进度。",
+      "下载完成后调用挂载接口把 chunk 内容加载进来，再用资源引用或 `MountPak` 取用其中的资产。",
+      "这是 Experimental 的平台级 API：先在目标平台验证分块、断点续传与挂载行为，再接入正式内容分发。"
+    ],
+    "en_steps": [
+      "`Default Install Bundle Manager` is the default `InstallBundleManager` implementation that downloads, patches, and mounts content bundles (chunks) at runtime.",
+      "Configure install sources (e.g. HTTPChunkInstall) and bundle definitions under `[/Script/InstallBundleManager.InstallBundleManager]` in `DefaultGame.ini`.",
+      "After enabling, call `RequestAsyncInstallBundle` on the `UInstallBundleManager` subsystem to download a named bundle and poll its progress.",
+      "When the download completes, call the mount interface to load the chunk content, then reference assets from it or `MountPak`.",
+      "This is an Experimental platform-level API: verify chunking, resume, and mounting on the target platform before wiring it into real content delivery."
+    ],
+    "note_cn": "bundle 定义与打包 chunk 规则必须和 `DefaultGame.ini` 对齐，否则运行时会找不到要下载的分块。",
+    "note_en": "Bundle definitions must match your chunk packaging rules in `DefaultGame.ini`, or the runtime can't find the chunks to download."
+  },
+  {
+    "slug": "deformer-graph",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Deformer Graph`（Optimus）让你用节点图在 GPU 上做网格变形，替代部分骨骼/顶点动画开销。",
+      "启用后在内容浏览器右键 `Animation → Deformer Graph` 新建一个 Optimus 变形图资产。",
+      "在图里把 `Mesh` 输入接到骨骼网格，用 Kernel/节点做顶点位移（风吹、布料、二次运动等），结果输出回 `Mesh`。",
+      "打开骨架网格体资产，在 Deformer Graph 槽位指定该图，并设置编辑期还是运行期执行。",
+      "在 Sequencer 或游戏里预览变形；`OptimusEditor` 仅编辑器用，打包只依赖 `OptimusCore`/`OptimusSettings`。"
+    ],
+    "en_steps": [
+      "`Deformer Graph` (Optimus) lets you deform meshes on the GPU with a node graph, replacing part of the skeletal/vertex-animation cost.",
+      "After enabling, right-click `Animation → Deformer Graph` in the Content Browser to create an Optimus deformer asset.",
+      "Wire the `Mesh` input from the skeletal mesh, use Kernels/nodes to displace vertices (wind, cloth, secondary motion), and output back to `Mesh`.",
+      "Open the skeletal mesh asset, assign the graph in its Deformer Graph slot, and choose whether it runs in editor or at runtime.",
+      "Preview the deformation in Sequencer or in-game; `OptimusEditor` is editor-only and shipping depends only on `OptimusCore`/`OptimusSettings`."
+    ],
+    "note_cn": "GPU 变形图与 CPU 动画叠加时要关注顶点数预算，过量 Kernel 会拖慢半透明/蒙皮网格。",
+    "note_en": "Watch the vertex budget when stacking GPU deformation on CPU animation; heavy kernels slow down translucent/skinned meshes."
+  },
+  {
+    "slug": "derived-data-build-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Derived Data Build Controller` 让着色器编译分发到多台机器，统一走 Derived Data Build（`UE::DerivedData`）API。",
+      "启用插件，并在工程/项目设置里把 Derived Data Build 的后端指向远程构建控制器。",
+      "配置 worker 主机列表与通信协议，让编辑器把 DDC/着色器任务交给 Build Controller 调度。",
+      "首次编译时查看 UnrealBuildTool 与 Derived Data 日志，确认任务确实分发到 worker 而不是本地执行。",
+      "把构建产物写入共享 DDC 供团队复用；清理缓存后对比本地编译与分发编译的耗时差异。"
+    ],
+    "en_steps": [
+      "`Derived Data Build Controller` distributes shader compilation across machines through the Derived Data Build (`UE::DerivedData`) API.",
+      "Enable the plugin and point the Derived Data Build backend at the remote build controller in project/engine settings.",
+      "Configure the worker host list and transport, so the editor hands DDC/shader jobs to the Build Controller for scheduling.",
+      "On the first compile, inspect the UnrealBuildTool and Derived Data logs to confirm jobs actually ran on workers, not locally.",
+      "Write build output into a shared DDC for the team; after clearing the cache, compare local vs. distributed compile times."
+    ],
+    "note_cn": "分发编译的正确性取决于所有 worker 的引擎/着色器版本一致；版本漂移会产出错误缓存。",
+    "note_en": "Distributed correctness depends on identical engine/shader versions across workers; drift produces poisoned cache entries."
+  },
+  {
+    "slug": "direct-mesh-control",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Direct Mesh Control` 提供在视口里单击拖动、按表面选择来直接摆姿势/做动画的交互，底层基于 Control Rig。",
+      "启用后新建 `DirectMeshControl` 资产，或在 Control Rig 里加入 `DirectMeshControlRig` 相关模块。",
+      "在视口里点击网格表面选中目标区域，拖动实现推/拉/弯曲等直接变形。",
+      "把拖动产生的姿势记录进 Control Rig 关键帧或 Sequencer 片段，形成可回放的动画。",
+      "它是 Experimental：先在测试骨架网格上验证选面精度与性能，再用于正式角色。"
+    ],
+    "en_steps": [
+      "`Direct Mesh Control` gives viewport click-drag, surface-select posing/animation, built on Control Rig underneath.",
+      "After enabling, create a `DirectMeshControl` asset or add the `DirectMeshControlRig` modules into a Control Rig.",
+      "Click the mesh surface in the viewport to select a region, then drag to push/pull/bend directly.",
+      "Record the resulting pose into Control Rig keys or a Sequencer section to get a replayable animation.",
+      "It is Experimental: validate surface-pick precision and performance on a test skeletal mesh before using it on production characters."
+    ],
+    "note_cn": "选面精度依赖网格密度；低模上直接拖动会跳变，必要时先提高目标区域细分。",
+    "note_en": "Surface-pick precision depends on mesh density; dragging on low-poly meshes jumps, so add tessellation to the target area first."
+  },
+  {
+    "slug": "directory-placeholder",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Directory Placeholder` 提供一个占位资产类型，用来把「空文件夹」也纳入源码管理（空目录本身不会被提交）。",
+      "启用后（纯编辑器工具），在内容浏览器对着空文件夹右键 `Create Advanced Asset → Misc → Directory Placeholder`。",
+      "给占位资产命名，提交时它随文件夹一起进入 Perforce/Git，团队拉取后空目录结构得以保留。",
+      "当文件夹里真正有了内容，可以删掉占位资产，目录仍随其中的内容一起版本化。",
+      "它只在编辑器侧：别把 `DirectoryPlaceholder` 模块加进 Game Target，否则打包徒增依赖。"
+    ],
+    "en_steps": [
+      "`Directory Placeholder` adds a placeholder asset type so even empty folders get tracked by source control (bare empty dirs are not committed).",
+      "After enabling (it is editor-only), right-click the empty folder in the Content Browser and pick `Create Advanced Asset → Misc → Directory Placeholder`.",
+      "Name the placeholder; on commit it enters Perforce/Git with the folder, preserving the empty directory structure for everyone who syncs.",
+      "Once the folder holds real content, delete the placeholder; the directory stays versioned alongside its contents.",
+      "It is editor-side only: never add the `DirectoryPlaceholder` module to a Game target, or packaging gains a needless dependency."
+    ],
+    "note_cn": "占位资产只是为了让空目录进版本库；有内容后及时清理，避免无意义的资产堆积。",
+    "note_en": "The placeholder only exists to version an empty folder; clean it up once content lands to avoid clutter."
+  },
+  {
+    "slug": "discovery-beacon-receiver",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Discovery Beacon Receiver` 在 UDP 多播套接字上监听查询报文，并用引擎信息（版本、项目名、端口）回应，供局域网发现工具定位本实例。",
+      "启用插件，并在 `DefaultEngine.ini` 的对应分区里配置多播组地址与端口。",
+      "让局域网里的发现客户端（如 Pixel Streaming / 远程工具）向该多播组发送查询包，插件会用单播回复。",
+      "在防火墙与交换机的组播策略上放行对应 UDP 端口，否则回复到不了发现端。",
+      "用 Wireshark 过滤该多播地址抓包，确认查询与回复流量，并核对回复里的引擎版本/端口字段。"
+    ],
+    "en_steps": [
+      "`Discovery Beacon Receiver` listens for query packets on a UDP multicast socket and replies with engine info (version, project name, port) so LAN discovery tools can locate this instance.",
+      "Enable the plugin and set the multicast group address and port in the matching section of `DefaultEngine.ini`.",
+      "Have a LAN discovery client (Pixel Streaming / remote tooling) send a query to that multicast group; the plugin answers via unicast.",
+      "Allow the corresponding UDP port through firewall and switch multicast policy, or replies never reach the discovering end.",
+      "Capture with Wireshark filtered on that multicast address to confirm query/reply traffic and check the engine-version/port fields in the reply."
+    ],
+    "note_cn": "多播默认不跨网段；跨子网发现需要交换机开 IGMP 侦听或配置多播路由。",
+    "note_en": "Multicast does not cross subnets by default; cross-subnet discovery needs IGMP snooping or multicast routing on the switch."
+  }
+]

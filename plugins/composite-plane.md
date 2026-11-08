@@ -3,8 +3,6 @@ layout: default
 title: 复合平面 / Composite Plane
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,83 @@ title: 复合平面 / Composite Plane
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">提供用于投影纹理和视频的电影摄影机演员</div><div class="lang-content">Provides a cine camera actor for projecting textures and videos</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：提供用于投影纹理和视频的电影摄影机演员</p><p>属于虚拟制片工具链（摄像机、舞台、同步、LED）。</p><p>它打包的模块包括：CompositePlane。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Provides a cine camera actor for projecting textures and videos</p><p>Part of the virtual-production toolchain (cameras, stage, sync, LED).</p><p>It ships these modules: CompositePlane. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Composite Plane</code>（模块 <code class="usage-code">CompositePlane</code>）并重启，让插件内容里的 <code class="usage-code">BP_CineCameraProj</code> 可见。</li><li>在关卡放置接收投影的静态网格（按实拍透视搭简易几何，而不是一张 HDRI Backdrop）。</li><li>从插件内容拖入 <code class="usage-code">BP_CineCameraProj</code>（电影摄像机 + 投影）。在 Details 指定要投影的 <code class="usage-code">Texture2D</code> 或 <code class="usage-code">Media Texture</code>（视频先走 Media Player 出纹理）。</li><li>在 <code class="usage-code">Projection</code> 数组里 Add，把每一项指到要吃投影的网格；相机会按自身视锥把贴图投上去。需要抠像时用该蓝图自带的 Keyer 参数，而不是另开一套合成图。</li><li>用 Sequencer 带动摄像机或 Media 轨；投影随摄像机运动。这是相机映射合成，不是 nDisplay LED 墙，也不是新版 <code class="usage-code">Composite Actor</code> 管线。</li></ol><p class="usage-note">用 `BP_CineCameraProj` 做相机投影贴图/视频。默认投影材质偏 Unlit，接影需要改材质。与 Composure/`Composite` 插件不是同一套 Actor。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Composite Plane</code> (module <code class="usage-code">CompositePlane</code>) and restart so plugin content <code class="usage-code">BP_CineCameraProj</code> is visible.</li><li>Place receiving static meshes that match the plate’s perspective (simple proxy geo, not an HDRI Backdrop).</li><li>Drop <code class="usage-code">BP_CineCameraProj</code> (cine camera + projector). Assign a <code class="usage-code">Texture2D</code> or <code class="usage-code">Media Texture</code> (video must already be a Media Player texture).</li><li>Add entries in the <code class="usage-code">Projection</code> array pointing at each receiving mesh. The camera projects the texture along its frustum. Use the Blueprint’s built-in keyer params for simple pull keys.</li><li>Animate the camera or a Media track in Sequencer; the projection follows the camera. This is camera-mapping, not nDisplay LED walls and not the new <code class="usage-code">Composite Actor</code> pipeline.</li></ol><p class="usage-note">Camera-maps textures/video via `BP_CineCameraProj`. Default projection materials are Unlit, so receiving shadows needs a material change. Not the Composure/`Composite` Actor.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">CompositePlane</span><span class="tag runtime">Runtime</span></div></div>

@@ -3,7 +3,6 @@ layout: default
 title: 电影装配工具 (CAT) / Cinematic Assembly Tools (CAT)
 ---
 
-
 <h1>电影装配工具 (CAT) / Cinematic Assembly Tools (CAT)</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 电影装配工具 (CAT) / Cinematic Assembly Tools (CAT)
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">CAT 是一套用于镜头管理和线性内容创建的电影管道工具</div><div class="lang-content">CAT is a suite of cinematic pipeline tools for shot management and linear content creation</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Cinematic Assembly Tools (CAT)</code>（<code class="usage-code">CineAssemblyTools</code>、<code class="usage-code">CineAssemblyToolsEditor</code>）。</li><li>内容浏览器创建 Cine Assembly / CAT 资产，作为镜头集合（线性成片），而不是单条 Level Sequence。</li><li>把已有 <code class="usage-code">Level Sequence</code> 镜头登记进 Assembly：镜头号、场景、Take、绑定的关卡与摄像机。</li><li>用 CAT 编辑器浏览/排序镜头、切换当前 Shot、从 Assembly 打开对应 Sequencer，做线性内容的镜头管理。</li><li>需要整段回放时从 Assembly 播放或导出镜头列表，而不是在 nDisplay 面板里找 CAT。</li><li><code class="usage-code">CineAssemblyToolsEditor</code> 只进 Editor；游戏里若只播单条 Sequence，不必依赖 CAT。</li></ol><p class="usage-note">镜头装配/成片管理套件，不是摄像机追踪或 LED 墙驱动。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Cinematic Assembly Tools (CAT)</code> (<code class="usage-code">CineAssemblyTools</code>, <code class="usage-code">CineAssemblyToolsEditor</code>).</li><li>Create a Cine Assembly / CAT asset in the Content Browser — a shot collection for linear editorial, not a single Level Sequence.</li><li>Register existing <code class="usage-code">Level Sequence</code> shots on the assembly (shot code, scene, take, map, camera).</li><li>Use the CAT editor to sort shots, switch the current shot, and open the matching Sequencer for linear shot management.</li><li>Play or export the assembly as a shot list. Do not look for CAT inside the nDisplay panel.</li><li>Keep <code class="usage-code">CineAssemblyToolsEditor</code> on Editor targets. Gameplay that only plays one sequence does not need CAT.</li></ol><p class="usage-note">Shot-assembly / editorial suite, not camera tracking or LED-wall drive.</p></div></div></div>
+    </div>
+

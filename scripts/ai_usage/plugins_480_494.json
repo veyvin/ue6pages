@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "mac-graphics-switching",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Mac Graphics Switching`（模块 `MacGraphicsSwitching`）并重启。",
+      "它在 macOS 上支持在多个图形设备之间切换，供编辑器选择使用的 GPU。",
+      "在编辑器偏好/平台设置里选择目标图形设备。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Mac Graphics Switching` (module `MacGraphicsSwitching`) and restart.",
+      "It supports switching between multiple graphics devices on macOS so the editor can choose the GPU.",
+      "Pick the target graphics device in editor preferences/platform settings.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "macOS 上切换图形设备（GPU）的编辑器支持。",
+    "note_en": "Editor support for switching graphics devices (GPUs) on macOS."
+  },
+  {
+    "slug": "makecookededitorasdlc",
+    "kind": "plugin",
+    "cn_steps": [
+      "`MakeCookedEditorAsDLC` 与 `MakeCookedEditor` UAT 脚本配合，把熟编辑器生成为熟客户端的 DLC 附加组件。",
+      "它不需要手动启用；通过命令行/UAT 脚本使用。",
+      "在构建流水线里运行对应 UAT 命令生成编辑器 DLC 包。",
+      "这是构建工具辅助插件（无运行时模块），不进 Shipping。"
+    ],
+    "en_steps": [
+      "`MakeCookedEditorAsDLC` works with the `MakeCookedEditor` UAT script to generate a cooked editor as a DLC add-on to a cooked client.",
+      "It is not meant to be enabled by hand; use it through the command line/UAT script.",
+      "Run the corresponding UAT command in your build pipeline to produce the editor DLC package.",
+      "It is a build-tool helper plugin (no runtime modules) and does not ship."
+    ],
+    "note_cn": "配合 MakeCookedEditor UAT 生成编辑器 DLC，构建期用、无需启用。",
+    "note_en": "Works with the MakeCookedEditor UAT script to build an editor DLC; build-time, no need to enable."
+  },
+  {
+    "slug": "mass-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Mass Insights`（模块 `MassInsightsUI`）。",
+      "用它收集/分析大规模 Mass Entity（ECS）执行情况，查看处理器开销。",
+      "在 Unreal Insights 或专用 UI 里查看 Mass 执行数据，定位热点处理器。",
+      "属 Insights 性能分析工具，开发期使用。"
+    ],
+    "en_steps": [
+      "Enable `Mass Insights` (module `MassInsightsUI`).",
+      "Use it to gather/analyze large-scale Mass Entity (ECS) execution and inspect processor cost.",
+      "View Mass execution data in Unreal Insights or the dedicated UI to find hot processors.",
+      "It is an Insights profiling tool used during development."
+    ],
+    "note_cn": "分析 Mass（ECS）执行开销的性能工具。",
+    "note_en": "A performance tool for analyzing Mass (ECS) execution cost."
+  },
+  {
+    "slug": "mass-iris-replication",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mass Iris Replication`（模块 `MassIrisReplication`，编辑器 `MassIrisReplicationEditor`，测试 `MassIrisReplicationTestSuite`）。",
+      "让 Mass Entity 通过 Iris 复制后端进行网络复制，面向大规模实体。",
+      "先在 `DefaultEngine.ini` 启用 Iris，再配置 Mass 实体的复制。",
+      "Experimental：接口可能变动；测试模块不进游戏包。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mass Iris Replication` (module `MassIrisReplication`, editor `MassIrisReplicationEditor`, tests `MassIrisReplicationTestSuite`).",
+      "Replicate Mass Entities through the Iris replication backend for large-scale entity counts.",
+      "Enable Iris in `DefaultEngine.ini` first, then configure Mass entity replication.",
+      "Experimental: contract may change; keep the test module out of the cooked game."
+    ],
+    "note_cn": "Mass 实体的 Iris 复制，需先启用 Iris，实验性。",
+    "note_en": "Iris replication for Mass entities; enable Iris first, experimental."
+  },
+  {
+    "slug": "mass-iris-representation-replication",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mass Iris Representation Replication`（模块 `MassIrisRepresentationReplication`）。",
+      "它负责 Mass 实体的“表示层”（representation，如低/高精度表现）经 Iris 的复制。",
+      "配合 Mass Iris Replication 与 Iris 使用，做大规模实体的分级表示复制。",
+      "Experimental：接口可能变动；需 Iris 与 Mass 复制已配置。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mass Iris Representation Replication` (module `MassIrisRepresentationReplication`).",
+      "It handles Iris replication of Mass entities' representation layer (e.g. low/high fidelity presentation).",
+      "Use it with Mass Iris Replication and Iris for tiered representation replication of large-scale entities.",
+      "Experimental: contract may change; requires Iris and Mass replication configured."
+    ],
+    "note_cn": "Mass 实体表示层的 Iris 复制（分级表现），实验性。",
+    "note_en": "Iris replication of the Mass representation layer (tiered presentation), experimental."
+  },
+  {
+    "slug": "massai",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MassAI`（模块 `MassNavigation`、`MassNavMeshNavigation`、`MassZoneGraphNavigation`、`MassAIBehavior`、`MassAIReplication`、`MassAIDebug` 等）。",
+      "把 Mass Entity（ECS）用到大规模 AI：用碎片、处理器与 StateTree 驱动成千上万代理，而非每代理一个行为树。",
+      "用 Mass Spawner 生成代理，配导航（NavMesh/ZoneGraph）与行为，适合人群、兵团。",
+      "Game 模块依赖运行时模块；编辑器/调试模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MassAI` (modules `MassNavigation`, `MassNavMeshNavigation`, `MassZoneGraphNavigation`, `MassAIBehavior`, `MassAIReplication`, `MassAIDebug`, etc.).",
+      "Apply Mass Entity (ECS) to large-scale AI: drive thousands of agents with fragments, processors, and StateTree instead of a Behavior Tree per actor.",
+      "Spawn agents with Mass Spawner, add navigation (NavMesh/ZoneGraph) and behavior; ideal for crowds and armies.",
+      "Game modules depend on runtime modules; editor/debug modules go to Editor targets only."
+    ],
+    "note_cn": "Mass Entity(ECS) 的大规模 AI，适合人群/兵团，不是逐 Actor 行为树。",
+    "note_en": "Large-scale AI on Mass Entity (ECS) for crowds/armies, not per-actor Behavior Trees."
+  },
+  {
+    "slug": "masscharacters",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MassCharacters`（模块 `MassCharactersRuntime`）。",
+      "它为基于 Mass Entity 的角色提供运行时支持（把角色接入 Mass 仿真）。",
+      "在 Mass 人群/角色系统中用 MassCharacters 处理大量角色实体。",
+      "Experimental：接口可能变动；属 Mass 家族运行时模块。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MassCharacters` (module `MassCharactersRuntime`).",
+      "It provides runtime support for Mass Entity based characters (bringing characters into Mass simulation).",
+      "Use MassCharacters in Mass crowd/character systems to handle many character entities.",
+      "Experimental: contract may change; it is a Mass-family runtime module."
+    ],
+    "note_cn": "基于 Mass Entity 的角色运行时支持，实验性。",
+    "note_en": "Mass Entity based character runtime support, experimental."
+  },
+  {
+    "slug": "masscrowd",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MassCrowd`（模块 `MassCrowd`）。",
+      "它提供基于样条的 AI 人群系统，用 Mass Entity 驱动大量人群代理。",
+      "在关卡布样条/人群路径，配置人群行为，运行时由 Mass 驱动。",
+      "属 Mass 家族，适合城市人群等大规模场景。"
+    ],
+    "en_steps": [
+      "Enable `MassCrowd` (module `MassCrowd`).",
+      "It provides a spline-based AI crowd system that uses Mass Entity to drive many crowd agents.",
+      "Lay out splines/crowd paths in the level, configure crowd behavior, and let Mass drive it at runtime.",
+      "Part of the Mass family; suited for large scenes like city crowds."
+    ],
+    "note_cn": "基于样条的大规模 AI 人群系统（Mass）。",
+    "note_en": "A spline-based large-scale AI crowd system (Mass)."
+  },
+  {
+    "slug": "massgameplay",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MassGameplay`（模块 `MassCommon`、`MassNetwork`、`MassActors`、`MassEQS`、`MassSpawner`、`MassSmartObjects`、`MassSimulation`、`MassLOD` 等）。",
+      "它提供基于 MassEntity 的大规模 Agent 仿真实现（生成、模拟、LOD、网络、SmartObject、EQS）。",
+      "用 Mass Spawner 与处理器搭建实体仿真管线，按 LOD 控制开销。",
+      "运行时插件可进游戏包；Mass 是 ECS 风格，不要按普通 Actor 组件理解。"
+    ],
+    "en_steps": [
+      "Enable `MassGameplay` (modules `MassCommon`, `MassNetwork`, `MassActors`, `MassEQS`, `MassSpawner`, `MassSmartObjects`, `MassSimulation`, `MassLOD`, etc.).",
+      "It provides a large-scale agent simulation on MassEntity (spawn, simulate, LOD, networking, SmartObject, EQS).",
+      "Build your entity simulation pipeline with Mass Spawner and processors, controlling cost via LOD.",
+      "A runtime plugin that can ship; Mass is ECS-style, not a typical Actor component."
+    ],
+    "note_cn": "MassEntity 大规模 Agent 仿真核心（生成/模拟/LOD/网络）。",
+    "note_en": "The MassEntity large-scale agent simulation core (spawn/simulate/LOD/network)."
+  },
+  {
+    "slug": "massgameplaytoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MassGameplayToolset`（模块 `MassGameplayToolset`），面向 AI Toolset Registry。",
+      "让 AI 助手通过 Toolset Registry 导航 Mass 实体配置资产及其特征（traits）。",
+      "在已启用 Mass 的项目里使用，辅助检索/理解 Mass 配置。",
+      "这是开发期工具集，不是运行时功能；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MassGameplayToolset` (module `MassGameplayToolset`); it targets the AI Toolset Registry.",
+      "Let AI assistants navigate Mass entity config assets and their traits through the Toolset Registry.",
+      "Use it in Mass-enabled projects to help inspect/understand Mass config.",
+      "It is a development-time toolset, not a runtime feature; Experimental."
+    ],
+    "note_cn": "给 AI 工具链用的 Mass 配置导航工具集。",
+    "note_en": "A Mass config navigation toolset for the AI toolchain."
+  },
+  {
+    "slug": "material-analyzer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Material Analyzer`（模块 `MaterialAnalyzer`）并重启。",
+      "用其分析器发现材质着色器中可能节省的内存。",
+      "对项目/关卡运行分析，按报告优化材质与着色器。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Material Analyzer` (module `MaterialAnalyzer`) and restart.",
+      "Use its analyzer to discover possible memory savings in material shaders.",
+      "Run the analysis over the project/level and optimize materials/shaders per the report.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "发现材质着色器可节省内存的分析器，纯编辑器。",
+    "note_en": "An analyzer to find memory savings in material shaders, editor-only."
+  },
+  {
+    "slug": "material-asset-wizard",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Material Asset Wizard`（模块 `MaterialAssetWizard`）并重启。",
+      "它为材质与材质实例启用新的工厂（更方便地创建资产）。",
+      "需先在 `Editor Preferences > Material Editor` 下设置 Tagged Asset Browser 配置属性。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Material Asset Wizard` (module `MaterialAssetWizard`) and restart.",
+      "It enables new factories for Materials and Material Instances (easier asset creation).",
+      "First set the Tagged Asset Browser configuration properties under `Editor Preferences > Material Editor`.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "材质/材质实例的新建工厂，需先配 Tagged Asset Browser，编辑器向。",
+    "note_en": "New factories for materials/instances; needs Tagged Asset Browser config, editor-oriented."
+  },
+  {
+    "slug": "material-designer-media-stream-bridge",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Material Designer Media Stream Bridge`（模块 `DynamicMaterialMediaStreamBridge`，编辑器 `DynamicMaterialMediaStreamBridgeEditor`）。",
+      "它把 Media Stream 插件与 Material Designer（动态材质）集成，用媒体流驱动动态材质。",
+      "在动态材质里接媒体流输入，做视频贴图/实时材质效果。",
+      "Experimental：接口可能变动；需 Material Designer 与 Media Stream 相关插件。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Material Designer Media Stream Bridge` (module `DynamicMaterialMediaStreamBridge`, editor `DynamicMaterialMediaStreamBridgeEditor`).",
+      "It integrates the Media Stream plugin with Material Designer (dynamic materials) so media streams drive dynamic materials.",
+      "Feed media-stream input into a dynamic material for video texturing/realtime material effects.",
+      "Experimental: contract may change; requires Material Designer and Media Stream plugins."
+    ],
+    "note_cn": "把 Media Stream 接到 Material Designer 动态材质，实验性。",
+    "note_en": "Bridges Media Stream into Material Designer dynamic materials, experimental."
+  },
+  {
+    "slug": "material-designer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Material Designer`（模块 `DynamicMaterial`、`DynamicMaterialTextureSet`、`DynamicMaterialShaders`，编辑器 `DynamicMaterialEditor` 等），属 Virtual Production。",
+      "用它的紧凑动态材质创建器/编辑器，风格类似其它 DDC 工具。",
+      "创建动态材质资产、配置纹理集与参数，实时预览效果。",
+      "Game 模块依赖运行时 `DynamicMaterial`；`DynamicMaterialEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Material Designer` (modules `DynamicMaterial`, `DynamicMaterialTextureSet`, `DynamicMaterialShaders`, editor `DynamicMaterialEditor`, etc.), part of Virtual Production.",
+      "Use its compact dynamic material creator/editor, styled like other DDC tools.",
+      "Create dynamic material assets, configure texture sets and parameters, and preview in real time.",
+      "Game modules depend on runtime `DynamicMaterial`; `DynamicMaterialEditor` is Editor-target only."
+    ],
+    "note_cn": "紧凑的动态材质创建/编辑器（DynamicMaterial），虚拟制片向。",
+    "note_en": "A compact dynamic material creator/editor (DynamicMaterial), virtual-production oriented."
+  },
+  {
+    "slug": "material-editor-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Material Editor Tests` 插件（无独立运行时模块）。",
+      "它用 MTF 测试材质编辑器的 Python 脚本 API。",
+      "在自动化测试会话里跑这些用例，验证材质编辑器 Python API。",
+      "这是测试插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable the `Material Editor Tests` plugin (no standalone runtime module).",
+      "It runs MTF tests for the Material Editor's Python scripting API.",
+      "Run these cases in automation sessions to validate the Material Editor Python API.",
+      "It is a test plugin; do not ship it in release builds."
+    ],
+    "note_cn": "材质编辑器 Python API 的 MTF 测试。",
+    "note_en": "MTF tests for the Material Editor Python API."
+  }
+]

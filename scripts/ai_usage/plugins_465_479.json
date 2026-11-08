@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "livelinkfreed",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkFreeD`（模块 `LiveLinkFreeD`），属 Virtual Production。",
+      "把支持 FreeD 协议的摄像机/追踪设备数据接入 Live Link，生成 FreeD 主体。",
+      "在引擎里给摄像机消费该主体，做虚拟制片的镜头跟踪。",
+      "属 Live Link 设备插件；需 Live Link 已启用与对应硬件。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkFreeD` (module `LiveLinkFreeD`), part of Virtual Production.",
+      "Bring FreeD-protocol camera/tracking data into Live Link to produce FreeD subjects.",
+      "Consume the subject on a camera for virtual production camera tracking.",
+      "It is a Live Link device plugin; requires Live Link enabled and the matching hardware."
+    ],
+    "note_cn": "FreeD 协议的摄像机跟踪接入 Live Link。",
+    "note_en": "FreeD-protocol camera tracking into Live Link."
+  },
+  {
+    "slug": "livelinkgenericrecordingdevice",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkGenericRecordingDevice`（模块 `LiveLinkGenericRecordingDevice`）。",
+      "它提供可由 Live Link Hub 的 Python 脚本使用的通用录制设备；类是抽象的，默认隐藏。",
+      "在 Python 脚本里继承/实例化该录制设备类，实现自定义录制。",
+      "属 Live Link Hub 录制扩展；需 Live Link Hub 与 Python 脚本环境。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkGenericRecordingDevice` (module `LiveLinkGenericRecordingDevice`).",
+      "It provides a generic recording device usable from Live Link Hub Python scripts; its classes are abstract and hidden by default.",
+      "From Python, subclass/instantiate the recording device class to implement custom recording.",
+      "It is a Live Link Hub recording extension; requires Live Link Hub and a Python scripting environment."
+    ],
+    "note_cn": "给 Live Link Hub Python 脚本用的通用录制设备（抽象、默认隐藏）。",
+    "note_en": "A generic recording device for Live Link Hub Python scripts (abstract, hidden by default)."
+  },
+  {
+    "slug": "livelinkinputdevice",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkInputDevice`（模块 `LiveLinkInputDevice`），属 Virtual Production。",
+      "它把游戏控制器（Input Device）的状态通过 Live Link 暴露/共享，供其它端点查询。",
+      "在需要跨机/跨工具同步输入状态时，用 Live Link 主体读取控制器数据。",
+      "属 Live Link 设备插件，把输入设备变成 Live Link 主体。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkInputDevice` (module `LiveLinkInputDevice`), part of Virtual Production.",
+      "It exposes/shares game-controller (Input Device) state over Live Link for other endpoints to query.",
+      "When syncing input state across machines/tools, read controller data via a Live Link subject.",
+      "It is a Live Link device plugin that turns input devices into Live Link subjects."
+    ],
+    "note_cn": "把游戏控制器状态经 Live Link 共享。",
+    "note_en": "Shares game-controller state over Live Link."
+  },
+  {
+    "slug": "livelinklens",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkLens`（模块 `LiveLinkLens`），属 Virtual Production。",
+      "它新增 LiveLink LensRole 与 LensController，用于流式传输预校准的镜头数据。",
+      "把预校准镜头数据驱动到引擎镜头组件（配合 Camera Calibration / Lens Component）。",
+      "属 Live Link 设备插件，用于镜头数据流。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkLens` (module `LiveLinkLens`), part of Virtual Production.",
+      "It adds a new LiveLink LensRole and LensController to stream pre-calibrated lens data.",
+      "Drive the engine lens components with pre-calibrated lens data (with Camera Calibration / Lens Component).",
+      "It is a Live Link device plugin for lens-data streaming."
+    ],
+    "note_cn": "流式传输预校准镜头数据（LensRole/LensController）。",
+    "note_en": "Streams pre-calibrated lens data (LensRole/LensController)."
+  },
+  {
+    "slug": "livelinkmasterlockit",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkMasterLockit`（模块 `LiveLinkMasterLockit`，编辑器 `LiveLinkMasterLockitEditor`），属 Virtual Production。",
+      "把 Ambient MasterLockit 元数据服务器的数据接入 Live Link。",
+      "在虚拟制片流程里消费这些元数据（时间码/镜次/设备信息）。",
+      "需对应硬件与 Live Link 已启用。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkMasterLockit` (module `LiveLinkMasterLockit`, editor `LiveLinkMasterLockitEditor`), part of Virtual Production.",
+      "Bring Ambient MasterLockit metadata-server data into Live Link.",
+      "Consume that metadata (timecode/take/device info) in the virtual production flow.",
+      "Requires the matching hardware and Live Link enabled."
+    ],
+    "note_cn": "接入 Ambient MasterLockit 元数据服务器。",
+    "note_en": "Brings the Ambient MasterLockit metadata server into Live Link."
+  },
+  {
+    "slug": "livelinkopentrackio",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkOpenTrackIO`（模块 `LiveLinkOpenTrackIO`），属 Virtual Production。",
+      "它支持在引擎或 Live Link Hub 中接入 OpenTrackIO（opentrackio.org）设备的跟踪数据。",
+      "把相机跟踪数据驱动到引擎摄像机，做虚拟制片取景。",
+      "属 Live Link 设备插件，需 Live Link 与对应设备。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkOpenTrackIO` (module `LiveLinkOpenTrackIO`), part of Virtual Production.",
+      "It supports OpenTrackIO (opentrackio.org) device tracking data in the engine or Live Link Hub.",
+      "Drive engine cameras with the tracking data for virtual production framing.",
+      "It is a Live Link device plugin; requires Live Link and the matching device."
+    ],
+    "note_cn": "接入 OpenTrackIO 设备的跟踪数据。",
+    "note_en": "Brings OpenTrackIO device tracking data into Live Link."
+  },
+  {
+    "slug": "livelinkopenvr",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `LiveLinkOpenVR`（模块 `LiveLinkOpenVR`）。",
+      "它把 OpenVR/SteamVR 追踪设备作为 Live Link 主体接入。",
+      "在引擎里消费 VR 追踪数据驱动摄像机/骨骼；注意不支持本机 arm64。",
+      "Experimental：接口可能变动；需 OpenVR 运行时与 Live Link。"
+    ],
+    "en_steps": [
+      "Enable Experimental `LiveLinkOpenVR` (module `LiveLinkOpenVR`).",
+      "It brings OpenVR/SteamVR tracked devices in as Live Link subjects.",
+      "Consume the VR tracking data to drive cameras/skeletons; note native arm64 is not supported.",
+      "Experimental: contract may change; requires the OpenVR runtime and Live Link."
+    ],
+    "note_cn": "OpenVR 追踪接入 Live Link（不支持本机 arm64），实验性。",
+    "note_en": "OpenVR tracking into Live Link (no native arm64), experimental."
+  },
+  {
+    "slug": "livelinkprestonmdr",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkPrestonMDR`（模块 `LiveLinkPrestonMDR`，编辑器 `LiveLinkPrestonMDREditor`），属 Virtual Production。",
+      "把 Preston MDR-3 电机驱动器（镜头马达）数据接入 Live Link。",
+      "消费这些数据用于镜头控制/对焦的虚拟制片流程。",
+      "需对应硬件与 Live Link 已启用。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkPrestonMDR` (module `LiveLinkPrestonMDR`, editor `LiveLinkPrestonMDREditor`), part of Virtual Production.",
+      "Bring Preston MDR-3 motor-driver (lens motor) data into Live Link.",
+      "Consume it for lens control/focus in virtual production flows.",
+      "Requires the matching hardware and Live Link enabled."
+    ],
+    "note_cn": "接入 Preston MDR-3 镜头马达数据。",
+    "note_en": "Brings Preston MDR-3 lens-motor data into Live Link."
+  },
+  {
+    "slug": "livelinkvrpn",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkVRPN`（模块 `LiveLinkVRPN`），属 Virtual Production。",
+      "把 VRPN 协议的追踪设备数据接入 Live Link，生成对应主体。",
+      "在引擎里消费该主体驱动摄像机/物体跟踪。",
+      "属 Live Link 设备插件，需 VRPN 服务器与 Live Link。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkVRPN` (module `LiveLinkVRPN`), part of Virtual Production.",
+      "Bring VRPN-protocol tracking device data into Live Link and produce the matching subjects.",
+      "Consume the subject to drive camera/object tracking in the engine.",
+      "It is a Live Link device plugin; requires a VRPN server and Live Link."
+    ],
+    "note_cn": "VRPN 协议设备接入 Live Link。",
+    "note_en": "VRPN-protocol devices into Live Link."
+  },
+  {
+    "slug": "livelinkxr",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkXR`（模块 `LiveLinkXR`、`LiveLinkXROpenXRExt`），属 Virtual Production。",
+      "把 XR 追踪设备（头显/手柄等）的数据接入 Live Link。",
+      "在虚拟制片/预览里消费 XR 追踪数据驱动摄像机或场景。",
+      "属 Live Link 设备插件，需 XR 运行时与 Live Link。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkXR` (modules `LiveLinkXR`, `LiveLinkXROpenXRExt`), part of Virtual Production.",
+      "Bring XR tracked-device (headset/controller, etc.) data into Live Link.",
+      "Consume XR tracking data to drive cameras or scenes in virtual production/preview.",
+      "It is a Live Link device plugin; requires an XR runtime and Live Link."
+    ],
+    "note_cn": "XR 追踪设备接入 Live Link。",
+    "note_en": "XR tracked devices into Live Link."
+  },
+  {
+    "slug": "localizable-message",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Localizable Message`（模块 `LocalizableMessage`，蓝图 `LocalizableMessageBlueprint`）。",
+      "用它构造可复制的文本消息，并支持客户端侧参数解析（占位符替换）。",
+      "在联网场景里把本地化消息发给客户端，由客户端按本地语言解析参数显示。",
+      "Experimental：接口可能变动；服务端组消息、客户端本地化呈现。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Localizable Message` (module `LocalizableMessage`, Blueprint `LocalizableMessageBlueprint`).",
+      "Build a replicable text message that supports client-side parameter resolution (placeholder substitution).",
+      "In net scenarios, send the localizable message to clients; the client resolves parameters and displays it in its locale.",
+      "Experimental: contract may change; the server forms the message, the client localizes it."
+    ],
+    "note_cn": "可复制+客户端参数解析的本地化文本消息，实验性。",
+    "note_en": "A replicable, client-parameter-resolved localizable text message, experimental."
+  },
+  {
+    "slug": "locomotor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Locomotor`（模块 `Locomotor`）。",
+      "它用于 Control Rig 的程序化动画（程序化运动/脚步等）。",
+      "在 Control Rig 图里用 Locomotor 节点生成程序化运动，再在 Sequencer/运行时驱动。",
+      "Experimental：接口可能变动；依赖 Control Rig 已启用。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Locomotor` (module `Locomotor`).",
+      "It provides procedural animation for Control Rig (procedural locomotion/foot placement, etc.).",
+      "Use Locomotor nodes in a Control Rig graph to generate procedural motion, then drive it in Sequencer/runtime.",
+      "Experimental: contract may change; relies on Control Rig enabled."
+    ],
+    "note_cn": "Control Rig 的程序化动画（Locomotor），实验性。",
+    "note_en": "Procedural animation for Control Rig (Locomotor), experimental."
+  },
+  {
+    "slug": "lore",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Lore`（模块 `LoreSourceControl`、`LoreSourceControlSlate`）。",
+      "它提供 Lore 版本控制的编辑器集成（类似 Perforce/Git 的源码管理面板）。",
+      "在 `Project Settings > Source Control` 选择 Lore 提供方，指向 Lore 仓库。",
+      "Experimental：接口可能变动；属源码管理编辑器集成。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Lore` (modules `LoreSourceControl`, `LoreSourceControlSlate`).",
+      "It provides editor integration for Lore version control (a source-control panel like Perforce/Git).",
+      "In `Project Settings > Source Control`, pick the Lore provider and point it at the Lore repo.",
+      "Experimental: contract may change; it is a source-control editor integration."
+    ],
+    "note_cn": "Lore 版本控制的编辑器集成，实验性。",
+    "note_en": "Editor integration for Lore version control, experimental."
+  },
+  {
+    "slug": "lorecore",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `LoreCore`（模块 `LoreCore`）。",
+      "它提供加载和初始化 Lore 库的统一方法，是 Lore 集成的基础层。",
+      "Lore 相关插件通过 LoreCore 统一加载 Lore 库；一般随 Lore 插件一起用。",
+      "Experimental：接口可能变动；属底层库，不单独面向用户。"
+    ],
+    "en_steps": [
+      "Enable Experimental `LoreCore` (module `LoreCore`).",
+      "It provides a uniform way of loading and initializing the Lore library and is the base layer for Lore integration.",
+      "Lore-related plugins load the Lore library through LoreCore; usually used with the Lore plugin.",
+      "Experimental: contract may change; it is a low-level library not aimed at end users directly."
+    ],
+    "note_cn": "Lore 库的统一加载/初始化底座。",
+    "note_en": "The uniform load/init base for the Lore library."
+  },
+  {
+    "slug": "low-level-network-trace-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Low-level network trace Plugin`（模块 `LowLevelNetTrace`）。",
+      "它主动监控并上报系统网络吞吐量，trace 在 Unreal Insights 里查看。",
+      "启动带该插件的 trace，运行联网场景后分析网络性能。",
+      "Experimental：接口可能变动；属 Insights/Trace 网络性能分析。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Low-level network trace Plugin` (module `LowLevelNetTrace`).",
+      "It actively monitors and reports system network throughput; view the trace in Unreal Insights.",
+      "Start a trace with this plugin, run a net scenario, and analyze network performance.",
+      "Experimental: contract may change; it is Insights/Trace network profiling."
+    ],
+    "note_cn": "主动监控网络吞吐并在 Insights 里查看，实验性。",
+    "note_en": "Actively monitors network throughput, viewed in Insights, experimental."
+  }
+]

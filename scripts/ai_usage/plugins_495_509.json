@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "material-validation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Material Validation`（模块 `MaterialValidation`）并重启。",
+      "它给材质增加额外的验证选项（如检查不合理参数/命名/性能隐患）。",
+      "对材质/材质函数运行验证，按报告修正问题。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Material Validation` (module `MaterialValidation`) and restart.",
+      "It adds extra validation options for materials (e.g. checking questionable params/naming/perf risks).",
+      "Run validation on materials/material functions and fix issues per the report.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "给材质加额外校验选项，纯编辑器。",
+    "note_en": "Adds extra validation options for materials, editor-only."
+  },
+  {
+    "slug": "mcp-client-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MCP Client Toolset`（模块 `MCPClientToolset`，编辑器 `MCPClientToolsetEditor`）。",
+      "它是适配器，让工具集注册客户（如 EDA）连接到本地/私有 MCP 服务器。",
+      "在编辑器里配置 MCP 服务器地址，供 AI 工具链访问。",
+      "Experimental：接口可能变动；属 AI 工具链/编辑器侧。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MCP Client Toolset` (module `MCPClientToolset`, editor `MCPClientToolsetEditor`).",
+      "It is an adapter that lets toolset-registry customers (like the EDA) connect to local/private MCP servers.",
+      "Configure the MCP server address in the editor for the AI toolchain to access.",
+      "Experimental: contract may change; it is AI-toolchain/editor-side."
+    ],
+    "note_cn": "让工具集客户连本地/私有 MCP 服务器的适配器，实验性。",
+    "note_en": "An adapter for toolset clients to reach local/private MCP servers, experimental."
+  },
+  {
+    "slug": "mdl-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MDL Importer`（模块 `MDLImporter`），类别 Importers。",
+      "用内容浏览器「导入」选 MDL 材质文件，走 MDL 导入管线生成材质。",
+      "导入后检查材质图与贴图，兼容 Substrate 等材质系统。",
+      "属导入工具；使用前确认 .mdl 依赖的外部资源齐全。"
+    ],
+    "en_steps": [
+      "Enable `MDL Importer` (module `MDLImporter`), category Importers.",
+      "Import an MDL material file from the Content Browser to run the MDL pipeline and create materials.",
+      "After import, inspect the material graph and textures; it works with material systems like Substrate.",
+      "It is an import tool; make sure the .mdl's external dependencies are present."
+    ],
+    "note_cn": "MDL 材质文件导入器。",
+    "note_en": "An importer for MDL material files."
+  },
+  {
+    "slug": "media-compositing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Media Compositing`（运行时 `MediaCompositing`，编辑器 `MediaCompositingEditor`）。",
+      "用它提供的 Actor/组件把媒体合成进场景，并在 Sequencer 里用其扩展编排出片。",
+      "把 Media Texture 合成到画面/几何上，用于虚拟制片与合成。",
+      "Game 模块依赖 `MediaCompositing`；`MediaCompositingEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Media Compositing` (runtime `MediaCompositing`, editor `MediaCompositingEditor`).",
+      "Use its actors/components to composite media into the scene and its Sequencer extensions to author output.",
+      "Composite Media Textures onto the frame/geometry for virtual production and compositing.",
+      "Game modules depend on `MediaCompositing`; `MediaCompositingEditor` is Editor-target only."
+    ],
+    "note_cn": "把媒体合成进场景的 Actor/组件 + Sequencer 扩展。",
+    "note_en": "Actors/components plus Sequencer extensions to composite media into scenes."
+  },
+  {
+    "slug": "media-foundation-media-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Media Foundation Media Player`（模块 `MfMedia`、`MfMediaFactory`，编辑器 `MfMediaEditor`）。",
+      "它在 Windows / Xbox 上用 Microsoft Media Foundation 框架解码播放媒体。",
+      "创建 Media Player + Media Source，把 Media Texture 接到材质/Media Plate 播放。",
+      "Game 模块依赖 `MfMedia`；`MfMediaFactory`/`MfMediaEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Media Foundation Media Player` (modules `MfMedia`, `MfMediaFactory`, editor `MfMediaEditor`).",
+      "It decodes/plays media via the Microsoft Media Foundation framework on Windows / Xbox.",
+      "Create a Media Player + Media Source and feed the Media Texture to a material/Media Plate.",
+      "Game modules depend on `MfMedia`; `MfMediaFactory`/`MfMediaEditor` go to Editor targets only."
+    ],
+    "note_cn": "用 Microsoft Media Foundation 解码的媒体播放器（Windows/Xbox）。",
+    "note_en": "A media player decoding via Microsoft Media Foundation (Windows/Xbox)."
+  },
+  {
+    "slug": "media-framework-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Media Framework Utilities`（运行时 `MediaFrameworkUtilities`，编辑器 `MediaFrameworkUtilitiesEditor`）。",
+      "用它提供的实用资产/ Actor 简化 Media Framework 设置，并访问 Media Profile 编辑器。",
+      "在关卡/蓝图里用这些工具快速搭建媒体源与输出。",
+      "Game 模块依赖 `MediaFrameworkUtilities`；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Media Framework Utilities` (runtime `MediaFrameworkUtilities`, editor `MediaFrameworkUtilitiesEditor`).",
+      "Use its utility assets/actors to simplify Media Framework setup and access the Media Profile editor.",
+      "In levels/Blueprint, use these tools to quickly set up media sources and outputs.",
+      "Game modules depend on `MediaFrameworkUtilities`; editor modules go to Editor targets only."
+    ],
+    "note_cn": "简化 Media Framework 设置的实用资产/Actor + Media Profile 编辑器。",
+    "note_en": "Utility assets/actors that simplify Media Framework setup plus the Media Profile editor."
+  },
+  {
+    "slug": "media-io-framework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Media IO Framework`（模块 `MediaIOCore`、`GPUTextureTransfer`，编辑器 `MediaIOEditor`），属 Virtual Production。",
+      "用其类支持专业媒体 IO（如 SDI/采集卡），做虚拟制片的实时输入输出。",
+      "配置 Media IO 设备源/输出，把信号接进或送出引擎。",
+      "Game 模块依赖 `MediaIOCore`；`MediaIOEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Media IO Framework` (modules `MediaIOCore`, `GPUTextureTransfer`, editor `MediaIOEditor`), part of Virtual Production.",
+      "Use its classes to support professional media IO (e.g. SDI/capture cards) for real-time virtual production I/O.",
+      "Configure Media IO device sources/outputs to bring signals into or out of the engine.",
+      "Game modules depend on `MediaIOCore`; `MediaIOEditor` is Editor-target only."
+    ],
+    "note_cn": "专业媒体 IO（SDI/采集）框架，虚拟制片用。",
+    "note_en": "Professional media IO (SDI/capture) framework for virtual production."
+  },
+  {
+    "slug": "media-movie-streamer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Media Movie Streamer`（模块 `MediaMovieStreamer`），类别 Movie Players。",
+      "它用 MediaFramework 实现电影流播放（movie streamer）。",
+      "在媒体/播放相关设置里选择该 streamer，配合 Media Player 播放影片。",
+      "属 Media Framework 的播放后端之一。"
+    ],
+    "en_steps": [
+      "Enable `Media Movie Streamer` (module `MediaMovieStreamer`), category Movie Players.",
+      "It implements movie streaming using MediaFramework.",
+      "Select this streamer in media/playback settings and play videos with a Media Player.",
+      "It is one of the Media Framework playback backends."
+    ],
+    "note_cn": "基于 MediaFramework 的电影流播放器。",
+    "note_en": "A movie streamer built on MediaFramework."
+  },
+  {
+    "slug": "media-plate",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Media Plate`（运行时 `MediaPlate`，编辑器 `MediaPlateEditor`）。",
+      "在关卡放置 Media Plate Actor，指定要播放的媒体源。",
+      "它像一个可以播放媒体的“屏幕/平面”，用于虚拟制片背景或展示。",
+      "Game 模块依赖 `MediaPlate`；`MediaPlateEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Media Plate` (runtime `MediaPlate`, editor `MediaPlateEditor`).",
+      "Place a Media Plate actor in the level and assign the media source to play.",
+      "It acts like a media-playing screen/plane for virtual production backgrounds or display.",
+      "Game modules depend on `MediaPlate`; `MediaPlateEditor` is Editor-target only."
+    ],
+    "note_cn": "可播放媒体的 Actor（媒体平面）。",
+    "note_en": "A media-playing actor (a media plane)."
+  },
+  {
+    "slug": "media-player-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Media Player Editor`（模块 `MediaPlayerEditor`）并重启。",
+      "双击 MediaPlayer 资产，在内容编辑器里预览/调试媒体播放。",
+      "用于设置 Media Source、查看播放状态与输出。",
+      "这是编辑器模块，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Media Player Editor` (module `MediaPlayerEditor`) and restart.",
+      "Double-click a MediaPlayer asset to preview/debug media playback in its content editor.",
+      "Use it to set the Media Source and inspect playback state and output.",
+      "It is editor-only; Editor targets only, does not ship."
+    ],
+    "note_cn": "MediaPlayer 资产的内容编辑器，纯编辑器。",
+    "note_en": "The content editor for MediaPlayer assets, editor-only."
+  },
+  {
+    "slug": "media-profile",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Media Profile`（运行时 `MediaProfile`，编辑器 `MediaProfileEditor`）。",
+      "用 Media Profile 资产管理多个媒体源与输出，做成可切换的配置。",
+      "在编辑器里编辑 Media Profile，运行时按当前 profile 选择源/输出。",
+      "Game 模块依赖 `MediaProfile`；`MediaProfileEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Media Profile` (runtime `MediaProfile`, editor `MediaProfileEditor`).",
+      "Use the Media Profile asset to manage multiple media sources and outputs as switchable configurations.",
+      "Edit the Media Profile in the editor; at runtime pick sources/outputs per the active profile.",
+      "Game modules depend on `MediaProfile`; `MediaProfileEditor` is Editor-target only."
+    ],
+    "note_cn": "管理媒体源/输出的 Media Profile 资产。",
+    "note_en": "A Media Profile asset that manages media sources/outputs."
+  },
+  {
+    "slug": "media-stream",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Media Stream`（模块 `MediaStream`，编辑器 `MediaStreamEditor`）。",
+      "它提供与内容/类型无关的可链接媒体代理，并集成媒体播放器。",
+      "用可链接的 media proxy 组合媒体处理链，接入播放器做流式处理。",
+      "Experimental：接口可能变动；配合 Media Framework 使用。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Media Stream` (module `MediaStream`, editor `MediaStreamEditor`).",
+      "It provides a content/type-agnostic chainable media proxy with media player integration.",
+      "Compose a media-processing chain from chainable media proxies and plug a player in for streaming.",
+      "Experimental: contract may change; used with Media Framework."
+    ],
+    "note_cn": "可链接、与内容无关的媒体代理层，实验性。",
+    "note_en": "A chainable, content-agnostic media proxy layer, experimental."
+  },
+  {
+    "slug": "media-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Media Toolset`（模块 `MediaToolset`、`MediaToolsetVideo`）。",
+      "它面向 AI Toolset Registry，提供读取图像、采样视频文件的工具，以及共享的视频读写器。",
+      "让 AI 助手/其它工具集通过它读取/写出视频与图像帧。",
+      "这是开发期工具集，不是运行时播放功能；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Media Toolset` (modules `MediaToolset`, `MediaToolsetVideo`).",
+      "It targets the AI Toolset Registry: tools to read images and sample video files, plus a shared video reader/writer.",
+      "Let AI assistants/other toolsets read/write video and image frames through it.",
+      "It is a development-time toolset, not runtime playback; Experimental."
+    ],
+    "note_cn": "给 AI 工具链读图像/采样视频的工具集，实验性。",
+    "note_en": "A toolset for the AI toolchain to read images/sample video, experimental."
+  },
+  {
+    "slug": "mediaviewer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MediaViewer`（模块 `MediaViewer`）。",
+      "用媒体查看器显示并比较媒体（多路画面并排对比）。",
+      "在编辑器/工具里加载媒体源，检查画面与同步。",
+      "属媒体工具；用于审片与对比，不是播放运行时。"
+    ],
+    "en_steps": [
+      "Enable `MediaViewer` (module `MediaViewer`).",
+      "Use the media viewer to display and compare media (side-by-side multi-view).",
+      "Load media sources in the editor/tools to check picture and sync.",
+      "It is a media utility for review/comparison, not runtime playback."
+    ],
+    "note_cn": "显示/对比媒体的查看器。",
+    "note_en": "A viewer to display and compare media."
+  },
+  {
+    "slug": "memoryusagequeries",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MemoryUsageQueries`（模块 `MemoryUsageQueries`）。",
+      "它提供内存使用查询能力，用于统计/定位内存占用。",
+      "在控制台/代码里调用其查询接口，输出内存使用报告辅助优化。",
+      "属引擎性能/内存分析辅助，具体 API 以源码为准。"
+    ],
+    "en_steps": [
+      "Enable `MemoryUsageQueries` (module `MemoryUsageQueries`).",
+      "It provides memory-usage query capability to track/locate memory consumption.",
+      "Call its query interface from console/code to emit memory-usage reports for optimization.",
+      "It is an engine perf/memory-analysis aid; treat source as the API source of truth."
+    ],
+    "note_cn": "内存使用查询辅助插件，优化期用。",
+    "note_en": "A memory-usage query aid used during optimization."
+  }
+]

@@ -3,7 +3,6 @@ layout: default
 title: 10X 编辑器集成 / 10X Editor Integration
 ---
 
-
 <h1>10X 编辑器集成 / 10X Editor Integration</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 10X 编辑器集成 / 10X Editor Integration
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许访问 10X 编辑器中的源代码。</div><div class="lang-content">Allows access to source code in the 10X Editor .</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 的 Programming 分组启用 <code class="usage-code">10X Editor Integration</code>（模块 <code class="usage-code">N10XSourceCodeAccess</code>）并重启编辑器。</li><li>打开 <code class="usage-code">Edit &gt; Editor Preferences &gt; General &gt; Source Code</code>，将 <code class="usage-code">Source Code Editor</code> 设为 <code class="usage-code">10X Editor</code>。</li><li>确认本机已安装 10X Editor，且已对当前引擎/<code class="usage-code">Source</code> 生成过工程文件。</li><li>在内容浏览器双击 C++ 类，或使用 <code class="usage-code">Tools &gt; Open IDE</code> / 同类“打开源代码”入口，应由 <code class="usage-code">N10XSourceCodeAccess</code> 把文件交给 10X，而不是 Visual Studio。</li><li>从 Class Viewer 或蓝图的 Goto C++ Definition 再验证一次跳转目标。</li></ol><p class="usage-note">这是编辑器源码访问器，不要写进 Game Target 或 Shipping 包。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">10X Editor Integration</code> under <code class="usage-code">Edit &gt; Plugins</code> (Programming); it loads <code class="usage-code">N10XSourceCodeAccess</code>, then restart.</li><li>Open <code class="usage-code">Edit &gt; Editor Preferences &gt; General &gt; Source Code</code> and set <code class="usage-code">Source Code Editor</code> to <code class="usage-code">10X Editor</code>.</li><li>Install 10X Editor locally and generate project files for this engine/<code class="usage-code">Source</code> tree.</li><li>Double-click a C++ class in the Content Browser, or use <code class="usage-code">Tools &gt; Open IDE</code> / Open Source Code; <code class="usage-code">N10XSourceCodeAccess</code> should hand the file to 10X, not Visual Studio.</li><li>Confirm Goto C++ Definition from Class Viewer or a Blueprint also lands in 10X.</li></ol><p class="usage-note">Editor-only source accessor; do not link it into a Game target or shipping build.</p></div></div></div>
+    </div>
+

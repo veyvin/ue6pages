@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "paper2d",
+    "kind": "plugin",
+    "cn": "Paper2D 是虚幻引擎的官方 2D 玩法与动画插件，核心资产是 Sprite，Flipbook 按帧序列播放这些精灵，TileSet 与 TileMap 用来铺平面关卡。运行时模块 Paper2D 把 2D Actor 交给三维渲染器绘制，因此纸片角色可以和 3D 场景同屏共存。编辑器侧的 Paper2DEditor、精灵表导入器、Tiled 地图导入器和 SmartSnapping 负责作者管线，而不是运行时玩法本身。",
+    "en": "Paper2D is Unreal’s official 2D gameplay and animation plugin. Sprites are the primary assets, Flipbooks play them as frame sequences, and TileSets plus TileMaps assemble planar levels. The Paper2D runtime draws those 2D actors through the 3D renderer, so paper characters can share a world with 3D geometry. Paper2DEditor, the sprite-sheet and Tiled importers, and SmartSnapping serve the authoring pipeline rather than shipping gameplay."
+  },
+  {
+    "slug": "pcg-biome-core",
+    "kind": "plugin",
+    "cn": "PCG Biome Core 不是引擎最底层的 Core 模块，而是程序化内容生成里生物群系系统的运行时内核。它提供群系定义、采样与规则求值所需的数据结构，供上层群系图和示例内容调用。该实验插件只打包 PCGBiomeCore，接口会随夜构建调整，适合作为生物群系管线的共享底座而不是关卡美术工具。",
+    "en": "PCG Biome Core is not the engine’s Core runtime; it is the runtime kernel of PCG’s biome system. It holds the data structures used to define biomes, sample them, and evaluate placement rules for higher-level biome graphs. The experimental plugin ships only PCGBiomeCore, so treat it as a shared foundation whose contract may still change, not as a world-building UI."
+  },
+  {
+    "slug": "pcg-biome-sample",
+    "kind": "plugin",
+    "cn": "PCG Biome Sample 提供可运行的生物群系示例图与内容，用来演示如何在 PCG 上叠生物群系规则。它本身几乎不带独立模块，依赖 Biome Core 与主 PCG 图执行采样和生成。实验状态下这份内容更适合对照学习，而不是直接当产品关卡资产库。",
+    "en": "PCG Biome Sample ships runnable biome graphs and content that show how biome rules layer on top of PCG. It has no first-party modules of its own and leans on Biome Core plus the main PCG graph to sample and spawn. Treat the experimental pack as a reference, not as a production level library."
+  },
+  {
+    "slug": "pcg-primitives-mesh-partition-interop",
+    "kind": "plugin",
+    "cn": "该插件给 PCG Primitives 补上与网格分区（Mesh Partition）对话的额外基元和示例。它让程序化图能把分区后的网格当作输入或输出，而不是只在点云上撒资产。实验互操作库通常跟着分区插件一起用，用来验证大规模网格切片工作流。",
+    "en": "This extra PCG Primitives library talks to Mesh Partition. Graphs can treat partitioned meshes as inputs or outputs instead of only scattering onto point clouds. The experimental interop is meant to be used alongside the partition plugin when validating large mesh-slicing workflows."
+  },
+  {
+    "slug": "pcg-primitives",
+    "kind": "plugin",
+    "cn": "PCG Primitives 是面向世界构建的基元与示例库，在标准 PCG 节点之上提供可复用的生成积木。它不替代主 PCG 插件，而是给出地形、散布和布局类图可以直接引用的预设图块。实验包适合快速搭世界原型，再把有用的子图拆进项目自己的 PCG 图。",
+    "en": "PCG Primitives is a world-building library of extra primitives and example graphs on top of stock PCG nodes. It does not replace the main PCG plugin; it supplies reusable building blocks for terrain, scatter, and layout graphs. Use the experimental pack to prototype worlds, then lift useful subgraphs into project-owned PCG graphs."
+  },
+  {
+    "slug": "pcgtoolset",
+    "kind": "plugin",
+    "cn": "PCGToolset 把创建和修改 PCG 图的能力注册给编辑器里的 AI 助手与自动化，而不是给玩家。助手可以通过该工具集增删节点、改参数、检查图结构，而不必打开可视化编辑器。它属于 Experimental Toolsets，不进 Shipping 游戏包。",
+    "en": "PCGToolset registers create-and-edit operations on PCG graphs for the in-editor AI assistant and automation, not for players. An assistant can add nodes, change parameters, and inspect graph structure without opening the visual editor. It lives under Experimental Toolsets and is not a shipping gameplay feature."
+  },
+  {
+    "slug": "perforce",
+    "kind": "plugin",
+    "cn": "Perforce 插件通过 PerforceSourceControl 模块把 Helix Core 接进编辑器的源代码控制提供程序。它处理 checkout、submit、changelist 与文件状态，让内容浏览器和提交对话框走 P4 而不是 Git。这是制作管线插件，默认不会打进 Shipping 游戏。",
+    "en": "The Perforce plugin wires Helix Core into the editor’s source-control provider through PerforceSourceControl. It handles checkout, submit, changelists, and file state so Content Browser and the submit dialog talk to P4 instead of Git. It is an authoring-pipeline plugin and does not ship in game builds by default."
+  },
+  {
+    "slug": "performance-capture-core",
+    "kind": "plugin",
+    "cn": "Performance Capture Core 是动捕/表演捕捉管线的共享运行时与编辑器内核，不是引擎 Core。它定义会话、主体、设备和时间轴等基础类型，供工作流面板和其他虚拟制片插件复用。PerformanceCaptureCoreEditor 提供作者侧面板，运行时模块则给 PIE 或现场会话使用。",
+    "en": "Performance Capture Core is the shared runtime and editor kernel for mocap and performance-capture pipelines, not the engine Core module. It defines session, subject, device, and timeline types that workflow panels and other virtual-production plugins reuse. PerformanceCaptureCoreEditor hosts authoring UI while the runtime module serves PIE or on-set sessions."
+  },
+  {
+    "slug": "performance-capture-workflow",
+    "kind": "plugin",
+    "cn": "Performance Capture Workflow 提供编辑器内的动捕工作流，核心入口是 Mocap Manager 面板。运行时模块 PerformanceCaptureWorkflowRuntime 在会话中驱动主体与设备，编辑器模块负责排队、校准和触发捕捉。它面向虚拟制片现场，而不是游戏内回放系统。",
+    "en": "Performance Capture Workflow supplies in-editor mocap tools, with the Mocap Manager panel as the main entry. PerformanceCaptureWorkflowRuntime drives subjects and devices during a session, while the editor module queues, calibrates, and triggers captures. It is an on-set virtual-production workflow, not an in-game replay system."
+  },
+  {
+    "slug": "performancemonitor",
+    "kind": "plugin",
+    "cn": "PerformanceMonitor 在游戏进行中持续读取一组计时器的当前值，用来观察帧时、子系统耗时等运行指标。它面向现场调优和自动化采集，而不是替代 Unreal Insights 的完整 Trace。单一运行时模块即可挂到 PIE 或独立进程里抽样。",
+    "en": "PerformanceMonitor samples selected timers during gameplay so you can watch frame time and subsystem cost live. It is for on-the-spot triage and automated capture, not a replacement for a full Unreal Insights trace. A single runtime module can attach in PIE or a standalone process."
+  },
+  {
+    "slug": "perftoolset",
+    "kind": "plugin",
+    "cn": "PerfToolset 通过 AI Toolset Registry 暴露 CPU、GPU 与帧时剖析接口，让助手对运行中的会话做性能分诊。它读写的是剖析数据，不会给玩家增加玩法功能。实验工具集只服务编辑器自动化，不应打进发行包。",
+    "en": "PerfToolset exposes CPU, GPU, and frame-timing profiling through the AI Toolset Registry so an assistant can triage a live session. It reads and writes profiler data; it does not add player-facing gameplay. Keep this experimental toolset in the editor automation stack, not in a shipping build."
+  },
+  {
+    "slug": "physics-async-input",
+    "kind": "plugin",
+    "cn": "Physics Async Input 允许在物理线程上直接绑定 Enhanced Input 委托，避免输入先绕回游戏线程再进 Chaos。对载具、布娃娃或强物理驱动的玩法，这能缩短输入到刚体响应的延迟。实验插件只包含 PhysicsAsyncInput 运行时模块。",
+    "en": "Physics Async Input lets you bind Enhanced Input delegates on the physics thread so input does not round-trip through the game thread before Chaos sees it. Vehicle, ragdoll, and other physics-heavy games use that to cut latency from stick to rigid body. The experimental plugin ships only the PhysicsAsyncInput runtime module."
+  },
+  {
+    "slug": "physics-toolsets",
+    "kind": "plugin",
+    "cn": "Physics Toolsets 把查询与操作 Chaos 物理世界的能力交给编辑器 AI 助手：读刚体、约束、碰撞形状或改调试状态。它不是运行时物理引擎本身，而是给自动化准备的可调用工具。实验接口可能随版本变化，也不进入 Shipping。",
+    "en": "Physics Toolsets hands the editor AI assistant callable access to Chaos: read rigid bodies, constraints, and collision shapes, or tweak debug state. It is not the physics engine; it is an automation surface over that engine. The experimental API can still change and does not ship in games."
+  },
+  {
+    "slug": "physicscontrol",
+    "kind": "plugin",
+    "cn": "PhysicsControl 用 Physics Control Component 以及动画蓝图里的 Rigid Body With Control 节点，对静态网格和骨架网格做物理驱动的姿态控制。运行时模块处理刚体力与目标姿态，UncookedOnly 与 Editor 模块负责动画图节点和细节面板。它适合辅助动画、布娃娃混合和需要物理跟随的角色。",
+    "en": "PhysicsControl drives static and skeletal meshes with the Physics Control Component and the Rigid Body With Control anim-graph node. The runtime applies forces toward target poses; UncookedOnly and Editor modules own the graph node and details UI. Use it for assistive animation, ragdoll blends, and characters that must physically track a goal."
+  },
+  {
+    "slug": "pico-controller",
+    "kind": "plugin",
+    "cn": "PICO Controller 为 OpenXR 运行时补齐 ByteDance 的 XR_BD_controller_interaction 与 XR_BD_ultra_controller_interaction 扩展。它让 PICO 手柄的交互配置在引擎输入系统里可用，而不是只停留在设备 SDK。该运行时模块可以打进 cooked 游戏包。",
+    "en": "PICO Controller adds ByteDance’s XR_BD_controller_interaction and XR_BD_ultra_controller_interaction OpenXR extensions to the engine. PICO controller interaction profiles then appear in Unreal’s input stack instead of remaining device-SDK only. The runtime module can ship in a cooked game."
+  },
+  {
+    "slug": "pico-neo3-controller-keys",
+    "kind": "plugin",
+    "cn": "PICO Neo3 Controller Keys 只声明 PICONeo3_* 这类 FKey，依赖 InputCore，不拉 OpenXR。Pixel Streaming 或其他只需键名、不连头显运行时的模块可以安全引用这些键。它与带网格和交互配置的 Neo3 控制器插件是分工关系。",
+    "en": "PICO Neo3 Controller Keys only declares PICONeo3_* FKeys on top of InputCore, with no OpenXR dependency. Pixel Streaming and other modules that need key names without an HMD runtime can reference them safely. It complements the Neo3 controller plugin that actually ships meshes and interaction profiles."
+  },
+  {
+    "slug": "pico-neo3-controller",
+    "kind": "plugin",
+    "cn": "PICO Neo3 Controller 实现 OpenXR 交互配置 /interaction_profiles/bytedance/pico_neo3_controller（XR_BD_controller_interaction），并提供对应的手柄网格。它把 Neo3 按键、姿态和可视化模型接到 XR 输入管线。需要完整设备支持时应与 Keys 插件一起使用。",
+    "en": "PICO Neo3 Controller implements the OpenXR profile /interaction_profiles/bytedance/pico_neo3_controller (XR_BD_controller_interaction) and ships matching controller meshes. Buttons, poses, and visualization all bind into the XR input pipeline. Pair it with the Keys plugin when other systems only need the FKey names."
+  },
+  {
+    "slug": "pippen",
+    "kind": "plugin",
+    "cn": "Pippen 是引擎 Plugins/Runtime 下的运行时插件，官方描述极短，只暴露同名模块 Pippen。它不面向关卡作者面板，而是作为引擎内部运行时支撑被其他系统加载。公开文档几乎没有，使用前应对照源码与依赖它的模块，而不是当成独立玩法功能。",
+    "en": "Pippen is a runtime plugin under Plugins/Runtime with a one-line official description and a single Pippen module. It is not an authoring panel; other engine systems load it as internal runtime support. Public docs are sparse, so inspect source and dependents before treating it as a standalone gameplay feature."
+  },
+  {
+    "slug": "pix-on-windows-gpu-capture-plugin",
+    "kind": "plugin",
+    "cn": "PixWinPlugin 把微软 PIX 接到 Windows 上的虚幻编辑器，用于捕获 GPU 帧并在 PIX 里分析 Draw、资源屏障和着色器。它服务图形调试管线，默认不进 Shipping。开发者在编辑器里触发捕获，而不是在玩家机器上常驻。",
+    "en": "PixWinPlugin integrates Microsoft PIX with the Unreal editor on Windows so you can capture GPU frames and inspect draws, barriers, and shaders. It is a graphics-debugging tool and is not shipped by default. Developers trigger captures from the editor rather than leaving PIX resident on player machines."
+  },
+  {
+    "slug": "pixel-capture",
+    "kind": "plugin",
+    "cn": "Pixel Capture 提供像素缓冲区捕获框架，把引擎画面转成其他格式，并允许生产端与消费端以不同速率运行。PixelCaptureShaders 做格式转换，整套能力被 Pixel Streaming 等媒体路径用来解耦渲染与编码。它属于 Media 插件族，不是场景后处理材质。",
+    "en": "Pixel Capture is a framework for grabbing pixel buffers into other formats while letting produce and consume rates drift apart. PixelCaptureShaders handle format conversion; Pixel Streaming and related media paths use that decoupling between render and encode. It is a Media plugin, not a post-process material."
+  },
+  {
+    "slug": "pixel-streaming-2",
+    "kind": "plugin",
+    "cn": "Pixel Streaming 2 是新一代云渲染推流：把引擎音频与画面经 WebRTC 送到浏览器等播放器，并由 PixelStreaming2Input 回传输入。相比初代，它拆出 Core、RTC、Servers、Settings、HMD 和 Editor 等模块，便于独立演进信令与编码。适合云游戏、远程审片和需要头显透传的流式会话。",
+    "en": "Pixel Streaming 2 is the next-generation cloud render path: engine audio and frames go out over WebRTC to browsers, and PixelStreaming2Input sends controls back. Versus the first plugin it splits Core, RTC, Servers, Settings, HMD, and Editor so signaling and encode can evolve independently. Use it for cloud gaming, remote reviews, and streamed XR sessions."
+  },
+  {
+    "slug": "pixel-streaming-player",
+    "kind": "plugin",
+    "cn": "Pixel Streaming Player 站在推流的对端：在引擎里播放别人推过来的 WebRTC 像素流，而不是把本机画面推出去。PixelStreamingPlayerEditor 提供作者侧预览，运行时模块在关卡中嵌入远端画面。实验插件适合做审片墙、嵌套会话或把另一台引擎当视频源。",
+    "en": "Pixel Streaming Player sits on the receiving side: it plays an incoming WebRTC pixel stream inside the engine instead of publishing the local framebuffer. PixelStreamingPlayerEditor offers authoring preview; the runtime embeds the remote picture in a level. The experimental plugin fits review walls, nested sessions, or treating another engine as a video source."
+  },
+  {
+    "slug": "pixel-streaming",
+    "kind": "plugin",
+    "cn": "Pixel Streaming 初代插件把引擎帧缓冲和音频经 WebRTC 推到浏览器，薄客户端只显示画面并回传输入。模块覆盖信令服务器、蓝图 API、HMD 和输入，是云游戏与远程演示的经典路径。新项目可评估 Pixel Streaming 2，但大量现有文档和示例仍针对这一代。",
+    "en": "The original Pixel Streaming plugin pushes the engine framebuffer and audio to a browser over WebRTC so a thin client only displays video and returns input. Modules cover signaling servers, Blueprint APIs, HMD, and input—the classic cloud-gaming and remote-demo path. New projects may evaluate Pixel Streaming 2, but most existing docs still describe this generation."
+  },
+  {
+    "slug": "plainprops",
+    "kind": "plugin",
+    "cn": "PlainProps 是一套新的序列化栈原型，探索比传统 UProperty 反射更直的属性存储与读写路径。实验模块 PlainProps 只提供核心容器与序列化原语，不绑定 UObject。接口随时可能改，适合引擎开发者验证新存档格式，而不是游戏玩法。",
+    "en": "PlainProps is a prototype serialization stack that explores a straighter path than classic UProperty reflection. The experimental PlainProps module supplies core containers and serialize primitives without binding to UObject. The contract can still change; it is for engine developers validating a new save format, not for gameplay."
+  },
+  {
+    "slug": "plainpropsengine",
+    "kind": "plugin",
+    "cn": "PlainPropsEngine 把 PlainProps 序列化原型接到 Engine 层对象：Actor、组件和世界相关状态如何用新栈写出。它不是游戏框架本身，而是实验绑定层，用来证明新序列化能否覆盖引擎运行时类型。应与 PlainProps 及 UObject 绑定插件一起看。",
+    "en": "PlainPropsEngine binds the PlainProps serialization prototype to Engine-layer objects: how Actors, components, and world state would write through the new stack. It is not the gameplay framework; it is an experimental binding that tests whether the new serializer can cover engine runtime types. Read it together with PlainProps and the UObject bindings."
+  },
+  {
+    "slug": "plainpropsuobject",
+    "kind": "plugin",
+    "cn": "PlainPropsUObject 为新序列化栈提供 CoreUObject 绑定，让 UObject 与 UClass 反射类型能走进 PlainProps 容器。没有这层，原型只能处理纯数据结构。实验阶段主要用于对照现有 UProperty 序列化行为。",
+    "en": "PlainPropsUObject supplies CoreUObject bindings so UObject and UClass reflected types can enter PlainProps containers. Without this layer the prototype only handles plain data. In the experimental phase it exists to compare behavior against today’s UProperty serialization."
+  },
+  {
+    "slug": "planar-cut",
+    "kind": "plugin",
+    "cn": "Planar Cut 提供用平面切割网格的几何算法模块，常见于破碎、布尔切片和需要共面切口的物理破坏。PlanarCut 运行在几何处理路径上，给 Geometry Script 或破坏系统当后端。实验插件面向工具作者，而不是关卡里直接放的 Actor。",
+    "en": "Planar Cut adds a geometry module that slices meshes with planes, used by fracture, boolean cuts, and physics break-up that needs coplanar faces. PlanarCut runs on the geometry path as a backend for Geometry Script or destruction tools. The experimental plugin targets tool authors, not a placeable level Actor."
+  },
+  {
+    "slug": "plastic-scm",
+    "kind": "plugin",
+    "cn": "PlasticSourceControl 把 Unity Version Control（原 Plastic SCM）接到编辑器源代码控制。它处理工作区状态、签入签出和差异，让团队用 Plastic 仓库协作内容。与 Perforce 插件同类，只服务制作管线，默认不进游戏包。",
+    "en": "PlasticSourceControl connects Unity Version Control (formerly Plastic SCM) to the editor source-control provider. It tracks workspace state, check-in/out, and diffs so teams can collaborate in a Plastic depot. Like the Perforce plugin, it is an authoring tool and does not ship in the game by default."
+  },
+  {
+    "slug": "platform-cryptography-plugin",
+    "kind": "plugin",
+    "cn": "Platform Crypto 对外给出统一加密 API：优先用主机平台的密码学实现，没有则回落到 OpenSSL。PlatformCryptoTypes 与 PlatformCryptoContext 分离类型和上下文，方便网络、DLC 校验等调用方依赖。实验插件关注可移植性，而不是实现新的密码算法。",
+    "en": "Platform Crypto exposes one cryptography API that prefers the host platform’s implementation and falls back to OpenSSL. PlatformCryptoTypes and PlatformCryptoContext split types from contexts so networking or DLC verification can depend cleanly. The experimental plugin is about portability, not inventing new ciphers."
+  },
+  {
+    "slug": "platform-dlc",
+    "kind": "plugin",
+    "cn": "Platform DLC 尝试对接各主机的原生可下载内容 API，在受支持平台上查询、挂载和校验官方 DLC。它不替代 Pak 或 IoStore 本身，而是把平台商店的附加包映射进引擎内容挂载点。实验阶段各平台完成度不同，接入前要对照目标主机实现。",
+    "en": "Platform DLC experiments with native downloadable-content APIs: query, mount, and verify first-party DLC on supported consoles and stores. It does not replace Pak or IoStore; it maps store add-ons onto engine mount points. Completeness still varies by platform, so check the target implementation before shipping."
+  },
+  {
+    "slug": "playcheck-tests",
+    "kind": "plugin",
+    "cn": "PlayCheck Tests 是 PlayCheck 的模块化测试伴侣，用 PlayCheckSceneTests 验证场景快照模式、过滤器、距离与方位计算。测试世界里的 Actor 放在已知位置，用来断言捕获相机是否看到正确关系。它不采集真机画面，只保证 PlayCheck 的场景几何逻辑稳定。",
+    "en": "PlayCheck Tests is the Modular Test Framework companion for PlayCheck. PlayCheckSceneTests assert snapshot schema, filters, distances, and bearings against worlds whose actors sit at known places. It does not capture live footage; it keeps PlayCheck’s scene-geometry logic honest."
+  },
+  {
+    "slug": "playcheck",
+    "kind": "plugin",
+    "cn": "PlayCheck 让代理在 PIE 或 -game 里检查自己的工作：用分阶段相机和项目自己的 Enhanced Input 驱动 Pawn，抓 PNG 连拍、联系表、mp4 和逐帧清单。计时可选 slomo 时间膨胀、固定时间步，或从 present 钩子走 NVENC 以保留 GPU 时间特效。功能同时以 PlayCheckToolset 暴露给助手，并以 capture.* / camera.* 控制台命令给人工使用。",
+    "en": "PlayCheck lets agents inspect their own work in PIE or -game: a staged camera and the project’s Enhanced Input drive a pawn while it captures PNG bursts, contact sheets, mp4, and a per-frame manifest. Timing can be slomo dilation, fixed timestep, or realtime NVENC off the present hook so GPU temporal effects survive. The same capabilities are exposed as PlayCheckToolset tools and as capture.* / camera.* console commands."
+  },
+  {
+    "slug": "playerinputdebugger",
+    "kind": "plugin",
+    "cn": "PlayerInputDebugger 专攻输入调试：Capture 记录事件，Messages 在进程间传递，UI 展示当前映射与冲突。它帮助排查 Enhanced Input、硬件设备和重绑定问题，而不是改玩法。实验插件适合 QA 与输入程序员，不进入发行包。",
+    "en": "PlayerInputDebugger is an input debugger: Capture records events, Messages shuttle them between processes, and UI shows mappings and conflicts. It diagnoses Enhanced Input, hardware, and rebind issues rather than changing gameplay. Keep the experimental plugin for QA and input programmers, not shipping builds."
+  },
+  {
+    "slug": "playfab-party",
+    "kind": "plugin",
+    "cn": "PlayFab Party 把微软 PlayFab Party 接到引擎的 Socket 子系统，用于低延迟语音、数据和多人会话传输。它走 Online/Microsoft 路径，和通用 OnlineSubsystem 并列，专门服务 Party 的 P2P 与中继。适合 Xbox 与跨平台派对会话，而不是完整的 PlayFab 经济或登录 SDK。",
+    "en": "PlayFab Party plugs Microsoft PlayFab Party into Unreal’s socket subsystem for low-latency voice, data, and multiplayer sessions. It lives under Online/Microsoft beside other online subsystems and specifically covers Party’s P2P and relay path. Use it for Xbox and cross-play party transport, not as the full PlayFab economy or login SDK."
+  },
+  {
+    "slug": "playlists",
+    "kind": "plugin",
+    "cn": "Sequencer Playlists 让虚拟制片现场动态准备、排队并触发关卡序列，不必为每个镜头重开 Sequencer。现场操作员可以按播放列表切换动画和过场，提高棚内反应速度。模块 SequencerPlaylists 服务 VP 会话，而不是玩家关卡里的普通过场播放器。",
+    "en": "Sequencer Playlists let a virtual-production crew prepare, queue, and fire Level Sequences on the fly without reopening Sequencer for every shot. Operators switch animation and cinematics from a live list, which keeps an on-set stage responsive. SequencerPlaylists is a VP session tool, not a player-facing cinematic player."
+  },
+  {
+    "slug": "plugin-audit",
+    "kind": "plugin",
+    "cn": "Plugin Audit 扫描已加载插件之间的连接与依赖，帮助发现环依赖、错误启用或缺失模块。它是编辑器诊断窗，不是运行时功能。实验阶段适合引擎和工具程序员在改 .uplugin 图之后做连通性检查。",
+    "en": "Plugin Audit inspects connectivity among loaded plugins so you can spot cycles, mistaken enables, or missing modules. It is an editor diagnostic, not a runtime feature. In its experimental form it helps engine and tools programmers verify the .uplugin graph after changes."
+  },
+  {
+    "slug": "plugin-browser",
+    "kind": "plugin",
+    "cn": "Plugin Browser 是编辑器里管理已安装插件、查看描述并创建新插件的界面。它调用 PluginUtils 生成描述符和目录骨架，本身不包含运行时玩法。该开发者插件只存在于编辑器会话。",
+    "en": "Plugin Browser is the editor UI for listing installed plugins, reading their descriptions, and creating new ones. It leans on PluginUtils to emit descriptors and folder skeletons and contains no gameplay runtime. The developer plugin exists only in editor sessions."
+  },
+  {
+    "slug": "plugin-localization-tool-s",
+    "kind": "plugin",
+    "cn": "Plugin Localization Tools 在保存或预提交时检查：若资产含可本地化文本，但其所属插件没有 Localization Target，就发出警告。它还提供窗口编辑各插件的本地化目标，避免插件文本漏出收集网。这是编辑器本地化护栏，不参与运行时翻译查询。",
+    "en": "Plugin Localization Tools warn on Save or Pre-Submit when an asset has localizable text but its owning plugin has no localization target. A companion window edits those targets so plugin strings are not left outside gathering. It is an editor localization guardrail, not a runtime translation lookup."
+  },
+  {
+    "slug": "plugin-reference-viewer",
+    "kind": "plugin",
+    "cn": "Plugin Reference Viewer 可视化插件之间的引用关系，类似资产引用查看器，但对象是 .uplugin 依赖。编辑器可以用它追踪谁加载了谁，辅助裁剪启用集。实验工具面向模块图排查，而不是内容浏览器引用。",
+    "en": "Plugin Reference Viewer visualizes references between plugins, like the asset reference viewer but for .uplugin dependencies. Editors use it to see who loads whom before trimming the enable set. The experimental tool is for module-graph triage, not Content Browser asset refs."
+  },
+  {
+    "slug": "plugin-template-tool",
+    "kind": "plugin",
+    "cn": "Plugin Template Tool 管理用于新建插件的模板内容文件夹：列出、预览和更新脚手架资源。新建插件向导依赖这些模板生成模块和示例内容。实验编辑器插件只服务作者管线。",
+    "en": "Plugin Template Tool manages the content folders used as plugin-creation templates: list, preview, and refresh the scaffolding assets. The new-plugin wizard draws on those templates to emit modules and sample content. The experimental editor plugin is authoring-only."
+  },
+  {
+    "slug": "plugin-utilities",
+    "kind": "plugin",
+    "cn": "PluginUtils 提供创建和编辑插件描述符、模块列表和目录结构的程序化助手，供 Plugin Browser 和其他向导调用。它没有面向用户的主窗口，是编程层工具库。作为 Developer 插件，不会打进 Shipping。",
+    "en": "PluginUtils is the programmatic helper for creating and editing plugin descriptors, module lists, and folder layouts, used by Plugin Browser and other wizards. It has no primary user window; it is a programming-layer library. As a Developer plugin it stays out of shipping builds."
+  },
+  {
+    "slug": "plugintoolset",
+    "kind": "plugin",
+    "cn": "PluginToolset 通过 AI Toolset Registry 列出、检查和创建插件，让助手能改 .uplugin 图而不打开 Plugin Browser。它面向编辑器自动化，不是运行时插件加载器。实验工具集不应进入游戏包。",
+    "en": "PluginToolset lists, inspects, and creates plugins through the AI Toolset Registry so an assistant can change the .uplugin graph without opening Plugin Browser. It is editor automation, not a runtime plugin loader. Keep the experimental toolset out of game packages."
+  },
+  {
+    "slug": "polaris-surveys",
+    "kind": "plugin",
+    "cn": "Polaris Surveys 对接 Epic 的 Polaris（PRM）产品内问卷：拉取问卷、展示 UI、上报互动与答案。宿主产品自行插入鉴权、定向上下文、分析和端点提供器。PolarisSurveysEditor 只服务编辑器预览，运行时模块可进联网产品。",
+    "en": "Polaris Surveys talks to Epic’s Polaris (PRM) in-product survey service: fetch surveys, present UI, and report interactions and answers. Host products plug in their own auth, targeting context, analytics, and endpoint providers. PolarisSurveysEditor is preview-only; the runtime module can ship in an online product."
+  },
+  {
+    "slug": "portable-object-file-data-source",
+    "kind": "plugin",
+    "cn": "Portable Object File Data Source 让内容浏览器把 gettext 的 .po 文件当作数据源浏览和打开。本地化译者可以在编辑器里查看 PO 条目，而不必离开虚幻去用外部工具。它是编辑器数据源，不负责运行时查表。",
+    "en": "Portable Object File Data Source lets Content Browser treat gettext .po files as a browsable data source. Localizers can inspect PO entries inside the editor instead of leaving Unreal for an external tool. It is an editor data source, not the runtime string lookup table."
+  },
+  {
+    "slug": "pose-search",
+    "kind": "plugin",
+    "cn": "Pose Search 为动画姿势特征建立索引并在运行时检索，是 Motion Matching 等技术的数据底座。PoseSearch 运行时按轨迹、速度和姿态距离取候选片段，PoseSearchEditor 负责数据库资产与调试可视化。角色运动需要从动画库里即时挑选最匹配姿势时使用它。",
+    "en": "Pose Search indexes animation pose features and queries them at runtime, which underpins Motion Matching and similar techniques. The PoseSearch runtime picks candidates by trajectory, speed, and pose distance; PoseSearchEditor owns database assets and debug views. Use it when a character must pick the best-matching pose from a motion library on the fly."
+  },
+  {
+    "slug": "post-process-material-chain-graph",
+    "kind": "plugin",
+    "cn": "Post Process Material Chain Graph 允许把后期处理材质叠成链，并渲染到独立于 Scene Color 的 Render Target。链可以处理任意纹理，不必写回场景颜色，适合自定义合成与离屏效果。PPMChainGraph 与其 Editor 模块构成实验图资产，而不是默认后处理体积。",
+    "en": "Post Process Material Chain Graph stacks post-process materials and renders them into render targets separate from Scene Color. The chain can operate on textures other than scene color without writing back into it, which fits custom compositing and off-screen effects. PPMChainGraph plus its editor module is an experimental graph asset, not the default post-process volume."
+  },
+  {
+    "slug": "pre-load-screen-movie-player",
+    "kind": "plugin",
+    "cn": "PreLoadScreenMoviePlayer 给出默认实现：在引擎预加载屏阶段播放加载影片，而不是静止图标。它挂接 PreLoadScreen 接口，在模块与着色器仍在加载时占用屏幕。适合发行包启动体验，而不是关卡内 Media Player。",
+    "en": "PreLoadScreenMoviePlayer is the default implementation that plays a loading movie during the engine pre-load screen instead of a static splash. It hooks the PreLoadScreen interface while modules and shaders are still coming up. Use it for packaged boot experience, not as an in-level Media Player."
+  },
+  {
+    "slug": "pregen-content",
+    "kind": "plugin",
+    "cn": "Pregen Content 存放 USD Pregen 管线共享的模板内容资产，可被多个项目引用。它位于 USDPregen/Templates 下，本身没有代码模块，提供网格、材质或关卡种子给预生成流程。实验内容包用来统一 USD 进引擎的起点，而不是运行时插件。",
+    "en": "Pregen Content holds shared template assets for the USD Pregen pipeline so multiple projects can reuse the same seeds. It lives under USDPregen/Templates, ships no code modules, and supplies meshes, materials, or level starters for pre-generation. Treat the experimental pack as a common USD-to-engine starting kit, not a runtime plugin."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-entity-framework-interop",
+    "kind": "plugin",
+    "cn": "PCG Entity Framework Interop 让 PCG 图与 Scene Graph 实体以及 Verse 标签互相读写。生成规则可以在实体预制和标签上筛选、生成或写回属性，而不只操作传统 Actor。编辑器模块提供节点与细节，运行时模块在 PIE 中执行互操作。",
+    "en": "PCG Entity Framework Interop lets PCG graphs read and write Scene Graph entities and Verse tags. Spawn rules can filter, spawn, or write properties on entity prefabs instead of only classic Actors. The editor module supplies nodes and details; the runtime performs the interop in PIE."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-external-data-interop",
+    "kind": "plugin",
+    "cn": "PCG External Data Interop 把外部数据格式接进 PCG 图，例如表格、缓存或第三方点数据。图可以从这些源采样属性再驱动散布，而不必先手工导入成引擎资产。编辑器与运行时模块成对出现，实验互操作取决于具体数据源实现。",
+    "en": "PCG External Data Interop feeds external data formats into PCG graphs—tables, caches, or third-party point data. Graphs can sample those attributes to drive scatter without first importing everything as engine assets. Editor and runtime modules ship as a pair; available sources depend on the experimental implementation."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-fastgeo-interop",
+    "kind": "plugin",
+    "cn": "PCG FastGeo Interop 把 FastGeo 快速几何表示接到 PCG 节点，让程序化图能在轻量几何上做查询或写出。它针对大规模世界构建中的性能路径，而不是完整静态网格编辑。实验模块 PCGFastGeoInterop 需与 FastGeo 插件同时存在才有意义。",
+    "en": "PCG FastGeo Interop connects FastGeo’s lightweight geometry representation to PCG nodes so graphs can query or emit on that faster mesh form. It targets the performance path for large world builds, not full static-mesh editing. Experimental PCGFastGeoInterop only matters when the FastGeo plugin is present."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-geometry-script-interop",
+    "kind": "plugin",
+    "cn": "PCG Geometry Script Interop 让 PCG 节点调用 Geometry Script，在生成点上做网格建模、布尔或变形。程序化散布可以长出真正的动态网格，而不只是放置已有资产。该互操作主要走编辑器/几何内核，适合工具向世界生成。",
+    "en": "PCG Geometry Script Interop lets PCG nodes call Geometry Script so generated points can model, boolean, or deform meshes. Procedural scatter can grow real dynamic meshes instead of only placing existing assets. The interop rides the editor geometry kernel and fits tool-side world generation."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-instanced-actors-interop",
+    "kind": "plugin",
+    "cn": "PCG Instanced Actors Interop 把 PCG 输出接到实例化 Actor 系统，用实例而不是独立 Actor 承载大量生成物。这对植被、碎石和重复道具能显著降低场景对象开销。实验模块需要 Instanced Actors 插件配合才能落地。",
+    "en": "PCG Instanced Actors Interop routes PCG output into the Instanced Actors system so spawned items ride instances instead of unique Actors. Foliage, pebbles, and repeated props benefit from the lower scene-object cost. The experimental module needs the Instanced Actors plugin to actually land those instances."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-mesh-partition-interop",
+    "kind": "plugin",
+    "cn": "PCG Mesh Partition Interop 让 PCG 图读写网格分区结果，按切片生成、剔除或分配内容。PCGMeshPartitionInteropEditor 提供节点与可视化，运行时在分区网格上执行规则。它和 PCG Primitives 的分区示例库互补，面向超大网格世界。",
+    "en": "PCG Mesh Partition Interop lets PCG graphs read and write mesh-partition results so content can spawn, cull, or assign per slice. PCGMeshPartitionInteropEditor supplies nodes and visualization; the runtime evaluates rules on partitioned meshes. It complements the PCG Primitives partition sample library for very large mesh worlds."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-nanite-assemblies-interop",
+    "kind": "plugin",
+    "cn": "PCG Nanite Assemblies Interop 把 PCG 生成结果接到 Nanite Assemblies，使程序化摆放能组成可 Nanite 渲染的装配体。它关注高面数场景的集群表示，而不是传统 HISM。实验互操作应与 Nanite Assemblies 功能同时启用。",
+    "en": "PCG Nanite Assemblies Interop feeds PCG spawn results into Nanite Assemblies so procedural placements become Nanite-renderable assemblies. It targets clustered high-poly scenes rather than classic HISMs. Enable it together with Nanite Assemblies or the interop has nothing to bind to."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-niagara-interop",
+    "kind": "plugin",
+    "cn": "PCG Niagara Interop 在 PCG 点数据与 Niagara 粒子系统之间搭桥：可用生成点驱动发射器，或把粒子位置回收进 PCG。它不是 Niagara 编辑器本身，只提供图节点级互操作。实验模块适合程序化特效布局和用粒子做散布预览。",
+    "en": "PCG Niagara Interop bridges PCG point data and Niagara: generated points can drive emitters, or particle positions can flow back into PCG. It is not the Niagara editor; it is graph-level interop. The experimental module fits procedural VFX layout and using particles as a scatter preview."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-python-interop",
+    "kind": "plugin",
+    "cn": "PCG Python Interop 通过编辑器 Python 解释器操作 PCG 图，模块只有 PCGPythonInteropEditor。脚本可以创建节点、改参数和批处理生成，而不必点可视化编辑器。它依赖 Python Editor Script Plugin，属于作者自动化而不是运行时。",
+    "en": "PCG Python Interop drives PCG graphs through the editor Python interpreter; it ships only PCGPythonInteropEditor. Scripts can create nodes, change parameters, and batch-generate without clicking the visual editor. It depends on the Python Editor Script Plugin and is authoring automation, not runtime."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-water-interop",
+    "kind": "plugin",
+    "cn": "PCG Water Interop 让 PCG 图查询或生成与 Water 水体相关的内容，例如沿河流样条散布、避开湖泊或贴合水面高度。它不实现水体网格本身，只把 Water Body 数据暴露给程序化规则。实验模块需要 Water 插件才能得到有意义的水面输入。",
+    "en": "PCG Water Interop lets PCG graphs query or spawn relative to Water bodies—scatter along river splines, avoid lakes, or snap to water height. It does not build the water mesh; it exposes Water Body data to procedural rules. The experimental module needs the Water plugin or it has no surface to read."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg",
+    "kind": "plugin",
+    "cn": "PCG 是程序化内容生成框架的主干：用节点图在编辑器或运行时从点云生成变换、网格、植被和生成规则。PCGEditor 提供图编辑器，PCGCompute 走计算路径，并可与景观、HLOD、Nanite 协作。各 Interop 插件都挂在这套图模型上扩展数据源。",
+    "en": "PCG is the procedural content generation backbone: a node graph that builds transforms, meshes, foliage, and spawn rules from point data in editor or at runtime. PCGEditor hosts the graph UI, PCGCompute covers the compute path, and the system cooperates with Landscape, HLOD, and Nanite. Interop plugins all extend this same graph model with extra data sources."
+  },
+  {
+    "slug": "procedural-mesh-component",
+    "kind": "plugin",
+    "cn": "Procedural Mesh Component 提供可渲染的 UProceduralMeshComponent，以及在运行时创建、更新顶点与三角形的工具函数。游戏可以切、挤出或从算法生成网格并立刻显示，不必先导入静态网格。Editor 模块补齐细节面板，运行时模块可进 cooked 包。",
+    "en": "Procedural Mesh Component ships a renderable UProceduralMeshComponent plus helpers to create and update vertices and triangles at runtime. Games can slice, extrude, or algorithmically grow a mesh and show it immediately without importing a static mesh. The editor module fills in details UI; the runtime can cook into a game."
+  },
+  {
+    "slug": "procedural-vegetation-editor",
+    "kind": "plugin",
+    "cn": "Procedural Vegetation Editor 用节点图在引擎内制作面向 Nanite Foliage 的植被。用户加载带物种预构建数据的预设，再在图里调枝叶变体，而不必先在外部 DCC 建树。ProceduralVegetation 运行时承载生成结果，Editor 模块是作者工具。",
+    "en": "Procedural Vegetation Editor is a node-graph tool for authoring Nanite Foliage-ready vegetation inside the engine. Artists load species presets with prebuilt data, then vary branches and leaves in the graph instead of building trees in an external DCC first. ProceduralVegetation holds runtime results; the editor module is the authoring app."
+  },
+  {
+    "slug": "project-launcher",
+    "kind": "plugin",
+    "cn": "Project Launcher 让开发者为不同平台、配置和角色编写自定义启动配置文件，并一键部署到设备。CommonLaunchExtensions 共享启动参数与会话逻辑。它是编辑器开发工具，不会进入玩家包。",
+    "en": "Project Launcher lets developers author custom launch profiles per platform, configuration, and role, then deploy to devices in one step. CommonLaunchExtensions shares launch arguments and session logic. It is an editor development tool and does not enter player packages."
+  },
+  {
+    "slug": "projects-module-tests",
+    "kind": "plugin",
+    "cn": "Projects Module Tests 用模块化测试框架覆盖 Projects 模块：插件发现、挂载和瞬时注册。它确保 .uplugin 在编辑器启动路径上被正确枚举，而不是测试某个具体游戏插件。属于引擎自测，不提供产品功能。",
+    "en": "Projects Module Tests covers the Projects module with the Modular Test Framework: plugin discovery, mounting, and transient registration. It asserts that .uplugin files are enumerated on editor startup, not that any one game plugin works. It is engine self-test, not a product feature."
+  },
+  {
+    "slug": "property-access-editor",
+    "kind": "plugin",
+    "cn": "Property Access Editor 提供把一个对象的属性复制或绑定到另一个对象的编辑器支持，动画通知、AnimBP 和 UMG 属性绑定都依赖这套路径解析。没有它，许多“从 A 读属性写到 B”的作者体验会中断。尽管名为 Editor，官方将其标为动画与 UMG 正确工作所需的运行时向插件。",
+    "en": "Property Access Editor supplies editor support for copying or binding properties from one object to another; animation notifies, AnimBPs, and UMG property bindings all resolve paths through it. Without it, much of the “read A, write B” authoring experience breaks. Despite the Editor name, Epic treats it as required for Animation and UMG to function correctly."
+  },
+  {
+    "slug": "property-access-node",
+    "kind": "plugin",
+    "cn": "Property Access Node 在蓝图里提供按属性路径访问对象字段的节点，避免为每一层 Getter 手写节点。它服务蓝图作者，默认不进 Shipping。常与 Property Access 编辑器支持一起出现在绑定工作流中。",
+    "en": "Property Access Node is a Blueprint node that reaches object fields through a property path so authors need not wire a getter per hop. It is an authoring node and does not ship by default. It commonly appears with Property Access editor support in binding workflows."
+  },
+  {
+    "slug": "property-animator-core",
+    "kind": "plugin",
+    "cn": "Property Animator Core 定义在运行时和编辑器中驱动任意对象属性的可复用行为，是虚拟制片属性动画的底座。上层 Property Animator 插件在这套核心上实现具体缓动与预设。CoreEditor 提供作者 UI，运行时模块在现场或 PIE 中求值。",
+    "en": "Property Animator Core defines reusable behaviors that drive arbitrary object properties in editor and at runtime—the foundation of virtual-production property animation. The Property Animator plugin implements concrete easings and presets on this core. CoreEditor is authoring UI; the runtime evaluates during a live session or PIE."
+  },
+  {
+    "slug": "property-animator",
+    "kind": "plugin",
+    "cn": "Property Animator 在 Core 之上提供可复用行为，把一个或多个属性做成可播放的动画，常用于现场调光、移动道具或改材质参数。它面向虚拟制片操作员，而不是角色骨骼动画。Editor 模块编辑预设，运行时按时间轴或触发器求值。",
+    "en": "Property Animator builds on Core with reusable behaviors that animate one or more property values—live lights, moving set dressing, or material parameters. It is a virtual-production operator tool, not skeletal character animation. The editor module authors presets; the runtime evaluates on a timeline or trigger."
+  },
+  {
+    "slug": "property-editor-tests",
+    "kind": "plugin",
+    "cn": "Property Editor Tests 针对 PropertyEditor 模块做自动化测试，覆盖细节面板、属性行和自定义布局。它保证编辑器属性 UI 在重构后仍能正确显示与提交。测试插件不进入游戏运行时。",
+    "en": "Property Editor Tests automates the PropertyEditor module: details panels, property rows, and customizations. It keeps editor property UI honest after refactors. The test plugin never enters game runtime."
+  },
+  {
+    "slug": "propertybindingutils",
+    "kind": "plugin",
+    "cn": "PropertyBindingUtils 提供实现属性绑定所需的运行时与编辑器工具代码，供 UMG、动画和其他系统复用路径解析与值拷贝。Editor 模块处理作者期绑定，TestSuite 锁住行为。它可以打进 cooked 游戏，因为绑定求值发生在运行时。",
+    "en": "PropertyBindingUtils is shared utility code for implementing property bindings so UMG, animation, and other systems can reuse path resolution and value copy. The editor module handles authoring; the test suite locks behavior. It can cook into a game because binding evaluation happens at runtime."
+  },
+  {
+    "slug": "provenancec2pa",
+    "kind": "plugin",
+    "cn": "ProvenanceC2PA 用 C2PA 内容凭证标准实现 AssetProvenance 的读写，把来源、作者和编辑历史嵌入或解析到资产旁路数据。它服务内容可信与溯源，而不是玩法存档。开发者在导入或导出管线中启用它以符合凭证工作流。",
+    "en": "ProvenanceC2PA implements AssetProvenance read/write using the C2PA content-credentials standard, embedding or parsing origin, authorship, and edit history beside assets. It is about content trust, not gameplay saves. Developers enable it on import/export pipelines that must speak C2PA."
+  },
+  {
+    "slug": "proxy-lod-plugin-experimental",
+    "kind": "plugin",
+    "cn": "Proxy LOD Plugin 通过 ProxyLODMeshReduction 生成代理 LOD：把一簇网格烘焙成更粗的替代网格，用于远景 HLOD。它是编辑器简化后端，不是运行时换模系统。生成结果由引擎 LOD/HLOD 在游戏中选用。",
+    "en": "The Proxy LOD Plugin generates proxy LODs through ProxyLODMeshReduction: a cluster of meshes is baked into a coarser stand-in for distant HLODs. It is an editor reduction backend, not a runtime mesh swapper. The engine’s LOD/HLOD system picks the generated proxies in-game."
+  },
+  {
+    "slug": "psd-importer-material-designer-bridge",
+    "kind": "plugin",
+    "cn": "PSD Importer Material Designer Bridge 把 Photoshop 分层导入结果接到材质设计器，让 PSD 图层能驱动材质图层或参数，而不是只变成一张扁平贴图。它依赖 PSD Importer 产出的层数据。实验桥接适合纹理到材质的作者工作流。",
+    "en": "PSD Importer Material Designer Bridge feeds Photoshop layer imports into Material Designer so PSD layers can drive material layers or parameters instead of flattening to one texture. It depends on layer data from the PSD Importer. The experimental bridge is an authoring path from texture files into materials."
+  },
+  {
+    "slug": "psd-importer",
+    "kind": "plugin",
+    "cn": "PSD Importer 解析 Photoshop PSD，保留图层结构供编辑器导入，而不是只烘焙最终合成图。PSDImporterCore 做文件格式，Editor 模块创建纹理资产，运行时模块可被其他桥接插件调用。实验导入器面向材质和 UI 贴图作者。",
+    "en": "PSD Importer reads Photoshop PSD files while preserving layer structure instead of baking only the flattened composite. PSDImporterCore owns the file format, the editor module creates texture assets, and the runtime can be called by bridge plugins. The experimental importer targets material and UI texture authors."
+  },
+  {
+    "slug": "python-automation-test",
+    "kind": "plugin",
+    "cn": "Python Automation Test 把编辑器 Python 脚本接入自动化测试框架，用 Python 编写并运行引擎测试用例。它验证 Python 绑定与脚本插件本身，而不是某个游戏关卡。属于 Tests 插件，仅用于 CI 与开发者。",
+    "en": "Python Automation Test hooks editor Python scripts into the automation framework so tests can be written and run in Python. It validates Python bindings and the script plugin itself, not a game level. It is a Tests plugin for CI and developers only."
+  },
+  {
+    "slug": "python-editor-script-plugin",
+    "kind": "plugin",
+    "cn": "Python Editor Script Plugin 把 CPython 嵌进虚幻编辑器，暴露 UObject 反射给 Python，并支持启动时预加载（PythonScriptPluginPreload）。技术美术可以用 Python 批处理资产、操作关卡和调用编辑器 API。这是编辑器脚本宿主，不是游戏运行时脚本语言。",
+    "en": "Python Editor Script Plugin embeds CPython in the Unreal Editor, exposes reflected UObjects to Python, and can preload via PythonScriptPluginPreload. Technical artists batch assets, manipulate levels, and call editor APIs from Python. It is an editor scripting host, not a game-runtime language."
+  },
+  {
+    "slug": "python-foundation-packages",
+    "kind": "plugin",
+    "cn": "Python Foundation Packages 为编辑器 Python 环境捆绑 NumPy、PyTorch 等常用包，供其他引擎插件直接 import。它没有自己的 C++ 模块，只是包分发与路径配置。实验内容让 ML 与数值插件不必各自安装一份 Python 生态。",
+    "en": "Python Foundation Packages bundles common libraries such as NumPy and PyTorch into the editor Python environment so other engine plugins can import them. It has no C++ module of its own—only package distribution and path setup. The experimental content stops every ML plugin from shipping its own Python stack."
+  },
+  {
+    "slug": "python-ml-package",
+    "kind": "plugin",
+    "cn": "Python ML Package 负责自动安装 PyTorch 及相关机器学习包，给依赖深度学习的引擎插件准备环境。它与 Foundation Packages 分工：一个提供基础数值栈，一个拉取更重的 ML 依赖。实验插件在编辑器启动或首次使用时完成安装，而不是运行推理内核。",
+    "en": "Python ML Package auto-installs PyTorch and related ML packages for engine plugins that need deep learning. It splits work with Foundation Packages: one supplies the numeric baseline, this one pulls heavier ML deps. The experimental plugin installs at editor startup or first use; it is not the inference kernel."
+  },
+  {
+    "slug": "quic-messaging",
+    "kind": "plugin",
+    "cn": "QUIC Messaging 给引擎消息子系统加上基于 QUIC 的传输层，用于在联网计算机与设备之间收发结构化消息。QuicMessagingTransport 实现协议，上层模块对接现有 Messaging 端点。实验传输可替代 TCP 消息总线，适合需要更快握手与多路复用的编辑器或工具连接。",
+    "en": "QUIC Messaging adds a QUIC transport to the engine messaging subsystem for structured messages between networked machines and devices. QuicMessagingTransport implements the protocol; the upper module talks to existing Messaging endpoints. The experimental transport can replace a TCP message bus when you want faster handshake and multiplexing for editor or tool links."
+  },
+  {
+    "slug": "razer-chroma-devices",
+    "kind": "plugin",
+    "cn": "Razer Chroma Devices 在运行时把游戏事件映射到 Razer 幻彩灯效，键盘、鼠标等外设可随血量或技能变色。RazerChromaEditor 提供作者侧效果配置。实验外设插件只在安装了 Chroma 运行时的机器上有意义。",
+    "en": "Razer Chroma Devices maps gameplay events to Razer Chroma lighting at runtime so keyboards and mice can react to health or abilities. RazerChromaEditor authors those effect bindings. The experimental peripheral plugin only matters on machines that have the Chroma runtime."
+  },
+  {
+    "slug": "rdg-insights",
+    "kind": "plugin",
+    "cn": "RDG Insights（模块 RenderGraphInsights）把 Render Dependency Graph 的通道、资源和屏障记录进 Unreal Insights。图形程序员可以在时间线上核对 Pass 顺序与生命周期，而不是只看帧抓取。它属于 Insights 族，用于渲染图调试而非通用 CPU 剖析。",
+    "en": "RDG Insights (module RenderGraphInsights) records Render Dependency Graph passes, resources, and barriers into Unreal Insights. Graphics programmers can audit pass order and resource lifetimes on a timeline instead of only in a frame capture. It is an Insights plugin for render-graph debugging, not a general CPU profiler."
+  },
+  {
+    "slug": "recovery-hub",
+    "kind": "plugin",
+    "cn": "Recovery Hub（DisasterRecoveryClient）基于 Concert 记录编辑器改动，以便崩溃后恢复关卡与资产。它跟踪会话中的事务，而不是做系统级磁盘备份。作为 Concert 应用插件，只服务多人/灾难恢复制作管线。",
+    "en": "Recovery Hub (DisasterRecoveryClient) records editor changes through Concert so a crash can restore levels and assets. It tracks session transactions, not whole-disk backups. As a Concert app plugin it only serves the multi-user / disaster-recovery authoring path."
+  },
+  {
+    "slug": "reflex",
+    "kind": "plugin",
+    "cn": "Reflex 接入 NVIDIA Reflex：上报延迟标记并协助调节 Tick 速率，让渲染尽量贴着扫描输出，降低点击到画面的延迟。它面向支持 Reflex 的 NVIDIA GPU 游戏，而不是通用帧率限制器。运行时模块可打进发行包供玩家开关。",
+    "en": "Reflex integrates NVIDIA Reflex: it reports latency markers and helps govern tick rate so rendering stays close to scan-out and click-to-photon stays low. It targets NVIDIA GPUs that support Reflex, not a generic FPS cap. The runtime module can ship so players can toggle it."
+  },
+  {
+    "slug": "remote-control-actor-modifier-bridge",
+    "kind": "plugin",
+    "cn": "该桥接插件让 Remote Control、Actor Modifier 与 Property Animator 能互相看见对方的可控属性。现场用 RC 预设改 Actor 修改器或属性动画时，不必在三个系统里重复暴露同一参数。实验接口随三套插件一起演进。",
+    "en": "This bridge lets Remote Control, Actor Modifier, and Property Animator see each other’s controllable properties. A live RC preset can drive an actor modifier or property animation without re-exposing the same parameter in three systems. The experimental interface evolves with those three plugins."
+  },
+  {
+    "slug": "remote-control-api",
+    "kind": "plugin",
+    "cn": "Remote Control API 通过内置 Web 服务器用 HTTP 或 WebSocket 远程控制编辑器或运行时对象。WebRemoteControl、协议模块、UI、逻辑和多人同步把属性暴露成预设，供第三方应用和导播台调用。它是虚拟制片遥控的主干，而不是通用游戏服务器。",
+    "en": "Remote Control API exposes editor or runtime objects over an embedded web server using HTTP or WebSockets. WebRemoteControl, protocol modules, UI, logic, and multi-user sync turn properties into presets that third-party apps and control surfaces can drive. It is the virtual-production remote-control spine, not a generic game server."
+  },
+  {
+    "slug": "remote-control-components",
+    "kind": "plugin",
+    "cn": "Remote Control Components 提供可放在 Actor 上的组件，把一组属性打包成现场可遥控的单元，并带编辑器定制。它补齐 Remote Control API 的 Actor 侧入口，让关卡里的对象无需手写 Web 路由即可被控制。实验插件面向虚拟制片关卡搭建。",
+    "en": "Remote Control Components add placeable components that bundle an Actor’s properties into a live-controllable unit, with editor customization. They are the Actor-side entry to the Remote Control API so level objects can be driven without hand-written web routes. The experimental plugin targets virtual-production set dressing."
+  },
+  {
+    "slug": "remote-control-interception-api",
+    "kind": "plugin",
+    "cn": "Remote Control Interception 允许在命令到达目标对象前拦截 Remote Control 指令，用于权限、重映射、录制或安全过滤。它不提供遥控协议本身，而是插在 RC 管线中间。虚拟制片可以用它审计或改写导播台发来的属性写入。",
+    "en": "Remote Control Interception intercepts RC commands before they hit the target object, for permissions, remapping, recording, or safety filters. It does not implement the remote protocol; it sits in the middle of the RC pipeline. Virtual-production crews use it to audit or rewrite property writes from a control surface."
+  },
+  {
+    "slug": "remote-control-protocol-dmx",
+    "kind": "plugin",
+    "cn": "Remote Control Protocol DMX 把 DMX 灯光协议接到 Remote Control API，调光台通道可以驱动引擎里的暴露属性。Editor 模块配置宇宙、通道与预设映射。它服务影视棚灯光联动，而不是游戏手柄输入。",
+    "en": "Remote Control Protocol DMX binds the DMX lighting protocol to the Remote Control API so console channels can drive exposed engine properties. The editor module maps universes, channels, and presets. It is for on-set lighting, not gamepad input."
+  },
+  {
+    "slug": "remote-control-protocol-midi",
+    "kind": "plugin",
+    "cn": "Remote Control Protocol MIDI 把 MIDI 控制器接到 Remote Control API，旋钮和推子可写入引擎属性。Editor 模块负责设备与控制号映射。适合现场用 MIDI 面板做非灯光类参数表演。",
+    "en": "Remote Control Protocol MIDI binds MIDI controllers to the Remote Control API so knobs and faders write engine properties. The editor module maps devices and control numbers. It fits live parameter performance from a MIDI surface that is not a lighting desk."
+  },
+  {
+    "slug": "remote-control-protocol-osc",
+    "kind": "plugin",
+    "cn": "Remote Control Protocol OSC 用 Open Sound Control 地址模式驱动 Remote Control 预设，适合与 TouchDesigner、声音系统或其他 OSC 客户端互联。它没有单独的 Editor 模块名，映射走 RC 协议配置。虚拟制片常用 OSC 做跨软件打点。",
+    "en": "Remote Control Protocol OSC drives Remote Control presets from Open Sound Control address patterns, which fits TouchDesigner, audio systems, and other OSC clients. There is no separate editor module name; mapping lives in RC protocol config. Virtual-production stages often use OSC as the cross-app bus."
+  },
+  {
+    "slug": "remote-control-web-interface",
+    "kind": "plugin",
+    "cn": "Remote Control Web Interface 基于 RC 预设提供浏览器控制台，依赖本机安装的 Node.js 启动前端。操作员可以在平板或另一台电脑上调属性，而不开完整编辑器。它是 RC API 的 Web UI 层，不是另一套协议。",
+    "en": "Remote Control Web Interface serves a browser console over RC presets and expects Node.js on the host to launch the frontend. Operators can tweak properties from a tablet or another PC without the full editor. It is the RC API’s web UI, not a second protocol."
+  },
+  {
+    "slug": "remote-database-support",
+    "kind": "plugin",
+    "cn": "Remote Database Support 为引擎数据库子系统提供远程数据库连接能力，让查询可以打到外部服务器而不是仅本地文件。它位于 Runtime/Database，供需要在线配置或运营表的项目使用。具体驱动取决于平台与配置，插件本身是远程访问适配层。",
+    "en": "Remote Database Support adds remote database connectivity to the engine’s database subsystem so queries can hit an external server instead of only local files. It lives under Runtime/Database for projects that need online config or live-ops tables. Concrete drivers depend on platform and config; the plugin is the remote-access adapter."
+  },
+  {
+    "slug": "remote-procedure-calls-base",
+    "kind": "plugin",
+    "cn": "RPCBase 是客户端实现远程过程调用库时使用的基础框架，定义消息、序列化与调用约定，而不是某个具体 RPC 服务。外部工具或编辑器扩展可以在这层上长出自己的 RPC。它属于运行时基础设施，供跨进程工具通信。",
+    "en": "RPCBase is a foundation framework that client applications use to implement RPC libraries: messages, serialization, and calling conventions, not a specific RPC service. External tools or editor extensions grow their own RPC on this layer. It is runtime infrastructure for cross-process tool communication."
+  },
+  {
+    "slug": "remotesession",
+    "kind": "plugin",
+    "cn": "RemoteSession 让一个引擎实例充当另一个实例的瘦客户端：本机只负责显示画面和采集输入，模拟在远端运行。它类似 Pixel Streaming 的引擎对引擎变体，走实验路径。Editor 模块配置会话，运行时模块传输帧与输入。",
+    "en": "RemoteSession lets one engine instance act as a thin client of another: this machine displays frames and captures input while simulation runs remotely. It is an engine-to-engine cousin of Pixel Streaming on an experimental path. The editor module configures the session; the runtime streams frames and input."
+  },
+  {
+    "slug": "render-grid",
+    "kind": "plugin",
+    "cn": "Render Grid 为过场动画离线/批量渲染提供高级管线：用网格化的镜头、变体和质量档组织渲染任务。RenderGridEditor 与 Developer 模块管理作业图，运行时/烹饪侧执行输出。实验插件面向电影级渲染队列，而不是实时视口。",
+    "en": "Render Grid is an advanced pipeline for rendered cinematics: shots, variants, and quality tiers are organized as a grid of render jobs. RenderGridEditor and the developer module author the job graph; execution writes the outputs. The experimental plugin is a cinematic render queue, not the realtime viewport."
+  },
+  {
+    "slug": "render-trace",
+    "kind": "plugin",
+    "cn": "Render Trace 按像素采样网格上的物理材质，得到精确到像素的物理属性读取，而不是近似体积查询。尽管名字带 Trace，它主要用于物理/材质采样，可打进 cooked 游戏。不要把它和 Unreal Insights 的 RenderTrace Insights 可视化插件混淆。",
+    "en": "Render Trace samples physical materials on meshes at pixel resolution instead of approximating with volume queries. Despite the name, it is a physics/material sampler that can ship in a cooked game. Do not confuse it with the RenderTrace Insights visualization plugin inside Unreal Insights."
+  },
+  {
+    "slug": "renderdoc-plugin",
+    "kind": "plugin",
+    "cn": "RenderDoc Plugin 把 RenderDoc 图形调试器接到编辑器，可从虚幻直接捕获一帧并在 RenderDoc 中分析 Draw Call。它服务渲染程序员，默认不进 Shipping。与 PIX 插件同类，但是跨厂商的开源抓帧工具。",
+    "en": "RenderDoc Plugin integrates the RenderDoc graphics debugger so Unreal can capture a frame and open it in RenderDoc for draw-call analysis. It is a rendering programmer tool and is not shipped by default. It is the vendor-neutral counterpart to the PIX plugin."
+  },
+  {
+    "slug": "rendertrace-insights",
+    "kind": "plugin",
+    "cn": "RenderTrace Insights 在 Unreal Insights 里提供渲染调试设施，可视化与渲染相关的 Trace 事件。它帮助对照 GPU 工作与 Insights 时间线，而不是在游戏里做像素材质采样。模块 RenderTraceInsights 属于 Insights 插件族。",
+    "en": "RenderTrace Insights adds rendering debug facilities inside Unreal Insights, visualizing render-related trace events. It correlates GPU work with the Insights timeline; it does not pixel-sample materials in-game. Module RenderTraceInsights belongs to the Insights plugin family."
+  },
+  {
+    "slug": "replay-tracks-experimental",
+    "kind": "plugin",
+    "cn": "Replay Tracks 为 Sequencer 增加播放已录制游戏回放的轨道，把网络 Replay 嵌进过场时间轴。ReplayTracksEditor 编辑轨道，运行时在序列中驱动回放。实验功能适合用真实对局录像做预告或分析镜头。",
+    "en": "Replay Tracks add Sequencer tracks that play recorded gameplay, embedding a network Replay inside a cinematic timeline. ReplayTracksEditor authors the tracks; the runtime drives playback from the sequence. The experimental feature fits trailers or analysis shots built from real match recordings."
+  },
+  {
+    "slug": "replaykit-for-ios",
+    "kind": "plugin",
+    "cn": "IOSReplayKit 对接苹果 ReplayKit，在 iOS 上做本地录屏与系统级直播。游戏可以把画面交给系统录制 UI，而不自建编码器。该移动运行时插件只在 iOS 目标上有意义。",
+    "en": "IOSReplayKit talks to Apple ReplayKit for on-device recording and system broadcasting on iOS. The game can hand frames to the system capture UI instead of shipping its own encoder. The mobile runtime plugin only matters on iOS targets."
+  },
+  {
+    "slug": "replication-graph",
+    "kind": "plugin",
+    "cn": "Replication Graph 实现一套面向海量 Actor 与连接的 Replication Driver：在图结构里维护持久的待复制 Actor 列表，按空间和相关性裁剪。相比默认复制，它能显著降低大世界多人的 CPU 开销。运行时模块替换网络驱动，是性能向联网插件。",
+    "en": "Replication Graph is a Replication Driver built for huge actor and connection counts: it keeps persistent replicated-actor lists in a graph and culls by spatial relevance. Versus default replication it can cut CPU cost in large multiplayer worlds. The runtime module replaces the net driver path and is a performance-oriented networking plugin."
+  },
+  {
+    "slug": "replication-system-test-plugin",
+    "kind": "plugin",
+    "cn": "Replication System Test Plugin 对网络复制系统做单元测试与功能测试，覆盖属性复制、RPC 和驱动行为。它存在于 Runtime 测试路径，用于引擎 CI，而不是给项目当联机 SDK。不要在发行游戏中启用。",
+    "en": "Replication System Test Plugin runs unit and functional tests against the network replication system: property replication, RPCs, and driver behavior. It lives on the runtime test path for engine CI, not as a project’s online SDK. Do not enable it in a shipping game."
+  },
+  {
+    "slug": "resonance-audio",
+    "kind": "plugin",
+    "cn": "Resonance Audio 是 Google 的 3D 空间化与室内声学插件，为声源计算 HRTF 方向感和房间反射。ResonanceAudioEditor 配置空间化设置，运行时在音频混合器中处理。适合需要双耳定位的移动或跨平台项目，作为引擎空间化后端之一。",
+    "en": "Resonance Audio is Google’s 3D spatialization and room-acoustics plugin, computing HRTF directionality and room reflections for sources. ResonanceAudioEditor authors spatial settings; the runtime processes inside the audio mixer. It is one of Unreal’s spatialization backends, often used on mobile or cross-platform titles that want binaural cues."
+  },
+  {
+    "slug": "rewinddebuggertoolset",
+    "kind": "plugin",
+    "cn": "RewindDebuggerToolset 向 AI 助手提供只读接口，检查 Rewind Debugger 已记录的动画/游戏回放。助手可以查询时间轴上的姿态与轨迹，但不能改记录。附带的 Tests 模块锁住工具契约，整个工具集不进 Shipping。",
+    "en": "RewindDebuggerToolset exposes read-only inspection of Rewind Debugger recordings to an AI assistant. The assistant can query poses and trajectories on the timeline but cannot mutate the recording. A tests module locks the tool contract; the toolset does not ship in games."
+  },
+  {
+    "slug": "rhi-tests",
+    "kind": "plugin",
+    "cn": "RHI Tests 对渲染硬件接口做自动化测试，验证缓冲区、纹理、着色器绑定和跨 RHI 行为。它属于引擎 Tests 插件，用来在 D3D、Vulkan 等后端上守回归。没有面向用户的渲染功能。",
+    "en": "RHI Tests automate the Rendering Hardware Interface: buffers, textures, shader bindings, and cross-RHI behavior. It is an engine Tests plugin that guards regressions on D3D, Vulkan, and other backends. It adds no user-facing rendering feature."
+  },
+  {
+    "slug": "rider-integration",
+    "kind": "plugin",
+    "cn": "RiderSourceCodeAccess 把 JetBrains Rider 注册为编辑器的源代码访问提供程序，双击 C++ 符号会在 Rider 中打开。它与 Visual Studio、VS Code 提供程序并列，只服务程序员工作流。Developer 插件不会进入游戏包。",
+    "en": "RiderSourceCodeAccess registers JetBrains Rider as an editor source-code access provider so double-clicking a C++ symbol opens Rider. It sits beside the Visual Studio and VS Code providers and only serves programmers. The Developer plugin does not enter game packages."
+  },
+  {
+    "slug": "rig-mapper",
+    "kind": "plugin",
+    "cn": "Rig Mapper 提供一套动画重映射功能：在不同骨架、曲线或控制器之间定义映射关系。RigMapper 运行时求值，Editor 与 Developer 模块编辑定义资产。实验插件常作为重定向管线的中间层，而不是完整 IK 解算器。",
+    "en": "Rig Mapper is a set of animation remapping features: it defines how bones, curves, or controls map across rigs. The RigMapper runtime evaluates those maps; Editor and Developer modules author definition assets. The experimental plugin is a retargeting middle layer, not a full IK solver."
+  },
+  {
+    "slug": "riglogic-for-uaf",
+    "kind": "plugin",
+    "cn": "RigLogic for UAF 把 DNA/RigLogic 面部解算接到 Unreal Animation Framework，使 MetaHuman 一类的面部装备能在 UAF 图里求值。UncookedOnly 模块处理作者期资产，运行时模块在游戏中驱动面部。它是 RigLogic 主插件面向 UAF 的适配层。",
+    "en": "RigLogic for UAF adapts DNA/RigLogic facial evaluation onto the Unreal Animation Framework so MetaHuman-style face rigs can run inside UAF graphs. The UncookedOnly module handles authoring assets; the runtime drives the face in-game. It is the UAF-facing adapter for the main RigLogic plugin."
+  },
+  {
+    "slug": "riglogic-plugin",
+    "kind": "plugin",
+    "cn": "RigLogic 是 MetaHuman 面部动画的解算插件：RigLogicLib 执行 DNA 面部逻辑，Module 接到引擎，Editor 与 Developer 提供导入和调试，LibTest 做库级测试。它把高细节面部控制映射到骨架与变形。角色需要 DNA 面部资产时启用这一套，而不是通用 Control Rig。",
+    "en": "RigLogic is the MetaHuman facial-animation solver: RigLogicLib evaluates DNA face logic, the module binds it to the engine, Editor and Developer cover import and debug, and LibTest covers the library. High-detail facial controls map onto skeleton and morphs. Enable this suite for DNA face assets, not as a general Control Rig replacement."
+  },
+  {
+    "slug": "rigmapper-op",
+    "kind": "plugin",
+    "cn": "RigMapper Op 是实验性重定向操作，用 RigMapper 定义在重定向图里重映射曲线。它作为 Retarget 管线中的一个 Op 插入，而不是独立的映射编辑器。需要先有 Rig Mapper 定义资产才能工作。",
+    "en": "RigMapper Op is an experimental retarget operation that remaps curves from RigMapper definitions inside a retarget graph. It inserts as one Op in the retarget pipeline, not as a standalone mapping editor. It requires existing Rig Mapper definition assets."
+  },
+  {
+    "slug": "rigvm-tests",
+    "kind": "plugin",
+    "cn": "RigVM Tests 用模块化测试框架覆盖 RigVM 图模型：节点、链接、编译与求值。它没有列出独立模块名，作为测试内容插件挂在 Tests 目录。用于守住 Control Rig 后端图语义，不提供作者工具。",
+    "en": "RigVM Tests covers the RigVM graph model with the Modular Test Framework: nodes, links, compile, and evaluate. It lists no first-party modules and lives as a test content plugin under Tests. It guards Control Rig backend graph semantics and is not an authoring tool."
+  },
+  {
+    "slug": "rigvm",
+    "kind": "plugin",
+    "cn": "RigVM 为可视化编程语言提供前端、后端与运行时，Control Rig 等系统在这套虚拟机上编译并执行节点图。RigVMDeveloper 处理图模型和编译，RigVMEditor 提供编辑器，RigVM 在运行时求值。它是装备与动画图的执行引擎，而不是某个具体绑定。",
+    "en": "RigVM supplies the frontend, backend, and runtime for a visual programming language; Control Rig and similar systems compile and execute node graphs on this VM. RigVMDeveloper owns graph model and compile, RigVMEditor is the editor, and RigVM evaluates at runtime. It is the execution engine for rig and animation graphs, not a specific character rig."
+  },
+  {
+    "slug": "rivermaxcore",
+    "kind": "plugin",
+    "cn": "RivermaxCore 把 NVIDIA Rivermax 高速网络媒体传输暴露给引擎，供虚拟制片做 SMPTE 类视频流收发。RivermaxRendering 处理与渲染相关的帧路径，RivermaxEditor 做设备与流配置。它是 Rivermax 插件族的底座，不是完整的 NDI 替代品说明文档。",
+    "en": "RivermaxCore exposes NVIDIA Rivermax high-speed networked media transport to the engine for virtual-production SMPTE-style video I/O. RivermaxRendering handles render-side frame paths; RivermaxEditor configures devices and streams. It is the foundation of the Rivermax plugin family, not a full NDI substitute."
+  },
+  {
+    "slug": "rtsp-media",
+    "kind": "plugin",
+    "cn": "RTSP Media 通过 RTSP 协议拉取或推送实时媒体，作为 Media Framework 的播放器后端。RTSPMediaEditor 配置源 URL 与资产，运行时在关卡或 UI 中播放网络摄像机或编码器流。适合监控、现场摄像机进引擎，而不是本地文件影片。",
+    "en": "RTSP Media plays or publishes realtime media over RTSP as a Media Framework player backend. RTSPMediaEditor authors source URLs and assets; the runtime plays network cameras or encoder streams in a level or UI. Use it for live cameras into the engine, not local movie files."
+  },
+  {
+    "slug": "runtime-tests",
+    "kind": "plugin",
+    "cn": "Runtime Tests 收集在编辑器和 cooked 构建中都会编译的运行时代码自动测试，覆盖游戏线程上的引擎行为。它保证 shipping 配置下的运行时逻辑也有测试，而不仅是编辑器专用代码。属于 Tests 插件，不提供玩法。",
+    "en": "Runtime Tests collect automated tests for runtime code that compiles in both editor and cooked builds, covering engine behavior on the game thread. They keep shipping-configuration logic tested, not only editor-only code. It is a Tests plugin with no gameplay."
+  },
+  {
+    "slug": "sample-mesh-reconstructor",
+    "kind": "plugin",
+    "cn": "DummyMeshReconstructor 演示如何驱动网格重建 API：生成占位几何以展示调用顺序，而不是做真实扫描重建。它位于 MeshReconstruction 示例路径，给 XR 或扫描管线当参考实现。不要把它当成生产级环境网格生成器。",
+    "en": "DummyMeshReconstructor shows how to drive the mesh-reconstruction API by emitting dummy geometry to demonstrate call order, not real scan reconstruction. It lives under MeshReconstruction as a sample for XR or scanning pipelines. Do not treat it as a production environment mesher."
+  },
+  {
+    "slug": "sample-tools-editor-mode",
+    "kind": "plugin",
+    "cn": "Sample Tools Editor Mode 是一套示范 Interactive Tools Framework 能力的编辑器模式，包含可点击的示例工具。工具作者用它学习工具栈、选择与 Gizmo 模式，而不是给关卡美术用的成品笔刷。Developer 插件仅存在于编辑器。",
+    "en": "Sample Tools Editor Mode is an editor mode packed with sample tools that demonstrate the Interactive Tools Framework. Tool authors study the tool stack, selection, and gizmos here; it is not a finished brush for level artists. The developer plugin exists only in the editor."
+  },
+  {
+    "slug": "sandboxes",
+    "kind": "plugin",
+    "cn": "SandboxedEditing 允许在沙箱环境中编辑文件，确认后再把改动写回主项目，降低误改共享内容的风险。它服务实验性编辑工作流，而不是运行时存档。Developer 插件只在编辑器会话中加载。",
+    "en": "SandboxedEditing lets you edit files inside a sandbox and persist them into the main project only when you choose, which lowers the risk of clobbering shared content. It is an experimental authoring workflow, not a runtime save game. The developer plugin loads only in editor sessions."
+  },
+  {
+    "slug": "scene-capture-toolset",
+    "kind": "plugin",
+    "cn": "Scene Capture Toolset 向助手开放视口录像、场景诊断、游戏帧缓冲捕获和编辑器相机捕获。它把 Scene Capture 与视口工具变成可调用的自动化接口，而不是新的 Capture Component。实验工具集用于代理验收画面，不进发行游戏。",
+    "en": "Scene Capture Toolset exposes viewport video recording, scene diagnostics, game framebuffer capture, and editor-camera capture to an assistant. It turns scene-capture and viewport tools into callable automation, not a new Capture Component. The experimental toolset is for agent visual QA, not shipping games."
+  },
+  {
+    "slug": "scenegraphtoolset",
+    "kind": "plugin",
+    "cn": "SceneGraphToolset 只读检查 Scene Graph：实体预制、放置实体、继承链和属性覆盖，经 AI Toolset Registry 暴露。助手可以回答“这个实体覆盖了哪些属性”，但不能用该工具集改图。实验只读工具面向新实体框架，不进 Shipping。",
+    "en": "SceneGraphToolset inspects the Scene Graph read-only: entity prefabs, placed entities, inheritance chains, and property overrides, via the AI Toolset Registry. An assistant can answer which properties an entity overrides, but this toolset cannot mutate the graph. The experimental read-only tools target the new entity framework and do not ship."
+  },
+  {
+    "slug": "screenreader",
+    "kind": "plugin",
+    "cn": "ScreenReader 提供可扩展的无障碍类与框架，用于把 UI 与世界信息转成视觉障碍用户可消费的语音或导航服务。插件本身是基础设施，产品需要在其上实现具体读屏后端。实验模块面向 Slate/UMG 无障碍，而不是游戏剧情旁白。",
+    "en": "ScreenReader ships extensible accessibility classes and frameworks so UI and world info can become speech or navigation services for low-vision users. The plugin is infrastructure; a product still implements a concrete screen-reader backend on top. The experimental module targets Slate/UMG accessibility, not narrative voice-over."
+  }
+]

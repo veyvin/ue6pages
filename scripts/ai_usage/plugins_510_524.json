@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "mesh-lod-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Mesh LOD Toolset`（模块 `MeshLODToolset`）并重启。",
+      "它提供实现 3D 网格 LOD 创建的一组模块，也作为编辑器 AI 助手/自动化工具集。",
+      "用其为静态网格生成/管理多级 LOD。",
+      "这是编辑器工具集，一般不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Mesh LOD Toolset` (module `MeshLODToolset`) and restart.",
+      "It provides modules for 3D mesh LOD creation and doubles as an editor AI-assistant/automation toolset.",
+      "Use it to generate/manage multiple LOD levels for static meshes.",
+      "It is an editor toolset that generally does not ship."
+    ],
+    "note_cn": "创建 3D 网格 LOD 的编辑器工具集。",
+    "note_en": "An editor toolset for creating 3D mesh LODs."
+  },
+  {
+    "slug": "mesh-modeling-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Mesh Modeling Toolset`（模块 `MeshModelingTools`、`ModelingComponents`、`ModelingOperators`、`SkeletalMeshModifiers` 等，含 EditorOnly 版）。",
+      "它基于 Interactive Tools Framework 提供 3D 网格的创建与编辑工具（建模模式核心）。",
+      "在建模模式里对网格做布尔、挤出、雕刻等编辑；编辑器侧工具默认不进 Shipping。",
+      "运行时依赖非 EditorOnly 模块；`*EditorOnly` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Mesh Modeling Toolset` (modules `MeshModelingTools`, `ModelingComponents`, `ModelingOperators`, `SkeletalMeshModifiers`, etc., incl. EditorOnly variants).",
+      "On the Interactive Tools Framework, it provides 3D mesh creation and editing tools (the core of Modeling Mode).",
+      "In Modeling Mode, boolean/extrude/sculpt meshes; editor-side tools do not ship by default.",
+      "Runtime depends on non-EditorOnly modules; `*EditorOnly` goes to Editor targets only."
+    ],
+    "note_cn": "建模模式背后的网格编辑工具集（Interactive Tools Framework）。",
+    "note_en": "The mesh-editing toolset behind Modeling Mode (Interactive Tools Framework)."
+  },
+  {
+    "slug": "mesh-painting",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Mesh Painting`（模块 `MeshPaintEditorMode`、`MeshPaintingToolset`）并重启。",
+      "在网格绘制模式里把顶点色/纹理等数据绘制到网格上。",
+      "用于地形/道具的顶点色、材质混合权重绘制。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Mesh Painting` (modules `MeshPaintEditorMode`, `MeshPaintingToolset`) and restart.",
+      "In mesh paint mode, paint vertex color/texture data onto meshes.",
+      "Use it for vertex color and material blend weights on terrain/props.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "往网格绘制顶点色/权重等数据的编辑器工具。",
+    "note_en": "An editor tool to paint vertex color/weights onto meshes."
+  },
+  {
+    "slug": "mesh-partition-water",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mesh Partition Water`（模块 `MeshPartitionWater`）。",
+      "它是 Water 系统在 Mesh Partition 上的实现：在景观上做互衔接的河流/湖泊/海洋。",
+      "用样条铺水体，统一网格与着色，支持物理交互与脚步涟漪/船尾航迹等玩法流体。",
+      "Experimental：接口可能变动；需 Water 与 Mesh Partition 相关插件。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mesh Partition Water` (module `MeshPartitionWater`).",
+      "It is the Water system on Mesh Partition: rivers/lakes/oceans that connect on the landscape.",
+      "Lay water with splines, unify meshing and shading, with physics and gameplay fluids like footstep ripples and boat wakes.",
+      "Experimental: contract may change; requires Water and Mesh Partition related plugins."
+    ],
+    "note_cn": "Water 系统在 Mesh Partition 上的水体实现，实验性。",
+    "note_en": "The Water system on Mesh Partition, experimental."
+  },
+  {
+    "slug": "mesh-partition",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mesh Partition`（模块 `MeshPartition`、`MeshPartitionCompute`、`MeshPartitionEditor`、`MeshPartitionModelingToolset` 等）。",
+      "它是大型网格创作系统：用空间分区、非破坏性修改器与平台自适应运行时表示来编辑大网格。",
+      "在编辑器/建模模式里用其工具编辑分区网格，运行时按平台自适应表示。",
+      "Experimental：接口可能变动；EditorOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mesh Partition` (modules `MeshPartition`, `MeshPartitionCompute`, `MeshPartitionEditor`, `MeshPartitionModelingToolset`, etc.).",
+      "It is a large-scale mesh authoring system using spatial partitioning, non-destructive modifiers, and platform-adaptive runtime representation.",
+      "Edit partitioned meshes with its tools in the editor/modeling mode; runtime uses adaptive representation per platform.",
+      "Experimental: contract may change; EditorOnly modules go to Editor targets only."
+    ],
+    "note_cn": "大型网格的空间分区创作系统（含运行时自适应表示），实验性。",
+    "note_en": "A spatial-partition large-mesh authoring system (with adaptive runtime representation), experimental."
+  },
+  {
+    "slug": "mesh-resizing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mesh Resizing`（模块 `MeshResizingCore`、`MeshResizingDataflowNodes`、`MeshResizingEditorTools`）。",
+      "它用于调整网格大小（非等比缩放/重构网格），含 Dataflow 节点与编辑器工具。",
+      "在 Dataflow 或建模工具里对网格做尺寸调整，输出新网格。",
+      "Experimental：接口可能变动；编辑器工具只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mesh Resizing` (modules `MeshResizingCore`, `MeshResizingDataflowNodes`, `MeshResizingEditorTools`).",
+      "It resizes meshes (non-uniform scaling/mesh reconstruction) with Dataflow nodes and editor tools.",
+      "Resize meshes in Dataflow or the modeling tools and output the new mesh.",
+      "Experimental: contract may change; editor tools go to Editor targets only."
+    ],
+    "note_cn": "调整网格尺寸（含 Dataflow 节点与编辑器工具），实验性。",
+    "note_en": "Mesh resizing (with Dataflow nodes and editor tools), experimental."
+  },
+  {
+    "slug": "mesh-terrain-mode",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mesh Terrain Mode`（模块 `MeshTerrainMode`）。",
+      "它提供一套交互工具，在编辑器里创建和编辑 Mesh Partition（网格地形）。",
+      "进入网格地形模式，用工具雕刻/编辑分区地形。",
+      "Experimental：接口可能变动；属编辑器工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mesh Terrain Mode` (module `MeshTerrainMode`).",
+      "It provides a suite of interactive tools to create and edit Mesh Partitions (mesh terrain) in the editor.",
+      "Enter mesh terrain mode and use the tools to sculpt/edit partitioned terrain.",
+      "Experimental: contract may change; it is an editor tool."
+    ],
+    "note_cn": "创建/编辑 Mesh Partition 的交互式网格地形模式，实验性。",
+    "note_en": "An interactive mesh-terrain mode to create/edit Mesh Partitions, experimental."
+  },
+  {
+    "slug": "message-bus-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Message Bus Insights`（模块 `UdpMessagingInsights`）。",
+      "用它通过 Unreal Insights 调试消息总线（Message Bus）流量。",
+      "启动带该插件的 trace，运行后查看消息总线的收发与性能。",
+      "属 Insights/Trace 调试工具。"
+    ],
+    "en_steps": [
+      "Enable `Message Bus Insights` (module `UdpMessagingInsights`).",
+      "Use it to debug Message Bus traffic via Unreal Insights.",
+      "Start a trace with this plugin and inspect message-bus send/receive and performance.",
+      "It is an Insights/Trace debugging tool."
+    ],
+    "note_cn": "在 Insights 里调试消息总线流量。",
+    "note_en": "Debug Message Bus traffic in Insights."
+  },
+  {
+    "slug": "messagebus-tester",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MessageBus Tester`（模块 `MessageBusTester`，编辑器 `MessageBusTesterEditor`）。",
+      "用它测试和监控消息总线的可靠性（发送/接收、丢包、延迟）。",
+      "在测试/联调时运行其监控，验证消息总线行为。",
+      "Experimental：接口可能变动；属调试/测试工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MessageBus Tester` (module `MessageBusTester`, editor `MessageBusTesterEditor`).",
+      "Use it to test and monitor message-bus reliability (send/receive, drops, latency).",
+      "Run its monitoring during testing/debugging to validate message-bus behavior.",
+      "Experimental: contract may change; it is a debug/test tool."
+    ],
+    "note_cn": "测试/监控消息总线可靠性的工具，实验性。",
+    "note_en": "A tool to test/monitor message-bus reliability, experimental."
+  },
+  {
+    "slug": "messaging-debugger",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Messaging Debugger`（模块 `MessagingDebugger`）。",
+      "它给消息子系统提供可视化调试器：查看消息发送/接收/端点。",
+      "在编辑器里打开调试器，跟踪消息流排查问题。",
+      "属 Messaging 可视化调试工具，编辑器向。"
+    ],
+    "en_steps": [
+      "Enable `Messaging Debugger` (module `MessagingDebugger`).",
+      "It provides a visual debugger for the messaging subsystem: view message send/receive/endpoints.",
+      "Open the debugger in the editor and trace message flow to troubleshoot.",
+      "It is a Messaging visual-debug tool, editor-oriented."
+    ],
+    "note_cn": "消息子系统的可视化调试器。",
+    "note_en": "A visual debugger for the messaging subsystem."
+  },
+  {
+    "slug": "metahuman-animation-tools",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Animation Tools`（模块 `MetaHumanAnimationSerialization`，编辑器 `MetaHumanAnimationSerializationEditor`）。",
+      "它提供处理 MetaHuman 动画数据的工具（序列化/导入导出等）。",
+      "在 MetaHuman 动画管线里用它搬运/处理动画数据。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Animation Tools` (module `MetaHumanAnimationSerialization`, editor `MetaHumanAnimationSerializationEditor`).",
+      "It provides tooling to work with MetaHuman Animation data (serialization/import-export, etc.).",
+      "Use it to move/process animation data in the MetaHuman animation pipeline.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "处理 MetaHuman 动画数据的工具（序列化）。",
+    "note_en": "Tooling for MetaHuman Animation data (serialization)."
+  },
+  {
+    "slug": "metahuman-animator-calibration-diagnostics",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MetaHuman Animator Calibration Diagnostics`（模块 `MetaHumanCalibrationDiagnostics`）。",
+      "它是官方 MetaHuman 校准诊断工具包，用于排查面捕/校准流程问题。",
+      "在 MetaHuman 校准流程里运行诊断，按结果修正采集/标定。",
+      "Experimental：接口可能变动；属 MetaHuman 校准工具链。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MetaHuman Animator Calibration Diagnostics` (module `MetaHumanCalibrationDiagnostics`).",
+      "It is the official MetaHuman calibration diagnostics toolkit for troubleshooting face-capture/calibration issues.",
+      "Run diagnostics in the MetaHuman calibration flow and fix capture/calibration per results.",
+      "Experimental: contract may change; part of the MetaHuman calibration toolchain."
+    ],
+    "note_cn": "官方 MetaHuman 校准诊断工具包，实验性。",
+    "note_en": "The official MetaHuman calibration diagnostics toolkit, experimental."
+  },
+  {
+    "slug": "metahuman-animator-calibration-processing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Animator Calibration Processing`（模块 `MetaHumanCalibrationGenerator`、`MetaHumanCalibrationLib`、`MetaHumanCalibrationCore`）。",
+      "它是官方 MetaHuman 校准处理工具包，用于生成/处理校准数据。",
+      "在 MetaHuman 面捕前做相机/镜头校准处理，输出校准资产。",
+      "属 MetaHuman 校准工具链；处理阶段使用。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Animator Calibration Processing` (modules `MetaHumanCalibrationGenerator`, `MetaHumanCalibrationLib`, `MetaHumanCalibrationCore`).",
+      "It is the official MetaHuman calibration processing toolkit to generate/process calibration data.",
+      "Run camera/lens calibration processing before MetaHuman face capture and output calibration assets.",
+      "Part of the MetaHuman calibration toolchain; used in the processing stage."
+    ],
+    "note_cn": "官方 MetaHuman 校准处理工具包（生成/处理校准数据）。",
+    "note_en": "The official MetaHuman calibration processing toolkit (generate/process calibration data)."
+  },
+  {
+    "slug": "metahuman-animator-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MetaHuman Animator Toolset`（模块 `MetaHumanAnimatorToolset`）。",
+      "它是面向 AI 助手的工具，用于检查 MetaHuman Performance 素材并生成动画。",
+      "让 AI 助手通过工具集读取 performance 素材、驱动动画生成流程。",
+      "Experimental：接口可能变动；属 MetaHuman 工具链/AI 工具集。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MetaHuman Animator Toolset` (module `MetaHumanAnimatorToolset`).",
+      "It is an AI-assistant tool for inspecting MetaHuman Performance footage and generating animation.",
+      "Let AI assistants read performance footage and drive the animation-generation flow via the toolset.",
+      "Experimental: contract may change; part of the MetaHuman toolchain / AI toolsets."
+    ],
+    "note_cn": "给 AI 助手检查 Performance 素材并生成动画的工具集，实验性。",
+    "note_en": "An AI-assistant toolset to inspect performance footage and generate animation, experimental."
+  },
+  {
+    "slug": "metahuman-animator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Animator`（模块 `MetaHumanCore`、`MetaHumanPipeline`、`MetaHumanIdentity`、`MetaHumanFaceContourTracker` 等，编辑器模块以 Editor 结尾）。",
+      "它是官方 MetaHuman 工具包：数字人生成、面捕、校准、运行时绑定（建立在 Control Rig / Live Link 之上）。",
+      "导入面捕/Performance 素材，用 MetaHuman 管线生成数字人动画并绑到角色。",
+      "Game 模块依赖运行时模块；`*Editor` 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Animator` (modules `MetaHumanCore`, `MetaHumanPipeline`, `MetaHumanIdentity`, `MetaHumanFaceContourTracker`, etc., with Editor-suffixed editor modules).",
+      "It is the official MetaHuman toolkit: digital-human generation, face capture, calibration, and runtime rigging (on Control Rig / Live Link).",
+      "Import face-capture/performance footage, generate digital-human animation with the MetaHuman pipeline, and bind it to the character.",
+      "Game modules depend on runtime modules; `*Editor` modules go to Editor targets only."
+    ],
+    "note_cn": "官方 MetaHuman 工具包（数字人生成/面捕/校准），建立在 Control Rig/Live Link 上。",
+    "note_en": "The official MetaHuman toolkit (generation/face-capture/calibration) on Control Rig/Live Link."
+  }
+]

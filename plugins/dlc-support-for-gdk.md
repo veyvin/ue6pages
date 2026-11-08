@@ -3,7 +3,6 @@ layout: default
 title: GDK 的 DLC 支持 / DLC Support for GDK
 ---
 
-
 <h1>GDK 的 DLC 支持 / DLC Support for GDK</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: GDK 的 DLC 支持 / DLC Support for GDK
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">GDK 中对 DLC 的实验性支持。</div><div class="lang-content">Experimental support for DLC in GDK.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">DLC Support for GDK</code>（模块 <code class="usage-code">GDKPlatformDLC</code>），并同时启用正式的 Microsoft GDK 平台插件；本插件不是通用 <code class="usage-code">ChunkDownloader</code>。</li><li>在 <code class="usage-code">Project Settings &gt; Platforms &gt; GDK / Windows GDK</code> 填 Partner Center 产品 ID、沙盒、以及要作为附加内容的 package/chunk 标识。</li><li>用 GDK 打包流程把主包与 DLC 打成独立 <code class="usage-code">.xvc</code> / Microsoft Store 附加包，不要只靠 <code class="usage-code">Pak</code> 分块当商店 DLC。</li><li>游戏模块 <code class="usage-code">Build.cs</code> 依赖 <code class="usage-code">GDKPlatformDLC</code>，在运行时查询/挂载已安装的 GDK DLC（枚举已拥有内容、安装状态），而不是去蓝图组件列表里加一个 DLC 组件。</li><li>在 GDK 开发套件或 Retail 沙盒上验证：未购买时内容不可用，安装完成后资源可加载。</li><li>接口仍是 Experimental，不要把它当跨 Steam/EOS 的通用 DLC 层。</li></ol><p class="usage-note">只服务 Microsoft GDK 商店附加内容；实验接口，且必须配 GDK 打包与 Partner Center 产品。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">DLC Support for GDK</code> (module <code class="usage-code">GDKPlatformDLC</code>) together with the shipping Microsoft GDK platform plugin; this is not generic <code class="usage-code">ChunkDownloader</code>.</li><li>Fill Partner Center product IDs, sandbox, and add-on package/chunk IDs under <code class="usage-code">Project Settings &gt; Platforms &gt; GDK / Windows GDK</code>.</li><li>Package the base game and DLC as separate <code class="usage-code">.xvc</code> / Microsoft Store add-ons through the GDK pipeline, not as Pak chunks pretending to be store DLC.</li><li>Depend on <code class="usage-code">GDKPlatformDLC</code> in the game <code class="usage-code">Build.cs</code> and query/mount installed GDK add-ons at runtime (ownership, install state). Do not add a DLC component from the Blueprint component list.</li><li>Verify on a GDK dev kit or retail sandbox: content stays unavailable until the add-on is owned and installed.</li><li>The API is Experimental; do not use it as a cross-Steam/EOS DLC layer.</li></ol><p class="usage-note">GDK store add-ons only; experimental, and it requires GDK packaging plus Partner Center product IDs.</p></div></div></div>
+    </div>
+

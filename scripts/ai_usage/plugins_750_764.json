@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "playcheck-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PlayCheck Tests`（模块 `PlayCheckSceneTests`）。",
+      "它是 PlayCheck 的模块化测试伴侣：场景快照模式、过滤器、距离，以及相对已知位置 Actor 的方位。",
+      "跑这些测试来校验 PlayCheck 场景快照与空间判定。",
+      "属测试插件；一般只进测试/Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `PlayCheck Tests` (module `PlayCheckSceneTests`).",
+      "It is the Modular Test Framework companion for PlayCheck: scene snapshot schema, filters, distances, and bearings against worlds with actors at known places.",
+      "Run these tests to validate PlayCheck scene snapshots and spatial checks.",
+      "It is a test plugin; typically Editor/test targets only."
+    ],
+    "note_cn": "PlayCheck 的场景快照/空间判定自动化测试。",
+    "note_en": "Automation tests for PlayCheck scene snapshots and spatial checks."
+  },
+  {
+    "slug": "playcheck",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PlayCheck`（模块 `PlayCheck`、`PlayCheckToolset`、`PlayCheckScene`、`PlayCheckSceneToolset`）。",
+      "它让代理在实时游戏中检查自己的工作：从 PIE/`-game` 捕获图像、视频和每帧数据（PNG 连拍、联系表、mp4 与每帧清单）。",
+      "用分阶段捕捉相机和 pawn，驱动项目自己的 Enhanced Input；三种计时：slomo、固定时间步、即时 NVENC。",
+      "对代理暴露为 PlayCheckToolset；对人暴露为 `capture.*` / `camera.*` 控制台命令。"
+    ],
+    "en_steps": [
+      "Enable `PlayCheck` (modules `PlayCheck`, `PlayCheckToolset`, `PlayCheckScene`, `PlayCheckSceneToolset`).",
+      "It lets agents check their own work in the live game: captures images, video, and per-frame data (PNG bursts, contact sheets, mp4, per-frame manifest) from PIE/`-game`.",
+      "Uses a staged capture camera and pawn driving the project's own Enhanced Input; three timing strategies: slomo, fixed timestep, and instant NVENC.",
+      "Exposed to agents as PlayCheckToolset and to humans as `capture.*` / `camera.*` console commands."
+    ],
+    "note_cn": "在 PIE/游戏中给代理捕捉画面与每帧数据以自检。",
+    "note_en": "Lets agents capture frames/per-frame data in PIE/game to check their own work."
+  },
+  {
+    "slug": "playerinputdebugger",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PlayerInputDebugger`（模块 `PlayerInputDebuggerMessages`、`PlayerInputDebuggerCapture`、`PlayerInputDebuggerUI`、`PlayerInputDebugger`）。",
+      "它用于调试玩家输入（捕获、消息与 UI）。",
+      "在输入异常时打开其调试 UI，查看按键/轴事件流。",
+      "属实验性调试插件；不要当 Shipping 功能。"
+    ],
+    "en_steps": [
+      "Enable `PlayerInputDebugger` (modules `PlayerInputDebuggerMessages`, `PlayerInputDebuggerCapture`, `PlayerInputDebuggerUI`, `PlayerInputDebugger`).",
+      "It is a plugin for debugging player input (capture, messages, and UI).",
+      "Open its debug UI when input misbehaves to inspect key/axis event streams.",
+      "It is an experimental debug plugin; not a shipping feature."
+    ],
+    "note_cn": "调试玩家输入的捕获/消息/UI 插件。",
+    "note_en": "Debug plugin for player-input capture, messages, and UI."
+  },
+  {
+    "slug": "playfab-party",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PlayFab Party`（模块 `PlayFabParty`）。",
+      "它是 PlayFab Party 的套接字子系统插件（语音/多人传输）。",
+      "在联机项目里用 Party 做实时通信时启用，并配置 PlayFab 凭据。",
+      "属在线传输插件；需 PlayFab Party SDK。"
+    ],
+    "en_steps": [
+      "Enable `PlayFab Party` (module `PlayFabParty`).",
+      "It is the PlayFab Party socket-subsystem plugin (voice/multiplayer transport).",
+      "Enable it when using Party for realtime comms in a net project, and configure PlayFab credentials.",
+      "It is an online-transport plugin; requires the PlayFab Party SDK."
+    ],
+    "note_cn": "PlayFab Party 套接字子系统（语音/多人传输）。",
+    "note_en": "PlayFab Party socket subsystem (voice/multiplayer transport)."
+  },
+  {
+    "slug": "playlists",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Playlists`（模块 `SequencerPlaylists`）。",
+      "它提供 Sequencer 播放列表：在虚拟制片现场动态准备、排队并触发关卡序列。",
+      "在 VP 会话里用播放列表灵活切换镜头/动画，而不必停机改 Sequencer。",
+      "属虚拟制片工具；配合 Level Sequencer 使用。"
+    ],
+    "en_steps": [
+      "Enable `Playlists` (module `SequencerPlaylists`).",
+      "It provides Sequencer Playlists: prepare, queue, and trigger level sequences on the fly during virtual production.",
+      "In a VP session, switch shots/animation from a playlist without stopping to edit Sequencer.",
+      "It is a virtual-production tool; used with Level Sequencer."
+    ],
+    "note_cn": "虚拟制片现场动态排队/触发关卡序列的 Sequencer 播放列表。",
+    "note_en": "Sequencer playlists to queue/trigger level sequences on a VP set."
+  },
+  {
+    "slug": "plugin-audit",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Plugin Audit`（模块 `PluginAudit`）。",
+      "它是审核插件连接/依赖关系的编辑器插件。",
+      "在编辑器里打开审核视图，检查插件启用与互相引用是否合理。",
+      "属实验性编辑器工具；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Plugin Audit` (module `PluginAudit`).",
+      "It is an editor plugin for auditing plugin connectivity/dependencies.",
+      "Open the audit view in the editor to inspect enabled plugins and how they reference each other.",
+      "It is an experimental editor tool; it does not ship by default."
+    ],
+    "note_cn": "审核插件连接/依赖的编辑器工具。",
+    "note_en": "Editor tool for auditing plugin connectivity/dependencies."
+  },
+  {
+    "slug": "plugin-browser",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Plugin Browser`（模块 `PluginBrowser`）。",
+      "它提供管理已安装插件和创建新插件的编辑器 UI（插件浏览器）。",
+      "在编辑器 Edit → Plugins 里启用/禁用插件，或从模板创建新插件。",
+      "属编辑器开发者工具；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Plugin Browser` (module `PluginBrowser`).",
+      "It provides the editor UI for managing installed plugins and creating new ones (the plugin browser).",
+      "Enable/disable plugins in Edit → Plugins, or create a new plugin from a template.",
+      "It is an editor/developer tool; it does not ship by default."
+    ],
+    "note_cn": "管理/创建插件的编辑器插件浏览器 UI。",
+    "note_en": "Editor plugin-browser UI to manage and create plugins."
+  },
+  {
+    "slug": "plugin-localization-tool-s",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Plugin Localization Tool's`（模块 `PluginLocalizationTools`）。",
+      "当资产含可本地化文本但所属插件没有本地化目标时，它在保存/预提交期间发出警告。",
+      "并用窗口编辑每个插件的本地化目标。",
+      "属编辑器本地化工具；服务制作流程。"
+    ],
+    "en_steps": [
+      "Enable `Plugin Localization Tool's` (module `PluginLocalizationTools`).",
+      "It warns during Save/Pre-Submit when an asset has localizable text but its owning plugin has no localization targets.",
+      "It also provides a window to edit each plugin's localization targets.",
+      "It is an editor localization tool for the authoring pipeline."
+    ],
+    "note_cn": "检查并编辑插件本地化目标（保存/预提交警告）。",
+    "note_en": "Warns and edits plugin localization targets (Save/Pre-Submit)."
+  },
+  {
+    "slug": "plugin-reference-viewer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Plugin Reference Viewer`（模块 `PluginReferenceViewer`）。",
+      "它是查看插件引用关系的编辑器插件。",
+      "打开引用视图，看某个插件被谁依赖、依赖了谁。",
+      "属实验性编辑器工具；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Plugin Reference Viewer` (module `PluginReferenceViewer`).",
+      "It is an editor plugin for viewing plugin references.",
+      "Open the reference view to see who depends on a plugin and what it depends on.",
+      "It is an experimental editor tool; it does not ship by default."
+    ],
+    "note_cn": "查看插件互相引用关系的编辑器工具。",
+    "note_en": "Editor tool for viewing plugin-to-plugin references."
+  },
+  {
+    "slug": "plugin-template-tool",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Plugin Template Tool`（模块 `PluginTemplateTool`）。",
+      "它用于管理插件模板内容文件夹。",
+      "在创建新插件时维护/选择模板内容目录。",
+      "属实验性编辑器工具；配合 Plugin Browser 使用。"
+    ],
+    "en_steps": [
+      "Enable `Plugin Template Tool` (module `PluginTemplateTool`).",
+      "It is an editor plugin for managing plugin template content folders.",
+      "Maintain/select template content directories when creating new plugins.",
+      "It is an experimental editor tool; used with Plugin Browser."
+    ],
+    "note_cn": "管理插件模板内容文件夹的编辑器工具。",
+    "note_en": "Editor tool for managing plugin template content folders."
+  },
+  {
+    "slug": "plugin-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Plugin Utilities`（模块 `PluginUtils`）。",
+      "它提供创建和编辑插件的助手，供插件浏览器使用。",
+      "一般随 Plugin Browser 启用，不必单独当游戏功能。",
+      "属编辑器开发者工具；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Plugin Utilities` (module `PluginUtils`).",
+      "It provides helpers to create and edit plugins, used by Plugin Browser.",
+      "Usually enabled with Plugin Browser; not a gameplay feature.",
+      "It is an editor/developer tool; it does not ship by default."
+    ],
+    "note_cn": "创建/编辑插件的助手（供插件浏览器使用）。",
+    "note_en": "Helpers to create/edit plugins (used by Plugin Browser)."
+  },
+  {
+    "slug": "plugintoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PluginToolset`（模块 `PluginToolset`）。",
+      "它通过 AI 工具集注册表列出、检查和创建插件。",
+      "给编辑器 AI 助手/自动化调用，而不是当作 Shipping 游戏功能。",
+      "属 Toolset；一般不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `PluginToolset` (module `PluginToolset`).",
+      "It lists, inspects, and creates plugins via the AI Toolset Registry.",
+      "Intended for the in-editor AI assistant/automation, not as a shipping gameplay feature.",
+      "It is a Toolset; typically not shipped in a cooked game."
+    ],
+    "note_cn": "给 AI 助手列出/检查/创建插件的工具集。",
+    "note_en": "AI-assistant toolset to list, inspect, and create plugins."
+  },
+  {
+    "slug": "polaris-surveys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Polaris Surveys`（运行时 `PolarisSurveys`，编辑器 `PolarisSurveysEditor`）。",
+      "它接入 Polaris (PRM) 的产品内调查：获取、呈现并上报互动与答案。",
+      "产品需自行插入身份验证、目标上下文、分析与端点提供方。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Polaris Surveys` (runtime `PolarisSurveys`, editor `PolarisSurveysEditor`).",
+      "It serves in-product surveys from Polaris (PRM): fetch, present, and report interactions and answers.",
+      "Products plug in their own auth, targeting context, analytics, and endpoint providers.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "Polaris (PRM) 产品内调查：获取、呈现与上报。",
+    "note_en": "In-product surveys via Polaris (PRM): fetch, present, and report."
+  },
+  {
+    "slug": "portable-object-file-data-source",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Portable Object File Data Source`（模块 `PortableObjectFileDataSource`）。",
+      "它为内容浏览器提供可移植对象 (PO) 文件的数据源支持。",
+      "在内容浏览器里查看/管理 `.po` 本地化文件。",
+      "属编辑器数据源；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Portable Object File Data Source` (module `PortableObjectFileDataSource`).",
+      "It is a data-source plugin that adds portable object (PO) file support to the Content Browser.",
+      "Browse/manage `.po` localization files in the Content Browser.",
+      "It is an editor data source; it does not ship by default."
+    ],
+    "note_cn": "内容浏览器的 .po（Portable Object）文件数据源。",
+    "note_en": "Content Browser data source for .po (Portable Object) files."
+  },
+  {
+    "slug": "pose-search",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Pose Search`（运行时 `PoseSearch`，编辑器 `PoseSearchEditor`）。",
+      "它提供姿势特征的索引与搜索框架，用于运动匹配等技术。",
+      "为动画库建 Pose Search 数据库，在动画图里按目标姿势检索片段。",
+      "Game 模块依赖 `PoseSearch`；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Pose Search` (runtime `PoseSearch`, editor `PoseSearchEditor`).",
+      "It is a framework for indexing and searching pose features, used in techniques such as Motion Matching.",
+      "Build a Pose Search database for your anim set and query clips by target pose in the anim graph.",
+      "Game modules depend on `PoseSearch`; editor modules go to Editor targets only."
+    ],
+    "note_cn": "姿势特征索引/搜索框架（运动匹配等）。",
+    "note_en": "Pose-feature index/search framework (e.g. Motion Matching)."
+  }
+]

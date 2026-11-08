@@ -3,7 +3,6 @@ layout: default
 title: 级联到尼亚加拉转换器 / Cascade To Niagara Converter
 ---
 
-
 <h1>级联到尼亚加拉转换器 / Cascade To Niagara Converter</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 级联到尼亚加拉转换器 / Cascade To Niagara Converter
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">添加对 Cascade 系统到 Niagara 系统的可脚本转换的支持。</div><div class="lang-content">Add support for scriptable conversion of Cascade Systems to Niagara Systems.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Cascade To Niagara Converter</code>（模块 <code class="usage-code">CascadeToNiagaraConverter</code>）以及 <code class="usage-code">Python Editor Script Plugin</code>；第一代转换器是可脚本的 Python 管线。</li><li>内容浏览器右键 Cascade <code class="usage-code">Particle System</code>，选 <code class="usage-code">Convert to Niagara System</code>（中文菜单多为 <code class="usage-code">转换为 Niagara 系统</code>），同文件夹生成 Niagara 资产，源 Cascade 保留。</li><li>打开新 System，看 Niagara Log 里的 conversion report：哪些模块成功映射、哪些被跳过（Loop Count、Facing Mode、Pivot Offset、Size By Speed、自定义模块等）。</li><li>有 <code class="usage-code">Fix Issue</code> 时先点自动修复，再手调未映射的碰撞、GPU、材质和 SubUV。</li><li>用编辑器 Python 调同一套转换 API 做批量迁移（形式与 Python Editor Script 示例相同），每批抽外观测后再替换蓝图引用。</li><li>验证通过后把 <code class="usage-code">Spawn Emitter</code> 换成 Niagara，Cascade 资产可留作对照。转换器本身不要进 Shipping。</li></ol><p class="usage-note">第一代可脚本转换：右键 `Convert to Niagara System` + Python 批处理。C++ 实验管线见 V2 插件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Cascade To Niagara Converter</code> (module <code class="usage-code">CascadeToNiagaraConverter</code>) and <code class="usage-code">Python Editor Script Plugin</code>. Generation one is a scriptable Python pipeline.</li><li>Right-click a Cascade <code class="usage-code">Particle System</code> and choose <code class="usage-code">Convert to Niagara System</code>. A Niagara asset is created beside the original; the Cascade asset stays.</li><li>Open the new System and read the Niagara Log conversion report: mapped modules vs skipped ones (loop count, facing mode, pivot offset, size-by-speed, custom modules).</li><li>Use <code class="usage-code">Fix Issue</code> when offered, then hand-fix unmapped collision, GPU, materials, and SubUV.</li><li>Batch with editor Python against the same converter API (same style as Python Editor Script samples). Spot-check a batch before retargeting Blueprint references.</li><li>After visual sign-off, replace <code class="usage-code">Spawn Emitter</code> with Niagara and keep Cascade as reference. Do not ship the converter module.</li></ol><p class="usage-note">First-generation scriptable convert: right-click `Convert to Niagara System` plus Python batching. The experimental C++ pipeline is the V2 plugin.</p></div></div></div>
+    </div>
+

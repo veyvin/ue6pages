@@ -3,7 +3,6 @@ layout: default
 title: 对话工具集 / ConversationToolset
 ---
 
-
 <h1>对话工具集 / ConversationToolset</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 对话工具集 / ConversationToolset
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">对话系统工具集</div><div class="lang-content">Toolset for Conversation Systems</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">ConversationToolset</code>（模块 <code class="usage-code">ConversationToolset</code>），并同时启用项目里的 Conversation / Common Conversation 对话插件与编辑器 AI 助手。</li><li>先手建或打开一份 <code class="usage-code">UConversationDatabase</code>（对话图：入口、NPC 节点、客户端/服务端 Task），确认对话插件本身能编译图。</li><li>在 AI 助手里让它列出数据库、添加说话节点、改 speaker、挂 Task：这些读写走 Toolset，不会在关卡里生成 Actor。</li><li>改完后打开对话编辑器核对节点与连线，PIE 用对话组件/<code class="usage-code">UConversationInstance</code> 跑一条最短分支。</li><li>不要把 <code class="usage-code">ConversationToolset</code> 加进游戏 <code class="usage-code">Build.cs</code>；Shipping 只需要对话运行时，不需要 AI 写图工具。</li></ol><p class="usage-note">给编辑器 AI 改对话图，不是运行时对话系统本身。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">ConversationToolset</code> (module <code class="usage-code">ConversationToolset</code>) plus your Conversation / Common Conversation plugin and the in-editor AI assistant.</li><li>Create or open a <code class="usage-code">UConversationDatabase</code> (entry, NPC nodes, client/server tasks) and confirm the conversation plugin itself compiles the graph.</li><li>Ask the assistant to list databases, add speaker nodes, change speaker, or attach tasks: those reads/writes go through this Toolset and spawn no level Actors.</li><li>Reopen the conversation editor to verify nodes/wires, then PIE a shortest branch via the conversation component / <code class="usage-code">UConversationInstance</code>.</li><li>Do not add <code class="usage-code">ConversationToolset</code> to a game <code class="usage-code">Build.cs</code>. Shipping needs the conversation runtime, not the AI authoring tools.</li></ol><p class="usage-note">AI authoring of conversation graphs, not the runtime dialogue system.</p></div></div></div>
+    </div>
+

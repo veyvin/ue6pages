@@ -3,7 +3,6 @@ layout: default
 title: 风暴同步 / Storm Sync
 ---
 
-
 <h1>风暴同步 / Storm Sync</h1>
 
 <div class="info-card">
@@ -12,9 +11,9 @@ title: 风暴同步 / Storm Sync
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">同步、拉取、推送、资产依赖。
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Storm Sync</code>（模块 <code class="usage-code">StormSyncCore</code>、<code class="usage-code">StormSyncDrives</code>、<code class="usage-code">StormSyncTransportCore/Client/Server</code>、<code class="usage-code">StormSyncImport</code>，编辑器 <code class="usage-code">StormSyncEditor</code>，测试 <code class="usage-code">StormSyncTests</code>）。</li><li>它提供同步、拉取、推送与资产依赖管理，是运动设计工作流的推荐组成部分。</li><li>在 Motion Design/虚拟制片里用 Storm Sync 在多端同步/推送资产。</li><li>Game 模块依赖运行时模块；编辑器/测试模块只进 Editor Target。</li></ol><p class="usage-note">同步/拉取/推送/资产依赖管理（运动设计工作流）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Storm Sync</code> (modules <code class="usage-code">StormSyncCore</code>, <code class="usage-code">StormSyncDrives</code>, <code class="usage-code">StormSyncTransportCore/Client/Server</code>, <code class="usage-code">StormSyncImport</code>, editor <code class="usage-code">StormSyncEditor</code>, tests <code class="usage-code">StormSyncTests</code>).</li><li>It provides sync/pull/push and asset-dependency management; a recommended part of the motion-design workflow.</li><li>In Motion Design/virtual production, use Storm Sync to sync/push assets across endpoints.</li><li>Game modules depend on runtime modules; editor/test modules go to Editor targets only.</li></ol><p class="usage-note">Sync/pull/push and asset-dependency management (motion-design workflow).</p></div></div></div>
+    </div>
 
-该插件是运动设计工作流程的推荐部分。</div><div class="lang-content">Sync, Pull, Push, asset dependencies.
-
-This plugin is a recommended part of the Motion Design work flow.</div></div>

@@ -3,7 +3,6 @@ layout: default
 title: 数据准备编辑器 / Dataprep Editor
 ---
 
-
 <h1>数据准备编辑器 / Dataprep Editor</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 数据准备编辑器 / Dataprep Editor
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">一种用于在虚幻编辑器中简化数据准备管道的创建和执行的工具。</div><div class="lang-content">A tool to simplify creation and execution of data preparation pipelines from within the Unreal Editor.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Dataprep Editor</code>（<code class="usage-code">DataprepEditor</code>、<code class="usage-code">DataprepCore</code>、<code class="usage-code">DataprepLibraries</code>、<code class="usage-code">DataprepEditorScriptingUtilities</code>）。</li><li>内容浏览器新建 <code class="usage-code">Dataprep Asset</code>，在 Producer 里添加 Datasmith/FBX/USD 等输入，指向 CAD 或场景文件。</li><li>在 Dataprep 图里用 Filter 选出 Actor/静态网格/材质，再串 Operation（重命名、合并、替材质、设碰撞、改移动性），最后接到 Output。</li><li>点 <code class="usage-code">Execute</code> 跑管道，检查输出文件夹里生成的 Actor/网格；失败步骤看 Dataprep 日志而不是普通导入对话框。</li><li>参数稳定后可再执行覆盖输出；Python/编辑器脚本走 <code class="usage-code">DataprepEditorScriptingUtilities</code> 批处理多文件。</li><li><code class="usage-code">DataprepEditor</code> 与 <code class="usage-code">DataprepEditorScriptingUtilities</code> 仅 Editor Target；不要把它们写进 Game <code class="usage-code">Build.cs</code>。</li></ol><p class="usage-note">编辑器内的数据准备管道（导入→过滤→操作→输出），不是运行时关卡流送。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Dataprep Editor</code> (<code class="usage-code">DataprepEditor</code>, <code class="usage-code">DataprepCore</code>, <code class="usage-code">DataprepLibraries</code>, <code class="usage-code">DataprepEditorScriptingUtilities</code>).</li><li>Create a <code class="usage-code">Dataprep Asset</code>, add Datasmith/FBX/USD producers, and point them at CAD or scene files.</li><li>In the Dataprep graph, Filter actors/static meshes/materials, chain Operations (rename, merge, replace materials, collision, mobility), and connect Output.</li><li>Click <code class="usage-code">Execute</code> and inspect spawned actors/meshes in the output folder; read the Dataprep log on failure, not the generic import dialog.</li><li>Re-execute to overwrite once parameters are stable. Batch extra files with Python via <code class="usage-code">DataprepEditorScriptingUtilities</code>.</li><li><code class="usage-code">DataprepEditor</code> and <code class="usage-code">DataprepEditorScriptingUtilities</code> belong on Editor targets only — never a game <code class="usage-code">Build.cs</code>.</li></ol><p class="usage-note">In-editor data-prep pipeline (import → filter → operate → output), not runtime level streaming.</p></div></div></div>
+    </div>
+

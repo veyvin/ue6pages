@@ -3,7 +3,6 @@ layout: default
 title: 巅峰毁灭 / Apex Destruction
 ---
 
-
 <h1>巅峰毁灭 / Apex Destruction</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 巅峰毁灭 / Apex Destruction
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">APEX实施销毁</div><div class="lang-content">APEX implementation of destruction</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Apex Destruction</code>（运行时 <code class="usage-code">ApexDestruction</code>，网格工具在 <code class="usage-code">ApexDestructionEditor</code>）。这是 NVIDIA PhysX APEX 的 <code class="usage-code">UDestructibleMesh</code> 管线，不是 Chaos <code class="usage-code">Geometry Collection</code>。</li><li>在内容浏览器对 <code class="usage-code">StaticMesh</code> 右键创建 <code class="usage-code">Destructible Mesh</code>，用破碎深度、Voronoi/支持块与残骸寿命参数生成 chunk 层级。</li><li>把 <code class="usage-code">DestructibleComponent</code>（<code class="usage-code">UDestructibleComponent</code>）放到关卡 Actor 上并指定该资产；运行时调用 <code class="usage-code">ApplyDamage</code> / <code class="usage-code">ApplyRadiusDamage</code>（或碰撞冲量）触发碎裂。</li><li>游戏 <code class="usage-code">Build.cs</code> 只加 <code class="usage-code">ApexDestruction</code>；<code class="usage-code">ApexDestructionEditor</code> 只进编辑器 Target。</li><li>新项目优先 Chaos Fracture；仅当必须播旧 APEX 资产或 PhysX 破坏内容时才开本插件，并在包装平台确认 PhysX/APEX 仍被该引擎版本编译进去。</li></ol><p class="usage-note">遗留 PhysX APEX 破碎。UE5 场景破坏请用 Geometry Collection，不要把本插件当 Chaos 字段。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Apex Destruction</code> (runtime <code class="usage-code">ApexDestruction</code>, mesh tools in <code class="usage-code">ApexDestructionEditor</code>). This is NVIDIA PhysX APEX <code class="usage-code">UDestructibleMesh</code>, not Chaos <code class="usage-code">Geometry Collection</code>.</li><li>Right-click a <code class="usage-code">StaticMesh</code> to create a <code class="usage-code">Destructible Mesh</code> and author chunk depth, Voronoi/support chunks, and debris lifetime.</li><li>Place a <code class="usage-code">DestructibleComponent</code> (<code class="usage-code">UDestructibleComponent</code>) on an actor, assign the asset, and fracture at runtime with <code class="usage-code">ApplyDamage</code> / <code class="usage-code">ApplyRadiusDamage</code> (or impact impulse).</li><li>Game <code class="usage-code">Build.cs</code> depends on <code class="usage-code">ApexDestruction</code> only; <code class="usage-code">ApexDestructionEditor</code> is editor-target only.</li><li>Prefer Chaos Fracture for new work. Keep this plugin for legacy APEX/PhysX content, and confirm PhysX/APEX is still compiled for your cook platform.</li></ol><p class="usage-note">Legacy PhysX APEX fracture. UE5 world destruction is Geometry Collection — this is not a Chaos field.</p></div></div></div>
+    </div>
+

@@ -1,0 +1,342 @@
+[
+  {
+    "slug": "cadence",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 `Cadence`（模块 `Cadence`）并重启；它改的是整世界固定子滴答，不是给 Actor 挂的普通物理组件。",
+      "项目必须走 `Enhanced Input`：在 `Project Settings > Input` 关掉旧轴映射依赖。Cadence 按子滴答复制每帧 EI，松开按键时要在 `Completed`/`Canceled` 把输入写回 0，否则倒带会一直吃最后一帧推力。",
+      "在 `Project Settings` 搜 `Cadence`，设定每个引擎帧拆成的固定子滴答数 N，让 `UWorld::Tick` 按定步长推进；同时打开 Chaos 的 `Tick Physics Async` 与 `Enable Physics Prediction`，异步步长与 Cadence 子滴答对齐（例如 1/60）。",
+      "对需要预测的 Pawn/载具：开启 `Replicates`、把 `Physics Replication Mode` 设为 `Resimulation`，力与约束只在 Chaos 刚体上施加。Cadence 用游戏线程持有的单一重模拟驱动同时倒带游戏逻辑和求解器，不要再在同一 Actor 上叠一套独立的 Network Prediction 移动。",
+      "游戏逻辑按 `GetWorld()->GetDeltaSeconds()` 做的位移、冷却、随机数必须能在重放时得到同一结果；把不可复现的 `FMath::Rand`、真实墙钟、未复制的计时器移出 Cadence 子滴答。",
+      "C++ 在游戏 `Build.cs` 加入 `Cadence`，从该模块 Public 头使用重模拟驱动/世界接口，而不是自己缓存另一份物理历史。",
+      "用 Listen Server 开两份 PIE，人为加延迟后撞动物体：确认客户端会 rewind 再 replay，而不是只做位置插值。"
+    ],
+    "en_steps": [
+      "Enable `Cadence` in `Edit > Plugins` (module `Cadence`) and restart. It retimes the whole world into fixed sub-ticks; it is not a component you drop on an Actor.",
+      "Use `Enhanced Input` only (`Project Settings > Input`). Cadence replicates per-sub-tick EI; write 0 on `Completed`/`Canceled` so rewind does not keep the last held axis.",
+      "In `Project Settings` search `Cadence` and set N fixed sub-ticks per engine frame so `UWorld::Tick` is deterministic. Enable Chaos `Tick Physics Async` and `Enable Physics Prediction`, matching the async step to those sub-ticks (for example 1/60).",
+      "On predicted pawns/vehicles: `Replicates` on, `Physics Replication Mode` = `Resimulation`, forces only on Chaos bodies. Cadence’s one game-thread resimulation driver rewinds gameplay and the solver together — do not also run Network Prediction movement on the same Actor.",
+      "Any gameplay that uses `GetWorld()->GetDeltaSeconds()` (motion, cooldowns, RNG) must be replay-safe. Keep wall-clock time, unreplicated timers, and `FMath::Rand` off the Cadence sub-tick.",
+      "Add `Cadence` to the game `Build.cs` and use the plugin’s Public resimulation/world API instead of a second physics-history cache.",
+      "PIE as Listen Server with two clients, inject latency, then collide: the client should rewind and replay, not merely interpolate transforms."
+    ],
+    "note_cn": "Cadence 同时倒带游戏线程与 Chaos；可变帧率 Tick 或旧 Input Axis 都会让客户端/服务器物理分叉。",
+    "note_en": "Cadence rewinds the game thread and Chaos together. Variable-rate Tick or legacy Input Axis will desync client vs server physics."
+  },
+  {
+    "slug": "camera-calibration-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Camera Calibration Core`（运行时 `CameraCalibrationCore`，编辑器 `CameraCalibrationCoreEditor`）。本插件提供 `ULensFile` / 畸变模型，不是标定会话 UI。",
+      "内容浏览器 `Virtual Production` 分类新建 `Lens File`（`ULensFile`）。在资产里填传感器尺寸、胶片门、球面模型 `FSphericalDistortionParameters` 的 `K1` `K2` `K3` `P1` `P2`，以及按 Focus/Zoom 采样的点表。",
+      "在 `CineCameraActor` 上加 `Lens Component`（`ULensComponent`），把 `Lens File` 指到该资产；勾选应用畸变/过扫描，让 CG 内视锥跟实拍镜头匹配。",
+      "用 `UCameraCalibrationSubsystem`：`Set Default Lens File` 后，蓝图 `Get Lens File` / `Find or Create Distortion Model Handler` 在运行时按当前 FIZ 求值，而不是每帧手写 K 系数。",
+      "把 Live Link Camera 主题的 Focus/Iris/Zoom 接到摄像机，让 `ULensComponent` 在表里插值畸变与光心；也可直接喂 Live Link Lens 源的逐帧内参。",
+      "合成时把同一套 handler 挂到 Composure CG 层或 Movie Render Queue 的电影摄像机，确认过扫描分辨率覆盖畸变后的画面。",
+      "游戏 `Build.cs` 只依赖 `CameraCalibrationCore`；`CameraCalibrationCoreEditor` 仅进 `*Editor.Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable `Camera Calibration Core` (`CameraCalibrationCore` runtime, `CameraCalibrationCoreEditor` for authoring). This plugin is `ULensFile` and distortion models, not the calibration-session UI.",
+      "Create a `Lens File` (`ULensFile`) under Virtual Production. Fill sensor/filmback, spherical `FSphericalDistortionParameters` (`K1` `K2` `K3` `P1` `P2`), and Focus/Zoom sample tables.",
+      "Add `Lens Component` (`ULensComponent`) to the `CineCameraActor`, assign the `Lens File`, and enable distortion/overscan so the CG inner frustum matches the plate lens.",
+      "Use `UCameraCalibrationSubsystem`: `Set Default Lens File`, then Blueprint `Get Lens File` / `Find or Create Distortion Model Handler` to evaluate FIZ instead of writing K coefficients every frame.",
+      "Drive Focus/Iris/Zoom from a Live Link Camera subject so `ULensComponent` interpolates the tables, or stream a Live Link Lens source with per-frame intrinsics.",
+      "Apply the same distortion handler on Composure CG layers or the MRQ cine camera, with overscan large enough for the warped image.",
+      "Game `Build.cs` depends on `CameraCalibrationCore` only; put `CameraCalibrationCoreEditor` in `*Editor.Build.cs`."
+    ],
+    "note_cn": "Core 只存模型和运行时求值；棋盘格采集、节点偏移会话在 `Camera Calibration` 插件里做。",
+    "note_en": "Core stores models and evaluates them at runtime. Checkerboard capture and nodal-offset sessions live in the `Camera Calibration` plugin."
+  },
+  {
+    "slug": "camera-calibration-machine-learning",
+    "kind": "plugin",
+    "cn_steps": [
+      "先启用 `Camera Calibration Core`，再启用实验性 `Camera Calibration Machine Learning`（模块 `CameraCalibrationML`）。它是畸变拟合的参考实现，不是完整现场标定台。",
+      "准备覆盖画面边缘的镜头素材（棋盘格/特征丰富的实拍），焦段与对焦与上舞台镜头一致；纯 OpenCV 多项式拟合不好的桶形/须状畸变才需要这条路径。",
+      "在镜头文件的畸变步骤里改用 ML 算法（`UCameraLensDistortionAlgo` 的机器学习实现），把序列送进 `CameraCalibrationML` 拟合，而不是只点 `Add To Lens Distortion Calibration` 的棋盘格求解。",
+      "把拟合结果写回同一份 `ULensFile`（球面系数或模型权重），再用 `ULensComponent` 在电影摄像机上求值，对比 ML 与 OpenCV 两套重投影误差。",
+      "确认本机 NNE/推理后端能加载插件自带的参考网络；缺运行时会静默退回传统求解。",
+      "不要把 `CameraCalibrationML` 写进 Shipping 游戏 `Build.cs`；舞台只消费已经烘焙进 `Lens File` 的参数。"
+    ],
+    "en_steps": [
+      "Enable `Camera Calibration Core` first, then experimental `Camera Calibration Machine Learning` (module `CameraCalibrationML`). It is a reference fitter, not the full on-set calibrator.",
+      "Capture plates that fill the frame edges (checkerboard or feature-rich set) at the same focus/zoom as the show lens. Use this path when OpenCV polynomials fail on strong barrel/mustache distortion.",
+      "On the Lens File distortion step, switch to the ML `UCameraLensDistortionAlgo` and feed the sequence into `CameraCalibrationML` instead of only OpenCV `Add To Lens Distortion Calibration`.",
+      "Write the fit back into the same `ULensFile` (spherical coeffs or model weights), evaluate with `ULensComponent` on the cine camera, and compare reprojection error against the OpenCV table.",
+      "Confirm an NNE/inferencing backend can load the reference network; missing runtime often falls back to the classical solver with no obvious UI error.",
+      "Do not add `CameraCalibrationML` to a shipping game `Build.cs`. The stage should consume parameters already baked into the `Lens File`."
+    ],
+    "note_cn": "Experimental 参考实现；结果仍落在 `Lens File`，合成管线读的是 Core，不是 ML 模块。",
+    "note_en": "Experimental reference only. Results still land in the `Lens File`; compositing reads Core, not the ML module."
+  },
+  {
+    "slug": "camera-calibration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Camera Calibration`（`CameraCalibrationEditor`、`TrackingAlignment`、`TrackingAlignmentEditor`），并确保 `Camera Calibration Core` 已开。",
+      "放置 `CineCameraActor`（接 Live Link 摄像机主题 + 媒体板），再放置 `Camera Calibration Checkerboard`，按实物标板填写 `Num Corner Rows` / `Num Corner Cols` / `Square Side Length`。",
+      "双击 `Lens File` 打开标定步骤：先在 `Lens Information` 填厂商/焦距并保存，再进 `Lens Distortion`，算法选 Checkerboard 或 Points，从不同角度采集多张后点 `Add To Lens Distortion Calibration`。",
+      "切到 `Nodal Offset`：先用 `Nodal Offset Checkerboard` 点视口并 `Apply to Calibrator` 对齐虚拟标板，再用 Points / ArUco / Optical Axis 点 `Add To Nodal Offset Calibration`，把虚拟摄像机放到物理节点。",
+      "多组 Focus/Zoom 重复畸变与节点偏移，让 `ULensFile` 插值表覆盖走焦走焦段。",
+      "两套跟踪坐标系（例如头显 vs 摄影测量）时，新建 `TrackingAlignmentCalibrationProfile`，指定 `Tracker A` / `Tracker B` 的 Source 与 Origin Actor，多次 `Capture Sample` 后求解对齐，不要和节点偏移混成同一次采集。",
+      "`CameraCalibrationEditor` 与 `TrackingAlignmentEditor` 只进编辑器模块；运行时对齐数据走 `TrackingAlignment`。"
+    ],
+    "en_steps": [
+      "Enable `Camera Calibration` (`CameraCalibrationEditor`, `TrackingAlignment`, `TrackingAlignmentEditor`) with `Camera Calibration Core` already on.",
+      "Place a Live Link–driven `CineCameraActor` plus media plate, then a `Camera Calibration Checkerboard` whose `Num Corner Rows` / `Num Corner Cols` / `Square Side Length` match the physical chart.",
+      "Open the `Lens File` calibration steps: fill `Lens Information`, then `Lens Distortion` (Checkerboard or Points). Capture many poses and click `Add To Lens Distortion Calibration`.",
+      "On `Nodal Offset`, use `Nodal Offset Checkerboard`, click the viewport, `Apply to Calibrator`, then Points / ArUco / Optical Axis and `Add To Nodal Offset Calibration` so the virtual camera sits on the physical nodal point.",
+      "Repeat distortion and nodal offset at several Focus/Zoom stops so the `ULensFile` tables interpolate across pulls.",
+      "For two tracking spaces (HMD vs photogrammetry), create a `TrackingAlignmentCalibrationProfile`, set Tracker A/B source and origin actors, `Capture Sample` repeatedly, and solve alignment — do not mix this with nodal-offset captures.",
+      "`CameraCalibrationEditor` and `TrackingAlignmentEditor` are editor-only; runtime alignment data uses `TrackingAlignment`."
+    ],
+    "note_cn": "这是现场标定会话：棋盘格、节点偏移、跟踪空间对齐。镜头求值仍由 Core 的 `ULensComponent` 完成。",
+    "note_en": "This is the on-set session: charts, nodal offset, tracking-space alignment. Runtime evaluation still goes through Core’s `ULensComponent`."
+  },
+  {
+    "slug": "camera-shake-previewer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Camera Shake Previewer`（模块 `CameraShakePreviewer`）。它只给关卡视口预览，不改变 `Start Camera Shake` 的运行时路径。",
+      "新建继承 `CameraShakeBase` / `DefaultCameraShakeBase` 的抖动类，调 Location/Rotation 振幅与频率；再放置 `Camera Shake Source` Actor（或组件），把 `Camera Shake` 指到该类，设好内外衰减半径。",
+      "视口左上角 `Viewport Options` 勾选 `Allow Camera Shakes`，否则编辑器相机完全不吃抖动。",
+      "打开 `Window > Camera Shake Previewer`，关卡里的 Source 会出现在列表中。",
+      "选中条目点 `Play/Stop Selected`（或多个源时用 `Play/Stop All`），把编辑器相机移进外半径，在视口里看衰减，无需 PIE。",
+      "改抖动类振幅后不必停 Play：预览器会继续套当前 Source。确认手感后再把同一资产接到 Sequencer 的 Camera Shake 轨道或运行时 `Start Camera Shake`。"
+    ],
+    "en_steps": [
+      "Enable `Camera Shake Previewer` (module `CameraShakePreviewer`). It previews in the level viewport only and does not change runtime `Start Camera Shake`.",
+      "Create a `CameraShakeBase` / `DefaultCameraShakeBase` class, tune location/rotation amplitude, place a `Camera Shake Source` actor (or component), assign that class, and set inner/outer attenuation radii.",
+      "In the viewport’s top-left `Viewport Options`, enable `Allow Camera Shakes` or the editor camera will ignore shakes.",
+      "Open `Window > Camera Shake Previewer`; placed sources appear in the list.",
+      "Use `Play/Stop Selected` (or `Play/Stop All`), fly the editor camera into the outer radius, and judge falloff without PIE.",
+      "Tweak amplitudes while preview is running. When it feels right, reuse the same asset on a Sequencer Camera Shake track or runtime `Start Camera Shake`."
+    ],
+    "note_cn": "必须勾选 `Allow Camera Shakes`；预览器不播放 Sequencer，只驱动关卡里的 `Camera Shake Source`。",
+    "note_en": "`Allow Camera Shakes` must be on. The panel drives `Camera Shake Source` actors in the level, not Sequencer playback."
+  },
+  {
+    "slug": "capture-data",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Capture Data`（`CaptureDataCore`、`CaptureDataEditor`、`CaptureDataUtils`）。它定义入库之后的资产类型，不控制采集硬件。",
+      "用 Capture Manager 入库后，在内容浏览器打开 `FootageCaptureData`（`UFootageCaptureData`）：检查 `ImageSequences`（每路 RGB 的 `UImgMediaSource`）、可选 `DepthSequences`、`AudioTracks`、`CameraCalibrations`。",
+      "读 `Metadata`：`FrameRate`、`DeviceClass`、`DeviceModelName`。手机自拍需正确的设备类，后面的深度/Mesh 管线才选对模型。",
+      "核对 `CaptureExcludedFrames` 是否包含丢帧；MetaHuman Animator / Performance 资产会合并这份排除表。",
+      "立体或带深度的镜头必须有匹配路数的 `CameraCalibrations`，否则深度生成会失败。",
+      "C++/Python 只依赖 `CaptureDataCore` 读这些对象；导入 UI 在 `CaptureDataEditor`，不要把 Editor 模块链进游戏。"
+    ],
+    "en_steps": [
+      "Enable `Capture Data` (`CaptureDataCore`, `CaptureDataEditor`, `CaptureDataUtils`). It is the post-ingest asset layer, not device control.",
+      "After Capture Manager ingest, open `FootageCaptureData` (`UFootageCaptureData`): `ImageSequences` (per-view `UImgMediaSource`), optional `DepthSequences`, `AudioTracks`, `CameraCalibrations`.",
+      "Read `Metadata` (`FrameRate`, `DeviceClass`, `DeviceModelName`). Phone takes need the right device class for later depth/mesh pipelines.",
+      "Check `CaptureExcludedFrames` for dropped frames; MetaHuman Animator / Performance assets merge that list.",
+      "Stereo or depth takes need matching `CameraCalibrations` per view or depth generation fails.",
+      "C++/Python should depend on `CaptureDataCore` to read these objects. Import UI is `CaptureDataEditor` — keep it out of the game target."
+    ],
+    "note_cn": "这是 Capture Manager 写入引擎后的数据层；改设备、转码、上传走 App/Devices/Editor，不在本插件。",
+    "note_en": "This is the data layer after Capture Manager writes into Unreal. Device control, transcode, and upload live in App/Devices/Editor."
+  },
+  {
+    "slug": "capture-manager-application",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Capture Manager Application`（`CaptureManagerUnrealEndpoint`、`CaptureManagerSettings`、`LiveLinkCapabilities`、`IngestLiveLinkDevice`）。这是 Live Link Hub 里的采集应用，不是编辑器入库面板。",
+      "启动 `LiveLinkHub` 可执行文件（不要只开 Unreal Editor），布局切到 `Capture Manager`。",
+      "在 Hub 里监视设备连接、开始/停止录制、取流并转码；`CaptureManagerUnrealEndpoint` 把成品上传到已发现的 UE/UEFN 工程。",
+      "确认编辑器端已开 Capture Manager Editor 且能被 Hub 发现（同网段 / `UploadHostName`），否则转码完成但工程里不会出现 `FootageCaptureData`。",
+      "批量入库可用 Hub 跑示例脚本：`Engine/Plugins/VirtualProduction/CaptureManager/CaptureManagerApp/Content/Python/examples/` 下的 `take_archive_ingest.py` 等，命令形如 `LiveLinkHub.exe -ExecutePythonScript=\".../take_archive_ingest.py --archive-path <takes>\"`。",
+      "路径一律用正斜杠；脚本在 Hub 进程执行，不是编辑器 Python 控制台。"
+    ],
+    "en_steps": [
+      "Enable `Capture Manager Application` (`CaptureManagerUnrealEndpoint`, `CaptureManagerSettings`, `LiveLinkCapabilities`, `IngestLiveLinkDevice`). This is the Live Link Hub capture app, not the editor ingest UI.",
+      "Launch the `LiveLinkHub` executable (not only Unreal Editor) and switch the layout to `Capture Manager`.",
+      "Monitor devices, start/stop recording, pull and transcode. `CaptureManagerUnrealEndpoint` uploads finished takes to a discovered UE/UEFN project.",
+      "The editor must have Capture Manager Editor enabled and be discoverable (same network / `UploadHostName`) or transcode succeeds with no `FootageCaptureData` in Content.",
+      "Batch ingest from Hub using scripts under `Engine/Plugins/VirtualProduction/CaptureManager/CaptureManagerApp/Content/Python/examples/` (for example `take_archive_ingest.py`): `LiveLinkHub.exe -ExecutePythonScript=\".../take_archive_ingest.py --archive-path <takes>\"`.",
+      "Use forward slashes in paths. Scripts run inside the Hub process, not the editor Python console."
+    ],
+    "note_cn": "采集端在 Live Link Hub；编辑器只接收上传。旧版编辑器内 Capture Manager 工具已被 Hub 布局取代。",
+    "note_en": "Capture runs in Live Link Hub; the editor only receives uploads. The old in-editor Capture Manager tool is replaced by the Hub layout."
+  },
+  {
+    "slug": "capture-manager-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Capture Manager Core`。它没有独立窗口，是 App 与 Editor 共用的协议/管线层，通常作为那两个插件的依赖自动加载。",
+      "扩展入库格式时，在 `CaptureProtocolStack` / `CaptureManagerCPSClient` 上对接采集协议，而不是在 Hub UI 里硬编码路径。",
+      "自定义转码或时间线切分实现 `CaptureManagerPipeline` 与 `CaptureManagerMediaRW` 的读写器，把相机原片写成图像序列+音频。",
+      "把厂商元数据映射进引擎类型时走 `CaptureDataConverter` 和 `DataIngestCore`，输出仍应是 `UFootageCaptureData` 能引用的媒体与标定。",
+      "`LiveLinkHubCaptureMessaging` 只负责 Hub↔引擎消息；不要在游戏运行时 Tick 里调用这些模块。",
+      "游戏 Target 不要链接 Core 的媒体栈；仅编辑器工具或 Hub 附属进程依赖 `CaptureUtils` 等运行时模块。"
+    ],
+    "en_steps": [
+      "Enable `Capture Manager Core`. It has no window; it is the shared protocol/pipeline layer, usually pulled in by the App and Editor plugins.",
+      "To support a new capture format, extend `CaptureProtocolStack` / `CaptureManagerCPSClient` instead of hard-coding paths in Hub UI.",
+      "Custom transcode or take splitting belongs in `CaptureManagerPipeline` and `CaptureManagerMediaRW` writers that emit image sequences plus audio.",
+      "Map vendor metadata through `CaptureDataConverter` and `DataIngestCore` so outputs remain media and calibration `UFootageCaptureData` can reference.",
+      "`LiveLinkHubCaptureMessaging` is Hub↔engine messaging only — do not tick these modules from game runtime.",
+      "Do not link the Core media stack into a game Target. Editor tools or Hub helper processes may depend on `CaptureUtils`."
+    ],
+    "note_cn": "无 UI；现场控制在 App，导入在 Editor，设备列表在 Devices。本插件只提供 CPS/管线/媒体 IO。",
+    "note_en": "No UI. App controls the set, Editor imports, Devices lists hardware. This plugin is CPS, pipeline, and media I/O only."
+  },
+  {
+    "slug": "capture-manager-devices",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 Live Link Hub 与编辑器两侧都启用 `Capture Manager Devices`（`MonoVideoIngestDevice`、`StereoVideoIngestDevice`、`TakeArchiveIngestDevice`、`CPSLiveLinkDevice`、`VideoLiveLinkDeviceCommon`）。",
+      "打开 Hub 的 `Capture Manager` 布局，添加设备：文件夹里的 `.mp4`/`.mov` 用 `Mono Video Ingest`；左右眼成对素材用 `Stereo Video Ingest`；`.cptake` 目录用 `Take Archive Ingest`。",
+      "`TakeArchiveIngestDevice` 读取 `.cptake` 与旧版 Capture Manager 归档；先 `Connect`，再 `UpdateTakeList` 浏览 slate/take。",
+      "需要协议栈上的 Live Link 主题时加 `CPSLiveLinkDevice`，与文件夹监视器分开，避免同一 take 被扫两遍。",
+      "选中 take 后配置 `UIngestCapability_Options`：`WorkingDirectory`、`DownloadDirectory`、视频/音频命名，以及指向编辑器的 `UploadHostName`。",
+      "跑 `RunIngestProcess`，在 UE 内容目录确认生成的 `FootageCaptureData`；失败先看设备 `Connection Status`，再查 Core 管线日志。"
+    ],
+    "en_steps": [
+      "Enable `Capture Manager Devices` on both Live Link Hub and the editor (`MonoVideoIngestDevice`, `StereoVideoIngestDevice`, `TakeArchiveIngestDevice`, `CPSLiveLinkDevice`, `VideoLiveLinkDeviceCommon`).",
+      "In the Hub `Capture Manager` layout add a device: `Mono Video Ingest` for a folder of `.mp4`/`.mov`, `Stereo Video Ingest` for paired eyes, `Take Archive Ingest` for `.cptake` folders.",
+      "`TakeArchiveIngestDevice` reads `.cptake` and legacy Capture Manager archives. `Connect`, then `UpdateTakeList` to browse slate/take ids.",
+      "Add `CPSLiveLinkDevice` when takes arrive as protocol-stack Live Link subjects. Do not also watch the same folder or you ingest twice.",
+      "Configure `UIngestCapability_Options`: `WorkingDirectory`, `DownloadDirectory`, video/audio naming, and `UploadHostName` for the editor.",
+      "Run `RunIngestProcess` and confirm `FootageCaptureData` in the UE project. On failure check device `Connection Status`, then Core pipeline logs."
+    ],
+    "note_cn": "设备只出现在 Hub 的 Capture Manager 布局。Live Link Face 等能力由对应设备类提供，不在本插件的五个模块名之外假造入口。",
+    "note_en": "Devices appear in the Hub Capture Manager layout. Live Link Face and similar capabilities come from their device classes — do not invent extra module entry points."
+  },
+  {
+    "slug": "capture-manager-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 UE 或 UEFN 编辑器启用 `Capture Manager Editor`（`CaptureManagerEditorSettings`、`DataIngestCoreEditor`、`LiveLinkHubDiscoveryEditor`、`CaptureManagerIngestBlueprint`、`CaptureManagerDeviceBlueprint`）。",
+      "打开编辑器设置里的 `UCaptureManagerEditorSettings`：`MediaDirectory` 写转码后的图像序列/音频磁盘路径，`ImportDirectory` 必须在 `/Game` 下，按需打开 `bAutoSaveAssets`，并用 token 配置 `CaptureDataAssetName` 等命名。",
+      "`LiveLinkHubDiscoveryEditor` 用于发现本机/局域网 Hub；`LiveLinkHubExportServer` 接收 App 上传的归档。防火墙放行后，Hub 侧 `UploadHostName` 才能连上。",
+      "脚本入库用 `UCaptureManagerIngestBlueprintLibrary`：`IngestTakeArchiveSync`（目录或 `.cptake`）、`IngestMonoVideoSync`（视频+可选音频+slate/take 号）。阻塞版返回 `UFootageCaptureData`，异步版走 Worker。",
+      "技术美术可用 `CaptureManagerIngestBlueprint` / `CaptureManagerDeviceBlueprint` 在编辑器工具蓝图里接同一套 API，不必写 C++。",
+      "`LiveLinkHubWorkerManager` 调度后台转码；大镜头不要在游戏线程同步 `Ingest*Sync`。",
+      "这些模块全部是编辑器/Hub 侧，不要写进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Capture Manager Editor` in UE or UEFN (`CaptureManagerEditorSettings`, `DataIngestCoreEditor`, `LiveLinkHubDiscoveryEditor`, `CaptureManagerIngestBlueprint`, `CaptureManagerDeviceBlueprint`).",
+      "Set `UCaptureManagerEditorSettings`: `MediaDirectory` for transcoded sequences/audio on disk, `ImportDirectory` under `/Game`, optional `bAutoSaveAssets`, and tokenized `CaptureDataAssetName` (and related) names.",
+      "`LiveLinkHubDiscoveryEditor` finds local/LAN Hubs; `LiveLinkHubExportServer` receives App uploads. Open the firewall so Hub `UploadHostName` can connect.",
+      "Script ingest with `UCaptureManagerIngestBlueprintLibrary`: `IngestTakeArchiveSync` (folder or `.cptake`), `IngestMonoVideoSync` (video, optional audio, slate/take). Blocking calls return `UFootageCaptureData`; async uses the worker.",
+      "TDs can wire the same API in editor-utility Blueprints via `CaptureManagerIngestBlueprint` / `CaptureManagerDeviceBlueprint`.",
+      "`LiveLinkHubWorkerManager` owns background transcode — do not `Ingest*Sync` huge takes on the game thread.",
+      "All of these modules are editor/Hub-side. Keep them out of the Game target."
+    ],
+    "note_cn": "负责把归档变成 `/Game` 里的 `FootageCaptureData`。设备枚举在 Devices，现场录制在 App。",
+    "note_en": "This plugin turns archives into `FootageCaptureData` under `/Game`. Device enumeration is Devices; on-set recording is the App."
+  },
+  {
+    "slug": "capture-manager-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Capture Manager Toolset`（`Plugins/Experimental/Toolsets/CaptureManagerToolset`，模块 `CaptureManagerToolset`），并打开编辑器 AI Assistant。",
+      "项目里先有 `FootageCaptureData` 或 Capture Manager take 元数据；本工具集只检查，不创建镜头。",
+      "向助手询问 take 列表、某资产的 `ImageSequences` 路数、帧率、`CameraCalibrations` 是否齐全、`CaptureExcludedFrames` 是否异常。",
+      "用它做入库后巡检（缺深度、设备类错误、音频轨为空），再决定要不要重采。",
+      "需要真正下载/转码/导入时改用 `Capture Manager Editor` 的 Ingest 库或 Hub 设备，不要指望本 Toolset 写盘。",
+      "不要把 `CaptureManagerToolset` 加进游戏 `Build.cs`；Experimental 接口会随夜构建变化。"
+    ],
+    "en_steps": [
+      "Enable experimental `Capture Manager Toolset` (`Plugins/Experimental/Toolsets/CaptureManagerToolset`, module `CaptureManagerToolset`) and open the editor AI Assistant.",
+      "Have `FootageCaptureData` or Capture Manager take metadata in the project first. This toolset inspects; it does not create takes.",
+      "Ask the assistant for take lists, per-asset `ImageSequences` view counts, frame rate, missing `CameraCalibrations`, and odd `CaptureExcludedFrames`.",
+      "Use it as a post-ingest audit (missing depth, wrong device class, empty audio) before you recapture.",
+      "For download/transcode/import, use `Capture Manager Editor` ingest libraries or Hub devices — this toolset does not write media.",
+      "Do not add `CaptureManagerToolset` to a game `Build.cs`. The Experimental contract can change on nightlies."
+    ],
+    "note_cn": "只读巡检工具。入库与设备命令在 Capture Manager Editor，不要和 `capturemanagertoolset` 的写入摄取混淆。",
+    "note_en": "Read-only inspection. Ingest and device commands stay on Capture Manager Editor. Do not confuse with the ingest-oriented `capturemanagertoolset` slug."
+  },
+  {
+    "slug": "capturemanagertoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `CaptureManagerToolset`（描述符 `Engine/Plugins/Experimental/Toolsets/CaptureManagerToolset/CaptureManagerToolset.uplugin`）。与检查用的 `Capture Manager Toolset` 不同，这条路径让 AI 助手发起入库。",
+      "同时启用 `Capture Manager Editor`、`Capture Manager Devices` 和 `Capture Data`，并配置 `UCaptureManagerEditorSettings` 的 `MediaDirectory` / `ImportDirectory`。",
+      "在 AI Assistant 里明确要摄取的源：单路视频、立体视频、Live Link Face、`.cptake` 归档或标定文件，并给出磁盘路径或设备 id。",
+      "让助手调用写入工具跑 ingest（不是 list/inspect）：完成后内容浏览器应出现新的 `FootageCaptureData`，立体镜头还应带标定。",
+      "Live Link Face 摄取前确认手机与 Hub 在采集协议端口可达；助手只能触发已连接设备上的 take，不能代替 `Connect`。",
+      "失败时先看 Editor 入库日志和 Hub 设备状态。不要把本模块链进 Shipping；Experimental 写入 API 可能改名。"
+    ],
+    "en_steps": [
+      "Enable experimental `CaptureManagerToolset` (`Engine/Plugins/Experimental/Toolsets/CaptureManagerToolset/CaptureManagerToolset.uplugin`). Unlike inspect-only `Capture Manager Toolset`, this slug lets the AI Assistant start ingest.",
+      "Also enable `Capture Manager Editor`, `Capture Manager Devices`, and `Capture Data`, and set `UCaptureManagerEditorSettings` `MediaDirectory` / `ImportDirectory`.",
+      "Tell the assistant the source: mono video, stereo video, Live Link Face, `.cptake` archives, or calibration files, with disk paths or device ids.",
+      "Have it call the write/ingest tools (not list/inspect). A new `FootageCaptureData` should appear; stereo takes should include calibration.",
+      "For Live Link Face, the phone must already reach the Hub capture port. The assistant can ingest connected takes; it cannot replace `Connect`.",
+      "On failure, read editor ingest logs and Hub device status. Do not ship this module; Experimental write APIs may be renamed."
+    ],
+    "note_cn": "AI 助手的写入摄取入口（单路/立体/Face/归档/标定）。检查镜头请用 `capture-manager-toolset`。",
+    "note_en": "AI Assistant write/ingest path (mono, stereo, Face, archives, calibration). Use `capture-manager-toolset` to inspect takes."
+  },
+  {
+    "slug": "cascade-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Cascade Editor`（`CascadeEditor`、`CascadeRuntime`、`CascadeVertexFactories`）才能双击打开旧 `Particle System` 资产。",
+      "在 Cascade 窗口左侧选发射器，右侧堆模块：`TypeData`（Sprite/Mesh/Beam/AnimTrail/GPU）、Spawn、Lifetime、Velocity、Color Over Life、Size 等，视口里看循环预览。",
+      "把资产拖进关卡，生成 `ParticleSystemComponent`；或在蓝图里 `Spawn Emitter at Location`。Shipping 包只要 `CascadeRuntime`/`CascadeVertexFactories`，不必带编辑器。",
+      "关卡里调 `Translucency Sort Priority`、LOD、`Detail Mode`；GPU 粒子还要核对该发射器的 GPU TypeData 限制。",
+      "新效果改在 Niagara 做；对本资产用 `Cascade To Niagara Converter` 迁移后再关掉编辑器插件，运行时仍能播未迁移的 Cascade。",
+      "`CascadeEditor` 只进 `*Editor.Build.cs`；游戏模块不要依赖它。"
+    ],
+    "en_steps": [
+      "Enable `Cascade Editor` (`CascadeEditor`, `CascadeRuntime`, `CascadeVertexFactories`) so legacy `Particle System` assets open on double-click.",
+      "In the Cascade window pick an emitter, stack modules (`TypeData` Sprite/Mesh/Beam/AnimTrail/GPU, Spawn, Lifetime, Velocity, Color Over Life, Size) and preview looping in the viewport.",
+      "Drag the asset into a level (`ParticleSystemComponent`) or `Spawn Emitter at Location` in Blueprint. Shipping needs `CascadeRuntime`/`CascadeVertexFactories`, not the editor module.",
+      "Tune `Translucency Sort Priority`, LOD, and `Detail Mode`. GPU emitters must stay within GPU TypeData limits.",
+      "Author new FX in Niagara. Convert this asset with a Cascade-to-Niagara converter, then you can disable the editor plugin; unconverted Cascade still plays at runtime.",
+      "Put `CascadeEditor` only in `*Editor.Build.cs`; game modules must not depend on it."
+    ],
+    "note_cn": "编辑器可关，运行时模块仍播放 Cascade。新内容不要继续堆 Cascade 模块。",
+    "note_en": "You can disable the editor and still play Cascade at runtime. Do not keep stacking new Cascade modules."
+  },
+  {
+    "slug": "cascade-to-niagara-converter-v2",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Cascade To Niagara Converter V2`（模块 `CascadeNiagaraConverterV2`）。这是 C++ 本机管线，不是第一代 Python 转换器。",
+      "不要与 `Cascade To Niagara Converter` 同时对同一资产点转换，以免生成两套互相覆盖的 Niagara System。",
+      "右键 `Particle System`，用 V2 的 Convert 命令（菜单项带 V2/C++ Converter）生成同目录 Niagara System。",
+      "打开结果，对照 Cascade：GPU 粒子、碰撞、Event Generator、Mesh 材质、SubUV、Facing Mode 常需手修；V2 映射发射器/模块，但不保证像素级一致。",
+      "把关卡与蓝图里的 `ParticleSystemComponent` 换成 `NiagaraComponent`，确认 LOD 与终结条件。",
+      "批量可对内容目录跑转换器命令让/编辑器脚本调用 `CascadeNiagaraConverterV2`，每次看转换日志而不是只看是否出资产。",
+      "不要把该模块加入游戏 `Build.cs`；实验接口可能改。"
+    ],
+    "en_steps": [
+      "Enable experimental `Cascade To Niagara Converter V2` (module `CascadeNiagaraConverterV2`). This is the native C++ pipeline, not the first-generation Python converter.",
+      "Do not run `Cascade To Niagara Converter` on the same asset at the same time or you will get two overlapping Niagara Systems.",
+      "Right-click the `Particle System` and use the V2 Convert command (menu labeled V2/C++ Converter) to emit a Niagara System beside the original.",
+      "Open the result and compare: GPU particles, collisions, Event Generators, mesh materials, SubUV, and Facing Mode often need a TD pass. V2 maps emitters/modules; it is not pixel-identical.",
+      "Replace `ParticleSystemComponent` with `NiagaraComponent` in levels and Blueprints; recheck LOD and completion.",
+      "For batches, run the converter commandlet / editor script against `CascadeNiagaraConverterV2` and read conversion logs, not just whether an asset appeared.",
+      "Do not add this module to a game `Build.cs`. The experimental API may change."
+    ],
+    "note_cn": "C++ 实验转换器。第一代脚本转换器是 `cascade-to-niagara-converter`；两者选其一做批量迁移。",
+    "note_en": "Experimental C++ converter. The script-based first generation is `cascade-to-niagara-converter`. Pick one for a given batch."
+  },
+  {
+    "slug": "cascade-to-niagara-converter",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Cascade To Niagara Converter`（模块 `CascadeToNiagaraConverter`）以及 `Python Editor Script Plugin`；第一代转换器是可脚本的 Python 管线。",
+      "内容浏览器右键 Cascade `Particle System`，选 `Convert to Niagara System`（中文菜单多为 `转换为 Niagara 系统`），同文件夹生成 Niagara 资产，源 Cascade 保留。",
+      "打开新 System，看 Niagara Log 里的 conversion report：哪些模块成功映射、哪些被跳过（Loop Count、Facing Mode、Pivot Offset、Size By Speed、自定义模块等）。",
+      "有 `Fix Issue` 时先点自动修复，再手调未映射的碰撞、GPU、材质和 SubUV。",
+      "用编辑器 Python 调同一套转换 API 做批量迁移（形式与 Python Editor Script 示例相同），每批抽外观测后再替换蓝图引用。",
+      "验证通过后把 `Spawn Emitter` 换成 Niagara，Cascade 资产可留作对照。转换器本身不要进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Cascade To Niagara Converter` (module `CascadeToNiagaraConverter`) and `Python Editor Script Plugin`. Generation one is a scriptable Python pipeline.",
+      "Right-click a Cascade `Particle System` and choose `Convert to Niagara System`. A Niagara asset is created beside the original; the Cascade asset stays.",
+      "Open the new System and read the Niagara Log conversion report: mapped modules vs skipped ones (loop count, facing mode, pivot offset, size-by-speed, custom modules).",
+      "Use `Fix Issue` when offered, then hand-fix unmapped collision, GPU, materials, and SubUV.",
+      "Batch with editor Python against the same converter API (same style as Python Editor Script samples). Spot-check a batch before retargeting Blueprint references.",
+      "After visual sign-off, replace `Spawn Emitter` with Niagara and keep Cascade as reference. Do not ship the converter module."
+    ],
+    "note_cn": "第一代可脚本转换：右键 `Convert to Niagara System` + Python 批处理。C++ 实验管线见 V2 插件。",
+    "note_en": "First-generation scriptable convert: right-click `Convert to Niagara System` plus Python batching. The experimental C++ pipeline is the V2 plugin."
+  }
+]

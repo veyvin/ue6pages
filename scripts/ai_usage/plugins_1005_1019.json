@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "virtual-scouting",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Virtual Scouting`（运行时 `VirtualScouting`、`VirtualScoutingOpenXR`，编辑器 `VirtualScoutingEditor`），属 Virtual Production。",
+      "它让电影制作者在虚拟现实中“侦察”数字环境（VR 勘景/取景）。",
+      "在 VR 里进入数字片场，查看/标记取景机位。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Virtual Scouting` (runtime `VirtualScouting`, `VirtualScoutingOpenXR`, editor `VirtualScoutingEditor`), part of Virtual Production.",
+      "It lets filmmakers scout digital environments in virtual reality (VR location scouting/framing).",
+      "Enter a digital set in VR to view/mark camera framing.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "在 VR 中侦察数字环境（虚拟勘景）。",
+    "note_en": "Scout digital environments in VR (virtual location scouting)."
+  },
+  {
+    "slug": "virtualcamera",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `VirtualCamera`（模块 `VirtualCamera`、`VCamExtensions`，编辑器 `VirtualCameraEditor`、`VCamExtensionsEditor`），属 Virtual Production。",
+      "它为 VirtualCameraCore 添加 Actor、组件与实用程序，用于通过物理设备控制与查看摄像机。",
+      "用物理设备（手机/平板）驱动引擎内摄像机进行虚拟拍摄。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `VirtualCamera` (modules `VirtualCamera`, `VCamExtensions`, editor `VirtualCameraEditor`, `VCamExtensionsEditor`), part of Virtual Production.",
+      "It adds actors, components, and utilities on top of VirtualCameraCore to control and view a camera via a physical device.",
+      "Drive an in-engine camera with a physical device (phone/tablet) for virtual shooting.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "用物理设备控制/查看摄像机的 VCam（含内容）。",
+    "note_en": "VCam: control/view a camera via a physical device (content layer)."
+  },
+  {
+    "slug": "virtualcameracore",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `VirtualCameraCore`（模块 `VCamCore`、`DecoupledOutputProvider`、`PixelStreamingVCam`、`VCamBlueprintNodes`，编辑器 `VCamCoreEditor`），属 Virtual Production。",
+      "它是用于通过物理设备控制/查看摄像机的 Actor、组件与实用程序的核心代码层。",
+      "作为 VirtualCamera 的底层核心，需与 `VirtualCamera` 一起使用。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `VirtualCameraCore` (modules `VCamCore`, `DecoupledOutputProvider`, `PixelStreamingVCam`, `VCamBlueprintNodes`, editor `VCamCoreEditor`), part of Virtual Production.",
+      "It is the core code layer (actors/components/utilities) to control/view a camera via a physical device.",
+      "A low-level core used together with `VirtualCamera`.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "VCam 的核心代码层（物理设备控制摄像机）。",
+    "note_en": "The VCam core code layer (physical-device camera control)."
+  },
+  {
+    "slug": "visual-studio-code-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Visual Studio Code Integration`（模块 `VisualStudioCodeSourceCodeAccess`）。",
+      "它允许在 Visual Studio Code 中访问/打开项目源代码。",
+      "在编辑器里把源代码访问器设为 VS Code，一键打开文件。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Visual Studio Code Integration` (module `VisualStudioCodeSourceCodeAccess`).",
+      "It allows accessing/opening project source in Visual Studio Code.",
+      "Set the source-code accessor to VS Code in the editor to open files in one click.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "在 VS Code 中访问项目源代码。",
+    "note_en": "Access project source in Visual Studio Code."
+  },
+  {
+    "slug": "visual-studio-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Visual Studio Integration`（模块 `VisualStudioSourceCodeAccess`）。",
+      "它允许在 Visual Studio 中访问/打开项目源代码。",
+      "在编辑器里把源代码访问器设为 Visual Studio，一键打开文件。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Visual Studio Integration` (module `VisualStudioSourceCodeAccess`).",
+      "It allows accessing/opening project source in Visual Studio.",
+      "Set the source-code accessor to Visual Studio in the editor to open files in one click.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "在 Visual Studio 中访问项目源代码。",
+    "note_en": "Access project source in Visual Studio."
+  },
+  {
+    "slug": "vive-cosmos-controller-keys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Vive Cosmos Controller Keys`（模块 `ViveCosmosControllerKeys`）。",
+      "它定义 Vive Cosmos 控制器的输入键（`ViveCosmos_*` FKey），只依赖 InputCore。",
+      "无需 OpenXR 映射即可引用这些键（如 Pixel Streaming 场景）。",
+      "轻量按键定义插件；供需要这些键的模块引用。"
+    ],
+    "en_steps": [
+      "Enable `Vive Cosmos Controller Keys` (module `ViveCosmosControllerKeys`).",
+      "It defines the Vive Cosmos controller input keys (`ViveCosmos_*` FKeys), depending only on InputCore.",
+      "These keys can be referenced without OpenXR mapping (e.g. Pixel Streaming scenarios).",
+      "A lightweight key-definition plugin; referenced by modules that need these keys."
+    ],
+    "note_cn": "Vive Cosmos 输入键定义（仅依赖 InputCore）。",
+    "note_en": "Vive Cosmos input-key definitions (InputCore-only)."
+  },
+  {
+    "slug": "voice-chat-interface",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Voice Chat Interface`（模块 `VoiceChat`）。",
+      "它提供语音聊天界面（语音通信的接口/组件）。",
+      "在联机项目里接入语音聊天，按平台/服务实现通话。",
+      "运行时模块；用于在线语音通信。"
+    ],
+    "en_steps": [
+      "Enable `Voice Chat Interface` (module `VoiceChat`).",
+      "It provides a voice-chat interface (the interface/component for voice communication).",
+      "Integrate voice chat in online projects, implementing calls per platform/service.",
+      "A runtime module; for online voice communication."
+    ],
+    "note_cn": "语音聊天界面。",
+    "note_en": "A voice-chat interface."
+  },
+  {
+    "slug": "volumetrics",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Volumetrics` 插件（无独立模块列表）。",
+      "它提供用蓝图进行体积创建与渲染的工具库。",
+      "在蓝图里用其工具生成/渲染体积效果（体积云/雾等）。",
+      "运行时模块；用于蓝图驱动的体积渲染。"
+    ],
+    "en_steps": [
+      "Enable the `Volumetrics` plugin (no standalone module list).",
+      "It is a toolkit for volume creation and rendering via Blueprint.",
+      "Use its tools in Blueprint to generate/render volumetric effects (volumetric clouds/fog, etc.).",
+      "A runtime module; for Blueprint-driven volumetric rendering."
+    ],
+    "note_cn": "用蓝图的体积创建/渲染工具库。",
+    "note_en": "A Blueprint volume creation/rendering toolkit."
+  },
+  {
+    "slug": "vp8-and-vp9-software-decoder-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `VP8 and VP9 software decoder for Electra`（模块 `VPxDecoderElectra`）。",
+      "它允许用 Electra 媒体播放器解码 VP8/VP9 编码视频（软件方案，用于无本机支持的平台）。",
+      "在 Media Player 选 Electra 播放 VP8/VP9，软件解码（性能因平台而异）。",
+      "属 Media Framework / Electra 解码扩展。"
+    ],
+    "en_steps": [
+      "Enable `VP8 and VP9 software decoder for Electra` (module `VPxDecoderElectra`).",
+      "It lets the Electra media player decode VP8/VP9-encoded video (software solution for platforms lacking native support).",
+      "Play VP8/VP9 via a Media Player with the Electra backend, software-decoded (performance varies by platform).",
+      "It is a Media Framework / Electra decode extension."
+    ],
+    "note_cn": "Electra 的 VP8/VP9 软件解码。",
+    "note_en": "VP8/VP9 software decoding for Electra."
+  },
+  {
+    "slug": "vtcodecs",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `VTCodecs`（模块 `VTCodecs`、`VTCodecsRHI`）。",
+      "它把 Apple Video Toolbox Framework 的编解码器加入 AVCodecs（Apple 平台硬件编解码）。",
+      "在录制/解码流程里用 Video Toolbox 编解码，享受 Apple 硬件加速。",
+      "Experimental：接口可能变动；仅 Apple 平台。"
+    ],
+    "en_steps": [
+      "Enable Experimental `VTCodecs` (modules `VTCodecs`, `VTCodecsRHI`).",
+      "It adds Apple Video Toolbox Framework codecs to AVCodecs (Apple-platform hardware codecs).",
+      "Use Video Toolbox codecs in recording/decoding flows for Apple hardware acceleration.",
+      "Experimental: contract may change; Apple platforms only."
+    ],
+    "note_cn": "把 Apple Video Toolbox 编解码加入 AVCodecs，实验性。",
+    "note_en": "Adds Apple Video Toolbox codecs to AVCodecs, experimental."
+  },
+  {
+    "slug": "warp-utils",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Warp Utils`（模块 `PFMExporter`、`WarpUtils`）。",
+      "它提供 PFM/MPCDI 生成与可视化（投影/变形校准用）。",
+      "在多投影/LED 墙的变形校准里导出 PFM/生成 MPCDI。",
+      "运行时模块；常用于 nDisplay/投影映射。"
+    ],
+    "en_steps": [
+      "Enable `Warp Utils` (modules `PFMExporter`, `WarpUtils`).",
+      "It provides PFM/MPCDI generation and visualization (for projection/warp calibration).",
+      "Export PFM / generate MPCDI in multi-projector/LED-wall warp calibration.",
+      "A runtime module; common in nDisplay/projection mapping."
+    ],
+    "note_cn": "PFM/MPCDI 生成与可视化（投影校准）。",
+    "note_en": "PFM/MPCDI generation and visualization (projection calibration)."
+  },
+  {
+    "slug": "water-advanced",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Water Advanced`（运行时 `WaterAdvanced`，编辑器 `WaterAdvancedEditor`）。",
+      "它是基于 Niagara Fluids 与 Water 插件构建的易用水模拟系统集合。",
+      "在 Water 之上用其高级水体效果（更复杂的水面/交互）。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Water Advanced` (runtime `WaterAdvanced`, editor `WaterAdvancedEditor`).",
+      "It is a collection of easy-to-use water simulation systems built on Niagara Fluids and the Water plugin.",
+      "Use its advanced water effects on top of Water (more complex surfaces/interaction).",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "基于 Niagara Fluids + Water 的易用水模拟集合。",
+    "note_en": "Easy water-sim collection built on Niagara Fluids + Water."
+  },
+  {
+    "slug": "water-extras",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Water Extras` 插件（无独立模块列表）。",
+      "它提供样本、测试地图等，帮助上手 Water 系统；不适合直接用于正式产品。",
+      "参考示例学习水体搭建，再改造为自己的关卡。",
+      "示例/测试用途，宜作参考。"
+    ],
+    "en_steps": [
+      "Enable the `Water Extras` plugin (no standalone module list).",
+      "It provides samples, test maps, etc. to help start with the Water system; not for direct production use.",
+      "Study the samples to learn water authoring, then adapt to your levels.",
+      "For example/test use; best as reference."
+    ],
+    "note_cn": "Water 系统的样本/测试地图（非正式用途）。",
+    "note_en": "Water system samples/test maps (not for production direct use)."
+  },
+  {
+    "slug": "water",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Water`（运行时 `Water`，编辑器 `WaterEditor`）。",
+      "它在景观上做互相衔接的河流/湖泊/海洋：样条工作流、统一网格与着色、物理交互、脚步涟漪/船尾航迹等玩法反馈。",
+      "启用后用水体 Actor 铺水面，配样条塑造河道。",
+      "Game 模块依赖运行时模块；`WaterEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Water` (runtime `Water`, editor `WaterEditor`).",
+      "It creates interconnecting rivers/lakes/oceans on the landscape: spline workflow, unified mesh/shading, physics interaction, and gameplay feedback like footstep ripples/boat wakes.",
+      "After enabling, lay water bodies with Water actors and shape rivers with splines.",
+      "Game modules depend on runtime modules; `WaterEditor` is Editor-target only."
+    ],
+    "note_cn": "在景观上做河流/湖泊/海洋的水系统。",
+    "note_en": "A water system for rivers/lakes/oceans on the landscape."
+  },
+  {
+    "slug": "wave-function-collapse-experimental",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Wave Function Collapse`（模块 `WaveFunctionCollapse`）。",
+      "它是基于图块的模型合成（波函数折叠，WFC）工具。",
+      "用 WFC 按约束自动合成/拼接图块模型（关卡/结构生成）。",
+      "Experimental：接口可能变动；程序化生成工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Wave Function Collapse` (module `WaveFunctionCollapse`).",
+      "It is a Wave Function Collapse (WFC) tool for tile-based model synthesis.",
+      "Use WFC to auto-synthesize/assemble tile models by constraints (level/structure generation).",
+      "Experimental: contract may change; a procedural-generation tool."
+    ],
+    "note_cn": "基于图块的波函数折叠(WFC)合成工具，实验性。",
+    "note_en": "A Wave Function Collapse (WFC) tile-based synthesis tool, experimental."
+  }
+]

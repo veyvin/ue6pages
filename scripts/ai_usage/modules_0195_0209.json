@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "datasmithexporter",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithExporter` 位于 `Developer`，构建规则 `Developer/Datasmith/DatasmithExporter/DatasmithExporter.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DatasmithCore`, `DirectLink`, `FreeImage`, `InputCore`, `MeshDescription`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithExporter\" });`；对外暴露 `DatasmithExporter` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithExporter` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `DatasmithExporter.h` / `DatasmithExporterModule.h`），再用 `FModuleManager::LoadModulePtr<DatasmithExporterModule>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithExporter` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DatasmithCore`, `DirectLink`, `FreeImage`, `InputCore`, `MeshDescription`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithExporter` lives under `Developer`; build rule `Developer/Datasmith/DatasmithExporter/DatasmithExporter.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DatasmithCore`, `DirectLink`, `FreeImage`, `InputCore`, `MeshDescription`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithExporter\" });`. Use Public when exposing `DatasmithExporter` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithExporter` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `DatasmithExporter.h` / `DatasmithExporterModule.h`), then use `FModuleManager::LoadModulePtr<DatasmithExporterModule>` or the exported types directly.",
+      "Transitive deps: `DatasmithExporter` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DatasmithCore`, `DirectLink`, `FreeImage`, `InputCore`, `MeshDescription`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DatasmithExporter` 的构建规则位于 `Developer/Datasmith/DatasmithExporter/DatasmithExporter.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`DatasmithExporter` build rule is `Developer/Datasmith/DatasmithExporter/DatasmithExporter.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "datasmithexporterui",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithExporterUI` 位于 `Developer`，构建规则 `Developer/Datasmith/DatasmithExporterUI/DatasmithExporterUI.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DatasmithCore`, `DatasmithExporter`, `DesktopPlatform`, `DirectLink`, `InputCore`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithExporterUI\" });`；对外暴露 `DatasmithExporterUI` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithExporterUI` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `DatasmithExporterUI.h` / `DatasmithExporterUIModule.h`），再用 `FModuleManager::LoadModulePtr<DatasmithExporterUIModule>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithExporterUI` 还依赖 `Core`, `CoreUObject`, `DatasmithCore`, `DatasmithExporter`, `DesktopPlatform`, `DirectLink`, `InputCore`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithExporterUI` lives under `Developer`; build rule `Developer/Datasmith/DatasmithExporterUI/DatasmithExporterUI.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DatasmithCore`, `DatasmithExporter`, `DesktopPlatform`, `DirectLink`, `InputCore`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithExporterUI\" });`. Use Public when exposing `DatasmithExporterUI` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithExporterUI` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `DatasmithExporterUI.h` / `DatasmithExporterUIModule.h`), then use `FModuleManager::LoadModulePtr<DatasmithExporterUIModule>` or the exported types directly.",
+      "Transitive deps: `DatasmithExporterUI` also needs `Core`, `CoreUObject`, `DatasmithCore`, `DatasmithExporter`, `DesktopPlatform`, `DirectLink`, `InputCore`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DatasmithExporterUI` 的构建规则位于 `Developer/Datasmith/DatasmithExporterUI/DatasmithExporterUI.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`DatasmithExporterUI` build rule is `Developer/Datasmith/DatasmithExporterUI/DatasmithExporterUI.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "datasmithfacade",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithFacade` 位于 `Developer`，构建规则 `Developer/Datasmith/DatasmithFacade/DatasmithFacade.Build.cs`。它直接依赖 5 个模块：`Core`, `DatasmithCore`, `DatasmithExporter`, `DirectLink`, `Imath`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithFacade\" });`；对外暴露 `DatasmithFacade` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithFacade` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `DatasmithFacade.h` / `DatasmithFacadeModule.h`），再用 `FModuleManager::LoadModulePtr<DatasmithFacadeModule>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithFacade` 还依赖 `Core`, `DatasmithCore`, `DatasmithExporter`, `DirectLink`, `Imath`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithFacade` lives under `Developer`; build rule `Developer/Datasmith/DatasmithFacade/DatasmithFacade.Build.cs`.It directly depends on 5 modules: `Core`, `DatasmithCore`, `DatasmithExporter`, `DirectLink`, `Imath`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithFacade\" });`. Use Public when exposing `DatasmithFacade` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithFacade` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `DatasmithFacade.h` / `DatasmithFacadeModule.h`), then use `FModuleManager::LoadModulePtr<DatasmithFacadeModule>` or the exported types directly.",
+      "Transitive deps: `DatasmithFacade` also needs `Core`, `DatasmithCore`, `DatasmithExporter`, `DirectLink`, `Imath`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DatasmithFacade` 的构建规则位于 `Developer/Datasmith/DatasmithFacade/DatasmithFacade.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`DatasmithFacade` build rule is `Developer/Datasmith/DatasmithFacade/DatasmithFacade.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "datasmithfacadecsharp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithFacadeCSharp` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithFacadeCSharp/DatasmithFacadeCSharp.Build.cs`。它直接依赖 6 个模块：`Core`, `DatasmithCore`, `DatasmithExporter`, `DatasmithExporterUI`, `DatasmithFacade`, `UdpMessaging`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithFacadeCSharp\" });`；对外暴露 `DatasmithFacadeCSharp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithFacadeCSharp` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DatasmithFacadeCSharp.h` / `DatasmithFacadeCSharpModule.h`），再用 `FModuleManager::LoadModulePtr<DatasmithFacadeCSharpModule>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithFacadeCSharp` 还依赖 `Core`, `DatasmithCore`, `DatasmithExporter`, `DatasmithExporterUI`, `DatasmithFacade`, `UdpMessaging`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithFacadeCSharp` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithFacadeCSharp/DatasmithFacadeCSharp.Build.cs`.It directly depends on 6 modules: `Core`, `DatasmithCore`, `DatasmithExporter`, `DatasmithExporterUI`, `DatasmithFacade`, `UdpMessaging`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithFacadeCSharp\" });`. Use Public when exposing `DatasmithFacadeCSharp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithFacadeCSharp` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DatasmithFacadeCSharp.h` / `DatasmithFacadeCSharpModule.h`), then use `FModuleManager::LoadModulePtr<DatasmithFacadeCSharpModule>` or the exported types directly.",
+      "Transitive deps: `DatasmithFacadeCSharp` also needs `Core`, `DatasmithCore`, `DatasmithExporter`, `DatasmithExporterUI`, `DatasmithFacade`, `UdpMessaging`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DatasmithFacadeCSharp` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithFacadeCSharp/DatasmithFacadeCSharp.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`DatasmithFacadeCSharp` build rule is `Programs/Enterprise/Datasmith/DatasmithFacadeCSharp/DatasmithFacadeCSharp.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "datasmithmax2023",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithMax2023` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2023.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2023\" });`；对外暴露 `DatasmithMax2023` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithMax2023` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DatasmithMax2023.h` / `DatasmithMax2023Module.h`），再用 `FModuleManager::LoadModulePtr<DatasmithMax2023Module>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithMax2023` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithMax2023` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2023.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2023\" });`. Use Public when exposing `DatasmithMax2023` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithMax2023` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DatasmithMax2023.h` / `DatasmithMax2023Module.h`), then use `FModuleManager::LoadModulePtr<DatasmithMax2023Module>` or the exported types directly.",
+      "Transitive deps: `DatasmithMax2023` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`DatasmithMax2023` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2023.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`DatasmithMax2023` build rule is `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2023.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "datasmithmax2024",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithMax2024` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2024.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2024\" });`；对外暴露 `DatasmithMax2024` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithMax2024` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DatasmithMax2024.h` / `DatasmithMax2024Module.h`），再用 `FModuleManager::LoadModulePtr<DatasmithMax2024Module>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithMax2024` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithMax2024` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2024.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2024\" });`. Use Public when exposing `DatasmithMax2024` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithMax2024` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DatasmithMax2024.h` / `DatasmithMax2024Module.h`), then use `FModuleManager::LoadModulePtr<DatasmithMax2024Module>` or the exported types directly.",
+      "Transitive deps: `DatasmithMax2024` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`DatasmithMax2024` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2024.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`DatasmithMax2024` build rule is `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2024.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "datasmithmax2025",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithMax2025` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2025.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2025\" });`；对外暴露 `DatasmithMax2025` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithMax2025` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DatasmithMax2025.h` / `DatasmithMax2025Module.h`），再用 `FModuleManager::LoadModulePtr<DatasmithMax2025Module>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithMax2025` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithMax2025` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2025.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2025\" });`. Use Public when exposing `DatasmithMax2025` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithMax2025` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DatasmithMax2025.h` / `DatasmithMax2025Module.h`), then use `FModuleManager::LoadModulePtr<DatasmithMax2025Module>` or the exported types directly.",
+      "Transitive deps: `DatasmithMax2025` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`DatasmithMax2025` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2025.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`DatasmithMax2025` build rule is `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2025.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "datasmithmax2026",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithMax2026` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2026.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2026\" });`；对外暴露 `DatasmithMax2026` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithMax2026` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DatasmithMax2026.h` / `DatasmithMax2026Module.h`），再用 `FModuleManager::LoadModulePtr<DatasmithMax2026Module>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithMax2026` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithMax2026` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2026.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2026\" });`. Use Public when exposing `DatasmithMax2026` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithMax2026` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DatasmithMax2026.h` / `DatasmithMax2026Module.h`), then use `FModuleManager::LoadModulePtr<DatasmithMax2026Module>` or the exported types directly.",
+      "Transitive deps: `DatasmithMax2026` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`DatasmithMax2026` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2026.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`DatasmithMax2026` build rule is `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2026.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "datasmithmax2027",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithMax2027` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2027.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2027\" });`；对外暴露 `DatasmithMax2027` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithMax2027` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DatasmithMax2027.h` / `DatasmithMax2027Module.h`），再用 `FModuleManager::LoadModulePtr<DatasmithMax2027Module>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithMax2027` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithMax2027` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2027.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMax2027\" });`. Use Public when exposing `DatasmithMax2027` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithMax2027` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DatasmithMax2027.h` / `DatasmithMax2027Module.h`), then use `FModuleManager::LoadModulePtr<DatasmithMax2027Module>` or the exported types directly.",
+      "Transitive deps: `DatasmithMax2027` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`DatasmithMax2027` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2027.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`DatasmithMax2027` build rule is `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2027.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "datasmithmaxbase",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithMaxBase` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2022.Build.cs`。它直接依赖 7 个模块：`DatasmithExporter`, `DatasmithExporterUI`, `IntelTBB`, `Slate`, `SlateCore`, `UEOpenExr`, `UdpMessaging`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMaxBase\" });`；对外暴露 `DatasmithMaxBase` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithMaxBase` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DatasmithMaxBase.h` / `DatasmithMaxBaseModule.h`），再用 `FModuleManager::LoadModulePtr<DatasmithMaxBaseModule>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithMaxBase` 还依赖 `DatasmithExporter`, `DatasmithExporterUI`, `IntelTBB`, `Slate`, `SlateCore`, `UEOpenExr`, `UdpMessaging`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithMaxBase` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2022.Build.cs`.It directly depends on 7 modules: `DatasmithExporter`, `DatasmithExporterUI`, `IntelTBB`, `Slate`, `SlateCore`, `UEOpenExr`, `UdpMessaging`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithMaxBase\" });`. Use Public when exposing `DatasmithMaxBase` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithMaxBase` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DatasmithMaxBase.h` / `DatasmithMaxBaseModule.h`), then use `FModuleManager::LoadModulePtr<DatasmithMaxBaseModule>` or the exported types directly.",
+      "Transitive deps: `DatasmithMaxBase` also needs `DatasmithExporter`, `DatasmithExporterUI`, `IntelTBB`, `Slate`, `SlateCore`, `UEOpenExr`, `UdpMessaging`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DatasmithMaxBase` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2022.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`DatasmithMaxBase` build rule is `Programs/Enterprise/Datasmith/DatasmithMaxExporter/DatasmithMax2022.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "datasmithsdk",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DatasmithSDK` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithSDK/DatasmithSDK.Build.cs`。它直接依赖 4 个模块：`DatasmithCore`, `DatasmithExporter`, `DatasmithExporterUI`, `UdpMessaging`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithSDK\" });`；对外暴露 `DatasmithSDK` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DatasmithSDK` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DatasmithSDK.h` / `DatasmithSDKModule.h`），再用 `FModuleManager::LoadModulePtr<DatasmithSDKModule>` 或直接使用导出类型。",
+      "传递依赖：`DatasmithSDK` 还依赖 `DatasmithCore`, `DatasmithExporter`, `DatasmithExporterUI`, `UdpMessaging`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DatasmithSDK` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithSDK/DatasmithSDK.Build.cs`.It directly depends on 4 modules: `DatasmithCore`, `DatasmithExporter`, `DatasmithExporterUI`, `UdpMessaging`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DatasmithSDK\" });`. Use Public when exposing `DatasmithSDK` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DatasmithSDK` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DatasmithSDK.h` / `DatasmithSDKModule.h`), then use `FModuleManager::LoadModulePtr<DatasmithSDKModule>` or the exported types directly.",
+      "Transitive deps: `DatasmithSDK` also needs `DatasmithCore`, `DatasmithExporter`, `DatasmithExporterUI`, `UdpMessaging`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DatasmithSDK` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithSDK/DatasmithSDK.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`DatasmithSDK` build rule is `Programs/Enterprise/Datasmith/DatasmithSDK/DatasmithSDK.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "datatableeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DataTableEditor` 位于 `Editor`，构建规则 `Editor/DataTableEditor/DataTableEditor.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `BlueprintGraph`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DataTableEditor\" });`；对外暴露 `DataTableEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DataTableEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `DataTableEditor.h` / `DataTableEditorModule.h`），再用 `FModuleManager::LoadModulePtr<DataTableEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`DataTableEditor` 还依赖 `ApplicationCore`, `BlueprintGraph`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DataTableEditor` lives under `Editor`; build rule `Editor/DataTableEditor/DataTableEditor.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `BlueprintGraph`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DataTableEditor\" });`. Use Public when exposing `DataTableEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DataTableEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `DataTableEditor.h` / `DataTableEditorModule.h`), then use `FModuleManager::LoadModulePtr<DataTableEditorModule>` or the exported types directly.",
+      "Transitive deps: `DataTableEditor` also needs `ApplicationCore`, `BlueprintGraph`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DataTableEditor` 的构建规则位于 `Editor/DataTableEditor/DataTableEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`DataTableEditor` build rule is `Editor/DataTableEditor/DataTableEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "deriveddatabuildworker",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DerivedDataBuildWorker` 位于 `Programs`，构建规则 `Programs/DerivedDataBuildWorker/DerivedDataBuildWorker.Build.cs`。它直接依赖 4 个模块：`ApplicationCore`, `Core`, `DerivedDataCache`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataBuildWorker\" });`；对外暴露 `DerivedDataBuildWorker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DerivedDataBuildWorker` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DerivedDataBuildWorker.h` / `DerivedDataBuildWorkerModule.h`），再用 `FModuleManager::LoadModulePtr<DerivedDataBuildWorkerModule>` 或直接使用导出类型。",
+      "传递依赖：`DerivedDataBuildWorker` 还依赖 `ApplicationCore`, `Core`, `DerivedDataCache`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DerivedDataBuildWorker` lives under `Programs`; build rule `Programs/DerivedDataBuildWorker/DerivedDataBuildWorker.Build.cs`.It directly depends on 4 modules: `ApplicationCore`, `Core`, `DerivedDataCache`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataBuildWorker\" });`. Use Public when exposing `DerivedDataBuildWorker` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DerivedDataBuildWorker` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DerivedDataBuildWorker.h` / `DerivedDataBuildWorkerModule.h`), then use `FModuleManager::LoadModulePtr<DerivedDataBuildWorkerModule>` or the exported types directly.",
+      "Transitive deps: `DerivedDataBuildWorker` also needs `ApplicationCore`, `Core`, `DerivedDataCache`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DerivedDataBuildWorker` 的构建规则位于 `Programs/DerivedDataBuildWorker/DerivedDataBuildWorker.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`DerivedDataBuildWorker` build rule is `Programs/DerivedDataBuildWorker/DerivedDataBuildWorker.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "deriveddatacache",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DerivedDataCache` 位于 `Developer`，构建规则 `Developer/DerivedDataCache/DerivedDataCache.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataCache\" });`；对外暴露 `DerivedDataCache` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DerivedDataCache` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `DerivedDataCache.h` / `DerivedDataCacheModule.h`），再用 `FModuleManager::LoadModulePtr<DerivedDataCacheModule>` 或直接使用导出类型。",
+      "传递依赖：`DerivedDataCache` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DerivedDataCache` lives under `Developer`; build rule `Developer/DerivedDataCache/DerivedDataCache.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataCache\" });`. Use Public when exposing `DerivedDataCache` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DerivedDataCache` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `DerivedDataCache.h` / `DerivedDataCacheModule.h`), then use `FModuleManager::LoadModulePtr<DerivedDataCacheModule>` or the exported types directly.",
+      "Transitive deps: `DerivedDataCache` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DerivedDataCache` 的构建规则位于 `Developer/DerivedDataCache/DerivedDataCache.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`DerivedDataCache` build rule is `Developer/DerivedDataCache/DerivedDataCache.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "deriveddataeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DerivedDataEditor` 位于 `Editor`，构建规则 `Editor/DerivedDataEditor/DerivedDataEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DerivedDataCache`, `DerivedDataWidgets`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataEditor\" });`；对外暴露 `DerivedDataEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DerivedDataEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `DerivedDataEditor.h` / `DerivedDataEditorModule.h`），再用 `FModuleManager::LoadModulePtr<DerivedDataEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`DerivedDataEditor` 还依赖 `Core`, `CoreUObject`, `DerivedDataCache`, `DerivedDataWidgets`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DerivedDataEditor` lives under `Editor`; build rule `Editor/DerivedDataEditor/DerivedDataEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DerivedDataCache`, `DerivedDataWidgets`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataEditor\" });`. Use Public when exposing `DerivedDataEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DerivedDataEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `DerivedDataEditor.h` / `DerivedDataEditorModule.h`), then use `FModuleManager::LoadModulePtr<DerivedDataEditorModule>` or the exported types directly.",
+      "Transitive deps: `DerivedDataEditor` also needs `Core`, `CoreUObject`, `DerivedDataCache`, `DerivedDataWidgets`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DerivedDataEditor` 的构建规则位于 `Editor/DerivedDataEditor/DerivedDataEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`DerivedDataEditor` build rule is `Editor/DerivedDataEditor/DerivedDataEditor.Build.cs`; depends on 8 modules; category Module."
+  }
+]

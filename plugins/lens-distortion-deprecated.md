@@ -3,7 +3,6 @@ layout: default
 title: 镜头畸变（已弃用） / Lens Distortion (Deprecated)
 ---
 
-
 <h1>镜头畸变（已弃用） / Lens Distortion (Deprecated)</h1>
 
 <div class="info-card">
@@ -12,7 +11,9 @@ title: 镜头畸变（已弃用） / Lens Distortion (Deprecated)
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">该插件已被弃用，并将在未来的引擎版本中删除。请更新您的项目以使用 CameraCalibration 插件的功能。
-用于从标准相机模型在 GPU 上生成镜头畸变/不畸变的 UV 位移的插件。</div><div class="lang-content">This plugin has been deprecated and will be removed in a future engine version. Please update your project to use the features of the CameraCalibration plugin instead.
-Plugin to generate UV displacement for lens distortion/undistortion on the GPU from standard camera model.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">Lens Distortion (Deprecated)</code> 已被弃用，将在未来引擎版本删除。</li><li>迁移到 <code class="usage-code">CameraCalibration</code> 插件的功能，以及 <code class="usage-code">Lens Component</code> 的失真处理。</li><li>不要在 <code class="usage-code">Build.cs</code> 新增对该过时模块的依赖。</li><li>迁移完成后禁用本插件。</li></ol><p class="usage-note">已弃用，改用 CameraCalibration + Lens Component。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">Lens Distortion (Deprecated)</code> is deprecated and will be removed in a future engine version.</li><li>Migrate to the <code class="usage-code">CameraCalibration</code> plugin&#x27;s features and <code class="usage-code">Lens Component</code> for distortion.</li><li>Do not add new <code class="usage-code">Build.cs</code> dependencies on this deprecated module.</li><li>Disable this plugin after migration.</li></ol><p class="usage-note">Deprecated; use CameraCalibration + Lens Component instead.</p></div></div></div>
+    </div>
+

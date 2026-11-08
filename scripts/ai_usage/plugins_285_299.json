@@ -1,0 +1,308 @@
+[
+  {
+    "slug": "electra-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `编辑 > 插件` 启用 `Electra Player`；在 `项目设置 > 插件 > Electra Player` 里为目标平台（Win64/Mac）勾选启用，并把它设为默认媒体解码后端。",
+      "在内容浏览器右键 `媒体 > 文件媒体源`（流媒体用 `流媒体源`），指向本地 `.mp4` 文件或 HLS/DASH 地址。",
+      "右键 `媒体 > 媒体播放器` 新建播放器，在资产的 `播放器 > 平台播放器` 里为桌面平台选 Protron/Electra（Protron 只吃本地 mp4）。",
+      "新建 `MediaTexture`，把它的 `媒体播放器` 指向上面那个播放器，接入材质后贴到 `Media Plate` 或平面网格上。",
+      "蓝图对播放器调用 `Open Source` 打开源，再 `Play` 播放、`Pause` 暂停、`Close` 释放。",
+      "打包后确认目标平台的插件列表里已打开 Electra，否则运行时找不到可用播放器。"
+    ],
+    "en_steps": [
+      "Enable `Electra Player` under `Edit > Plugins`; in `Project Settings > Plugins > Electra Player` turn it on for the target platform (Win64/Mac) and pick Electra as the default media backend.",
+      "Right-click `Media > File Media Source` (or `Stream Media Source`) and point it at a local `.mp4` or an HLS/DASH URL.",
+      "Right-click `Media > Media Player`, then on the asset set `Player > Platform Player` to Protron/Electra for desktop (Protron handles local mp4 only).",
+      "Create a `MediaTexture`, set its `Media Player` to that player, feed it into a Material and apply it to a `Media Plate` or plane mesh.",
+      "In Blueprint call `Open Source`, then `Play`, `Pause`, and `Close` on the Media Player.",
+      "After packaging, confirm Electra is enabled for the target platform in the plugin list, or no player is found at runtime."
+    ],
+    "note_cn": "Electra 是跨平台 Media Framework 播放器；桌面本地 mp4 场景用 Protron 变体，流媒体用 Electra 主播放器，目标平台要单独为它打开插件。",
+    "note_en": "Electra is the cross-platform Media Framework player; use the Protron variant for local desktop mp4 and the main Electra player for streaming, enabling the plugin per target platform."
+  },
+  {
+    "slug": "engine-asset-definitions",
+    "kind": "plugin",
+    "cn_steps": [
+      "这是随引擎默认加载的编辑器插件，为引擎内置资产类型注册资产定义（图标、颜色、分类），让 `内容浏览器` 里的 Engine 内容显示更规整。",
+      "在 `内容浏览器` 右上角 `设置` 里勾选 `显示引擎内容`，才能看到这些资产定义作用到的 Engine 资产。",
+      "要区分资产类型时，看不同资产在内容浏览器里的颜色/图标，那就是对应 asset definition 决定的。",
+      "要让自己项目的新资产类型也有一致的显示与分类，在编辑器模块里继承该插件的资产定义基类，并用 `AssetDefinition` 注册。",
+      "它是纯编辑器插件，不要把它的模块加进游戏运行时或 Shipping 配置。"
+    ],
+    "en_steps": [
+      "This editor plugin loads by default and registers asset definitions (icons, colors, categories) for the engine's built-in asset types so Engine content looks consistent in the `Content Browser`.",
+      "Turn on `Show Engine Content` in the Content Browser `Settings` to see the Engine assets these definitions apply to.",
+      "To tell asset types apart, read each asset's color/icon in the Content Browser — that is what its asset definition controls.",
+      "To give a new project asset type the same display and categorization, subclass the plugin's asset definition base in an editor module and register it with `AssetDefinition`.",
+      "It is editor-only; never add its module to a game runtime or Shipping target."
+    ],
+    "note_cn": "它不提供运行时功能，只影响编辑器里资产怎么显示和分类；真正的扩展是在编辑器模块里继承资产定义类。",
+    "note_en": "It has no runtime function — it only affects how assets display and categorize in the editor; real extension means subclassing the asset definition in an editor module."
+  },
+  {
+    "slug": "engine-cameras",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Engine Cameras`，它提供引擎自带的默认相机抖动和相机动画资产。",
+      "做受击/爆炸抖屏时，调用 `PlayerCameraManager` 的 `StartCameraShake`，传入该插件提供的默认相机抖动类（或其子类）。",
+      "做运镜动画时，在 `Level Sequence` 里加 `Camera Cut` 轨道与相机动画轨道，选用默认相机动画资产。",
+      "停止或切换用 `StopCameraShake`，或反向播放相机动画。",
+      "要自定义就继承默认抖动/动画资产改参数，别直接改引擎资产。"
+    ],
+    "en_steps": [
+      "Enable `Engine Cameras`; it ships the engine's default camera shakes and camera animation assets.",
+      "For hit/explosion shake, call `StartCameraShake` on the `PlayerCameraManager` with the plugin's default shake class (or a subclass).",
+      "For cinematic moves, add a `Camera Cut` track plus a camera animation track in a `Level Sequence` and pick a default camera animation asset.",
+      "Stop or switch with `StopCameraShake`, or play the camera animation back.",
+      "To customize, subclass the default shake/animation assets and tweak parameters instead of editing engine assets in place."
+    ],
+    "note_cn": "这些是模板级默认资源，适合快速搭手感；正式项目一般基于它们派生自己的抖动/动画资产。",
+    "note_en": "These are template-level defaults for quick feel; shipping projects usually derive their own shake/animation assets from them."
+  },
+  {
+    "slug": "enhanced-input-code-quality-unreal-test-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "这是 Enhanced Input 的自动化测试插件（模块 `CQTestEnhancedInput` / `CQTestEnhancedInputTests`），服务引擎 QA/CI 回归，不是游戏玩法功能。",
+      "在编辑器或命令行构建里把 `CQTestEnhancedInput` 编译进来（不要放进对外发布的游戏目标）。",
+      "打开 `Session Frontend > Automation`，在过滤器里搜 `CQTestEnhancedInput` 找到用例。",
+      "勾选后点 `Start Tests` 运行，查看通过/失败与日志。",
+      "批量跑用命令行 `-ExecCmds=\"Automation RunTests CQTestEnhancedInput\"`。"
+    ],
+    "en_steps": [
+      "This is an Enhanced Input automation-test plugin (`CQTestEnhancedInput` / `CQTestEnhancedInputTests`) for engine QA/CI regression, not a gameplay feature.",
+      "Compile `CQTestEnhancedInput` into an editor or command-line build (never into a shipping game target).",
+      "Open `Session Frontend > Automation` and filter for `CQTestEnhancedInput` to locate the cases.",
+      "Select them and click `Start Tests`, then read pass/fail and logs.",
+      "Batch-run from the command line with `-ExecCmds=\"Automation RunTests CQTestEnhancedInput\"`."
+    ],
+    "note_cn": "它验证 Enhanced Input 的行为，不提供你在项目里调用的 API；读它的测试源码能学到 EI 的正确用法。",
+    "note_en": "It validates Enhanced Input behavior and exposes no API you call in a project; its test sources are a good reference for correct EI usage."
+  },
+  {
+    "slug": "enhanced-input",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Enhanced Input`，在 `项目设置 > 输入` 把 `默认玩家输入类` 设为 `EnhancedPlayerInput`、`默认输入组件类` 设为 `EnhancedInputComponent`。",
+      "新建 `Input Action`（如 `IA_Move`、`IA_Look` 设 `Axis2D`，`IA_Jump` 设 `Digital(bool)`）。",
+      "新建 `Input Mapping Context`（如 `IMC_Default`）加键位映射，用 `修饰符`（Negate/Swizzle/DeadZone）和 `触发器`（Hold/Tap/Pressed）调手感。",
+      "在角色/控制器 `BeginPlay` 里通过 `UEnhancedInputLocalPlayerSubsystem` 调 `Add Mapping Context` 加上默认上下文。",
+      "在 `SetupPlayerInputComponent` 里用 `EnhancedInputComponent->BindAction` 把 Action 绑到函数。",
+      "运行时用 `Add/Remove Mapping Context` 切换上下文（上车切 `IMC_Drive`、开 UI 切 `IMC_UI`）。",
+      "要做和弦就同一 IMC 里组合多个键并加 `Chorded Action` 触发器。"
+    ],
+    "en_steps": [
+      "Enable `Enhanced Input`; in `Project Settings > Input` set `Default Player Input Class` to `EnhancedPlayerInput` and `Default Input Component Class` to `EnhancedInputComponent`.",
+      "Create `Input Action` assets (`IA_Move`, `IA_Look` as `Axis2D`, `IA_Jump` as `Digital(bool)`).",
+      "Create an `Input Mapping Context` (`IMC_Default`) with key mappings, tuned with `Modifiers` (Negate/Swizzle/DeadZone) and `Triggers` (Hold/Tap/Pressed).",
+      "In the character/controller `BeginPlay`, add the context via `UEnhancedInputLocalPlayerSubsystem` -> `Add Mapping Context`.",
+      "In `SetupPlayerInputComponent` bind actions with `EnhancedInputComponent->BindAction`.",
+      "Swap contexts at runtime with `Add/Remove Mapping Context` (`IMC_Drive` in a car, `IMC_UI` for menus).",
+      "For chords, map several keys in the same IMC and add a `Chorded Action` trigger."
+    ],
+    "note_cn": "必须在代码或蓝图里调用 `AddMappingContext` 加默认上下文，否则按键完全不响应——这是从老 Input 迁移到 EI 最常见的坑。",
+    "note_en": "Always call `AddMappingContext` for a default context in code or Blueprint, or nothing responds — the most common gotcha when migrating from legacy Input to EI."
+  },
+  {
+    "slug": "entityframework-pose-search",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `EntityFramework` 与 `EntityFrameworkPoseSearch`（均为 Experimental，接口可能变），确保两者一起加载。",
+      "让实体使用 `EntitySkeletalAnimation` 组件承载骨骼动画，姿势搜索的输入就来自它的骨骼姿态。",
+      "创建 `Pose Search Database` 资产，把动画序列加入，并选匹配的 Schema/Channel 配置。",
+      "在实体侧构建查询（历史/轨迹、目标通道），把数据库接进实体的动画选择流程。",
+      "在 PIE 用 Pose Search 调试视图看选中的姿势，先在空关卡验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Enable both `EntityFramework` and `EntityFrameworkPoseSearch` (both Experimental — APIs may shift) so they load together.",
+      "Drive entities with the `EntitySkeletalAnimation` component; pose search reads from its skeletal pose.",
+      "Create a `Pose Search Database`, add animation sequences, and pick a matching Schema/Channel configuration.",
+      "Build the query on the entity side (history/trajectory, target channels) and wire the database into the entity's animation selection.",
+      "Tune with the Pose Search debug view in PIE, proving it in an empty level before real content."
+    ],
+    "note_cn": "这是 EntityFramework（ECS 式实体）体系里的姿势搜索；脱离 EntityFramework 的骨架动画它无从取数，纯 Actor 流程里不适用。",
+    "note_en": "This is pose search inside the EntityFramework entity (ECS-style) stack; it needs EntityFramework skeletal animation and doesn't apply to a plain Actor workflow."
+  },
+  {
+    "slug": "entityframework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `EntityFramework`（含 Verse 运行时依赖），它是基于实体(Entity)+组件(Component) 的框架，替代传统 Actor 的 ECS 式世界。",
+      "世界由 `EntitySimulation` 推进，`EntityStreaming` 负责实体的流送加载，`EntityLevel` 管理关卡内实体集合。",
+      "编辑器里用 `EntityPrefabEditor` 制作实体预制(Prefab)，用 `EntityEditor` 查看、编辑实体及其组件。",
+      "用 `EntitySequencer` 把实体属性接进 Sequencer 做时间轴动画；骨骼动画走 `EntitySkeletalAnimation`、地形走 `EntityLandscape`。",
+      "C++ 里只把运行时模块（`Entity`、`EntitySimulation`、`EntityStreaming`、`EntitySkeletalAnimation` 等）加入游戏 `Build.cs`。",
+      "`EntityEditor`、`EntityPrefabEditor`、`ComponentEditor`、`EntitySequencerEditor` 只能进 `*Editor` 模块，加进游戏目标会链接失败。"
+    ],
+    "en_steps": [
+      "Enable `EntityFramework` (with its Verse runtime deps); it is an entity + component (ECS-style) framework meant to replace Actor-centric worlds.",
+      "The world advances through `EntitySimulation`, with `EntityStreaming` loading entities and `EntityLevel` holding a level's entities.",
+      "Author entity prefabs with `EntityPrefabEditor` and inspect/edit entities and their components with `EntityEditor`.",
+      "Feed entity properties into `EntitySequencer` for timeline animation; skeletal animation goes through `EntitySkeletalAnimation` and terrain through `EntityLandscape`.",
+      "In C++ add only the runtime modules (`Entity`, `EntitySimulation`, `EntityStreaming`, `EntitySkeletalAnimation`, etc.) to your game `Build.cs`.",
+      "`EntityEditor`, `EntityPrefabEditor`, `ComponentEditor`, `EntitySequencerEditor` belong only in `*Editor` modules; adding them to a game target fails to link."
+    ],
+    "note_cn": "这是 UEFN/Verse 场景图底层的实体系统，偏底层且演进快；常规 Actor 玩法不需要它，只在实体/SceneGraph 工作流里才用。",
+    "note_en": "This is the low-level entity system beneath UEFN/Verse scene graphs and moves fast; normal Actor gameplay doesn't need it — use it only in entity/SceneGraph workflows."
+  },
+  {
+    "slug": "entityframeworkeditortests",
+    "kind": "plugin",
+    "cn_steps": [
+      "这是 `EntityFramework` 的编辑器工作流自动化测试插件（模块 `SceneGraphEditorWorkflows`），验证编辑器内的场景图/实体操作。",
+      "在已启用 `EntityFramework` 的编辑器环境里启用该测试插件。",
+      "打开 `Session Frontend > Automation`，在过滤器里搜 `SceneGraphEditorWorkflows` 或 `EntityFramework`。",
+      "选中用例点 `Start Tests` 运行，看结果与日志定位失败步骤。",
+      "它只在编辑器里跑自动化，不进游戏运行时，不要加入 Shipping。"
+    ],
+    "en_steps": [
+      "This is the editor-workflow automation-test plugin for `EntityFramework` (module `SceneGraphEditorWorkflows`), validating in-editor scene-graph/entity operations.",
+      "Enable it in an editor that already has `EntityFramework` enabled.",
+      "Open `Session Frontend > Automation` and filter for `SceneGraphEditorWorkflows` or `EntityFramework`.",
+      "Select the cases and click `Start Tests`, then read results and logs to find failing steps.",
+      "It runs editor automation only — never in a game runtime, never in Shipping."
+    ],
+    "note_cn": "纯测试插件，提供的是编辑器自动化用例而非可用 API；CI 里用命令行 `Automation RunTests` 跑最省事。",
+    "note_en": "A pure test plugin that provides editor automation cases, not usable API; running `Automation RunTests` from the command line is the easiest CI path."
+  },
+  {
+    "slug": "entityframeworktests",
+    "kind": "plugin",
+    "cn_steps": [
+      "这是 `EntityFramework` 的运行时测试套件插件，含 `EntityTestSuite`、`ExecutionTestSuite`、`ComponentTestSuite`、`EntityRegistryTestSuite`。",
+      "在启用 `EntityFramework` 的构建里启用它，让测试模块被编译进来。",
+      "在 `Session Frontend > Automation` 按套件名（如 `EntityTestSuite`）过滤用例。",
+      "勾选后 `Start Tests`，关注实体创建、组件注册、执行调度是否全绿。",
+      "命令行用 `-ExecCmds=\"Automation RunTests EntityTestSuite\"` 批跑，投产前确保测试模块不随游戏打包。"
+    ],
+    "en_steps": [
+      "This is the runtime test-suite plugin for `EntityFramework`, bundling `EntityTestSuite`, `ExecutionTestSuite`, `ComponentTestSuite`, `EntityRegistryTestSuite`.",
+      "Enable it in a build that has `EntityFramework` so the test modules compile in.",
+      "In `Session Frontend > Automation`, filter cases by suite name (e.g., `EntityTestSuite`).",
+      "Select and `Start Tests`, watching that entity creation, component registry, and execution scheduling all pass.",
+      "Batch-run from the command line with `-ExecCmds=\"Automation RunTests EntityTestSuite\"`; make sure the test modules aren't packaged into the game."
+    ],
+    "note_cn": "这些测试覆盖实体/组件的核心行为，读测试源码是理解 EntityFramework 数据流的好材料，但它不提供业务 API。",
+    "note_en": "These suites cover core entity/component behavior — good reading to learn EntityFramework's data flow — but they expose no business API."
+  },
+  {
+    "slug": "environment-query-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Environment Query Editor`（默认通常已开），它让你在编辑器里编辑 EQS 环境查询资产。",
+      "内容浏览器右键新建 `环境查询`(EQS Query)，打开后加 `生成器`（如 `SimpleGrid`、`ActorsOfClass`、`Composite`）。",
+      "给生成器加 `测试`（如 `Distance`、`Trace`、`Dot`），设置打分/过滤权重与权重曲线。",
+      "在 AI 里用：行为树加 `Run EQS Query` 节点，选该查询并指定查询模板与目标 Actor。",
+      "或代码里通过 `UEnvQueryManager` / AIController 的 `RunEQSQuery` 发起查询并接收结果。",
+      "在 PIE 按 `'`（单引号）打开 Gameplay Debugger 的 EQS 视图，可视化生成点与得分来调参。"
+    ],
+    "en_steps": [
+      "Enable `Environment Query Editor` (usually on already); it lets you edit EQS Environment Query assets in the editor.",
+      "Right-click in the Content Browser and create an `Environment Query` (EQS Query), then add `Generators` (`SimpleGrid`, `ActorsOfClass`, `Composite`).",
+      "Add `Tests` to the generators (`Distance`, `Trace`, `Dot`) and set scoring/filtering weights and weight curves.",
+      "In AI, add a `Run EQS Query` node to the Behavior Tree and pick the query plus a query template and target actor.",
+      "Or fire it from code via `UEnvQueryManager` / the AIController `RunEQSQuery` and handle the results callback.",
+      "Press `'` (apostrophe) in PIE to open the Gameplay Debugger EQS view and visualize generated points and scores while tuning."
+    ],
+    "note_cn": "编辑器和运行时都叫 EQS；调试靠 Gameplay Debugger 的 EQS 分类，不打开它基本没法看查询到底选了哪些点。",
+    "note_en": "EQS spans both editor and runtime; debug via the Gameplay Debugger's EQS category — without it you can't see which points a query actually picked."
+  },
+  {
+    "slug": "eos-overlay-input-provider",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `EOS Overlay Input Provider`，与 `OnlineSubsystemEOS` / EOS SDK 一起使用。",
+      "确认 `DefaultEngine.ini` 里 EOS 已配好凭证并初始化，overlay 本身是 EOSSDK 渲染的。",
+      "游戏运行且已登录 EOS 后按 `Shift+F3` 呼出 EOS overlay，该插件把鼠标/键盘输入转发给它，让你能在里面操作。",
+      "若 overlay 里点不动、输入无响应，检查此插件是否启用——喂输入给 EOSSDK Overlay 正是它的职责。"
+    ],
+    "en_steps": [
+      "Enable `EOS Overlay Input Provider` alongside `OnlineSubsystemEOS` / the EOS SDK.",
+      "Confirm EOS is configured with credentials and initialized in `DefaultEngine.ini`; the overlay itself is drawn by the EOSSDK.",
+      "With the game running and EOS logged in, press `Shift+F3` to bring up the EOS overlay — this plugin forwards mouse/keyboard input into it so it's usable.",
+      "If clicks/keypresses do nothing in the overlay, check this plugin is enabled — feeding input to the EOSSDK Overlay is exactly its job."
+    ],
+    "note_cn": "它只做输入转发，不渲染 overlay、也不管登录；overlay 要能用，前提是 EOS SDK 本身已初始化并运行在游戏进程里。",
+    "note_en": "It only forwards input — it doesn't render the overlay or handle login; the overlay works only if the EOS SDK is initialized in the game process."
+  },
+  {
+    "slug": "eos-shared",
+    "kind": "plugin",
+    "cn_steps": [
+      "`EOS Shared` 负责 EOSSDK 运行时库的初始化与关闭，通常作为依赖被其他 EOS 插件自动带起来，一般不需要手动单独用。",
+      "启用依赖它的功能（如 `OnlineSubsystemEOS`、`EOSVoiceChat`）时，它会随之加载。",
+      "在 `DefaultEngine.ini` 配好 EOS 参数（产品 ID、沙盒、客户端凭证等），保证它在启动时能成功初始化 SDK。",
+      "运行期调用 EOS 接口（登录、社交、语音）前确认 SDK 已初始化完成，退出时由它负责干净关闭。"
+    ],
+    "en_steps": [
+      "`EOS Shared` owns init/shutdown of the EOSSDK runtime library; it's normally pulled in as a dependency by other EOS plugins, so you rarely use it directly.",
+      "Enabling the features depending on it (`OnlineSubsystemEOS`, `EOSVoiceChat`) loads it automatically.",
+      "Fill the EOS settings in `DefaultEngine.ini` (Product ID, Sandbox, client credentials, etc.) so it can initialize the SDK at startup.",
+      "Before calling EOS interfaces (login, social, voice) confirm the SDK finished initializing; on exit this plugin shuts it down cleanly."
+    ],
+    "note_cn": "它是 EOS 家族的地基模块，不是给你直接调用的能力；真正做事的是 EOS OSS、语音、overlay 等上层插件。",
+    "note_en": "It's the foundation module of the EOS family, not a capability you call directly; the real work lives in EOS OSS, voice, overlay, etc."
+  },
+  {
+    "slug": "eos-voice-chat",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `EOS Voice Chat`，并确保 `OnlineSubsystemEOS` 与 EOS SDK 已配置可用。",
+      "在 `DefaultEngine.ini` 配置 EOS 语音（语音实现、EOS 凭证、`[EOSVoiceChat]` 相关项），客户端与服务端都启用。",
+      "用 `IVoiceChat` 接口或 VoiceChat 子系统先 `Login` 到 EOS 用户，再 `JoinChannel`（队伍/大厅频道）。",
+      "蓝图里可用 Voice Chat 的 `UVoiceChatUserComponent` 及相关节点做登录、加入频道、静音、设置输入设备。",
+      "用通道/发送设置控制只在对局内说话，离开时 `LeaveChannel`。",
+      "起两个客户端 PIE 或多机联机，确认频道内能互相听到，并验证静音/断线行为。"
+    ],
+    "en_steps": [
+      "Enable `EOS Voice Chat` and make sure `OnlineSubsystemEOS` plus the EOS SDK are configured and working.",
+      "Configure EOS voice in `DefaultEngine.ini` (voice implementation, EOS credentials, `[EOSVoiceChat]` entries) and enable it on both client and server.",
+      "Use the `IVoiceChat` interface or VoiceChat subsystem to `Login` the EOS user, then `JoinChannel` (team/lobby channel).",
+      "In Blueprint use the Voice Chat `UVoiceChatUserComponent` and nodes for login, joining, muting, and setting the input device.",
+      "Use channel/transmit settings so players only talk in-match, and `LeaveChannel` when leaving.",
+      "Launch two PIE clients or a networked session, confirm players hear each other, and verify mute/disconnect behavior."
+    ],
+    "note_cn": "语音走 IVoiceChat → EOS 语音服务这条链；凭证和频道模型配错时，最常见现象是登录成功但频道里没声音。",
+    "note_en": "Voice flows through IVoiceChat -> EOS voice service; the classic symptom of a bad credential/channel setup is a successful login with no audio in the channel."
+  },
+  {
+    "slug": "epic-games-engine-restricted",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Epic Games Engine Restricted` 是 Epic 内部受限 API（模块 `EpicGamesEngineRestricted`），明确标注“不适合公众使用”。",
+      "公开版 UE 里通常不提供或不允许启用，在插件列表里看不到/无法勾选是正常现象。",
+      "只有具备 Epic 内部权限的构建里，才能在编辑器中启用并引用该受限模块的接口。",
+      "即便能访问，也应严格隔离在内部工具链，绝不进入对外发布的项目或 Shipping 包。"
+    ],
+    "en_steps": [
+      "`Epic Games Engine Restricted` is an Epic-internal restricted API (module `EpicGamesEngineRestricted`) explicitly marked \"not for public use\".",
+      "Public UE builds usually don't ship or allow enabling it; not appearing or being greyed out in the plugin list is expected.",
+      "Only in builds with Epic-internal access can you enable it in the editor and call the restricted module's interfaces.",
+      "Even then, keep it strictly inside internal tooling and never let it into a public project or Shipping build."
+    ],
+    "note_cn": "这是个“看得到名字但用不了”的插件，别指望在公开账号下启用；如果你的项目不依赖它，直接忽略即可。",
+    "note_en": "This is a name-only, effectively unusable plugin on public accounts; if your project doesn't depend on it, just ignore it."
+  },
+  {
+    "slug": "epic-stage-app",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Epic Stage App`，这是让 Epic Stage 移动端应用远程连到 UE 会话的引擎侧组件（虚拟制片/现场）。",
+      "确认手机与被控 UE 主机在同一网络，并在项目/消息设置里允许 UDP 消息传递，供其发现与通信。",
+      "启动用作被控的 UE 会话（常配合 nDisplay/摄像机跟踪的虚拟制片工程）。",
+      "在 Epic Stage 应用里发现/填入该 UE 主机地址，建立连接后即可远程驱动相机与场景变换。",
+      "联调时用消息/输出日志确认连接握手；断线先查防火墙与端口。"
+    ],
+    "en_steps": [
+      "Enable `Epic Stage App` — the engine-side component that lets the Epic Stage mobile app connect remotely to a UE session (virtual production / on-set).",
+      "Ensure the phone and the controlled UE host share a network and that UDP messaging is allowed in project/messaging settings for discovery and comms.",
+      "Launch the UE session that will be driven (often an nDisplay/camera-tracking virtual-production project).",
+      "In the Epic Stage app, discover/enter the UE host address; once connected it drives cameras and scene transforms remotely.",
+      "During bring-up, watch the message/output logs for the handshake; if it won't connect, check firewall and ports first."
+    ],
+    "note_cn": "它不是编辑器面板工具，而是“手机 App ↔ UE 主机”的远程连接桥；连不上基本都是网络/防火墙/UDP 发现没通。",
+    "note_en": "It's not an editor-panel tool but the remote bridge between the phone app and the UE host; connection failures are almost always networking/firewall/UDP discovery."
+  }
+]

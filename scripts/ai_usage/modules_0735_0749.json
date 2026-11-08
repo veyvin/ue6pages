@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "submittoolcore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SubmitToolCore` 位于 `Developer`，构建规则 `Developer/SubmitToolCore/SubmitToolCore.Build.cs`。它直接依赖 8 个模块：`Analytics`, `AppFramework`, `Core`, `CoreUObject`, `Json`, `OutputLog`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SubmitToolCore\" });`；对外暴露 `SubmitToolCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SubmitToolCore` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `SubmitToolCore.h` / `SubmitToolCoreModule.h`），再用 `FModuleManager::LoadModulePtr<SubmitToolCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`SubmitToolCore` 还依赖 `Analytics`, `AppFramework`, `Core`, `CoreUObject`, `Json`, `OutputLog`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SubmitToolCore` lives under `Developer`; build rule `Developer/SubmitToolCore/SubmitToolCore.Build.cs`.It directly depends on 8 modules: `Analytics`, `AppFramework`, `Core`, `CoreUObject`, `Json`, `OutputLog`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SubmitToolCore\" });`. Use Public when exposing `SubmitToolCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SubmitToolCore` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `SubmitToolCore.h` / `SubmitToolCoreModule.h`), then use `FModuleManager::LoadModulePtr<SubmitToolCoreModule>` or the exported types directly.",
+      "Transitive deps: `SubmitToolCore` also needs `Analytics`, `AppFramework`, `Core`, `CoreUObject`, `Json`, `OutputLog`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SubmitToolCore` 的构建规则位于 `Developer/SubmitToolCore/SubmitToolCore.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SubmitToolCore` build rule is `Developer/SubmitToolCore/SubmitToolCore.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "subobjectdatainterface",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SubobjectDataInterface` 位于 `Editor`，构建规则 `Editor/SubobjectDataInterface/SubobjectDataInterface.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SubobjectDataInterface\" });`；对外暴露 `SubobjectDataInterface` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SubobjectDataInterface` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `SubobjectDataInterface.h` / `SubobjectDataInterfaceModule.h`），再用 `FModuleManager::LoadModulePtr<SubobjectDataInterfaceModule>` 或直接使用导出类型。",
+      "传递依赖：`SubobjectDataInterface` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `SubobjectDataInterface` lives under `Editor`; build rule `Editor/SubobjectDataInterface/SubobjectDataInterface.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SubobjectDataInterface\" });`. Use Public when exposing `SubobjectDataInterface` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SubobjectDataInterface` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `SubobjectDataInterface.h` / `SubobjectDataInterfaceModule.h`), then use `FModuleManager::LoadModulePtr<SubobjectDataInterfaceModule>` or the exported types directly.",
+      "Transitive deps: `SubobjectDataInterface` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`SubobjectDataInterface` 的构建规则位于 `Editor/SubobjectDataInterface/SubobjectDataInterface.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`SubobjectDataInterface` build rule is `Editor/SubobjectDataInterface/SubobjectDataInterface.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "subobjecteditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SubobjectEditor` 位于 `Editor`，构建规则 `Editor/SubobjectEditor/SubobjectEditor.Build.cs`。它直接依赖 8 个模块：`BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `EditorWidgets`, `Engine`, `GraphEditor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SubobjectEditor\" });`；对外暴露 `SubobjectEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SubobjectEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `SubobjectEditor.h` / `SubobjectEditorModule.h`），再用 `FModuleManager::LoadModulePtr<SubobjectEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`SubobjectEditor` 还依赖 `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `EditorWidgets`, `Engine`, `GraphEditor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SubobjectEditor` lives under `Editor`; build rule `Editor/SubobjectEditor/SubobjectEditor.Build.cs`.It directly depends on 8 modules: `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `EditorWidgets`, `Engine`, `GraphEditor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SubobjectEditor\" });`. Use Public when exposing `SubobjectEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SubobjectEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `SubobjectEditor.h` / `SubobjectEditorModule.h`), then use `FModuleManager::LoadModulePtr<SubobjectEditorModule>` or the exported types directly.",
+      "Transitive deps: `SubobjectEditor` also needs `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `EditorWidgets`, `Engine`, `GraphEditor`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SubobjectEditor` 的构建规则位于 `Editor/SubobjectEditor/SubobjectEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SubobjectEditor` build rule is `Editor/SubobjectEditor/SubobjectEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "superluminal",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SuperLuminal` 位于 `ThirdParty`，构建规则 `ThirdParty/SuperLuminal/SuperLuminal.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SuperLuminal\" });`；对外暴露 `SuperLuminal` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SuperLuminal` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `SuperLuminal.h` / `SuperLuminalModule.h`），再用 `FModuleManager::LoadModulePtr<SuperLuminalModule>` 或直接使用导出类型。",
+      "传递依赖：`SuperLuminal` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `SuperLuminal` lives under `ThirdParty`; build rule `ThirdParty/SuperLuminal/SuperLuminal.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SuperLuminal\" });`. Use Public when exposing `SuperLuminal` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SuperLuminal` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `SuperLuminal.h` / `SuperLuminalModule.h`), then use `FModuleManager::LoadModulePtr<SuperLuminalModule>` or the exported types directly.",
+      "Transitive deps: `SuperLuminal` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`SuperLuminal` 的构建规则位于 `ThirdParty/SuperLuminal/SuperLuminal.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`SuperLuminal` build rule is `ThirdParty/SuperLuminal/SuperLuminal.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "svgdistancefield",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SVGDistanceField` 位于 `Editor`，构建规则 `Editor/SVGDistanceField/SVGDistanceField.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SVGDistanceField\" });`；对外暴露 `SVGDistanceField` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SVGDistanceField` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `SVGDistanceField.h` / `SVGDistanceFieldModule.h`），再用 `FModuleManager::LoadModulePtr<SVGDistanceFieldModule>` 或直接使用导出类型。",
+      "传递依赖：`SVGDistanceField` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SVGDistanceField` lives under `Editor`; build rule `Editor/SVGDistanceField/SVGDistanceField.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SVGDistanceField\" });`. Use Public when exposing `SVGDistanceField` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SVGDistanceField` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `SVGDistanceField.h` / `SVGDistanceFieldModule.h`), then use `FModuleManager::LoadModulePtr<SVGDistanceFieldModule>` or the exported types directly.",
+      "Transitive deps: `SVGDistanceField` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SVGDistanceField` 的构建规则位于 `Editor/SVGDistanceField/SVGDistanceField.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`SVGDistanceField` build rule is `Editor/SVGDistanceField/SVGDistanceField.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "swarminterface",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SwarmInterface` 位于 `Editor`，构建规则 `Editor/SwarmInterface/SwarmInterface.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Networking`, `Sockets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SwarmInterface\" });`；对外暴露 `SwarmInterface` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SwarmInterface` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `SwarmInterface.h` / `SwarmInterfaceModule.h`），再用 `FModuleManager::LoadModulePtr<SwarmInterfaceModule>` 或直接使用导出类型。",
+      "传递依赖：`SwarmInterface` 还依赖 `Core`, `CoreUObject`, `Networking`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SwarmInterface` lives under `Editor`; build rule `Editor/SwarmInterface/SwarmInterface.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Networking`, `Sockets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SwarmInterface\" });`. Use Public when exposing `SwarmInterface` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SwarmInterface` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `SwarmInterface.h` / `SwarmInterfaceModule.h`), then use `FModuleManager::LoadModulePtr<SwarmInterfaceModule>` or the exported types directly.",
+      "Transitive deps: `SwarmInterface` also needs `Core`, `CoreUObject`, `Networking`, `Sockets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SwarmInterface` 的构建规则位于 `Editor/SwarmInterface/SwarmInterface.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`SwarmInterface` build rule is `Editor/SwarmInterface/SwarmInterface.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "swift",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Swift` 位于 `ThirdParty`，构建规则 `ThirdParty/Apple/Swift/Swift.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Swift\" });`；对外暴露 `Swift` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Swift` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Swift.h` / `SwiftModule.h`），再用 `FModuleManager::LoadModulePtr<SwiftModule>` 或直接使用导出类型。",
+      "传递依赖：`Swift` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Swift` lives under `ThirdParty`; build rule `ThirdParty/Apple/Swift/Swift.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Swift\" });`. Use Public when exposing `Swift` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Swift` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Swift.h` / `SwiftModule.h`), then use `FModuleManager::LoadModulePtr<SwiftModule>` or the exported types directly.",
+      "Transitive deps: `Swift` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Swift` 的构建规则位于 `ThirdParty/Apple/Swift/Swift.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Swift` build rule is `ThirdParty/Apple/Swift/Swift.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "switchboardlistener",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SwitchboardListener` 位于 `Programs`，构建规则 `Programs/SwitchboardListener/SwitchboardListener/SwitchboardListener.Build.cs`。它直接依赖 1 个模块：`SblSlate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SwitchboardListener\" });`；对外暴露 `SwitchboardListener` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SwitchboardListener` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `SwitchboardListener.h` / `SwitchboardListenerModule.h`），再用 `FModuleManager::LoadModulePtr<SwitchboardListenerModule>` 或直接使用导出类型。",
+      "传递依赖：`SwitchboardListener` 还依赖 `SblSlate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SwitchboardListener` lives under `Programs`; build rule `Programs/SwitchboardListener/SwitchboardListener/SwitchboardListener.Build.cs`.It directly depends on 1 modules: `SblSlate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SwitchboardListener\" });`. Use Public when exposing `SwitchboardListener` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SwitchboardListener` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `SwitchboardListener.h` / `SwitchboardListenerModule.h`), then use `FModuleManager::LoadModulePtr<SwitchboardListenerModule>` or the exported types directly.",
+      "Transitive deps: `SwitchboardListener` also needs `SblSlate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SwitchboardListener` 的构建规则位于 `Programs/SwitchboardListener/SwitchboardListener/SwitchboardListener.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`SwitchboardListener` build rule is `Programs/SwitchboardListener/SwitchboardListener/SwitchboardListener.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "switchboardlistenercmd",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SwitchboardListenerCmd` 位于 `Programs`，构建规则 `Programs/SwitchboardListener/SwitchboardListenerCmd/SwitchboardListenerCmd.Build.cs`。它直接依赖 1 个模块：`SblCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SwitchboardListenerCmd\" });`；对外暴露 `SwitchboardListenerCmd` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SwitchboardListenerCmd` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `SwitchboardListenerCmd.h` / `SwitchboardListenerCmdModule.h`），再用 `FModuleManager::LoadModulePtr<SwitchboardListenerCmdModule>` 或直接使用导出类型。",
+      "传递依赖：`SwitchboardListenerCmd` 还依赖 `SblCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SwitchboardListenerCmd` lives under `Programs`; build rule `Programs/SwitchboardListener/SwitchboardListenerCmd/SwitchboardListenerCmd.Build.cs`.It directly depends on 1 modules: `SblCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SwitchboardListenerCmd\" });`. Use Public when exposing `SwitchboardListenerCmd` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SwitchboardListenerCmd` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `SwitchboardListenerCmd.h` / `SwitchboardListenerCmdModule.h`), then use `FModuleManager::LoadModulePtr<SwitchboardListenerCmdModule>` or the exported types directly.",
+      "Transitive deps: `SwitchboardListenerCmd` also needs `SblCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SwitchboardListenerCmd` 的构建规则位于 `Programs/SwitchboardListener/SwitchboardListenerCmd/SwitchboardListenerCmd.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`SwitchboardListenerCmd` build rule is `Programs/SwitchboardListener/SwitchboardListenerCmd/SwitchboardListenerCmd.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "switchboardlistenerhelper",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SwitchboardListenerHelper` 位于 `Programs`，构建规则 `Programs/SwitchboardListenerHelper/SwitchboardListenerHelper.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Json`, `JsonUtilities`, `Networking`, `NvmlWrapper`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SwitchboardListenerHelper\" });`；对外暴露 `SwitchboardListenerHelper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SwitchboardListenerHelper` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `SwitchboardListenerHelper.h` / `SwitchboardListenerHelperModule.h`），再用 `FModuleManager::LoadModulePtr<SwitchboardListenerHelperModule>` 或直接使用导出类型。",
+      "传递依赖：`SwitchboardListenerHelper` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Json`, `JsonUtilities`, `Networking`, `NvmlWrapper`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SwitchboardListenerHelper` lives under `Programs`; build rule `Programs/SwitchboardListenerHelper/SwitchboardListenerHelper.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Json`, `JsonUtilities`, `Networking`, `NvmlWrapper`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SwitchboardListenerHelper\" });`. Use Public when exposing `SwitchboardListenerHelper` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SwitchboardListenerHelper` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `SwitchboardListenerHelper.h` / `SwitchboardListenerHelperModule.h`), then use `FModuleManager::LoadModulePtr<SwitchboardListenerHelperModule>` or the exported types directly.",
+      "Transitive deps: `SwitchboardListenerHelper` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Json`, `JsonUtilities`, `Networking`, `NvmlWrapper`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SwitchboardListenerHelper` 的构建规则位于 `Programs/SwitchboardListenerHelper/SwitchboardListenerHelper.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SwitchboardListenerHelper` build rule is `Programs/SwitchboardListenerHelper/SwitchboardListenerHelper.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "switchboardlistenertests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SwitchboardListenerTests` 位于 `Programs`，构建规则 `Programs/SwitchboardListener/SwitchboardListenerTests/SwitchboardListenerTests.Build.cs`。它直接依赖 2 个模块：`JWT`, `SblCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SwitchboardListenerTests\" });`；对外暴露 `SwitchboardListenerTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SwitchboardListenerTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `SwitchboardListenerTests.h` / `SwitchboardListenerTestsModule.h`），再用 `FModuleManager::LoadModulePtr<SwitchboardListenerTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`SwitchboardListenerTests` 还依赖 `JWT`, `SblCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SwitchboardListenerTests` lives under `Programs`; build rule `Programs/SwitchboardListener/SwitchboardListenerTests/SwitchboardListenerTests.Build.cs`.It directly depends on 2 modules: `JWT`, `SblCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SwitchboardListenerTests\" });`. Use Public when exposing `SwitchboardListenerTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SwitchboardListenerTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `SwitchboardListenerTests.h` / `SwitchboardListenerTestsModule.h`), then use `FModuleManager::LoadModulePtr<SwitchboardListenerTestsModule>` or the exported types directly.",
+      "Transitive deps: `SwitchboardListenerTests` also needs `JWT`, `SblCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SwitchboardListenerTests` 的构建规则位于 `Programs/SwitchboardListener/SwitchboardListenerTests/SwitchboardListenerTests.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`SwitchboardListenerTests` build rule is `Programs/SwitchboardListener/SwitchboardListenerTests/SwitchboardListenerTests.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "symslib",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SymsLib` 位于 `Runtime`，构建规则 `Runtime/SymsLib/SymsLib.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SymsLib\" });`；对外暴露 `SymsLib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SymsLib` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `SymsLib.h` / `SymsLibModule.h`），再用 `FModuleManager::LoadModulePtr<SymsLibModule>` 或直接使用导出类型。",
+      "传递依赖：`SymsLib` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `SymsLib` lives under `Runtime`; build rule `Runtime/SymsLib/SymsLib.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SymsLib\" });`. Use Public when exposing `SymsLib` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SymsLib` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `SymsLib.h` / `SymsLibModule.h`), then use `FModuleManager::LoadModulePtr<SymsLibModule>` or the exported types directly.",
+      "Transitive deps: `SymsLib` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`SymsLib` 的构建规则位于 `Runtime/SymsLib/SymsLib.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`SymsLib` build rule is `Runtime/SymsLib/SymsLib.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "symslibdump",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SymsLibDump` 位于 `Programs`，构建规则 `Programs/SymsLibDump/SymsLibDump.Build.cs`。它直接依赖 4 个模块：`ApplicationCore`, `Core`, `Projects`, `SymsLib`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SymsLibDump\" });`；对外暴露 `SymsLibDump` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SymsLibDump` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `SymsLibDump.h` / `SymsLibDumpModule.h`），再用 `FModuleManager::LoadModulePtr<SymsLibDumpModule>` 或直接使用导出类型。",
+      "传递依赖：`SymsLibDump` 还依赖 `ApplicationCore`, `Core`, `Projects`, `SymsLib`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SymsLibDump` lives under `Programs`; build rule `Programs/SymsLibDump/SymsLibDump.Build.cs`.It directly depends on 4 modules: `ApplicationCore`, `Core`, `Projects`, `SymsLib`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SymsLibDump\" });`. Use Public when exposing `SymsLibDump` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SymsLibDump` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `SymsLibDump.h` / `SymsLibDumpModule.h`), then use `FModuleManager::LoadModulePtr<SymsLibDumpModule>` or the exported types directly.",
+      "Transitive deps: `SymsLibDump` also needs `ApplicationCore`, `Core`, `Projects`, `SymsLib`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SymsLibDump` 的构建规则位于 `Programs/SymsLibDump/SymsLibDump.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`SymsLibDump` build rule is `Programs/SymsLibDump/SymsLibDump.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "synthbenchmark",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SynthBenchmark` 位于 `Runtime`，构建规则 `Runtime/SynthBenchmark/SynthBenchmark.Build.cs`。它直接依赖 4 个模块：`ApplicationCore`, `Core`, `RHI`, `RenderCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SynthBenchmark\" });`；对外暴露 `SynthBenchmark` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SynthBenchmark` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `SynthBenchmark.h` / `SynthBenchmarkModule.h`），再用 `FModuleManager::LoadModulePtr<SynthBenchmarkModule>` 或直接使用导出类型。",
+      "传递依赖：`SynthBenchmark` 还依赖 `ApplicationCore`, `Core`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SynthBenchmark` lives under `Runtime`; build rule `Runtime/SynthBenchmark/SynthBenchmark.Build.cs`.It directly depends on 4 modules: `ApplicationCore`, `Core`, `RHI`, `RenderCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SynthBenchmark\" });`. Use Public when exposing `SynthBenchmark` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SynthBenchmark` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `SynthBenchmark.h` / `SynthBenchmarkModule.h`), then use `FModuleManager::LoadModulePtr<SynthBenchmarkModule>` or the exported types directly.",
+      "Transitive deps: `SynthBenchmark` also needs `ApplicationCore`, `Core`, `RHI`, `RenderCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SynthBenchmark` 的构建规则位于 `Runtime/SynthBenchmark/SynthBenchmark.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`SynthBenchmark` build rule is `Runtime/SynthBenchmark/SynthBenchmark.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "targetdeviceservices",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TargetDeviceServices` 位于 `Developer`，构建规则 `Developer/TargetDeviceServices/TargetDeviceServices.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TargetDeviceServices\" });`；对外暴露 `TargetDeviceServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TargetDeviceServices` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TargetDeviceServices.h` / `TargetDeviceServicesModule.h`），再用 `FModuleManager::LoadModulePtr<TargetDeviceServicesModule>` 或直接使用导出类型。",
+      "传递依赖：`TargetDeviceServices` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TargetDeviceServices` lives under `Developer`; build rule `Developer/TargetDeviceServices/TargetDeviceServices.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TargetDeviceServices\" });`. Use Public when exposing `TargetDeviceServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TargetDeviceServices` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TargetDeviceServices.h` / `TargetDeviceServicesModule.h`), then use `FModuleManager::LoadModulePtr<TargetDeviceServicesModule>` or the exported types directly.",
+      "Transitive deps: `TargetDeviceServices` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TargetDeviceServices` 的构建规则位于 `Developer/TargetDeviceServices/TargetDeviceServices.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`TargetDeviceServices` build rule is `Developer/TargetDeviceServices/TargetDeviceServices.Build.cs`; depends on 4 modules; category Module."
+  }
+]

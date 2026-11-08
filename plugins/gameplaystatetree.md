@@ -3,8 +3,6 @@ layout: default
 title: 游戏状态树 / GameplayStateTree
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,77 @@ title: 游戏状态树 / GameplayStateTree
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于 AI/游戏行为的 StateTree</div><div class="lang-content">StateTree for AI/Gameplay Behaviors</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：用于 AI/游戏行为的 StateTree</p><p>运行时插件，启用后可进游戏包。</p><p>它打包的模块包括：GameplayStateTreeModule。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: StateTree for AI/Gameplay Behaviors</p><p>A runtime plugin that can ship in a cooked game.</p><p>It ships these modules: GameplayStateTreeModule. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">GameplayStateTree</code>（模块 <code class="usage-code">GameplayStateTreeModule</code>）。</li><li>为角色/AI 创建 StateTree，在 StateTree 编辑器里用玩法任务、条件、过渡组织行为。</li><li>让控制器或 AI 组件运行该 StateTree 资产，由它驱动移动、交互、战斗等状态。</li><li>Game 模块依赖 <code class="usage-code">GameplayStateTreeModule</code>；它是 StateTree 框架的玩法扩展层。</li></ol><p class="usage-note">StateTree 的玩法/AI 扩展，不是 Mass 或行为树。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">GameplayStateTree</code> (module <code class="usage-code">GameplayStateTreeModule</code>).</li><li>Create a StateTree for characters/AI and organize behavior with gameplay tasks, conditions, and transitions in the StateTree editor.</li><li>Have the controller or AI component run that StateTree asset to drive movement, interactions, combat, and other states.</li><li>Game modules depend on <code class="usage-code">GameplayStateTreeModule</code>; it is the gameplay extension layer over the StateTree framework.</li></ol><p class="usage-note">The gameplay/AI extension over StateTree, not Mass or Behavior Trees.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">GameplayStateTreeModule</span><span class="tag runtime">Runtime</span></div></div>

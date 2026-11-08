@@ -3,7 +3,6 @@ layout: default
 title: 绘制调试库 / Draw Debug Library
 ---
 
-
 <h1>绘制调试库 / Draw Debug Library</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 绘制调试库 / Draw Debug Library
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">常见调试绘图函数库。</div><div class="lang-content">A library of common debug drawing functions.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental <code class="usage-code">Draw Debug Library</code>（模块 <code class="usage-code">DrawDebugLibrary</code>），游戏模块 <code class="usage-code">Build.cs</code> 加上同名依赖。</li><li>C++ <code class="usage-code">#include</code> 该模块公共头，或在蓝图搜索 Draw Debug Library 函数（线、盒、球、胶囊、字符串），代替到处散落的 <code class="usage-code">DrawDebugHelpers</code>。</li><li>在 Actor <code class="usage-code">Tick</code> 或一次性事件里传入 World、位置、颜色、<code class="usage-code">Duration</code>；<code class="usage-code">Duration=0</code> 表示单帧。</li><li>PIE 打开 <code class="usage-code">Show &gt; Developer &gt; Debug Shapes</code>（或确保 <code class="usage-code">r.DebugSafeZone</code> / 调试绘制未被关），从摄像机看到形状。</li><li>Shipping 通常应编译剥离或用 <code class="usage-code">ENABLE_DRAW_DEBUG</code> 保护；不要把它当成运行时特效网格。</li><li>这不是 <code class="usage-code">Custom Mesh Component</code>，也不会生成可保存的静态网格。</li></ol><p class="usage-note">实验性调试绘制函数库，只用于开发可视化，不是可渲染的游戏网格。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Draw Debug Library</code> (module <code class="usage-code">DrawDebugLibrary</code>) and add it to the game <code class="usage-code">Build.cs</code>.</li><li>Include the module’s public headers, or call Draw Debug Library Blueprint nodes (line, box, sphere, capsule, string) instead of ad-hoc <code class="usage-code">DrawDebugHelpers</code>.</li><li>From <code class="usage-code">Tick</code> or a one-shot event, pass World, location, color, and <code class="usage-code">Duration</code> (<code class="usage-code">0</code> = one frame).</li><li>In PIE, enable <code class="usage-code">Show &gt; Developer &gt; Debug Shapes</code> (and do not disable debug drawing CVars) so the camera actually sees the shapes.</li><li>Strip or guard with <code class="usage-code">ENABLE_DRAW_DEBUG</code> for Shipping; this is not a gameplay VFX mesh.</li><li>Not <code class="usage-code">Custom Mesh Component</code>, and it does not author a savable static mesh.</li></ol><p class="usage-note">Experimental debug-draw helpers for development visualization, not a renderable game mesh.</p></div></div></div>
+    </div>
+

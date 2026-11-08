@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "openxr-valve-index-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR Valve Index Controller`（模块 `OpenXRValveIndexController`）。",
+      "它为 Valve Index 控制器提供 OpenXR 支持（`/interaction_profiles/valve/index_controller` 及控制器网格）。",
+      "在 Index 的 OpenXR 项目里使用对应交互配置与手部/输入。",
+      "属 OpenXR 输入扩展；需 OpenXR 运行时。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR Valve Index Controller` (module `OpenXRValveIndexController`).",
+      "It provides OpenXR support for Valve Index controllers (`/interaction_profiles/valve/index_controller` plus controller meshes).",
+      "Use the matching interaction profile and hand/input in Index OpenXR projects.",
+      "It is an OpenXR input extension; requires an OpenXR runtime."
+    ],
+    "note_cn": "OpenXR 的 Valve Index 控制器支持。",
+    "note_en": "OpenXR support for Valve Index controllers."
+  },
+  {
+    "slug": "openxr-vive-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR Vive Controller`（模块 `OpenXRViveController`）。",
+      "它为 HTC Vive 控制器提供 OpenXR 支持（`/interaction_profiles/htc/vive_controller` 及控制器网格）。",
+      "在 Vive 的 OpenXR 项目里使用对应交互配置。",
+      "属 OpenXR 输入扩展；需 OpenXR 运行时。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR Vive Controller` (module `OpenXRViveController`).",
+      "It provides OpenXR support for HTC Vive controllers (`/interaction_profiles/htc/vive_controller` plus controller meshes).",
+      "Use the matching interaction profile in Vive OpenXR projects.",
+      "It is an OpenXR input extension; requires an OpenXR runtime."
+    ],
+    "note_cn": "OpenXR 的 HTC Vive 控制器支持。",
+    "note_en": "OpenXR support for HTC Vive controllers."
+  },
+  {
+    "slug": "openxr-vive-cosmos-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR Vive Cosmos Controller`（模块 `OpenXRViveCosmosController`）。",
+      "它为 HTC Vive Cosmos 控制器提供 OpenXR 支持（`/interaction_profiles/htc/vive_cosmos_controller`，基于 XR_HTC_vive_cosmos_controller_interaction 扩展）。",
+      "在 Cosmos 的 OpenXR 项目里使用对应交互配置。",
+      "属 OpenXR 输入扩展；需 OpenXR 运行时与扩展支持。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR Vive Cosmos Controller` (module `OpenXRViveCosmosController`).",
+      "It provides OpenXR support for HTC Vive Cosmos controllers (`/interaction_profiles/htc/vive_cosmos_controller`, via the XR_HTC_vive_cosmos_controller_interaction extension).",
+      "Use the matching interaction profile in Cosmos OpenXR projects.",
+      "It is an OpenXR input extension; requires an OpenXR runtime and extension support."
+    ],
+    "note_cn": "OpenXR 的 HTC Vive Cosmos 控制器支持。",
+    "note_en": "OpenXR support for HTC Vive Cosmos controllers."
+  },
+  {
+    "slug": "openxr",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR`（模块 `OpenXRHMD`、`OpenXRInput`、`OpenXRAR`，编辑器 `OpenXREditor`）。",
+      "它接入 Khronos OpenXR 运行时（SteamVR、Oculus、WMR 等），无需为每个厂商单独写插件。",
+      "在项目 XR 设置里把 OpenXR 设为 XR 系统，配置交互配置与扩展。",
+      "Game 模块依赖运行时模块；`OpenXREditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR` (modules `OpenXRHMD`, `OpenXRInput`, `OpenXRAR`, editor `OpenXREditor`).",
+      "It uses the Khronos OpenXR runtime (SteamVR, Oculus, WMR, etc.) without a per-vendor plugin.",
+      "Set OpenXR as the XR system in project XR settings and configure interaction profiles/extensions.",
+      "Game modules depend on runtime modules; `OpenXREditor` is Editor-target only."
+    ],
+    "note_cn": "OpenXR 开放 VR/AR 标准的引擎接入（统一各大头显）。",
+    "note_en": "The engine's OpenXR (open VR/AR standard) integration (unifies major headsets)."
+  },
+  {
+    "slug": "openxreyetracker",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXREyeTracker`（模块 `OpenXREyeTracker`）。",
+      "它为 OpenXR 提供眼动跟踪（`XR_EXT_eye_gaze_interaction`）支持。",
+      "在支持的 HMD 上用眼动凝视数据做交互/注视点渲染。",
+      "属 OpenXR 扩展；需运行时与硬件支持。"
+    ],
+    "en_steps": [
+      "Enable `OpenXREyeTracker` (module `OpenXREyeTracker`).",
+      "It provides eye-tracking (`XR_EXT_eye_gaze_interaction`) support for OpenXR.",
+      "Use eye-gaze data for interaction/foveated rendering on supported headsets.",
+      "It is an OpenXR extension; requires runtime and hardware support."
+    ],
+    "note_cn": "OpenXR 眼动跟踪（XR_EXT_eye_gaze_interaction）。",
+    "note_en": "OpenXR eye tracking (XR_EXT_eye_gaze_interaction)."
+  },
+  {
+    "slug": "openxrhandtracking",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXRHandTracking`（运行时 `OpenXRHandTracking`，编辑器 `OpenXRHandTrackingEditor`）。",
+      "它为 OpenXR 提供手部跟踪（`XR_EXT_hand_tracking`）支持。",
+      "在支持的手部跟踪设备上用关节数据驱动手势/手模型。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `OpenXRHandTracking` (runtime `OpenXRHandTracking`, editor `OpenXRHandTrackingEditor`).",
+      "It provides hand-tracking (`XR_EXT_hand_tracking`) support for OpenXR.",
+      "Use joint data to drive gestures/hand models on hand-tracking devices.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "OpenXR 手部跟踪（XR_EXT_hand_tracking）。",
+    "note_en": "OpenXR hand tracking (XR_EXT_hand_tracking)."
+  },
+  {
+    "slug": "openxrmsfthandinteraction",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXRMsftHandInteraction`（模块 `OpenXRMsftHandInteraction`），运行时插件。",
+      "它为 OpenXR 提供 Microsoft 手部交互扩展（如手部射线/手势）。",
+      "在支持的设备上用该扩展做手部交互输入。",
+      "运行时模块可进包；需 OpenXR 运行时与扩展支持。"
+    ],
+    "en_steps": [
+      "Enable `OpenXRMsftHandInteraction` (module `OpenXRMsftHandInteraction`), a runtime plugin.",
+      "It provides the Microsoft hand-interaction extension for OpenXR (e.g. hand ray/gestures).",
+      "Use the extension for hand interactions on supported devices.",
+      "Runtime modules can ship; requires an OpenXR runtime and extension support."
+    ],
+    "note_cn": "OpenXR 的 Microsoft 手部交互扩展。",
+    "note_en": "The Microsoft hand-interaction extension for OpenXR."
+  },
+  {
+    "slug": "openxrvivetracker",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXRViveTracker`（模块 `OpenXRViveTracker`）。",
+      "它为 OpenXR 提供 Vive Tracker 支持（`XR_HTCX_vive_tracker_interaction`）。",
+      "在虚拟制片/全身动捕里用 Vive Tracker 数据驱动道具/骨骼。",
+      "属 OpenXR 输入扩展；需运行时与硬件支持。"
+    ],
+    "en_steps": [
+      "Enable `OpenXRViveTracker` (module `OpenXRViveTracker`).",
+      "It provides Vive Tracker support for OpenXR (`XR_HTCX_vive_tracker_interaction`).",
+      "In virtual production/full-body tracking, drive props/skeletons with Vive Tracker data.",
+      "It is an OpenXR input extension; requires runtime and hardware support."
+    ],
+    "note_cn": "OpenXR 的 Vive Tracker 支持（XR_HTCX_vive_tracker_interaction）。",
+    "note_en": "OpenXR Vive Tracker support (XR_HTCX_vive_tracker_interaction)."
+  },
+  {
+    "slug": "operator-stack",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Operator Stack`（模块 `OperatorStackEditor`），属 Virtual Production。",
+      "它用直观的 UI 显示容器中的链接对象（操作符栈）。",
+      "在虚拟制片/合成流程里用其面板查看与管理对象链接关系。",
+      "这是编辑器工具，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Operator Stack` (module `OperatorStackEditor`), part of Virtual Production.",
+      "It displays linked objects in a container with an intuitive UI (an operator stack).",
+      "In virtual production/compositing flows, use its panel to view/manage object linking.",
+      "It is an editor tool for Editor targets only."
+    ],
+    "note_cn": "用直观 UI 显示容器内链接对象的操作符栈，编辑器向。",
+    "note_en": "An operator stack showing linked container objects in an intuitive UI, editor-oriented."
+  },
+  {
+    "slug": "optimus",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Optimus` 是已弃用（Deprecated）插件，现已重定向到 `DeformerGraph`。",
+      "新项目改用 Deformer Graph 做网格变形/生成。",
+      "旧工程若仍引用它，按提示迁移。",
+      "迁移完成后禁用本插件。"
+    ],
+    "en_steps": [
+      "`Optimus` is a deprecated plugin, now redirected to `DeformerGraph`.",
+      "New projects use Deformer Graph for mesh deformation/generation.",
+      "If a legacy project still references it, migrate as prompted.",
+      "Disable this plugin after migration."
+    ],
+    "note_cn": "已弃用，重定向到 DeformerGraph。",
+    "note_en": "Deprecated; redirected to DeformerGraph."
+  },
+  {
+    "slug": "optional-mobile-features-blueprint-library",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Optional Mobile Features Blueprint Library`（模块 `OptionalMobileFeaturesBPLibrary`）。",
+      "它为 Android 与 iOS 设备提供对音量、电池电量、系统温度的蓝图访问。",
+      "在移动项目蓝图里调用这些节点读取设备状态。",
+      "运行时模块；打包到 Android/iOS 生效。"
+    ],
+    "en_steps": [
+      "Enable `Optional Mobile Features Blueprint Library` (module `OptionalMobileFeaturesBPLibrary`).",
+      "It provides Blueprint access to volume, battery level, and system temperature on Android and iOS devices.",
+      "Call these nodes from Blueprint in mobile projects to read device state.",
+      "A runtime module; takes effect when packaged to Android/iOS."
+    ],
+    "note_cn": "Android/iOS 的音量/电量/温度蓝图访问。",
+    "note_en": "Blueprint access to volume/battery/temperature on Android/iOS."
+  },
+  {
+    "slug": "optixdenoise",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OptiXDenoise`（模块 `OptiXDenoise`）。",
+      "它是基于 NVIDIA OptiX AI 加速降噪器的 Path Tracer 去噪引擎。",
+      "在 Path Tracer/离线渲染里启用 OptiX 降噪，降低采样保画质。",
+      "属降噪工具；需 NVIDIA GPU 与 OptiX 支持。"
+    ],
+    "en_steps": [
+      "Enable `OptiXDenoise` (module `OptiXDenoise`).",
+      "It is a Path Tracer denoising engine based on NVIDIA's OptiX AI-Accelerated Denoiser.",
+      "Enable OptiX denoising in Path Tracer/offline renders to cut samples while keeping quality.",
+      "It is a denoise tool; requires an NVIDIA GPU with OptiX support."
+    ],
+    "note_cn": "基于 NVIDIA OptiX 的 Path Tracer 降噪。",
+    "note_en": "Path Tracer denoising based on NVIDIA OptiX."
+  },
+  {
+    "slug": "opus-audio-decoder-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Opus audio decoder for Electra`（模块 `OpusDecoderElectra`）。",
+      "它用 Electra 媒体播放器实现 Opus 音频播放。",
+      "在 Media Player 选 Electra 后端播放带 Opus 音轨的媒体。",
+      "属 Media Framework / Electra 解码扩展。"
+    ],
+    "en_steps": [
+      "Enable `Opus audio decoder for Electra` (module `OpusDecoderElectra`).",
+      "It implements Opus audio playback via the Electra media player.",
+      "Play media with an Opus audio track through a Media Player using the Electra backend.",
+      "It is a Media Framework / Electra decode extension."
+    ],
+    "note_cn": "Electra 的 Opus 音频解码。",
+    "note_en": "Opus audio decoding for Electra."
+  },
+  {
+    "slug": "osc-open-sound-control",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OSC (Open Sound Control)`（模块 `OSC`）。",
+      "它实现 OSC 1.0 规范，可在远程客户端/应用间发送与接收 OSC 消息与 bundle。",
+      "用 OSC 客户端/服务器节点收发消息，对接控制台/音频/外部工具。",
+      "属输入/控制设备扩展；广泛用于演出与外部控制。"
+    ],
+    "en_steps": [
+      "Enable `OSC (Open Sound Control)` (module `OSC`).",
+      "It implements the OSC 1.0 spec to send and receive OSC messages and bundles between remote clients/apps.",
+      "Use OSC client/server nodes to exchange messages with consoles/audio/external tools.",
+      "It is an input/control-device extension; widely used for shows and external control."
+    ],
+    "note_cn": "OSC 1.0 消息收发（外部控制/音频/演出）。",
+    "note_en": "OSC 1.0 message send/receive (external control/audio/shows)."
+  },
+  {
+    "slug": "panoramic-capture",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Panoramic Capture`（模块 `PanoramicCapture`）。",
+      "它用于捕捉单视场或立体（顶部/底部）全景图像序列。",
+      "用其捕获工具输出全景/立体全景序列，用于 VR 视频等。",
+      "Experimental：接口可能变动；属 Movie Capture 工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Panoramic Capture` (module `PanoramicCapture`).",
+      "It captures mono or stereo (top/bottom) panoramic image sequences.",
+      "Use its capture tools to output panoramic/stereo-panoramic sequences for VR video, etc.",
+      "Experimental: contract may change; it is a Movie Capture tool."
+    ],
+    "note_cn": "捕捉单视场/立体(top-bottom)全景图像序列。",
+    "note_en": "Captures mono/stereo (top-bottom) panoramic image sequences."
+  }
+]

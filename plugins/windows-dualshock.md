@@ -3,7 +3,6 @@ layout: default
 title: Windows 双震 / Windows DualShock
 ---
 
-
 <h1>Windows 双震 / Windows DualShock</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: Windows 双震 / Windows DualShock
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Windows 中 PS4 DualShock 控制器的 InputDevice 插件</div><div class="lang-content">InputDevice plugin for the PS4 DualShock controller in Windows</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Windows DualShock</code>（模块 <code class="usage-code">WinDualShock</code>），运行时插件。</li><li>它是 Windows 中 PS4 DualShock 控制器的 InputDevice 插件。</li><li>在 Windows 上用 DualShock 手柄，接入输入系统。</li><li>运行时模块；需 DualShock 设备与驱动。</li></ol><p class="usage-note">Windows 中 PS4 DualShock 的 InputDevice 插件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Windows DualShock</code> (module <code class="usage-code">WinDualShock</code>), a runtime plugin.</li><li>It is the InputDevice plugin for PS4 DualShock controllers on Windows.</li><li>Use a DualShock gamepad on Windows and bring it into the input system.</li><li>A runtime module; requires a DualShock device and drivers.</li></ol><p class="usage-note">The PS4 DualShock InputDevice plugin on Windows.</p></div></div></div>
+    </div>
+

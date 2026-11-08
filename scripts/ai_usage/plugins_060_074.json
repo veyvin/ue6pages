@@ -1,0 +1,330 @@
+[
+  {
+    "slug": "asset-manager-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 `Asset Manager Editor`（模块 `AssetManagerEditor`）并重启。",
+      "打开 `Edit > Project Settings > Game > Asset Manager`，确认 Primary Asset Types / Directories，以及包装用的 Chunk ID。",
+      "打开 `Window > Developer Tools > Asset Audit`；空白时点 `Add Chunks`，按 Chunk 查看进包资产。",
+      "在内容浏览器或 Asset Audit 里右键资产，选 `Size Map`（`ALT+SHIFT+M`）看该资产及其引用的大致体积。",
+      "再用 `Reference Viewer`（`ALT+SHIFT+R`）或 `Audit Assets`（`ALT+SHIFT+A`）核对为何被引用、标签与磁盘信息。",
+      "这些窗口由 `IAssetManagerEditorModule` 提供；不要把 `AssetManagerEditor` 写进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Asset Manager Editor` (`AssetManagerEditor`) under `Edit > Plugins` and restart.",
+      "Open `Edit > Project Settings > Game > Asset Manager` and confirm Primary Asset Types / Directories and packaging Chunk IDs.",
+      "Open `Window > Developer Tools > Asset Audit`; if empty, click `Add Chunks` to inspect cooked assets per chunk.",
+      "Right-click an asset in the Content Browser or Asset Audit and choose `Size Map` (`ALT+SHIFT+M`) for that asset and its references.",
+      "Use `Reference Viewer` (`ALT+SHIFT+R`) or `Audit Assets` (`ALT+SHIFT+A`) to see why it is referenced and its on-disk tags.",
+      "These windows come from `IAssetManagerEditorModule`; do not link `AssetManagerEditor` into a Game target."
+    ],
+    "note_cn": "这是磁盘资产审核 UI（Audit / Size Map / Reference Viewer），不是运行时 `UAssetManager` 本身。",
+    "note_en": "Editor audit UI (Asset Audit, Size Map, Reference Viewer), not the runtime `UAssetManager` itself."
+  },
+  {
+    "slug": "asset-referencing-restrictions",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Asset Referencing Restrictions`（模块 `AssetReferenceRestrictions`）并重启。",
+      "打开 `Edit > Project Settings > Game > Asset Referencing Policy`（`UAssetReferencingPolicySettings`）。",
+      "在 `Default Project Content Rule` 的 `Can Reference These Domains` 里列出项目内容允许引用的域（插件名或额外 Content 根）。",
+      "按需配置 `Engine Plugins` / `Project Plugins`：游戏内容能否引用该插件、插件能否被无依赖看见。",
+      "用 `Additional Domains` 把项目 Content 下的独立文件夹切成独立域；需要时勾选 `Ignore Editor-Only References`。",
+      "保存资产或跑 Data Validation：非法跨域引用会在 Asset Picker 被滤掉，并在校验中报错。",
+      "规则写入 `DefaultGame.ini` 的 `[/Script/AssetReferenceRestrictions.AssetReferencingPolicySettings]`，不要把该模块链进 Shipping 游戏。"
+    ],
+    "en_steps": [
+      "Enable `Asset Referencing Restrictions` (module `AssetReferenceRestrictions`) and restart.",
+      "Open `Edit > Project Settings > Game > Asset Referencing Policy` (`UAssetReferencingPolicySettings`).",
+      "Under `Default Project Content Rule` → `Can Reference These Domains`, list domains project content may reference (plugin names or extra content roots).",
+      "Configure `Engine Plugins` / `Project Plugins`: whether game content may reference the plugin and whether other domains can see it without a dependency.",
+      "Use `Additional Domains` to split folders under project Content into their own domains; optionally enable `Ignore Editor-Only References`.",
+      "Save an asset or run Data Validation: illegal cross-domain refs are filtered in the Asset Picker and fail validation.",
+      "Rules persist in `DefaultGame.ini` under `[/Script/AssetReferenceRestrictions.AssetReferencingPolicySettings]`; do not link this module into a shipping game."
+    ],
+    "note_cn": "Lyra/Game Feature 常用它隔离插件内容；改域名单后要重新保存相关资产才会重新校验。",
+    "note_en": "Lyra/Game Feature projects use this to isolate plugin content; resave assets after changing domain rules so validation reruns."
+  },
+  {
+    "slug": "asset-registry-export",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Asset Registry Export`（模块 `AssetRegistryExport`）；它依赖 `SQLiteCore`，不要写进 Game Target。",
+      "用 `UnrealEditor-Cmd.exe` 打开工程，加 `-run=AssetRegistryExport`（`UAssetRegistryExportCommandlet`）。",
+      "用 `-ExportPath=` 指定输出的 SQLite `.db`（导出到已有库时不要指望追加，命令会按新库写）。",
+      "在 CI 里对导出库跑 SQL，查询类、路径、标签、依赖，而不是在 PIE 里找导出面板。",
+      "日常编辑器调试仍用控制台 `AssetRegistry.DumpState`；那是运行时转储，不是本插件的 SQLite 导出。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Asset Registry Export` (module `AssetRegistryExport`); it needs `SQLiteCore` and must not go in a Game target.",
+      "Launch the project with `UnrealEditor-Cmd.exe` and `-run=AssetRegistryExport` (`UAssetRegistryExportCommandlet`).",
+      "Pass `-ExportPath=` to a SQLite `.db` (do not expect append into an existing database; export writes a fresh DB).",
+      "Query class, path, tags, and dependencies from that DB in CI — there is no PIE export panel.",
+      "For a live editor dump, use console `AssetRegistry.DumpState`; that is not this plugin’s SQLite export."
+    ],
+    "note_cn": "把 Asset Registry 离线写成 SQLite，供流水线分析，不是运行时 `IAssetRegistry` 查询。",
+    "note_en": "Offline Asset Registry → SQLite for pipeline analysis, not runtime `IAssetRegistry` queries."
+  },
+  {
+    "slug": "asset-search",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Asset Search`（模块 `AssetSearch`）并重启。",
+      "打开 `Tools > Search`（旧版也可能在 `Window > Search`）。",
+      "先按资产名/类型搜索；要搜蓝图变量、函数、事件、材质参数、Data Table 单元格或 Sound Cue 内容，点窗口右下角的 Missing/未索引 开始后台索引。",
+      "查询支持 SQLite 风格的 `AND` / `OR` / `NOT`；双击结果打开资产。",
+      "自定义资产类型可实现 `IAssetIndexer`（默认 `FGenericObjectIndexer` 不够用时），不要把 `AssetSearch` 加进游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable `Asset Search` (module `AssetSearch`) and restart.",
+      "Open `Tools > Search` (older builds may use `Window > Search`).",
+      "Search by asset name/type first; to search Blueprint variables/functions/events, material parameters, Data Table cells, or Sound Cue contents, click Missing/unindexed at the bottom-right to start background indexing.",
+      "Queries accept SQLite-style `AND` / `OR` / `NOT`; double-click a hit to open the asset.",
+      "For custom asset types implement `IAssetIndexer` when `FGenericObjectIndexer` is not enough; do not add `AssetSearch` to a game `Build.cs`."
+    ],
+    "note_cn": "这是资产正文的全文索引，不是内容浏览器的名字过滤，也不是 `Find in Blueprints` 单窗口。",
+    "note_en": "Full-text index of asset interiors, not Content Browser name filter and not Find-in-Blueprints alone."
+  },
+  {
+    "slug": "asset-tags",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用运行时插件 `Asset Tags`（模块 `AssetTags`）。",
+      "在内容浏览器用 Collections 把资产放进命名集合（共享集合才能进包被运行时读到）。",
+      "游戏模块 `Build.cs` 依赖 `AssetTags`，包含 `AssetTagsSubsystem.h`。",
+      "取 `GEngine->GetSubsystem<UAssetTagsSubsystem>()`（蓝图：`Asset Tags` 分类）。",
+      "运行时只用只读接口：`CollectionExists`、`GetCollections`、`GetAssetsInCollection`、`GetCollectionsContainingAsset`。",
+      "创建/增删集合成员改用编辑器的 Collection Manager Scripting；`UAssetTagsSubsystem` 上的写接口已弃用。",
+      "PIE/包装后用集合名拉资产列表，确认 Shared 集合已随内容煮入。"
+    ],
+    "en_steps": [
+      "Enable the runtime plugin `Asset Tags` (module `AssetTags`).",
+      "In the Content Browser, add assets to named Collections (Shared collections are what cook for runtime).",
+      "Depend on `AssetTags` in the game module `Build.cs` and include `AssetTagsSubsystem.h`.",
+      "Get `GEngine->GetSubsystem<UAssetTagsSubsystem>()` (Blueprint: Asset Tags category).",
+      "At runtime use read-only APIs: `CollectionExists`, `GetCollections`, `GetAssetsInCollection`, `GetCollectionsContainingAsset`.",
+      "Create or mutate collections with Collection Manager Scripting in editor; write methods on `UAssetTagsSubsystem` are deprecated.",
+      "In PIE or a cooked build, resolve assets by collection name and confirm Shared collections were cooked."
+    ],
+    "note_cn": "运行时只读集合查询；本地/私有集合不会出现在 Shipping 包里。",
+    "note_en": "Runtime read-only collection queries; Local/Private collections do not ship."
+  },
+  {
+    "slug": "assetprovenance",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Developer 插件 `AssetProvenance`（`AssetProvenance`、`AssetProvenanceUI`、`AssetProvenanceEditorWorkflows`）并重启。",
+      "按项目管线导入或保存资产（FBX/USD/再导入）；`AssetProvenanceEditorWorkflows` 在编辑器导入/保存时写入来源与编辑历史。",
+      "选中资产，用 `AssetProvenanceUI` 提供的来源面板查看原始路径、工具和后续编辑记录。",
+      "需要程序读取时，只让编辑器工具模块依赖 `AssetProvenance` 读写来源数据，不要把 UI/Workflows 当游戏组件挂到 Actor。",
+      "`AssetProvenanceEditorWorkflows` 与 `AssetProvenanceUI` 仅进 Editor Target；Shipping 不要依赖它们。"
+    ],
+    "en_steps": [
+      "Enable the Developer plugin `AssetProvenance` (`AssetProvenance`, `AssetProvenanceUI`, `AssetProvenanceEditorWorkflows`) and restart.",
+      "Import or save assets through your pipeline (FBX/USD/reimport); `AssetProvenanceEditorWorkflows` writes origin and edit history on editor import/save.",
+      "Select an asset and inspect original path, tool, and later edits in the provenance UI from `AssetProvenanceUI`.",
+      "For code access, depend on `AssetProvenance` from editor tooling only — do not add UI/workflow types as actor components.",
+      "Keep `AssetProvenanceEditorWorkflows` and `AssetProvenanceUI` on Editor targets; do not ship them."
+    ],
+    "note_cn": "记录资产从哪来、谁改过，服务制作审计，不是 Gameplay Tag，也不是内容浏览器 Collection。",
+    "note_en": "Origin/edit-history records for authoring audit — not Gameplay Tags and not Content Browser Collections."
+  },
+  {
+    "slug": "asyncmessagesystem",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `AsyncMessageSystem`，游戏模块同时依赖 `GameplayTags` 与 `AsyncMessageSystem`。",
+      "定义消息身份 `FAsyncMessageId`（内部是 Gameplay Tag，子 Tag 会扇出到父监听者）。",
+      "从 `UAsyncMessageWorldSubsystem` 取当前 World 的消息系统；需要独立通道时在 Actor 上加 `UAsyncMessageBindingComponent`。",
+      "用 `BindListener` 加上 `FAsyncMessageBindingOptions`（Tick Group / 线程 / 任务优先级）绑定回调，保存 `FAsyncMessageHandle`。",
+      "发送时调用 `QueueMessageForBroadcast`（或蓝图 `UAsyncMessageSystemBlueprintLibrary::Queue Async Message for Broadcast`），载荷用 `FInstancedStruct`，系统会拷贝以便跨线程读取。",
+      "在监听回调里读 `FAsyncMessage`（`GetPayloadData` / `GetQueueFrame`）；投递是延迟的，不要假设 Queue 返回后回调已跑完。",
+      "需要调用栈时在项目设置打开 `bShouldRecordQueueCallstackOnMessages`。接口仍可能随夜构建变化。"
+    ],
+    "en_steps": [
+      "Enable Experimental `AsyncMessageSystem` and depend on both `GameplayTags` and `AsyncMessageSystem` in the game module.",
+      "Identify messages with `FAsyncMessageId` (a Gameplay Tag; child tags fan out to parent listeners).",
+      "Get the per-world system from `UAsyncMessageWorldSubsystem`; add `UAsyncMessageBindingComponent` when you need a private endpoint on an actor.",
+      "Bind with `BindListener` and `FAsyncMessageBindingOptions` (tick group / thread / task priority) and keep the `FAsyncMessageHandle`.",
+      "Send with `QueueMessageForBroadcast` (or Blueprint `UAsyncMessageSystemBlueprintLibrary::Queue Async Message for Broadcast`); the `FInstancedStruct` payload is copied for other threads.",
+      "In the listener, read `FAsyncMessage` (`GetPayloadData` / `GetQueueFrame`); delivery is deferred — do not assume the callback ran before Queue returns.",
+      "Enable `bShouldRecordQueueCallstackOnMessages` in project settings if you need queue callstacks. The API may still change."
+    ],
+    "note_cn": "按 Tag 寻址、可跨线程的延迟广播；载荷会被拷贝，保持结构体小。",
+    "note_en": "Tag-addressed, deferred, cross-thread broadcast; payloads are copied, so keep structs small."
+  },
+  {
+    "slug": "asyncmessagesystemtests",
+    "kind": "plugin",
+    "cn_steps": [
+      "先启用 `AsyncMessageSystem`，再启用配套测试插件 `AsyncMessageSystemTests`（模块 `AsyncMessageSystemTests`）。",
+      "打开 `Tools > Session Frontend` 的 `Automation` 页，筛选 `AsyncMessageSystem` / `AsyncMessageSystemTests`。",
+      "跑绑定、广播、Tick Group 投递和载荷引用/GC 相关用例；性能测试会用隐藏的 `AASyncMessagePerfTest` 与 `FAsyncMessagePerfTestPayload`。",
+      "命令行可用 `-ExecCmds=\"Automation RunTests AsyncMessageSystem\"` 做回归，不要把测试 Actor 放进正式关卡。",
+      "不要把 `AsyncMessageSystemTests` 写进 Shipping；它还依赖 `RuntimeTests`。"
+    ],
+    "en_steps": [
+      "Enable `AsyncMessageSystem` first, then the companion `AsyncMessageSystemTests` plugin (module `AsyncMessageSystemTests`).",
+      "Open `Tools > Session Frontend` → `Automation` and filter `AsyncMessageSystem` / `AsyncMessageSystemTests`.",
+      "Run bind/broadcast, tick-group delivery, and payload ref/GC cases; perf tests use hidden `AASyncMessagePerfTest` and `FAsyncMessagePerfTestPayload`.",
+      "For CI, `-ExecCmds=\"Automation RunTests AsyncMessageSystem\"` — do not drop the test actors into shipping maps.",
+      "Do not link `AsyncMessageSystemTests` into Shipping; it also needs `RuntimeTests`."
+    ],
+    "note_cn": "只验证异步消息系统，不是给玩法用的消息 API。",
+    "note_en": "Harness for Async Message System only — not a gameplay messaging API."
+  },
+  {
+    "slug": "audio-capture-timecode-provider",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Audio Capture Timecode Provider`，并同时启用依赖的 `Audio Capture` 与 `Linear Timecode`。",
+      "把外部 LTC 接到本机线路/麦克风输入（或 USB 音频接口的干净通道）。",
+      "新建蓝图，父类选 `AudioCaptureTimecodeProvider`（`UAudioCaptureTimecodeProvider`）。",
+      "在 Details 设置 `AudioChannel`（从 1 起）、`FrameRate`，或勾选 `Detect Frame Rate` / `Assume Drop Frame Format`。",
+      "在 `Edit > Project Settings` 的 Timecode 里把 Timecode Provider 指到该资产；也可用 Media Profile 覆盖，并设为 Startup Media Profile。",
+      "打开 `Window > Virtual Production > Timecode Provider`，确认同步状态为 `Synchronized`。",
+      "Sequencer 里把 Clock Source 设为 `Timecode`，用 LTC 驱动时间显示。"
+    ],
+    "en_steps": [
+      "Enable `Audio Capture Timecode Provider`, plus its dependencies `Audio Capture` and `Linear Timecode`.",
+      "Route external LTC into the machine line/mic input (or a clean USB audio channel).",
+      "Create a Blueprint whose parent is `AudioCaptureTimecodeProvider` (`UAudioCaptureTimecodeProvider`).",
+      "In Details set `AudioChannel` (1-based), `FrameRate`, or enable `Detect Frame Rate` / `Assume Drop Frame Format`.",
+      "In `Edit > Project Settings` Timecode, assign that asset as Timecode Provider; a Media Profile can override it as the Startup Media Profile.",
+      "Open `Window > Virtual Production > Timecode Provider` and wait for `Synchronized`.",
+      "In Sequencer set Clock Source to `Timecode` so playback follows LTC."
+    ],
+    "note_cn": "从音频口解 LTC，不是 Media Player 播视频；噪声线路会导致丢帧。",
+    "note_en": "Decodes LTC from an audio jack, not a Media Player; a noisy line will drop frames."
+  },
+  {
+    "slug": "audio-capture",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Audio Capture`（运行时 `AudioCapture`，编辑器 `AudioCaptureEditor`）。",
+      "游戏模块 `Build.cs` 加入 `AudioCapture`（不要加 `AudioCaptureEditor`）。",
+      "在 Actor 上添加 `UAudioCaptureComponent`，把输出接到 `Sound Submix`；需要落盘时用 Submix 的 Start/Finish Recording Output。",
+      "C++ 也可用 `UAudioCaptureFunctionLibrary::CreateAudioCapture` 得到 `UAudioCapture`，再 `OpenDefaultAudioStream`、`StartCapturingAudio` / `StopCapturingAudio`。",
+      "枚举输入设备用 `UAudioCaptureBlueprintLibrary::GetAvailableAudioInputDevices`（`FAudioInputDeviceInfo`）。",
+      "PIE 前在系统声音设置里选对默认输入；移动端还要开麦克风权限。"
+    ],
+    "en_steps": [
+      "Enable `Audio Capture` (runtime `AudioCapture`, editor `AudioCaptureEditor`).",
+      "Add `AudioCapture` to the game module `Build.cs` (not `AudioCaptureEditor`).",
+      "Add `UAudioCaptureComponent` to an actor and send it to a `Sound Submix`; use the submix Start/Finish Recording Output if you need a WAV/`USoundWave`.",
+      "In C++ you can `UAudioCaptureFunctionLibrary::CreateAudioCapture`, then `OpenDefaultAudioStream` and `StartCapturingAudio` / `StopCapturingAudio` on `UAudioCapture`.",
+      "Enumerate inputs with `UAudioCaptureBlueprintLibrary::GetAvailableAudioInputDevices` (`FAudioInputDeviceInfo`).",
+      "Pick the correct default input in the OS mixer before PIE; mobile also needs microphone permission."
+    ],
+    "note_cn": "麦克风采集接口；`AudioCaptureEditor` 只服务编辑器录音，不能进 Game Target。",
+    "note_en": "Microphone capture; `AudioCaptureEditor` is editor recording only and must not hit a Game target."
+  },
+  {
+    "slug": "audio-code-quality-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Testing 插件 `Audio Code Quality Tests`（模块 `AudioCQTests`）并重启。",
+      "打开 `Tools > Session Frontend` → `Automation`。",
+      "筛选 `AudioCQTests`（树里常见 `Product.Plugins.AudioCQTests`），勾选用例后点 Start Tests。",
+      "这些是音频引擎的 CQTest/自动化用例，不要去内容浏览器建 Sound Wave 来“使用”它。",
+      "不要把 `AudioCQTests` 写进游戏 `Build.cs` 或 Shipping；命令行可用 `Automation RunTests AudioCQTests`。"
+    ],
+    "en_steps": [
+      "Enable the Testing plugin `Audio Code Quality Tests` (module `AudioCQTests`) and restart.",
+      "Open `Tools > Session Frontend` → `Automation`.",
+      "Filter `AudioCQTests` (often `Product.Plugins.AudioCQTests`), tick cases, and Start Tests.",
+      "These are CQTest/automation cases for the audio engine — do not create Sound Waves to “use” the plugin.",
+      "Do not add `AudioCQTests` to a game `Build.cs` or Shipping; CI can `Automation RunTests AudioCQTests`."
+    ],
+    "note_cn": "音频代码质量自动化，不是可播放的音频资产包。",
+    "note_en": "Audio engine code-quality automation, not a playable audio content pack."
+  },
+  {
+    "slug": "audio-definition-model-adm",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 Windows 上启用 `Audio Definition Model (ADM)`（模块 `ADMSpatialization`），并启用依赖的 `OSC` 插件。",
+      "操作系统里把输出设为 WASAPI 聚合设备，通道布局要能对应 ADM 对象床。",
+      "游戏模块依赖 `ADMSpatialization`；取 `UADMEngineSubsystem`（`AudioEngineSubsystem`）。",
+      "调用 `SetSendIPAddress` 指定接收 ADM-OSC 的渲染器/调音台 IP 与端口（常用 4001）。",
+      "在关卡里播放空间化声音；插件把对象位置通过 OSC（如 `/adm/obj/{n}/xyz`）送出，而不是新建一种 Sound Class。",
+      "用外部 ADM-OSC 监听器确认坐标在更新。该路径目前仅 WASAPI 聚合输出 + OSC。"
+    ],
+    "en_steps": [
+      "On Windows, enable `Audio Definition Model (ADM)` (module `ADMSpatialization`) and the dependent `OSC` plugin.",
+      "Set the OS output to a WASAPI aggregate device whose channel layout matches the ADM object bed.",
+      "Depend on `ADMSpatialization` and get `UADMEngineSubsystem` (an `AudioEngineSubsystem`).",
+      "Call `SetSendIPAddress` with the renderer/console IP and port (often 4001).",
+      "Play spatialized sounds in a level; object poses go out over OSC (e.g. `/adm/obj/{n}/xyz`) — this is not a new Sound Class.",
+      "Confirm an external ADM-OSC listener sees updates. Current path is WASAPI aggregate output plus OSC only."
+    ],
+    "note_cn": "Experimental：对象音频经 WASAPI 聚合口输出，元数据走 OSC，不是 Ambisonics 文件解码器。",
+    "note_en": "Experimental: object audio over WASAPI aggregate channels with OSC metadata — not an Ambisonics file decoder."
+  },
+  {
+    "slug": "audio-insights-runtime",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Audio Insights Runtime`（模块 `AudioInsightsRuntime`），并同时启用编辑器端 `Audio Insights`。",
+      "打开 `Edit > Editor Preferences > Plugins > Audio Insights`，在 `Custom Event Log categories` 里登记分类和事件名。",
+      "游戏模块依赖 `AudioInsightsRuntime`；在蓝图的 Audio Insights Runtime 分类（或 C++ Trace）里按登记名称发送自定义事件。",
+      "打开 `Tools > Audio Insights`，PIE 时看 `Event Log` 的 Custom 过滤，点事件可对齐同一时刻的 Sources/Submixes。",
+      "独立包要把对应 Audio Insights Trace 通道打开，用 Unreal Insights 接同一套运行时事件。",
+      "本插件只负责往仪表盘送数据，不提供 `Tools > Audio Insights` 窗口本身。"
+    ],
+    "en_steps": [
+      "Enable `Audio Insights Runtime` (module `AudioInsightsRuntime`) together with editor `Audio Insights`.",
+      "In `Edit > Editor Preferences > Plugins > Audio Insights`, register names under `Custom Event Log categories`.",
+      "Depend on `AudioInsightsRuntime` and emit those event names from the Blueprint Audio Insights Runtime category (or C++ traces).",
+      "Open `Tools > Audio Insights`, PIE, and filter `Event Log` to Custom; selecting a row syncs Sources/Submixes to that time.",
+      "For a packaged build, enable the Audio Insights trace channels and attach Unreal Insights to the same runtime events.",
+      "This plugin only sends data; it does not host the `Tools > Audio Insights` window."
+    ],
+    "note_cn": "蓝图/C++ 往 Audio Insights 事件日志打点；未登记的事件会进通用 Custom 类。",
+    "note_en": "Blueprint/C++ injects markers into the Audio Insights Event Log; unregistered names land in generic Custom."
+  },
+  {
+    "slug": "audio-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Audio Insights`（`AudioInsights` + `AudioInsightsEditor`）并重启。",
+      "打开 `Tools > Audio Insights`；确认工具栏 `Start Monitoring` 为绿色。",
+      "进入 PIE，用 `View` 菜单打开 Sources、Sounds、Submixes、Audio Buses、Meters、Event Log、Logs 等页签。",
+      "在 Event Log 里点一条 Playing/Stopped/Virtualized 记录，其它页签会跳到该时刻；双击可打开对应声音资产。",
+      "需要留档时点 `Start Recording` 写 `.utrace`，或 `Save a Snapshot`；独立程序用编辑器 Trace 菜单启动 `Unreal Insights` 再连会话。",
+      "仪表盘 UI 在 `AudioInsightsEditor`；游戏模块不要依赖它。长时间 PIE 只用 Monitoring，避免巨大 utrace。"
+    ],
+    "en_steps": [
+      "Enable `Audio Insights` (`AudioInsights` + `AudioInsightsEditor`) and restart.",
+      "Open `Tools > Audio Insights` and confirm toolbar `Start Monitoring` is green.",
+      "Enter PIE and use `View` to show Sources, Sounds, Submixes, Audio Buses, Meters, Event Log, and Logs.",
+      "Click a Playing/Stopped/Virtualized row in Event Log so other tabs jump to that time; double-click opens the sound asset.",
+      "Use `Start Recording` for a `.utrace` or `Save a Snapshot`; for standalone, launch `Unreal Insights` from the editor Trace menu and attach.",
+      "The dashboard UI lives in `AudioInsightsEditor` — do not depend on it from game modules. Prefer Monitoring over Recording for long PIE sessions."
+    ],
+    "note_cn": "音频运行时分析套件；默认监控 PIE，不是混音器，也不是 MetaSound 编辑器。",
+    "note_en": "Runtime audio profiler for PIE/standalone — not a mixer and not the MetaSound editor."
+  },
+  {
+    "slug": "audio-modulation-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `Audio Modulation`、`Audio Insights` 和 `Audio Modulation Insights`（模块 `AudioModulationInsights`）。",
+      "准备 `Sound Control Bus` / `Sound Control Bus Mix`，并接到正在播放的 Sound 的 Modulation Destinations。",
+      "打开 `Tools > Audio Insights`，PIE 中激活 Mix。",
+      "在 `View` 里打开仅编辑器页签 `Control Bus`（0–1 的当前 Bus 值）和 `Modulation Matrix`（Bus 如何叠加到源）。",
+      "对照 Sources/Sounds 上的音量、音调和滤波，确认它们跟随 Control Bus，而不是另做一个调制混音器。",
+      "`AudioModulationInsights` 只给 Insights 加仪表盘，不要写进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Audio Modulation`, `Audio Insights`, and `Audio Modulation Insights` (module `AudioModulationInsights`) together.",
+      "Author a `Sound Control Bus` / `Sound Control Bus Mix` and bind it to Modulation Destinations on a playing sound.",
+      "Open `Tools > Audio Insights` and activate the mix in PIE.",
+      "In `View`, show the editor-only `Control Bus` tab (current 0–1 bus values) and `Modulation Matrix` (how buses combine onto sources).",
+      "Check volume/pitch/filter on Sources/Sounds to confirm they follow the buses — this is not a separate modulation mixer.",
+      "`AudioModulationInsights` only adds Insight dashboards; do not link it into a Game target."
+    ],
+    "note_cn": "给 Audio Insights 加 Control Bus / Modulation Matrix 页，本身不创建 Control Bus 资产。",
+    "note_en": "Adds Control Bus / Modulation Matrix tabs to Audio Insights; it does not author Control Bus assets."
+  }
+]

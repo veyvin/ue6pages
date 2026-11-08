@@ -3,7 +3,6 @@ layout: default
 title: 混沌编辑器 / ChaosEditor
 ---
 
-
 <h1>混沌编辑器 / ChaosEditor</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 混沌编辑器 / ChaosEditor
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">破坏工具</div><div class="lang-content">Destruction Tools</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">ChaosEditor</code>（模块 <code class="usage-code">FractureEditor</code>，菜单名常为 Fracture）并重启。这是 Geometry Collection 的破坏编辑器，不是运行时求解器。</li><li>选中静态网格 Actor，切到工具栏 <code class="usage-code">Fracture</code> 模式，用 Generate / New 创建 <code class="usage-code">Geometry Collection</code> 资产并替换关卡里的网格。</li><li>用 Uniform Voronoi、Cluster、Radial、Plane、Slice、Brick 或 Mesh 等切片工具切块；调噪声与随机种子。</li><li>再用 Clustering 把小块合成层级、Embed 把内部网格嵌进去、AutoUV 和材质槽整理断面。保存 GC 资产。</li><li>回到选择模式，在 GC 上设 Damage Threshold、碰撞与 <code class="usage-code">Notify Breaks</code> 等，PIE 用力场或碰撞打坏。切片本身不模拟。</li><li><code class="usage-code">FractureEditor</code> 只进 Editor Target。运行时破碎由 Geometry Collection 组件 + Chaos 求解器执行。</li></ol><p class="usage-note">官方描述是 Destruction Tools：Fracture 模式作者工具。不要把 `FractureEditor` 链进游戏。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">ChaosEditor</code> (module <code class="usage-code">FractureEditor</code>, usually the Fracture mode) and restart. This is the Geometry Collection destruction editor, not the runtime solver.</li><li>Select a static mesh actor, switch the toolbar to <code class="usage-code">Fracture</code> mode, and Generate / New a <code class="usage-code">Geometry Collection</code> asset that replaces the mesh in the level.</li><li>Slice with Uniform Voronoi, Cluster, Radial, Plane, Slice, Brick, or Mesh tools; tune noise and seed.</li><li>Use Clustering to build a break hierarchy, Embed for interior meshes, AutoUV and material slots for faces. Save the GC asset.</li><li>Leave Fracture mode, set Damage Threshold, collision, and <code class="usage-code">Notify Breaks</code> on the GC, then PIE with a field or impact. Slicing does not simulate.</li><li><code class="usage-code">FractureEditor</code> is editor-target only. Runtime breaking is the Geometry Collection component plus the Chaos solver.</li></ol><p class="usage-note">Ships as Destruction Tools: the Fracture-mode authoring UI. Do not link `FractureEditor` into the game.</p></div></div></div>
+    </div>
+

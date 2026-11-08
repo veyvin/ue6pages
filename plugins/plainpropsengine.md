@@ -3,7 +3,6 @@ layout: default
 title: 普通道具引擎 / PlainPropsEngine
 ---
 
-
 <h1>普通道具引擎 / PlainPropsEngine</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 普通道具引擎 / PlainPropsEngine
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">新的序列化堆栈原型 - 引擎绑定</div><div class="lang-content">New Serialization Stack Prototype - Engine Bindings</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">PlainPropsEngine</code>（模块 <code class="usage-code">PlainPropsEngine</code>）。</li><li>它把 PlainProps 新序列化原型接到引擎层对象（不是引擎 <code class="usage-code">Engine</code> 模块本身）。</li><li>与 <code class="usage-code">PlainProps</code> / <code class="usage-code">PlainPropsUObject</code> 一起评估该序列化栈。</li><li>属实验性原型；接口可能随夜构建变化。</li></ol><p class="usage-note">PlainProps 序列化原型的引擎层绑定。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">PlainPropsEngine</code> (module <code class="usage-code">PlainPropsEngine</code>).</li><li>It binds the PlainProps serialization prototype to engine-layer objects (not the engine <code class="usage-code">Engine</code> module itself).</li><li>Evaluate this serialization stack together with <code class="usage-code">PlainProps</code> / <code class="usage-code">PlainPropsUObject</code>.</li><li>It is an experimental prototype; the contract may change on nightly builds.</li></ol><p class="usage-note">Engine-layer bindings for the PlainProps serialization prototype.</p></div></div></div>
+    </div>
+

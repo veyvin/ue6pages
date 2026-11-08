@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "hardwaresurvey",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HardwareSurvey` 位于 `Runtime`，构建规则 `Runtime/HardwareSurvey/HardwareSurvey.Build.cs`。它直接依赖 2 个模块：`ApplicationCore`, `Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HardwareSurvey\" });`；对外暴露 `HardwareSurvey` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HardwareSurvey` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `HardwareSurvey.h` / `HardwareSurveyModule.h`），再用 `FModuleManager::LoadModulePtr<HardwareSurveyModule>` 或直接使用导出类型。",
+      "传递依赖：`HardwareSurvey` 还依赖 `ApplicationCore`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HardwareSurvey` lives under `Runtime`; build rule `Runtime/HardwareSurvey/HardwareSurvey.Build.cs`.It directly depends on 2 modules: `ApplicationCore`, `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HardwareSurvey\" });`. Use Public when exposing `HardwareSurvey` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HardwareSurvey` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `HardwareSurvey.h` / `HardwareSurveyModule.h`), then use `FModuleManager::LoadModulePtr<HardwareSurveyModule>` or the exported types directly.",
+      "Transitive deps: `HardwareSurvey` also needs `ApplicationCore`, `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HardwareSurvey` 的构建规则位于 `Runtime/HardwareSurvey/HardwareSurvey.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`HardwareSurvey` build rule is `Runtime/HardwareSurvey/HardwareSurvey.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "hardwaretargeting",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HardwareTargeting` 位于 `Editor`，构建规则 `Editor/HardwareTargeting/HardwareTargeting.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `EngineSettings`, `InputCore`, `Settings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HardwareTargeting\" });`；对外暴露 `HardwareTargeting` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HardwareTargeting` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `HardwareTargeting.h` / `HardwareTargetingModule.h`），再用 `FModuleManager::LoadModulePtr<HardwareTargetingModule>` 或直接使用导出类型。",
+      "传递依赖：`HardwareTargeting` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `EngineSettings`, `InputCore`, `Settings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HardwareTargeting` lives under `Editor`; build rule `Editor/HardwareTargeting/HardwareTargeting.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `EngineSettings`, `InputCore`, `Settings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HardwareTargeting\" });`. Use Public when exposing `HardwareTargeting` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HardwareTargeting` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `HardwareTargeting.h` / `HardwareTargetingModule.h`), then use `FModuleManager::LoadModulePtr<HardwareTargetingModule>` or the exported types directly.",
+      "Transitive deps: `HardwareTargeting` also needs `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `EngineSettings`, `InputCore`, `Settings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HardwareTargeting` 的构建规则位于 `Editor/HardwareTargeting/HardwareTargeting.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`HardwareTargeting` build rule is `Editor/HardwareTargeting/HardwareTargeting.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "harfbuzz",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HarfBuzz` 位于 `ThirdParty`，构建规则 `ThirdParty/HarfBuzz/HarfBuzz.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HarfBuzz\" });`；对外暴露 `HarfBuzz` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HarfBuzz` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `HarfBuzz.h` / `HarfBuzzModule.h`），再用 `FModuleManager::LoadModulePtr<HarfBuzzModule>` 或直接使用导出类型。",
+      "传递依赖：`HarfBuzz` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `HarfBuzz` lives under `ThirdParty`; build rule `ThirdParty/HarfBuzz/HarfBuzz.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HarfBuzz\" });`. Use Public when exposing `HarfBuzz` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HarfBuzz` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `HarfBuzz.h` / `HarfBuzzModule.h`), then use `FModuleManager::LoadModulePtr<HarfBuzzModule>` or the exported types directly.",
+      "Transitive deps: `HarfBuzz` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`HarfBuzz` 的构建规则位于 `ThirdParty/HarfBuzz/HarfBuzz.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`HarfBuzz` build rule is `ThirdParty/HarfBuzz/HarfBuzz.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "headlesschaos",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HeadlessChaos` 位于 `Programs`，构建规则 `Programs/HeadlessChaos/HeadlessChaos.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `GeometryCore`, `GoogleTest`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HeadlessChaos\" });`；对外暴露 `HeadlessChaos` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HeadlessChaos` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `HeadlessChaos.h` / `HeadlessChaosModule.h`），再用 `FModuleManager::LoadModulePtr<HeadlessChaosModule>` 或直接使用导出类型。",
+      "传递依赖：`HeadlessChaos` 还依赖 `ApplicationCore`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `GeometryCore`, `GoogleTest`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HeadlessChaos` lives under `Programs`; build rule `Programs/HeadlessChaos/HeadlessChaos.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `GeometryCore`, `GoogleTest`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HeadlessChaos\" });`. Use Public when exposing `HeadlessChaos` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HeadlessChaos` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `HeadlessChaos.h` / `HeadlessChaosModule.h`), then use `FModuleManager::LoadModulePtr<HeadlessChaosModule>` or the exported types directly.",
+      "Transitive deps: `HeadlessChaos` also needs `ApplicationCore`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `GeometryCore`, `GoogleTest`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HeadlessChaos` 的构建规则位于 `Programs/HeadlessChaos/HeadlessChaos.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`HeadlessChaos` build rule is `Programs/HeadlessChaos/HeadlessChaos.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "headlesschaosperf",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HeadlessChaosPerf` 位于 `Programs`，构建规则 `Programs/HeadlessChaosPerf/HeadlessChaosPerf.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `GeometryCore`, `GoogleTest`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HeadlessChaosPerf\" });`；对外暴露 `HeadlessChaosPerf` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HeadlessChaosPerf` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `HeadlessChaosPerf.h` / `HeadlessChaosPerfModule.h`），再用 `FModuleManager::LoadModulePtr<HeadlessChaosPerfModule>` 或直接使用导出类型。",
+      "传递依赖：`HeadlessChaosPerf` 还依赖 `ApplicationCore`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `GeometryCore`, `GoogleTest`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HeadlessChaosPerf` lives under `Programs`; build rule `Programs/HeadlessChaosPerf/HeadlessChaosPerf.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `GeometryCore`, `GoogleTest`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HeadlessChaosPerf\" });`. Use Public when exposing `HeadlessChaosPerf` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HeadlessChaosPerf` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `HeadlessChaosPerf.h` / `HeadlessChaosPerfModule.h`), then use `FModuleManager::LoadModulePtr<HeadlessChaosPerfModule>` or the exported types directly.",
+      "Transitive deps: `HeadlessChaosPerf` also needs `ApplicationCore`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `GeometryCore`, `GoogleTest`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HeadlessChaosPerf` 的构建规则位于 `Programs/HeadlessChaosPerf/HeadlessChaosPerf.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`HeadlessChaosPerf` build rule is `Programs/HeadlessChaosPerf/HeadlessChaosPerf.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "headmounteddisplay",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HeadMountedDisplay` 位于 `Runtime`，构建规则 `Runtime/HeadMountedDisplay/HeadMountedDisplay.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `EngineSettings`, `InputCore`, `RHI`, `RenderCore`, `Renderer`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HeadMountedDisplay\" });`；对外暴露 `HeadMountedDisplay` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HeadMountedDisplay` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `HeadMountedDisplay.h` / `HeadMountedDisplayModule.h`），再用 `FModuleManager::LoadModulePtr<HeadMountedDisplayModule>` 或直接使用导出类型。",
+      "传递依赖：`HeadMountedDisplay` 还依赖 `Core`, `CoreUObject`, `Engine`, `EngineSettings`, `InputCore`, `RHI`, `RenderCore`, `Renderer`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HeadMountedDisplay` lives under `Runtime`; build rule `Runtime/HeadMountedDisplay/HeadMountedDisplay.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `EngineSettings`, `InputCore`, `RHI`, `RenderCore`, `Renderer`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HeadMountedDisplay\" });`. Use Public when exposing `HeadMountedDisplay` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HeadMountedDisplay` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `HeadMountedDisplay.h` / `HeadMountedDisplayModule.h`), then use `FModuleManager::LoadModulePtr<HeadMountedDisplayModule>` or the exported types directly.",
+      "Transitive deps: `HeadMountedDisplay` also needs `Core`, `CoreUObject`, `Engine`, `EngineSettings`, `InputCore`, `RHI`, `RenderCore`, `Renderer`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HeadMountedDisplay` 的构建规则位于 `Runtime/HeadMountedDisplay/HeadMountedDisplay.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`HeadMountedDisplay` build rule is `Runtime/HeadMountedDisplay/HeadMountedDisplay.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "heapprofd",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`heapprofd` 位于 `ThirdParty`，构建规则 `ThirdParty/heapprofd/heapprofd.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"heapprofd\" });`；对外暴露 `heapprofd` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`heapprofd` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `heapprofd.h` / `heapprofdModule.h`），再用 `FModuleManager::LoadModulePtr<heapprofdModule>` 或直接使用导出类型。",
+      "传递依赖：`heapprofd` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `heapprofd` lives under `ThirdParty`; build rule `ThirdParty/heapprofd/heapprofd.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"heapprofd\" });`. Use Public when exposing `heapprofd` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `heapprofd` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `heapprofd.h` / `heapprofdModule.h`), then use `FModuleManager::LoadModulePtr<heapprofdModule>` or the exported types directly.",
+      "Transitive deps: `heapprofd` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`heapprofd` 的构建规则位于 `ThirdParty/heapprofd/heapprofd.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`heapprofd` build rule is `ThirdParty/heapprofd/heapprofd.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "hierarchicallodoutliner",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HierarchicalLODOutliner` 位于 `Editor`，构建规则 `Editor/HierarchicalLODOutliner/HierarchicalLODOutliner.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `HierarchicalLODUtilities`, `InputCore`, `PropertyEditor`, `RHI`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HierarchicalLODOutliner\" });`；对外暴露 `HierarchicalLODOutliner` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HierarchicalLODOutliner` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `HierarchicalLODOutliner.h` / `HierarchicalLODOutlinerModule.h`），再用 `FModuleManager::LoadModulePtr<HierarchicalLODOutlinerModule>` 或直接使用导出类型。",
+      "传递依赖：`HierarchicalLODOutliner` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `HierarchicalLODUtilities`, `InputCore`, `PropertyEditor`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HierarchicalLODOutliner` lives under `Editor`; build rule `Editor/HierarchicalLODOutliner/HierarchicalLODOutliner.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `HierarchicalLODUtilities`, `InputCore`, `PropertyEditor`, `RHI`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HierarchicalLODOutliner\" });`. Use Public when exposing `HierarchicalLODOutliner` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HierarchicalLODOutliner` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `HierarchicalLODOutliner.h` / `HierarchicalLODOutlinerModule.h`), then use `FModuleManager::LoadModulePtr<HierarchicalLODOutlinerModule>` or the exported types directly.",
+      "Transitive deps: `HierarchicalLODOutliner` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `HierarchicalLODUtilities`, `InputCore`, `PropertyEditor`, `RHI`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HierarchicalLODOutliner` 的构建规则位于 `Editor/HierarchicalLODOutliner/HierarchicalLODOutliner.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`HierarchicalLODOutliner` build rule is `Editor/HierarchicalLODOutliner/HierarchicalLODOutliner.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "hierarchicallodutilities",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HierarchicalLODUtilities` 位于 `Developer`，构建规则 `Developer/HierarchicalLODUtilities/HierarchicalLODUtilities.Build.cs`。它直接依赖 8 个模块：`BSPUtils`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `MaterialUtilities`, `MeshDescription`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HierarchicalLODUtilities\" });`；对外暴露 `HierarchicalLODUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HierarchicalLODUtilities` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `HierarchicalLODUtilities.h` / `HierarchicalLODUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<HierarchicalLODUtilitiesModule>` 或直接使用导出类型。",
+      "传递依赖：`HierarchicalLODUtilities` 还依赖 `BSPUtils`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `MaterialUtilities`, `MeshDescription`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HierarchicalLODUtilities` lives under `Developer`; build rule `Developer/HierarchicalLODUtilities/HierarchicalLODUtilities.Build.cs`.It directly depends on 8 modules: `BSPUtils`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `MaterialUtilities`, `MeshDescription`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HierarchicalLODUtilities\" });`. Use Public when exposing `HierarchicalLODUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HierarchicalLODUtilities` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `HierarchicalLODUtilities.h` / `HierarchicalLODUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<HierarchicalLODUtilitiesModule>` or the exported types directly.",
+      "Transitive deps: `HierarchicalLODUtilities` also needs `BSPUtils`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `MaterialUtilities`, `MeshDescription`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HierarchicalLODUtilities` 的构建规则位于 `Developer/HierarchicalLODUtilities/HierarchicalLODUtilities.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`HierarchicalLODUtilities` build rule is `Developer/HierarchicalLODUtilities/HierarchicalLODUtilities.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "hlslcc",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HLSLCC` 位于 `ThirdParty`，构建规则 `ThirdParty/hlslcc/HLSLCC.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HLSLCC\" });`；对外暴露 `HLSLCC` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HLSLCC` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `HLSLCC.h` / `HLSLCCModule.h`），再用 `FModuleManager::LoadModulePtr<HLSLCCModule>` 或直接使用导出类型。",
+      "传递依赖：`HLSLCC` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `HLSLCC` lives under `ThirdParty`; build rule `ThirdParty/hlslcc/HLSLCC.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HLSLCC\" });`. Use Public when exposing `HLSLCC` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HLSLCC` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `HLSLCC.h` / `HLSLCCModule.h`), then use `FModuleManager::LoadModulePtr<HLSLCCModule>` or the exported types directly.",
+      "Transitive deps: `HLSLCC` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`HLSLCC` 的构建规则位于 `ThirdParty/hlslcc/HLSLCC.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`HLSLCC` build rule is `ThirdParty/hlslcc/HLSLCC.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "hlslparser",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HlslParser` 位于 `Developer`，构建规则 `Developer/HlslParser/HlslParser.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HlslParser\" });`；对外暴露 `HlslParser` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HlslParser` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `HlslParser.h` / `HlslParserModule.h`），再用 `FModuleManager::LoadModulePtr<HlslParserModule>` 或直接使用导出类型。",
+      "传递依赖：`HlslParser` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HlslParser` lives under `Developer`; build rule `Developer/HlslParser/HlslParser.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HlslParser\" });`. Use Public when exposing `HlslParser` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HlslParser` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `HlslParser.h` / `HlslParserModule.h`), then use `FModuleManager::LoadModulePtr<HlslParserModule>` or the exported types directly.",
+      "Transitive deps: `HlslParser` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HlslParser` 的构建规则位于 `Developer/HlslParser/HlslParser.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`HlslParser` build rule is `Developer/HlslParser/HlslParser.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "horde",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Horde` 位于 `Developer`，构建规则 `Developer/Horde/Horde.Build.cs`。它直接依赖 3 个模块：`Core`, `HTTP`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Horde\" });`；对外暴露 `Horde` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Horde` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `Horde.h` / `HordeModule.h`），再用 `FModuleManager::LoadModulePtr<HordeModule>` 或直接使用导出类型。",
+      "传递依赖：`Horde` 还依赖 `Core`, `HTTP`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Horde` lives under `Developer`; build rule `Developer/Horde/Horde.Build.cs`.It directly depends on 3 modules: `Core`, `HTTP`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Horde\" });`. Use Public when exposing `Horde` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Horde` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `Horde.h` / `HordeModule.h`), then use `FModuleManager::LoadModulePtr<HordeModule>` or the exported types directly.",
+      "Transitive deps: `Horde` also needs `Core`, `HTTP`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Horde` 的构建规则位于 `Developer/Horde/Horde.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`Horde` build rule is `Developer/Horde/Horde.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "hordetest",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HordeTest` 位于 `Programs`，构建规则 `Programs/Horde/Samples/HordeTest/HordeTest.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HordeTest\" });`；对外暴露 `HordeTest` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HordeTest` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `HordeTest.h` / `HordeTestModule.h`），再用 `FModuleManager::LoadModulePtr<HordeTestModule>` 或直接使用导出类型。",
+      "传递依赖：`HordeTest` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `HordeTest` lives under `Programs`; build rule `Programs/Horde/Samples/HordeTest/HordeTest.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HordeTest\" });`. Use Public when exposing `HordeTest` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HordeTest` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `HordeTest.h` / `HordeTestModule.h`), then use `FModuleManager::LoadModulePtr<HordeTestModule>` or the exported types directly.",
+      "Transitive deps: `HordeTest` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`HordeTest` 的构建规则位于 `Programs/Horde/Samples/HordeTest/HordeTest.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`HordeTest` build rule is `Programs/Horde/Samples/HordeTest/HordeTest.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "hotreload",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HotReload` 位于 `Developer`，构建规则 `Developer/HotReload/HotReload.Build.cs`。它直接依赖 8 个模块：`Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DirectoryWatcher`, `Engine`, `Projects`, `UnrealEd`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HotReload\" });`；对外暴露 `HotReload` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HotReload` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `HotReload.h` / `HotReloadModule.h`），再用 `FModuleManager::LoadModulePtr<HotReloadModule>` 或直接使用导出类型。",
+      "传递依赖：`HotReload` 还依赖 `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DirectoryWatcher`, `Engine`, `Projects`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HotReload` lives under `Developer`; build rule `Developer/HotReload/HotReload.Build.cs`.It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DirectoryWatcher`, `Engine`, `Projects`, `UnrealEd`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HotReload\" });`. Use Public when exposing `HotReload` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HotReload` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `HotReload.h` / `HotReloadModule.h`), then use `FModuleManager::LoadModulePtr<HotReloadModule>` or the exported types directly.",
+      "Transitive deps: `HotReload` also needs `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DirectoryWatcher`, `Engine`, `Projects`, `UnrealEd`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HotReload` 的构建规则位于 `Developer/HotReload/HotReload.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`HotReload` build rule is `Developer/HotReload/HotReload.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "http",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HTTP` 位于 `Runtime`，构建规则 `Runtime/Online/HTTP/HTTP.Build.cs`。它直接依赖 7 个模块：`BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `Core`, `EventLoop`, `SSL`, `Sockets`, `XCurl`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HTTP\" });`；对外暴露 `HTTP` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HTTP` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `HTTP.h` / `HTTPModule.h`），再用 `FModuleManager::LoadModulePtr<HTTPModule>` 或直接使用导出类型。",
+      "传递依赖：`HTTP` 还依赖 `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `Core`, `EventLoop`, `SSL`, `Sockets`, `XCurl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HTTP` lives under `Runtime`; build rule `Runtime/Online/HTTP/HTTP.Build.cs`.It directly depends on 7 modules: `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `Core`, `EventLoop`, `SSL`, `Sockets`, `XCurl`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HTTP\" });`. Use Public when exposing `HTTP` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HTTP` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `HTTP.h` / `HTTPModule.h`), then use `FModuleManager::LoadModulePtr<HTTPModule>` or the exported types directly.",
+      "Transitive deps: `HTTP` also needs `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `Core`, `EventLoop`, `SSL`, `Sockets`, `XCurl`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HTTP` 的构建规则位于 `Runtime/Online/HTTP/HTTP.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`HTTP` build rule is `Runtime/Online/HTTP/HTTP.Build.cs`; depends on 7 modules; category Module."
+  }
+]

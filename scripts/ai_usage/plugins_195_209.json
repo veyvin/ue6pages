@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "concert-shared-slate-b8d626",
+    "kind": "plugin",
+    "cn_steps": [
+      "把 `ConcertClientSharedSlate` 与 `Concert Sync - Client` 一起启用；它只提供**客户端** Multi-User UI 控件，没有独立菜单项。",
+      "打开 `Window > Multi-User Browser`，会话列表、加入对话框、本机显示名/头像颜色都由本模块的 Slate 控件绘制，而不是游戏 UMG。",
+      "若要改客户端浏览器（过滤会话、自定义列、加入确认框），在 Editor 模块 `Build.cs` 依赖 `ConcertClientSharedSlate`，复用其会话浏览器控件，不要复制一套。",
+      "不要依赖 `ConcertSharedSlate` 来做仅客户端对话框：那一套还要给 `UnrealMultiUserServer` 界面用。",
+      "不要把 `ConcertClientSharedSlate` 写进 Game Target 或 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `ConcertClientSharedSlate` with `Concert Sync - Client`. It only supplies **client** Multi-User Slate; there is no standalone menu.",
+      "Open `Window > Multi-User Browser`. Session list, join dialog, and local display name/avatar color are drawn by this module, not UMG.",
+      "To customize the client browser (filters, columns, join confirm), depend on `ConcertClientSharedSlate` in an Editor `Build.cs` and reuse those widgets.",
+      "Do not pull `ConcertSharedSlate` for client-only dialogs; that module is also used by the `UnrealMultiUserServer` UI.",
+      "Do not add `ConcertClientSharedSlate` to a Game target or Shipping build."
+    ],
+    "note_cn": "描述符是 `ConcertClientSharedSlate.uplugin`（slug `concert-shared-slate-b8d626`），仅客户端 UI 库。",
+    "note_en": "Descriptor `ConcertClientSharedSlate.uplugin` (slug `concert-shared-slate-b8d626`): client-only UI library."
+  },
+  {
+    "slug": "concert-shared-slate-fc2592",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ConcertSharedSlate`（描述符 `ConcertSharedSlate.uplugin`）；控件同时给编辑器客户端和 `UnrealMultiUserServer` 窗口用。",
+      "在编辑器 `Window > Multi-User Browser` 与独立 `UnrealMultiUserServer` 界面里对照：会话行、在线用户、连接状态、活动摘要应是同一套控件。",
+      "扩展服务器 GUI 或要让自定义客户端与服务器列表视觉一致时，Editor 模块依赖 `ConcertSharedSlate`（用户条、会话行、连接指示）。",
+      "仅客户端才有的加入向导/本机资料编辑走 `ConcertClientSharedSlate`，不要塞进本模块。",
+      "这是 Concert UI 共享库，不要链进游戏运行时。"
+    ],
+    "en_steps": [
+      "Enable `ConcertSharedSlate` (`ConcertSharedSlate.uplugin`). Widgets are shared by the editor client and the `UnrealMultiUserServer` window.",
+      "Compare `Window > Multi-User Browser` with the standalone `UnrealMultiUserServer` UI: session rows, online users, connection state, and activity summaries should match.",
+      "When extending the server GUI or matching client lists to it, depend on `ConcertSharedSlate` in an Editor module (user chips, session rows, connection indicators).",
+      "Client-only join wizards and local profile editors belong in `ConcertClientSharedSlate`, not here.",
+      "Shared Concert UI library — do not link it into game runtime."
+    ],
+    "note_cn": "slug `concert-shared-slate-fc2592`：服务器+客户端共用 Slate，不是 `ConcertClientSharedSlate`。",
+    "note_en": "Slug `concert-shared-slate-fc2592`: Slate shared by server and client, not `ConcertClientSharedSlate`."
+  },
+  {
+    "slug": "concert-sync---client",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Concert Sync - Client`（模块 `ConcertSyncClient`），并保证 `Concert Sync Core` 已开；这是连上 Concert 服务器后的多人编辑客户端。",
+      "打开 `Window > Multi-User Browser`，填显示名，浏览或创建会话；先有人用 `Concert Sync - Server` / `UnrealMultiUserServer` 把会话跑起来。",
+      "Join 后在同一关卡移动 Actor、改属性或保存资产，确认其他已加入编辑器出现事务/包同步，而不是自己保存再 SVN 拉。",
+      "用浏览器里的 Presence、锁定和活动日志核对谁在改哪张图；冲突时看事务回放而不是覆盖磁盘上的 `.umap`。",
+      "离开会话或关掉编辑器会断开 `IConcertSyncClient`；不要把 `ConcertSyncClient` 加进游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable `Concert Sync - Client` (module `ConcertSyncClient`) with `Concert Sync Core`. This is the multi-user editor client that talks to a Concert server.",
+      "Open `Window > Multi-User Browser`, set a display name, then browse or create a session. Someone must already host via `Concert Sync - Server` / `UnrealMultiUserServer`.",
+      "After Join, move actors, edit properties, or save assets on the same map and confirm other joined editors receive transactions/packages — not SVN pull after a local save.",
+      "Use presence, locks, and the activity log to see who owns which map; resolve conflicts by replaying transactions, not overwriting the on-disk `.umap`.",
+      "Leave session or quit the editor to drop `IConcertSyncClient`. Do not add `ConcertSyncClient` to a game `Build.cs`."
+    ],
+    "note_cn": "只同步编辑器事务与工作副本，不是游戏联机；Shipping 不要带上。",
+    "note_en": "Syncs editor transactions and workspace copies, not gameplay netcode; keep it out of Shipping."
+  },
+  {
+    "slug": "concert-sync---server",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Concert Sync - Server`（模块 `ConcertSyncServer`）。会话宿主跑在独立进程，不是关卡里的 Actor。",
+      "从引擎 `Binaries` 启动 `UnrealMultiUserServer`，或在 `Window > Multi-User Browser` 里 `Launch Server`，指定会话名、工作目录和归档路径。",
+      "客户端用 `Concert Sync - Client` Join 后，服务器接收事务、包和工作区快照；在服务器窗口看已连接端点和活动流。",
+      "需要复盘时用服务器的 Archive / Restore，把会话状态落到磁盘，而不是把 `.umap` 当权威源。",
+      "局域网注意防火墙端口；不要把 `ConcertSyncServer` 链进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Concert Sync - Server` (module `ConcertSyncServer`). The session host is a separate process, not a level actor.",
+      "Launch `UnrealMultiUserServer` from engine `Binaries`, or `Launch Server` in `Window > Multi-User Browser`, and set session name, working directory, and archive path.",
+      "After clients join with `Concert Sync - Client`, the server takes transactions, packages, and workspace snapshots — watch endpoints and the activity stream in the server UI.",
+      "Use Archive / Restore to persist session state; do not treat the on-disk `.umap` as the source of truth while the session is live.",
+      "Open firewall ports on LAN. Do not link `ConcertSyncServer` into a Game target."
+    ],
+    "note_cn": "多人编辑的权威在 Concert 会话，不在单机关卡文件。",
+    "note_en": "Authority lives in the Concert session, not in one editor’s map file."
+  },
+  {
+    "slug": "concert-sync---test",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Concert Sync - Test`（模块 `ConcertSyncTest`），并同时开着 `ConcertSyncClient` / `ConcertSyncServer` / `ConcertSyncCore`。",
+      "打开 `Tools > Session Frontend` 的 `Automation` 页，筛选 `ConcertSync` / MultiUser / Concert 用例。",
+      "先跑不启独立服务器的进程内会话测试；需要双端时再按用例拉起 `UnrealMultiUserServer` 或编辑器命令行客户端。",
+      "失败时看自动化日志里的事务提交/包同步断言，不要只看关卡视口是否“看起来一样”。",
+      "这是测试插件，不要写进游戏模块或包装目标。"
+    ],
+    "en_steps": [
+      "Enable `Concert Sync - Test` (module `ConcertSyncTest`) with `ConcertSyncClient`, `ConcertSyncServer`, and `ConcertSyncCore` already on.",
+      "Open `Tools > Session Frontend` → `Automation` and filter `ConcertSync` / MultiUser / Concert cases.",
+      "Run in-process session tests first; only spin `UnrealMultiUserServer` or a command-line editor client when a case needs two endpoints.",
+      "On failure, read transaction-commit / package-sync asserts in the automation log — do not eyeball the viewport.",
+      "Test harness only; do not add it to a game module or packaged target."
+    ],
+    "note_cn": "给多人编辑回归用，不是可玩的联机会话工具。",
+    "note_en": "Regression harness for multi-user editing, not a playable session tool."
+  },
+  {
+    "slug": "concert-sync-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Concert Sync Core`（模块 `ConcertSyncCore`）。它是客户端/服务器共享的会话、事务、活动和包协议，没有自己的浏览器窗口。",
+      "真正进会话仍靠 `Concert Sync - Client` Join 和 `Concert Sync - Server` 宿主；Core 被它们加载。",
+      "写自定义 Concert 桥时，Editor 模块依赖 `ConcertSyncCore`，用其会话事件、工作区与活动结构，而不是直接解析网络字节。",
+      "不要在游戏模块里 `#include` 这些头文件，也不要单独启用 Core 却关掉 Client/Server 还指望能同步关卡。",
+      "保持与 Client/Server 同一引擎版本，协议不兼容时会话会直接拒绝连接。"
+    ],
+    "en_steps": [
+      "Enable `Concert Sync Core` (module `ConcertSyncCore`). It is the shared session, transaction, activity, and package protocol — no browser window of its own.",
+      "Actual sessions still need `Concert Sync - Client` Join and a `Concert Sync - Server` host; they load Core.",
+      "For a custom Concert bridge, depend on `ConcertSyncCore` in an Editor module and use its session events, workspace, and activity types instead of parsing packets.",
+      "Do not include these headers from a game module, and do not enable Core alone with Client/Server off expecting map sync.",
+      "Keep Core on the same engine version as Client/Server; protocol mismatch refuses the session."
+    ],
+    "note_cn": "共享数据层，不是可点击的多人编辑入口。",
+    "note_en": "Shared data layer, not the clickable multi-user entry point."
+  },
+  {
+    "slug": "concertinsightsclient",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ConcertInsightsClient`，并先用 `Concert Sync - Client` 加入会话；本插件给状态栏加“在全部 Concert 端点上同步开 Trace”。",
+      "启动 `Unreal Insights` 并让编辑器把 Trace 打到该接收端（`trace.send` / Insights 连接，或状态栏 Trace 控件）。",
+      "在已连接的编辑器状态栏点 Concert Insights / 同步 Trace，让本机和会话里其他端点同时开始，而不是只对当前进程 `stat startfile`。",
+      "停录后在 Insights 打开各端点的 `.utrace`，对齐时间轴看 Concert 消息与卡顿是否同一时刻。",
+      "服务器端监听由 `ConcertInsightsServer` 负责；不要把本模块加进游戏运行时。"
+    ],
+    "en_steps": [
+      "Enable `ConcertInsightsClient` and join a session with `Concert Sync - Client`. This adds a status-bar control to start a synchronized trace on every Concert endpoint.",
+      "Launch `Unreal Insights` and send traces to it (`trace.send` / Insights connection, or the status-bar Trace control).",
+      "From a connected editor’s status bar, start Concert Insights / sync trace so this machine and other session endpoints begin together — not a local-only `stat startfile`.",
+      "Stop recording and open each endpoint’s `.utrace` in Insights; align timelines to see whether Concert messages and hitches coincide.",
+      "`ConcertInsightsServer` listens on the server. Do not add this module to game runtime."
+    ],
+    "note_cn": "同步 Trace 的发起端在客户端状态栏，不在 Insights 本体。",
+    "note_en": "The sync-trace trigger lives on the client status bar, not inside Insights itself."
+  },
+  {
+    "slug": "concertinsightscore",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ConcertInsightsCore`（模块 `ConcertInsightsCore`）。它实现“同步开 Trace”的共享命令与通道，没有状态栏按钮。",
+      "客户端点状态栏时走 `ConcertInsightsClient`，服务器接请求时走 `ConcertInsightsServer`，两边都链到 Core。",
+      "扩展自定义 Concert 端点（例如工具进程也要被同步录）时，依赖 `ConcertInsightsCore` 发/收同一套 start-trace 消息。",
+      "不要在 Core 里找 Insights 时间轴控件——可视化在 `ConcertInsightsVisualizer`。",
+      "开发者插件，勿加入 Shipping 游戏。"
+    ],
+    "en_steps": [
+      "Enable `ConcertInsightsCore` (module `ConcertInsightsCore`). It is the shared start-trace command/channel, with no status-bar button.",
+      "`ConcertInsightsClient` fires from the client status bar; `ConcertInsightsServer` accepts on the server; both link Core.",
+      "If a custom Concert endpoint (tool process) must join sync recording, depend on `ConcertInsightsCore` and speak the same start-trace messages.",
+      "Do not look in Core for Insights timeline widgets — those live in `ConcertInsightsVisualizer`.",
+      "Developer plugin; keep it out of Shipping games."
+    ],
+    "note_cn": "同步 Trace 协议层；按钮在 Client，监听在 Server，图表在 Visualizer。",
+    "note_en": "Sync-trace protocol only: button on Client, listener on Server, charts in Visualizer."
+  },
+  {
+    "slug": "concertinsightsserver",
+    "kind": "plugin",
+    "cn_steps": [
+      "在跑 `UnrealMultiUserServer` 的那套插件里启用 `ConcertInsightsServer`（模块 `ConcertInsightsServer`），让服务器进程能响应同步 Trace。",
+      "先起 Concert 会话并让至少一名 `ConcertInsightsClient` 连上，再在**客户端**状态栏发起同步 Trace（服务器没有对等按钮）。",
+      "确认服务器日志/Insights 接收端出现来自 `UnrealMultiUserServer` 的 Trace，而不是只有编辑器进程。",
+      "对照服务器 `.utrace` 与客户端时间轴：事务广播、归档、工作区复制应出现在服务器通道上。",
+      "只装在服务器目标；不要写进游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable `ConcertInsightsServer` (module `ConcertInsightsServer`) on the `UnrealMultiUserServer` plugin set so the server process can honor sync-trace requests.",
+      "Host a Concert session, connect at least one `ConcertInsightsClient`, then start sync trace from the **client** status bar (the server has no matching button).",
+      "Confirm the Insights receiver gets a trace from `UnrealMultiUserServer`, not only from editor processes.",
+      "Compare the server `.utrace` with client timelines: transaction broadcast, archive, and workspace copy should show on the server channel.",
+      "Server-target only; do not add it to a game `Build.cs`."
+    ],
+    "note_cn": "只监听 `ConcertInsightsClient` 发来的开 Trace 请求，不提供操作 UI。",
+    "note_en": "Listens for start-trace requests from `ConcertInsightsClient`; no operator UI of its own."
+  },
+  {
+    "slug": "concertinsightsvisualizer",
+    "kind": "plugin",
+    "cn_steps": [
+      "对 `UnrealInsights` 启用 `ConcertInsightsVisualizer`（模块 `ConcertInsightsVisualizer`）；它分析 Concert 消息类型并画出控件，不是编辑器状态栏。",
+      "用 `ConcertInsightsClient` 录好多端 `.utrace` 后，用 Insights 打开其中一份（或同时打开服务器那份）。",
+      "在 Timing Insights / Concert 相关分析页查看消息类型时间线（会话事件、事务、包、presence），不要当普通 CPU 采样。",
+      "选一条 Concert 消息看载荷大小与发送端点，用来查同步卡顿是广播风暴还是单端卡编译。",
+      "可视化只存在于 Insights 进程；不要把该模块加进游戏或普通编辑器运行时依赖。"
+    ],
+    "en_steps": [
+      "Enable `ConcertInsightsVisualizer` (module `ConcertInsightsVisualizer`) for `UnrealInsights`. It analyzes Concert message types and draws widgets — not the editor status bar.",
+      "After `ConcertInsightsClient` records multi-endpoint `.utrace` files, open one in Insights (and the server file if you have it).",
+      "In Timing Insights / Concert analyzer views, read message-type timelines (session events, transactions, packages, presence) — not generic CPU samples.",
+      "Select a Concert message to inspect payload size and sending endpoint when deciding whether a hitch is a broadcast storm or a local compile stall.",
+      "Visualization lives in the Insights process; do not add this module to a game or normal editor runtime."
+    ],
+    "note_cn": "Insights 插件：看 Concert 报文，不负责开录。",
+    "note_en": "Insights plugin for Concert messages; it does not start recording."
+  },
+  {
+    "slug": "configsettingstoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ConfigSettingsToolset`，并打开 `Toolset Registry` / 编辑器 AI（或 MCP）客户端。",
+      "在助手里选用 Config Settings 工具集，列出 `DefaultEngine.ini` / `DefaultGame.ini` / `DefaultEditor.ini` 等配置**段**，不要去关卡里找组件。",
+      "对某一段（例如 `/Script/Engine.RendererSettings`）做 inspect，核对键值是否等于 `Project Settings` 里看到的项。",
+      "用工具集的 edit 接口改键并写回对应 `.ini`（或 Saved/Config 覆盖层），再重开 Project Settings 或重启编辑器确认生效。",
+      "实验性 AI 工具，不要加入 Game Target；改 ini 前先提交版本控制。"
+    ],
+    "en_steps": [
+      "Enable experimental `ConfigSettingsToolset` and turn on `Toolset Registry` / the editor AI (or MCP) client.",
+      "In the assistant, pick the Config Settings toolset and list config **sections** in `DefaultEngine.ini` / `DefaultGame.ini` / `DefaultEditor.ini` — not a level component.",
+      "Inspect one section (for example `/Script/Engine.RendererSettings`) and check keys against `Project Settings`.",
+      "Edit keys through the toolset write API so they land in the matching `.ini` (or Saved/Config overlay), then reopen Project Settings or restart to confirm.",
+      "Experimental AI tools — not a Game target. Commit version control before rewriting ini files."
+    ],
+    "note_cn": "按配置段读写 `.ini`，不是控制台 `stat` 命令，也不是 Project Settings 面板替代品。",
+    "note_en": "Reads/writes `.ini` sections; not console `stat` commands and not a replacement Project Settings UI."
+  },
+  {
+    "slug": "configuration-for-microsoft-gdk-plug-ins-for-unreal-engine",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Configuration for Microsoft GDK Plug-ins for Unreal Engine`（描述符 `MSGamingSupport.uplugin`，模块 `MSGamingSupportEditor`）。",
+      "本机安装 Microsoft GDK，然后打开 `Edit > Project Settings` 的 Windows / GDK / Microsoft Game Store 相关页，填 Title ID、Sandbox、包标识。",
+      "这些设置给后续 GDK / Xbox / Microsoft Store 运行时插件用；先在这里配好再 Packaged 到 GDK 目标。",
+      "用 `File > Package Project` 或平台 Project Launcher 打 Windows GDK / Xbox 包，确认清单读到刚才的 Store/Runtime 字段。",
+      "`MSGamingSupportEditor` 只属于 Editor Target；游戏模块不要依赖它，运行时走各 GDK 插件自己的模块。"
+    ],
+    "en_steps": [
+      "Enable `Configuration for Microsoft GDK Plug-ins for Unreal Engine` (`MSGamingSupport.uplugin`, module `MSGamingSupportEditor`).",
+      "Install the Microsoft GDK locally, then fill Title ID, sandbox, and package identity under `Edit > Project Settings` (Windows / GDK / Microsoft Game Store pages).",
+      "Later GDK / Xbox / Microsoft Store runtime plugins consume this config — set it here before packaging a GDK target.",
+      "Package with `File > Package Project` or Project Launcher for Windows GDK / Xbox and confirm the manifest picked up those Store/Runtime fields.",
+      "`MSGamingSupportEditor` is Editor-target only; game modules must not depend on it — runtime lives in the GDK plugins themselves."
+    ],
+    "note_cn": "GDK/商店配置壳，不是 Xbox 输入或成就运行时。",
+    "note_en": "GDK/Store configuration shell, not Xbox input or achievements runtime."
+  },
+  {
+    "slug": "console-variables-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Console Variables Editor`（`ConsoleVariablesEditor` + `ConsoleVariablesEditorRuntime`）。",
+      "打开 `Window > Console Variables`，按名搜索并添加 CVar（如 `r.ScreenPercentage`、`r.VSync`），在面板里改值，视口应立即变化。",
+      "内容浏览器右键 `Miscellaneous` / Virtual Production，创建 `Console Variables` 资产，把当前列表 Save 进该资产。",
+      "换机或换关卡后对该资产 Load，确认同一组 CVar 被写回，而不用手敲 `~` 控制台。",
+      "nDisplay / 虚拟制作配置可引用这份预设；运行时由 `ConsoleVariablesEditorRuntime` 应用，面板模块不要进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Console Variables Editor` (`ConsoleVariablesEditor` + `ConsoleVariablesEditorRuntime`).",
+      "Open `Window > Console Variables`, search-add CVars (for example `r.ScreenPercentage`, `r.VSync`), edit values, and watch the viewport update.",
+      "In the Content Browser, create a `Console Variables` asset (Miscellaneous / Virtual Production) and Save the current list into it.",
+      "On another machine or map, Load that asset so the same CVar set is restored instead of typing in the `~` console.",
+      "nDisplay / VP configs can reference the preset; `ConsoleVariablesEditorRuntime` applies it. Keep the panel module off Game targets."
+    ],
+    "note_cn": "给人用的 CVar 预设面板；AI 控制台工具集是另一个插件 `ConsoleToolset`。",
+    "note_en": "Human-facing CVar preset panel; the AI console toolset is the separate `ConsoleToolset` plugin."
+  },
+  {
+    "slug": "consoletoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ConsoleToolset`，并打开 `Toolset Registry` / 编辑器 AI（MCP）会话。",
+      "让助手列出或读取指定 CVar（例如 `r.Shadow.Virtual.Enable`），对照 `~` 控制台 `Get` 的结果。",
+      "用工具集 Set CVar 或 Exec（如 `stat unit`、`r.SetRes`）驱动控制台子系统，然后在视口/stat 叠加层验证，而不是打开 `Window > Console Variables`。",
+      "批量改画质时走本工具集的 exec/cvar 接口；若要保存成可复用资产，改用 `Console Variables Editor` 的预设资产。",
+      "实验性助手工具，禁止加入 Shipping；危险 exec 先在空工程试。"
+    ],
+    "en_steps": [
+      "Enable experimental `ConsoleToolset` and open `Toolset Registry` / an editor AI (MCP) session.",
+      "Have the assistant list or get a CVar (for example `r.Shadow.Virtual.Enable`) and compare with `~` console `Get`.",
+      "Drive the console subsystem with Set CVar or Exec (`stat unit`, `r.SetRes`, …) and verify in the viewport/stat overlay — not via `Window > Console Variables`.",
+      "Use this toolset for batch quality exec/cvar calls; persist reusable presets with `Console Variables Editor` assets instead.",
+      "Experimental assistant tools — never Shipping. Try dangerous execs on an empty project first."
+    ],
+    "note_cn": "给 AI 跑 CVar/Exec；人类预设面板请用 `Console Variables Editor`。",
+    "note_en": "AI-facing CVar/Exec tools; humans saving presets should use `Console Variables Editor`."
+  },
+  {
+    "slug": "content-browser---alias-data-source",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Content Browser - Alias Data Source`（模块 `ContentBrowserAliasDataSource`）。它让同一资产出现在磁盘路径以外的虚拟目录，不是新的内容浏览器窗口。",
+      "在 Editor 模块 `Build.cs` 依赖 `ContentBrowserAliasDataSource`，向 `UContentBrowserAliasDataSource` 注册源路径 → 别名虚拟路径（引擎内部功能也这样挂“快捷入口”文件夹）。",
+      "打开内容浏览器，进入别名文件夹：应看到原资产的镜像项；双击/改引用仍指向原始 `uasset`，不会复制一份。",
+      "删除或移动源资产后刷新浏览器，别名应失效或跟随，避免留下空壳。",
+      "这是编辑器数据源，不要加入游戏运行时；玩家包不需要别名文件夹。"
+    ],
+    "en_steps": [
+      "Enable `Content Browser - Alias Data Source` (module `ContentBrowserAliasDataSource`). It shows the same item in virtual folders besides its on-disk path — not a new Content Browser window.",
+      "Depend on `ContentBrowserAliasDataSource` in an Editor `Build.cs` and register source path → alias virtual path on `UContentBrowserAliasDataSource` (engine features hang “shortcut” folders the same way).",
+      "In the Content Browser, open the alias folder: you should see a mirror of the original asset. Double-click/edit still hits the real `uasset`; nothing is duplicated.",
+      "After deleting or moving the source, refresh: aliases should drop or follow so you do not keep shells.",
+      "Editor data source only — not game runtime. Packaged games do not need alias folders."
+    ],
+    "note_cn": "虚拟路径镜像，不是 Duplicate Asset，也不是 Collection。",
+    "note_en": "Virtual-path mirrors, not Duplicate Asset and not Collections."
+  }
+]

@@ -3,7 +3,6 @@ layout: default
 title: 资产登记导出 / Asset Registry Export
 ---
 
-
 <h1>资产登记导出 / Asset Registry Export</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 资产登记导出 / Asset Registry Export
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用编辑器插件 <code class="usage-code">Asset Registry Export</code>（模块 <code class="usage-code">AssetRegistryExport</code>）；它依赖 <code class="usage-code">SQLiteCore</code>，不要写进 Game Target。</li><li>用 <code class="usage-code">UnrealEditor-Cmd.exe</code> 打开工程，加 <code class="usage-code">-run=AssetRegistryExport</code>（<code class="usage-code">UAssetRegistryExportCommandlet</code>）。</li><li>用 <code class="usage-code">-ExportPath=</code> 指定输出的 SQLite <code class="usage-code">.db</code>（导出到已有库时不要指望追加，命令会按新库写）。</li><li>在 CI 里对导出库跑 SQL，查询类、路径、标签、依赖，而不是在 PIE 里找导出面板。</li><li>日常编辑器调试仍用控制台 <code class="usage-code">AssetRegistry.DumpState</code>；那是运行时转储，不是本插件的 SQLite 导出。</li></ol><p class="usage-note">把 Asset Registry 离线写成 SQLite，供流水线分析，不是运行时 `IAssetRegistry` 查询。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the editor plugin <code class="usage-code">Asset Registry Export</code> (module <code class="usage-code">AssetRegistryExport</code>); it needs <code class="usage-code">SQLiteCore</code> and must not go in a Game target.</li><li>Launch the project with <code class="usage-code">UnrealEditor-Cmd.exe</code> and <code class="usage-code">-run=AssetRegistryExport</code> (<code class="usage-code">UAssetRegistryExportCommandlet</code>).</li><li>Pass <code class="usage-code">-ExportPath=</code> to a SQLite <code class="usage-code">.db</code> (do not expect append into an existing database; export writes a fresh DB).</li><li>Query class, path, tags, and dependencies from that DB in CI — there is no PIE export panel.</li><li>For a live editor dump, use console <code class="usage-code">AssetRegistry.DumpState</code>; that is not this plugin’s SQLite export.</li></ol><p class="usage-note">Offline Asset Registry → SQLite for pipeline analysis, not runtime `IAssetRegistry` queries.</p></div></div></div>
+    </div>
+

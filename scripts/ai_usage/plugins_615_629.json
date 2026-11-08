@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "mutable-extension-example",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mutable Extension Example`（模块 `MutableExtensionExample`）。",
+      "它是向 Mutable 添加新外部操作的示例插件，用作自定义扩展的参考。",
+      "参考其代码学习如何给 Mutable 增加外部操作，再改造为自己的扩展。",
+      "Experimental：接口可能变动；示例用途，宜作参考而非直接搬运。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mutable Extension Example` (module `MutableExtensionExample`).",
+      "It is an example plugin that adds new external operations to Mutable, a reference for custom extensions.",
+      "Study its code to learn how to add external operations to Mutable, then adapt it for your extension.",
+      "Experimental: contract may change; it is an example, better as reference than direct copy."
+    ],
+    "note_cn": "给 Mutable 加外部操作的示例插件，实验性。",
+    "note_en": "An example plugin adding external operations to Mutable, experimental."
+  },
+  {
+    "slug": "mutable-groom-extensions",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mutable Groom Extensions`（运行时 `HairStrandsMutable`，编辑器 `HairStrandsMutableEditor`）。",
+      "它为 Mutable 增加与 HairStrands 插件中 Grooms 协作的能力。",
+      "在 Mutable 角色自定义里让发型（Groom）也可随自定义变化。",
+      "Experimental：接口可能变动；需 Mutable 与 HairStrands。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mutable Groom Extensions` (runtime `HairStrandsMutable`, editor `HairStrandsMutableEditor`).",
+      "It adds Mutable functionality to work with Grooms from the HairStrands plugin.",
+      "In Mutable character customization, make hair (Groom) customizable too.",
+      "Experimental: contract may change; requires Mutable and HairStrands."
+    ],
+    "note_cn": "Mutable 与 HairStrands Grooms 协作（可自定义发型），实验性。",
+    "note_en": "Mutable working with HairStrands Grooms (customizable hair), experimental."
+  },
+  {
+    "slug": "mutable",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Mutable`（运行时 `MutableRuntime`、`CustomizableObject`，工具 `MutableTools`、`MutableValidation`，编辑器 `CustomizableObjectEditor`）。",
+      "它提供工具与运行时来创建可定制对象（程序化生成角色/服饰/物件变体）。",
+      "在 Customizable Object 编辑器里搭建参数化资产，运行时按参数生成实例。",
+      "Game 模块依赖运行时模块；`CustomizableObjectEditor` 等只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Mutable` (runtime `MutableRuntime`, `CustomizableObject`, tools `MutableTools`, `MutableValidation`, editor `CustomizableObjectEditor`).",
+      "It provides tools and runtime to create customizable objects (procedural variants of characters/garments/props).",
+      "Build parametric assets in the Customizable Object editor and generate instances by parameters at runtime.",
+      "Game modules depend on runtime modules; `CustomizableObjectEditor` etc. go to Editor targets only."
+    ],
+    "note_cn": "创建可定制对象的工具与运行时（程序化变体）。",
+    "note_en": "Tools and runtime for customizable objects (procedural variants)."
+  },
+  {
+    "slug": "mutablepopulation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MutablePopulation`（运行时 `CustomizableObjectPopulation`，编辑器 `CustomizableObjectPopulationEditor`）。",
+      "它扩展 Mutable 以支持 Population（群体/人群）资产。",
+      "用 Population 资产批量生成多样化人群，控制分布与多样性。",
+      "Experimental：接口可能变动；需 Mutable 主插件。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MutablePopulation` (runtime `CustomizableObjectPopulation`, editor `CustomizableObjectPopulationEditor`).",
+      "It extends the Mutable plugin to support Population (crowd) assets.",
+      "Use Population assets to batch-generate diverse crowds with controlled distribution/variety.",
+      "Experimental: contract may change; requires the main Mutable plugin."
+    ],
+    "note_cn": "Mutable 的 Population 资产支持（批量多样化人群），实验性。",
+    "note_en": "Mutable Population asset support (diverse crowds), experimental."
+  },
+  {
+    "slug": "mvvm-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MVVM Toolset`（模块 `MVVMToolset`），面向 AI Toolset Registry。",
+      "让 AI 助手通过工具集创建与管理 MVVM 数据（UMG/UI 的 MVVM 绑定）。",
+      "在 UI 开发里用 AI 助手批量生成/维护 ViewModel 与绑定。",
+      "属 AI 工具链/UI 自动化，非运行时功能。"
+    ],
+    "en_steps": [
+      "Enable `MVVM Toolset` (module `MVVMToolset`); it targets the AI Toolset Registry.",
+      "Let AI assistants create and manage MVVM data (UMG/UI MVVM bindings) via the toolset.",
+      "In UI development, use the AI assistant to batch-generate/maintain ViewModels and bindings.",
+      "It is AI-toolchain/UI automation, not a runtime feature."
+    ],
+    "note_cn": "通过 AI 工具集创建/管理 MVVM 数据的工具集。",
+    "note_en": "A toolset to create/manage MVVM data via the AI Toolset Registry."
+  },
+  {
+    "slug": "namingtokens",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `NamingTokens`（模块 `NamingTokens`、`NamingTokensUI`、`NamingTokensUncookedOnly`，编辑器 `NamingTokensEditor`）并重启。",
+      "它定义可在字符串求值期间识别的标记（token），用于命名模板（如资产/关卡命名）。",
+      "在命名规则里插入 token，按当前上下文动态展开。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `NamingTokens` (modules `NamingTokens`, `NamingTokensUI`, `NamingTokensUncookedOnly`, editor `NamingTokensEditor`) and restart.",
+      "It defines tokens recognized during string evaluation, for naming templates (asset/level naming).",
+      "Insert tokens into naming rules to expand dynamically per current context.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "字符串求值时识别的命名 token（命名模板用），编辑器向。",
+    "note_en": "Tokens recognized during string evaluation for naming templates, editor-oriented."
+  },
+  {
+    "slug": "nanite-assembly-editor-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Nanite Assembly Editor Utilities`（模块 `NaniteAssemblyEditorUtils`）。",
+      "它对在蓝图中创建 Nanite Assembly 提供实验性支持。",
+      "在编辑器/蓝图里用其工具组装 Nanite 网格部件。",
+      "Experimental：接口可能变动；属 Nanite 编辑工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Nanite Assembly Editor Utilities` (module `NaniteAssemblyEditorUtils`).",
+      "It gives experimental support for Nanite Assembly creation in Blueprint.",
+      "Use its tools in the editor/Blueprint to assemble Nanite mesh parts.",
+      "Experimental: contract may change; it is a Nanite editing tool."
+    ],
+    "note_cn": "蓝图中创建 Nanite Assembly 的实验性编辑工具。",
+    "note_en": "Experimental editing tools for Nanite Assembly creation in Blueprint."
+  },
+  {
+    "slug": "nanite-displaced-mesh",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Nanite Displaced Mesh`（运行时 `NaniteDisplacedMesh`，编辑器 `NaniteDisplacedMeshEditor`）。",
+      "它提供为 Nanite 网格做基本预位移（pre-displacement）管线的资源与组件类型。",
+      "给 Nanite 网格配置位移，烘出带位移的网格。",
+      "Experimental：接口可能变动；`NaniteDisplacedMeshEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Nanite Displaced Mesh` (runtime `NaniteDisplacedMesh`, editor `NaniteDisplacedMeshEditor`).",
+      "It provides asset and component types that give Nanite meshes a basic pre-displacement pipeline.",
+      "Configure displacement on Nanite meshes and bake the displaced mesh.",
+      "Experimental: contract may change; `NaniteDisplacedMeshEditor` is Editor-target only."
+    ],
+    "note_cn": "Nanite 网格的预位移管线（资源/组件），实验性。",
+    "note_en": "A pre-displacement pipeline for Nanite meshes (asset/component), experimental."
+  },
+  {
+    "slug": "navcorridor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NavCorridor`（模块 `NavCorridor`）。",
+      "它是实验性导航走廊系统，用于定义代理沿走廊移动的导航。",
+      "在关卡里布置导航走廊，供 AI 沿走廊寻路。",
+      "Experimental：接口可能变动；属 AI/导航辅助。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NavCorridor` (module `NavCorridor`).",
+      "It is an experimental navigation corridor system that defines agent navigation along corridors.",
+      "Lay out nav corridors in the level for AI to path along.",
+      "Experimental: contract may change; it is AI/navigation assist."
+    ],
+    "note_cn": "实验性导航走廊（AI 沿走廊寻路）。",
+    "note_en": "An experimental navigation corridor for AI pathing."
+  },
+  {
+    "slug": "navdrivablepath",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NavDrivablePath`（模块 `NavDrivablePath`，测试 `NavDrivablePathTestSuite`）。",
+      "它是实验性规划器，把导航网格路径转成圆弧+直线，并按最小转弯半径拉直，供代理“驾驶”。",
+      "在载具/驾驶类 AI 里用它把 NavMesh 路径适配为可行驶轨迹。",
+      "Experimental：接口可能变动；测试模块不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NavDrivablePath` (module `NavDrivablePath`, tests `NavDrivablePathTestSuite`).",
+      "It is an experimental planner that turns a navmesh path into arcs and straights, straightened to a minimum turning radius, drivable by an agent.",
+      "In vehicle/driving AI, use it to adapt NavMesh paths into drivable trajectories.",
+      "Experimental: contract may change; keep the test module out of production."
+    ],
+    "note_cn": "把 NavMesh 路径转成可驾驶轨迹（圆弧+直线/最小转弯半径），实验性。",
+    "note_en": "Turns NavMesh paths into drivable trajectories (arcs/straights, min turn radius), experimental."
+  },
+  {
+    "slug": "navigation-logger-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Navigation Logger ToolSet`（模块 `NavigationLoggerToolSet`）。",
+      "它记录 Slate/CommonUI 的焦点与导航事件，并公开 AI 工具来重建焦点路径。",
+      "在 UI 焦点调试里用 AI 助手回溯焦点/导航走向。",
+      "这是开发期工具集（不进 Shipping）；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Navigation Logger ToolSet` (module `NavigationLoggerToolSet`).",
+      "It records Slate/CommonUI focus & navigation events and exposes AI tools to reconstruct focus paths.",
+      "Use the AI assistant to trace focus/navigation flow during UI focus debugging.",
+      "It is a development-time toolset (does not ship); Experimental."
+    ],
+    "note_cn": "记录 Slate/CommonUI 焦点导航并供 AI 重建焦点路径，实验性。",
+    "note_en": "Records Slate/CommonUI focus/navigation and gives AI focus-path reconstruction, experimental."
+  },
+  {
+    "slug": "navmeshtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NavMeshToolset`（模块 `NavMeshToolset`，测试 `NavMeshToolsetTests`）。",
+      "它是给 AI 助手的只读导航网格查询工具集：设置发现、构建状况、生成输入、点/路径查询、图块与网格上的 Actor。",
+      "让 AI 助手查询 NavMesh 状态排查寻路问题。",
+      "属 AI 工具链/AI 自动化，非运行时功能。"
+    ],
+    "en_steps": [
+      "Enable `NavMeshToolset` (module `NavMeshToolset`, tests `NavMeshToolsetTests`).",
+      "It is a read-only navmesh query toolset for AI assistants: setup discovery, build health, generation inputs, point/path queries, tiles, and actors on the mesh.",
+      "Let AI assistants query NavMesh state to troubleshoot pathing.",
+      "It is AI-toolchain/AI automation, not a runtime feature."
+    ],
+    "note_cn": "给 AI 助手的只读 NavMesh 查询工具集。",
+    "note_en": "A read-only navmesh query toolset for AI assistants."
+  },
+  {
+    "slug": "ndi-media",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NDI Media`（运行时 `NDIMedia`，编辑器 `NDIMediaEditor`，渲染 `NDIMediaRendering`）。",
+      "它用 NDI 协议实现媒体源与媒体输出（网络视频输入输出）。",
+      "在 Media Player/Media Output 里选 NDI，接入 NDI 源或送出画面。",
+      "属 Media Framework 的 NDI 源/输出；`NDIMediaEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `NDI Media` (runtime `NDIMedia`, editor `NDIMediaEditor`, rendering `NDIMediaRendering`).",
+      "It implements a media source and media output using the NDI protocol (networked video in/out).",
+      "Select NDI in a Media Player/Media Output to ingest an NDI source or send the frame out.",
+      "It is the NDI source/output of Media Framework; `NDIMediaEditor` is Editor-target only."
+    ],
+    "note_cn": "NDI 协议的媒体源与输出（网络视频）。",
+    "note_en": "NDI-protocol media source and output (networked video)."
+  },
+  {
+    "slug": "ndisplay-launch",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `nDisplay Launch`（模块 `DisplayClusterLaunchEditor`）并重启，属 Virtual Production。",
+      "它把 nDisplay 场景渲染到多台同步机器/窗口（LED 墙、CAVE、集群视口）。",
+      "用其 Launch 工具在多机环境启动/管理 nDisplay 渲染，配合 Switchboard、Live Link、摄像机跟踪。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `nDisplay Launch` (module `DisplayClusterLaunchEditor`) and restart, part of Virtual Production.",
+      "It renders an nDisplay scene across synchronized machines/windows (LED walls, CAVE, cluster viewports).",
+      "Use its Launch tools to start/manage nDisplay rendering in multi-machine setups, with Switchboard, Live Link, and camera tracking.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "nDisplay 多机启动/管理工具（虚拟制片）。",
+    "note_en": "nDisplay multi-machine launch/management tools (virtual production)."
+  },
+  {
+    "slug": "ndisplay-modular-features",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `nDisplay Modular Features`（模块 `DisplayClusterLightCardExtender`，编辑器 `DisplayClusterModularFeaturesEditor`）。",
+      "它为 nDisplay 提供模块化功能（如 Light Card 扩展等）。",
+      "在 nDisplay 配置里启用所需模块化特性。",
+      "需 nDisplay 已启用；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `nDisplay Modular Features` (module `DisplayClusterLightCardExtender`, editor `DisplayClusterModularFeaturesEditor`).",
+      "It provides modular features for nDisplay (e.g. Light Card extension, etc.).",
+      "Enable the needed modular features in the nDisplay config.",
+      "Requires nDisplay enabled; editor modules go to Editor targets only."
+    ],
+    "note_cn": "nDisplay 的模块化功能（含 Light Card 扩展等）。",
+    "note_en": "Modular features for nDisplay (incl. Light Card extension, etc.)."
+  }
+]

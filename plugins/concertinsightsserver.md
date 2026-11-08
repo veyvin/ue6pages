@@ -3,7 +3,6 @@ layout: default
 title: ConcertInsights服务器 / ConcertInsightsServer
 ---
 
-
 <h1>ConcertInsights服务器 / ConcertInsightsServer</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: ConcertInsights服务器 / ConcertInsightsServer
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">侦听客户端启动同步跟踪的请求，该请求在 ConcertInsightsClient 插件中启动。</div><div class="lang-content">Listens for requests of clients to start synchronized tracing, which is initiated in the ConcertInsightsClient plugin.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在跑 <code class="usage-code">UnrealMultiUserServer</code> 的那套插件里启用 <code class="usage-code">ConcertInsightsServer</code>（模块 <code class="usage-code">ConcertInsightsServer</code>），让服务器进程能响应同步 Trace。</li><li>先起 Concert 会话并让至少一名 <code class="usage-code">ConcertInsightsClient</code> 连上，再在**客户端**状态栏发起同步 Trace（服务器没有对等按钮）。</li><li>确认服务器日志/Insights 接收端出现来自 <code class="usage-code">UnrealMultiUserServer</code> 的 Trace，而不是只有编辑器进程。</li><li>对照服务器 <code class="usage-code">.utrace</code> 与客户端时间轴：事务广播、归档、工作区复制应出现在服务器通道上。</li><li>只装在服务器目标；不要写进游戏 <code class="usage-code">Build.cs</code>。</li></ol><p class="usage-note">只监听 `ConcertInsightsClient` 发来的开 Trace 请求，不提供操作 UI。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">ConcertInsightsServer</code> (module <code class="usage-code">ConcertInsightsServer</code>) on the <code class="usage-code">UnrealMultiUserServer</code> plugin set so the server process can honor sync-trace requests.</li><li>Host a Concert session, connect at least one <code class="usage-code">ConcertInsightsClient</code>, then start sync trace from the **client** status bar (the server has no matching button).</li><li>Confirm the Insights receiver gets a trace from <code class="usage-code">UnrealMultiUserServer</code>, not only from editor processes.</li><li>Compare the server <code class="usage-code">.utrace</code> with client timelines: transaction broadcast, archive, and workspace copy should show on the server channel.</li><li>Server-target only; do not add it to a game <code class="usage-code">Build.cs</code>.</li></ol><p class="usage-note">Listens for start-trace requests from `ConcertInsightsClient`; no operator UI of its own.</p></div></div></div>
+    </div>
+

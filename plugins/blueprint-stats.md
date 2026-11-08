@@ -3,7 +3,6 @@ layout: default
 title: 蓝图统计 / Blueprint Stats
 ---
 
-
 <h1>蓝图统计 / Blueprint Stats</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 蓝图统计 / Blueprint Stats
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">蓝图统计</div><div class="lang-content">Blueprint Stats</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 启用 <code class="usage-code">Blueprint Stats</code>（模块 <code class="usage-code">BlueprintStats</code>）并重启；这是编辑器统计命令，不是运行时计数器。</li><li>打开 <code class="usage-code">Window &gt; Output Log</code>，确保日志过滤器包含 <code class="usage-code">LogBlueprintStats</code>。</li><li>在控制台执行 <code class="usage-code">DumpBlueprintStats</code>。</li><li>阅读输出：先是各 <code class="usage-code">K2Node_*</code> / AnimGraph 节点类型的出现次数，再是 <code class="usage-code">FunctionPath,ClassName,FunctionName,NumInstances</code> 函数调用排行。</li><li>用这份清单找项目里滥用最多的节点（例如海量 <code class="usage-code">Add_IntInt</code> 或特定 <code class="usage-code">K2Node_Event</code>），决定哪些图该下沉到 C++。</li><li>不要把 <code class="usage-code">BlueprintStats</code> 写进游戏 <code class="usage-code">Build.cs</code>；命令只扫描当前编辑器已加载的蓝图。</li></ol><p class="usage-note">唯一正式入口是控制台 `DumpBlueprintStats`；没有独立 Window 面板，也没有游戏内 Stat 组。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Blueprint Stats</code> in <code class="usage-code">Edit &gt; Plugins</code> (module <code class="usage-code">BlueprintStats</code>) and restart. It is an editor dump command, not a runtime counter.</li><li>Open <code class="usage-code">Window &gt; Output Log</code> and keep <code class="usage-code">LogBlueprintStats</code> visible in the filter.</li><li>Run the console command <code class="usage-code">DumpBlueprintStats</code>.</li><li>Read the dump: counts per <code class="usage-code">K2Node_*</code> / AnimGraph node class, then the <code class="usage-code">FunctionPath,ClassName,FunctionName,NumInstances</code> table.</li><li>Use the hot list (heavy <code class="usage-code">Add_IntInt</code>, <code class="usage-code">K2Node_Event</code>, etc.) to decide which graphs should move to C++.</li><li>Do not add <code class="usage-code">BlueprintStats</code> to a game <code class="usage-code">Build.cs</code>; the command only scans Blueprints loaded in this editor session.</li></ol><p class="usage-note">The real entry is the `DumpBlueprintStats` console command. There is no dedicated window and no in-game Stat group.</p></div></div></div>
+    </div>
+

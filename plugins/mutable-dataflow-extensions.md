@@ -3,7 +3,6 @@ layout: default
 title: 可变数据流扩展 / Mutable Dataflow Extensions
 ---
 
-
 <h1>可变数据流扩展 / Mutable Dataflow Extensions</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 可变数据流扩展 / Mutable Dataflow Extensions
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">添加可变功能以使用数据流插件中的数据流对象。警告：此插件中的所有节点都是实验性的，将来将会更改/弃用。 Dataflow 系统尚未完全支持 mutable，因此这些节点的功能目前相当有限且需要手动操作。</div><div class="lang-content">Adds Mutable functionality to work with Dataflow objects from the Dataflow plugin. WARNING: All nodes in this plugin are experimental and will be changed/deprecated in the future. The Dataflow system does not yet fully support mutable so the functionality of these nodes is currently quite limited and manual.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">Mutable Dataflow Extensions</code>（模块 <code class="usage-code">MutableDataflowEditor</code>）。</li><li>它为 Mutable 添加在 Dataflow 插件里使用 Dataflow 对象的能力；注意其节点均为实验性，未来可能变更/弃用。</li><li>在 Dataflow 图里用 Mutable 节点（目前能力有限、需手动操作）。</li><li>Experimental：接口可能变动；属 Mutable + Dataflow 集成。</li></ol><p class="usage-note">Mutable 在 Dataflow 中处理对象的扩展（节点实验性、能力有限）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Mutable Dataflow Extensions</code> (module <code class="usage-code">MutableDataflowEditor</code>).</li><li>It adds Mutable functionality to work with Dataflow objects from the Dataflow plugin; note all its nodes are experimental and may change/be deprecated.</li><li>Use Mutable nodes in Dataflow graphs (currently limited and manual).</li><li>Experimental: contract may change; it is Mutable + Dataflow integration.</li></ol><p class="usage-note">Mutable + Dataflow object extensions (experimental nodes, limited).</p></div></div></div>
+    </div>
+

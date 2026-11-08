@@ -3,7 +3,6 @@ layout: default
 title: DTLS 网络数据包处理程序 / DTLS network packet handler
 ---
 
-
 <h1>DTLS 网络数据包处理程序 / DTLS network packet handler</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: DTLS 网络数据包处理程序 / DTLS network packet handler
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">提供数据包处理程序组件来执行 DTLS 加密和解密。</div><div class="lang-content">Provides a packet handler component to do DTLS encryption and decryption.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">DTLS network packet handler</code>（模块 <code class="usage-code">DTLSHandlerComponent</code>）。它是 <code class="usage-code">PacketHandler</code> 管道组件，不能当 <code class="usage-code">UActorComponent</code> 加到 Actor。</li><li>在客户端与服务器的 <code class="usage-code">DefaultEngine.ini</code> 写 <code class="usage-code">[PacketHandlerComponents]</code>，<code class="usage-code">Components=DTLSHandlerComponent</code>（名称不要写成 AES 那两个 Handler）。</li><li>配置 DTLS 证书/密钥（引擎 DTLS 设置或部署时下发的 cert），保证 DS 与客户端是同一套身份材料。</li><li>用 dedicated server 联机进关，确认握手完成后复制包走 DTLS 加解密（比预共享 AES 更接近证书握手）。</li><li>两端 PacketHandler 列表必须一致，否则加密通道建不起来。</li><li>可进 Shipping；若只需要对称预共享密钥，应改用 <code class="usage-code">AESGCMHandlerComponent</code> 而不是误配 DTLS。</li></ol><p class="usage-note">基于 DTLS 的包加密 Handler，需要证书材料；与 AES/AES-GCM Handler 互不替换名字。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">DTLS network packet handler</code> (module <code class="usage-code">DTLSHandlerComponent</code>). It is a <code class="usage-code">PacketHandler</code> pipeline component, not a <code class="usage-code">UActorComponent</code>.</li><li>On both client and server <code class="usage-code">DefaultEngine.ini</code>, set <code class="usage-code">[PacketHandlerComponents]</code> <code class="usage-code">Components=DTLSHandlerComponent</code> (not the AES handler names).</li><li>Provision DTLS certificates/keys (engine DTLS settings or deployed certs) so DS and clients share the same identity material.</li><li>Join a dedicated server and confirm replication is DTLS-encrypted after handshake (certificate-style, unlike pre-shared AES).</li><li>PacketHandler lists must match on both ends or the encrypted channel will not come up.</li><li>Shippable; if you only want a pre-shared symmetric key, use <code class="usage-code">AESGCMHandlerComponent</code> instead of misconfiguring DTLS.</li></ol><p class="usage-note">DTLS packet encryption that needs certificates; not interchangeable with the AES/AES-GCM handler names.</p></div></div></div>
+    </div>
+

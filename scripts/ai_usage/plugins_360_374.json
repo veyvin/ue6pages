@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "georeferencing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `GeoReferencing`（运行时 `GeoReferencing`，编辑器 `GeoReferencingEditor`）。",
+      "在关卡里放置 GeoReferencing 系统（或其组件），设置工程原点的经纬度/投影（如 WGS84 / UTM）。",
+      "用它把地理坐标（经纬度/UTM）与引擎世界坐标互转，放置 GIS、仿真或大世界内容。",
+      "Game 模块依赖 `GeoReferencing`；`GeoReferencingEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `GeoReferencing` (runtime `GeoReferencing`, editor `GeoReferencingEditor`).",
+      "Place the GeoReferencing system (or its component) in the level and set the project origin's lat/long and projection (e.g. WGS84 / UTM).",
+      "Use it to convert between geographic coordinates (lat/long or UTM) and engine world coordinates for GIS, simulation, or large-world content.",
+      "Game modules depend on `GeoReferencing`; `GeoReferencingEditor` is Editor-target only."
+    ],
+    "note_cn": "世界坐标与地理坐标互转，不是 GPS 定位服务。",
+    "note_en": "Converts world vs geographic coordinates; it is not a GPS positioning service."
+  },
+  {
+    "slug": "git",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Git`（模块 `GitSourceControl`）并重启。",
+      "在 `Project Settings > Source Control` 里选择 Git 提供方，指向本地仓库/远端。",
+      "用编辑器内的源码管理面板做提交、同步、查看历史。",
+      "这是编辑器工具，只进 Editor Target，不要加进游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Git` (module `GitSourceControl`) and restart.",
+      "In `Project Settings > Source Control` pick the Git provider and point it at your local repo/remote.",
+      "Use the in-editor source control panel to commit, sync, and view history.",
+      "It is an editor tool for Editor targets only; never add it to a game `Build.cs`."
+    ],
+    "note_cn": "编辑器内的 Git 源码管理集成，不是命令行 git 的替代。",
+    "note_en": "In-editor Git source-control integration, not a replacement for the git CLI."
+  },
+  {
+    "slug": "global-configuration-data",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Global Configuration Data`（模块 `GlobalConfigurationData`、`GlobalConfigurationDataCore`）。",
+      "用它查询可能来自多个来源的配置数据，而无需知道具体是哪个来源。",
+      "注册配置提供者/数据源，再通过统一接口查询取值。",
+      "Experimental：接口可能随夜构建变化，别写死未文档化的来源类型。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Global Configuration Data` (modules `GlobalConfigurationData`, `GlobalConfigurationDataCore`).",
+      "Use it to query configuration data that may come from many sources without knowing which one.",
+      "Register config providers/data sources, then query values through the unified interface.",
+      "Experimental: contract may change on nightlies; do not freeze undocumented source types."
+    ],
+    "note_cn": "多来源配置查询系统，不是引擎的 ini/Config 缓存本身。",
+    "note_en": "A multi-source config query system, not the engine's ini/Config cache itself."
+  },
+  {
+    "slug": "gltf-exporter",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `glTF Exporter`（模块 `GLTFExporter`），类别 Exporters。",
+      "在内容浏览器或关卡里选中资产，通过导出菜单选择 glTF 2.0 导出。",
+      "用于把引擎内容交给外部 DCC/Web 渲染；导出后检查材质、单位与节点结构。",
+      "这是导出工具，通常编辑器侧使用；不要当游戏运行时依赖。"
+    ],
+    "en_steps": [
+      "Enable `glTF Exporter` (module `GLTFExporter`), category Exporters.",
+      "Select assets in the Content Browser or level and export via the glTF 2.0 export menu.",
+      "Use it to hand engine content to external DCCs/web renderers; check materials, units, and node structure after export.",
+      "It is an export tool used editor-side; do not treat it as a game runtime dependency."
+    ],
+    "note_cn": "Khronos glTF 2.0 导出器，方向是引擎→外部。",
+    "note_en": "A Khronos glTF 2.0 exporter, engine-to-external direction."
+  },
+  {
+    "slug": "google-arcore-services",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Google ARCore Services`（模块 `GoogleARCoreServices`），面向 Android AR。",
+      "在已启用 ARCore 的基础上，接入跨平台 ARCore 云服务功能（如云端锚点/多人）。",
+      "在项目设置与打包配置里填好 ARCore/云服务凭证，部署到支持的 Android 设备。",
+      "只在支持的 Android/ARCore 目标使用；其它平台不要依赖该模块。"
+    ],
+    "en_steps": [
+      "Enable `Google ARCore Services` (module `GoogleARCoreServices`) for Android AR.",
+      "On top of ARCore, hook into Google's cross-platform ARCore cloud services (e.g. cloud anchors/multiplayer).",
+      "Configure ARCore/cloud credentials in project and packaging settings, then deploy to supported Android devices.",
+      "Use it on supported Android/ARCore targets only; other platforms should not depend on it."
+    ],
+    "note_cn": "ARCore 的云服务扩展，依赖基础 ARCore 与凭证。",
+    "note_en": "Cloud-services add-on for ARCore; depends on base ARCore and credentials."
+  },
+  {
+    "slug": "google-arcore",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Google ARCore`（模块 `GoogleARCoreBase`、`GoogleARCoreRendering`），面向 Android AR。",
+      "在移动端项目中开启 AR 模板/AR 会话，授予相机权限，部署到支持 ARCore 的 Android 设备。",
+      "用 ARCore 提供的平面检测、追踪、光照估计等功能驱动 AR 内容。",
+      "只在支持 ARCore 的 Android 目标使用；渲染模块负责 AR 相机背景合成。"
+    ],
+    "en_steps": [
+      "Enable `Google ARCore` (modules `GoogleARCoreBase`, `GoogleARCoreRendering`) for Android AR.",
+      "In a mobile project, start an AR session (AR template), grant camera permission, and deploy to ARCore-capable Android devices.",
+      "Use ARCore features (plane detection, tracking, light estimation) to drive AR content.",
+      "Use it on ARCore-capable Android targets only; the rendering module composites the AR camera background."
+    ],
+    "note_cn": "Google 的 AR 平台支持（Android），需设备支持 ARCore。",
+    "note_en": "Google's AR platform support for Android; requires ARCore-capable devices."
+  },
+  {
+    "slug": "google-cloud-messaging",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Google Cloud Messaging`（模块 `GoogleCloudMessaging`），面向 Android 推送。",
+      "在 Google/Firebase 后台配置工程与服务器密钥，填入项目打包设置。",
+      "在游戏里注册远程通知回调，处理收到的推送消息。",
+      "只在支持的移动平台使用；注意 GCM 已逐步迁移到 FCM，按平台现状配置。"
+    ],
+    "en_steps": [
+      "Enable `Google Cloud Messaging` (module `GoogleCloudMessaging`) for Android push.",
+      "Configure the project and server key in the Google/Firebase console and fill packaging settings.",
+      "Register remote-notification callbacks in game and handle incoming pushes.",
+      "Use it on supported mobile platforms; note GCM is largely superseded by FCM, so configure per platform status."
+    ],
+    "note_cn": "基于 GCM 的远程通知，注意 Google 已转向 FCM。",
+    "note_en": "GCM-based remote notifications; Google has largely moved to FCM."
+  },
+  {
+    "slug": "googlepad",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `GooglePAD`（运行时 `GooglePAD`，编辑器 `GooglePADEditor`），面向 Android。",
+      "打包时把内容分配成 Play Asset Delivery 的 install-time/fast-follow/on-demand 包。",
+      "运行时用 GooglePAD API 查询并请求下载 asset pack，处理进度。",
+      "Game 模块依赖 `GooglePAD`；`GooglePADEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `GooglePAD` (runtime `GooglePAD`, editor `GooglePADEditor`) for Android.",
+      "At packaging, split content into Play Asset Delivery packs (install-time / fast-follow / on-demand).",
+      "At runtime use the GooglePAD API to query and request asset-pack downloads and handle progress.",
+      "Game modules depend on `GooglePAD`; `GooglePADEditor` is Editor-target only."
+    ],
+    "note_cn": "Android 的 Google Play Asset Delivery，和 GDK 的 Chunk Installer 不同平台。",
+    "note_en": "Android's Google Play Asset Delivery; a different platform than GDK's Chunk Installer."
+  },
+  {
+    "slug": "gpu-lightmass",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `GPU Lightmass`（运行时 `GPULightmass`，编辑器 `GPULightmassEditor`）。",
+      "在项目设置或后期处理里选择 GPU Lightmass 作为静态光照烘焙器，确保显卡支持 DXR。",
+      "在编辑器里 Build Lighting，用 GPU 加速烘焙并预览静态光照。",
+      "这是编辑器烘焙/预览系统；不要把它打进游戏运行时包。"
+    ],
+    "en_steps": [
+      "Enable Experimental `GPU Lightmass` (runtime `GPULightmass`, editor `GPULightmassEditor`).",
+      "Select GPU Lightmass as the static lighting baker in project/post-process settings and ensure the GPU supports DXR.",
+      "Build Lighting in the editor to bake with GPU acceleration and preview static lighting.",
+      "It is an editor bake/preview system; do not ship it in a game runtime package."
+    ],
+    "note_cn": "DXR 加速的静态光照烘焙/预览，不是运行时动态 GI。",
+    "note_en": "DXR-accelerated static lighting bake/preview, not runtime dynamic GI."
+  },
+  {
+    "slug": "gpu-reshape-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `GPU Reshape Plugin`（模块 `GPUReshapeEditor`）并重启。",
+      "在编辑器里打开 GPU Reshape 集成面板，对渲染管线做捕获/分析（配合外部 GPU Reshape 工具）。",
+      "用于渲染调试与验证，不参与游戏逻辑。",
+      "这是编辑器开发者工具，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `GPU Reshape Plugin` (module `GPUReshapeEditor`) and restart.",
+      "Open the GPU Reshape integration panel in the editor to capture/analyze the render pipeline (with the external GPU Reshape tool).",
+      "Use it for render debugging and validation; it does not drive gameplay.",
+      "It is an editor developer tool for Editor targets only."
+    ],
+    "note_cn": "渲染管线捕获/调试的编辑器集成，不是运行时渲染插件。",
+    "note_en": "Editor integration for render-pipeline capture/debug, not a runtime render plugin."
+  },
+  {
+    "slug": "graphdsl",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `GraphDsl`（模块 `GraphDsl`）。",
+      "用 S-表达式语言运行时的 API 来编写/编辑 Unreal 图形资产（如材质、蓝图图的程序化创作）。",
+      "在工具或脚本里构造图、写回资产，用于批量/程序化生成图形。",
+      "Experimental：接口可能变动；它是图创作语言运行时，不是可视化编辑器替代。"
+    ],
+    "en_steps": [
+      "Enable Experimental `GraphDsl` (module `GraphDsl`).",
+      "Use the S-expression language runtime API to author/edit Unreal graph assets (e.g. procedural creation of materials or blueprint graphs).",
+      "Build graphs and write them back to assets from tools/scripts for batch or procedural graph generation.",
+      "Experimental: contract may change; it is a graph-authoring language runtime, not a visual editor replacement."
+    ],
+    "note_cn": "用 S-表达式编写图形资产的运行时，偏程序化/自动化。",
+    "note_en": "An S-expression runtime for authoring graph assets; procedural/automation oriented."
+  },
+  {
+    "slug": "grid-sample-grass",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Grid Sample Grass`（模块 `GridSampleGrass`）。",
+      "在草地表面配置网格样本草地渲染：距离环中的程序叶片丛（完整/廉价/合并丛、面向相机 impostor）。",
+      "用样条覆盖整形、排除与变形控制草地范围与形态，铺设到平面或景观地形。",
+      "这是渲染技术插件，关注性能与视觉；按项目渲染管线验证效果。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Grid Sample Grass` (module `GridSampleGrass`).",
+      "Configure grid-sample grass on surfaces: procedural blade clumps in distance rings (full/cheap/merged clumps, camera-facing impostors).",
+      "Use spline coverage shaping, exclusions, and deformation to control grass extent and form on flat or landscape terrain.",
+      "It is a rendering technique plugin; verify visuals and performance against your project's render pipeline."
+    ],
+    "note_cn": "网格样本草地渲染技术，程序叶片丛 + impostor，偏性能。",
+    "note_en": "A grid-sample grass rendering technique (procedural clumps + impostors), performance-focused."
+  },
+  {
+    "slug": "groom",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Groom`（模块 `HairStrandsCore`、`HairStrandsRuntime`、`HairStrandsEditor`、`HairStrandsSolver` 等）。",
+      "导入 Groom 资产（发丝/发卡），赋给骨架网格的 Groom 组件。",
+      "配置渲染与模拟（绑定、重力、碰撞），PIE 里查看头发随头动与风动效果。",
+      "Game 模块依赖运行时模块；`HairStrandsEditor`、Dataflow 等编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Groom` (modules `HairStrandsCore`, `HairStrandsRuntime`, `HairStrandsEditor`, `HairStrandsSolver`, etc.).",
+      "Import a Groom asset (strands/cards) and assign it to the Groom component on the skeletal mesh.",
+      "Configure rendering and simulation (binding, gravity, collision) and PIE to see hair follow head motion and wind.",
+      "Game modules depend on runtime modules; editor ones like `HairStrandsEditor` and Dataflow go to Editor targets only."
+    ],
+    "note_cn": "发丝(Groom)的渲染与模拟，替代旧毛发方案。",
+    "note_en": "Groom (hair strands) rendering and simulation, replacing older hair solutions."
+  },
+  {
+    "slug": "guided-tutorials",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Guided Tutorials`（模块 `IntroTutorials`）并重启。",
+      "在编辑器里打开引导教程（如首次启动的教程），按提示在 UI 中逐步操作。",
+      "为项目编写/配置自定义教程内容以便团队上手。",
+      "这是编辑器教学工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Guided Tutorials` (module `IntroTutorials`) and restart.",
+      "Open guided tutorials in the editor (e.g. first-run tutorials) and follow the UI steps.",
+      "Author/configure custom tutorial content so the team can onboard.",
+      "It is an editor teaching tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "编辑器内的指导教程系统，纯编辑器。",
+    "note_en": "An in-editor guided tutorial system, editor-only."
+  },
+  {
+    "slug": "hair-card-generator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Hair Card Generator`（模块 `HairCardGeneratorEditor`、`HairCardGeneratorDataflow`）。",
+      "在 Dataflow 或编辑工具里，从发丝（strands）程序化生成发卡（hair cards）。",
+      "检查生成发卡的数量、朝向与材质，再交给 Groom 渲染。",
+      "这是制作期生成工具（编辑器侧）；Experimental，接口可能变动。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Hair Card Generator` (modules `HairCardGeneratorEditor`, `HairCardGeneratorDataflow`).",
+      "In Dataflow or the editor tools, procedurally generate hair cards from strands.",
+      "Inspect generated card count, orientation, and materials, then render them via Groom.",
+      "It is an authoring-time generator (editor-side); Experimental with a contract that may change."
+    ],
+    "note_cn": "从发丝生成发卡的程序化工具，编辑器侧，不是运行时。",
+    "note_en": "A procedural strands-to-cards tool, editor-side, not runtime."
+  }
+]

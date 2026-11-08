@@ -3,7 +3,6 @@ layout: default
 title: 物理控制 / PhysicsControl
 ---
 
-
 <h1>物理控制 / PhysicsControl</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 物理控制 / PhysicsControl
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">通过物理控制组件和带有控制的刚体动画图形节点对静态和骨架网格物体进行物理控制。</div><div class="lang-content">Physically control static and skeletal meshes through the Physics Control Component and the Rigid Body With Control animation graph node.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">PhysicsControl</code>（运行时 <code class="usage-code">PhysicsControl</code>、<code class="usage-code">PhysicsControlUncookedOnly</code>，编辑器 <code class="usage-code">PhysicsControlEditor</code>）。</li><li>它通过物理控制组件与带控制的刚体动画图节点，对静态与骨骼网格做物理控制。</li><li>给网格加 PhysicsControl 组件，用动画图节点驱动刚体控制。</li><li>Game 模块依赖运行时模块；编辑器/UncookedOnly 模块只进 Editor Target。</li></ol><p class="usage-note">用物理控制组件+刚体动画图节点控制网格物理。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">PhysicsControl</code> (runtime <code class="usage-code">PhysicsControl</code>, <code class="usage-code">PhysicsControlUncookedOnly</code>, editor <code class="usage-code">PhysicsControlEditor</code>).</li><li>It provides physics control of static and skeletal meshes via physics control components and rigid-body anim-graph nodes.</li><li>Add a PhysicsControl component to a mesh and drive rigid-body control with anim-graph nodes.</li><li>Game modules depend on runtime modules; editor/UncookedOnly modules go to Editor targets only.</li></ol><p class="usage-note">Physics control of meshes via components + rigid-body anim-graph nodes.</p></div></div></div>
+    </div>
+

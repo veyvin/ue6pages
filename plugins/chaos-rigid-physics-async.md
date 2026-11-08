@@ -3,7 +3,6 @@ layout: default
 title: 混沌刚性物理异步 / Chaos Rigid Physics Async
 ---
 
-
 <h1>混沌刚性物理异步 / Chaos Rigid Physics Async</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 混沌刚性物理异步 / Chaos Rigid Physics Async
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">提供混沌刚体物理引擎（异步实现）</div><div class="lang-content">Provides the Chaos Rigid Body Physics Engine (Async Implementation)</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">Chaos Rigid Physics Async</code>（模块 <code class="usage-code">ChaosRigidPhysicsAsync</code>）并重启。它提供 Chaos 刚体引擎的异步实现，不是新的关卡 Actor 类型。</li><li>在 <code class="usage-code">Project Settings &gt; Physics</code> 打开 <code class="usage-code">Tick Physics Async</code>（固定物理步长）。联机再开 Physics Prediction，让 GT 插值追物理线程。</li><li>用普通 Chaos 刚体、Geometry Collection 或 Chaos Mover 角色做场景；异步后端在独立物理线程推进刚体，不需要换组件类。</li><li>用 <code class="usage-code">stat chaos</code> / Unreal Insights 看物理线程与游戏线程是否脱步。交互物必须复制物理状态，否则预测回滚会抖。</li><li>游戏 <code class="usage-code">Build.cs</code> 仅在直接调用该后端 API 时加 <code class="usage-code">ChaosRigidPhysicsAsync</code>；多数项目启用插件即可，求解器由引擎物理模块拉起。</li><li>不要和同步求解混在同一套「必须同帧读写刚体变换」的玩法里；异步有一到数帧延迟。</li></ol><p class="usage-note">异步刚体求解后端，无编辑器面板工作流。给 Chaos Mover、网络预测刚体提供 PT 固定步长。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">Chaos Rigid Physics Async</code> (module <code class="usage-code">ChaosRigidPhysicsAsync</code>) and restart. It is the async Chaos rigid-body engine, not a new actor type.</li><li>Enable <code class="usage-code">Tick Physics Async</code> under <code class="usage-code">Project Settings &gt; Physics</code> (fixed physics dt). For net play also enable Physics Prediction so the game thread interpolates toward the physics thread.</li><li>Author the scene with normal Chaos rigid bodies, Geometry Collections, or Chaos Mover characters. The backend steps bodies on the physics thread; you do not swap component classes.</li><li>Watch <code class="usage-code">stat chaos</code> / Unreal Insights for GT vs PT drift. Replicate interactive physics or prediction rollbacks will hitch.</li><li>Add <code class="usage-code">ChaosRigidPhysicsAsync</code> to game <code class="usage-code">Build.cs</code> only if you call its API. Most projects just enable the plugin and let the engine physics module load it.</li><li>Do not mix it with gameplay that must read/write rigid transforms on the same game frame; async implies one or more frames of delay.</li></ol><p class="usage-note">Async rigid solver backend with no editor-panel workflow. Supplies the PT fixed timestep used by Chaos Mover and predicted rigid bodies.</p></div></div></div>
+    </div>
+

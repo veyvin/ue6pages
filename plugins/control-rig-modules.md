@@ -3,7 +3,6 @@ layout: default
 title: 控制装置模块 / Control Rig Modules
 ---
 
-
 <h1>控制装置模块 / Control Rig Modules</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 控制装置模块 / Control Rig Modules
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">控制装置模块</div><div class="lang-content">Modules for Control Rig</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Control Rig Modules</code>（内容插件，无独立运行时模块）以及 <code class="usage-code">Control Rig</code>，重启后才能在绑定图里看到官方模块库。</li><li>新建或打开 <code class="usage-code">Control Rig</code> 资产，切到 <code class="usage-code">Modules</code> 面板（模块化绑定，不是 Rig Graph 右键菜单里的单个 Rig Unit）。</li><li>从库中拖入 <code class="usage-code">Spine</code>、<code class="usage-code">Limb</code>、<code class="usage-code">Foot</code> 等模块，在 Construction Event 里把模块插槽接到骨骼/控件层级，Compile。</li><li>在 Viewport 拖控件验证 Forward Solve；需要运行时驱动时，把该 Control Rig 挂到 <code class="usage-code">UControlRigComponent</code> 或 AnimBP 的 Control Rig 节点。</li><li>团队自定义模块做成同类型模块资产放进项目，仍走 Modules 面板添加，不要把本插件写进游戏 <code class="usage-code">Build.cs</code>。</li></ol><p class="usage-note">官方模块化绑定内容包；样条/动力学节点不在这里。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Control Rig Modules</code> (content plugin, no separate runtime module) plus <code class="usage-code">Control Rig</code>, then restart so the stock module library appears.</li><li>Open a <code class="usage-code">Control Rig</code> asset and switch to the <code class="usage-code">Modules</code> panel (modular rigging — not a single Rig Unit from the graph context menu).</li><li>Drop <code class="usage-code">Spine</code>, <code class="usage-code">Limb</code>, <code class="usage-code">Foot</code> (etc.) modules, wire module sockets to the bone/control hierarchy on Construction Event, and Compile.</li><li>Drag controls in the viewport to prove Forward Solve. For runtime, attach the rig via <code class="usage-code">UControlRigComponent</code> or the AnimBP Control Rig node.</li><li>Ship custom modules as the same asset type in your project and add them from Modules. Do not add this plugin to a game <code class="usage-code">Build.cs</code>.</li></ol><p class="usage-note">Stock modular-rig content; spline/dynamics units live in other plugins.</p></div></div></div>
+    </div>
+

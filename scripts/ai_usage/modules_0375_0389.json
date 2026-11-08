@@ -1,0 +1,308 @@
+[
+  {
+    "slug": "internationalizationsettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`InternationalizationSettings` 位于 `Editor`，构建规则 `Editor/InternationalizationSettings/InternationalizationSettings.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `Localization`, `PropertyEditor`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InternationalizationSettings\" });`；对外暴露 `InternationalizationSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`InternationalizationSettings` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `InternationalizationSettings.h` / `InternationalizationSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<InternationalizationSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`InternationalizationSettings` 还依赖 `AppFramework`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `Localization`, `PropertyEditor`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `InternationalizationSettings` lives under `Editor`; build rule `Editor/InternationalizationSettings/InternationalizationSettings.Build.cs`.It directly depends on 8 modules: `AppFramework`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `Localization`, `PropertyEditor`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InternationalizationSettings\" });`. Use Public when exposing `InternationalizationSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `InternationalizationSettings` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `InternationalizationSettings.h` / `InternationalizationSettingsModule.h`), then use `FModuleManager::LoadModulePtr<InternationalizationSettingsModule>` or the exported types directly.",
+      "Transitive deps: `InternationalizationSettings` also needs `AppFramework`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `Localization`, `PropertyEditor`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`InternationalizationSettings` 的构建规则位于 `Editor/InternationalizationSettings/InternationalizationSettings.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`InternationalizationSettings` build rule is `Editor/InternationalizationSettings/InternationalizationSettings.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "interpose",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Interpose` 位于 `ThirdParty`，构建规则 `ThirdParty/IOS/Interpose/Interpose.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Interpose\" });`；对外暴露 `Interpose` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Interpose` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Interpose.h` / `InterposeModule.h`），再用 `FModuleManager::LoadModulePtr<InterposeModule>` 或直接使用导出类型。",
+      "传递依赖：`Interpose` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Interpose` lives under `ThirdParty`; build rule `ThirdParty/IOS/Interpose/Interpose.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Interpose\" });`. Use Public when exposing `Interpose` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Interpose` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Interpose.h` / `InterposeModule.h`), then use `FModuleManager::LoadModulePtr<InterposeModule>` or the exported types directly.",
+      "Transitive deps: `Interpose` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Interpose` 的构建规则位于 `ThirdParty/IOS/Interpose/Interpose.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Interpose` build rule is `ThirdParty/IOS/Interpose/Interpose.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "iosadvertising",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IOSAdvertising` 位于 `Runtime`，构建规则 `Runtime/Advertising/IOS/IOSAdvertising/IOSAdvertising.Build.cs`。它直接依赖 3 个模块：`Advertising`, `ApplicationCore`, `Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IOSAdvertising\" });`；对外暴露 `IOSAdvertising` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IOSAdvertising` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IOSAdvertising.h` / `IOSAdvertisingModule.h`），再用 `FModuleManager::LoadModulePtr<IOSAdvertisingModule>` 或直接使用导出类型。",
+      "传递依赖：`IOSAdvertising` 还依赖 `Advertising`, `ApplicationCore`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IOSAdvertising` lives under `Runtime`; build rule `Runtime/Advertising/IOS/IOSAdvertising/IOSAdvertising.Build.cs`.It directly depends on 3 modules: `Advertising`, `ApplicationCore`, `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IOSAdvertising\" });`. Use Public when exposing `IOSAdvertising` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IOSAdvertising` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IOSAdvertising.h` / `IOSAdvertisingModule.h`), then use `FModuleManager::LoadModulePtr<IOSAdvertisingModule>` or the exported types directly.",
+      "Transitive deps: `IOSAdvertising` also needs `Advertising`, `ApplicationCore`, `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IOSAdvertising` 的构建规则位于 `Runtime/Advertising/IOS/IOSAdvertising/IOSAdvertising.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`IOSAdvertising` build rule is `Runtime/Advertising/IOS/IOSAdvertising/IOSAdvertising.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "iosaudio",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IOSAudio` 位于 `Engine`，构建规则 `Engine/Source/Runtime/IOS/IOSAudio/IOSAudio.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IOSAudio\" });`；对外暴露 `IOSAudio` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IOSAudio` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IOSAudio.h` / `IOSAudioModule.h`），再用 `FModuleManager::LoadModulePtr<IOSAudioModule>` 或直接使用导出类型。",
+      "传递依赖：`IOSAudio` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `IOSAudio` lives under `Engine`; build rule `Engine/Source/Runtime/IOS/IOSAudio/IOSAudio.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IOSAudio\" });`. Use Public when exposing `IOSAudio` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IOSAudio` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IOSAudio.h` / `IOSAudioModule.h`), then use `FModuleManager::LoadModulePtr<IOSAudioModule>` or the exported types directly.",
+      "Transitive deps: `IOSAudio` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`IOSAudio` 的构建规则位于 `Engine/Source/Runtime/IOS/IOSAudio/IOSAudio.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`IOSAudio` build rule is `Engine/Source/Runtime/IOS/IOSAudio/IOSAudio.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "ioslocalnotification",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IOSLocalNotification` 位于 `Runtime`，构建规则 `Runtime/IOS/IOSLocalNotification/IOSLocalNotification.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IOSLocalNotification\" });`；对外暴露 `IOSLocalNotification` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IOSLocalNotification` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IOSLocalNotification.h` / `IOSLocalNotificationModule.h`），再用 `FModuleManager::LoadModulePtr<IOSLocalNotificationModule>` 或直接使用导出类型。",
+      "传递依赖：`IOSLocalNotification` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IOSLocalNotification` lives under `Runtime`; build rule `Runtime/IOS/IOSLocalNotification/IOSLocalNotification.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IOSLocalNotification\" });`. Use Public when exposing `IOSLocalNotification` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IOSLocalNotification` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IOSLocalNotification.h` / `IOSLocalNotificationModule.h`), then use `FModuleManager::LoadModulePtr<IOSLocalNotificationModule>` or the exported types directly.",
+      "Transitive deps: `IOSLocalNotification` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IOSLocalNotification` 的构建规则位于 `Runtime/IOS/IOSLocalNotification/IOSLocalNotification.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`IOSLocalNotification` build rule is `Runtime/IOS/IOSLocalNotification/IOSLocalNotification.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "iosplatformeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IOSPlatformEditor` 位于 `Developer`，构建规则 `Developer/IOS/IOSPlatformEditor/IOSPlatformEditor.Build.cs`。它直接依赖 8 个模块：`AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `FreeImage`, `GameProjectGeneration`, `IOSRuntimeSettings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IOSPlatformEditor\" });`；对外暴露 `IOSPlatformEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IOSPlatformEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `IOSPlatformEditor.h` / `IOSPlatformEditorModule.h`），再用 `FModuleManager::LoadModulePtr<IOSPlatformEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`IOSPlatformEditor` 还依赖 `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `FreeImage`, `GameProjectGeneration`, `IOSRuntimeSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IOSPlatformEditor` lives under `Developer`; build rule `Developer/IOS/IOSPlatformEditor/IOSPlatformEditor.Build.cs`.It directly depends on 8 modules: `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `FreeImage`, `GameProjectGeneration`, `IOSRuntimeSettings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IOSPlatformEditor\" });`. Use Public when exposing `IOSPlatformEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IOSPlatformEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `IOSPlatformEditor.h` / `IOSPlatformEditorModule.h`), then use `FModuleManager::LoadModulePtr<IOSPlatformEditorModule>` or the exported types directly.",
+      "Transitive deps: `IOSPlatformEditor` also needs `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `FreeImage`, `GameProjectGeneration`, `IOSRuntimeSettings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IOSPlatformEditor` 的构建规则位于 `Developer/IOS/IOSPlatformEditor/IOSPlatformEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`IOSPlatformEditor` build rule is `Developer/IOS/IOSPlatformEditor/IOSPlatformEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "iosplatformfeatures",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IOSPlatformFeatures` 位于 `Runtime`，构建规则 `Runtime/IOS/IOSPlatformFeatures/IOSPlatformFeatures.Build.cs`。它直接依赖 2 个模块：`Core`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IOSPlatformFeatures\" });`；对外暴露 `IOSPlatformFeatures` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IOSPlatformFeatures` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IOSPlatformFeatures.h` / `IOSPlatformFeaturesModule.h`），再用 `FModuleManager::LoadModulePtr<IOSPlatformFeaturesModule>` 或直接使用导出类型。",
+      "传递依赖：`IOSPlatformFeatures` 还依赖 `Core`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IOSPlatformFeatures` lives under `Runtime`; build rule `Runtime/IOS/IOSPlatformFeatures/IOSPlatformFeatures.Build.cs`.It directly depends on 2 modules: `Core`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IOSPlatformFeatures\" });`. Use Public when exposing `IOSPlatformFeatures` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IOSPlatformFeatures` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IOSPlatformFeatures.h` / `IOSPlatformFeaturesModule.h`), then use `FModuleManager::LoadModulePtr<IOSPlatformFeaturesModule>` or the exported types directly.",
+      "Transitive deps: `IOSPlatformFeatures` also needs `Core`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IOSPlatformFeatures` 的构建规则位于 `Runtime/IOS/IOSPlatformFeatures/IOSPlatformFeatures.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`IOSPlatformFeatures` build rule is `Runtime/IOS/IOSPlatformFeatures/IOSPlatformFeatures.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "iosruntimesettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IOSRuntimeSettings` 位于 `Runtime`，构建规则 `Runtime/IOS/IOSRuntimeSettings/IOSRuntimeSettings.Build.cs`。它直接依赖 4 个模块：`AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IOSRuntimeSettings\" });`；对外暴露 `IOSRuntimeSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IOSRuntimeSettings` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IOSRuntimeSettings.h` / `IOSRuntimeSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<IOSRuntimeSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`IOSRuntimeSettings` 还依赖 `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IOSRuntimeSettings` lives under `Runtime`; build rule `Runtime/IOS/IOSRuntimeSettings/IOSRuntimeSettings.Build.cs`.It directly depends on 4 modules: `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IOSRuntimeSettings\" });`. Use Public when exposing `IOSRuntimeSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IOSRuntimeSettings` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IOSRuntimeSettings.h` / `IOSRuntimeSettingsModule.h`), then use `FModuleManager::LoadModulePtr<IOSRuntimeSettingsModule>` or the exported types directly.",
+      "Transitive deps: `IOSRuntimeSettings` also needs `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IOSRuntimeSettings` 的构建规则位于 `Runtime/IOS/IOSRuntimeSettings/IOSRuntimeSettings.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`IOSRuntimeSettings` build rule is `Runtime/IOS/IOSRuntimeSettings/IOSRuntimeSettings.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "iostargetplatform",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IOSTargetPlatform` 位于 `Developer`，构建规则 `Developer/IOS/IOSTargetPlatform/IOSTargetPlatform.Build.cs`。它直接依赖 3 个模块：`Core`, `DesktopPlatform`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IOSTargetPlatform\" });`；对外暴露 `IOSTargetPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IOSTargetPlatform` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `IOSTargetPlatform.h` / `IOSTargetPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<IOSTargetPlatformModule>` 或直接使用导出类型。",
+      "传递依赖：`IOSTargetPlatform` 还依赖 `Core`, `DesktopPlatform`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IOSTargetPlatform` lives under `Developer`; build rule `Developer/IOS/IOSTargetPlatform/IOSTargetPlatform.Build.cs`.It directly depends on 3 modules: `Core`, `DesktopPlatform`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IOSTargetPlatform\" });`. Use Public when exposing `IOSTargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IOSTargetPlatform` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `IOSTargetPlatform.h` / `IOSTargetPlatformModule.h`), then use `FModuleManager::LoadModulePtr<IOSTargetPlatformModule>` or the exported types directly.",
+      "Transitive deps: `IOSTargetPlatform` also needs `Core`, `DesktopPlatform`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IOSTargetPlatform` 的构建规则位于 `Developer/IOS/IOSTargetPlatform/IOSTargetPlatform.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`IOSTargetPlatform` build rule is `Developer/IOS/IOSTargetPlatform/IOSTargetPlatform.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "iostargetplatformcontrols",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IOSTargetPlatformControls` 位于 `Developer`，构建规则 `Developer/IOS/IOSTargetPlatformControls/IOSTargetPlatformControls.Build.cs`。它直接依赖 8 个模块：`AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformSettings`, `Json`, `LaunchDaemonMessages`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IOSTargetPlatformControls\" });`；对外暴露 `IOSTargetPlatformControls` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IOSTargetPlatformControls` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `IOSTargetPlatformControls.h` / `IOSTargetPlatformControlsModule.h`），再用 `FModuleManager::LoadModulePtr<IOSTargetPlatformControlsModule>` 或直接使用导出类型。",
+      "传递依赖：`IOSTargetPlatformControls` 还依赖 `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformSettings`, `Json`, `LaunchDaemonMessages`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IOSTargetPlatformControls` lives under `Developer`; build rule `Developer/IOS/IOSTargetPlatformControls/IOSTargetPlatformControls.Build.cs`.It directly depends on 8 modules: `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformSettings`, `Json`, `LaunchDaemonMessages`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IOSTargetPlatformControls\" });`. Use Public when exposing `IOSTargetPlatformControls` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IOSTargetPlatformControls` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `IOSTargetPlatformControls.h` / `IOSTargetPlatformControlsModule.h`), then use `FModuleManager::LoadModulePtr<IOSTargetPlatformControlsModule>` or the exported types directly.",
+      "Transitive deps: `IOSTargetPlatformControls` also needs `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `IOSTargetPlatformSettings`, `Json`, `LaunchDaemonMessages`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IOSTargetPlatformControls` 的构建规则位于 `Developer/IOS/IOSTargetPlatformControls/IOSTargetPlatformControls.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`IOSTargetPlatformControls` build rule is `Developer/IOS/IOSTargetPlatformControls/IOSTargetPlatformControls.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "iostargetplatformsettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IOSTargetPlatformSettings` 位于 `Developer`，构建规则 `Developer/IOS/IOSTargetPlatformSettings/IOSTargetPlatformSettings.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IOSTargetPlatformSettings\" });`；对外暴露 `IOSTargetPlatformSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IOSTargetPlatformSettings` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `IOSTargetPlatformSettings.h` / `IOSTargetPlatformSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<IOSTargetPlatformSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`IOSTargetPlatformSettings` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IOSTargetPlatformSettings` lives under `Developer`; build rule `Developer/IOS/IOSTargetPlatformSettings/IOSTargetPlatformSettings.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IOSTargetPlatformSettings\" });`. Use Public when exposing `IOSTargetPlatformSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IOSTargetPlatformSettings` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `IOSTargetPlatformSettings.h` / `IOSTargetPlatformSettingsModule.h`), then use `FModuleManager::LoadModulePtr<IOSTargetPlatformSettingsModule>` or the exported types directly.",
+      "Transitive deps: `IOSTargetPlatformSettings` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IOSTargetPlatformSettings` 的构建规则位于 `Developer/IOS/IOSTargetPlatformSettings/IOSTargetPlatformSettings.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`IOSTargetPlatformSettings` build rule is `Developer/IOS/IOSTargetPlatformSettings/IOSTargetPlatformSettings.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "iostoredependencyviewer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IoStoreDependencyViewer` 位于 `Programs`，构建规则 `Programs/IoStoreDependencyViewer/IoStoreDependencyViewer.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `BuildSettings`, `Core`, `CoreUObject`, `DesktopPlatform`, `HTTP`, `ImageWrapper`, `InputCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreDependencyViewer\" });`；对外暴露 `IoStoreDependencyViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IoStoreDependencyViewer` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `IoStoreDependencyViewer.h` / `IoStoreDependencyViewerModule.h`），再用 `FModuleManager::LoadModulePtr<IoStoreDependencyViewerModule>` 或直接使用导出类型。",
+      "传递依赖：`IoStoreDependencyViewer` 还依赖 `ApplicationCore`, `BuildSettings`, `Core`, `CoreUObject`, `DesktopPlatform`, `HTTP`, `ImageWrapper`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IoStoreDependencyViewer` lives under `Programs`; build rule `Programs/IoStoreDependencyViewer/IoStoreDependencyViewer.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `BuildSettings`, `Core`, `CoreUObject`, `DesktopPlatform`, `HTTP`, `ImageWrapper`, `InputCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreDependencyViewer\" });`. Use Public when exposing `IoStoreDependencyViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IoStoreDependencyViewer` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `IoStoreDependencyViewer.h` / `IoStoreDependencyViewerModule.h`), then use `FModuleManager::LoadModulePtr<IoStoreDependencyViewerModule>` or the exported types directly.",
+      "Transitive deps: `IoStoreDependencyViewer` also needs `ApplicationCore`, `BuildSettings`, `Core`, `CoreUObject`, `DesktopPlatform`, `HTTP`, `ImageWrapper`, `InputCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IoStoreDependencyViewer` 的构建规则位于 `Programs/IoStoreDependencyViewer/IoStoreDependencyViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`IoStoreDependencyViewer` build rule is `Programs/IoStoreDependencyViewer/IoStoreDependencyViewer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "iostorehttpclient",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IoStoreHttpClient` 位于 `Runtime`，构建规则 `Runtime/Experimental/IoStore/HttpClient/IoStoreHttpClient.Build.cs`。它直接依赖 4 个模块：`Core`, `OpenSSL`, `TraceLog`, `nghttp2`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreHttpClient\" });`；对外暴露 `IoStoreHttpClient` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IoStoreHttpClient` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IoStoreHttpClient.h` / `IoStoreHttpClientModule.h`），再用 `FModuleManager::LoadModulePtr<IoStoreHttpClientModule>` 或直接使用导出类型。",
+      "传递依赖：`IoStoreHttpClient` 还依赖 `Core`, `OpenSSL`, `TraceLog`, `nghttp2`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`IoStoreHttpClient` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `IoStoreHttpClient` lives under `Runtime`; build rule `Runtime/Experimental/IoStore/HttpClient/IoStoreHttpClient.Build.cs`.It directly depends on 4 modules: `Core`, `OpenSSL`, `TraceLog`, `nghttp2`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreHttpClient\" });`. Use Public when exposing `IoStoreHttpClient` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IoStoreHttpClient` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IoStoreHttpClient.h` / `IoStoreHttpClientModule.h`), then use `FModuleManager::LoadModulePtr<IoStoreHttpClientModule>` or the exported types directly.",
+      "Transitive deps: `IoStoreHttpClient` also needs `Core`, `OpenSSL`, `TraceLog`, `nghttp2`; do not re-list them unless you include their headers.",
+      "Note: `IoStoreHttpClient` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`IoStoreHttpClient` 的构建规则位于 `Runtime/Experimental/IoStore/HttpClient/IoStoreHttpClient.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`IoStoreHttpClient` build rule is `Runtime/Experimental/IoStore/HttpClient/IoStoreHttpClient.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "iostoreondemand",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IoStoreOnDemand` 位于 `Runtime`，构建规则 `Runtime/Experimental/IoStore/OnDemand/IoStoreOnDemand.Build.cs`。它直接依赖 8 个模块：`Analytics`, `Core`, `CoreUObject`, `IndexedCacheStorage`, `IoStoreHttpClient`, `IoStoreOnDemandCore`, `Json`, `PlatformWriteMonitor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemand\" });`；对外暴露 `IoStoreOnDemand` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IoStoreOnDemand` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IoStoreOnDemand.h` / `IoStoreOnDemandModule.h`），再用 `FModuleManager::LoadModulePtr<IoStoreOnDemandModule>` 或直接使用导出类型。",
+      "传递依赖：`IoStoreOnDemand` 还依赖 `Analytics`, `Core`, `CoreUObject`, `IndexedCacheStorage`, `IoStoreHttpClient`, `IoStoreOnDemandCore`, `Json`, `PlatformWriteMonitor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`IoStoreOnDemand` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `IoStoreOnDemand` lives under `Runtime`; build rule `Runtime/Experimental/IoStore/OnDemand/IoStoreOnDemand.Build.cs`.It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `IndexedCacheStorage`, `IoStoreHttpClient`, `IoStoreOnDemandCore`, `Json`, `PlatformWriteMonitor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemand\" });`. Use Public when exposing `IoStoreOnDemand` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IoStoreOnDemand` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IoStoreOnDemand.h` / `IoStoreOnDemandModule.h`), then use `FModuleManager::LoadModulePtr<IoStoreOnDemandModule>` or the exported types directly.",
+      "Transitive deps: `IoStoreOnDemand` also needs `Analytics`, `Core`, `CoreUObject`, `IndexedCacheStorage`, `IoStoreHttpClient`, `IoStoreOnDemandCore`, `Json`, `PlatformWriteMonitor`; do not re-list them unless you include their headers.",
+      "Note: `IoStoreOnDemand` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`IoStoreOnDemand` 的构建规则位于 `Runtime/Experimental/IoStore/OnDemand/IoStoreOnDemand.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`IoStoreOnDemand` build rule is `Runtime/Experimental/IoStore/OnDemand/IoStoreOnDemand.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "iostoreondemandcore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IoStoreOnDemandCore` 位于 `Runtime`，构建规则 `Runtime/Experimental/IoStore/OnDemandCore/IoStoreOnDemandCore.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemandCore\" });`；对外暴露 `IoStoreOnDemandCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IoStoreOnDemandCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IoStoreOnDemandCore.h` / `IoStoreOnDemandCoreModule.h`），再用 `FModuleManager::LoadModulePtr<IoStoreOnDemandCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`IoStoreOnDemandCore` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`IoStoreOnDemandCore` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `IoStoreOnDemandCore` lives under `Runtime`; build rule `Runtime/Experimental/IoStore/OnDemandCore/IoStoreOnDemandCore.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemandCore\" });`. Use Public when exposing `IoStoreOnDemandCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IoStoreOnDemandCore` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IoStoreOnDemandCore.h` / `IoStoreOnDemandCoreModule.h`), then use `FModuleManager::LoadModulePtr<IoStoreOnDemandCoreModule>` or the exported types directly.",
+      "Transitive deps: `IoStoreOnDemandCore` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers.",
+      "Note: `IoStoreOnDemandCore` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`IoStoreOnDemandCore` 的构建规则位于 `Runtime/Experimental/IoStore/OnDemandCore/IoStoreOnDemandCore.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`IoStoreOnDemandCore` build rule is `Runtime/Experimental/IoStore/OnDemandCore/IoStoreOnDemandCore.Build.cs`; depends on 2 modules; category Module."
+  }
+]

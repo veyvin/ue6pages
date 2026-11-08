@@ -3,7 +3,6 @@ layout: default
 title: 内容浏览器 - 文件数据源 / Content Browser - File Data Source
 ---
 
-
 <h1>内容浏览器 - 文件数据源 / Content Browser - File Data Source</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 内容浏览器 - 文件数据源 / Content Browser - File Data Source
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">数据源插件为内容浏览器提供松散文件支持</div><div class="lang-content">Data Source plugin providing loose file support for the Content Browser</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Content Browser - File Data Source</code>（模块 <code class="usage-code">ContentBrowserFileDataSource</code>）。它把磁盘上的松散文件（非 <code class="usage-code">uasset</code>）映射进内容浏览器虚拟目录。</li><li>Python 编辑器脚本、部分工具插件会通过 <code class="usage-code">UContentBrowserFileDataSource</code> 注册扩展名（如 <code class="usage-code">.py</code>）和根目录；启用后在浏览器里能看到这些脚本文件。</li><li>双击松散文件会走注册的打开动作（外部编辑器或内置查看器），不会走 <code class="usage-code">Asset Registry</code> 加载。</li><li>自己挂目录时，在 Editor 模块里配置 <code class="usage-code">FContentBrowserFileDataConfig</code>（物理路径、虚拟路径、扩展名白名单），再向 <code class="usage-code">UContentBrowserFileDataSource</code> 注册；不要把整个磁盘根目录挂上去。</li><li>删除/重命名磁盘文件后刷新浏览器，对应项应消失或改名；这与 Duplicate Asset 无关。</li><li>编辑器数据源，禁止加入游戏 <code class="usage-code">Build.cs</code>。</li></ol><p class="usage-note">松散文件视图；`.uasset` 仍由 Asset Data Source 负责。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Content Browser - File Data Source</code> (module <code class="usage-code">ContentBrowserFileDataSource</code>). It maps loose on-disk files (not <code class="usage-code">uasset</code>s) into Content Browser virtual folders.</li><li>Python Editor Script and some tool plugins register extensions (e.g. <code class="usage-code">.py</code>) and roots on <code class="usage-code">UContentBrowserFileDataSource</code>; with it on, those scripts appear in the browser.</li><li>Double-clicking a loose file uses the registered open action (external editor or built-in viewer) — it does not load through the <code class="usage-code">Asset Registry</code>.</li><li>To mount your own folder, set <code class="usage-code">FContentBrowserFileDataConfig</code> (physical path, virtual path, extension whitelist) in an Editor module and register it with <code class="usage-code">UContentBrowserFileDataSource</code>. Do not mount a whole disk root.</li><li>After deleting/renaming a disk file, refresh: the item should vanish or rename. This is not Duplicate Asset.</li><li>Editor data source only — never a game <code class="usage-code">Build.cs</code> dependency.</li></ol><p class="usage-note">Loose-file view; `.uasset`s still come from Asset Data Source.</p></div></div></div>
+    </div>
+

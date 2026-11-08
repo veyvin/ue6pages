@@ -3,7 +3,6 @@ layout: default
 title: GPU 光量 / GPU Lightmass
 ---
 
-
 <h1>GPU 光量 / GPU Lightmass</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: GPU 光量 / GPU Lightmass
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用 DXR 的静态照明构建和预览系统</div><div class="lang-content">Static lighting building & previewing system using DXR</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">GPU Lightmass</code>（运行时 <code class="usage-code">GPULightmass</code>，编辑器 <code class="usage-code">GPULightmassEditor</code>）。</li><li>在项目设置或后期处理里选择 GPU Lightmass 作为静态光照烘焙器，确保显卡支持 DXR。</li><li>在编辑器里 Build Lighting，用 GPU 加速烘焙并预览静态光照。</li><li>这是编辑器烘焙/预览系统；不要把它打进游戏运行时包。</li></ol><p class="usage-note">DXR 加速的静态光照烘焙/预览，不是运行时动态 GI。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">GPU Lightmass</code> (runtime <code class="usage-code">GPULightmass</code>, editor <code class="usage-code">GPULightmassEditor</code>).</li><li>Select GPU Lightmass as the static lighting baker in project/post-process settings and ensure the GPU supports DXR.</li><li>Build Lighting in the editor to bake with GPU acceleration and preview static lighting.</li><li>It is an editor bake/preview system; do not ship it in a game runtime package.</li></ol><p class="usage-note">DXR-accelerated static lighting bake/preview, not runtime dynamic GI.</p></div></div></div>
+    </div>
+

@@ -3,7 +3,6 @@ layout: default
 title: 变形器图 / Deformer Graph
 ---
 
-
 <h1>变形器图 / Deformer Graph</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 变形器图 / Deformer Graph
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于创建 GPU 网格变形图的编辑器</div><div class="lang-content">Editor for creating GPU mesh deformation graphs</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">Deformer Graph</code>（Optimus）让你用节点图在 GPU 上做网格变形，替代部分骨骼/顶点动画开销。</li><li>启用后在内容浏览器右键 <code class="usage-code">Animation → Deformer Graph</code> 新建一个 Optimus 变形图资产。</li><li>在图里把 <code class="usage-code">Mesh</code> 输入接到骨骼网格，用 Kernel/节点做顶点位移（风吹、布料、二次运动等），结果输出回 <code class="usage-code">Mesh</code>。</li><li>打开骨架网格体资产，在 Deformer Graph 槽位指定该图，并设置编辑期还是运行期执行。</li><li>在 Sequencer 或游戏里预览变形；<code class="usage-code">OptimusEditor</code> 仅编辑器用，打包只依赖 <code class="usage-code">OptimusCore</code>/<code class="usage-code">OptimusSettings</code>。</li></ol><p class="usage-note">GPU 变形图与 CPU 动画叠加时要关注顶点数预算，过量 Kernel 会拖慢半透明/蒙皮网格。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">Deformer Graph</code> (Optimus) lets you deform meshes on the GPU with a node graph, replacing part of the skeletal/vertex-animation cost.</li><li>After enabling, right-click <code class="usage-code">Animation → Deformer Graph</code> in the Content Browser to create an Optimus deformer asset.</li><li>Wire the <code class="usage-code">Mesh</code> input from the skeletal mesh, use Kernels/nodes to displace vertices (wind, cloth, secondary motion), and output back to <code class="usage-code">Mesh</code>.</li><li>Open the skeletal mesh asset, assign the graph in its Deformer Graph slot, and choose whether it runs in editor or at runtime.</li><li>Preview the deformation in Sequencer or in-game; <code class="usage-code">OptimusEditor</code> is editor-only and shipping depends only on <code class="usage-code">OptimusCore</code>/<code class="usage-code">OptimusSettings</code>.</li></ol><p class="usage-note">Watch the vertex budget when stacking GPU deformation on CPU animation; heavy kernels slow down translucent/skinned meshes.</p></div></div></div>
+    </div>
+

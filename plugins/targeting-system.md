@@ -3,7 +3,6 @@ layout: default
 title: 瞄准系统 / Targeting System
 ---
 
-
 <h1>瞄准系统 / Targeting System</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 瞄准系统 / Targeting System
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于游戏能力、瞄准辅助等的通用瞄准系统</div><div class="lang-content">Generic targeting system for use with gameplay abilities, aim assist, etc</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">Targeting System</code>（模块 <code class="usage-code">TargetingSystem</code>）。</li><li>它是通用瞄准系统，用于游戏能力、瞄准辅助等（与 GAS 相关）。</li><li>用其组件/接口做目标选择、锁定与瞄准辅助。</li><li>Experimental：接口可能变动；常与 Gameplay Ability System 配合。</li></ol><p class="usage-note">通用瞄准系统（瞄准辅助/目标选择，GAS 相关）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Targeting System</code> (module <code class="usage-code">TargetingSystem</code>).</li><li>It is a generic targeting system for gameplay abilities, aim assist, etc. (GAS-related).</li><li>Use its components/interfaces for target selection, lock-on, and aim assist.</li><li>Experimental: contract may change; often used with the Gameplay Ability System.</li></ol><p class="usage-note">A generic targeting system (aim assist/target selection, GAS-related).</p></div></div></div>
+    </div>
+

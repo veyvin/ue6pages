@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "10x-editor-integration",
+    "kind": "plugin",
+    "cn": "10X Editor Integration 把虚幻的源代码访问层接到 10X 编辑器，而不是 Visual Studio 或 Rider。N10XSourceCodeAccess 模块负责把编译错误、符号跳转和解决方案打开请求转给 10X。它只服务程序员在编辑器里点进 C++ 的工作流，不参与运行时游戏逻辑。",
+    "en": "10X Editor Integration wires Unreal’s source-code access layer to the 10X editor instead of Visual Studio or Rider. The N10XSourceCodeAccess module forwards compile errors, go-to-symbol, and solution-open requests into 10X. It is a programmer tooling path only; it never participates in cooked gameplay."
+  },
+  {
+    "slug": "5.8-gizmo-testing",
+    "kind": "plugin",
+    "cn": "5.8 Gizmo Testing 是给新一代平移/旋转/缩放 Gizmo 准备的临时自动化测试插件。EditorTRSGizmoTests 专门验证 TRS 操纵器的拾取、约束和视口绘制，而不是提供最终给动画师用的 Gizmo 开关。它会随新 Gizmo 落地而淘汰，不要当成关卡编辑功能。",
+    "en": "5.8 Gizmo Testing is a temporary automation plugin for Unreal 5.8’s new translate/rotate/scale gizmos. EditorTRSGizmoTests exercises picking, constraints, and viewport drawing of those manipulators; it is not the user-facing gizmo toggle. Treat it as throwaway coverage that disappears once the new gizmos ship."
+  },
+  {
+    "slug": "accumulation-depth-of-field",
+    "kind": "plugin",
+    "cn": "Accumulation Depth of Field 用薄透镜孔径采样做电影级景深，面向虚拟制片和离线风格的生产渲染，而不是游戏里常见的后处理高斯虚化。AccumulationDOF 在运行时累积多孔径样本，AccumulationDOFEditor 提供拍摄向的参数。它适合需要真实焦外光斑的镜头，不适合高性能实时对战。",
+    "en": "Accumulation Depth of Field implements thin-lens, aperture-sampled cinematic DoF for virtual production, not the usual gameplay Gaussian blur. AccumulationDOF accumulates multi-aperture samples at runtime; AccumulationDOFEditor exposes shot-facing controls. Use it when bokeh must look optically real, not when you need cheap in-game depth of field."
+  },
+  {
+    "slug": "actor-layer-utilities",
+    "kind": "plugin",
+    "cn": "Actor Layer Utilities 把关卡里的 Actor Layer 暴露给蓝图：查询某层上有哪些 Actor、把 Actor 加入或移出层。ActorLayerUtilities 是运行时库，Editor 模块补编辑器脚本。它不管材质分层或 Landscape Layer，只处理 World Outliner 那套 Actor Layer。",
+    "en": "Actor Layer Utilities exposes Unreal’s Actor Layers to Blueprints: list actors on a layer, add them, or remove them. ActorLayerUtilities is the runtime library; the editor module backs editor scripting. It does not touch material layers or Landscape paint layers—only World Outliner Actor Layers."
+  },
+  {
+    "slug": "actor-modifier-core",
+    "kind": "plugin",
+    "cn": "Actor Modifier Core 是虚拟制片里「修饰器」体系的框架：在 Actor 上挂修饰器对象，按栈应用位置、可见性、材质一类行为。ActorModifierCore 管生命周期与求值，Blueprint 模块给脚本接口，Editor 模块做检视面板。它本身几乎不带具体效果，具体效果在 Actor Modifier 插件里。",
+    "en": "Actor Modifier Core is the virtual-production framework for stacking modifier objects on actors to change transform, visibility, or materials. ActorModifierCore owns lifetime and evaluation, the Blueprint module exposes scripting, and the editor module draws details. It ships almost no concrete effects; those live in the Actor Modifier plugin."
+  },
+  {
+    "slug": "actor-modifier",
+    "kind": "plugin",
+    "cn": "Actor Modifier 在 ActorModifierCore 之上提供可落地的修饰器：布局类（ActorModifierLayout）和渲染类（ActorModifierRendering）。虚拟制片现场用它们在不改关卡源的情况下临时改 Actor 摆放或着色。它不是通用 Gameplay 组件系统，也不是 Sequencer 轨道。",
+    "en": "Actor Modifier supplies the actual modifiers on top of ActorModifierCore: layout (ActorModifierLayout) and rendering (ActorModifierRendering). Virtual-production stages use them to tweak placement or shading without editing the source level. It is neither a general gameplay component system nor a Sequencer track."
+  },
+  {
+    "slug": "actor-palette",
+    "kind": "plugin",
+    "cn": "Actor Palette 把已有关卡当成「角色/道具调色板」：从参考关卡里挑 Actor，再拖进当前关卡编辑器。它加速布景时反复投放同类道具，而不是做 Prefab 或 Packed Level Actor。实验性质，面板和工作流可能随时改。",
+    "en": "Actor Palette turns an existing level into a palette: pick actors from a reference map and drag them into the current Level Editor. It speeds repeated prop placement; it is not Prefab or Packed Level Actor. The experimental UI and workflow can still change."
+  },
+  {
+    "slug": "actor-sequence-experimental",
+    "kind": "plugin",
+    "cn": "Actor Sequence 把一段 Movie Scene 嵌在单个 Actor 上，让道具自己播一段局部过场，而不必占用关卡级 Sequencer。ActorSequence 是运行时播放，ActorSequenceEditor 负责在细节面板里编辑这段嵌入序列。它适合门、装置、可交互物件的短动画，不是 Master Sequence 或 Take Recorder。",
+    "en": "Actor Sequence embeds a Movie Scene on a single actor so a prop can play a local cinematic without a level Sequencer. ActorSequence is the runtime player; ActorSequenceEditor edits that embedded sequence in Details. Use it for doors, gadgets, and short interactive clips—not Master Sequences or Take Recorder."
+  },
+  {
+    "slug": "adjust-analytics-provider",
+    "kind": "plugin",
+    "cn": "Adjust Analytics Provider 把移动归因平台 Adjust 接到引擎的 Analytics 接口。AndroidAdjust 与 IOSAdjust 在对应平台上报安装、会话和自定义事件，AdjustEditor 配 App Token。它做的是商店获客归因，不是游戏内遥测仪表盘或 Unreal Insights。",
+    "en": "Adjust Analytics Provider implements Epic’s Analytics interface for the Adjust mobile attribution SDK. AndroidAdjust and IOSAdjust report installs, sessions, and custom events; AdjustEditor stores the app token. It is store attribution, not an in-game telemetry dashboard or Unreal Insights."
+  },
+  {
+    "slug": "advanced-professional-video-apv-decoder-for-electra",
+    "kind": "plugin",
+    "cn": "APV Decoder for Electra 为 Electra 播放器提供 OpenAPV（Advanced Professional Video）解码，让 Media Framework 能播这种专业视频码流。APVDecoderElectra 只负责解码接入，不提供采集卡 I/O，也不替代 Bink 或 AVPlayer。虚拟制片或审片管线里遇到 APV 素材时才需要它。",
+    "en": "The APV Decoder for Electra plugs OpenAPV (Advanced Professional Video) decode into Electra so Media Framework can play that professional codec. APVDecoderElectra is decode-only: no capture-card I/O and no replacement for Bink or AVPlayer. Enable it when a review or virtual-production pipeline actually ships APV media."
+  },
+  {
+    "slug": "aes-gcm-network-packet-handler",
+    "kind": "plugin",
+    "cn": "AES GCM network packet handler 在 PacketHandler 链上用 AES-GCM 加密/解密复制数据包，同时提供认证，能发现篡改。AESGCMHandlerComponent 工作在 NetDriver 的 Handler 组件栈，可进 Shipping。它比仅 AES 的 Handler 多了 GCM 完整性保护，两者不要当成同一个插件。",
+    "en": "The AES GCM packet handler encrypts and decrypts replication packets on the PacketHandler chain using AES-GCM, which also authenticates payloads against tampering. AESGCMHandlerComponent sits in the NetDriver handler stack and can ship. It is not the older AES-only handler; GCM is the integrity difference."
+  },
+  {
+    "slug": "aes-network-packet-handler",
+    "kind": "plugin",
+    "cn": "AES network packet handler 用经典 AES 加解密网络包，走 AESHandlerComponent，没有 GCM 那种带认证的完整性校验。它适合只需保密、另有校验手段的复制通道。和 AES-GCM 插件是两条独立实现，不能混用配置。",
+    "en": "The AES network packet handler encrypts packets with classic AES via AESHandlerComponent and does not provide GCM-style authenticated integrity. Use it when secrecy is enough and another layer already checks tampering. It is a separate implementation from the AES-GCM plugin; do not mix their configs."
+  },
+  {
+    "slug": "agent-capability",
+    "kind": "plugin",
+    "cn": "Agent Capability 在编辑器里被动发现当前工作区已配置了哪些 AI Agent 插件及其能力清单。它给助手运行时回答「这个工程能调哪些工具」，而不是去读 Claude/Codex 插件文件本身。AgentCapabilityTests 覆盖发现逻辑。",
+    "en": "Agent Capability passively discovers which AI agent plugins and workspace capabilities are configured in the current editor. It answers “what tools does this project expose” for the assistant runtime; it does not parse Claude or Codex plugin files. AgentCapabilityTests cover that discovery."
+  },
+  {
+    "slug": "agent-plugin-toolset",
+    "kind": "plugin",
+    "cn": "Agent Plugin Toolset 通过 AI Toolset Registry 读取 Claude、Codex 等代理插件，以及工作目录里的指令文件。AgentPluginToolsetEditor 把这些工具注册进编辑器助手，Tests 模块验证解析。它是「怎么把第三方 agent 插件变成引擎可调用工具」，不同于只做能力发现的 Agent Capability。",
+    "en": "Agent Plugin Toolset reads Claude and Codex agent plugins plus working-directory instruction files through the AI Toolset Registry. The editor module registers those tools with the in-editor assistant; tests verify parsing. That is how third-party agent plugins become callable engine tools, unlike Agent Capability which only discovers what is already configured."
+  },
+  {
+    "slug": "ai-assistant",
+    "kind": "plugin",
+    "cn": "AI Assistant 提供编辑器内嵌的对话式助手壳：会话、提示与工具调用入口都走 AIAssistant 模块。它不实现导航或行为树，也不等于某个具体 Toolset。实验阶段接口会变，真正干活的是挂到它上面的各类 Toolset 插件。",
+    "en": "AI Assistant is the in-editor conversational shell: sessions, prompts, and tool-call dispatch live in the AIAssistant module. It is not navigation, Behavior Trees, or any one toolset. The experimental surface will move; actual work is done by Toolset plugins hung off this host."
+  },
+  {
+    "slug": "ai-behaviors",
+    "kind": "plugin",
+    "cn": "AI Behaviors（GameplayBehaviors）给 AI 代理提供可封装的即发即弃行为：启动后自己跑完，不必长期占着行为树节点。GameplayBehaviorsModule 是运行时，GameplayBehaviorsEditorModule 编辑这些资产。它补的是短任务行为，不是完整的 EQS 或 Mass AI。",
+    "en": "AI Behaviors (GameplayBehaviors) wraps fire-and-forget tasks for AI agents so a short action can run to completion without occupying a Behavior Tree node. GameplayBehaviorsModule is runtime; GameplayBehaviorsEditorModule authors the assets. It is not EQS and not Mass AI."
+  },
+  {
+    "slug": "aimoduletoolset",
+    "kind": "plugin",
+    "cn": "AIModuleToolset 把引擎 AIModule（感知、行为树黑板、AIController 等）暴露给编辑器 AI 助手，让助手能查询或修改这些系统。它是 Toolset 适配层，不会在 Shipping 游戏里驱动 NPC。不要和运行时的 AISupport 或 GameplayBehaviors 混为一谈。",
+    "en": "AIModuleToolset exposes AIModule systems—perception, Blackboards, AIController—to the in-editor AI assistant so it can query or edit them. It is a Toolset adapter, not something that drives NPCs in a shipped game. Do not confuse it with runtime AISupport or GameplayBehaviors."
+  },
+  {
+    "slug": "aisupport",
+    "kind": "plugin",
+    "cn": "AISupport 是一个很薄的运行时插件，唯一职责是保证项目加载时拉起 AIModule 和 NavigationSystem。没有它，部分目标可能不会自动带上导航网格查询和 AIController 依赖。它不实现行为树，也不提供编辑器工具。",
+    "en": "AISupport is a thin runtime plugin whose only job is to pull AIModule and NavigationSystem into the project at load. Without it, some targets will not automatically get navmesh queries and AIController dependencies. It implements neither Behavior Trees nor editor tools."
+  },
+  {
+    "slug": "aja-media-player",
+    "kind": "plugin",
+    "cn": "AJA Media Player 对接 AJA 采集卡：把 SDI/HDMI 信号送进 Media Framework，也能把引擎画面输出回板卡。AjaCore/AjaMedia 管输入，AjaMediaOutput 管输出，Factory 与 Editor 负责源资产和设置。它是虚拟制片现场 I/O，不是软件解码器。",
+    "en": "AJA Media Player talks to AJA capture cards: SDI/HDMI into Media Framework, and engine frames back out to the board. AjaCore/AjaMedia handle input, AjaMediaOutput handles output, and the factory/editor modules own source assets. This is live virtual-production I/O, not a software codec."
+  },
+  {
+    "slug": "alembic-groom-importer",
+    "kind": "plugin",
+    "cn": "Alembic Groom Importer 专门从 Alembic 读取发束（Groom/Hair Strands），交给引擎的毛发系统，而不是导入普通几何缓存。AlembicHairTranslatorModule 走 Hair 翻译管线。要进角色毛发资产请用它；要进 Geometry Cache 或骨骼网格请用 Alembic Importer。",
+    "en": "Alembic Groom Importer reads hair strands from Alembic into Unreal’s groom system, not as a generic geometry cache. AlembicHairTranslatorModule is the hair translator. Use it for Groom assets; use Alembic Importer for Geometry Cache or skeletal meshes."
+  },
+  {
+    "slug": "alembic-importer",
+    "kind": "plugin",
+    "cn": "Alembic Importer 把 .abc 几何缓存、变换动画导入为 Geometry Cache 等引擎资产。AlembicLibrary 解析 Alembic，AlembicImporter 接内容浏览器导入 UI。它覆盖通用缓存网格，不负责发束 Groom 的专门翻译。",
+    "en": "Alembic Importer brings .abc geometry caches and transform animation in as Geometry Cache and related assets. AlembicLibrary parses the file; AlembicImporter hooks the Content Browser import UI. It is the general cache path, not the dedicated groom/hair translator."
+  },
+  {
+    "slug": "all-metahuman-toolsets",
+    "kind": "plugin",
+    "cn": "All MetaHuman Toolsets 是聚合插件：自身不实现模块，只依赖全部 MetaHuman 相关 Toolset，方便一次拉齐数字人助手工具。打开它等于声明「这个编辑器要装全套 MetaHuman 助手能力」。它不包含 MetaHuman 运行时装配或 Groom 模拟。",
+    "en": "All MetaHuman Toolsets is an aggregator with no modules of its own; it only depends on every MetaHuman Toolset so the assistant stack comes in as one unit. Enabling it means “this editor wants the full MetaHuman assistant surface.” It does not ship MetaHuman runtime assembly or groom simulation."
+  },
+  {
+    "slug": "all-toolsets",
+    "kind": "plugin",
+    "cn": "All Toolsets 同样是空壳聚合器，依赖引擎里所有 Toolset 插件，而不仅是 MetaHuman 那一支。给需要完整 AI 助手工具目录的内部编辑器构建用。它不会在游戏里注册任何玩法系统。",
+    "en": "All Toolsets is the empty aggregator that depends on every Toolset plugin in the engine, not just the MetaHuman set. Internal editor builds that want the complete assistant catalog use it. It registers no gameplay systems in a cooked game."
+  },
+  {
+    "slug": "amfcodecs",
+    "kind": "plugin",
+    "cn": "AMFCodecs 把 AMD Advanced Media Framework SDK 的硬件编解码接到引擎 AVCodecs 层。AMFCodecsRHI 走 RHI，方便 AMD GPU 上做视频编码/解码。它是编解码后端，不是 Media Player，也不覆盖 NVIDIA NVENC 或 Intel 路径。",
+    "en": "AMFCodecs registers AMD Advanced Media Framework codecs with Unreal’s AVCodecs layer. AMFCodecsRHI binds them through RHI so AMD GPUs can encode or decode video. It is a codec backend, not a Media Player, and it does not cover NVENC or Intel paths."
+  },
+  {
+    "slug": "analytics-blueprint-library",
+    "kind": "plugin",
+    "cn": "Analytics Blueprint Library 给蓝图提供记录分析事件的节点，对接当前激活的 Analytics Provider。设计师可以在不写 C++ 的情况下打点购买、关卡开始等。它本身不是 Adjust、Firebase 之类的后端，只是统一的蓝图门面。",
+    "en": "Analytics Blueprint Library exposes Blueprint nodes that record analytics events through whichever Analytics Provider is active. Designers can log purchases or level starts without C++. It is not Adjust or Firebase itself—only the Blueprint façade."
+  },
+  {
+    "slug": "android-background-service",
+    "kind": "plugin",
+    "cn": "Android Background Service 封装 AndroidX WorkManager，让游戏在进程被挂起后仍能排队执行延迟或周期任务。AndroidBackgroundService 模块对接 Java 侧 Worker。它解决的是系统级后台作业，不是 BackgroundHTTP 下载，也不是前台媒体播放。",
+    "en": "Android Background Service wraps AndroidX WorkManager so the game can queue deferred or periodic work after the process is backgrounded. The module talks to Java Workers. That is OS-level job scheduling, not BackgroundHTTP downloads and not foreground media playback."
+  },
+  {
+    "slug": "android-camera-player",
+    "kind": "plugin",
+    "cn": "Android Camera Player 用 Android Camera API 把设备摄像头预览送进 Media Framework，可在材质或 UI 上显示。Factory 模块注册媒体源，Editor 模块配设备。它是实时摄像头预览，不是用 MediaPlayer 播本地视频文件。",
+    "en": "Android Camera Player feeds the device camera preview into Media Framework via the Android Camera API so you can show it on a material or widget. Factory modules register the media source; the editor module configures devices. It is a live camera preview, not playback of a local movie file."
+  },
+  {
+    "slug": "android-device-profile-selector",
+    "kind": "plugin",
+    "cn": "Android Device Profile Selector 根据真机硬件（GPU、内存、芯片组）挑选匹配的 Device Profile。Commandlets 可在构建时审计规则，Runtime 模块在启动时做最终选择。它决定画质分级，不管 Android 权限或文件服务器。",
+    "en": "Android Device Profile Selector picks a Device Profile from real hardware (GPU, RAM, chipset). Commandlets audit the rules at build time; the runtime module makes the final choice at startup. It is scalability, not Android permissions or the file server."
+  },
+  {
+    "slug": "android-fetch-background-download",
+    "kind": "plugin",
+    "cn": "Android Fetch Background Download 让 BackgroundHTTP 在应用退到后台时继续走 Android Fetch API 下载。没有它，后台 HTTP 任务会随 Activity 暂停而中断。它只服务在线子系统的后台下载，不是 WorkManager 通用作业。",
+    "en": "Android Fetch Background Download keeps BackgroundHTTP transfers alive after the app is backgrounded by using the Android Fetch API. Without it, those HTTP jobs die when the Activity pauses. It only backs online-subsystem downloads, not generic WorkManager jobs."
+  },
+  {
+    "slug": "android-media-player",
+    "kind": "plugin",
+    "cn": "Android Media Player 用平台 Media 库播放常见容器（MP4 等），作为 Media Framework 在 Android 上的默认播放器之一。Editor/Factory 注册播放器工厂。它播本地或流媒体文件，不负责摄像头预览，也不是开场 Movie Player。",
+    "en": "Android Media Player uses the platform Media library to play common containers (MP4 and similar) as a Media Framework player on Android. Editor and factory modules register it. It plays files or streams; it is not the camera preview plugin and not the startup Movie Player."
+  },
+  {
+    "slug": "android-movie-player",
+    "kind": "plugin",
+    "cn": "Android Movie Player 专门给开场 CG、启动 Logo 这类全屏影片用，底层仍走 Android Media。它实现的是引擎 MoviePlayer 接口，在引擎子系统起来之前就能播。不要用它做游戏内 UMG 视频；游戏内应走 Android Media Player / Electra。",
+    "en": "Android Movie Player is the startup/logo fullscreen movie path on Android, still backed by Android Media. It implements the engine MoviePlayer interface so a clip can play before engine subsystems exist. Do not use it for in-game UMG video; that belongs to Android Media Player or Electra."
+  },
+  {
+    "slug": "android-runtime-permission",
+    "kind": "plugin",
+    "cn": "Android Runtime Permission 封装运行时危险权限申请（麦克风、存储、摄像头等），把系统对话框结果回给蓝图或 C++。AndroidPermission 模块是唯一实现。它不管文件下载或设备档位，只解决权限弹窗。",
+    "en": "Android Runtime Permission wraps dangerous runtime grants (microphone, storage, camera) and returns the system dialog result to Blueprint or C++. AndroidPermission is the only module. It does not download files or pick device profiles—only the permission prompt."
+  },
+  {
+    "slug": "androidfileserver",
+    "kind": "plugin",
+    "cn": "AndroidFileServer 给真机包加上远程文件管理，便于从 PC 推日志、拉取 Saved 或热更资源，而不必反复重装。Editor 模块在打包设置里打开服务。这是开发期设备 I/O，不是玩家用的云存档。",
+    "en": "AndroidFileServer adds remote file management to a device build so a PC can push logs, pull Saved data, or iterate content without reinstalling. The editor module exposes packaging options. It is a development I/O path, not player cloud saves."
+  },
+  {
+    "slug": "animation-budget-allocator",
+    "kind": "plugin",
+    "cn": "Animation Budget Allocator 按帧时间预算动态降频或跳过 Skeletal Mesh 的动画 Tick，让远处或次要角色少算 Pose。它在运行时调度组件 ticking，不压缩动画资产，也不做 Leader-Follower 姿态共享。适合人群场景控制动画 CPU。",
+    "en": "Animation Budget Allocator dynamically throttles or skips skeletal-mesh animation ticks against a per-frame time budget so distant or secondary characters cost less. It schedules component ticking; it does not compress AnimSequences or share leader-follower poses. Use it to cap animation CPU in crowds."
+  },
+  {
+    "slug": "animation-compression-library",
+    "kind": "plugin",
+    "cn": "Animation Compression Library 用 ACL 算法压缩 AnimSequence，换更小内存和更快解压。ACLPlugin 是运行时解压，ACLPluginEditor 在压缩设置里接 ACL 编解码器。它改的是动画资产存储，不是运行时 Tick 预算。",
+    "en": "Animation Compression Library compresses AnimSequences with ACL for smaller memory and faster decompression. ACLPlugin decompresses at runtime; ACLPluginEditor registers the codec in compression settings. It changes how clips are stored, not how often they tick."
+  },
+  {
+    "slug": "animation-curve-expressions",
+    "kind": "plugin",
+    "cn": "Animation Curve Expressions 用简单数学表达式把一条动画曲线重映射成另一条，常用于表情或附加曲线驱动。CurveExpression 在运行时求值，Editor 模块编辑表达式。它不是 Control Rig，也不是 Animation Modifier 批处理工具。",
+    "en": "Animation Curve Expressions remaps animation curves with simple math expressions, often for facial or additive curve drives. CurveExpression evaluates at runtime; the editor module authors the expression. It is not Control Rig and not a batch Animation Modifier."
+  },
+  {
+    "slug": "animation-data",
+    "kind": "plugin",
+    "cn": "Animation Data 提供独立的动画数据容器与访问层，让其他动画插件不必直接绑死在某一版 AnimSequence 内部布局上。AnimationData 模块是这份数据契约。它自己不做压缩、扭曲或 Insights 可视化。",
+    "en": "Animation Data provides a standalone container and access layer so other animation plugins need not bind to one AnimSequence internal layout. The AnimationData module is that data contract. It does not compress, warp, or visualize clips in Insights."
+  },
+  {
+    "slug": "animation-insights",
+    "kind": "plugin",
+    "cn": "Animation Insights 把动画 Pose、蒙太奇和 Rewind Debugger 接到 Unreal Insights / 游戏内回放。GameplayInsights 采集，RewindDebugger 可倒带看骨骼与 Visual Logger。它是调试剖析工具，不会改变动画压缩或共享策略。",
+    "en": "Animation Insights pipes poses, montages, and the Rewind Debugger into Unreal Insights and in-editor rewind. GameplayInsights traces; RewindDebugger scrubs bones and Visual Logger. It is a profiling/debug suite—it does not change compression or pose sharing."
+  },
+  {
+    "slug": "animation-layering",
+    "kind": "plugin",
+    "cn": "Animation Layering 提供把多套姿态按层合成的实验运行时（含 UncookedOnly 编辑支持）。它让上半身瞄准、下半身移动这类分层在图里更明确，而不是靠一堆 Cache Pose 临时拼。接口仍可能变，不要当成 Blend Stack 的替代文档。",
+    "en": "Animation Layering is an experimental runtime (plus uncooked editor support) for composing poses as explicit layers—upper-body aim over locomotion—without a pile of Cache Pose nodes. The contract may still change; it is not documented as a Blend Stack replacement."
+  },
+  {
+    "slug": "animation-locomotion-library",
+    "kind": "plugin",
+    "cn": "Animation Locomotion Library 收集驱动走跑位移的动画节点与辅助：速度匹配、步态选择等。Runtime 模块进游戏，Editor 模块提供节点。它偏运动学走跑，和步幅/坡度扭曲的 Animation Warping、以及 Blend Space 运动分析是不同层。",
+    "en": "Animation Locomotion Library collects nodes and helpers that drive walk/run locomotion: speed matching, gait selection, and similar. Runtime ships in game; Editor exposes the nodes. It is kinematic locomotion, distinct from Animation Warping’s stride/slope warps and from Blend Space motion analysis."
+  },
+  {
+    "slug": "animation-modifier-library",
+    "kind": "plugin",
+    "cn": "Animation Modifier Library 是一批可在导入或批处理时跑的 Animation Modifier：改骨骼、曲线、通知等。它们作用在资产上，Cook 前写回 AnimSequence。这不是运行时 Pose Warping，也不是共享动画系统。",
+    "en": "Animation Modifier Library is a set of Animation Modifiers that run on import or batch processes to edit bones, curves, and notifies. They mutate assets before cook. That is not runtime pose warping and not animation sharing."
+  },
+  {
+    "slug": "animation-sharing",
+    "kind": "plugin",
+    "cn": "Animation Sharing 用 Leader-Follower：一个角色算完整 Pose，跟随者复用同一姿态，大幅降低人群动画成本。AnimationSharing 是运行时，Ed 模块配共享设置。它和 Budget Allocator 互补：一个共享结果，一个限制 Tick。",
+    "en": "Animation Sharing uses leader-follower poses: one character evaluates a full pose and followers reuse it, cutting crowd animation cost. AnimationSharing is runtime; the editor module authors share setups. It complements the Budget Allocator—one reuses results, the other limits ticks."
+  },
+  {
+    "slug": "animation-validation",
+    "kind": "plugin",
+    "cn": "Animation Validation 为引擎动画资产注册 Data Validator：检查 AnimSequence、BlendSpace 等是否缺骨骼、曲线损坏或通知越界。它在编辑器保存/提交时报警，不在运行时改 Pose。用来卡住坏动画进主分支。",
+    "en": "Animation Validation registers Data Validators for engine animation assets: missing bones, broken curves, out-of-range notifies on AnimSequences and BlendSpaces. It warns on save/submit; it does not change poses at runtime. Use it to keep bad clips out of main."
+  },
+  {
+    "slug": "animation-warping",
+    "kind": "plugin",
+    "cn": "Animation Warping 提供步幅、朝向、坡度扭曲以及 Root Motion Delta 属性，让循环动画贴合实际位移和地面。Runtime 在 AnimGraph 里求值，Editor 提供节点。它扭曲已有 Pose，不负责选走跑片段，那是 Locomotion Library 的事。",
+    "en": "Animation Warping adds stride, orientation, and slope warping plus a Root Motion Delta attribute so looping clips meet real displacement and ground. Runtime evaluates in the AnimGraph; Editor exposes nodes. It warps an existing pose; clip selection stays in the Locomotion Library."
+  },
+  {
+    "slug": "animationassistanttoolset",
+    "kind": "plugin",
+    "cn": "AnimationAssistantToolset 把动画资产、AnimBP 和相关编辑器操作暴露给 AI 助手。它是只给编辑器自动化/助手用的 Toolset，不会进 Shipping 去播动画。和 Animation Insights 的性能追踪、Animator Kit 的 Sequencer 工具都不是同一回事。",
+    "en": "AnimationAssistantToolset exposes animation assets, AnimBPs, and related editor operations to the AI assistant. It is an editor-only Toolset and does not play animation in Shipping. It is not Animation Insights tracing and not Animator Kit’s Sequencer utilities."
+  },
+  {
+    "slug": "animator-gizmos",
+    "kind": "plugin",
+    "cn": "Animator Gizmos（GizmoFramework）通过 GizmoSettings 切换视口是否使用新的 TRS 操纵器。这是给动画师/关卡设计师的开关，不是 5.8 Gizmo Testing 里的自动化用例。实验阶段默认行为可能随版本翻转。",
+    "en": "Animator Gizmos (GizmoFramework) toggles the new TRS manipulators in the viewport via GizmoSettings. That is a user-facing switch for animators and level designers, not the 5.8 Gizmo Testing automation suite. Experimental defaults may flip between versions."
+  },
+  {
+    "slug": "animator-kit",
+    "kind": "plugin",
+    "cn": "Animator Kit 收集在 Sequencer 里做镜头动画的实用设置与约定，模块是 AnimatorKitSettings。它面向剪辑师在引擎内关键帧的工作，而不是 AnimGraph 走跑库。不包含 Gizmo 实现本身。",
+    "en": "Animator Kit gathers settings and conventions for animating shots in Sequencer (AnimatorKitSettings). It is for editors keyframing inside Unreal, not the AnimGraph locomotion library, and it does not implement gizmos themselves."
+  },
+  {
+    "slug": "animdatabase",
+    "kind": "plugin",
+    "cn": "AnimDatabase 是实验性的动画片段数据库：把大量 AnimSequence 编目，供选择、搜索或生成系统查询，而不是在 AnimBP 里逐条硬连。Editor 模块维护库资产。它存储索引与元数据，不在运行时生成新动作（那是 AnimGen）。",
+    "en": "AnimDatabase is an experimental clip database: catalog many AnimSequences for selection, search, or generators instead of hard-wiring each clip in an AnimBP. The editor module maintains the library asset. It indexes metadata; it does not synthesize new motion (that is AnimGen)."
+  },
+  {
+    "slug": "animgen",
+    "kind": "plugin",
+    "cn": "AnimGen 是实验性的动画生成运行时/编辑器，用于在引擎内合成或变体生成动作。AnimGenEditor 编辑生成图或参数。它产出新运动数据，不同于 AnimDatabase 的检索，也不同于只把离线结果塞进 Sequencer 的 AnimGenOffline。",
+    "en": "AnimGen is an experimental animation-generation runtime and editor for synthesizing or varying motion inside Unreal. AnimGenEditor authors the graph or parameters. It produces new motion, unlike AnimDatabase lookup and unlike AnimGenOffline which only drops offline clips into Sequencer."
+  },
+  {
+    "slug": "animgenoffline",
+    "kind": "plugin",
+    "cn": "AnimGenOffline 把离线生成好的动画接到 Sequencer 时间线，让预计算片段能当镜头轨道播。Runtime 播放这些离线结果，Editor 侧导入与绑定。它不在游戏 tick 里做在线生成，那是 AnimGen 的范围。",
+    "en": "AnimGenOffline hooks offline-generated animation into Sequencer so precomputed clips play as shot tracks. Runtime plays those clips; the editor side imports and binds them. It does not synthesize motion every game tick—that remains AnimGen."
+  },
+  {
+    "slug": "animtotexture",
+    "kind": "plugin",
+    "cn": "AnimToTexture 把 Skeletal Mesh 动画烘焙进纹理（顶点位置/法线贴图），运行时用静态网格 + 顶点动画着色器播放，适合大量远景角色。Editor 模块执行烘焙。这是离线烘贴图，不是动画压缩 ACL，也不是姿态共享。",
+    "en": "AnimToTexture bakes skeletal animation into textures (vertex position/normal maps) so runtime can play them on static meshes with a vertex-animation shader—good for dense distant crowds. The editor module runs the bake. That is an offline texture bake, not ACL compression or pose sharing."
+  },
+  {
+    "slug": "apex-destruction",
+    "kind": "plugin",
+    "cn": "Apex Destruction 接入 NVIDIA APEX 的可破坏网格管线（旧 PhysX 破坏），在编辑器里切块并在运行时破碎。ApexDestructionEditor 做切片资产。新项目更常见 Chaos Destruction；本插件是遗留 APEX 路径。",
+    "en": "Apex Destruction wires NVIDIA APEX destructible meshes (legacy PhysX destruction): slice in the editor, fracture at runtime. ApexDestructionEditor authors chunk assets. New projects usually want Chaos Destruction; this plugin is the legacy APEX path."
+  },
+  {
+    "slug": "apple-arkit-face-support",
+    "kind": "plugin",
+    "cn": "Apple ARKit Face Support 单独启用 ARKit 面部网格与 blendshape 追踪，把面捕数据送给 Live Link 或 AR 人脸组件。它依赖基础 Apple ARKit 插件，但只覆盖 Face ID 那套面部 API，不含世界追踪或人体骨骼。",
+    "en": "Apple ARKit Face Support turns on ARKit face mesh and blendshape tracking and feeds that capture to Live Link or AR face components. It depends on the base Apple ARKit plugin but only covers the Face ID facial APIs—not world tracking or body skeletons."
+  },
+  {
+    "slug": "apple-arkit",
+    "kind": "plugin",
+    "cn": "Apple ARKit 是 iOS/iPadOS 上的主 AR 插件：世界追踪、平面检测、光估计，以及 AppleARKitPoseTrackingLiveLink 把身体姿态送进 Live Link。它是整套 ARKit 会话，不只是面部。Android 请走 ARCore 等其他插件。",
+    "en": "Apple ARKit is the main iOS/iPadOS AR plugin: world tracking, plane detection, light estimation, plus AppleARKitPoseTrackingLiveLink for body pose into Live Link. It is the full ARKit session, not face-only. Android uses other plugins such as ARCore."
+  },
+  {
+    "slug": "apple-image-utils",
+    "kind": "plugin",
+    "cn": "Apple Image Utils 封装 CIImage、CVPixelBuffer、IOSurface 之间的转换，供 AR、相机和 CoreVideo 管线在蓝图/C++ 里传递像素。BlueprintSupport 把常用转换暴露给脚本。它是图像缓冲工具，不是 AVPlayer，也不解码 ProRes。",
+    "en": "Apple Image Utils converts among CIImage, CVPixelBuffer, and IOSurface so AR, camera, and CoreVideo pipelines can pass pixels from Blueprint or C++. BlueprintSupport exposes the common conversions. It is a buffer utility, not AVPlayer and not a ProRes decoder."
+  },
+  {
+    "slug": "apple-movie-player",
+    "kind": "plugin",
+    "cn": "Apple Movie Player 用 AVPlayer 实现引擎启动影片接口，在 iOS/macOS 上播开场 CG。它出现在引擎完全初始化之前。游戏内材质视频应走 AVF Media Player 或 Electra，而不是这个 Movie Player。",
+    "en": "Apple Movie Player implements the engine startup-movie interface with AVPlayer so iOS/macOS can show a boot cinematic before the engine is fully up. In-game media on materials should use AVF Media Player or Electra, not this Movie Player."
+  },
+  {
+    "slug": "apple-prores-decoder-for-electra",
+    "kind": "plugin",
+    "cn": "Apple ProRes Decoder for Electra 只负责在 Electra 里解码 ProRes 码流以便审片播放。它不导出 ProRes 文件；导出在 Apple ProRes Media 插件。适合虚拟制片回放高质量有损中间片。",
+    "en": "Apple ProRes Decoder for Electra only decodes ProRes inside Electra for review playback. It does not export ProRes files—that is Apple ProRes Media. Use it when virtual production needs to play high-quality lossy intermediates."
+  },
+  {
+    "slug": "apple-prores-media",
+    "kind": "plugin",
+    "cn": "Apple ProRes Media 同时覆盖 ProRes 播放和导出，给 Media Framework 一条完整的专业编解码路径。和「仅 Electra 解码器」插件不同，这里包含输出到 ProRes 文件的能力。用于从引擎出片到剪辑软件。",
+    "en": "Apple ProRes Media covers both ProRes playback and export, giving Media Framework a full professional codec path. Unlike the Electra-only decoder plugin, this one can write ProRes files. Use it to deliver engine shots into an NLE."
+  },
+  {
+    "slug": "ar-utilities",
+    "kind": "plugin",
+    "cn": "AR Utilities 提供跨 ARKit/ARCore 的辅助代码与示例内容：钉物体、调试可视化、常见对齐工具。它不启动某个厂商的 AR 会话，而是补在会话之上的通用工具。和 ArchVis Character 无关。",
+    "en": "AR Utilities ships helper code and content shared across ARKit/ARCore: pinning, debug visualization, alignment helpers. It does not start a vendor AR session; it sits on top of one. It has nothing to do with ArchVis Character."
+  },
+  {
+    "slug": "archvis-character",
+    "kind": "plugin",
+    "cn": "ArchVis Character 是一套为建筑可视化调过的第一人称角色：更平滑的移动、碰撞和相机，避免游戏角色那种加速感。模块提供可放置的 Pawn/Character。它不是 AR 工具，也不是通用第三人称模板。",
+    "en": "ArchVis Character is a first-person pawn tuned for architectural visualization: smoother movement, collision, and camera, without game-like acceleration. The module ships a placeable character. It is not an AR utility and not a general third-person template."
+  },
+  {
+    "slug": "asset-manager-editor",
+    "kind": "plugin",
+    "cn": "Asset Manager Editor 给 Primary Asset 审计做编辑器 UI：看 Asset Manager 规则、包分块、重复引用。它只在编辑器里管理磁盘上的资产清单，不在运行时加载资源。用来在打包前检查 Primary Asset Id。",
+    "en": "Asset Manager Editor is the editor UI for auditing primary assets: Asset Manager rules, chunks, duplicate references. It manages on-disk inventories in the editor and does not load assets at runtime. Use it to inspect Primary Asset Ids before packaging."
+  },
+  {
+    "slug": "asset-referencing-restrictions",
+    "kind": "plugin",
+    "cn": "Asset Referencing Restrictions 按文件夹或插件强制引用规则，例如游戏内容不得引用仅编辑器插件里的资产。AssetReferenceRestrictions 在保存/校验时拦截非法依赖。这是内容架构护栏，不是搜索索引。",
+    "en": "Asset Referencing Restrictions enforces per-folder or per-plugin reference rules, for example forbidding game content from referencing editor-only plugins. AssetReferenceRestrictions blocks illegal dependencies on save/validate. It is a content-architecture guardrail, not a search index."
+  },
+  {
+    "slug": "asset-registry-export",
+    "kind": "plugin",
+    "cn": "Asset Registry Export 把 Asset Registry 元数据导出成外部文件，供 CI、Excel 或自研管线消费。它不做内容浏览器搜索 UI。适合在无编辑器的构建机上转储资产清单。",
+    "en": "Asset Registry Export dumps Asset Registry metadata to external files for CI, spreadsheets, or custom pipelines. It is not the Content Browser search UI. Use it to dump an asset inventory on a headless build machine."
+  },
+  {
+    "slug": "asset-search",
+    "kind": "plugin",
+    "cn": "Asset Search 为编辑器提供更深入的资产内容搜索（不仅是文件名），索引资产内部属性。AssetSearch 模块维护索引并接搜索 UI。它帮你找「谁用了这张贴图」，不同于导出 Registry 或限制引用。",
+    "en": "Asset Search indexes inside assets—not just filenames—so the editor can query properties and usages. The AssetSearch module owns the index and search UI. It answers “who uses this texture,” unlike Registry export or reference restrictions."
+  },
+  {
+    "slug": "asset-tags",
+    "kind": "plugin",
+    "cn": "Asset Tags 在运行时和编辑器脚本里读写资产标签与 Collection，而不必打开内容浏览器。适合按标签批量找 Primaries 或做活动内容开关。它不管来源溯源（Provenance），也不做全文搜索。",
+    "en": "Asset Tags reads and writes asset tags and Collections from runtime and editor scripts without the Content Browser. Use it to batch-find primaries by tag or gate seasonal content. It is not provenance tracking and not full-text search."
+  },
+  {
+    "slug": "assetprovenance",
+    "kind": "plugin",
+    "cn": "AssetProvenance 记录资产从哪来、被谁改过：导入源、编辑历史。UI 模块展示，EditorWorkflows 接到保存/导入流程。它服务审计与合规，不是 Collection 标签系统。",
+    "en": "AssetProvenance records where an asset came from and how it was edited: import source and history. The UI module displays it; EditorWorkflows hook save/import. It is audit/compliance, not the Collection tag system."
+  },
+  {
+    "slug": "asyncmessagesystem",
+    "kind": "plugin",
+    "cn": "AsyncMessageSystem 提供实验性的异步消息总线，让模块之间发类型化消息而不必紧耦合 UObject 委托。适合编辑器或工具线程上的解耦通信。它不是网络复制，也不是 OSC/音频消息。",
+    "en": "AsyncMessageSystem is an experimental typed async message bus so modules can talk without tight UObject delegates. It fits decoupled editor or tool-thread communication. It is not net replication and not OSC/audio messaging."
+  },
+  {
+    "slug": "asyncmessagesystemtests",
+    "kind": "plugin",
+    "cn": "AsyncMessageSystemTests 只包含该消息总线的自动化测试，验证投递顺序、生命周期和线程边界。它不提供总线 API 本身。跑引擎测试套件时才会加载。",
+    "en": "AsyncMessageSystemTests holds automation coverage for the async message bus: ordering, lifetime, and thread boundaries. It does not ship the bus API. It loads when you run the engine test suite."
+  },
+  {
+    "slug": "audio-capture-timecode-provider",
+    "kind": "plugin",
+    "cn": "Audio Capture Timecode Provider 从声卡输入解码 LTC（线性时间码），把现场时码变成引擎 Timecode Provider。虚拟制片用音频孔同步摄像机与 Sequencer。它不采集游戏麦克风语音，那是 Audio Capture 插件。",
+    "en": "Audio Capture Timecode Provider decodes LTC from a live audio jack and exposes it as an engine Timecode Provider. Virtual production syncs cameras and Sequencer from that analog timecode. It does not capture gameplay microphone voice—that is Audio Capture."
+  },
+  {
+    "slug": "audio-capture",
+    "kind": "plugin",
+    "cn": "Audio Capture 提供麦克风输入接口，把系统默认采集设备送进音频引擎或蓝图。AudioCaptureEditor 选择设备。用于语音、唇形或互动麦，不解码 LTC 时码。",
+    "en": "Audio Capture exposes microphone input so the default capture device feeds the audio engine or Blueprints. AudioCaptureEditor picks the device. Use it for voice, lipsync, or interactive mic—not LTC timecode."
+  },
+  {
+    "slug": "audio-code-quality-tests",
+    "kind": "plugin",
+    "cn": "Audio Code Quality Tests（AudioCQTests）是音频代码的 CQ/回归测试插件，跑在 Tests 目录下。它检查混音、解码等实现有没有质量回退。不是给声音设计师的剖析 UI。",
+    "en": "Audio Code Quality Tests (AudioCQTests) is a CQ/regression plugin under Tests for audio code. It catches quality regressions in mixing and decode. It is not a designer-facing profiler UI."
+  },
+  {
+    "slug": "audio-definition-model-adm",
+    "kind": "plugin",
+    "cn": "Audio Definition Model (ADM) 目前把空间 ADM 元数据经 OSC 送出，并用 WASAPI 聚合通道做空间化输出。ADMSpatialization 模块面向对象音频/沉浸声，而不是普通衰减调制。平台支持很窄，主要是 Windows 专业监听。",
+    "en": "Audio Definition Model (ADM) currently emits spatial ADM metadata over OSC and spatializes through WASAPI aggregate channels. ADMSpatialization targets object-based/immersive audio, not ordinary attenuation modulation. Platform support is narrow—mainly Windows studio monitoring."
+  },
+  {
+    "slug": "audio-insights-runtime",
+    "kind": "plugin",
+    "cn": "Audio Insights Runtime 允许在游戏线程用蓝图把剖析/调试数据送到 Audio Insights。它是 Shipping 可带的发送端，不包含编辑器仪表盘。仪表盘在 Audio Insights 插件里。",
+    "en": "Audio Insights Runtime lets Blueprints send profiling and debug payloads to Audio Insights from the game thread. It is the send side that can ship; it does not include the editor dashboards. Those live in the Audio Insights plugin."
+  },
+  {
+    "slug": "audio-insights",
+    "kind": "plugin",
+    "cn": "Audio Insights 是听感/混音剖析套件：声部、衰减、并发等仪表，AudioInsightsEditor 画编辑器面板。它可视化音频运行状况，不实现调制参数资产（那是 Audio Modulation）。",
+    "en": "Audio Insights is the audio profiling suite: voices, attenuation, concurrency dashboards, with AudioInsightsEditor drawing the panels. It visualizes runtime health; it does not author modulation parameter assets (that is Audio Modulation)."
+  },
+  {
+    "slug": "audio-modulation-insights",
+    "kind": "plugin",
+    "cn": "Audio Modulation Insights 在 Audio Insights 里加调制专用仪表：看 Control Bus、Parameter 的实时值。它只剖析调制图，不提供调制运行时本身。",
+    "en": "Audio Modulation Insights adds modulation dashboards inside Audio Insights: live Control Bus and Parameter values. It profiles the modulation graph; it does not implement the modulation runtime."
+  },
+  {
+    "slug": "audio-modulation",
+    "kind": "plugin",
+    "cn": "Audio Modulation 是虚幻音频引擎默认的参数调制实现：Control Bus、LFO、包络去推音量、截止等。Editor 模块编辑调制资产。它在运行时改声音参数，不是 Insights 可视化。",
+    "en": "Audio Modulation is the default Unreal Audio Engine implementation of Control Buses, LFOs, and envelopes driving volume, cutoff, and similar. The editor module authors modulation assets. It changes sound parameters at runtime; it is not Insights visualization."
+  },
+  {
+    "slug": "audio-motor-sim",
+    "kind": "plugin",
+    "cn": "Audio Motor Sim 用可组合组件模拟载具发动机声：转速、负载、换挡等输入驱动多层循环。StandardComponents 提供常用积木，Debug 模块画调试。它是程序化引擎声，不是 ADM 对象音频。",
+    "en": "Audio Motor Sim composes vehicle engine audio from rpm, load, and gear inputs driving layered loops. StandardComponents are the usual building blocks; Debug draws overlays. It is procedural engine sound, not ADM object audio."
+  },
+  {
+    "slug": "audio-properties",
+    "kind": "plugin",
+    "cn": "Audio Properties 允许定义可派生的任意属性集，注入 SoundCue、MetaSound 等音频资产，做项目自定义的数据驱动参数。Editor 模块编辑这些属性定义。它不是调制总线，而是资产上的可扩展属性袋。",
+    "en": "Audio Properties lets you define derivable property sets and inject them into SoundCues, MetaSounds, and other audio assets for project-specific data. The editor module authors the definitions. It is not a modulation bus—it is an extensible property bag on assets."
+  },
+  {
+    "slug": "audio-synesthesia",
+    "kind": "plugin",
+    "cn": "Audio Synesthesia 提供离线分析器：响度、恒 Q、包络等，把分析结果暴露给蓝图做可视化或玩法。Core 做算法，Editor 配分析器资产。它分析已有音频，不采集麦克风。",
+    "en": "Audio Synesthesia ships offline analyzers (loudness, constant-Q, envelope) and exposes features to Blueprints for vis or gameplay. Core is the DSP; Editor authors analyzer assets. It analyzes existing audio; it does not capture a microphone."
+  },
+  {
+    "slug": "audio-test-helper",
+    "kind": "plugin",
+    "cn": "Audio Test Helper 给各音频测试模块提供共用工具：合成测试信号、比较缓冲区、做 A/B 性能回归测量。它不是 CQ 测试用例集本身，而是测试夹具库。声音设计师平时不会打开它。",
+    "en": "Audio Test Helper is shared test plumbing: synthesize signals, compare buffers, and measure A/B performance regressions across audio test modules. It is not the CQ test suite itself, only the fixture library. Sound designers do not use it day to day."
+  },
+  {
+    "slug": "audiogameplay",
+    "kind": "plugin",
+    "cn": "AudioGameplay 把音频和玩法对象连起来：声音条件、游戏驱动的音频组件等核心运行时，并带 AudioGameplayTests。它是游戏向音频框架，不是混音 Widget，也不是 Volume 空间触发。",
+    "en": "AudioGameplay connects audio to gameplay objects: sound conditions and game-driven audio components, plus AudioGameplayTests. It is the gameplay-audio framework, not mixer widgets and not volume-based spatial triggers."
+  },
+  {
+    "slug": "audiogameplayvolume",
+    "kind": "plugin",
+    "cn": "AudioGameplayVolume 用体积触发改变混响、总线或音效状态，当玩家走进不同空间时切换听感。Editor 模块放置和编辑这些体积。它是空间音频触发器，不是 AudioGameplay 的通用组件基类。",
+    "en": "AudioGameplayVolume uses trigger volumes to change reverb, buses, or sound states as the player moves between spaces. The editor module places those volumes. It is a spatial audio trigger, not AudioGameplay’s generic component base."
+  },
+  {
+    "slug": "audiowidgets",
+    "kind": "plugin",
+    "cn": "AudioWidgets 提供面向音频数据的 Slate/UMG 控件：电平表、旋钮、波形等，可进运行时调试 UI。Core 是控件实现，Editor 模块在编辑器里用同一套。它是现成控件库，不是用来从零搭工具包的 Toolkit。",
+    "en": "AudioWidgets ships Slate/UMG controls for audio data: meters, knobs, waveforms, including runtime debug UI. Core implements the widgets; Editor reuses them in the editor. It is a ready-made widget library, not the lower-level toolkit for building new ones."
+  },
+  {
+    "slug": "audiowidgettoolkit",
+    "kind": "plugin",
+    "cn": "AudioWidgetToolkit 是构建自定义音频控件的工具包（含测试），给需要自绘旋钮/时间线的编辑器扩展用。它比 AudioWidgets 更底层。实验阶段，不直接提供最终电平表皮肤。",
+    "en": "AudioWidgetToolkit is the toolkit (plus tests) for building custom audio widgets when you need to draw your own knobs or timelines. It sits below AudioWidgets. Experimental, it does not ship finished meter skins."
+  },
+  {
+    "slug": "automatedperftesting",
+    "kind": "plugin",
+    "cn": "AutomatedPerfTesting 提供 Gauntlet Test Controller，在设备或编辑器里自动跑性能场景、采集 FPS/内存。它是性能测试执行器。启动参数和扩展点在 AutomatedPerfTestTools。",
+    "en": "AutomatedPerfTesting ships Gauntlet Test Controllers that run performance scenarios and capture FPS/memory on device or in-editor. It is the performance-test executor. Launch switches and extensions live in AutomatedPerfTestTools."
+  },
+  {
+    "slug": "automatedperftesttools",
+    "kind": "plugin",
+    "cn": "AutomatedPerfTestTools 通过 AutomatedPerfTestLaunchExtension 给自动性能测试框架提供启动扩展和辅助工具。它不包含 Gauntlet Controller 主体。用来接命令行和编辑器启动项。",
+    "en": "AutomatedPerfTestTools adds launch extensions and helpers (AutomatedPerfTestLaunchExtension) for the automated perf framework. It does not contain the Gauntlet controllers themselves. Use it to wire command lines and editor launch options."
+  },
+  {
+    "slug": "automation-controller-rpc-component",
+    "kind": "plugin",
+    "cn": "Automation Controller RPC Component 让外部进程通过 RPC 调用 Automation Controller 跑已注册的自动化测试。AutomationControllerRpc 是远程触发通道。适合 CI 机器远程踢测试，不是 Driver 的 UI 点击模拟。",
+    "en": "Automation Controller RPC Component lets an external process run registered automation tests through RPC into the Automation Controller. AutomationControllerRpc is that remote trigger. It is for CI kicking tests, not Automation Driver’s UI click simulation."
+  },
+  {
+    "slug": "automation-driver-tests",
+    "kind": "plugin",
+    "cn": "Automation Driver Tests 是 Automation Driver（模拟 Slate 输入、点击编辑器 UI）的测试插件。它验证 Driver 能否稳定驱动控件，而不是业务功能测试集。缺少官方描述，职责完全落在驱动层回归。",
+    "en": "Automation Driver Tests is the test plugin for Automation Driver—the system that simulates Slate input and clicks editor UI. It verifies the driver can stably hit widgets, not a product-feature suite. With no official blurb, its job is driver-layer regression."
+  },
+  {
+    "slug": "automation-utilities",
+    "kind": "plugin",
+    "cn": "Automation Utilities 提供编写自动化测试时的杂项工具（AutomationUtils 与 Editor 变体）：等待、截图、资产准备等。它是测试作者的工具箱，不是 RPC 入口，也不是 Gauntlet 性能控制器。",
+    "en": "Automation Utilities (AutomationUtils plus the editor variant) gives test authors waits, screenshots, asset setup, and similar helpers. It is a toolbox for writing tests, not the RPC entry point and not Gauntlet perf controllers."
+  },
+  {
+    "slug": "automationtesttoolset",
+    "kind": "plugin",
+    "cn": "AutomationTestToolset 把自动化测试的发现与执行暴露给 AI 助手，让助手能列出并跑测试。Tests 模块测 Toolset 自己。它是助手适配器，不会替代 Session Frontend 的测试管理器。",
+    "en": "AutomationTestToolset exposes test discovery and execution to the AI assistant so it can list and run tests. The tests module covers the Toolset itself. It is an assistant adapter, not a replacement for Session Frontend’s test manager."
+  },
+  {
+    "slug": "av1-software-decoder-for-electra",
+    "kind": "plugin",
+    "cn": "AV1 software decoder for Electra 用纯软件把 AV1 视频交给 Electra 播放，性能随 CPU 平台变化，没有硬件加速承诺。它只解码 AV1，不处理 APV、ProRes 或 DNx。在缺硬件 AV1 的目标上做兼容播放。",
+    "en": "The AV1 software decoder for Electra decodes AV1 entirely on CPU for Electra; performance varies by platform with no hardware guarantee. It only handles AV1, not APV, ProRes, or DNx. Use it for compatibility where hardware AV1 is missing."
+  },
+  {
+    "slug": "avcodecs-core",
+    "kind": "plugin",
+    "cn": "AVCodecs Core 是引擎实验性 AVCodecs 栈的最底层：公共编码器接口和 AVCodecsCoreRHI 的 GPU 互操作。AMF 等具体厂商编解码挂在这层之上。注意它不是 Engine/Core 模块，只是音视频编解码核心。",
+    "en": "AVCodecs Core is the lowest layer of Unreal’s experimental AVCodecs stack: shared encoder/decoder interfaces and GPU interop via AVCodecsCoreRHI. Vendor codecs such as AMF sit on top. It is not Engine/Core—the name means audio/video codec core only."
+  },
+  {
+    "slug": "avf-media-player",
+    "kind": "plugin",
+    "cn": "AVF Media Player 用 Apple AV Foundation 做 Media Framework 播放与采集（含 AvfMediaCapture）。这是 Apple 平台上的通用媒体播放器，覆盖文件和设备。启动 Logo 仍走 Apple Movie Player；ProRes 专业导出走 ProRes 插件。",
+    "en": "AVF Media Player implements Media Framework playback and capture (AvfMediaCapture) with Apple AV Foundation. It is the general Apple-platform media player for files and devices. Boot logos still use Apple Movie Player; ProRes export stays in the ProRes plugins."
+  },
+  {
+    "slug": "avid-dnxhd-decoder-for-electra",
+    "kind": "plugin",
+    "cn": "Avid DNxHD decoder for Electra 只把 DNxHD 码流解码进 Electra 播放器，用于回放较老的 DNxHD 中间片。它不导出 DNxHR/MXF；导出在 Avid DNxHR/DNxMXF Media 插件。",
+    "en": "The Avid DNxHD decoder for Electra only decodes DNxHD into Electra for playback of older DNxHD intermediates. It does not export DNxHR/MXF; that is the Avid DNxHR/DNxMXF Media plugin."
+  },
+  {
+    "slug": "avid-dnxhr-dnxmxf-media-plugin",
+    "kind": "plugin",
+    "cn": "Avid DNxHR/DNxMXF Media Plugin 用 Avid DNx 编解码器做视频导出（含 MXF 包装），把引擎序列送到 Avid 剪辑管线。它侧重输出，而 Electra 的 DNxHD 插件侧重解码播放。",
+    "en": "The Avid DNxHR/DNxMXF Media Plugin exports video with Avid DNx codecs (including MXF wrapping) so engine sequences reach an Avid editorial pipeline. It is delivery-focused; the Electra DNxHD plugin is decode/playback-focused."
+  },
+  {
+    "slug": "axf-importer",
+    "kind": "plugin",
+    "cn": "AxF Importer 把 X-Rite AxF 外观文件转成引擎材质，保留测量级的 BRDF/纹理数据，服务汽车和产品可视化。它走 Enterprise 导入路径，不是普通贴图导入，也不是 Alembic。",
+    "en": "AxF Importer converts X-Rite AxF appearance files into Unreal materials, preserving measured BRDF and texture data for automotive and product viz. It is an enterprise material import path, not a generic texture importer and not Alembic."
+  },
+  {
+    "slug": "backchannel",
+    "kind": "plugin",
+    "cn": "BackChannel 允许外部工具查询或向正在运行的 Unreal 会话推送数据，做实验性的双向调试通道。它不是像素流，也不是 nDisplay 集群协议。适合外部 Python/应用热改运行中的参数。",
+    "en": "BackChannel lets external tools query or push data into a running Unreal session over an experimental back door. It is not Pixel Streaming and not the nDisplay cluster protocol. Use it for an external Python app to tweak live parameters."
+  },
+  {
+    "slug": "basecharacterfxeditor",
+    "kind": "plugin",
+    "cn": "BaseCharacterFXEditor 抽出角色 FX 资产编辑器的公共基类（视口、工具栏、资产宿主），供 Groom、Cloth 等角色特效编辑器复用。它几乎不直接给用户一个可打开的资产类型。要做新的角色 FX 编辑器时才继承它。",
+    "en": "BaseCharacterFXEditor factors shared base classes for character-FX asset editors (viewport, toolbar, asset host) reused by groom, cloth, and similar editors. End users rarely open it as an asset type. Inherit it when building a new character FX editor."
+  },
+  {
+    "slug": "basematerial",
+    "kind": "plugin",
+    "cn": "BaseMaterial 是统一的基础材质函数仓库：引擎和项目共享一套 Master/函数，减少各项目复制一份默认材质。它主要是内容插件，没有列出运行时模块。改这里会影响依赖该库的所有材质实例。",
+    "en": "BaseMaterial is a unified repository of base material functions so engine and projects share one master set instead of copying default materials. It is primarily a content plugin with no listed runtime modules. Changing it affects every material instance that depends on the library."
+  },
+  {
+    "slug": "batch-renamer",
+    "kind": "plugin",
+    "cn": "Batch Renamer（AdvancedRenamer）批量重命名选中的 Actor 或资产，并统一前缀后缀以符合项目命名规范。它是编辑器实用工具，不改资产内部引用规则。实验功能，UI 可能调整。",
+    "en": "Batch Renamer (AdvancedRenamer) bulk-renames selected actors or assets and standardizes prefixes/suffixes to match project naming. It is an editor utility; it does not change reference-restriction rules. Experimental UI may still move."
+  },
+  {
+    "slug": "bink-media",
+    "kind": "plugin",
+    "cn": "Bink Media 用 RAD Bink 在 Media Framework 里播游戏内视频，BinkMediaPlayerEditor 导入 .bk2。Bink 针对游戏包体和低开销解码，不是广播级 ProRes/DNx。适合过场、UI 循环视频。",
+    "en": "Bink Media plays in-game video through Media Framework with RAD Bink; BinkMediaPlayerEditor imports .bk2. Bink targets small packages and cheap decode, not broadcast ProRes/DNx. Use it for cinematics and UI loops."
+  },
+  {
+    "slug": "blackmagic-media-player",
+    "kind": "plugin",
+    "cn": "Blackmagic Media Player 对接 Blackmagic 采集卡做 SDI 输入和输出，模块划分与 AJA 插件类似但驱动不同硬件。Core/Media/Output/Factory/Editor 覆盖采集、送出和资产。虚拟制片现场选卡品牌时在 AJA 与 Blackmagic 之间二选一，不要混当同一个播放器。",
+    "en": "Blackmagic Media Player drives Blackmagic capture cards for SDI in and out, with a module split similar to AJA but for different hardware. Core/Media/Output/Factory/Editor cover capture, fill, and assets. On a stage you pick AJA or Blackmagic—they are not interchangeable players."
+  },
+  {
+    "slug": "blank-example-plugin",
+    "kind": "plugin",
+    "cn": "Blank Example Plugin 是最小插件骨架（BlankPlugin 模块），用来复制后写自己的插件。它没有产品功能。不要在 Shipping 里依赖它。",
+    "en": "Blank Example Plugin is a minimal plugin skeleton (BlankPlugin module) to copy when starting your own plugin. It has no product features. Do not depend on it in Shipping."
+  },
+  {
+    "slug": "blend-stack",
+    "kind": "plugin",
+    "cn": "Blend Stack 提供按栈混合动画的 API 与 AnimGraph 节点：推入/弹出片段并自动混合，适合动作游戏的姿态层管理。BlendStackEditor 提供节点。它是运行时混合栈，不是 BlendSpace 运动学分析。",
+    "en": "Blend Stack is an API and AnimGraph nodes for stacking clips with automatic blend in/out—useful for action-game pose layers. BlendStackEditor ships the nodes. It is a runtime blend stack, not Blend Space motion analysis."
+  },
+  {
+    "slug": "blendspace-motion-analysis",
+    "kind": "plugin",
+    "cn": "Blendspace Motion Analysis 分析 Blend Space 里各样本的位移/根运动，帮助匹配速度轴或检测不连续。它在编辑器里读 BlendSpace 数据，不在运行时混姿态。和 Blend Stack 的运行时栈是两回事。",
+    "en": "Blendspace Motion Analysis inspects locomotion and root-motion properties of Blend Space samples so you can match speed axes or spot discontinuities. It reads BlendSpace data in the editor; it does not blend poses at runtime. That is unrelated to Blend Stack’s runtime stack."
+  },
+  {
+    "slug": "blueprint-c-header-preview",
+    "kind": "plugin",
+    "cn": "Blueprint C++ Header Preview（BlueprintHeaderView）根据蓝图类生成近似的 C++ 头文件预览，方便把蓝图迁到原生类。它只预览，不会自动改写你的模块。给程序员对照 UPROPERTY 用。",
+    "en": "Blueprint C++ Header Preview (BlueprintHeaderView) generates an approximate C++ header from a Blueprint class to help native migration. It previews only; it does not rewrite your module. Programmers use it to line up UPROPERTY declarations."
+  },
+  {
+    "slug": "blueprint-file-utilities",
+    "kind": "plugin",
+    "cn": "Blueprint File Utilities 在蓝图里做底层文件操作：移动、复制、删除、查找路径。BlueprintFileUtils 面向工具和编辑器脚本，误用会破坏内容目录。它不是材质/贴图节点，也不格式化蓝图图表。",
+    "en": "Blueprint File Utilities performs low-level file Move/Copy/Delete/Find from Blueprints. BlueprintFileUtils is for tools and editor scripts; misuse can wreck the content directory. It is not material/texture nodes and does not format Blueprint graphs."
+  },
+  {
+    "slug": "blueprint-graph-formatter",
+    "kind": "plugin",
+    "cn": "Blueprint Graph Formatter 按团队规范自动排版蓝图：从左到右执行线、拉直线、放好输入、收紧注释框、堆叠事件。默认可在图表里按 G（可改快捷键）。Toolset 模块让 AI 助手也能调用同一套格式化。",
+    "en": "Blueprint Graph Formatter auto-layouts Blueprint graphs to a team standard: left-to-right exec, straight wires, placed inputs, fitted comments, stacked events. Default shortcut is G in a graph (rebindable). The Toolset module lets the AI assistant run the same formatter."
+  },
+  {
+    "slug": "blueprint-material-and-texture-nodes",
+    "kind": "plugin",
+    "cn": "Blueprint Material and Texture Nodes 添加仅编辑器蓝图节点：读纹理/Render Target 像素，以及创建修改 Material Instance Constant。用于做编辑器工具和批处理，这些节点不会进 Shipping 游戏。",
+    "en": "Blueprint Material and Texture Nodes add editor-only Blueprint nodes to read textures/render targets and to create or edit Material Instance Constants. They are for editor utilities and batch jobs; those nodes do not ship in game."
+  },
+  {
+    "slug": "blueprint-snap-nodes-prototype",
+    "kind": "plugin",
+    "cn": "Blueprint Snap Nodes Prototype 试验一种更紧凑的蓝图节点吸附布局，改变节点如何咬合在一起。它是交互原型，不是 Formatter 那种一键排版规范。实验结束可能被替换。",
+    "en": "Blueprint Snap Nodes Prototype experiments with a denser snap layout for Blueprint nodes—how nodes magnetically dock. It is an interaction prototype, not the one-key Formatter style guide. The experiment may be replaced."
+  },
+  {
+    "slug": "blueprint-stats",
+    "kind": "plugin",
+    "cn": "Blueprint Stats 收集蓝图复杂度、节点数量、变量等统计，帮助发现过大的图表。它是只读分析，不修改图表布局。实验插件，指标集合可能变化。",
+    "en": "Blueprint Stats gathers complexity, node counts, and variable stats to find oversized graphs. It is read-only analysis; it does not reflow layout. Experimental metrics may change."
+  },
+  {
+    "slug": "blueprint-toolsets",
+    "kind": "plugin",
+    "cn": "Blueprint Toolsets 给 AI 助手提供操作蓝图资产的工具，包括 Blueprint Graph DSL，让助手能结构化读写节点图。它是助手协议层，不是给用户按 G 排版的 Formatter。",
+    "en": "Blueprint Toolsets gives the AI assistant tools for Blueprint assets, including a Blueprint Graph DSL for structured graph reads/writes. It is the assistant protocol, not the user-facing G-key Formatter."
+  },
+  {
+    "slug": "bridge",
+    "kind": "plugin",
+    "cn": "Bridge 是 Quixel Bridge / Megascans 在编辑器里的链接：浏览、下载 Megascans 资产并导入引擎（Bridge 与 MegascansPlugin 模块）。它是内容获取通道，与 Gameplay Ability System 无关。",
+    "en": "Bridge is the in-editor Quixel Bridge / Megascans link: browse, download, and import Megascans (Bridge and MegascansPlugin modules). It is a content-acquisition channel and has nothing to do with the Gameplay Ability System."
+  },
+  {
+    "slug": "buoyancy",
+    "kind": "plugin",
+    "cn": "Buoyancy 给与 Water 插件水体交互的物体加浮力：根据吃水计算力和扭矩。它依赖 Water 系统的水体表示，不是通用后处理，也不是 Cable 模拟。实验物理辅助。",
+    "en": "Buoyancy applies forces and torques to objects interacting with Water plugin water bodies based on submersion. It depends on Water’s water representation; it is not a post-process and not cable simulation. Experimental physics helper."
+  },
+  {
+    "slug": "cable-component",
+    "kind": "plugin",
+    "cn": "Cable Component 提供可模拟的绳索/电缆组件：两端附着，中间用粒子链摆动。用于电线、鞭、简单绳索，不是水体浮力，也不是 Chaos 完整软体。",
+    "en": "Cable Component is a simulated cable: attach both ends and the particle chain sags and swings. Use it for wires, whips, and simple ropes—not water buoyancy and not full Chaos soft bodies."
+  },
+  {
+    "slug": "cadence-input-system",
+    "kind": "plugin",
+    "cn": "Cadence Input System 在 Enhanced Input 之上记录并重放每帧已执行的 Input Action 委托，让输入能参与网络再模拟与回滚。CadenceInput 模块把输入纳入 Cadence 确定性帧。没有它，Cadence 回滚看不到玩家操作。",
+    "en": "Cadence Input System records and replays per-frame executed Input Action delegates on top of Enhanced Input so gameplay input can join network resimulation and rollback. CadenceInput folds input into Cadence’s deterministic frames. Without it, Cadence rollback cannot see player actions."
+  },
+  {
+    "slug": "cadence-modular-tests",
+    "kind": "plugin",
+    "cn": "Cadence Modular Tests 用分进程的服务器和客户端跑模块化测试，并核对 Cadence 的校正与再模拟报告。它验证跨进程预测/校正，而不是单进程 tick 夹具。属于 Cadence 网络物理栈的集成测试。",
+    "en": "Cadence Modular Tests run a server and clients in separate processes and assert Cadence correction/resim reports. They verify cross-process prediction/correction, not the single-process tick fixture. Integration tests for the Cadence net-physics stack."
+  },
+  {
+    "slug": "cadence-scenegraph-tests",
+    "kind": "plugin",
+    "cn": "Cadence SceneGraph Tests 针对 Scene Graph 在 Cadence 下的 TickEvents：客户端执行后由再模拟重放，并用 Verse 探针检查。它测的是 Scene Graph 事件在预测回滚中的语义，不是通用 Cadence 夹具。",
+    "en": "Cadence SceneGraph Tests cover Scene Graph TickEvents under Cadence: handlers run on clients and are replayed by resimulation, checked with Verse probes. They test Scene Graph event semantics under prediction/rollback, not the generic Cadence fixture."
+  },
+  {
+    "slug": "cadence-scenegraph",
+    "kind": "plugin",
+    "cn": "Cadence SceneGraph 在 Cadence 状态缓存里跟踪玩家拥有的 Scene Graph 实体，把复制的变换与客户端同帧预测比较并用再模拟纠正。它还把 Cadence 复制的输入喂给服务器上的 Verse 输入和 possessed_input_component。这是运行时桥，不是测试插件。",
+    "en": "Cadence SceneGraph tracks possessed Scene Graph entities in the Cadence state cache, compares replicated transforms to the client’s same-frame prediction, and corrects via resimulation. It also feeds Cadence-replicated input to Verse input on the server and possessed_input_component everywhere. That is the runtime bridge, not a test plugin."
+  },
+  {
+    "slug": "cadence-tests",
+    "kind": "plugin",
+    "cn": "Cadence Tests 提供 Cadence 的客户端/服务器测试夹具：在受控的种子帧时间和丢包/延迟下逐帧推进两个 World。它是框架级自动化规范，不专门测 Scene Graph，也不把服务器拆到独立进程（那是 Modular Tests）。",
+    "en": "Cadence Tests is the client/server fixture for Cadence: two worlds ticked frame-by-frame with seeded frame times and packet delay or loss. It is framework-level automation, not Scene Graph-specific, and it does not split the server into another process (that is Modular Tests)."
+  }
+]

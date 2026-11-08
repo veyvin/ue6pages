@@ -3,7 +3,6 @@ layout: default
 title: MetaHuman Animator 校准诊断 / MetaHuman Animator Calibration Diagnostics
 ---
 
-
 <h1>MetaHuman Animator 校准诊断 / MetaHuman Animator Calibration Diagnostics</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: MetaHuman Animator 校准诊断 / MetaHuman Animator Calibration Diagnost
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">官方 MetaHuman 校准诊断虚幻引擎工具包</div><div class="lang-content">The official MetaHuman Calibration Diagnostics Unreal Engine toolkit</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">MetaHuman Animator Calibration Diagnostics</code>（模块 <code class="usage-code">MetaHumanCalibrationDiagnostics</code>）。</li><li>它是官方 MetaHuman 校准诊断工具包，用于排查面捕/校准流程问题。</li><li>在 MetaHuman 校准流程里运行诊断，按结果修正采集/标定。</li><li>Experimental：接口可能变动；属 MetaHuman 校准工具链。</li></ol><p class="usage-note">官方 MetaHuman 校准诊断工具包，实验性。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">MetaHuman Animator Calibration Diagnostics</code> (module <code class="usage-code">MetaHumanCalibrationDiagnostics</code>).</li><li>It is the official MetaHuman calibration diagnostics toolkit for troubleshooting face-capture/calibration issues.</li><li>Run diagnostics in the MetaHuman calibration flow and fix capture/calibration per results.</li><li>Experimental: contract may change; part of the MetaHuman calibration toolchain.</li></ol><p class="usage-note">The official MetaHuman calibration diagnostics toolkit, experimental.</p></div></div></div>
+    </div>
+

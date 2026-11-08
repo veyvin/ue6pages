@@ -3,7 +3,6 @@ layout: default
 title: 混合空间运动分析 / Blendspace Motion Analysis
 ---
 
-
 <h1>混合空间运动分析 / Blendspace Motion Analysis</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 混合空间运动分析 / Blendspace Motion Analysis
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许分析混合空间中的运动/根部运动属性</div><div class="lang-content">Allows analysis of locomotion/root motion properties in blend spaces</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Blendspace Motion Analysis</code>（模块 <code class="usage-code">BlendSpaceMotionAnalysis</code>）。它给 Blend Space 增加根运动/位移分析，不是新的动画资产类型。</li><li>打开已有 <code class="usage-code">Blend Space</code>（或带轴的 Aim Offset），在编辑器的 Analysis / 分析属性里启用运动分析（速度、方向等来自根运动的量）。</li><li>对每个采样动画跑分析，让插件从根位移推导轴值，再把样本点放到对应 Speed/Direction 位置，减少手填轴。</li><li>在 AnimBP 的 <code class="usage-code">Blend Space Player</code> 上用同一套轴参数（速度、方向）驱动；分析数据用于编辑时摆点与运行时匹配，不是单独的组件。</li><li>根运动必须在动画上正确烘焙。原地循环且无根位移的片段分析会得到接近零的速度。运行时若要读分析缓存，依赖 <code class="usage-code">BlendSpaceMotionAnalysis</code>，以该模块 Public 头文件为准。</li></ol><p class="usage-note">在 Blend Space 编辑器里分析根运动以自动摆轴。没有可放置组件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Blendspace Motion Analysis</code> (module <code class="usage-code">BlendSpaceMotionAnalysis</code>). It adds locomotion/root-motion analysis to Blend Spaces; it does not add a new animation asset type.</li><li>Open an existing <code class="usage-code">Blend Space</code> (or an Aim Offset with axes). In the editor Analysis properties, enable motion analysis quantities derived from root motion (speed, direction, and similar).</li><li>Run analysis on each sample animation so the plugin derives axis values from root displacement, then place sample points on the Speed/Direction grid instead of typing axes by hand.</li><li>Drive the same axes from an AnimBP <code class="usage-code">Blend Space Player</code> (speed, direction). The analysis cache is for authoring and matching, not a separate component.</li><li>Root motion must be baked on the clips. In-place loops with no root displacement analyze near zero speed. If runtime code reads the analysis cache, depend on <code class="usage-code">BlendSpaceMotionAnalysis</code> and its Public headers.</li></ol><p class="usage-note">Analyzes root motion inside the Blend Space editor to place axes. There is no placeable component.</p></div></div></div>
+    </div>
+

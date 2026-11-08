@@ -1,0 +1,304 @@
+[
+  {
+    "slug": "renderer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Renderer` 位于 `Runtime`，构建规则 `Runtime/Renderer/Renderer.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AutoRTFM`, `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `ImageWriteQueue`, `MaterialShaderQualitySettings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Renderer\" });`；对外暴露 `Renderer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Renderer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Renderer.h` / `RendererModule.h`），再用 `FModuleManager::LoadModulePtr<RendererModule>` 或直接使用导出类型。",
+      "传递依赖：`Renderer` 还依赖 `ApplicationCore`, `AutoRTFM`, `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `ImageWriteQueue`, `MaterialShaderQualitySettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Renderer` lives under `Runtime`; build rule `Runtime/Renderer/Renderer.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AutoRTFM`, `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `ImageWriteQueue`, `MaterialShaderQualitySettings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Renderer\" });`. Use Public when exposing `Renderer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Renderer` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Renderer.h` / `RendererModule.h`), then use `FModuleManager::LoadModulePtr<RendererModule>` or the exported types directly.",
+      "Transitive deps: `Renderer` also needs `ApplicationCore`, `AutoRTFM`, `Core`, `CoreUObject`, `Engine`, `GeometryCore`, `ImageWriteQueue`, `MaterialShaderQualitySettings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Renderer` 的构建规则位于 `Runtime/Renderer/Renderer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`Renderer` build rule is `Runtime/Renderer/Renderer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "renderresourceviewer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`RenderResourceViewer` 位于 `Editor`，构建规则 `Editor/RenderResourceViewer/RenderResourceViewer.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `InputCore`, `RHI`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RenderResourceViewer\" });`；对外暴露 `RenderResourceViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`RenderResourceViewer` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `RenderResourceViewer.h` / `RenderResourceViewerModule.h`），再用 `FModuleManager::LoadModulePtr<RenderResourceViewerModule>` 或直接使用导出类型。",
+      "传递依赖：`RenderResourceViewer` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `InputCore`, `RHI`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `RenderResourceViewer` lives under `Editor`; build rule `Editor/RenderResourceViewer/RenderResourceViewer.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `InputCore`, `RHI`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RenderResourceViewer\" });`. Use Public when exposing `RenderResourceViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `RenderResourceViewer` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `RenderResourceViewer.h` / `RenderResourceViewerModule.h`), then use `FModuleManager::LoadModulePtr<RenderResourceViewerModule>` or the exported types directly.",
+      "Transitive deps: `RenderResourceViewer` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `InputCore`, `RHI`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`RenderResourceViewer` 的构建规则位于 `Editor/RenderResourceViewer/RenderResourceViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`RenderResourceViewer` build rule is `Editor/RenderResourceViewer/RenderResourceViewer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "replicationsystemlowleveltests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ReplicationSystemLowLevelTests` 位于 `Programs`，构建规则 `Programs/ReplicationSystemLowLevelTests/ReplicationSystemLowLevelTests.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `IrisCore`, `ReplicationSystemTestPlugin`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ReplicationSystemLowLevelTests\" });`；对外暴露 `ReplicationSystemLowLevelTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ReplicationSystemLowLevelTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ReplicationSystemLowLevelTests.h` / `ReplicationSystemLowLevelTestsModule.h`），再用 `FModuleManager::LoadModulePtr<ReplicationSystemLowLevelTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`ReplicationSystemLowLevelTests` 还依赖 `Core`, `CoreUObject`, `IrisCore`, `ReplicationSystemTestPlugin`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ReplicationSystemLowLevelTests` lives under `Programs`; build rule `Programs/ReplicationSystemLowLevelTests/ReplicationSystemLowLevelTests.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `IrisCore`, `ReplicationSystemTestPlugin`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ReplicationSystemLowLevelTests\" });`. Use Public when exposing `ReplicationSystemLowLevelTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ReplicationSystemLowLevelTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ReplicationSystemLowLevelTests.h` / `ReplicationSystemLowLevelTestsModule.h`), then use `FModuleManager::LoadModulePtr<ReplicationSystemLowLevelTestsModule>` or the exported types directly.",
+      "Transitive deps: `ReplicationSystemLowLevelTests` also needs `Core`, `CoreUObject`, `IrisCore`, `ReplicationSystemTestPlugin`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ReplicationSystemLowLevelTests` 的构建规则位于 `Programs/ReplicationSystemLowLevelTests/ReplicationSystemLowLevelTests.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`ReplicationSystemLowLevelTests` build rule is `Programs/ReplicationSystemLowLevelTests/ReplicationSystemLowLevelTests.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "rewinddebuggerinterface",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`RewindDebuggerInterface` 位于 `Editor`，构建规则 `Editor/RewindDebuggerInterface/RewindDebuggerInterface.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `Slate`, `SlateCore`, `ToolWidgets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RewindDebuggerInterface\" });`；对外暴露 `RewindDebuggerInterface` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`RewindDebuggerInterface` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `RewindDebuggerInterface.h` / `RewindDebuggerInterfaceModule.h`），再用 `FModuleManager::LoadModulePtr<RewindDebuggerInterfaceModule>` 或直接使用导出类型。",
+      "传递依赖：`RewindDebuggerInterface` 还依赖 `Core`, `CoreUObject`, `Slate`, `SlateCore`, `ToolWidgets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `RewindDebuggerInterface` lives under `Editor`; build rule `Editor/RewindDebuggerInterface/RewindDebuggerInterface.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `Slate`, `SlateCore`, `ToolWidgets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RewindDebuggerInterface\" });`. Use Public when exposing `RewindDebuggerInterface` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `RewindDebuggerInterface` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `RewindDebuggerInterface.h` / `RewindDebuggerInterfaceModule.h`), then use `FModuleManager::LoadModulePtr<RewindDebuggerInterfaceModule>` or the exported types directly.",
+      "Transitive deps: `RewindDebuggerInterface` also needs `Core`, `CoreUObject`, `Slate`, `SlateCore`, `ToolWidgets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`RewindDebuggerInterface` 的构建规则位于 `Editor/RewindDebuggerInterface/RewindDebuggerInterface.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`RewindDebuggerInterface` build rule is `Editor/RewindDebuggerInterface/RewindDebuggerInterface.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "rewinddebuggerruntimeinterface",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`RewindDebuggerRuntimeInterface` 位于 `Runtime`，构建规则 `Runtime/RewindDebuggerRuntimeInterface/RewindDebuggerRuntimeInterface.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RewindDebuggerRuntimeInterface\" });`；对外暴露 `RewindDebuggerRuntimeInterface` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`RewindDebuggerRuntimeInterface` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `RewindDebuggerRuntimeInterface.h` / `RewindDebuggerRuntimeInterfaceModule.h`），再用 `FModuleManager::LoadModulePtr<RewindDebuggerRuntimeInterfaceModule>` 或直接使用导出类型。",
+      "传递依赖：`RewindDebuggerRuntimeInterface` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `RewindDebuggerRuntimeInterface` lives under `Runtime`; build rule `Runtime/RewindDebuggerRuntimeInterface/RewindDebuggerRuntimeInterface.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RewindDebuggerRuntimeInterface\" });`. Use Public when exposing `RewindDebuggerRuntimeInterface` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `RewindDebuggerRuntimeInterface` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `RewindDebuggerRuntimeInterface.h` / `RewindDebuggerRuntimeInterfaceModule.h`), then use `FModuleManager::LoadModulePtr<RewindDebuggerRuntimeInterfaceModule>` or the exported types directly.",
+      "Transitive deps: `RewindDebuggerRuntimeInterface` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`RewindDebuggerRuntimeInterface` 的构建规则位于 `Runtime/RewindDebuggerRuntimeInterface/RewindDebuggerRuntimeInterface.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`RewindDebuggerRuntimeInterface` build rule is `Runtime/RewindDebuggerRuntimeInterface/RewindDebuggerRuntimeInterface.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "rhi",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`RHI` 位于 `Runtime`，构建规则 `Runtime/RHI/RHI.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `Cbor`, `Core`, `TraceLog`, `WindowsD3D`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RHI\" });`；对外暴露 `RHI` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`RHI` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `RHI.h` / `RHIModule.h`），再用 `FModuleManager::LoadModulePtr<RHIModule>` 或直接使用导出类型。",
+      "传递依赖：`RHI` 还依赖 `ApplicationCore`, `Cbor`, `Core`, `TraceLog`, `WindowsD3D`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `RHI` lives under `Runtime`; build rule `Runtime/RHI/RHI.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `Cbor`, `Core`, `TraceLog`, `WindowsD3D`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RHI\" });`. Use Public when exposing `RHI` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `RHI` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `RHI.h` / `RHIModule.h`), then use `FModuleManager::LoadModulePtr<RHIModule>` or the exported types directly.",
+      "Transitive deps: `RHI` also needs `ApplicationCore`, `Cbor`, `Core`, `TraceLog`, `WindowsD3D`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`RHI` 的构建规则位于 `Runtime/RHI/RHI.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`RHI` build rule is `Runtime/RHI/RHI.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "rhicore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`RHICore` 位于 `Runtime`，构建规则 `Runtime/RHICore/RHICore.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RHICore\" });`；对外暴露 `RHICore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`RHICore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `RHICore.h` / `RHICoreModule.h`），再用 `FModuleManager::LoadModulePtr<RHICoreModule>` 或直接使用导出类型。",
+      "传递依赖：`RHICore` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `RHICore` lives under `Runtime`; build rule `Runtime/RHICore/RHICore.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RHICore\" });`. Use Public when exposing `RHICore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `RHICore` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `RHICore.h` / `RHICoreModule.h`), then use `FModuleManager::LoadModulePtr<RHICoreModule>` or the exported types directly.",
+      "Transitive deps: `RHICore` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`RHICore` 的构建规则位于 `Runtime/RHICore/RHICore.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`RHICore` build rule is `Runtime/RHICore/RHICore.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "rigidphysics",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`RigidPhysics` 位于 `Runtime`，构建规则 `Runtime/Experimental/RigidPhysics/RigidPhysics.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RigidPhysics\" });`；对外暴露 `RigidPhysics` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`RigidPhysics` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `RigidPhysics.h` / `RigidPhysicsModule.h`），再用 `FModuleManager::LoadModulePtr<RigidPhysicsModule>` 或直接使用导出类型。",
+      "传递依赖：`RigidPhysics` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`RigidPhysics` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `RigidPhysics` lives under `Runtime`; build rule `Runtime/Experimental/RigidPhysics/RigidPhysics.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RigidPhysics\" });`. Use Public when exposing `RigidPhysics` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `RigidPhysics` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `RigidPhysics.h` / `RigidPhysicsModule.h`), then use `FModuleManager::LoadModulePtr<RigidPhysicsModule>` or the exported types directly.",
+      "Transitive deps: `RigidPhysics` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers.",
+      "Note: `RigidPhysics` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`RigidPhysics` 的构建规则位于 `Runtime/Experimental/RigidPhysics/RigidPhysics.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`RigidPhysics` build rule is `Runtime/Experimental/RigidPhysics/RigidPhysics.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "rpclib",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`RPCLib` 位于 `ThirdParty`，构建规则 `ThirdParty/rpclib/rpclib.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RPCLib\" });`；对外暴露 `RPCLib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`RPCLib` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `RPCLib.h` / `RPCLibModule.h`），再用 `FModuleManager::LoadModulePtr<RPCLibModule>` 或直接使用导出类型。",
+      "传递依赖：`RPCLib` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `RPCLib` lives under `ThirdParty`; build rule `ThirdParty/rpclib/rpclib.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RPCLib\" });`. Use Public when exposing `RPCLib` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `RPCLib` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `RPCLib.h` / `RPCLibModule.h`), then use `FModuleManager::LoadModulePtr<RPCLibModule>` or the exported types directly.",
+      "Transitive deps: `RPCLib` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`RPCLib` 的构建规则位于 `ThirdParty/rpclib/rpclib.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`RPCLib` build rule is `ThirdParty/rpclib/rpclib.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "rsa",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`RSA` 位于 `Runtime`，构建规则 `Runtime/RSA/RSA.Build.cs`。它直接依赖 2 个模块：`Core`, `OpenSSL`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RSA\" });`；对外暴露 `RSA` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`RSA` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `RSA.h` / `RSAModule.h`），再用 `FModuleManager::LoadModulePtr<RSAModule>` 或直接使用导出类型。",
+      "传递依赖：`RSA` 还依赖 `Core`, `OpenSSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `RSA` lives under `Runtime`; build rule `Runtime/RSA/RSA.Build.cs`.It directly depends on 2 modules: `Core`, `OpenSSL`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RSA\" });`. Use Public when exposing `RSA` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `RSA` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `RSA.h` / `RSAModule.h`), then use `FModuleManager::LoadModulePtr<RSAModule>` or the exported types directly.",
+      "Transitive deps: `RSA` also needs `Core`, `OpenSSL`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`RSA` 的构建规则位于 `Runtime/RSA/RSA.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`RSA` build rule is `Runtime/RSA/RSA.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "runtimeassetcache",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`RuntimeAssetCache` 位于 `Runtime`，构建规则 `Runtime/RuntimeAssetCache/RuntimeAssetCache.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"RuntimeAssetCache\" });`；对外暴露 `RuntimeAssetCache` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`RuntimeAssetCache` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `RuntimeAssetCache.h` / `RuntimeAssetCacheModule.h`），再用 `FModuleManager::LoadModulePtr<RuntimeAssetCacheModule>` 或直接使用导出类型。",
+      "传递依赖：`RuntimeAssetCache` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `RuntimeAssetCache` lives under `Runtime`; build rule `Runtime/RuntimeAssetCache/RuntimeAssetCache.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"RuntimeAssetCache\" });`. Use Public when exposing `RuntimeAssetCache` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `RuntimeAssetCache` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `RuntimeAssetCache.h` / `RuntimeAssetCacheModule.h`), then use `FModuleManager::LoadModulePtr<RuntimeAssetCacheModule>` or the exported types directly.",
+      "Transitive deps: `RuntimeAssetCache` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`RuntimeAssetCache` 的构建规则位于 `Runtime/RuntimeAssetCache/RuntimeAssetCache.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`RuntimeAssetCache` build rule is `Runtime/RuntimeAssetCache/RuntimeAssetCache.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "s3client",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`S3Client` 位于 `Developer`，构建规则 `Developer/S3Client/S3Client.Build.cs`。它直接依赖 6 个模块：`Core`, `Json`, `SSL`, `Sockets`, `XmlParser`, `libcurl`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"S3Client\" });`；对外暴露 `S3Client` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`S3Client` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `S3Client.h` / `S3ClientModule.h`），再用 `FModuleManager::LoadModulePtr<S3ClientModule>` 或直接使用导出类型。",
+      "传递依赖：`S3Client` 还依赖 `Core`, `Json`, `SSL`, `Sockets`, `XmlParser`, `libcurl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `S3Client` lives under `Developer`; build rule `Developer/S3Client/S3Client.Build.cs`.It directly depends on 6 modules: `Core`, `Json`, `SSL`, `Sockets`, `XmlParser`, `libcurl`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"S3Client\" });`. Use Public when exposing `S3Client` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `S3Client` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `S3Client.h` / `S3ClientModule.h`), then use `FModuleManager::LoadModulePtr<S3ClientModule>` or the exported types directly.",
+      "Transitive deps: `S3Client` also needs `Core`, `Json`, `SSL`, `Sockets`, `XmlParser`, `libcurl`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`S3Client` 的构建规则位于 `Developer/S3Client/S3Client.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`S3Client` build rule is `Developer/S3Client/S3Client.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "sandboxfile",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SandboxFile` 位于 `Runtime`，构建规则 `Runtime/SandboxFile/SandboxFile.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SandboxFile\" });`；对外暴露 `SandboxFile` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SandboxFile` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `SandboxFile.h` / `SandboxFileModule.h`），再用 `FModuleManager::LoadModulePtr<SandboxFileModule>` 或直接使用导出类型。",
+      "传递依赖：`SandboxFile` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SandboxFile` lives under `Runtime`; build rule `Runtime/SandboxFile/SandboxFile.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SandboxFile\" });`. Use Public when exposing `SandboxFile` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SandboxFile` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `SandboxFile.h` / `SandboxFileModule.h`), then use `FModuleManager::LoadModulePtr<SandboxFileModule>` or the exported types directly.",
+      "Transitive deps: `SandboxFile` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SandboxFile` 的构建规则位于 `Runtime/SandboxFile/SandboxFile.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`SandboxFile` build rule is `Runtime/SandboxFile/SandboxFile.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "savegamenetworkreplaystreaming",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SaveGameNetworkReplayStreaming` 位于 `Runtime`，构建规则 `Runtime/NetworkReplayStreaming/SaveGameNetworkReplayStreaming/SaveGameNetworkReplayStreaming.Build.cs`。它直接依赖 5 个模块：`Core`, `Engine`, `Json`, `LocalFileNetworkReplayStreaming`, `NetworkReplayStreaming`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SaveGameNetworkReplayStreaming\" });`；对外暴露 `SaveGameNetworkReplayStreaming` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SaveGameNetworkReplayStreaming` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `SaveGameNetworkReplayStreaming.h` / `SaveGameNetworkReplayStreamingModule.h`），再用 `FModuleManager::LoadModulePtr<SaveGameNetworkReplayStreamingModule>` 或直接使用导出类型。",
+      "传递依赖：`SaveGameNetworkReplayStreaming` 还依赖 `Core`, `Engine`, `Json`, `LocalFileNetworkReplayStreaming`, `NetworkReplayStreaming`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SaveGameNetworkReplayStreaming` lives under `Runtime`; build rule `Runtime/NetworkReplayStreaming/SaveGameNetworkReplayStreaming/SaveGameNetworkReplayStreaming.Build.cs`.It directly depends on 5 modules: `Core`, `Engine`, `Json`, `LocalFileNetworkReplayStreaming`, `NetworkReplayStreaming`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SaveGameNetworkReplayStreaming\" });`. Use Public when exposing `SaveGameNetworkReplayStreaming` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SaveGameNetworkReplayStreaming` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `SaveGameNetworkReplayStreaming.h` / `SaveGameNetworkReplayStreamingModule.h`), then use `FModuleManager::LoadModulePtr<SaveGameNetworkReplayStreamingModule>` or the exported types directly.",
+      "Transitive deps: `SaveGameNetworkReplayStreaming` also needs `Core`, `Engine`, `Json`, `LocalFileNetworkReplayStreaming`, `NetworkReplayStreaming`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SaveGameNetworkReplayStreaming` 的构建规则位于 `Runtime/NetworkReplayStreaming/SaveGameNetworkReplayStreaming/SaveGameNetworkReplayStreaming.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`SaveGameNetworkReplayStreaming` build rule is `Runtime/NetworkReplayStreaming/SaveGameNetworkReplayStreaming/SaveGameNetworkReplayStreaming.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "sblcore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SblCore` 位于 `Programs`，构建规则 `Programs/SwitchboardListener/SblCore/SblCore.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `JWT`, `Json`, `JsonUtilities`, `MsQuic`, `MsQuicRuntime`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SblCore\" });`；对外暴露 `SblCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SblCore` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `SblCore.h` / `SblCoreModule.h`），再用 `FModuleManager::LoadModulePtr<SblCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`SblCore` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `JWT`, `Json`, `JsonUtilities`, `MsQuic`, `MsQuicRuntime`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SblCore` lives under `Programs`; build rule `Programs/SwitchboardListener/SblCore/SblCore.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `JWT`, `Json`, `JsonUtilities`, `MsQuic`, `MsQuicRuntime`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SblCore\" });`. Use Public when exposing `SblCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SblCore` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `SblCore.h` / `SblCoreModule.h`), then use `FModuleManager::LoadModulePtr<SblCoreModule>` or the exported types directly.",
+      "Transitive deps: `SblCore` also needs `ApplicationCore`, `Core`, `CoreUObject`, `JWT`, `Json`, `JsonUtilities`, `MsQuic`, `MsQuicRuntime`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SblCore` 的构建规则位于 `Programs/SwitchboardListener/SblCore/SblCore.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SblCore` build rule is `Programs/SwitchboardListener/SblCore/SblCore.Build.cs`; depends on 8 modules; category Module."
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "workspacemenustructure",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WorkspaceMenuStructure` 位于 `Editor`，构建规则 `Editor/WorkspaceMenuStructure/WorkspaceMenuStructure.Build.cs`。它直接依赖 4 个模块：`Core`, `EditorStyle`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WorkspaceMenuStructure\" });`；对外暴露 `WorkspaceMenuStructure` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WorkspaceMenuStructure` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `WorkspaceMenuStructure.h` / `WorkspaceMenuStructureModule.h`），再用 `FModuleManager::LoadModulePtr<WorkspaceMenuStructureModule>` 或直接使用导出类型。",
+      "传递依赖：`WorkspaceMenuStructure` 还依赖 `Core`, `EditorStyle`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WorkspaceMenuStructure` lives under `Editor`; build rule `Editor/WorkspaceMenuStructure/WorkspaceMenuStructure.Build.cs`.It directly depends on 4 modules: `Core`, `EditorStyle`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WorkspaceMenuStructure\" });`. Use Public when exposing `WorkspaceMenuStructure` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WorkspaceMenuStructure` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `WorkspaceMenuStructure.h` / `WorkspaceMenuStructureModule.h`), then use `FModuleManager::LoadModulePtr<WorkspaceMenuStructureModule>` or the exported types directly.",
+      "Transitive deps: `WorkspaceMenuStructure` also needs `Core`, `EditorStyle`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WorkspaceMenuStructure` 的构建规则位于 `Editor/WorkspaceMenuStructure/WorkspaceMenuStructure.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`WorkspaceMenuStructure` build rule is `Editor/WorkspaceMenuStructure/WorkspaceMenuStructure.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "worldbookmark",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WorldBookmark` 位于 `Editor`，构建规则 `Editor/WorldBookmark/WorldBookmark.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WorldBookmark\" });`；对外暴露 `WorldBookmark` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WorldBookmark` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `WorldBookmark.h` / `WorldBookmarkModule.h`），再用 `FModuleManager::LoadModulePtr<WorldBookmarkModule>` 或直接使用导出类型。",
+      "传递依赖：`WorldBookmark` 还依赖 `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WorldBookmark` lives under `Editor`; build rule `Editor/WorldBookmark/WorldBookmark.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WorldBookmark\" });`. Use Public when exposing `WorldBookmark` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WorldBookmark` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `WorldBookmark.h` / `WorldBookmarkModule.h`), then use `FModuleManager::LoadModulePtr<WorldBookmarkModule>` or the exported types directly.",
+      "Transitive deps: `WorldBookmark` also needs `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WorldBookmark` 的构建规则位于 `Editor/WorldBookmark/WorldBookmark.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`WorldBookmark` build rule is `Editor/WorldBookmark/WorldBookmark.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "worldbrowser",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WorldBrowser` 位于 `Editor`，构建规则 `Editor/WorldBrowser/WorldBrowser.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorConfig`, `EditorFramework`, `EditorWidgets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WorldBrowser\" });`；对外暴露 `WorldBrowser` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WorldBrowser` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `WorldBrowser.h` / `WorldBrowserModule.h`），再用 `FModuleManager::LoadModulePtr<WorldBrowserModule>` 或直接使用导出类型。",
+      "传递依赖：`WorldBrowser` 还依赖 `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorConfig`, `EditorFramework`, `EditorWidgets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WorldBrowser` lives under `Editor`; build rule `Editor/WorldBrowser/WorldBrowser.Build.cs`.It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorConfig`, `EditorFramework`, `EditorWidgets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WorldBrowser\" });`. Use Public when exposing `WorldBrowser` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WorldBrowser` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `WorldBrowser.h` / `WorldBrowserModule.h`), then use `FModuleManager::LoadModulePtr<WorldBrowserModule>` or the exported types directly.",
+      "Transitive deps: `WorldBrowser` also needs `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorConfig`, `EditorFramework`, `EditorWidgets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WorldBrowser` 的构建规则位于 `Editor/WorldBrowser/WorldBrowser.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`WorldBrowser` build rule is `Editor/WorldBrowser/WorldBrowser.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "worldpartitioneditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WorldPartitionEditor` 位于 `Editor`，构建规则 `Editor/WorldPartitionEditor/WorldPartitionEditor.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetRegistry`, `CommonMenuExtensions`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`, `DataLayerEditor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WorldPartitionEditor\" });`；对外暴露 `WorldPartitionEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WorldPartitionEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `WorldPartitionEditor.h` / `WorldPartitionEditorModule.h`），再用 `FModuleManager::LoadModulePtr<WorldPartitionEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`WorldPartitionEditor` 还依赖 `ApplicationCore`, `AssetRegistry`, `CommonMenuExtensions`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`, `DataLayerEditor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WorldPartitionEditor` lives under `Editor`; build rule `Editor/WorldPartitionEditor/WorldPartitionEditor.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `CommonMenuExtensions`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`, `DataLayerEditor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WorldPartitionEditor\" });`. Use Public when exposing `WorldPartitionEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WorldPartitionEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `WorldPartitionEditor.h` / `WorldPartitionEditorModule.h`), then use `FModuleManager::LoadModulePtr<WorldPartitionEditorModule>` or the exported types directly.",
+      "Transitive deps: `WorldPartitionEditor` also needs `ApplicationCore`, `AssetRegistry`, `CommonMenuExtensions`, `ContentBrowser`, `ContentBrowserData`, `Core`, `CoreUObject`, `DataLayerEditor`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WorldPartitionEditor` 的构建规则位于 `Editor/WorldPartitionEditor/WorldPartitionEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`WorldPartitionEditor` build rule is `Editor/WorldPartitionEditor/WorldPartitionEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "xaudio2_9",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`XAudio2_9` 位于 `ThirdParty`，构建规则 `ThirdParty/Windows/XAudio2_9/XAudio2_9.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"XAudio2_9\" });`；对外暴露 `XAudio2_9` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`XAudio2_9` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `XAudio29.h` / `XAudio29Module.h`），再用 `FModuleManager::LoadModulePtr<XAudio29Module>` 或直接使用导出类型。",
+      "传递依赖：`XAudio2_9` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `XAudio2_9` lives under `ThirdParty`; build rule `ThirdParty/Windows/XAudio2_9/XAudio2_9.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"XAudio2_9\" });`. Use Public when exposing `XAudio2_9` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `XAudio2_9` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `XAudio29.h` / `XAudio29Module.h`), then use `FModuleManager::LoadModulePtr<XAudio29Module>` or the exported types directly.",
+      "Transitive deps: `XAudio2_9` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`XAudio2_9` 的构建规则位于 `ThirdParty/Windows/XAudio2_9/XAudio2_9.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`XAudio2_9` build rule is `ThirdParty/Windows/XAudio2_9/XAudio2_9.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "xinput",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`XInput` 位于 `ThirdParty`，构建规则 `ThirdParty/Windows/XInput/XInput.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"XInput\" });`；对外暴露 `XInput` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`XInput` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `XInput.h` / `XInputModule.h`），再用 `FModuleManager::LoadModulePtr<XInputModule>` 或直接使用导出类型。",
+      "传递依赖：`XInput` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `XInput` lives under `ThirdParty`; build rule `ThirdParty/Windows/XInput/XInput.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"XInput\" });`. Use Public when exposing `XInput` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `XInput` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `XInput.h` / `XInputModule.h`), then use `FModuleManager::LoadModulePtr<XInputModule>` or the exported types directly.",
+      "Transitive deps: `XInput` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`XInput` 的构建规则位于 `ThirdParty/Windows/XInput/XInput.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`XInput` build rule is `ThirdParty/Windows/XInput/XInput.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "xmlparser",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`XmlParser` 位于 `Runtime`，构建规则 `Runtime/XmlParser/XmlParser.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"XmlParser\" });`；对外暴露 `XmlParser` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`XmlParser` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `XmlParser.h` / `XmlParserModule.h`），再用 `FModuleManager::LoadModulePtr<XmlParserModule>` 或直接使用导出类型。",
+      "传递依赖：`XmlParser` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `XmlParser` lives under `Runtime`; build rule `Runtime/XmlParser/XmlParser.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"XmlParser\" });`. Use Public when exposing `XmlParser` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `XmlParser` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `XmlParser.h` / `XmlParserModule.h`), then use `FModuleManager::LoadModulePtr<XmlParserModule>` or the exported types directly.",
+      "Transitive deps: `XmlParser` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`XmlParser` 的构建规则位于 `Runtime/XmlParser/XmlParser.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`XmlParser` build rule is `Runtime/XmlParser/XmlParser.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "xmpp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`XMPP` 位于 `Runtime`，构建规则 `Runtime/Online/XMPP/XMPP.Build.cs`。它直接依赖 3 个模块：`Core`, `Json`, `WebSockets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"XMPP\" });`；对外暴露 `XMPP` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`XMPP` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `XMPP.h` / `XMPPModule.h`），再用 `FModuleManager::LoadModulePtr<XMPPModule>` 或直接使用导出类型。",
+      "传递依赖：`XMPP` 还依赖 `Core`, `Json`, `WebSockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `XMPP` lives under `Runtime`; build rule `Runtime/Online/XMPP/XMPP.Build.cs`.It directly depends on 3 modules: `Core`, `Json`, `WebSockets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"XMPP\" });`. Use Public when exposing `XMPP` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `XMPP` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `XMPP.h` / `XMPPModule.h`), then use `FModuleManager::LoadModulePtr<XMPPModule>` or the exported types directly.",
+      "Transitive deps: `XMPP` also needs `Core`, `Json`, `WebSockets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`XMPP` 的构建规则位于 `Runtime/Online/XMPP/XMPP.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`XMPP` build rule is `Runtime/Online/XMPP/XMPP.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "xxhash",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`xxhash` 位于 `ThirdParty`，构建规则 `ThirdParty/xxhash/xxhash.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"xxhash\" });`；对外暴露 `xxhash` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`xxhash` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `xxhash.h` / `xxhashModule.h`），再用 `FModuleManager::LoadModulePtr<xxhashModule>` 或直接使用导出类型。",
+      "传递依赖：`xxhash` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `xxhash` lives under `ThirdParty`; build rule `ThirdParty/xxhash/xxhash.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"xxhash\" });`. Use Public when exposing `xxhash` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `xxhash` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `xxhash.h` / `xxhashModule.h`), then use `FModuleManager::LoadModulePtr<xxhashModule>` or the exported types directly.",
+      "Transitive deps: `xxhash` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`xxhash` 的构建规则位于 `ThirdParty/xxhash/xxhash.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`xxhash` build rule is `ThirdParty/xxhash/xxhash.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "zen",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Zen` 位于 `Developer`，构建规则 `Developer/Zen/Zen.Build.cs`。它直接依赖 8 个模块：`Core`, `DevHttp`, `HTTP`, `Json`, `SSL`, `Sockets`, `StudioTelemetry`, `XCurl`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Zen\" });`；对外暴露 `Zen` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Zen` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `Zen.h` / `ZenModule.h`），再用 `FModuleManager::LoadModulePtr<ZenModule>` 或直接使用导出类型。",
+      "传递依赖：`Zen` 还依赖 `Core`, `DevHttp`, `HTTP`, `Json`, `SSL`, `Sockets`, `StudioTelemetry`, `XCurl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Zen` lives under `Developer`; build rule `Developer/Zen/Zen.Build.cs`.It directly depends on 8 modules: `Core`, `DevHttp`, `HTTP`, `Json`, `SSL`, `Sockets`, `StudioTelemetry`, `XCurl`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Zen\" });`. Use Public when exposing `Zen` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Zen` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `Zen.h` / `ZenModule.h`), then use `FModuleManager::LoadModulePtr<ZenModule>` or the exported types directly.",
+      "Transitive deps: `Zen` also needs `Core`, `DevHttp`, `HTTP`, `Json`, `SSL`, `Sockets`, `StudioTelemetry`, `XCurl`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Zen` 的构建规则位于 `Developer/Zen/Zen.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`Zen` build rule is `Developer/Zen/Zen.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "zendashboard",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ZenDashboard` 位于 `Programs`，构建规则 `Programs/ZenDashboard/ZenDashboard.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `HTTP`, `Json`, `Projects`, `SSL`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ZenDashboard\" });`；对外暴露 `ZenDashboard` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ZenDashboard` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ZenDashboard.h` / `ZenDashboardModule.h`），再用 `FModuleManager::LoadModulePtr<ZenDashboardModule>` 或直接使用导出类型。",
+      "传递依赖：`ZenDashboard` 还依赖 `ApplicationCore`, `Core`, `HTTP`, `Json`, `Projects`, `SSL`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ZenDashboard` lives under `Programs`; build rule `Programs/ZenDashboard/ZenDashboard.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `HTTP`, `Json`, `Projects`, `SSL`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ZenDashboard\" });`. Use Public when exposing `ZenDashboard` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ZenDashboard` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ZenDashboard.h` / `ZenDashboardModule.h`), then use `FModuleManager::LoadModulePtr<ZenDashboardModule>` or the exported types directly.",
+      "Transitive deps: `ZenDashboard` also needs `ApplicationCore`, `Core`, `HTTP`, `Json`, `Projects`, `SSL`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ZenDashboard` 的构建规则位于 `Programs/ZenDashboard/ZenDashboard.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ZenDashboard` build rule is `Programs/ZenDashboard/ZenDashboard.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "zeneditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ZenEditor` 位于 `Editor`，构建规则 `Editor/ZenEditor/ZenEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DerivedDataCache`, `DerivedDataWidgets`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ZenEditor\" });`；对外暴露 `ZenEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ZenEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ZenEditor.h` / `ZenEditorModule.h`），再用 `FModuleManager::LoadModulePtr<ZenEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`ZenEditor` 还依赖 `Core`, `CoreUObject`, `DerivedDataCache`, `DerivedDataWidgets`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ZenEditor` lives under `Editor`; build rule `Editor/ZenEditor/ZenEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DerivedDataCache`, `DerivedDataWidgets`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ZenEditor\" });`. Use Public when exposing `ZenEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ZenEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ZenEditor.h` / `ZenEditorModule.h`), then use `FModuleManager::LoadModulePtr<ZenEditorModule>` or the exported types directly.",
+      "Transitive deps: `ZenEditor` also needs `Core`, `CoreUObject`, `DerivedDataCache`, `DerivedDataWidgets`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ZenEditor` 的构建规则位于 `Editor/ZenEditor/ZenEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ZenEditor` build rule is `Editor/ZenEditor/ZenEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "zenlaunch",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ZenLaunch` 位于 `Programs`，构建规则 `Programs/ZenLaunch/ZenLaunch.Build.cs`。它直接依赖 4 个模块：`Core`, `Json`, `Projects`, `Zen`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ZenLaunch\" });`；对外暴露 `ZenLaunch` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ZenLaunch` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ZenLaunch.h` / `ZenLaunchModule.h`），再用 `FModuleManager::LoadModulePtr<ZenLaunchModule>` 或直接使用导出类型。",
+      "传递依赖：`ZenLaunch` 还依赖 `Core`, `Json`, `Projects`, `Zen`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ZenLaunch` lives under `Programs`; build rule `Programs/ZenLaunch/ZenLaunch.Build.cs`.It directly depends on 4 modules: `Core`, `Json`, `Projects`, `Zen`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ZenLaunch\" });`. Use Public when exposing `ZenLaunch` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ZenLaunch` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ZenLaunch.h` / `ZenLaunchModule.h`), then use `FModuleManager::LoadModulePtr<ZenLaunchModule>` or the exported types directly.",
+      "Transitive deps: `ZenLaunch` also needs `Core`, `Json`, `Projects`, `Zen`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ZenLaunch` 的构建规则位于 `Programs/ZenLaunch/ZenLaunch.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`ZenLaunch` build rule is `Programs/ZenLaunch/ZenLaunch.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "zenoplogdifftool",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ZenOplogDiffTool` 位于 `Programs`，构建规则 `Programs/ZenOplogDiffTool/ZenOplogDiffTool.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `Core`, `DesktopPlatform`, `Projects`, `ZenOplogUtils`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ZenOplogDiffTool\" });`；对外暴露 `ZenOplogDiffTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ZenOplogDiffTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ZenOplogDiffTool.h` / `ZenOplogDiffToolModule.h`），再用 `FModuleManager::LoadModulePtr<ZenOplogDiffToolModule>` 或直接使用导出类型。",
+      "传递依赖：`ZenOplogDiffTool` 还依赖 `ApplicationCore`, `Core`, `DesktopPlatform`, `Projects`, `ZenOplogUtils`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ZenOplogDiffTool` lives under `Programs`; build rule `Programs/ZenOplogDiffTool/ZenOplogDiffTool.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `Core`, `DesktopPlatform`, `Projects`, `ZenOplogUtils`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ZenOplogDiffTool\" });`. Use Public when exposing `ZenOplogDiffTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ZenOplogDiffTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ZenOplogDiffTool.h` / `ZenOplogDiffToolModule.h`), then use `FModuleManager::LoadModulePtr<ZenOplogDiffToolModule>` or the exported types directly.",
+      "Transitive deps: `ZenOplogDiffTool` also needs `ApplicationCore`, `Core`, `DesktopPlatform`, `Projects`, `ZenOplogUtils`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ZenOplogDiffTool` 的构建规则位于 `Programs/ZenOplogDiffTool/ZenOplogDiffTool.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`ZenOplogDiffTool` build rule is `Programs/ZenOplogDiffTool/ZenOplogDiffTool.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "zenoplogutils",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ZenOplogUtils` 位于 `Developer`，构建规则 `Developer/ZenOplogUtils/ZenOplogUtils.Build.cs`。它直接依赖 3 个模块：`Core`, `Json`, `Zen`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ZenOplogUtils\" });`；对外暴露 `ZenOplogUtils` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ZenOplogUtils` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `ZenOplogUtils.h` / `ZenOplogUtilsModule.h`），再用 `FModuleManager::LoadModulePtr<ZenOplogUtilsModule>` 或直接使用导出类型。",
+      "传递依赖：`ZenOplogUtils` 还依赖 `Core`, `Json`, `Zen`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ZenOplogUtils` lives under `Developer`; build rule `Developer/ZenOplogUtils/ZenOplogUtils.Build.cs`.It directly depends on 3 modules: `Core`, `Json`, `Zen`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ZenOplogUtils\" });`. Use Public when exposing `ZenOplogUtils` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ZenOplogUtils` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `ZenOplogUtils.h` / `ZenOplogUtilsModule.h`), then use `FModuleManager::LoadModulePtr<ZenOplogUtilsModule>` or the exported types directly.",
+      "Transitive deps: `ZenOplogUtils` also needs `Core`, `Json`, `Zen`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ZenOplogUtils` 的构建规则位于 `Developer/ZenOplogUtils/ZenOplogUtils.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ZenOplogUtils` build rule is `Developer/ZenOplogUtils/ZenOplogUtils.Build.cs`; depends on 3 modules; category Module."
+  }
+]

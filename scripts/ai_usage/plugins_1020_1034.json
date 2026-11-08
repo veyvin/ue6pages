@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "wave-tables",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Wave Tables`（运行时 `WaveTable`，编辑器 `WaveTableEditor`）。",
+      "它是虚幻音频引擎中 WaveTable 支持的默认实现（波表合成）。",
+      "用 WaveTable 资产做波表合成音源，配合合成器使用。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Wave Tables` (runtime `WaveTable`, editor `WaveTableEditor`).",
+      "It is the default implementation of WaveTable support in the Unreal audio engine (wavetable synthesis).",
+      "Use WaveTable assets as wavetable synth sources, combined with synths.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "引擎音频的 WaveTable 波表合成默认实现。",
+    "note_en": "Default WaveTable (wavetable synthesis) support in the audio engine."
+  },
+  {
+    "slug": "waveform-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Waveform Editor`（模块 `WaveformEditor`、`WaveformEditorWidgets`、`WaveformTransformations`、`WaveformTransformationsWidgets`）。",
+      "它是波形编辑器工具（可视化编辑/变换音频波形）。",
+      "在编辑器里用波形编辑器查看并变形音频波形。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Waveform Editor` (modules `WaveformEditor`, `WaveformEditorWidgets`, `WaveformTransformations`, `WaveformTransformationsWidgets`).",
+      "It is a waveform editor tool (visually edit/transform audio waveforms).",
+      "Use the waveform editor to view and morph audio waveforms in the editor.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "波形编辑器工具（可视化编辑/变换音频）。",
+    "note_en": "A waveform editor tool (visual audio waveform edit/transform)."
+  },
+  {
+    "slug": "web-authentication-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Web Authentication Plugin`（模块 `WebAuth`）。",
+      "它用于访问 Web 验证会话（Web 登录/鉴权）。",
+      "在在线登录流程里用它做 Web 鉴权，获取会话。",
+      "属在线子系统/平台服务；运行时模块。"
+    ],
+    "en_steps": [
+      "Enable `Web Authentication Plugin` (module `WebAuth`).",
+      "It provides access to web authentication sessions (web login/auth).",
+      "Use it for web auth in online login flows to obtain a session.",
+      "It is online subsystem/platform service; a runtime module."
+    ],
+    "note_cn": "访问 Web 验证会话。",
+    "note_en": "Access web authentication sessions."
+  },
+  {
+    "slug": "web-browser-to-native-proxying",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Web Browser to Native Proxying`（模块 `WebBrowserNativeProxy`）。",
+      "它维护浏览器到本机的代理，并提供注册 UObject 绑定的挂钩（让网页与引擎对象交互）。",
+      "在嵌入网页的 UI 里通过代理调用引擎 UObject。",
+      "运行时模块；用于 Web↔引擎桥接。"
+    ],
+    "en_steps": [
+      "Enable `Web Browser to Native Proxying` (module `WebBrowserNativeProxy`).",
+      "It maintains a browser-to-native proxy and provides hooks to register UObject bindings (let web pages interact with engine objects).",
+      "In embedded-web UI, call engine UObjects through the proxy.",
+      "A runtime module; for Web↔engine bridging."
+    ],
+    "note_cn": "浏览器到本机的代理（注册 UObject 绑定）。",
+    "note_en": "A browser-to-native proxy (register UObject bindings)."
+  },
+  {
+    "slug": "web-browser",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Web Browser`（模块 `WebBrowserWidget`）。",
+      "它允许用户创建 Web 浏览器小部件（在 UI 里嵌入网页）。",
+      "在 UMG 里放 Web Browser 控件加载网页。",
+      "运行时模块；用于内嵌网页 UI。"
+    ],
+    "en_steps": [
+      "Enable `Web Browser` (module `WebBrowserWidget`).",
+      "It lets users create web browser widgets (embed web pages in UI).",
+      "Place a Web Browser widget in UMG to load a web page.",
+      "A runtime module; for embedding web UI."
+    ],
+    "note_cn": "创建 Web 浏览器小部件（内嵌网页）。",
+    "note_en": "Create web browser widgets (embed web pages)."
+  },
+  {
+    "slug": "web-socket-messaging",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Web Socket Messaging`（模块 `WebSocketMessaging`）。",
+      "它为消息子系统添加基于 WebSocket 的传输层，用于联网计算机/设备间收发消息。",
+      "配置 WebSocket 消息端点，做跨机通信。",
+      "Experimental：接口可能变动；属消息总线传输层。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Web Socket Messaging` (module `WebSocketMessaging`).",
+      "It adds a WebSocket-based transport to the message subsystem for sending/receiving messages between networked computers/devices.",
+      "Configure WebSocket messaging endpoints for cross-machine communication.",
+      "Experimental: contract may change; a message-bus transport."
+    ],
+    "note_cn": "消息子系统的 WebSocket 传输层，实验性。",
+    "note_en": "A WebSocket transport for the message subsystem, experimental."
+  },
+  {
+    "slug": "webapi",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `WebAPI`（模块 `WebAPI`、`WebAPILiquidJS`、`WebAPIOpenAPI`、`WebAPIBlueprintGraph`，编辑器 `WebAPIEditor`）。",
+      "它用于自动生成基于 Web 的 API（把引擎/蓝图功能暴露成 Web 接口）。",
+      "在编辑器里配置路由/OpenAPI，生成可调用的 Web API。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `WebAPI` (modules `WebAPI`, `WebAPILiquidJS`, `WebAPIOpenAPI`, `WebAPIBlueprintGraph`, editor `WebAPIEditor`).",
+      "It auto-generates web-based APIs (expose engine/Blueprint functionality as web endpoints).",
+      "Configure routes/OpenAPI in the editor to generate callable web APIs.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "自动生成基于 Web 的 API。",
+    "note_en": "Auto-generate web-based APIs."
+  },
+  {
+    "slug": "webm-video-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `WebM Video Player`（模块 `WebMMedia`、`WebMMediaFactory`，编辑器 `WebMMediaEditor`）。",
+      "它是 WebM 视频播放器（Media Framework 里播放 .webm）。",
+      "在 Media Player 里用 WebM 源播放 webm 视频。",
+      "Game 模块依赖运行时模块；编辑器/工厂模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `WebM Video Player` (modules `WebMMedia`, `WebMMediaFactory`, editor `WebMMediaEditor`).",
+      "It is a WebM video player (play .webm in Media Framework).",
+      "Play webm video via a WebM source in a Media Player.",
+      "Game modules depend on runtime modules; editor/factory modules go to Editor targets only."
+    ],
+    "note_cn": "WebM 视频播放器。",
+    "note_en": "A WebM video player."
+  },
+  {
+    "slug": "widget-animation-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Widget Animation Toolset`（模块 `WidgetAnimationToolset`）。",
+      "它是用于创作 UWidgetAnimation 的 AI 助手工具（UMG Widget 蓝图上的生命周期与小部件绑定）。",
+      "在 UMG 里用 AI 助手批量创建/调整控件动画。",
+      "属 AI 工具链/UI 自动化；非运行时功能。"
+    ],
+    "en_steps": [
+      "Enable `Widget Animation Toolset` (module `WidgetAnimationToolset`).",
+      "It is an AI-assistant tool for authoring UWidgetAnimation (lifecycle and widget bindings on UMG Widget Blueprints).",
+      "Use the AI assistant to batch-create/adjust widget animations in UMG.",
+      "It is AI-toolchain/UI automation, not a runtime feature."
+    ],
+    "note_cn": "创作 UWidgetAnimation 的 AI 助手工具。",
+    "note_en": "An AI-assistant tool for authoring UWidgetAnimation."
+  },
+  {
+    "slug": "widget-finder",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Widget Finder`（模块 `WidgetFinderCore`、`WidgetFinderSQLite`、`WidgetFinderTEDS`、`WidgetFinder`，编辑器 `WidgetFinderEditor`）。",
+      "它通过查询查找实时 Slate 小部件：把运行中的小部件树镜像到可查询存储，并提供浏览器面板搜索与高亮。",
+      "在 UI 调试时用浏览器面板查询小部件并在屏幕上高亮匹配项。",
+      "这是编辑器/调试工具；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Widget Finder` (modules `WidgetFinderCore`, `WidgetFinderSQLite`, `WidgetFinderTEDS`, `WidgetFinder`, editor `WidgetFinderEditor`).",
+      "It finds live Slate widgets via queries: mirrors the running widget tree into a queryable store and adds a browser panel to search and highlight matches on screen.",
+      "During UI debugging, use the browser panel to query widgets and highlight matches on screen.",
+      "It is an editor/debug tool; editor modules go to Editor targets only."
+    ],
+    "note_cn": "通过查询查找实时 Slate 小部件并高亮的工具。",
+    "note_en": "Find live Slate widgets via queries and highlight them."
+  },
+  {
+    "slug": "widget-helper",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Widget Helper`（模块 `WidgetHelper`）。",
+      "它是 Widget Finder、Slate Inspector 插件的共享实用程序。",
+      "作为上述 UI 调试插件的底层工具依赖。",
+      "这是编辑器工具，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Widget Helper` (module `WidgetHelper`).",
+      "It is the shared utility for the Widget Finder and Slate Inspector plugins.",
+      "A low-level tool dependency for those UI debug plugins.",
+      "It is an editor tool for Editor targets only."
+    ],
+    "note_cn": "Widget Finder / Slate Inspector 的共享实用程序。",
+    "note_en": "A shared utility for Widget Finder / Slate Inspector."
+  },
+  {
+    "slug": "widget-static-analysis-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Widget Static Analysis ToolSet`（模块 `WidgetStaticAnalysisToolset`）。",
+      "它是 UMG 小部件上的 AI 助手静态分析工具：小部件树描述、属性覆盖跟踪、绑定/事件/委托连接映射。",
+      "用 AI 助手静态分析 UMG 结构排查问题。",
+      "属 AI 工具链/编辑器自动化；非运行时功能。"
+    ],
+    "en_steps": [
+      "Enable `Widget Static Analysis ToolSet` (module `WidgetStaticAnalysisToolset`).",
+      "It is an AI-assistant static-analysis tool for UMG widgets: widget-tree description, property-override tracking, and binding/event/delegate connection mapping.",
+      "Use the AI assistant to statically analyze UMG structure and troubleshoot.",
+      "It is AI-toolchain/editor automation, not a runtime feature."
+    ],
+    "note_cn": "UMG 小部件的 AI 静态分析工具。",
+    "note_en": "An AI static-analysis tool for UMG widgets."
+  },
+  {
+    "slug": "widgetautomationtests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `WidgetAutomationTests`（模块 `WidgetAutomationTests`）。",
+      "它提供 UMG 小部件的自动化测试。",
+      "在 CI/自动化里跑这些用例验证 UI 行为。",
+      "这是测试插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `WidgetAutomationTests` (module `WidgetAutomationTests`).",
+      "It provides automation tests for UMG widgets.",
+      "Run these cases in CI/automation to validate UI behavior.",
+      "It is a test plugin; do not ship it in release builds."
+    ],
+    "note_cn": "UMG 小部件自动化测试。",
+    "note_en": "Automation tests for UMG widgets."
+  },
+  {
+    "slug": "windows-device-profile-selector",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Windows Device Profile Selector`（模块 `WindowsDeviceProfileSelector`），运行时插件。",
+      "它是 Windows 设备配置文件选择器，用于确定 Windows 平台的系统设置。",
+      "在 Windows 目标下按其选择对应的 Device Profile。",
+      "运行时模块；Windows 平台专用。"
+    ],
+    "en_steps": [
+      "Enable `Windows Device Profile Selector` (module `WindowsDeviceProfileSelector`), a runtime plugin.",
+      "It is the Windows device-profile selector that determines Windows platform system settings.",
+      "On Windows targets, it selects the matching Device Profile.",
+      "A runtime module; Windows-platform only."
+    ],
+    "note_cn": "Windows 设备配置文件选择器。",
+    "note_en": "The Windows device-profile selector."
+  },
+  {
+    "slug": "windows-dualshock",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Windows DualShock`（模块 `WinDualShock`），运行时插件。",
+      "它是 Windows 中 PS4 DualShock 控制器的 InputDevice 插件。",
+      "在 Windows 上用 DualShock 手柄，接入输入系统。",
+      "运行时模块；需 DualShock 设备与驱动。"
+    ],
+    "en_steps": [
+      "Enable `Windows DualShock` (module `WinDualShock`), a runtime plugin.",
+      "It is the InputDevice plugin for PS4 DualShock controllers on Windows.",
+      "Use a DualShock gamepad on Windows and bring it into the input system.",
+      "A runtime module; requires a DualShock device and drivers."
+    ],
+    "note_cn": "Windows 中 PS4 DualShock 的 InputDevice 插件。",
+    "note_en": "The PS4 DualShock InputDevice plugin on Windows."
+  }
+]

@@ -3,7 +3,6 @@ layout: default
 title: 网络服务发现 / Network Service Discovery
 ---
 
-
 <h1>网络服务发现 / Network Service Discovery</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 网络服务发现 / Network Service Discovery
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用本机平台 API 进行跨平台 mDNS/DNS-SD 服务发现（Apple 上的 NSNetServiceBrowser、Android 上的 NsdManager、Windows 上通过 dnsapi 的本机 DNS-SD）</div><div class="lang-content">Cross-platform mDNS/DNS-SD service discovery using native platform APIs (NSNetServiceBrowser on Apple, NsdManager on Android, native DNS-SD via dnsapi on Windows)</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">Network Service Discovery</code>（模块 <code class="usage-code">NetworkServiceDiscovery</code>）。</li><li>它用本机平台 API 做跨平台 mDNS/DNS-SD 服务发现（Apple NSNetServiceBrowser、Android NsdManager、Windows dnsapi）。</li><li>在局域网联机里用它发现/广播服务（如大厅/对局服务器）。</li><li>Experimental：接口可能变动；按平台行为略有差异。</li></ol><p class="usage-note">跨平台 mDNS/DNS-SD 服务发现（局域网联机），实验性。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Network Service Discovery</code> (module <code class="usage-code">NetworkServiceDiscovery</code>).</li><li>It does cross-platform mDNS/DNS-SD service discovery via native platform APIs (NSNetServiceBrowser on Apple, NsdManager on Android, dnsapi on Windows).</li><li>In LAN play, use it to discover/advertise services (e.g. lobby/match servers).</li><li>Experimental: contract may change; behavior differs slightly per platform.</li></ol><p class="usage-note">Cross-platform mDNS/DNS-SD service discovery (LAN play), experimental.</p></div></div></div>
+    </div>
+

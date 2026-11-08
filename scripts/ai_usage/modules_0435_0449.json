@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "linuxplatformeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LinuxPlatformEditor` 位于 `Developer`，构建规则 `Developer/Linux/LinuxPlatformEditor/LinuxPlatformEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `LinuxTargetPlatformControls`, `LinuxTargetPlatformSettings`, `MainFrame`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxPlatformEditor\" });`；对外暴露 `LinuxPlatformEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LinuxPlatformEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LinuxPlatformEditor.h` / `LinuxPlatformEditorModule.h`），再用 `FModuleManager::LoadModulePtr<LinuxPlatformEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`LinuxPlatformEditor` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `LinuxTargetPlatformControls`, `LinuxTargetPlatformSettings`, `MainFrame`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LinuxPlatformEditor` lives under `Developer`; build rule `Developer/Linux/LinuxPlatformEditor/LinuxPlatformEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `LinuxTargetPlatformControls`, `LinuxTargetPlatformSettings`, `MainFrame`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxPlatformEditor\" });`. Use Public when exposing `LinuxPlatformEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LinuxPlatformEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LinuxPlatformEditor.h` / `LinuxPlatformEditorModule.h`), then use `FModuleManager::LoadModulePtr<LinuxPlatformEditorModule>` or the exported types directly.",
+      "Transitive deps: `LinuxPlatformEditor` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `LinuxTargetPlatformControls`, `LinuxTargetPlatformSettings`, `MainFrame`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LinuxPlatformEditor` 的构建规则位于 `Developer/Linux/LinuxPlatformEditor/LinuxPlatformEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LinuxPlatformEditor` build rule is `Developer/Linux/LinuxPlatformEditor/LinuxPlatformEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "linuxtargetplatform",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LinuxTargetPlatform` 位于 `Developer`，构建规则 `Developer/Linux/LinuxTargetPlatform/LinuxTargetPlatform.Build.cs`。它直接依赖 5 个模块：`Core`, `DesktopPlatform`, `LinuxTargetPlatformControls`, `LinuxTargetPlatformSettings`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxTargetPlatform\" });`；对外暴露 `LinuxTargetPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LinuxTargetPlatform` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LinuxTargetPlatform.h` / `LinuxTargetPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<LinuxTargetPlatformModule>` 或直接使用导出类型。",
+      "传递依赖：`LinuxTargetPlatform` 还依赖 `Core`, `DesktopPlatform`, `LinuxTargetPlatformControls`, `LinuxTargetPlatformSettings`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LinuxTargetPlatform` lives under `Developer`; build rule `Developer/Linux/LinuxTargetPlatform/LinuxTargetPlatform.Build.cs`.It directly depends on 5 modules: `Core`, `DesktopPlatform`, `LinuxTargetPlatformControls`, `LinuxTargetPlatformSettings`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxTargetPlatform\" });`. Use Public when exposing `LinuxTargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LinuxTargetPlatform` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LinuxTargetPlatform.h` / `LinuxTargetPlatformModule.h`), then use `FModuleManager::LoadModulePtr<LinuxTargetPlatformModule>` or the exported types directly.",
+      "Transitive deps: `LinuxTargetPlatform` also needs `Core`, `DesktopPlatform`, `LinuxTargetPlatformControls`, `LinuxTargetPlatformSettings`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LinuxTargetPlatform` 的构建规则位于 `Developer/Linux/LinuxTargetPlatform/LinuxTargetPlatform.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`LinuxTargetPlatform` build rule is `Developer/Linux/LinuxTargetPlatform/LinuxTargetPlatform.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "linuxtargetplatformcontrols",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LinuxTargetPlatformControls` 位于 `Developer`，构建规则 `Developer/Linux/LinuxTargetPlatformControls/LinuxTargetPlatformControls.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `LinuxTargetPlatformSettings`, `Projects`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxTargetPlatformControls\" });`；对外暴露 `LinuxTargetPlatformControls` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LinuxTargetPlatformControls` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LinuxTargetPlatformControls.h` / `LinuxTargetPlatformControlsModule.h`），再用 `FModuleManager::LoadModulePtr<LinuxTargetPlatformControlsModule>` 或直接使用导出类型。",
+      "传递依赖：`LinuxTargetPlatformControls` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `LinuxTargetPlatformSettings`, `Projects`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LinuxTargetPlatformControls` lives under `Developer`; build rule `Developer/Linux/LinuxTargetPlatformControls/LinuxTargetPlatformControls.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `LinuxTargetPlatformSettings`, `Projects`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxTargetPlatformControls\" });`. Use Public when exposing `LinuxTargetPlatformControls` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LinuxTargetPlatformControls` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LinuxTargetPlatformControls.h` / `LinuxTargetPlatformControlsModule.h`), then use `FModuleManager::LoadModulePtr<LinuxTargetPlatformControlsModule>` or the exported types directly.",
+      "Transitive deps: `LinuxTargetPlatformControls` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `LinuxTargetPlatformSettings`, `Projects`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LinuxTargetPlatformControls` 的构建规则位于 `Developer/Linux/LinuxTargetPlatformControls/LinuxTargetPlatformControls.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`LinuxTargetPlatformControls` build rule is `Developer/Linux/LinuxTargetPlatformControls/LinuxTargetPlatformControls.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "linuxtargetplatformsettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LinuxTargetPlatformSettings` 位于 `Developer`，构建规则 `Developer/Linux/LinuxTargetPlatformSettings/LinuxTargetPlatformSettings.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `Projects`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxTargetPlatformSettings\" });`；对外暴露 `LinuxTargetPlatformSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LinuxTargetPlatformSettings` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LinuxTargetPlatformSettings.h` / `LinuxTargetPlatformSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<LinuxTargetPlatformSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`LinuxTargetPlatformSettings` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `Projects`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LinuxTargetPlatformSettings` lives under `Developer`; build rule `Developer/Linux/LinuxTargetPlatformSettings/LinuxTargetPlatformSettings.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `Projects`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LinuxTargetPlatformSettings\" });`. Use Public when exposing `LinuxTargetPlatformSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LinuxTargetPlatformSettings` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LinuxTargetPlatformSettings.h` / `LinuxTargetPlatformSettingsModule.h`), then use `FModuleManager::LoadModulePtr<LinuxTargetPlatformSettingsModule>` or the exported types directly.",
+      "Transitive deps: `LinuxTargetPlatformSettings` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `Projects`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LinuxTargetPlatformSettings` 的构建规则位于 `Developer/Linux/LinuxTargetPlatformSettings/LinuxTargetPlatformSettings.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`LinuxTargetPlatformSettings` build rule is `Developer/Linux/LinuxTargetPlatformSettings/LinuxTargetPlatformSettings.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "livecoding",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LiveCoding` 位于 `Developer`，构建规则 `Developer/Windows/LiveCoding/LiveCoding.Build.cs`。它直接依赖 8 个模块：`BuildSettings`, `Core`, `CoreUObject`, `Engine`, `OodleDataCompression`, `Settings`, `Slate`, `UnrealEd`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LiveCoding\" });`；对外暴露 `LiveCoding` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LiveCoding` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LiveCoding.h` / `LiveCodingModule.h`），再用 `FModuleManager::LoadModulePtr<LiveCodingModule>` 或直接使用导出类型。",
+      "传递依赖：`LiveCoding` 还依赖 `BuildSettings`, `Core`, `CoreUObject`, `Engine`, `OodleDataCompression`, `Settings`, `Slate`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LiveCoding` lives under `Developer`; build rule `Developer/Windows/LiveCoding/LiveCoding.Build.cs`.It directly depends on 8 modules: `BuildSettings`, `Core`, `CoreUObject`, `Engine`, `OodleDataCompression`, `Settings`, `Slate`, `UnrealEd`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LiveCoding\" });`. Use Public when exposing `LiveCoding` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LiveCoding` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LiveCoding.h` / `LiveCodingModule.h`), then use `FModuleManager::LoadModulePtr<LiveCodingModule>` or the exported types directly.",
+      "Transitive deps: `LiveCoding` also needs `BuildSettings`, `Core`, `CoreUObject`, `Engine`, `OodleDataCompression`, `Settings`, `Slate`, `UnrealEd`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LiveCoding` 的构建规则位于 `Developer/Windows/LiveCoding/LiveCoding.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LiveCoding` build rule is `Developer/Windows/LiveCoding/LiveCoding.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "livecodingconsole",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LiveCodingConsole` 位于 `Engine`，构建规则 `Engine/Source/Programs/LiveCodingConsole/LiveCodingConsole.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LiveCodingConsole\" });`；对外暴露 `LiveCodingConsole` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LiveCodingConsole` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LiveCodingConsole.h` / `LiveCodingConsoleModule.h`），再用 `FModuleManager::LoadModulePtr<LiveCodingConsoleModule>` 或直接使用导出类型。",
+      "传递依赖：`LiveCodingConsole` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `LiveCodingConsole` lives under `Engine`; build rule `Engine/Source/Programs/LiveCodingConsole/LiveCodingConsole.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LiveCodingConsole\" });`. Use Public when exposing `LiveCodingConsole` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LiveCodingConsole` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LiveCodingConsole.h` / `LiveCodingConsoleModule.h`), then use `FModuleManager::LoadModulePtr<LiveCodingConsoleModule>` or the exported types directly.",
+      "Transitive deps: `LiveCodingConsole` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`LiveCodingConsole` 的构建规则位于 `Engine/Source/Programs/LiveCodingConsole/LiveCodingConsole.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`LiveCodingConsole` build rule is `Engine/Source/Programs/LiveCodingConsole/LiveCodingConsole.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "livecodingserver",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LiveCodingServer` 位于 `Developer`，构建规则 `Developer/Windows/LiveCodingServer/LiveCodingServer.Build.cs`。它直接依赖 5 个模块：`Core`, `DiaSdk`, `Json`, `LiveCoding`, `VisualStudioDTE`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LiveCodingServer\" });`；对外暴露 `LiveCodingServer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LiveCodingServer` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LiveCodingServer.h` / `LiveCodingServerModule.h`），再用 `FModuleManager::LoadModulePtr<LiveCodingServerModule>` 或直接使用导出类型。",
+      "传递依赖：`LiveCodingServer` 还依赖 `Core`, `DiaSdk`, `Json`, `LiveCoding`, `VisualStudioDTE`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LiveCodingServer` lives under `Developer`; build rule `Developer/Windows/LiveCodingServer/LiveCodingServer.Build.cs`.It directly depends on 5 modules: `Core`, `DiaSdk`, `Json`, `LiveCoding`, `VisualStudioDTE`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LiveCodingServer\" });`. Use Public when exposing `LiveCodingServer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LiveCodingServer` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LiveCodingServer.h` / `LiveCodingServerModule.h`), then use `FModuleManager::LoadModulePtr<LiveCodingServerModule>` or the exported types directly.",
+      "Transitive deps: `LiveCodingServer` also needs `Core`, `DiaSdk`, `Json`, `LiveCoding`, `VisualStudioDTE`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LiveCodingServer` 的构建规则位于 `Developer/Windows/LiveCodingServer/LiveCodingServer.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`LiveCodingServer` build rule is `Developer/Windows/LiveCodingServer/LiveCodingServer.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "livelinkanimationcore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LiveLinkAnimationCore` 位于 `Runtime`，构建规则 `Runtime/LiveLinkAnimationCore/LiveLinkAnimationCore.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Engine`, `LiveLinkInterface`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkAnimationCore\" });`；对外暴露 `LiveLinkAnimationCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LiveLinkAnimationCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LiveLinkAnimationCore.h` / `LiveLinkAnimationCoreModule.h`），再用 `FModuleManager::LoadModulePtr<LiveLinkAnimationCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`LiveLinkAnimationCore` 还依赖 `Core`, `CoreUObject`, `Engine`, `LiveLinkInterface`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LiveLinkAnimationCore` lives under `Runtime`; build rule `Runtime/LiveLinkAnimationCore/LiveLinkAnimationCore.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Engine`, `LiveLinkInterface`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkAnimationCore\" });`. Use Public when exposing `LiveLinkAnimationCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LiveLinkAnimationCore` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LiveLinkAnimationCore.h` / `LiveLinkAnimationCoreModule.h`), then use `FModuleManager::LoadModulePtr<LiveLinkAnimationCoreModule>` or the exported types directly.",
+      "Transitive deps: `LiveLinkAnimationCore` also needs `Core`, `CoreUObject`, `Engine`, `LiveLinkInterface`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LiveLinkAnimationCore` 的构建规则位于 `Runtime/LiveLinkAnimationCore/LiveLinkAnimationCore.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`LiveLinkAnimationCore` build rule is `Runtime/LiveLinkAnimationCore/LiveLinkAnimationCore.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "livelinkfbxprovider",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LiveLinkFbxProvider` 位于 `Programs`，构建规则 `Programs/LiveLinkFbxProvider/Source/LiveLinkFbxProvider.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `LiveLinkInterface`, `LiveLinkMessageBusFramework`, `Messaging`, `Projects`, `UdpMessaging`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkFbxProvider\" });`；对外暴露 `LiveLinkFbxProvider` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LiveLinkFbxProvider` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `LiveLinkFbxProvider.h` / `LiveLinkFbxProviderModule.h`），再用 `FModuleManager::LoadModulePtr<LiveLinkFbxProviderModule>` 或直接使用导出类型。",
+      "传递依赖：`LiveLinkFbxProvider` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `LiveLinkInterface`, `LiveLinkMessageBusFramework`, `Messaging`, `Projects`, `UdpMessaging`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LiveLinkFbxProvider` lives under `Programs`; build rule `Programs/LiveLinkFbxProvider/Source/LiveLinkFbxProvider.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `LiveLinkInterface`, `LiveLinkMessageBusFramework`, `Messaging`, `Projects`, `UdpMessaging`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkFbxProvider\" });`. Use Public when exposing `LiveLinkFbxProvider` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LiveLinkFbxProvider` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `LiveLinkFbxProvider.h` / `LiveLinkFbxProviderModule.h`), then use `FModuleManager::LoadModulePtr<LiveLinkFbxProviderModule>` or the exported types directly.",
+      "Transitive deps: `LiveLinkFbxProvider` also needs `ApplicationCore`, `Core`, `CoreUObject`, `LiveLinkInterface`, `LiveLinkMessageBusFramework`, `Messaging`, `Projects`, `UdpMessaging`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LiveLinkFbxProvider` 的构建规则位于 `Programs/LiveLinkFbxProvider/Source/LiveLinkFbxProvider.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LiveLinkFbxProvider` build rule is `Programs/LiveLinkFbxProvider/Source/LiveLinkFbxProvider.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "livelinkhublauncher",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LiveLinkHubLauncher` 位于 `Programs`，构建规则 `Programs/LiveLinkHub/Source/LiveLinkHubLauncher/LiveLinkHubLauncher.Build.cs`。它直接依赖 8 个模块：`AgilitySDK`, `ApplicationCore`, `AssetRegistry`, `AutomationController`, `AutomationTest`, `AutomationWorker`, `BuildSettings`, `Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkHubLauncher\" });`；对外暴露 `LiveLinkHubLauncher` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LiveLinkHubLauncher` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `LiveLinkHubLauncher.h` / `LiveLinkHubLauncherModule.h`），再用 `FModuleManager::LoadModulePtr<LiveLinkHubLauncherModule>` 或直接使用导出类型。",
+      "传递依赖：`LiveLinkHubLauncher` 还依赖 `AgilitySDK`, `ApplicationCore`, `AssetRegistry`, `AutomationController`, `AutomationTest`, `AutomationWorker`, `BuildSettings`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LiveLinkHubLauncher` lives under `Programs`; build rule `Programs/LiveLinkHub/Source/LiveLinkHubLauncher/LiveLinkHubLauncher.Build.cs`.It directly depends on 8 modules: `AgilitySDK`, `ApplicationCore`, `AssetRegistry`, `AutomationController`, `AutomationTest`, `AutomationWorker`, `BuildSettings`, `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkHubLauncher\" });`. Use Public when exposing `LiveLinkHubLauncher` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LiveLinkHubLauncher` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `LiveLinkHubLauncher.h` / `LiveLinkHubLauncherModule.h`), then use `FModuleManager::LoadModulePtr<LiveLinkHubLauncherModule>` or the exported types directly.",
+      "Transitive deps: `LiveLinkHubLauncher` also needs `AgilitySDK`, `ApplicationCore`, `AssetRegistry`, `AutomationController`, `AutomationTest`, `AutomationWorker`, `BuildSettings`, `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LiveLinkHubLauncher` 的构建规则位于 `Programs/LiveLinkHub/Source/LiveLinkHubLauncher/LiveLinkHubLauncher.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LiveLinkHubLauncher` build rule is `Programs/LiveLinkHub/Source/LiveLinkHubLauncher/LiveLinkHubLauncher.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "livelinkinterface",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LiveLinkInterface` 位于 `Runtime`，构建规则 `Runtime/LiveLinkInterface/LiveLinkInterface.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkInterface\" });`；对外暴露 `LiveLinkInterface` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LiveLinkInterface` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LiveLinkInterface.h` / `LiveLinkInterfaceModule.h`），再用 `FModuleManager::LoadModulePtr<LiveLinkInterfaceModule>` 或直接使用导出类型。",
+      "传递依赖：`LiveLinkInterface` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LiveLinkInterface` lives under `Runtime`; build rule `Runtime/LiveLinkInterface/LiveLinkInterface.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkInterface\" });`. Use Public when exposing `LiveLinkInterface` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LiveLinkInterface` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LiveLinkInterface.h` / `LiveLinkInterfaceModule.h`), then use `FModuleManager::LoadModulePtr<LiveLinkInterfaceModule>` or the exported types directly.",
+      "Transitive deps: `LiveLinkInterface` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LiveLinkInterface` 的构建规则位于 `Runtime/LiveLinkInterface/LiveLinkInterface.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`LiveLinkInterface` build rule is `Runtime/LiveLinkInterface/LiveLinkInterface.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "livelinkmessagebusframework",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LiveLinkMessageBusFramework` 位于 `Runtime`，构建规则 `Runtime/LiveLinkMessageBusFramework/LiveLinkMessageBusFramework.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `LiveLinkInterface`, `MessagingCommon`, `Serialization`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkMessageBusFramework\" });`；对外暴露 `LiveLinkMessageBusFramework` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LiveLinkMessageBusFramework` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LiveLinkMessageBusFramework.h` / `LiveLinkMessageBusFrameworkModule.h`），再用 `FModuleManager::LoadModulePtr<LiveLinkMessageBusFrameworkModule>` 或直接使用导出类型。",
+      "传递依赖：`LiveLinkMessageBusFramework` 还依赖 `Core`, `CoreUObject`, `LiveLinkInterface`, `MessagingCommon`, `Serialization`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LiveLinkMessageBusFramework` lives under `Runtime`; build rule `Runtime/LiveLinkMessageBusFramework/LiveLinkMessageBusFramework.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `LiveLinkInterface`, `MessagingCommon`, `Serialization`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LiveLinkMessageBusFramework\" });`. Use Public when exposing `LiveLinkMessageBusFramework` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LiveLinkMessageBusFramework` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LiveLinkMessageBusFramework.h` / `LiveLinkMessageBusFrameworkModule.h`), then use `FModuleManager::LoadModulePtr<LiveLinkMessageBusFrameworkModule>` or the exported types directly.",
+      "Transitive deps: `LiveLinkMessageBusFramework` also needs `Core`, `CoreUObject`, `LiveLinkInterface`, `MessagingCommon`, `Serialization`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LiveLinkMessageBusFramework` 的构建规则位于 `Runtime/LiveLinkMessageBusFramework/LiveLinkMessageBusFramework.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`LiveLinkMessageBusFramework` build rule is `Runtime/LiveLinkMessageBusFramework/LiveLinkMessageBusFramework.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "llvm",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`llvm` 位于 `ThirdParty`，构建规则 `ThirdParty/llvm/llvm.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"llvm\" });`；对外暴露 `llvm` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`llvm` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `llvm.h` / `llvmModule.h`），再用 `FModuleManager::LoadModulePtr<llvmModule>` 或直接使用导出类型。",
+      "传递依赖：`llvm` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `llvm` lives under `ThirdParty`; build rule `ThirdParty/llvm/llvm.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"llvm\" });`. Use Public when exposing `llvm` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `llvm` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `llvm.h` / `llvmModule.h`), then use `FModuleManager::LoadModulePtr<llvmModule>` or the exported types directly.",
+      "Transitive deps: `llvm` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`llvm` 的构建规则位于 `ThirdParty/llvm/llvm.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`llvm` build rule is `ThirdParty/llvm/llvm.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "lmdb",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`lmdb` 位于 `ThirdParty`，构建规则 `ThirdParty/lmdb/lmdb.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"lmdb\" });`；对外暴露 `lmdb` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`lmdb` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `lmdb.h` / `lmdbModule.h`），再用 `FModuleManager::LoadModulePtr<lmdbModule>` 或直接使用导出类型。",
+      "传递依赖：`lmdb` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `lmdb` lives under `ThirdParty`; build rule `ThirdParty/lmdb/lmdb.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"lmdb\" });`. Use Public when exposing `lmdb` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `lmdb` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `lmdb.h` / `lmdbModule.h`), then use `FModuleManager::LoadModulePtr<lmdbModule>` or the exported types directly.",
+      "Transitive deps: `lmdb` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`lmdb` 的构建规则位于 `ThirdParty/lmdb/lmdb.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`lmdb` build rule is `ThirdParty/lmdb/lmdb.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "localfilenetworkreplaystreaming",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LocalFileNetworkReplayStreaming` 位于 `Runtime`，构建规则 `Runtime/NetworkReplayStreaming/LocalFileNetworkReplayStreaming/LocalFileNetworkReplayStreaming.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `Engine`, `Json`, `NetworkReplayStreaming`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LocalFileNetworkReplayStreaming\" });`；对外暴露 `LocalFileNetworkReplayStreaming` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LocalFileNetworkReplayStreaming` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LocalFileNetworkReplayStreaming.h` / `LocalFileNetworkReplayStreamingModule.h`），再用 `FModuleManager::LoadModulePtr<LocalFileNetworkReplayStreamingModule>` 或直接使用导出类型。",
+      "传递依赖：`LocalFileNetworkReplayStreaming` 还依赖 `Core`, `CoreUObject`, `Engine`, `Json`, `NetworkReplayStreaming`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LocalFileNetworkReplayStreaming` lives under `Runtime`; build rule `Runtime/NetworkReplayStreaming/LocalFileNetworkReplayStreaming/LocalFileNetworkReplayStreaming.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `Engine`, `Json`, `NetworkReplayStreaming`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LocalFileNetworkReplayStreaming\" });`. Use Public when exposing `LocalFileNetworkReplayStreaming` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LocalFileNetworkReplayStreaming` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LocalFileNetworkReplayStreaming.h` / `LocalFileNetworkReplayStreamingModule.h`), then use `FModuleManager::LoadModulePtr<LocalFileNetworkReplayStreamingModule>` or the exported types directly.",
+      "Transitive deps: `LocalFileNetworkReplayStreaming` also needs `Core`, `CoreUObject`, `Engine`, `Json`, `NetworkReplayStreaming`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LocalFileNetworkReplayStreaming` 的构建规则位于 `Runtime/NetworkReplayStreaming/LocalFileNetworkReplayStreaming/LocalFileNetworkReplayStreaming.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`LocalFileNetworkReplayStreaming` build rule is `Runtime/NetworkReplayStreaming/LocalFileNetworkReplayStreaming/LocalFileNetworkReplayStreaming.Build.cs`; depends on 5 modules; category Module."
+  }
+]

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "timed-data-monitor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Timed Data Monitor`（运行时 `TimedDataMonitor`，编辑器 `TimedDataMonitorEditor`），属 Virtual Production。",
+      "它是监视可同步时间输入（timecode/genlock 等）的实用程序。",
+      "在多源同步的虚拟制片里用它监控各输入的时间对齐情况。",
+      "Game 模块依赖运行时模块；`TimedDataMonitorEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Timed Data Monitor` (runtime `TimedDataMonitor`, editor `TimedDataMonitorEditor`), part of Virtual Production.",
+      "It is a utility to monitor inputs that can be time synchronized (timecode/genlock, etc.).",
+      "In multi-source virtual production, use it to monitor time alignment across inputs.",
+      "Game modules depend on runtime modules; `TimedDataMonitorEditor` is Editor-target only."
+    ],
+    "note_cn": "监视可同步时间输入的实用程序。",
+    "note_en": "A utility to monitor time-synchronizable inputs."
+  },
+  {
+    "slug": "tool-palette-for-the-widget-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Tool Palette for the Widget Editor`（模块 `WidgetEditorToolPalette`）。",
+      "它提供一组增强 UMG 创建体验的工具（控件工具面板）。",
+      "在 UMG 控件编辑器里用工具面板快速放置控件。",
+      "Experimental：接口可能变动；编辑器工具，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Tool Palette for the Widget Editor` (module `WidgetEditorToolPalette`).",
+      "It provides a set of tools enhancing the UMG authoring UX (a widget tool palette).",
+      "Use the tool palette in the UMG widget editor to quickly place widgets.",
+      "Experimental: contract may change; an editor tool for Editor targets only."
+    ],
+    "note_cn": "增强 UMG 创建体验的控件工具面板，实验性。",
+    "note_en": "A widget tool palette enhancing UMG authoring, experimental."
+  },
+  {
+    "slug": "tool-presets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Tool Presets`（模块 `ToolPresetAsset`，编辑器 `ToolPresetEditor`）。",
+      "它添加把工具设置保存/加载为预设的支持。",
+      "把常用工具参数存成预设，下次一键套用。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Tool Presets` (module `ToolPresetAsset`, editor `ToolPresetEditor`).",
+      "It adds support for saving/loading tool settings as presets.",
+      "Save common tool parameters as presets and reapply with one click.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "把工具设置存为预设并复用。",
+    "note_en": "Save/load tool settings as presets."
+  },
+  {
+    "slug": "toolset-registry",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Toolset Registry`（模块 `ToolsetRegistry`、`ToolsetRegistryEngine`，编辑器 `ToolsetRegistryEditor`）。",
+      "它是工具集注册表：集中注册与发现 AI 可用工具集（供 AI 助手/自动化）。",
+      "作为各类 Toolset 的注册中心，被 AI 工具链统一访问。",
+      "属 AI 工具链基础设施；非运行时功能。"
+    ],
+    "en_steps": [
+      "Enable `Toolset Registry` (modules `ToolsetRegistry`, `ToolsetRegistryEngine`, editor `ToolsetRegistryEditor`).",
+      "It is the toolset registry: centrally registers and discovers AI-usable toolsets (for AI assistants/automation).",
+      "Acts as the registry for various Toolsets, accessed uniformly by the AI toolchain.",
+      "It is AI-toolchain infrastructure, not a runtime feature."
+    ],
+    "note_cn": "AI 工具集的集中注册/发现中心。",
+    "note_en": "The central registry/discovery for AI toolsets."
+  },
+  {
+    "slug": "traceutilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `TraceUtilities`（模块 `TraceUtilities`、`EditorTraceUtilities`，编辑器 `InsightsEditor`）。",
+      "它是一组提高 Unreal Insights 与 Trace Framework 可用性的工具。",
+      "用其工具辅助分析 trace/性能数据。",
+      "Game 模块依赖运行时模块；编辑器工具只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `TraceUtilities` (modules `TraceUtilities`, `EditorTraceUtilities`, editor `InsightsEditor`).",
+      "It is a set of tools improving Unreal Insights and Trace Framework usability.",
+      "Use its tools to help analyze trace/performance data.",
+      "Game modules depend on runtime modules; editor tools go to Editor targets only."
+    ],
+    "note_cn": "提升 Insights/Trace 框架可用性的工具集。",
+    "note_en": "Tools improving Insights/Trace framework usability."
+  },
+  {
+    "slug": "trajectory-recording-tool",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Trajectory Recording Tool`（模块 `TrajectoryTools`）。",
+      "它提供游戏轨迹的工作流程，例如从录音中提取轨迹。",
+      "在动画/运动匹配流程里录制并提取角色/游戏轨迹数据。",
+      "Experimental：接口可能变动；与 Motion Trajectory 等配合。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Trajectory Recording Tool` (module `TrajectoryTools`).",
+      "It provides workflows for gameplay trajectories, e.g. extracting them from recordings.",
+      "In animation/motion-matching flows, record and extract character/gameplay trajectory data.",
+      "Experimental: contract may change; used with Motion Trajectory, etc."
+    ],
+    "note_cn": "游戏轨迹工作流（如从录音提取轨迹），实验性。",
+    "note_en": "Gameplay trajectory workflows (e.g. extract from recordings), experimental."
+  },
+  {
+    "slug": "tweening-utils",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Tweening Utils`（运行时 `TweeningUtils`，编辑器 `TweeningUtilsEditor`）。",
+      "它提供对“中间帧/补间”有用的算法与小部件。",
+      "在动画/UI 过渡里用其补间算法与小部件。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Tweening Utils` (runtime `TweeningUtils`, editor `TweeningUtilsEditor`).",
+      "It provides algorithms and widgets useful for in-betweening/tweening.",
+      "Use its tweening algorithms and widgets in animation/UI transitions.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "补间/中间帧的算法与小部件。",
+    "note_en": "Algorithms and widgets for tweening/in-betweening."
+  },
+  {
+    "slug": "uaf-acl-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF ACL Plugin`（模块 `UAFACLPlugin`）。",
+      "它是 ACL（Animation Compression Library）插件的 UAF 扩展。",
+      "在 UAF 动画管线里用 ACL 压缩动画。",
+      "需 ACL 与 UAF 相关插件；属动画压缩集成。"
+    ],
+    "en_steps": [
+      "Enable `UAF ACL Plugin` (module `UAFACLPlugin`).",
+      "It is the UAF extension for the ACL (Animation Compression Library) plugin.",
+      "Use ACL to compress animation in the UAF animation pipeline.",
+      "Requires ACL and UAF-related plugins; it is animation-compression integration."
+    ],
+    "note_cn": "ACL 动画压缩插件的 UAF 扩展。",
+    "note_en": "The UAF extension for the ACL animation-compression plugin."
+  },
+  {
+    "slug": "uaf-anim-graph",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Anim Graph`（运行时 `UAFAnimGraph`，编辑器 `UAFAnimGraphEditor`，`UAFAnimGraphUncookedOnly`）。",
+      "它是用于定义动画图的框架（UAF 的新动画图）。",
+      "用其图编辑器搭建动画逻辑，运行时代码驱动。",
+      "Game 模块依赖运行时模块；编辑器/UncookedOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `UAF Anim Graph` (runtime `UAFAnimGraph`, editor `UAFAnimGraphEditor`, `UAFAnimGraphUncookedOnly`).",
+      "It is the framework for defining animation graphs (UAF's new anim graph).",
+      "Build animation logic in its graph editor, driven by runtime code.",
+      "Game modules depend on runtime modules; editor/UncookedOnly modules go to Editor targets only."
+    ],
+    "note_cn": "定义动画图的框架（UAF 新动画图）。",
+    "note_en": "The framework for defining animation graphs (UAF's new anim graph)."
+  },
+  {
+    "slug": "uaf-anim-node",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Anim Node`（运行时 `UAFAnimNode`，编辑器 `UAFAnimNodeEditor`，`UAFAnimNodeUncookedOnly`）。",
+      "它是 UAF 的节点系统（动画图节点定义）。",
+      "在 UAF 动画图里用其节点搭建行为。",
+      "Game 模块依赖运行时模块；编辑器/UncookedOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `UAF Anim Node` (runtime `UAFAnimNode`, editor `UAFAnimNodeEditor`, `UAFAnimNodeUncookedOnly`).",
+      "It is the node system for UAF (animation graph node definitions).",
+      "Use its nodes to build behavior in UAF animation graphs.",
+      "Game modules depend on runtime modules; editor/UncookedOnly modules go to Editor targets only."
+    ],
+    "note_cn": "UAF 的节点系统（动画图节点）。",
+    "note_en": "The node system for UAF (anim graph nodes)."
+  },
+  {
+    "slug": "uaf-animgen",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF AnimGen`（模块 `UAFAnimGen`）。",
+      "它是 UAF 动画生成器（程序化/自动生成动画数据）。",
+      "在 UAF 管线里用其生成器产出动画。",
+      "属 UAF 动画生成工具；配合 UAF 栈使用。"
+    ],
+    "en_steps": [
+      "Enable `UAF AnimGen` (module `UAFAnimGen`).",
+      "It is the UAF animation generator (procedural/auto-generated animation data).",
+      "Use its generator to produce animation in the UAF pipeline.",
+      "It is a UAF animation-generation tool; used with the UAF stack."
+    ],
+    "note_cn": "UAF 动画生成器。",
+    "note_en": "The UAF animation generator."
+  },
+  {
+    "slug": "uaf-chooser",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Chooser`（运行时 `UAFChooser`，编辑器 `UAFChooserEditor`，`UAFChooserUncookedOnly`）。",
+      "它是 UAF 的 Chooser（选择器）集成：按条件在动画/资产间选择。",
+      "用 Chooser 表按条件挑选动画序列/数据。",
+      "Game 模块依赖运行时模块；编辑器/UncookedOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `UAF Chooser` (runtime `UAFChooser`, editor `UAFChooserEditor`, `UAFChooserUncookedOnly`).",
+      "It is the UAF Chooser integration: select among animations/assets by conditions.",
+      "Use Chooser tables to pick animation sequences/data by conditions.",
+      "Game modules depend on runtime modules; editor/UncookedOnly modules go to Editor targets only."
+    ],
+    "note_cn": "UAF 的 Chooser 选择器集成。",
+    "note_en": "UAF's Chooser (selector) integration."
+  },
+  {
+    "slug": "uaf-control-rig",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Control Rig`（运行时 `UAFControlRig`，编辑器 `UAFControlRigEditor`）。",
+      "它是 UAF 的 Control Rig 集成（在 UAF 动画管线里使用 Control Rig）。",
+      "在 UAF 动画图里调用 Control Rig 做程序化变形/IK。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `UAF Control Rig` (runtime `UAFControlRig`, editor `UAFControlRigEditor`).",
+      "It is the UAF Control Rig integration (using Control Rig in the UAF animation pipeline).",
+      "Call Control Rig from UAF anim graphs for procedural deformation/IK.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "UAF 的 Control Rig 集成。",
+    "note_en": "UAF's Control Rig integration."
+  },
+  {
+    "slug": "uaf-default-notifies",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Default Notifies`（模块 `UAFDefaultNotifies`）。",
+      "它提供默认 UAF 通知子类，加上本机 C++ 通知处理程序（播放声音、播放 Niagara 效果）。",
+      "用它演示并使用 UAF 本机(C++)通知处理程序 API：在动画通知点触发音效/特效。",
+      "属 UAF 通知内置库；运行时模块可进包。"
+    ],
+    "en_steps": [
+      "Enable `UAF Default Notifies` (module `UAFDefaultNotifies`).",
+      "It provides default UAF notify subclasses plus native C++ notify handlers (play sound, play Niagara effect).",
+      "Use it to demo/use the native (C++) notify-handler API: trigger SFX/VFX at animation notify points.",
+      "It is a built-in UAF notify library; runtime modules can ship."
+    ],
+    "note_cn": "默认 UAF 通知子类 + 本机 C++ 通知处理程序（声音/Niagara）。",
+    "note_en": "Default UAF notify subclasses + native C++ notify handlers (sound/Niagara)."
+  },
+  {
+    "slug": "uaf-layering",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Layering`（运行时 `UAFLayering`，编辑器 `UAFLayeringEditor`，`UAFLayeringUncookedOnly`）。",
+      "它是在 UAF 中定义分层（layering）设置的框架（上下半身/叠加层）。",
+      "用其分层设置把多段动画叠加，如上半身动作覆盖下半身移动。",
+      "Game 模块依赖运行时模块；编辑器/UncookedOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `UAF Layering` (runtime `UAFLayering`, editor `UAFLayeringEditor`, `UAFLayeringUncookedOnly`).",
+      "It is the framework for defining layering setup in UAF (upper/lower body, additive layers).",
+      "Use its layering setup to blend multiple animations, e.g. upper-body action over lower-body locomotion.",
+      "Game modules depend on runtime modules; editor/UncookedOnly modules go to Editor targets only."
+    ],
+    "note_cn": "UAF 中的动画分层设置框架。",
+    "note_en": "The animation layering framework in UAF."
+  }
+]

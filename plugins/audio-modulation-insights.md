@@ -3,7 +3,6 @@ layout: default
 title: 音频调制见解 / Audio Modulation Insights
 ---
 
-
 <h1>音频调制见解 / Audio Modulation Insights</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 音频调制见解 / Audio Modulation Insights
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于音频见解的音频调制仪表板。</div><div class="lang-content">Audio Modulation dashboards for Audio Insights.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>同时启用 <code class="usage-code">Audio Modulation</code>、<code class="usage-code">Audio Insights</code> 和 <code class="usage-code">Audio Modulation Insights</code>（模块 <code class="usage-code">AudioModulationInsights</code>）。</li><li>准备 <code class="usage-code">Sound Control Bus</code> / <code class="usage-code">Sound Control Bus Mix</code>，并接到正在播放的 Sound 的 Modulation Destinations。</li><li>打开 <code class="usage-code">Tools &gt; Audio Insights</code>，PIE 中激活 Mix。</li><li>在 <code class="usage-code">View</code> 里打开仅编辑器页签 <code class="usage-code">Control Bus</code>（0–1 的当前 Bus 值）和 <code class="usage-code">Modulation Matrix</code>（Bus 如何叠加到源）。</li><li>对照 Sources/Sounds 上的音量、音调和滤波，确认它们跟随 Control Bus，而不是另做一个调制混音器。</li><li><code class="usage-code">AudioModulationInsights</code> 只给 Insights 加仪表盘，不要写进 Game Target。</li></ol><p class="usage-note">给 Audio Insights 加 Control Bus / Modulation Matrix 页，本身不创建 Control Bus 资产。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Audio Modulation</code>, <code class="usage-code">Audio Insights</code>, and <code class="usage-code">Audio Modulation Insights</code> (module <code class="usage-code">AudioModulationInsights</code>) together.</li><li>Author a <code class="usage-code">Sound Control Bus</code> / <code class="usage-code">Sound Control Bus Mix</code> and bind it to Modulation Destinations on a playing sound.</li><li>Open <code class="usage-code">Tools &gt; Audio Insights</code> and activate the mix in PIE.</li><li>In <code class="usage-code">View</code>, show the editor-only <code class="usage-code">Control Bus</code> tab (current 0–1 bus values) and <code class="usage-code">Modulation Matrix</code> (how buses combine onto sources).</li><li>Check volume/pitch/filter on Sources/Sounds to confirm they follow the buses — this is not a separate modulation mixer.</li><li><code class="usage-code">AudioModulationInsights</code> only adds Insight dashboards; do not link it into a Game target.</li></ol><p class="usage-note">Adds Control Bus / Modulation Matrix tabs to Audio Insights; it does not author Control Bus assets.</p></div></div></div>
+    </div>
+

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "uaf-mass",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Mass`（模块 `UAFMass`）。",
+      "它是 UAF 的大规模（Mass Entity）集成：让 UAF 动画驱动大量 Mass 实体。",
+      "在 Mass 人群/实体系统里用 UAF 驱动动画角色。",
+      "需 UAF 与 Mass 相关插件；属动画+Mass 集成。"
+    ],
+    "en_steps": [
+      "Enable `UAF Mass` (module `UAFMass`).",
+      "It is the Mass (Mass Entity) integration for UAF: lets UAF animation drive large numbers of Mass entities.",
+      "In Mass crowd/entity systems, use UAF to drive animated characters.",
+      "Requires UAF and Mass-related plugins; it is animation+Mass integration."
+    ],
+    "note_cn": "UAF 的大规模（Mass）集成。",
+    "note_en": "UAF's Mass (large-scale) integration."
+  },
+  {
+    "slug": "uaf-mirroring",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Mirroring`（运行时 `UAFMirroring`，`UAFMirroringUncookedOnly`）。",
+      "它提供 UAF 关键帧镜像（左右对称姿势/动画镜像）。",
+      "在动画制作里用镜像快速生成对侧动作。",
+      "Game 模块依赖运行时模块；UncookedOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `UAF Mirroring` (runtime `UAFMirroring`, `UAFMirroringUncookedOnly`).",
+      "It provides UAF keyframe mirroring (mirroring poses/animations left-right).",
+      "In animation authoring, use mirroring to quickly produce the opposite-side motion.",
+      "Game modules depend on runtime modules; UncookedOnly modules go to Editor targets only."
+    ],
+    "note_cn": "UAF 关键帧镜像。",
+    "note_en": "UAF keyframe mirroring."
+  },
+  {
+    "slug": "uaf-pose-search",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Pose Search`（运行时 `UAFPoseSearch`，编辑器 `UAFPoseSearchEditor`，`UAFPoseSearchUncookedOnly`）。",
+      "它是 UAF 的姿势搜索（Pose Search）集成：按轨迹/姿势数据库检索匹配动画。",
+      "在 UAF 动画图里用 Pose Search 按运动轨迹选动画。",
+      "Game 模块依赖运行时模块；编辑器/UncookedOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `UAF Pose Search` (runtime `UAFPoseSearch`, editor `UAFPoseSearchEditor`, `UAFPoseSearchUncookedOnly`).",
+      "It is the UAF Pose Search integration: retrieve matching animations from a trajectory/pose database.",
+      "In UAF anim graphs, use Pose Search to pick animations by motion trajectory.",
+      "Game modules depend on runtime modules; editor/UncookedOnly modules go to Editor targets only."
+    ],
+    "note_cn": "UAF 的 Pose Search 集成。",
+    "note_en": "UAF's Pose Search integration."
+  },
+  {
+    "slug": "uaf-shared-assets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Shared Assets` 插件（无独立模块列表）。",
+      "它提供与多个插件交互的 UAF 默认资源（共享的默认资产）。",
+      "作为 UAF 相关插件的共享资源包，随其一起启用。",
+      "属内容/资源包，不直接写代码依赖。"
+    ],
+    "en_steps": [
+      "Enable the `UAF Shared Assets` plugin (no standalone module list).",
+      "It provides UAF default assets that interact with multiple plugins (shared default assets).",
+      "A shared asset pack for UAF-related plugins; enabled with them.",
+      "It is a content/asset pack; no direct code dependency."
+    ],
+    "note_cn": "与多插件交互的 UAF 默认共享资源。",
+    "note_en": "UAF default shared assets interacting with multiple plugins."
+  },
+  {
+    "slug": "uaf-state-tree-ux",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `UAF State Tree UX`（模块 `UAFSandboxStateTreeUXEditor`）。",
+      "它是 uaf-web-ux 状态树设计原型：添加由共享状态树视图模型驱动的、以状态为中心的视图(UX)选项卡。",
+      "在 UAF 工作区里体验新的状态树 UX 选项卡。",
+      "这是编辑器原型工具，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `UAF State Tree UX` (module `UAFSandboxStateTreeUXEditor`).",
+      "It is the uaf-web-ux state-tree design prototype: adds a state-centric view (UX) tab driven by a shared state-tree view model.",
+      "Try the new state-tree UX tab in the UAF workspace.",
+      "It is an editor prototype tool for Editor targets only."
+    ],
+    "note_cn": "uaf-web-ux 状态树 UX 设计原型（状态中心选项卡）。",
+    "note_en": "The uaf-web-ux state-tree UX prototype (state-centric tab)."
+  },
+  {
+    "slug": "uaf-state-tree",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `UAF State Tree`（运行时 `UAFStateTree`，编辑器 `UAFStateTreeEditor`，`UAFStateTreeUncookedOnly`）。",
+      "它是 UAF 的 StateTree 集成（用状态树驱动动画逻辑）。",
+      "在 UAF 动画图/工作区里用 StateTree 组织状态与任务。",
+      "Experimental：接口可能变动；编辑器/UncookedOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `UAF State Tree` (runtime `UAFStateTree`, editor `UAFStateTreeEditor`, `UAFStateTreeUncookedOnly`).",
+      "It is the UAF StateTree integration (use state trees to drive animation logic).",
+      "In UAF anim graphs/workspace, use StateTree to organize states and tasks.",
+      "Experimental: contract may change; editor/UncookedOnly modules go to Editor targets only."
+    ],
+    "note_cn": "UAF 的 StateTree 集成，实验性。",
+    "note_en": "UAF's StateTree integration, experimental."
+  },
+  {
+    "slug": "uaf-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Tests`（模块 `UAFCQTestSuite`、`UAFTestSuite`、`UAFAnimGraphTestSuite`、`UAFAnimNodeTestSuite`、`UAFAnimNodeTestData`）。",
+      "它提供 UAF 的自动化测试套件。",
+      "在 CI/自动化里跑这些用例验证 UAF 行为。",
+      "这是测试插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `UAF Tests` (modules `UAFCQTestSuite`, `UAFTestSuite`, `UAFAnimGraphTestSuite`, `UAFAnimNodeTestSuite`, `UAFAnimNodeTestData`).",
+      "It provides UAF automation test suites.",
+      "Run these cases in CI/automation to validate UAF behavior.",
+      "It is a test plugin; do not ship it in release builds."
+    ],
+    "note_cn": "UAF 的自动化测试。",
+    "note_en": "UAF automation tests."
+  },
+  {
+    "slug": "uaf-warping",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UAF Warping`（模块 `UAFWarping`）。",
+      "它是 UAF 的动画与姿势变形（warping）框架。",
+      "在 UAF 动画管线里对动画/姿势做变形对齐。",
+      "Game 模块依赖运行时模块；属 UAF + 变形集成。"
+    ],
+    "en_steps": [
+      "Enable `UAF Warping` (module `UAFWarping`).",
+      "It is the animation and pose warping framework for UAF.",
+      "Warp/align animations/poses within the UAF animation pipeline.",
+      "Game modules depend on runtime modules; it is UAF + warping integration."
+    ],
+    "note_cn": "UAF 的动画/姿势变形框架。",
+    "note_en": "The animation and pose warping framework for UAF."
+  },
+  {
+    "slug": "uba-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UBA Controller`（模块 `UbaController`），类别 Build Distribution。",
+      "它添加对使用 UnrealBuildAccelerator (UBA) 的着色器编译分发的支持。",
+      "在分布式构建/编译里启用 UBA 加速着色器编译。",
+      "属构建加速扩展；CI/团队构建用。"
+    ],
+    "en_steps": [
+      "Enable `UBA Controller` (module `UbaController`), category Build Distribution.",
+      "It adds support for shader-compile distribution using UnrealBuildAccelerator (UBA).",
+      "Enable UBA in distributed build/compile setups to accelerate shader compilation.",
+      "It is a build-acceleration extension; used in CI/team builds."
+    ],
+    "note_cn": "用 UBA 加速着色器编译分发的支持。",
+    "note_en": "Shader-compile distribution support via UnrealBuildAccelerator (UBA)."
+  },
+  {
+    "slug": "udp-messaging",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UDP Messaging`（模块 `UdpMessaging`）。",
+      "它为消息子系统添加基于 UDP 的传输与隧道层，用于联网计算机/设备间收发消息。",
+      "配置 UDP 消息端点，做跨机通信（消息总线默认常用）。",
+      "运行时模块；属消息总线传输层。"
+    ],
+    "en_steps": [
+      "Enable `UDP Messaging` (module `UdpMessaging`).",
+      "It adds a UDP-based transport and tunnel layer to the message subsystem for sending/receiving messages between networked computers/devices.",
+      "Configure UDP messaging endpoints for cross-machine communication (a common default message-bus transport).",
+      "A runtime module; a message-bus transport."
+    ],
+    "note_cn": "消息子系统的 UDP 传输与隧道层。",
+    "note_en": "A UDP transport and tunnel layer for the message subsystem."
+  },
+  {
+    "slug": "uiframework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UIFramework`（模块 `UIFramework`）。",
+      "它是从服务器控制 UMG 的框架（服务端驱动 UI 的机制）。",
+      "在服务端权威的 UI 场景里用其框架下发/控制 UMG。",
+      "运行时模块；常用于服务端驱动界面的项目。"
+    ],
+    "en_steps": [
+      "Enable `UIFramework` (module `UIFramework`).",
+      "It is a framework to control UMG from the server (server-driven UI).",
+      "In server-authoritative UI scenarios, use its framework to push/control UMG.",
+      "A runtime module; used in server-driven UI projects."
+    ],
+    "note_cn": "从服务器控制 UMG 的框架。",
+    "note_en": "A framework to control UMG from the server."
+  },
+  {
+    "slug": "umg-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `UMG ToolSet`（模块 `UMGToolSet`）。",
+      "它提供 UMG（Widget Blueprint/UUserWidget）相关的工具集（供 AI 助手/自动化创作 UMG）。",
+      "在 UI 制作里用 AI 助手批量生成/检查 UMG 控件。",
+      "Experimental：接口可能变动；属 AI 工具链/UI 自动化。"
+    ],
+    "en_steps": [
+      "Enable Experimental `UMG ToolSet` (module `UMGToolSet`).",
+      "It provides a UMG (Widget Blueprint/UUserWidget) toolset (for AI assistants/automation to author UMG).",
+      "In UI authoring, use the AI assistant to batch-generate/inspect UMG widgets.",
+      "Experimental: contract may change; part of AI toolchain/UI automation."
+    ],
+    "note_cn": "UMG 相关工具集（AI/自动化创作 UMG），实验性。",
+    "note_en": "A UMG toolset (AI/automation authoring), experimental."
+  },
+  {
+    "slug": "umg-viewmodel-for-umg-preview",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `UMG Viewmodel for UMG Preview`（模块 `ModelViewViewModelPreview`）。",
+      "它为 UMG 预览提供 ViewModel 支持（在预览里绑定/查看 MVVM 数据）。",
+      "在 UMG 预览里用 ViewModel 调试数据绑定。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `UMG Viewmodel for UMG Preview` (module `ModelViewViewModelPreview`).",
+      "It provides ViewModel support for UMG preview (bind/view MVVM data in preview).",
+      "Debug data bindings with ViewModels in UMG preview.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "UMG 预览里的 ViewModel 支持（调试数据绑定）。",
+    "note_en": "ViewModel support for UMG preview (data-binding debug)."
+  },
+  {
+    "slug": "umg-viewmodel",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UMG Viewmodel`（模块 `ModelViewViewModel`、`ModelViewViewModelBlueprint`、`ModelViewViewModelDebugger`，编辑器 `ModelViewViewModelEditor`、`ModelViewViewModelDebuggerEditor`）。",
+      "它支持 UMG 中的模型-视图-视图模型(MVVM)模式（数据驱动 UI）。",
+      "用 ViewModel 把 UI 与逻辑分离，在蓝图里绑定数据。",
+      "Game 模块依赖运行时模块；编辑器/调试器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `UMG Viewmodel` (modules `ModelViewViewModel`, `ModelViewViewModelBlueprint`, `ModelViewViewModelDebugger`, editor `ModelViewViewModelEditor`, `ModelViewViewModelDebuggerEditor`).",
+      "It supports the Model-View-ViewModel (MVVM) pattern in UMG (data-driven UI).",
+      "Use ViewModels to separate UI from logic and bind data in Blueprint.",
+      "Game modules depend on runtime modules; editor/debugger modules go to Editor targets only."
+    ],
+    "note_cn": "UMG 的 MVVM（数据驱动 UI）。",
+    "note_en": "MVVM for UMG (data-driven UI)."
+  },
+  {
+    "slug": "umg-widget-preview",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `UMG Widget Preview`（模块 `UMGWidgetPreview`）。",
+      "它提供 UMG 控件预览能力（在编辑器里预览控件外观）。",
+      "在编辑器里用其预览面板查看 UMG 控件效果。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `UMG Widget Preview` (module `UMGWidgetPreview`).",
+      "It provides UMG widget preview capability (preview widget appearance in the editor).",
+      "Use its preview panel to view UMG widget results in the editor.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "UMG 控件预览。",
+    "note_en": "UMG widget preview."
+  }
+]

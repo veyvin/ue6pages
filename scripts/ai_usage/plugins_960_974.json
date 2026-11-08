@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "unreal-animation-framework-uaf",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Unreal Animation Framework (UAF)`（运行时 `UAF`，编辑器 `UAFEditor`，`UAFUncookedOnly`，测试数据 `UAFTestData`）。",
+      "它是定义动画系统各功能数据流的框架（UAF 核心：新动画图框架底座）。",
+      "在 UAF 之上用状态/层/Pose Search/Control Rig 等构建动画。",
+      "Game 模块依赖运行时模块；编辑器/UncookedOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Unreal Animation Framework (UAF)` (runtime `UAF`, editor `UAFEditor`, `UAFUncookedOnly`, test data `UAFTestData`).",
+      "It is the framework defining the dataflow of animation-system features (the UAF core: base of the new anim-graph framework).",
+      "Build animation on UAF using state/layering/Pose Search/Control Rig, etc.",
+      "Game modules depend on runtime modules; editor/UncookedOnly modules go to Editor targets only."
+    ],
+    "note_cn": "UAF 核心：定义动画系统功能数据流的框架。",
+    "note_en": "The UAF core: a framework defining the animation-system feature dataflow."
+  },
+  {
+    "slug": "unreal-mcp",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Unreal MCP`（模块 `ModelContextProtocol`、`ModelContextProtocolEngine`、`ModelContextProtocolEditor` 及测试模块）。",
+      "它是虚幻引擎的 Anthropic MCP（模型上下文协议）服务器实现（让外部 AI 工具通过 MCP 操作引擎）。",
+      "启动 MCP 服务器，配置外部客户端连接以调用引擎能力。",
+      "Experimental：接口可能变动；编辑器/引擎/测试模块分开。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Unreal MCP` (modules `ModelContextProtocol`, `ModelContextProtocolEngine`, `ModelContextProtocolEditor`, plus test modules).",
+      "It is the Anthropic MCP (Model Context Protocol) server implementation for Unreal Engine (lets external AI tools drive the engine via MCP).",
+      "Start the MCP server and configure an external client to connect and call engine capabilities.",
+      "Experimental: contract may change; editor/engine/test modules are separate."
+    ],
+    "note_cn": "虚幻引擎的 Anthropic MCP 服务器实现，实验性。",
+    "note_en": "An Anthropic MCP server implementation for Unreal Engine, experimental."
+  },
+  {
+    "slug": "unrealconsole-runtime",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `UnrealConsole Runtime`（模块 `UnrealConsoleRuntime`），属 Programs。",
+      "它提供共享的 UnrealConsole 启动尾部与运行模式调度；由 `UnrealEditor.exe -unrealconsole` 加载并静态链接到 `UnrealConsole.exe`。",
+      "通过 `-unrealconsole` 启动控制台运行模式。",
+      "属程序/工具运行时；配合 UnrealConsole 可执行文件。"
+    ],
+    "en_steps": [
+      "Enable `UnrealConsole Runtime` (module `UnrealConsoleRuntime`), under Programs.",
+      "It provides the shared UnrealConsole launch tail and run-mode dispatch; loaded by `UnrealEditor.exe -unrealconsole` and statically linked into `UnrealConsole.exe`.",
+      "Launch console run-mode via `-unrealconsole`.",
+      "It is a program/tool runtime; used with the UnrealConsole executable."
+    ],
+    "note_cn": "UnrealConsole 启动尾部与运行模式调度的运行时。",
+    "note_en": "The runtime for UnrealConsole launch tail and run-mode dispatch."
+  },
+  {
+    "slug": "unrealengineexperimental",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `UnrealEngineExperimental`（模块 `UnrealEngineExperimental`）。",
+      "它是实验性引擎模块（承载尚未稳定、待迁移的新引擎功能）。",
+      "用于试用/验证实验性引擎能力，非稳定接口。",
+      "Experimental：接口可能变动；不用于量产关键路径。"
+    ],
+    "en_steps": [
+      "Enable Experimental `UnrealEngineExperimental` (module `UnrealEngineExperimental`).",
+      "It is an experimental engine module (hosts new, not-yet-stable engine features pending migration).",
+      "Use it to try/validate experimental engine capabilities; not a stable interface.",
+      "Experimental: contract may change; do not use on critical production paths."
+    ],
+    "note_cn": "实验性引擎模块（承载未稳定新功能）。",
+    "note_en": "An experimental engine module (hosts not-yet-stable new features)."
+  },
+  {
+    "slug": "uobject-example-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `UObject Example Plugin`（模块 `UObjectPlugin`）。",
+      "它是声明自己 UObject 类型的插件示例，可作为创建自有插件的起点。",
+      "参考其代码学习 UObject 注册/反射写法，再改造为自己的插件。",
+      "这是编辑器/开发者示例插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `UObject Example Plugin` (module `UObjectPlugin`).",
+      "It is an example plugin that declares its own UObject type, a starting point for building your own plugin.",
+      "Study its code to learn UObject registration/reflection, then adapt for your plugin.",
+      "It is an editor/developer example plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "声明自有 UObject 类型的插件示例（可作起点）。",
+    "note_en": "An example plugin declaring its own UObject type (a starting point)."
+  },
+  {
+    "slug": "usd-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `USD Core`（模块 `UnrealUSDWrapper`、`USDUtilities`、`USDClasses`）。",
+      "它添加对 USD SDK、UE 包装类与 USD 转换实用程序的支持。",
+      "作为 USD 插件的底层依赖，提供 USD 类型与转换能力。",
+      "Game 模块依赖运行时模块；供 USD 导入/舞台使用。"
+    ],
+    "en_steps": [
+      "Enable `USD Core` (modules `UnrealUSDWrapper`, `USDUtilities`, `USDClasses`).",
+      "It adds support for the USD SDK, UE wrapper classes, and USD conversion utilities.",
+      "A low-level dependency for USD plugins, providing USD types and conversion.",
+      "Game modules depend on runtime modules; used by USD import/stage."
+    ],
+    "note_cn": "USD SDK/UE 包装类/转换实用程序支持。",
+    "note_en": "USD SDK support, UE wrappers, and conversion utilities."
+  },
+  {
+    "slug": "usd-importer-mdl-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `USD Importer MDL integration`（模块 `USDImporterMDL`）。",
+      "它允许通过 USD Stage Actor 与 USD 导入导入引用 MDL 文件的 USD 文件。",
+      "导入含 MDL 材质引用的 USD，自动关联 MDL。",
+      "属 USD 导入扩展；需 USD Importer。"
+    ],
+    "en_steps": [
+      "Enable `USD Importer MDL integration` (module `USDImporterMDL`).",
+      "It lets you import USD files that reference MDL files via the USD Stage Actor and USD import.",
+      "Import USD with MDL material references and link them automatically.",
+      "It is a USD import extension; requires the USD Importer."
+    ],
+    "note_cn": "通过 USD Stage/USD 导入引用 MDL 文件的 USD。",
+    "note_en": "Imports USD files referencing MDL via USD Stage/USD import."
+  },
+  {
+    "slug": "usd-importer-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `USD Importer Tests` 插件（无独立模块列表）。",
+      "它提供 USD 导入器的 MTF（Modular Test Framework）测试。",
+      "在 CI/自动化里跑这些用例验证 USD 导入。",
+      "这是测试插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable the `USD Importer Tests` plugin (no standalone module list).",
+      "It provides MTF (Modular Test Framework) tests for the USD importer.",
+      "Run these cases in CI/automation to validate USD import.",
+      "It is a test plugin; do not ship it in release builds."
+    ],
+    "note_cn": "USD 导入器的 MTF 测试。",
+    "note_en": "MTF tests for the USD importer."
+  },
+  {
+    "slug": "usd-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `USD Importer`（模块 `USDSchemas`、`USDStage`、`USDStageImporter`、`USDExporter`、`GeometryCacheUSD`，编辑器 `USDStageEditor` 等）。",
+      "它添加把 USD 文件格式导入引擎的支持（USD Stage Actor、导入/导出）。",
+      "用 USD Stage Actor 加载 .usd/.usda/.usdc，或经导入管线转成引擎资产。",
+      "Game 模块依赖运行时模块；`USDStageEditor` 等只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `USD Importer` (modules `USDSchemas`, `USDStage`, `USDStageImporter`, `USDExporter`, `GeometryCacheUSD`, editor `USDStageEditor`, etc.).",
+      "It adds support for importing the USD file format into the engine (USD Stage Actor, import/export).",
+      "Load .usd/.usda/.usdc via a USD Stage Actor, or convert through the import pipeline into engine assets.",
+      "Game modules depend on runtime modules; `USDStageEditor` etc. go to Editor targets only."
+    ],
+    "note_cn": "把 USD 文件格式导入引擎（USD Stage/导入导出）。",
+    "note_en": "Imports the USD file format into the engine (USD Stage/import-export)."
+  },
+  {
+    "slug": "usd-multi-user-synchronization",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `USD Multi-User synchronization`（模块 `USDMultiUser`）。",
+      "它为 USD 导入器插件启用可选加入的多用户同步（Concert 多端同步 USD 舞台）。",
+      "在多用户会话里同步 USD 编辑。",
+      "运行时模块；配合 USD Importer 与 Concert 使用。"
+    ],
+    "en_steps": [
+      "Enable `USD Multi-User synchronization` (module `USDMultiUser`).",
+      "It enables opt-in multi-user synchronization for the USD importer plugin (Concert sync across editors for USD stages).",
+      "Sync USD editing in a multi-user session.",
+      "A runtime module; used with the USD Importer and Concert."
+    ],
+    "note_cn": "USD 导入器的多用户(Concert)同步。",
+    "note_en": "Multi-user (Concert) sync for the USD importer."
+  },
+  {
+    "slug": "usdpregen",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `USDPregen`（模块 `USDPregenCore`、`USDPregenHttpWorker`、`USDPregenPy`、`USDPregenInterchange`、`USDPregenUObjectStorage` 等）。",
+      "它是协助预先生成基于 USD 内容的库（把 DCC/CAD/USD 资产预转成引擎网格、材质与关卡）。",
+      "在导入管线里用其预生成工具批量转换 USD 内容。",
+      "Experimental：接口可能变动；属导入管线工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `USDPregen` (modules `USDPregenCore`, `USDPregenHttpWorker`, `USDPregenPy`, `USDPregenInterchange`, `USDPregenUObjectStorage`, etc.).",
+      "It is a library to help pre-generate USD-based content (pre-convert DCC/CAD/USD assets into engine meshes, materials, and levels).",
+      "Use its pre-generation tools to batch-convert USD content in the import pipeline.",
+      "Experimental: contract may change; an import-pipeline tool."
+    ],
+    "note_cn": "预先生成 USD 内容的库（DCC/CAD/USD→引擎资产）。",
+    "note_en": "A library to pre-generate USD-based content (DCC/CAD/USD→engine assets)."
+  },
+  {
+    "slug": "usertoolboxbasiccommand",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `UserToolBoxBasicCommand`（模块 `UserToolBoxBasicCommand`）。",
+      "它提供用于填充自定义编辑器选项卡的基本命令集。",
+      "在自定义编辑器选项卡里用这些基本命令搭建工具条。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `UserToolBoxBasicCommand` (module `UserToolBoxBasicCommand`).",
+      "It provides a basic command set to populate custom editor tabs.",
+      "Use these basic commands to build toolbars in custom editor tabs.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "填充自定义编辑器选项卡的基本命令集。",
+    "note_en": "A basic command set to populate custom editor tabs."
+  },
+  {
+    "slug": "usertoolboxcore",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `UserToolBoxCore`（模块 `UserToolBoxCore`）。",
+      "它是 User Tool Box 的核心层（自定义编辑器选项卡/工具栏的基础设施）。",
+      "通常作为 User Tool Box 相关插件的底层依赖。",
+      "Experimental：接口可能变动；编辑器向，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `UserToolBoxCore` (module `UserToolBoxCore`).",
+      "It is the core layer of User Tool Box (infrastructure for custom editor tabs/toolbars).",
+      "Usually a low-level dependency for User Tool Box-related plugins.",
+      "Experimental: contract may change; editor-oriented, Editor targets only."
+    ],
+    "note_cn": "User Tool Box 的核心（自定义编辑器选项卡/工具栏基础设施）。",
+    "note_en": "The User Tool Box core (custom editor tab/toolbar infrastructure)."
+  },
+  {
+    "slug": "uveditor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `UVEditor`（模块 `UVEditor`、`UVEditorTools`、`UVEditorToolsEditorOnly`）。",
+      "它是用于修改网格 UV 贴图的资源编辑器。",
+      "打开 UV 编辑器对网格做展 UV/接缝/UV 调整。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `UVEditor` (modules `UVEditor`, `UVEditorTools`, `UVEditorToolsEditorOnly`).",
+      "It is an asset editor for modifying mesh UVs.",
+      "Open the UV editor to unwrap/adjust seams and UVs on meshes.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "修改网格 UV 贴图的资源编辑器。",
+    "note_en": "An asset editor for modifying mesh UVs."
+  },
+  {
+    "slug": "valve-index-controller-keys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Valve Index Controller Keys`（模块 `ValveIndexControllerKeys`）。",
+      "它定义 Valve Index 控制器的输入键（`ValveIndex_*` FKey），只依赖 InputCore。",
+      "无需 OpenXR 映射即可引用这些键（如 Pixel Streaming 场景）。",
+      "轻量按键定义插件；供需要这些键的模块引用。"
+    ],
+    "en_steps": [
+      "Enable `Valve Index Controller Keys` (module `ValveIndexControllerKeys`).",
+      "It defines the Valve Index controller input keys (`ValveIndex_*` FKeys), depending only on InputCore.",
+      "These keys can be referenced without OpenXR mapping (e.g. Pixel Streaming scenarios).",
+      "A lightweight key-definition plugin; referenced by modules that need these keys."
+    ],
+    "note_cn": "Valve Index 输入键定义（仅依赖 InputCore）。",
+    "note_en": "Valve Index input-key definitions (InputCore-only)."
+  }
+]

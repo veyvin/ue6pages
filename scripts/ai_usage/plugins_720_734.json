@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "paper2d",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Paper2D`（运行时 `Paper2D`，编辑器 `Paper2DEditor`，导入器 `PaperSpriteSheetImporter`、`PaperTiledImporter`，`SmartSnapping`）。",
+      "它是引擎的 2D / 2D+3D 混合玩法与动画插件：Sprite 为核心资产，Flipbook 按序列播放，TileSet/TileMap 铺关卡。",
+      "创建 Sprite/Flipbook/TileMap 做 2D 角色与关卡，可与 3D 场景同屏。",
+      "Game 模块依赖 `Paper2D`；`Paper2DEditor`/导入器只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Paper2D` (runtime `Paper2D`, editor `Paper2DEditor`, importers `PaperSpriteSheetImporter`, `PaperTiledImporter`, `SmartSnapping`).",
+      "It is the engine's 2D / 2D+3D hybrid gameplay & animation plugin: Sprite is the core asset, Flipbook plays sequences, TileSet/TileMap lays out levels.",
+      "Create Sprites/Flipbooks/TileMaps for 2D characters and levels; compatible with 3D scenes.",
+      "Game modules depend on `Paper2D`; `Paper2DEditor`/importers go to Editor targets only."
+    ],
+    "note_cn": "2D / 2D+3D 混合玩法与动画（Sprite/Flipbook/TileMap）。",
+    "note_en": "2D / 2D+3D hybrid gameplay & animation (Sprite/Flipbook/TileMap)."
+  },
+  {
+    "slug": "pcg-biome-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `PCG Biome Core`（模块 `PCGBiomeCore`）。",
+      "它为 PCG（程序化内容生成）提供生物群系核心能力（按群系规则生成世界内容）。",
+      "在 PCG 图里用生物群系节点组织地形/植被/道具生成。",
+      "Experimental：接口可能变动；属 PCG 家族。"
+    ],
+    "en_steps": [
+      "Enable Experimental `PCG Biome Core` (module `PCGBiomeCore`).",
+      "It provides biome core capability for PCG (procedural content generation) — generating world content by biome rules.",
+      "Use biome nodes in PCG graphs to organize terrain/vegetation/prop generation.",
+      "Experimental: contract may change; part of the PCG family."
+    ],
+    "note_cn": "PCG 生物群系核心（按群系规则生成世界）。",
+    "note_en": "PCG biome core (generating world content by biome rules)."
+  },
+  {
+    "slug": "pcg-biome-sample",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `PCG Biome Sample` 插件（无独立模块列表）。",
+      "它是 PCG 生物群系示例插件，演示如何用 PCG 搭建群系内容。",
+      "参考示例图学习群系生成流程，再改造为自己的关卡。",
+      "Experimental：接口可能变动；示例内容，宜作参考。"
+    ],
+    "en_steps": [
+      "Enable the Experimental `PCG Biome Sample` plugin (no standalone module list).",
+      "It is a PCG biome sample plugin demonstrating how to build biome content with PCG.",
+      "Study the sample graphs to learn the biome generation flow, then adapt to your levels.",
+      "Experimental: contract may change; sample content, best as reference."
+    ],
+    "note_cn": "PCG 生物群系示例插件（演示群系生成）。",
+    "note_en": "A PCG biome sample plugin (demonstrating biome generation)."
+  },
+  {
+    "slug": "pcg-primitives-mesh-partition-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `PCG Primitives Mesh Partition Interop` 插件（无独立模块列表）。",
+      "它提供用于网格分区互操作的额外 PCG 基元与示例库。",
+      "在 PCG + Mesh Partition 工作流里用这些基元/库生成与编辑分区网格。",
+      "Experimental：接口可能变动；示例/库向，宜作参考。"
+    ],
+    "en_steps": [
+      "Enable the Experimental `PCG Primitives Mesh Partition Interop` plugin (no standalone module list).",
+      "It provides extra PCG primitives and sample libraries for mesh-partition interop.",
+      "In a PCG + Mesh Partition workflow, use these primitives/libraries to generate/edit partitioned meshes.",
+      "Experimental: contract may change; sample/library oriented, best as reference."
+    ],
+    "note_cn": "网格分区互操作用的额外 PCG 基元/示例库。",
+    "note_en": "Extra PCG primitives/sample libraries for mesh-partition interop."
+  },
+  {
+    "slug": "pcg-primitives",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `PCG Primitives` 插件（无独立模块列表）。",
+      "它提供用于世界构建的 PCG 基元与示例库。",
+      "在 PCG 图里用这些基元组合世界内容（建筑、道具、地形细节）。",
+      "Experimental：接口可能变动；示例/库向，宜作参考。"
+    ],
+    "en_steps": [
+      "Enable the Experimental `PCG Primitives` plugin (no standalone module list).",
+      "It provides PCG primitives and sample libraries for world building.",
+      "Use these primitives in PCG graphs to compose world content (buildings, props, terrain detail).",
+      "Experimental: contract may change; sample/library oriented, best as reference."
+    ],
+    "note_cn": "世界构建用的 PCG 基元与示例库。",
+    "note_en": "PCG primitives and sample libraries for world building."
+  },
+  {
+    "slug": "pcgtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `PCGToolset`（模块 `PCGToolset`）。",
+      "它提供让 AI 助手创建和修改 PCG 图表的工具集合。",
+      "在 PCG 编辑流程里用 AI 助手批量生成/调整程序化内容图。",
+      "这是开发期工具集（不进 Shipping）；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `PCGToolset` (module `PCGToolset`).",
+      "It provides a tool collection letting AI assistants create and modify PCG graphs.",
+      "In the PCG editing flow, use the AI assistant to batch-generate/adjust procedural content graphs.",
+      "It is a development-time toolset (does not ship); Experimental."
+    ],
+    "note_cn": "让 AI 助手创建/修改 PCG 图的工具集，实验性。",
+    "note_en": "A toolset letting AI assistants create/modify PCG graphs, experimental."
+  },
+  {
+    "slug": "perforce",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Perforce`（模块 `PerforceSourceControl`）并重启。",
+      "它提供 Perforce 源码控制集成（签出/提交/同步面板）。",
+      "在 `Project Settings > Source Control` 选 Perforce 提供方，配置服务器/工作区。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Perforce` (module `PerforceSourceControl`) and restart.",
+      "It provides Perforce source-control integration (checkout/commit/sync panel).",
+      "In `Project Settings > Source Control`, pick the Perforce provider and configure server/workspace.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "Perforce 源码控制集成（编辑器）。",
+    "note_en": "Perforce source-control integration (editor)."
+  },
+  {
+    "slug": "performance-capture-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Performance Capture Core`（运行时 `PerformanceCaptureCore`，编辑器 `PerformanceCaptureCoreEditor`）。",
+      "它是性能捕捉（Performance Capture）的核心层：处理动捕/面捕数据的基础设施。",
+      "通常作为上层 Performance Capture 工具/工作流的底层依赖。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Performance Capture Core` (runtime `PerformanceCaptureCore`, editor `PerformanceCaptureCoreEditor`).",
+      "It is the core layer of performance capture: infrastructure for handling mocap/facial data.",
+      "Usually a low-level dependency for upper performance-capture tools/workflows.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "性能捕捉(动捕/面捕)的核心基础设施层。",
+    "note_en": "The core infrastructure layer for performance capture (mocap/facial)."
+  },
+  {
+    "slug": "performance-capture-workflow",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Performance Capture Workflow`（编辑器 `PerformanceCaptureWorkflow`，运行时 `PerformanceCaptureWorkflowRuntime`）。",
+      "它提供性能捕捉的编辑器内工作流工具，含对 Mocap Manager 面板的访问。",
+      "用 Mocap Manager 面板管理捕获场次与数据，跑动捕/面捕工作流。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Performance Capture Workflow` (editor `PerformanceCaptureWorkflow`, runtime `PerformanceCaptureWorkflowRuntime`).",
+      "It provides in-editor workflow tools for performance capture, including access to the Mocap Manager panel.",
+      "Use the Mocap Manager panel to manage capture sessions/data and run mocap/facial workflows.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "性能捕捉编辑器工作流（Mocap Manager 面板）。",
+    "note_en": "In-editor performance-capture workflow (Mocap Manager panel)."
+  },
+  {
+    "slug": "performancemonitor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PerformanceMonitor`（模块 `PerformanceMonitor`）。",
+      "它用于在游戏过程中跟踪某些计时器的值（性能监控）。",
+      "在运行时监控关键计时器，定位性能热点。",
+      "属性能分析辅助；开发/测试期使用。"
+    ],
+    "en_steps": [
+      "Enable `PerformanceMonitor` (module `PerformanceMonitor`).",
+      "It tracks the values of certain timers during gameplay (performance monitoring).",
+      "Monitor key timers at runtime to locate performance hot spots.",
+      "It is a performance-analysis aid; used in development/testing."
+    ],
+    "note_cn": "游戏过程中跟踪计时器值的性能监控。",
+    "note_en": "Performance monitoring that tracks timer values during gameplay."
+  },
+  {
+    "slug": "perftoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `PerfToolset`（模块 `PerfToolset`）。",
+      "它通过 AI 工具集注册表提供运行时性能分析与分类（CPU、GPU、帧计时）。",
+      "让 AI 助手采集/分类性能数据，辅助定位瓶颈。",
+      "这是开发期工具集（不进 Shipping）；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `PerfToolset` (module `PerfToolset`).",
+      "It provides runtime performance profiling/categorization (CPU, GPU, frame timing) via the AI Toolset Registry.",
+      "Let AI assistants capture/classify perf data to help find bottlenecks.",
+      "It is a development-time toolset (does not ship); Experimental."
+    ],
+    "note_cn": "通过 AI 工具集做运行时性能分析/分类，实验性。",
+    "note_en": "Runtime perf profiling/categorization via the AI toolset, experimental."
+  },
+  {
+    "slug": "physics-async-input",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Physics Async Input`（模块 `PhysicsAsyncInput`）。",
+      "它允许直接在物理线程上绑定到增强输入（Enhanced Input）委托，减少延迟。",
+      "在物理驱动的玩法里用它在物理线程消费输入。",
+      "属输入扩展；对物理驱动游戏降低输入延迟。"
+    ],
+    "en_steps": [
+      "Enable `Physics Async Input` (module `PhysicsAsyncInput`).",
+      "It lets you bind to Enhanced Input delegates directly on the physics thread to reduce latency.",
+      "In physics-driven gameplay, use it to consume input on the physics thread.",
+      "It is an input extension; lowers input latency for physics-driven games."
+    ],
+    "note_cn": "在物理线程上绑定增强输入委托（降延迟）。",
+    "note_en": "Bind Enhanced Input delegates on the physics thread (lower latency)."
+  },
+  {
+    "slug": "physics-toolsets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Physics Toolsets`（模块 `PhysicsToolsets`）。",
+      "它提供用于处理引擎物理的 AI 可调用工具集（查询/设置物理状态）。",
+      "让 AI 助手检查/调整物理设置与状态辅助调试。",
+      "这是开发期工具集（不进 Shipping）；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Physics Toolsets` (module `PhysicsToolsets`).",
+      "It provides AI-callable toolsets for working with engine physics (query/set physics state).",
+      "Let AI assistants inspect/adjust physics settings and state for debugging.",
+      "It is a development-time toolset (does not ship); Experimental."
+    ],
+    "note_cn": "处理引擎物理的 AI 可调用工具集，实验性。",
+    "note_en": "AI-callable toolsets for working with engine physics, experimental."
+  },
+  {
+    "slug": "physicscontrol",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PhysicsControl`（运行时 `PhysicsControl`、`PhysicsControlUncookedOnly`，编辑器 `PhysicsControlEditor`）。",
+      "它通过物理控制组件与带控制的刚体动画图节点，对静态与骨骼网格做物理控制。",
+      "给网格加 PhysicsControl 组件，用动画图节点驱动刚体控制。",
+      "Game 模块依赖运行时模块；编辑器/UncookedOnly 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `PhysicsControl` (runtime `PhysicsControl`, `PhysicsControlUncookedOnly`, editor `PhysicsControlEditor`).",
+      "It provides physics control of static and skeletal meshes via physics control components and rigid-body anim-graph nodes.",
+      "Add a PhysicsControl component to a mesh and drive rigid-body control with anim-graph nodes.",
+      "Game modules depend on runtime modules; editor/UncookedOnly modules go to Editor targets only."
+    ],
+    "note_cn": "用物理控制组件+刚体动画图节点控制网格物理。",
+    "note_en": "Physics control of meshes via components + rigid-body anim-graph nodes."
+  },
+  {
+    "slug": "pico-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PICO Controller`（模块 `PICOController`），运行时插件。",
+      "它提供对 `XR_BD_controller_interaction` 与 `XR_BD_ultra_controller_interaction` 扩展的支持（PICO 手柄）。",
+      "在 PICO 的 OpenXR 项目里用对应交互配置。",
+      "运行时模块可进包；需 OpenXR 运行时与 PICO 设备。"
+    ],
+    "en_steps": [
+      "Enable `PICO Controller` (module `PICOController`), a runtime plugin.",
+      "It provides support for the `XR_BD_controller_interaction` and `XR_BD_ultra_controller_interaction` extensions (PICO controllers).",
+      "Use the matching interaction profile in PICO OpenXR projects.",
+      "Runtime modules can ship; requires an OpenXR runtime and PICO device."
+    ],
+    "note_cn": "PICO 手柄支持（XR_BD_controller_interaction）。",
+    "note_en": "PICO controller support (XR_BD_controller_interaction)."
+  }
+]

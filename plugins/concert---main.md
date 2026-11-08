@@ -3,7 +3,6 @@ layout: default
 title: 音乐会 - 主要 / Concert - Main
 ---
 
-
 <h1>音乐会 - 主要 / Concert - Main</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 音乐会 - 主要 / Concert - Main
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许在编辑器中进行协作多用户会话</div><div class="lang-content">Allow collaborative multi-users sessions in the Editor</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Concert - Main</code>（<code class="usage-code">Concert</code>、<code class="usage-code">ConcertClient</code>、<code class="usage-code">ConcertServer</code>、<code class="usage-code">ConcertTransport</code>）。这是多人编辑的会话/传输层；关卡同步还需要 <code class="usage-code">Multi-User Editing</code>（Concert Sync）一起开。</li><li>一台机器当服务器：<code class="usage-code">Window &gt; Multi-User Browser</code>（或独立 <code class="usage-code">UnrealMultiUserServer</code>）创建 Session，确认端口与 <code class="usage-code">ConcertTransport</code> UDP/TCP 可达。</li><li>其他编辑器在同一 Browser 里 Join，显示名与会话名一致。连接后 <code class="usage-code">ConcertClient</code> 把事务发到 <code class="usage-code">ConcertServer</code>，再广播给各客户端。</li><li>先在沙盒关卡验证移动 Actor 是否出现在其他机器；冲突用 Multi-User 的事务/锁定 UI 处理，而不是 Git 合并 <code class="usage-code">.umap</code>。</li><li>不要把这些模块加进游戏 Shipping。Concert 同步的是编辑器会话，不是 PIE 网络游戏复制。</li></ol><p class="usage-note">Concert 传输与会话核心。没有 Sync 插件就没有开箱即用的关卡协作。不是游戏 NetDriver。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Concert - Main</code> (<code class="usage-code">Concert</code>, <code class="usage-code">ConcertClient</code>, <code class="usage-code">ConcertServer</code>, <code class="usage-code">ConcertTransport</code>). This is the session/transport layer; level/asset sync also needs <code class="usage-code">Multi-User Editing</code> (Concert Sync).</li><li>On the host, open <code class="usage-code">Window &gt; Multi-User Browser</code> (or standalone <code class="usage-code">UnrealMultiUserServer</code>) and create a Session. Ensure <code class="usage-code">ConcertTransport</code> UDP/TCP ports are reachable.</li><li>Other editors Join the same session with matching display names. <code class="usage-code">ConcertClient</code> sends transactions to <code class="usage-code">ConcertServer</code>, which broadcasts to clients.</li><li>Prove Actor moves on a sandbox map before production. Resolve conflicts with Multi-User transaction/lock UI, not by Git-merging <code class="usage-code">.umap</code>.</li><li>Do not add these modules to Shipping. Concert syncs editor sessions, not PIE gameplay replication.</li></ol><p class="usage-note">Concert transport and session core. Without the Sync plugin there is no turnkey level collab. Not a gameplay NetDriver.</p></div></div></div>
+    </div>
+

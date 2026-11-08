@@ -3,7 +3,6 @@ layout: default
 title: 基本角色FX编辑器 / BaseCharacterFXEditor
 ---
 
-
 <h1>基本角色FX编辑器 / BaseCharacterFXEditor</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 基本角色FX编辑器 / BaseCharacterFXEditor
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">角色 FX 资源编辑器的基类</div><div class="lang-content">Base classes for character FX asset editors</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>这是角色 FX 资产编辑器的基类插件（<code class="usage-code">BaseCharacterFXEditor.uplugin</code>），Groom / Chaos Cloth 等编辑器依赖它。内容制作人通常不用单独「打开 BaseCharacterFX 窗口」。</li><li>写自定义角色 FX 资产编辑器时，在 <code class="usage-code">*Editor.Build.cs</code> 依赖模块 <code class="usage-code">BaseCharacterFXEditor</code>（Editor 模块，禁止进 Game Target）。</li><li>派生 <code class="usage-code">UBaseCharacterFXEditor</code> / Toolkit，接入 Interactive Tools Framework 视口、工具命令与细节托管；资源类型用 Asset Tools 注册打开行为。</li><li>验证：双击你的角色 FX 资产应打开共用视口布局（3D 预览 + 工具板），而不是普通 Actor 细节。对照引擎里 Hair/Cloth 编辑器插件的依赖列表。</li><li>不要把该模块当运行时 Character FX 播放库。运行时 Groom/Cloth 走各自 Runtime 插件；这里只有编辑器骨架。</li></ol><p class="usage-note">编辑器基类，给 Groom/Cloth 等工具提供视口骨架。不是可放置的角色特效组件。</p></div><div class="lang-content"><ol class="usage-steps"><li>This plugin (<code class="usage-code">BaseCharacterFXEditor.uplugin</code>) supplies base classes for character FX asset editors. Groom and Chaos Cloth editors depend on it. Content authors do not open a standalone “BaseCharacterFX” window.</li><li>When writing a custom character FX asset editor, depend on module <code class="usage-code">BaseCharacterFXEditor</code> from <code class="usage-code">*Editor.Build.cs</code> only — never a Game Target.</li><li>Subclass <code class="usage-code">UBaseCharacterFXEditor</code> / its toolkit, hook the Interactive Tools Framework viewport, tool commands, and details hosting, and register the asset type with Asset Tools.</li><li>Verify that double-clicking your character FX asset opens the shared viewport layout (3D preview + tool palette), not a generic Actor Details panel. Match how Hair/Cloth editor plugins list this dependency.</li><li>Do not use this module as a runtime Character FX playback library. Runtime Groom/Cloth live in their own runtime plugins; this is editor scaffolding only.</li></ol><p class="usage-note">Editor base classes for Groom/Cloth-style toolkits. Not a placeable character FX component.</p></div></div></div>
+    </div>
+

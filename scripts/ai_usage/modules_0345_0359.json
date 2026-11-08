@@ -1,0 +1,304 @@
+[
+  {
+    "slug": "http_parser",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`http_parser` 位于 `ThirdParty`，构建规则 `ThirdParty/http_parser/http_parser.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"http_parser\" });`；对外暴露 `http_parser` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`http_parser` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `httpparser.h` / `httpparserModule.h`），再用 `FModuleManager::LoadModulePtr<httpparserModule>` 或直接使用导出类型。",
+      "传递依赖：`http_parser` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `http_parser` lives under `ThirdParty`; build rule `ThirdParty/http_parser/http_parser.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"http_parser\" });`. Use Public when exposing `http_parser` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `http_parser` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `httpparser.h` / `httpparserModule.h`), then use `FModuleManager::LoadModulePtr<httpparserModule>` or the exported types directly.",
+      "Transitive deps: `http_parser` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`http_parser` 的构建规则位于 `ThirdParty/http_parser/http_parser.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`http_parser` build rule is `ThirdParty/http_parser/http_parser.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "httpnetworkreplaystreaming",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HttpNetworkReplayStreaming` 位于 `Runtime`，构建规则 `Runtime/NetworkReplayStreaming/HttpNetworkReplayStreaming/HttpNetworkReplayStreaming.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreOnline`, `CoreUObject`, `Engine`, `HTTP`, `Json`, `NetworkReplayStreaming`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HttpNetworkReplayStreaming\" });`；对外暴露 `HttpNetworkReplayStreaming` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HttpNetworkReplayStreaming` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `HttpNetworkReplayStreaming.h` / `HttpNetworkReplayStreamingModule.h`），再用 `FModuleManager::LoadModulePtr<HttpNetworkReplayStreamingModule>` 或直接使用导出类型。",
+      "传递依赖：`HttpNetworkReplayStreaming` 还依赖 `Core`, `CoreOnline`, `CoreUObject`, `Engine`, `HTTP`, `Json`, `NetworkReplayStreaming`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HttpNetworkReplayStreaming` lives under `Runtime`; build rule `Runtime/NetworkReplayStreaming/HttpNetworkReplayStreaming/HttpNetworkReplayStreaming.Build.cs`.It directly depends on 7 modules: `Core`, `CoreOnline`, `CoreUObject`, `Engine`, `HTTP`, `Json`, `NetworkReplayStreaming`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HttpNetworkReplayStreaming\" });`. Use Public when exposing `HttpNetworkReplayStreaming` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HttpNetworkReplayStreaming` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `HttpNetworkReplayStreaming.h` / `HttpNetworkReplayStreamingModule.h`), then use `FModuleManager::LoadModulePtr<HttpNetworkReplayStreamingModule>` or the exported types directly.",
+      "Transitive deps: `HttpNetworkReplayStreaming` also needs `Core`, `CoreOnline`, `CoreUObject`, `Engine`, `HTTP`, `Json`, `NetworkReplayStreaming`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HttpNetworkReplayStreaming` 的构建规则位于 `Runtime/NetworkReplayStreaming/HttpNetworkReplayStreaming/HttpNetworkReplayStreaming.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`HttpNetworkReplayStreaming` build rule is `Runtime/NetworkReplayStreaming/HttpNetworkReplayStreaming/HttpNetworkReplayStreaming.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "httpserver",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`HTTPServer` 位于 `Runtime`，构建规则 `Runtime/Online/HTTPServer/HttpServer.Build.cs`。它直接依赖 3 个模块：`Core`, `HTTP`, `Sockets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"HTTPServer\" });`；对外暴露 `HTTPServer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`HTTPServer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `HTTPServer.h` / `HTTPServerModule.h`），再用 `FModuleManager::LoadModulePtr<HTTPServerModule>` 或直接使用导出类型。",
+      "传递依赖：`HTTPServer` 还依赖 `Core`, `HTTP`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `HTTPServer` lives under `Runtime`; build rule `Runtime/Online/HTTPServer/HttpServer.Build.cs`.It directly depends on 3 modules: `Core`, `HTTP`, `Sockets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"HTTPServer\" });`. Use Public when exposing `HTTPServer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `HTTPServer` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `HTTPServer.h` / `HTTPServerModule.h`), then use `FModuleManager::LoadModulePtr<HTTPServerModule>` or the exported types directly.",
+      "Transitive deps: `HTTPServer` also needs `Core`, `HTTP`, `Sockets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`HTTPServer` 的构建规则位于 `Runtime/Online/HTTPServer/HttpServer.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`HTTPServer` build rule is `Runtime/Online/HTTPServer/HttpServer.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "iastool",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IasTool` 位于 `Programs`，构建规则 `Programs/IoStoreOnDemand/IasTool.Build.cs`。它直接依赖 3 个模块：`Core`, `IoStoreOnDemandUtilities`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IasTool\" });`；对外暴露 `IasTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IasTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `IasTool.h` / `IasToolModule.h`），再用 `FModuleManager::LoadModulePtr<IasToolModule>` 或直接使用导出类型。",
+      "传递依赖：`IasTool` 还依赖 `Core`, `IoStoreOnDemandUtilities`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IasTool` lives under `Programs`; build rule `Programs/IoStoreOnDemand/IasTool.Build.cs`.It directly depends on 3 modules: `Core`, `IoStoreOnDemandUtilities`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IasTool\" });`. Use Public when exposing `IasTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IasTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `IasTool.h` / `IasToolModule.h`), then use `FModuleManager::LoadModulePtr<IasToolModule>` or the exported types directly.",
+      "Transitive deps: `IasTool` also needs `Core`, `IoStoreOnDemandUtilities`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IasTool` 的构建规则位于 `Programs/IoStoreOnDemand/IasTool.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`IasTool` build rule is `Programs/IoStoreOnDemand/IasTool.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "icmp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Icmp` 位于 `Runtime`，构建规则 `Runtime/Online/ICMP/Icmp.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Sockets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Icmp\" });`；对外暴露 `Icmp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Icmp` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Icmp.h` / `IcmpModule.h`），再用 `FModuleManager::LoadModulePtr<IcmpModule>` 或直接使用导出类型。",
+      "传递依赖：`Icmp` 还依赖 `Core`, `CoreUObject`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Icmp` lives under `Runtime`; build rule `Runtime/Online/ICMP/Icmp.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Sockets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Icmp\" });`. Use Public when exposing `Icmp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Icmp` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Icmp.h` / `IcmpModule.h`), then use `FModuleManager::LoadModulePtr<IcmpModule>` or the exported types directly.",
+      "Transitive deps: `Icmp` also needs `Core`, `CoreUObject`, `Sockets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Icmp` 的构建规则位于 `Runtime/Online/ICMP/Icmp.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`Icmp` build rule is `Runtime/Online/ICMP/Icmp.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "icu",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ICU` 位于 `ThirdParty`，构建规则 `ThirdParty/ICU/ICU.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ICU\" });`；对外暴露 `ICU` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ICU` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `ICU.h` / `ICUModule.h`），再用 `FModuleManager::LoadModulePtr<ICUModule>` 或直接使用导出类型。",
+      "传递依赖：`ICU` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `ICU` lives under `ThirdParty`; build rule `ThirdParty/ICU/ICU.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ICU\" });`. Use Public when exposing `ICU` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ICU` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `ICU.h` / `ICUModule.h`), then use `FModuleManager::LoadModulePtr<ICUModule>` or the exported types directly.",
+      "Transitive deps: `ICU` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`ICU` 的构建规则位于 `ThirdParty/ICU/ICU.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`ICU` build rule is `ThirdParty/ICU/ICU.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "iesfile",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IESFile` 位于 `Runtime`，构建规则 `Runtime/IESFile/IESFile.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IESFile\" });`；对外暴露 `IESFile` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IESFile` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IESFile.h` / `IESFileModule.h`），再用 `FModuleManager::LoadModulePtr<IESFileModule>` 或直接使用导出类型。",
+      "传递依赖：`IESFile` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IESFile` lives under `Runtime`; build rule `Runtime/IESFile/IESFile.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IESFile\" });`. Use Public when exposing `IESFile` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IESFile` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IESFile.h` / `IESFileModule.h`), then use `FModuleManager::LoadModulePtr<IESFileModule>` or the exported types directly.",
+      "Transitive deps: `IESFile` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IESFile` 的构建规则位于 `Runtime/IESFile/IESFile.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`IESFile` build rule is `Runtime/IESFile/IESFile.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "imagecore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ImageCore` 位于 `Runtime`，构建规则 `Runtime/ImageCore/ImageCore.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `stb_image_resize2`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ImageCore\" });`；对外暴露 `ImageCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ImageCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ImageCore.h` / `ImageCoreModule.h`），再用 `FModuleManager::LoadModulePtr<ImageCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`ImageCore` 还依赖 `Core`, `CoreUObject`, `stb_image_resize2`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ImageCore` lives under `Runtime`; build rule `Runtime/ImageCore/ImageCore.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `stb_image_resize2`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ImageCore\" });`. Use Public when exposing `ImageCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ImageCore` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ImageCore.h` / `ImageCoreModule.h`), then use `FModuleManager::LoadModulePtr<ImageCoreModule>` or the exported types directly.",
+      "Transitive deps: `ImageCore` also needs `Core`, `CoreUObject`, `stb_image_resize2`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ImageCore` 的构建规则位于 `Runtime/ImageCore/ImageCore.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ImageCore` build rule is `Runtime/ImageCore/ImageCore.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "imagedownload",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ImageDownload` 位于 `Runtime`，构建规则 `Runtime/Online/ImageDownload/ImageDownload.Build.cs`。它直接依赖 5 个模块：`Core`, `HTTP`, `ImageCore`, `ImageWrapper`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ImageDownload\" });`；对外暴露 `ImageDownload` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ImageDownload` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ImageDownload.h` / `ImageDownloadModule.h`），再用 `FModuleManager::LoadModulePtr<ImageDownloadModule>` 或直接使用导出类型。",
+      "传递依赖：`ImageDownload` 还依赖 `Core`, `HTTP`, `ImageCore`, `ImageWrapper`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ImageDownload` lives under `Runtime`; build rule `Runtime/Online/ImageDownload/ImageDownload.Build.cs`.It directly depends on 5 modules: `Core`, `HTTP`, `ImageCore`, `ImageWrapper`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ImageDownload\" });`. Use Public when exposing `ImageDownload` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ImageDownload` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ImageDownload.h` / `ImageDownloadModule.h`), then use `FModuleManager::LoadModulePtr<ImageDownloadModule>` or the exported types directly.",
+      "Transitive deps: `ImageDownload` also needs `Core`, `HTTP`, `ImageCore`, `ImageWrapper`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ImageDownload` 的构建规则位于 `Runtime/Online/ImageDownload/ImageDownload.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`ImageDownload` build rule is `Runtime/Online/ImageDownload/ImageDownload.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "imagewrapper",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ImageWrapper` 位于 `Runtime`，构建规则 `Runtime/ImageWrapper/ImageWrapper.Build.cs`。它直接依赖 3 个模块：`Core`, `ImageCore`, `LibTiff`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ImageWrapper\" });`；对外暴露 `ImageWrapper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ImageWrapper` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ImageWrapper.h` / `ImageWrapperModule.h`），再用 `FModuleManager::LoadModulePtr<ImageWrapperModule>` 或直接使用导出类型。",
+      "传递依赖：`ImageWrapper` 还依赖 `Core`, `ImageCore`, `LibTiff`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ImageWrapper` lives under `Runtime`; build rule `Runtime/ImageWrapper/ImageWrapper.Build.cs`.It directly depends on 3 modules: `Core`, `ImageCore`, `LibTiff`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ImageWrapper\" });`. Use Public when exposing `ImageWrapper` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ImageWrapper` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ImageWrapper.h` / `ImageWrapperModule.h`), then use `FModuleManager::LoadModulePtr<ImageWrapperModule>` or the exported types directly.",
+      "Transitive deps: `ImageWrapper` also needs `Core`, `ImageCore`, `LibTiff`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ImageWrapper` 的构建规则位于 `Runtime/ImageWrapper/ImageWrapper.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ImageWrapper` build rule is `Runtime/ImageWrapper/ImageWrapper.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "imagewritequeue",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ImageWriteQueue` 位于 `Runtime`，构建规则 `Runtime/ImageWriteQueue/ImageWriteQueue.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `Engine`, `ImageCore`, `ImageWrapper`, `RHI`, `RenderCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ImageWriteQueue\" });`；对外暴露 `ImageWriteQueue` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ImageWriteQueue` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ImageWriteQueue.h` / `ImageWriteQueueModule.h`），再用 `FModuleManager::LoadModulePtr<ImageWriteQueueModule>` 或直接使用导出类型。",
+      "传递依赖：`ImageWriteQueue` 还依赖 `Core`, `CoreUObject`, `Engine`, `ImageCore`, `ImageWrapper`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ImageWriteQueue` lives under `Runtime`; build rule `Runtime/ImageWriteQueue/ImageWriteQueue.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `Engine`, `ImageCore`, `ImageWrapper`, `RHI`, `RenderCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ImageWriteQueue\" });`. Use Public when exposing `ImageWriteQueue` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ImageWriteQueue` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ImageWriteQueue.h` / `ImageWriteQueueModule.h`), then use `FModuleManager::LoadModulePtr<ImageWriteQueueModule>` or the exported types directly.",
+      "Transitive deps: `ImageWriteQueue` also needs `Core`, `CoreUObject`, `Engine`, `ImageCore`, `ImageWrapper`, `RHI`, `RenderCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ImageWriteQueue` 的构建规则位于 `Runtime/ImageWriteQueue/ImageWriteQueue.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`ImageWriteQueue` build rule is `Runtime/ImageWriteQueue/ImageWriteQueue.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "imath",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Imath` 位于 `ThirdParty`，构建规则 `ThirdParty/Imath/Imath.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Imath\" });`；对外暴露 `Imath` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Imath` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Imath.h` / `ImathModule.h`），再用 `FModuleManager::LoadModulePtr<ImathModule>` 或直接使用导出类型。",
+      "传递依赖：`Imath` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Imath` lives under `ThirdParty`; build rule `ThirdParty/Imath/Imath.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Imath\" });`. Use Public when exposing `Imath` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Imath` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Imath.h` / `ImathModule.h`), then use `FModuleManager::LoadModulePtr<ImathModule>` or the exported types directly.",
+      "Transitive deps: `Imath` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Imath` 的构建规则位于 `ThirdParty/Imath/Imath.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Imath` build rule is `ThirdParty/Imath/Imath.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "indexedcachestorage",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IndexedCacheStorage` 位于 `Runtime`，构建规则 `Runtime/Experimental/IndexedCacheStorage/IndexedCacheStorage.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IndexedCacheStorage\" });`；对外暴露 `IndexedCacheStorage` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IndexedCacheStorage` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IndexedCacheStorage.h` / `IndexedCacheStorageModule.h`），再用 `FModuleManager::LoadModulePtr<IndexedCacheStorageModule>` 或直接使用导出类型。",
+      "传递依赖：`IndexedCacheStorage` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`IndexedCacheStorage` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `IndexedCacheStorage` lives under `Runtime`; build rule `Runtime/Experimental/IndexedCacheStorage/IndexedCacheStorage.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IndexedCacheStorage\" });`. Use Public when exposing `IndexedCacheStorage` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IndexedCacheStorage` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IndexedCacheStorage.h` / `IndexedCacheStorageModule.h`), then use `FModuleManager::LoadModulePtr<IndexedCacheStorageModule>` or the exported types directly.",
+      "Transitive deps: `IndexedCacheStorage` also needs `Core`; do not re-list them unless you include their headers.",
+      "Note: `IndexedCacheStorage` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`IndexedCacheStorage` 的构建规则位于 `Runtime/Experimental/IndexedCacheStorage/IndexedCacheStorage.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`IndexedCacheStorage` build rule is `Runtime/Experimental/IndexedCacheStorage/IndexedCacheStorage.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "inputbindingeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`InputBindingEditor` 位于 `Editor`，构建规则 `Editor/InputBindingEditor/InputBindingEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`, `Settings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InputBindingEditor\" });`；对外暴露 `InputBindingEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`InputBindingEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `InputBindingEditor.h` / `InputBindingEditorModule.h`），再用 `FModuleManager::LoadModulePtr<InputBindingEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`InputBindingEditor` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`, `Settings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `InputBindingEditor` lives under `Editor`; build rule `Editor/InputBindingEditor/InputBindingEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`, `Settings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InputBindingEditor\" });`. Use Public when exposing `InputBindingEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `InputBindingEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `InputBindingEditor.h` / `InputBindingEditorModule.h`), then use `FModuleManager::LoadModulePtr<InputBindingEditorModule>` or the exported types directly.",
+      "Transitive deps: `InputBindingEditor` also needs `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`, `Settings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`InputBindingEditor` 的构建规则位于 `Editor/InputBindingEditor/InputBindingEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`InputBindingEditor` build rule is `Editor/InputBindingEditor/InputBindingEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "inputbindingsettingsviewer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`InputBindingSettingsViewer` 位于 `Editor`，构建规则 `Editor/InputBindingSettingsViewer/InputBindingSettingsViewer.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `SettingsEditor`, `Slate`, `SlateCore`, `UnrealEd`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"InputBindingSettingsViewer\" });`；对外暴露 `InputBindingSettingsViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`InputBindingSettingsViewer` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `InputBindingSettingsViewer.h` / `InputBindingSettingsViewerModule.h`），再用 `FModuleManager::LoadModulePtr<InputBindingSettingsViewerModule>` 或直接使用导出类型。",
+      "传递依赖：`InputBindingSettingsViewer` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `SettingsEditor`, `Slate`, `SlateCore`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `InputBindingSettingsViewer` lives under `Editor`; build rule `Editor/InputBindingSettingsViewer/InputBindingSettingsViewer.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `SettingsEditor`, `Slate`, `SlateCore`, `UnrealEd`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"InputBindingSettingsViewer\" });`. Use Public when exposing `InputBindingSettingsViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `InputBindingSettingsViewer` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `InputBindingSettingsViewer.h` / `InputBindingSettingsViewerModule.h`), then use `FModuleManager::LoadModulePtr<InputBindingSettingsViewerModule>` or the exported types directly.",
+      "Transitive deps: `InputBindingSettingsViewer` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `SettingsEditor`, `Slate`, `SlateCore`, `UnrealEd`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`InputBindingSettingsViewer` 的构建规则位于 `Editor/InputBindingSettingsViewer/InputBindingSettingsViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`InputBindingSettingsViewer` build rule is `Editor/InputBindingSettingsViewer/InputBindingSettingsViewer.Build.cs`; depends on 8 modules; category Module."
+  }
+]

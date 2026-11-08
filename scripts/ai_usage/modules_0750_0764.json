@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "targetplatform",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TargetPlatform` 位于 `Developer`，构建规则 `Developer/TargetPlatform/TargetPlatform.Build.cs`。它直接依赖 8 个模块：`Analytics`, `AudioPlatformConfiguration`, `Core`, `DesktopPlatform`, `DeveloperSettings`, `Engine`, `Json`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TargetPlatform\" });`；对外暴露 `TargetPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TargetPlatform` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TargetPlatform.h` / `TargetPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<TargetPlatformModule>` 或直接使用导出类型。",
+      "传递依赖：`TargetPlatform` 还依赖 `Analytics`, `AudioPlatformConfiguration`, `Core`, `DesktopPlatform`, `DeveloperSettings`, `Engine`, `Json`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TargetPlatform` lives under `Developer`; build rule `Developer/TargetPlatform/TargetPlatform.Build.cs`.It directly depends on 8 modules: `Analytics`, `AudioPlatformConfiguration`, `Core`, `DesktopPlatform`, `DeveloperSettings`, `Engine`, `Json`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TargetPlatform\" });`. Use Public when exposing `TargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TargetPlatform` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TargetPlatform.h` / `TargetPlatformModule.h`), then use `FModuleManager::LoadModulePtr<TargetPlatformModule>` or the exported types directly.",
+      "Transitive deps: `TargetPlatform` also needs `Analytics`, `AudioPlatformConfiguration`, `Core`, `DesktopPlatform`, `DeveloperSettings`, `Engine`, `Json`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TargetPlatform` 的构建规则位于 `Developer/TargetPlatform/TargetPlatform.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`TargetPlatform` build rule is `Developer/TargetPlatform/TargetPlatform.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "telemetryutils",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TelemetryUtils` 位于 `Runtime`，构建规则 `Runtime/Analytics/TelemetryUtils/TelemetryUtils.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TelemetryUtils\" });`；对外暴露 `TelemetryUtils` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TelemetryUtils` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `TelemetryUtils.h` / `TelemetryUtilsModule.h`），再用 `FModuleManager::LoadModulePtr<TelemetryUtilsModule>` 或直接使用导出类型。",
+      "传递依赖：`TelemetryUtils` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TelemetryUtils` lives under `Runtime`; build rule `Runtime/Analytics/TelemetryUtils/TelemetryUtils.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TelemetryUtils\" });`. Use Public when exposing `TelemetryUtils` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TelemetryUtils` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `TelemetryUtils.h` / `TelemetryUtilsModule.h`), then use `FModuleManager::LoadModulePtr<TelemetryUtilsModule>` or the exported types directly.",
+      "Transitive deps: `TelemetryUtils` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TelemetryUtils` 的构建规则位于 `Runtime/Analytics/TelemetryUtils/TelemetryUtils.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`TelemetryUtils` build rule is `Runtime/Analytics/TelemetryUtils/TelemetryUtils.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "testpal",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TestPAL` 位于 `Programs`，构建规则 `Programs/TestPAL/TestPAL.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `Core`, `DirectoryWatcher`, `Projects`, `SDL3`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TestPAL\" });`；对外暴露 `TestPAL` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TestPAL` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `TestPAL.h` / `TestPALModule.h`），再用 `FModuleManager::LoadModulePtr<TestPALModule>` 或直接使用导出类型。",
+      "传递依赖：`TestPAL` 还依赖 `ApplicationCore`, `Core`, `DirectoryWatcher`, `Projects`, `SDL3`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TestPAL` lives under `Programs`; build rule `Programs/TestPAL/TestPAL.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `Core`, `DirectoryWatcher`, `Projects`, `SDL3`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TestPAL\" });`. Use Public when exposing `TestPAL` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TestPAL` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `TestPAL.h` / `TestPALModule.h`), then use `FModuleManager::LoadModulePtr<TestPALModule>` or the exported types directly.",
+      "Transitive deps: `TestPAL` also needs `ApplicationCore`, `Core`, `DirectoryWatcher`, `Projects`, `SDL3`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TestPAL` 的构建规则位于 `Programs/TestPAL/TestPAL.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`TestPAL` build rule is `Programs/TestPAL/TestPAL.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "texturebuild",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureBuild` 位于 `Developer`，构建规则 `Developer/TextureBuild/TextureBuild.Build.cs`。它直接依赖 7 个模块：`Core`, `DerivedDataCache`, `ImageCore`, `ImageWrapper`, `TextureBuildUtilities`, `TextureCompressor`, `TextureFormat`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureBuild\" });`；对外暴露 `TextureBuild` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureBuild` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureBuild.h` / `TextureBuildModule.h`），再用 `FModuleManager::LoadModulePtr<TextureBuildModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureBuild` 还依赖 `Core`, `DerivedDataCache`, `ImageCore`, `ImageWrapper`, `TextureBuildUtilities`, `TextureCompressor`, `TextureFormat`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureBuild` lives under `Developer`; build rule `Developer/TextureBuild/TextureBuild.Build.cs`.It directly depends on 7 modules: `Core`, `DerivedDataCache`, `ImageCore`, `ImageWrapper`, `TextureBuildUtilities`, `TextureCompressor`, `TextureFormat`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureBuild\" });`. Use Public when exposing `TextureBuild` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureBuild` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureBuild.h` / `TextureBuildModule.h`), then use `FModuleManager::LoadModulePtr<TextureBuildModule>` or the exported types directly.",
+      "Transitive deps: `TextureBuild` also needs `Core`, `DerivedDataCache`, `ImageCore`, `ImageWrapper`, `TextureBuildUtilities`, `TextureCompressor`, `TextureFormat`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureBuild` 的构建规则位于 `Developer/TextureBuild/TextureBuild.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`TextureBuild` build rule is `Developer/TextureBuild/TextureBuild.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "texturebuildutilities",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureBuildUtilities` 位于 `Developer`，构建规则 `Developer/TextureBuildUtilities/TextureBuildUtilities.Build.cs`。它直接依赖 3 个模块：`Core`, `ImageCore`, `TextureFormat`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureBuildUtilities\" });`；对外暴露 `TextureBuildUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureBuildUtilities` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureBuildUtilities.h` / `TextureBuildUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<TextureBuildUtilitiesModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureBuildUtilities` 还依赖 `Core`, `ImageCore`, `TextureFormat`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureBuildUtilities` lives under `Developer`; build rule `Developer/TextureBuildUtilities/TextureBuildUtilities.Build.cs`.It directly depends on 3 modules: `Core`, `ImageCore`, `TextureFormat`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureBuildUtilities\" });`. Use Public when exposing `TextureBuildUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureBuildUtilities` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureBuildUtilities.h` / `TextureBuildUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<TextureBuildUtilitiesModule>` or the exported types directly.",
+      "Transitive deps: `TextureBuildUtilities` also needs `Core`, `ImageCore`, `TextureFormat`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureBuildUtilities` 的构建规则位于 `Developer/TextureBuildUtilities/TextureBuildUtilities.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`TextureBuildUtilities` build rule is `Developer/TextureBuildUtilities/TextureBuildUtilities.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "texturecompressor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureCompressor` 位于 `Developer`，构建规则 `Developer/TextureCompressor/TextureCompressor.Build.cs`。它直接依赖 5 个模块：`Core`, `ImageCore`, `OpenColorIOWrapper`, `TextureBuildUtilities`, `TextureFormat`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureCompressor\" });`；对外暴露 `TextureCompressor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureCompressor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureCompressor.h` / `TextureCompressorModule.h`），再用 `FModuleManager::LoadModulePtr<TextureCompressorModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureCompressor` 还依赖 `Core`, `ImageCore`, `OpenColorIOWrapper`, `TextureBuildUtilities`, `TextureFormat`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureCompressor` lives under `Developer`; build rule `Developer/TextureCompressor/TextureCompressor.Build.cs`.It directly depends on 5 modules: `Core`, `ImageCore`, `OpenColorIOWrapper`, `TextureBuildUtilities`, `TextureFormat`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureCompressor\" });`. Use Public when exposing `TextureCompressor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureCompressor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureCompressor.h` / `TextureCompressorModule.h`), then use `FModuleManager::LoadModulePtr<TextureCompressorModule>` or the exported types directly.",
+      "Transitive deps: `TextureCompressor` also needs `Core`, `ImageCore`, `OpenColorIOWrapper`, `TextureBuildUtilities`, `TextureFormat`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureCompressor` 的构建规则位于 `Developer/TextureCompressor/TextureCompressor.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`TextureCompressor` build rule is `Developer/TextureCompressor/TextureCompressor.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "textureeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureEditor` 位于 `Editor`，构建规则 `Editor/TextureEditor/TextureEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `DeveloperToolSettings`, `EditorFramework`, `EditorWidgets`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureEditor\" });`；对外暴露 `TextureEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `TextureEditor.h` / `TextureEditorModule.h`），再用 `FModuleManager::LoadModulePtr<TextureEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureEditor` 还依赖 `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `DeveloperToolSettings`, `EditorFramework`, `EditorWidgets`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureEditor` lives under `Editor`; build rule `Editor/TextureEditor/TextureEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `DeveloperToolSettings`, `EditorFramework`, `EditorWidgets`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureEditor\" });`. Use Public when exposing `TextureEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `TextureEditor.h` / `TextureEditorModule.h`), then use `FModuleManager::LoadModulePtr<TextureEditorModule>` or the exported types directly.",
+      "Transitive deps: `TextureEditor` also needs `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `DeveloperToolSettings`, `EditorFramework`, `EditorWidgets`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureEditor` 的构建规则位于 `Editor/TextureEditor/TextureEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`TextureEditor` build rule is `Editor/TextureEditor/TextureEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "textureformat",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureFormat` 位于 `Developer`，构建规则 `Developer/TextureFormat/TextureFormat.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormat\" });`；对外暴露 `TextureFormat` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureFormat` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureFormat.h` / `TextureFormatModule.h`），再用 `FModuleManager::LoadModulePtr<TextureFormatModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureFormat` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureFormat` lives under `Developer`; build rule `Developer/TextureFormat/TextureFormat.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormat\" });`. Use Public when exposing `TextureFormat` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureFormat` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureFormat.h` / `TextureFormatModule.h`), then use `FModuleManager::LoadModulePtr<TextureFormatModule>` or the exported types directly.",
+      "Transitive deps: `TextureFormat` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureFormat` 的构建规则位于 `Developer/TextureFormat/TextureFormat.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`TextureFormat` build rule is `Developer/TextureFormat/TextureFormat.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "textureformatastc",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureFormatASTC` 位于 `Developer`，构建规则 `Developer/TextureFormatASTC/TextureFormatASTC.Build.cs`。它直接依赖 5 个模块：`Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`, `astcenc`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatASTC\" });`；对外暴露 `TextureFormatASTC` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureFormatASTC` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureFormatASTC.h` / `TextureFormatASTCModule.h`），再用 `FModuleManager::LoadModulePtr<TextureFormatASTCModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureFormatASTC` 还依赖 `Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`, `astcenc`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureFormatASTC` lives under `Developer`; build rule `Developer/TextureFormatASTC/TextureFormatASTC.Build.cs`.It directly depends on 5 modules: `Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`, `astcenc`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatASTC\" });`. Use Public when exposing `TextureFormatASTC` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureFormatASTC` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureFormatASTC.h` / `TextureFormatASTCModule.h`), then use `FModuleManager::LoadModulePtr<TextureFormatASTCModule>` or the exported types directly.",
+      "Transitive deps: `TextureFormatASTC` also needs `Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`, `astcenc`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureFormatASTC` 的构建规则位于 `Developer/TextureFormatASTC/TextureFormatASTC.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`TextureFormatASTC` build rule is `Developer/TextureFormatASTC/TextureFormatASTC.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "textureformatdxt",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureFormatDXT` 位于 `Developer`，构建规则 `Developer/TextureFormatDXT/TextureFormatDXT.Build.cs`。它直接依赖 4 个模块：`Core`, `ImageCore`, `ImageWrapper`, `TextureBuild`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatDXT\" });`；对外暴露 `TextureFormatDXT` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureFormatDXT` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureFormatDXT.h` / `TextureFormatDXTModule.h`），再用 `FModuleManager::LoadModulePtr<TextureFormatDXTModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureFormatDXT` 还依赖 `Core`, `ImageCore`, `ImageWrapper`, `TextureBuild`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureFormatDXT` lives under `Developer`; build rule `Developer/TextureFormatDXT/TextureFormatDXT.Build.cs`.It directly depends on 4 modules: `Core`, `ImageCore`, `ImageWrapper`, `TextureBuild`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatDXT\" });`. Use Public when exposing `TextureFormatDXT` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureFormatDXT` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureFormatDXT.h` / `TextureFormatDXTModule.h`), then use `FModuleManager::LoadModulePtr<TextureFormatDXTModule>` or the exported types directly.",
+      "Transitive deps: `TextureFormatDXT` also needs `Core`, `ImageCore`, `ImageWrapper`, `TextureBuild`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureFormatDXT` 的构建规则位于 `Developer/TextureFormatDXT/TextureFormatDXT.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`TextureFormatDXT` build rule is `Developer/TextureFormatDXT/TextureFormatDXT.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "textureformatetc2",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureFormatETC2` 位于 `Developer`，构建规则 `Developer/TextureFormatETC2/TextureFormatETC2.Build.cs`。它直接依赖 4 个模块：`Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatETC2\" });`；对外暴露 `TextureFormatETC2` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureFormatETC2` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureFormatETC2.h` / `TextureFormatETC2Module.h`），再用 `FModuleManager::LoadModulePtr<TextureFormatETC2Module>` 或直接使用导出类型。",
+      "传递依赖：`TextureFormatETC2` 还依赖 `Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureFormatETC2` lives under `Developer`; build rule `Developer/TextureFormatETC2/TextureFormatETC2.Build.cs`.It directly depends on 4 modules: `Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatETC2\" });`. Use Public when exposing `TextureFormatETC2` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureFormatETC2` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureFormatETC2.h` / `TextureFormatETC2Module.h`), then use `FModuleManager::LoadModulePtr<TextureFormatETC2Module>` or the exported types directly.",
+      "Transitive deps: `TextureFormatETC2` also needs `Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureFormatETC2` 的构建规则位于 `Developer/TextureFormatETC2/TextureFormatETC2.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`TextureFormatETC2` build rule is `Developer/TextureFormatETC2/TextureFormatETC2.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "textureformatintelispctexcomp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureFormatIntelISPCTexComp` 位于 `Developer`，构建规则 `Developer/TextureFormatIntelISPCTexComp/TextureFormatIntelISPCTexComp.Build.cs`。它直接依赖 3 个模块：`Core`, `ImageCore`, `TextureBuild`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatIntelISPCTexComp\" });`；对外暴露 `TextureFormatIntelISPCTexComp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureFormatIntelISPCTexComp` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureFormatIntelISPCTexComp.h` / `TextureFormatIntelISPCTexCompModule.h`），再用 `FModuleManager::LoadModulePtr<TextureFormatIntelISPCTexCompModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureFormatIntelISPCTexComp` 还依赖 `Core`, `ImageCore`, `TextureBuild`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureFormatIntelISPCTexComp` lives under `Developer`; build rule `Developer/TextureFormatIntelISPCTexComp/TextureFormatIntelISPCTexComp.Build.cs`.It directly depends on 3 modules: `Core`, `ImageCore`, `TextureBuild`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatIntelISPCTexComp\" });`. Use Public when exposing `TextureFormatIntelISPCTexComp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureFormatIntelISPCTexComp` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureFormatIntelISPCTexComp.h` / `TextureFormatIntelISPCTexCompModule.h`), then use `FModuleManager::LoadModulePtr<TextureFormatIntelISPCTexCompModule>` or the exported types directly.",
+      "Transitive deps: `TextureFormatIntelISPCTexComp` also needs `Core`, `ImageCore`, `TextureBuild`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureFormatIntelISPCTexComp` 的构建规则位于 `Developer/TextureFormatIntelISPCTexComp/TextureFormatIntelISPCTexComp.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`TextureFormatIntelISPCTexComp` build rule is `Developer/TextureFormatIntelISPCTexComp/TextureFormatIntelISPCTexComp.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "textureformatoodle",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureFormatOodle` 位于 `Developer`，构建规则 `Developer/TextureFormatOodle/Source/TextureFormatOodle.Build.cs`。它直接依赖 4 个模块：`Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatOodle\" });`；对外暴露 `TextureFormatOodle` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureFormatOodle` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureFormatOodle.h` / `TextureFormatOodleModule.h`），再用 `FModuleManager::LoadModulePtr<TextureFormatOodleModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureFormatOodle` 还依赖 `Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureFormatOodle` lives under `Developer`; build rule `Developer/TextureFormatOodle/Source/TextureFormatOodle.Build.cs`.It directly depends on 4 modules: `Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatOodle\" });`. Use Public when exposing `TextureFormatOodle` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureFormatOodle` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureFormatOodle.h` / `TextureFormatOodleModule.h`), then use `FModuleManager::LoadModulePtr<TextureFormatOodleModule>` or the exported types directly.",
+      "Transitive deps: `TextureFormatOodle` also needs `Core`, `DerivedDataCache`, `ImageCore`, `TextureBuild`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureFormatOodle` 的构建规则位于 `Developer/TextureFormatOodle/Source/TextureFormatOodle.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`TextureFormatOodle` build rule is `Developer/TextureFormatOodle/Source/TextureFormatOodle.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "textureformatuncompressed",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureFormatUncompressed` 位于 `Developer`，构建规则 `Developer/TextureFormatUncompressed/TextureFormatUncompressed.Build.cs`。它直接依赖 3 个模块：`Core`, `ImageCore`, `TextureBuild`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatUncompressed\" });`；对外暴露 `TextureFormatUncompressed` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureFormatUncompressed` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `TextureFormatUncompressed.h` / `TextureFormatUncompressedModule.h`），再用 `FModuleManager::LoadModulePtr<TextureFormatUncompressedModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureFormatUncompressed` 还依赖 `Core`, `ImageCore`, `TextureBuild`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureFormatUncompressed` lives under `Developer`; build rule `Developer/TextureFormatUncompressed/TextureFormatUncompressed.Build.cs`.It directly depends on 3 modules: `Core`, `ImageCore`, `TextureBuild`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureFormatUncompressed\" });`. Use Public when exposing `TextureFormatUncompressed` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureFormatUncompressed` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `TextureFormatUncompressed.h` / `TextureFormatUncompressedModule.h`), then use `FModuleManager::LoadModulePtr<TextureFormatUncompressedModule>` or the exported types directly.",
+      "Transitive deps: `TextureFormatUncompressed` also needs `Core`, `ImageCore`, `TextureBuild`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureFormatUncompressed` 的构建规则位于 `Developer/TextureFormatUncompressed/TextureFormatUncompressed.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`TextureFormatUncompressed` build rule is `Developer/TextureFormatUncompressed/TextureFormatUncompressed.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "texturesharesdk",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`TextureShareSDK` 位于 `Programs`，构建规则 `Programs/VirtualProduction/TextureShare/TextureShareSDK.Build.cs`。它直接依赖 3 个模块：`Core`, `ImageCore`, `TextureShareCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"TextureShareSDK\" });`；对外暴露 `TextureShareSDK` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`TextureShareSDK` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `TextureShareSDK.h` / `TextureShareSDKModule.h`），再用 `FModuleManager::LoadModulePtr<TextureShareSDKModule>` 或直接使用导出类型。",
+      "传递依赖：`TextureShareSDK` 还依赖 `Core`, `ImageCore`, `TextureShareCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `TextureShareSDK` lives under `Programs`; build rule `Programs/VirtualProduction/TextureShare/TextureShareSDK.Build.cs`.It directly depends on 3 modules: `Core`, `ImageCore`, `TextureShareCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"TextureShareSDK\" });`. Use Public when exposing `TextureShareSDK` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `TextureShareSDK` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `TextureShareSDK.h` / `TextureShareSDKModule.h`), then use `FModuleManager::LoadModulePtr<TextureShareSDKModule>` or the exported types directly.",
+      "Transitive deps: `TextureShareSDK` also needs `Core`, `ImageCore`, `TextureShareCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`TextureShareSDK` 的构建规则位于 `Programs/VirtualProduction/TextureShare/TextureShareSDK.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`TextureShareSDK` build rule is `Programs/VirtualProduction/TextureShare/TextureShareSDK.Build.cs`; depends on 3 modules; category Module."
+  }
+]

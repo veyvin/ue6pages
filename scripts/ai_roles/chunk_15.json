@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "switchboardlistener",
+    "kind": "module",
+    "cn": "SwitchboardListener 是虚拟制片 Switchboard 体系里带界面的监听进程，负责在渲染节点上接收导演端下发的启动、同步和设备控制指令。它通过 SblSlate 呈现连接状态、角色与日志，让现场操作员能确认本机是否已加入 nDisplay 或相关设备会话。该模块把网络会话与本地进程拉起绑在一起，是多机协同拍摄链路中的执行端入口。",
+    "en": "SwitchboardListener is the on-machine listener process with a Slate UI that Switchboard uses to drive nDisplay and virtual-production nodes. It accepts start, sync, and device-control commands from the Switchboard operator and reports connection health through SblSlate. This module is the execution-side endpoint that actually launches and watches local processes during a multi-machine shoot."
+  },
+  {
+    "slug": "switchboardlistenercmd",
+    "kind": "module",
+    "cn": "SwitchboardListenerCmd 提供无窗口的命令行监听器，适合在无显示器的渲染农场或自动拉起的节点上运行。它只依赖 SblCore，把同样的 Switchboard 协议落到后台服务里，不加载 Slate 界面。运维可以用它在脚本或服务管理器中静默加入会话，避免图形界面带来的登录桌面依赖。",
+    "en": "SwitchboardListenerCmd is the headless Switchboard listener used on display-less render nodes and scripted farm machines. Built on SblCore rather than Slate, it speaks the same listener protocol without a GUI. Operators embed it in services or launch scripts so a node can join a session without a logged-in desktop."
+  },
+  {
+    "slug": "switchboardlistenerhelper",
+    "kind": "module",
+    "cn": "SwitchboardListenerHelper 是监听器旁边的辅助进程，负责采集本机 GPU 与工程上下文并回传给 Switchboard。它通过 NvmlWrapper 读取 NVIDIA 设备指标，再用 JSON 与网络模块交换状态。Helper 把硬件探测从主监听 UI 中拆开，避免查询驱动时拖垮主会话线程。",
+    "en": "SwitchboardListenerHelper is a companion process that gathers local GPU and project context for Switchboard. It reads NVIDIA device metrics through NvmlWrapper and exchanges JSON status over the networking stack. Splitting this helper out keeps driver queries off the main listener UI thread."
+  },
+  {
+    "slug": "switchboardlistenertests",
+    "kind": "module",
+    "cn": "SwitchboardListenerTests 专门验证监听器核心协议、鉴权与会话握手是否正确。它依赖 JWT 与 SblCore，覆盖令牌校验、消息编解码和连接生命周期。该测试模块防止现场节点因认证或协议回归而无法加入导演会话。",
+    "en": "SwitchboardListenerTests exercises the listener core: protocol framing, JWT authentication, and session handshake. It sits on JWT and SblCore so token checks and connection lifetimes stay covered. These tests catch regressions that would leave a shoot node unable to join Switchboard."
+  },
+  {
+    "slug": "symslib",
+    "kind": "module",
+    "cn": "SymsLib 是引擎引入的外部符号解析库，用来读取 PDB、DWARF 等调试符号容器。它不声明引擎内部依赖，作为独立第三方模块向崩溃分析与 Trace 工具提供地址到函数名的映射。Insights 与崩溃管线靠它把原始指令地址还原成可读的调用栈。",
+    "en": "SymsLib is the third-party symbol library Unreal uses to read PDB, DWARF, and related debug containers. It has no engine-module dependencies and supplies address-to-name mapping for crash and trace tooling. Insights and dump pipelines rely on it to turn raw instruction pointers into readable stacks."
+  },
+  {
+    "slug": "symslibdump",
+    "kind": "module",
+    "cn": "SymsLibDump 是围绕 SymsLib 的命令行转储程序，用于把符号文件内容打印成可检查的文本。开发者可用它核对某份 PDB 是否包含预期的编译单元、函数与行号。该工具把库能力暴露成独立程序，方便在构建机上做符号完整性抽检。",
+    "en": "SymsLibDump is a command-line dumper that prints SymsLib-readable symbol files as inspectable text. Developers use it to confirm a PDB or DWARF blob actually contains the expected units, functions, and line data. It turns the library into a standalone check on build machines."
+  },
+  {
+    "slug": "synthbenchmark",
+    "kind": "module",
+    "cn": "SynthBenchmark 在运行时通过 RHI 与 RenderCore 跑一组合成图形负载，用来给硬件打分。编辑器和启动流程可调用它评估 GPU 能力，从而选择可伸缩画质档位。它不依赖真实关卡内容，因此能在空项目里快速得到可比较的合成分数。",
+    "en": "SynthBenchmark runs synthetic GPU workloads through RHI and RenderCore to score a machine. The editor and startup paths can query it when choosing scalability buckets. Because it does not need a real level, it yields a comparable hardware score even in an empty project."
+  },
+  {
+    "slug": "targetdeviceservices",
+    "kind": "module",
+    "cn": "TargetDeviceServices 向编辑器与前端工具提供发现、连接和部署目标设备的服务层。它结合 DesktopPlatform 与 TargetPlatform，把手机、主机和桌面目标抽象成可枚举的设备代理。自动化启动、包推送和远程日志都经此模块找到具体设备。",
+    "en": "TargetDeviceServices is the discovery, connection, and deploy layer that editor and frontend tools use against physical targets. Together with DesktopPlatform and TargetPlatform it exposes phones, consoles, and desktops as enumerable device proxies. Launch, package push, and remote logging all locate hardware through this service."
+  },
+  {
+    "slug": "targetplatform",
+    "kind": "module",
+    "cn": "TargetPlatform 定义烹饪、打包与平台能力查询的抽象接口，是所有具体平台模块的共同底座。它汇聚音频配置、纹理格式、RHI 能力与工程设置，决定某次构建面向哪套硬件约束。没有它，各平台无法向 cooker 统一声明支持的格式与部署规则。",
+    "en": "TargetPlatform is the shared abstraction for cooking, packaging, and platform-capability queries. It gathers audio config, texture formats, RHI features, and project settings so a cook knows the hardware contract. Concrete platform modules plug into this interface instead of each talking to the cooker ad hoc."
+  },
+  {
+    "slug": "telemetryutils",
+    "kind": "module",
+    "cn": "TelemetryUtils 放在 Analytics 运行时下，提供轻量的遥测辅助函数与公共类型。它只依赖 Core，给各分析后端统一事件字段、会话标识和采样约定。模块本身不发送网络请求，而是让上层分析插件少写重复的打包逻辑。",
+    "en": "TelemetryUtils lives under Runtime Analytics and supplies lightweight helpers and shared types for telemetry. Depending only on Core, it standardizes event fields, session ids, and sampling conventions. It does not send network traffic itself; analytics backends use it to avoid duplicating packing logic."
+  },
+  {
+    "slug": "testpal",
+    "kind": "module",
+    "cn": "TestPAL 是独立程序，用来验证平台抽象层在文件系统、窗口与目录监视上的行为。它引入 SDL3 与 DirectoryWatcher，在真实 OS 上跑跨平台 PAL 用例。引擎移植到新 Unix 或桌面环境时，常用该程序确认 PAL 没有悄悄偏离预期。",
+    "en": "TestPAL is a standalone program that stresses the platform abstraction layer for files, windows, and directory watching. It pulls in SDL3 and DirectoryWatcher so cases run against a real OS. Porting Unreal to a new Unix or desktop host often starts by proving PAL behavior here."
+  },
+  {
+    "slug": "texturebuild",
+    "kind": "module",
+    "cn": "TextureBuild 是纹理派生数据的构建入口，把源图像送进压缩器并写入 Derived Data Cache。它串联 ImageCore、ImageWrapper、TextureCompressor 与 TextureFormat，产出平台所需的 GPU 纹理块。cook 与编辑器缩略图都依赖这条流水线避免重复压缩。",
+    "en": "TextureBuild is the derived-data entry point that turns source images into cached GPU textures. It wires ImageCore, ImageWrapper, TextureCompressor, and TextureFormat into one cook path. Editor thumbnails and platform cooks share this pipeline so the same source is not recompressed endlessly."
+  },
+  {
+    "slug": "texturebuildutilities",
+    "kind": "module",
+    "cn": "TextureBuildUtilities 存放纹理构建共用的尺寸对齐、mip 策略与格式查询辅助代码。它被压缩器与各 TextureFormat 插件同时引用，避免每家编码器复制一套 ImageCore 约定。调整块对齐或 mip 生成规则时，改动集中在这一层即可向下传播。",
+    "en": "TextureBuildUtilities holds shared sizing, mip policy, and format-query helpers for the texture cook. Compressors and TextureFormat plugins share it instead of each copying ImageCore conventions. Block-alignment or mip-rule changes land here and flow to every encoder."
+  },
+  {
+    "slug": "texturecompressor",
+    "kind": "module",
+    "cn": "TextureCompressor 执行实际的像素压缩与色彩空间转换，并接入 OpenColorIOWrapper。它根据目标格式选择编码器，处理 sRGB、线性与显示参考之间的转换后再写出块压缩数据。编辑器导入与 cook 都经此模块得到最终的平台纹理。",
+    "en": "TextureCompressor performs the actual pixel encode and color-space conversion, including OpenColorIO via OpenColorIOWrapper. It picks an encoder for the destination format, converts between sRGB, linear, and display-referred spaces, then writes block-compressed data. Import and cook both finish textures through this module."
+  },
+  {
+    "slug": "textureeditor",
+    "kind": "module",
+    "cn": "TextureEditor 提供纹理资产的编辑器视口、压缩预览与细节面板。它可以对照压缩前后的 mip、通道和媒体纹理，并触发 Derived Data 重建。美术在此调整压缩设置、LOD 与颜色空间，而不必离开资产编辑器。",
+    "en": "TextureEditor hosts the texture asset viewport, compression preview, and details panel. Artists compare mips, channels, and media textures, then kick a Derived Data rebuild. Compression, LOD, and color-space tweaks happen here without leaving the asset editor."
+  },
+  {
+    "slug": "textureformat",
+    "kind": "module",
+    "cn": "TextureFormat 定义纹理编码器插件必须实现的模块接口，本身几乎只依赖 Core。具体的 ASTC、DXT、ETC2 等实现都向这个注册表挂接，让 cooker 按平台名查找编码器。新增一种 GPU 格式时，首先要满足这里的能力查询与编码入口约定。",
+    "en": "TextureFormat is the tiny Core-only interface that texture encoder plugins implement. ASTC, DXT, ETC2, and the rest register here so the cooker can look up an encoder by platform. A new GPU format starts by satisfying this capability and encode contract."
+  },
+  {
+    "slug": "textureformatastc",
+    "kind": "module",
+    "cn": "TextureFormatASTC 把 ARM ASTC 编码库 astcenc 接到引擎纹理构建中，面向移动与部分主机的 ASTC 表面。它走 Derived Data Cache，避免每次 cook 都重跑昂贵的 ASTC 压缩。iOS、Android 与部分主机包依赖此模块产出块压缩纹理。",
+    "en": "TextureFormatASTC hooks the astcenc library into Unreal’s texture build for ASTC surfaces on mobile and some consoles. Results land in the Derived Data Cache so expensive ASTC encodes are not repeated every cook. iOS, Android, and selected console packages get their block-compressed textures from this plugin."
+  },
+  {
+    "slug": "textureformatdxt",
+    "kind": "module",
+    "cn": "TextureFormatDXT 负责 BC1/BC3/BC5 等桌面与主机常用的 DXT 族压缩。它结合 ImageWrapper 处理中间图像，再交给 TextureBuild 写入平台数据包。Windows、Xbox 与多数 PC 烹饪路径会选用该编码器。",
+    "en": "TextureFormatDXT encodes the DXT/BC family (BC1, BC3, BC5, and related) used on desktop and many consoles. It uses ImageWrapper for intermediate images and TextureBuild to emit cooked bytes. Windows, Xbox, and typical PC cooks select this encoder."
+  },
+  {
+    "slug": "textureformatetc2",
+    "kind": "module",
+    "cn": "TextureFormatETC2 为 OpenGL ES 与部分 Android GPU 生成 ETC2/EAC 压缩纹理。编码结果写入派生数据缓存，以便多次移动端 cook 复用。当目标平台不支持 ASTC 或需要 ETC2 兼容层时，cooker 会落到这个模块。",
+    "en": "TextureFormatETC2 produces ETC2/EAC textures for OpenGL ES and many Android GPUs. Encoded blocks are stored in derived data so repeated mobile cooks reuse the work. The cooker falls back here when the target lacks ASTC or still requires an ETC2 compatibility path."
+  },
+  {
+    "slug": "textureformatintelispctexcomp",
+    "kind": "module",
+    "cn": "TextureFormatIntelISPCTexComp 使用 Intel ISPC 纹理压缩器加速 BC 等块压缩，强调多核向量化吞吐。它与通用 DXT 路径并行存在，让构建机能用 ISPC 内核换取更短的压缩时间。在大量高分辨率纹理的项目里，这个编码器能明显缩短 DDC 填充时间。",
+    "en": "TextureFormatIntelISPCTexComp uses Intel’s ISPC texture compressor for vectorized BC-style encodes. It sits beside the generic DXT path so a build farm can trade CPU SIMD for shorter compress times. Large high-resolution libraries fill the DDC much faster through this encoder."
+  },
+  {
+    "slug": "textureformatoodle",
+    "kind": "module",
+    "cn": "TextureFormatOodle 接入 Oodle Texture 编码器，追求更低的感知误差与更好的压缩率。它同样缓存到 Derived Data，以便发行包在 BC7/RDO 等模式下稳定复用结果。追求贴图体积与质量平衡的项目会把该格式作为桌面与主机的首选。",
+    "en": "TextureFormatOodle plugs Oodle Texture into the cook for lower perceptual error at a given bitrate. Derived Data caches the RDO/BC7-style results so shipping packages stay reproducible. Projects that care about texel quality versus package size often make this the desktop and console default."
+  },
+  {
+    "slug": "textureformatuncompressed",
+    "kind": "module",
+    "cn": "TextureFormatUncompressed 处理不走块压缩的纹理布局，例如 HDR 中间结果、UI 或需要精确像素的格式。它仍走 TextureBuild，只是跳过有损编码器，按平台写出线性或未压缩 GPU 资源。当压缩伪影不可接受时，导入设置会指向这个实现。",
+    "en": "TextureFormatUncompressed handles layouts that skip block compression, such as HDR intermediates, UI, or pixel-exact formats. It still runs through TextureBuild but writes linear or uncompressed GPU resources. Import settings land here when compression artifacts are unacceptable."
+  },
+  {
+    "slug": "texturesharesdk",
+    "kind": "module",
+    "cn": "TextureShareSDK 位于虚拟制片程序目录，向外进程暴露共享 GPU 纹理的 SDK。它基于 TextureShareCore 与 ImageCore，让外部合成、LED 墙或采集工具零拷贝读取引擎画面。该模块是引擎内 Texture Share 运行时面向第三方的稳定 ABI 层。",
+    "en": "TextureShareSDK lives under Virtual Production programs and exposes GPU texture sharing to external processes. Built on TextureShareCore and ImageCore, it lets compositors, LED walls, or capture tools read engine frames with minimal copies. It is the stable ABI around the in-engine Texture Share runtime."
+  },
+  {
+    "slug": "timemanagement",
+    "kind": "module",
+    "cn": "TimeManagement 提供时间码、帧率、Drop Frame 与同步时钟等影视时间基元。Sequencer、媒体与虚拟制片用它把引擎帧对齐到外部 genlock 或 LTC。模块还带少量 Slate 展示，方便在编辑器里查看当前时间源。",
+    "en": "TimeManagement supplies timecode, frame-rate, drop-frame, and sync-clock primitives. Sequencer, media, and virtual production use it to lock engine frames to genlock or LTC. A small Slate surface also shows the active time source in the editor."
+  },
+  {
+    "slug": "tinyxml2",
+    "kind": "module",
+    "cn": "TinyXML2 是引擎打包的第三方轻量 XML 解析库，供工具与导入器读写小型 XML 文档。它没有引擎模块依赖，避免把重量级 XML 栈拉进命令行程序。配置片、第三方清单和部分资源元数据会走这条解析路径。",
+    "en": "TinyXML2 is Unreal’s vendored lightweight XML parser for tools and importers that read small documents. It has no engine-module dependencies, so command-line programs need not pull a heavy XML stack. Config snippets, third-party manifests, and some asset metadata parse through it."
+  },
+  {
+    "slug": "toolmenus",
+    "kind": "module",
+    "cn": "ToolMenus 是编辑器与工具程序用来声明、扩展和合并菜单的运行时系统。插件可以按名称向已有菜单插入条目，而不用改宿主源码。它建立在 Slate 与 InputCore 之上，统一快捷键、上下文菜单和工具栏的注册方式。",
+    "en": "ToolMenus is the runtime system that lets the editor and tools declare, extend, and merge menus by name. Plugins insert entries into existing menus without patching host source. Built on Slate and InputCore, it unifies shortcuts, context menus, and toolbars."
+  },
+  {
+    "slug": "toolmenuseditor",
+    "kind": "module",
+    "cn": "ToolMenusEditor 为 ToolMenus 提供可视化定制界面，让用户调整菜单布局并保存编辑器配置。它可以浏览注册表、隐藏条目或重排工具栏，而无需手写代码。该模块只在编辑器中加载，把运行时菜单系统变成可配置的产品功能。",
+    "en": "ToolMenusEditor adds a visual customizer on top of ToolMenus so users can rearrange layouts and persist editor config. It browses the registry, hides entries, and reorders toolbars without writing code. Loaded only in the editor, it turns the runtime menu system into a user-facing product feature."
+  },
+  {
+    "slug": "toolmenustests",
+    "kind": "module",
+    "cn": "ToolMenusTests 是独立测试程序，验证菜单注册、合并与桌面路径相关的序列化行为。它加载 ToolMenus 与 Slate，在无完整编辑器的情况下覆盖扩展点冲突和查找规则。回归这些用例可以避免插件菜单在升级后消失或重复出现。",
+    "en": "ToolMenusTests is a standalone program that checks menu registration, merging, and desktop-path serialization. It loads ToolMenus and Slate without the full editor to catch extension-point clashes and lookup bugs. These cases keep plugin menus from vanishing or duplicating after an engine upgrade."
+  },
+  {
+    "slug": "toolsetcore",
+    "kind": "module",
+    "cn": "ToolsetCore 给出运行时工具集（toolset）的核心类型与标识，供交互工具框架识别当前工具模式。它只依赖 Core 与 CoreUObject，保持轻量以便游戏与编辑器共用。模式切换、工具上下文和基础工具对象从这里开始定义。",
+    "en": "ToolsetCore defines the runtime toolset identity and core types used to recognize the active interactive-tool mode. It depends only on Core and CoreUObject so games and the editor can share it. Mode switches, tool context, and base tool objects start here."
+  },
+  {
+    "slug": "toolwidgets",
+    "kind": "module",
+    "cn": "ToolWidgets 提供给各类开发者工具复用的 Slate 控件，例如搜索框、分段工具栏和与 ToolMenus 集成的面板部件。它还衔接 TypedElementFramework，让选择驱动的工具 UI 有统一外观。Insights、Turnkey 等宿主通过它减少各自造轮子的控件。",
+    "en": "ToolWidgets is a shared Slate kit for developer tools: search fields, segmented toolbars, and panels that speak ToolMenus. It also ties into TypedElementFramework so selection-driven UIs look consistent. Insights, Turnkey, and similar hosts reuse these widgets instead of inventing their own."
+  },
+  {
+    "slug": "traceanalysis",
+    "kind": "module",
+    "cn": "TraceAnalysis 负责读取、解密和解析 .utrace 事件流，是 Insights 分析栈的底层。它结合 Asio、Sockets 与 OpenSSL，既可打开落盘文件也可连接实时 Trace 服务器。上层服务把时间线、计数器和作用域都建立在这次解析之上。",
+    "en": "TraceAnalysis reads, decrypts, and parses .utrace event streams at the bottom of the Insights stack. With Asio, Sockets, and OpenSSL it can open files or attach to a live trace server. Timelines, counters, and scopes in higher layers all sit on this parse."
+  },
+  {
+    "slug": "traceanalyzer",
+    "kind": "module",
+    "cn": "TraceAnalyzer 是命令行程序，用 TraceAnalysis 对一次录制做批处理分析或导出。它不启动 Insights GUI，适合在 CI 里检查卡顿、线程或自定义事件。构建流水线可以把它接到自动化门槛上，失败时直接读文本报告。",
+    "en": "TraceAnalyzer is a command-line program that batch-analyzes a recording through TraceAnalysis. It skips the Insights GUI, so CI can flag hitches, thread issues, or custom events. Pipelines attach it to quality gates and read a text report on failure."
+  },
+  {
+    "slug": "tracebaseddebuggers",
+    "kind": "module",
+    "cn": "TraceBasedDebuggers 是实验性运行时，把调试器式的断点与步进语义建立在 Trace 事件上，而不是传统调试器协议。它通过 Messaging 在进程间传递调试命令，并用 TraceLog 记录执行轨迹。目标是在难以附加调试器的打包或主机环境里仍能做事后与准实时排查。",
+    "en": "TraceBasedDebuggers is an experimental runtime that maps breakpoint and step semantics onto Trace events instead of a classic debugger protocol. Messaging carries commands between processes while TraceLog records the execution trail. It targets packaged or console environments where attaching a native debugger is painful."
+  },
+  {
+    "slug": "tracebaseddebuggersanalysis",
+    "kind": "module",
+    "cn": "TraceBasedDebuggersAnalysis 在编辑器中分析并展示基于 Trace 的调试会话，接入 TraceServices 与状态栏。它把远程或事后轨迹变成可点击的调用与断点视图，供开发者在 UnrealEd 里操作。该模块是实验调试器面向编辑器用户的分析前端。",
+    "en": "TraceBasedDebuggersAnalysis analyzes and presents trace-based debug sessions inside the editor, using TraceServices and the status bar. It turns remote or post-mortem traces into clickable call and breakpoint views in UnrealEd. This is the editor-facing analysis front end for the experimental debugger."
+  },
+  {
+    "slug": "traceinsights",
+    "kind": "module",
+    "cn": "TraceInsights 实现 Unreal Insights 的主要分析视图：时间线、CPU、GPU、I/O 以及与自动化、内容浏览器的联动。它体量很大，把 Trace 服务、Slate 工具和会话管理拼成完整的剖析工作台。独立 Insights 程序与编辑器内 Insights 都大量依赖这一模块。",
+    "en": "TraceInsights implements Unreal Insights’ main analysis views: timing, CPU, GPU, I/O, plus hooks into automation and the content browser. It is a large module that assembles Trace services, Slate tools, and session management into a profiling workbench. Both the standalone Insights app and in-editor Insights lean on it."
+  },
+  {
+    "slug": "traceinsightscore",
+    "kind": "module",
+    "cn": "TraceInsightsCore 抽出 Insights 各视图共用的窗口、停靠与 TraceServices 访问层。Frontend 与完整 TraceInsights 都依赖它来保持导航、时间范围和选择状态一致。把核心拆开后，轻量前端不必链接整套分析面板。",
+    "en": "TraceInsightsCore extracts the windowing, docking, and TraceServices access shared by Insights views. The frontend and full TraceInsights both use it so navigation, time ranges, and selection stay consistent. Splitting the core lets a thin frontend avoid linking every analysis panel."
+  },
+  {
+    "slug": "traceinsightsfrontend",
+    "kind": "module",
+    "cn": "TraceInsightsFrontend 负责 Insights 的会话浏览器、连接向导和自动化会话入口。它组合 SessionServices 与 TraceAnalysis，让用户先选 trace 再打开具体分析器。该前端把“连上谁、打开哪份录制”从具体时间线视图中分离出来。",
+    "en": "TraceInsightsFrontend owns the Insights session browser, connection wizard, and automation-session entry points. It combines SessionServices and TraceAnalysis so users pick a trace before opening analyzers. Connection and recording choice stay out of the individual timeline views."
+  },
+  {
+    "slug": "tracelog",
+    "kind": "module",
+    "cn": "TraceLog 是运行时埋点与事件写出模块，游戏和引擎在热路径上通过它记录作用域与计数器。可选的 OpenSSL 支持让对外发送的 Trace 流可以加密。几乎所有 Insights 能看到的数据，最初都由这个极轻量模块从进程内打出。",
+    "en": "TraceLog is the runtime instrumentation sink: games and the engine emit scopes and counters on hot paths through it. Optional OpenSSL support can encrypt outbound trace streams. Nearly every event Insights later shows originated in this tiny in-process module."
+  },
+  {
+    "slug": "tracequery",
+    "kind": "module",
+    "cn": "TraceQuery 是把 Trace 分析变成 JSON 查询的命令行工具，面向脚本与外部看板。它加载 TraceAnalysis 与 TraceServices，按查询抽出计时、计数或自定义事件。无需打开 GUI 即可把剖析结果接入 Python 或构建报告。",
+    "en": "TraceQuery is a CLI that turns Trace analysis into JSON queries for scripts and dashboards. It loads TraceAnalysis and TraceServices and extracts timings, counters, or custom events. Teams pipe results into Python or build reports without opening a GUI."
+  },
+  {
+    "slug": "traceservices",
+    "kind": "module",
+    "cn": "TraceServices 在解析之后提供线程、时间线、计数器和符号解析等分析服务。它使用 SymsLib 把指令地址还原成函数名，是 Insights 视图的数据模型层。分析器插件向该服务订阅通道，而不是各自解析原始事件。",
+    "en": "TraceServices sits above parsing and offers threads, timelines, counters, and symbolication. It uses SymsLib to turn instruction pointers into names and is the data model Insights views bind to. Analyzer plugins subscribe to channels here instead of parsing raw events themselves."
+  },
+  {
+    "slug": "tracetrimmer",
+    "kind": "module",
+    "cn": "TraceTrimmer 用于裁剪 .utrace 文件，只保留感兴趣的时间窗或事件通道，以缩小分享体积。它读取完整分析栈后写出更短的录制，方便把现场捕获发给远程同事。长会话里只有几秒卡顿时，这个程序能去掉前后数小时的噪音。",
+    "en": "TraceTrimmer cuts a .utrace down to a time window or event subset so shares stay small. It reads the full analysis stack and writes a shorter recording for remote colleagues. When a long capture contains only a few seconds of hitch, this tool drops hours of surrounding noise."
+  },
+  {
+    "slug": "translationeditor",
+    "kind": "module",
+    "cn": "TranslationEditor 是本地化翻译工作台，对接 Localization 服务、命令行执行器与源码控制。译者可在此审阅收集到的文本、提交翻译并查看文档与消息日志。它把散落的 PO/清单流程收进编辑器，减少纯命令行本地化的摩擦。",
+    "en": "TranslationEditor is the localization workbench, talking to Localization services, commandlet execution, and source control. Translators review gathered strings, submit translations, and consult docs and the message log. It pulls PO and manifest workflows into the editor so teams are not stuck on CLI-only localization."
+  },
+  {
+    "slug": "treemap",
+    "kind": "module",
+    "cn": "TreeMap 实现层级数据的矩形树图可视化，常用于包体、内存或资产体积分析。它用 Slate 绘制可交互的嵌套矩形，并用 XmlParser 读写部分导出格式。Insights 与编辑器统计面板可嵌入该控件展示“谁占了最大一块”。",
+    "en": "TreeMap implements nested rectangle visualizations for hierarchical size data such as packages, memory, or assets. Slate draws the interactive cells, and XmlParser covers some export formats. Insights and editor stats panels embed it to show what occupies the largest slice."
+  },
+  {
+    "slug": "turnkeyio",
+    "kind": "module",
+    "cn": "TurnkeyIO 负责 Turnkey 平台安装与 SDK 探测过程中的套接字、JSON 与文件 I/O。它把宿主 UI 与外部 Turnkey 助手之间的消息通道标准化。没有这层，编辑器无法可靠地询问本机是否已安装某主机 SDK。",
+    "en": "TurnkeyIO owns sockets, JSON, and file I/O for Turnkey platform installs and SDK detection. It standardizes the message channel between host UI and the external Turnkey helper. Without it the editor cannot reliably ask whether a console SDK is present."
+  },
+  {
+    "slug": "turnkeysupport",
+    "kind": "module",
+    "cn": "TurnkeySupport 是编辑器侧的 Turnkey 集成，覆盖 SDK 安装向导、平台准备和与 UAT、Zen 的衔接。它把 TargetPlatform、LauncherServices 与设置编辑器连起来，让“一键配好目标平台”成为编辑器流程。打包前缺 SDK 时，用户会在这里被引导完成安装。",
+    "en": "TurnkeySupport is the editor-side Turnkey integration: SDK install wizards, platform prep, and hooks into UAT and Zen. It joins TargetPlatform, LauncherServices, and the settings editor so “make this target ready” is an editor flow. Missing SDKs before package send the user through this module."
+  },
+  {
+    "slug": "tvostargetplatform",
+    "kind": "module",
+    "cn": "TVOSTargetPlatform 向 cooker 声明 Apple tvOS 作为独立目标，复用桌面平台基础设施。它决定 tvOS 包的烹饪平台名、能力位和部署入口。游戏要上架 Apple TV 时，构建图会选中这个平台模块而不是普通 iOS。",
+    "en": "TVOSTargetPlatform registers Apple tvOS as its own cook target on top of DesktopPlatform. It supplies the platform name, capability bits, and deploy entry for tvOS packages. Shipping to Apple TV selects this module instead of vanilla iOS."
+  },
+  {
+    "slug": "tvostargetplatformcontrols",
+    "kind": "module",
+    "cn": "TVOSTargetPlatformControls 处理 tvOS 设备上的启动、安装与 Launch Daemon 消息，并复用 iOS 控件层。它让编辑器能把包推到 Apple TV 硬件并收集启动反馈。设备管理器里的 tvOS 远程操作走的就是这一套控件。",
+    "en": "TVOSTargetPlatformControls handles launch, install, and Launch Daemon messaging on tvOS, reusing the iOS controls layer. The editor pushes packages onto Apple TV hardware and collects launch feedback through it. Device Manager remote operations for tvOS live here."
+  },
+  {
+    "slug": "tvostargetplatformsettings",
+    "kind": "module",
+    "cn": "TVOSTargetPlatformSettings 保存 tvOS 专用的打包与工程设置，并继承 iOS 设置模块中的共享项。图标、最低系统版本与证书相关字段在此与 iOS 分流。项目设置里的 tvOS 页面对应的就是这份配置。",
+    "en": "TVOSTargetPlatformSettings stores tvOS-specific packaging and project settings while inheriting shared fields from the iOS settings module. Icons, minimum OS, and signing diverge from iOS here. The tvOS page in Project Settings maps onto this config."
+  },
+  {
+    "slug": "typedelementframework",
+    "kind": "module",
+    "cn": "TypedElementFramework 建立类型化元素（Typed Element）注册表，用接口列而不是硬编码 Actor 来描述可选中对象。编辑器选择、变换和工具可以针对任意实现了某列的元素工作。这是把关卡编辑从 Actor-only 模型拓展开的运行时骨架。",
+    "en": "TypedElementFramework is the typed-element registry: selectable objects are described by interface columns rather than hardcoded Actors. Editor selection, transform, and tools can operate on anything that implements a column. It is the runtime skeleton that grows level editing beyond an Actor-only model."
+  },
+  {
+    "slug": "typedelementruntime",
+    "kind": "module",
+    "cn": "TypedElementRuntime 在框架之上实现选择、世界变换和常用元素操作的运行时行为。工具小部件和视口操作器通过它读写元素列数据。没有这一层，注册表只是类型信息，无法真正驱动交互工具。",
+    "en": "TypedElementRuntime implements selection, world-transform, and common element operations on top of the framework. Tool widgets and viewport manipulators read and write column data through it. Without this layer the registry is only type info and cannot drive interactive tools."
+  },
+  {
+    "slug": "uathelper",
+    "kind": "module",
+    "cn": "UATHelper 让编辑器启动、监视 Unreal Automation Tool，并把日志呈现在 OutputLog 中。打包、烘焙和平台脚本常通过它从 UI 按钮转到 UAT 命令行。它还上报分析事件，便于统计编辑器内发起的自动化任务。",
+    "en": "UATHelper lets the editor launch and watch Unreal Automation Tool, streaming logs into OutputLog. Package, cook, and platform scripts often jump from a UI button to a UAT command line here. It also emits analytics so studio dashboards can count in-editor automation runs."
+  },
+  {
+    "slug": "ubaagent",
+    "kind": "module",
+    "cn": "UbaAgent 是 Unreal Build Accelerator 的远程工作进程，在工作机上执行被分发的编译任务。它使用 UbaCommon 并可选接入 SentryNative 上报代理崩溃。主机把编译动作发到 Agent 后，本机只负责执行与回传产物。",
+    "en": "UbaAgent is the Unreal Build Accelerator worker process that runs distributed compile actions on a remote machine. It uses UbaCommon and can report agent crashes through SentryNative. Once the host ships an action, this process executes it and returns artifacts."
+  },
+  {
+    "slug": "ubacacheservice",
+    "kind": "module",
+    "cn": "UbaCacheService 运行 UBA 的编译缓存服务，让多台机器共享对象文件与中间产物。它只依赖 UbaCommon，以独立进程形式提供缓存读写。团队级加速器部署中，Agent 命中缓存即可跳过重复编译。",
+    "en": "UbaCacheService runs the UBA compile cache so many machines can share object files and intermediates. It depends only on UbaCommon and serves cache reads and writes as a standalone process. In a studio deployment, agents skip duplicate compiles when they hit this cache."
+  },
+  {
+    "slug": "ubacli",
+    "kind": "module",
+    "cn": "UbaCli 提供 Unreal Build Accelerator 的命令行入口，用于启动会话、查询状态或手动派发。管理员不必打开可视化器就能在脚本里驱动 UBA。该 CLI 与 Agent/Host 共用 UbaCommon 协议。",
+    "en": "UbaCli is the command-line entry for Unreal Build Accelerator: start sessions, query status, or dispatch work by hand. Admins can drive UBA from scripts without the visualizer. It shares the UbaCommon protocol with Agent and Host."
+  },
+  {
+    "slug": "ubacommon",
+    "kind": "module",
+    "cn": "UbaCommon 汇集 UBA 各进程共用的会话、压缩、TLS 与 Detours 封装。Oodle 压缩与 OpenSSL 保证产物传输既快又加密，UbaCore 则提供底层原语。Agent、Host、缓存和 CLI 都链到这一层以保持协议一致。",
+    "en": "UbaCommon gathers session, compression, TLS, and Detours wrappers shared by every UBA process. Oodle and OpenSSL keep artifact transfer fast and encrypted while UbaCore supplies primitives. Agent, Host, cache, and CLI all link this layer so the protocol stays one piece."
+  },
+  {
+    "slug": "ubacoordinatorhorde",
+    "kind": "module",
+    "cn": "UbaCoordinatorHorde 把 UBA 工作调度接到 Horde 后端，通过 HTTP、SSL 与 XML 配置认领远程代理。编辑器或构建主机用它向农场申请编译槽位，而不是只扫局域网。大规模 CI 里，这是 UBA 与 Epic Horde 的桥梁。",
+    "en": "UbaCoordinatorHorde schedules UBA work against a Horde backend, claiming remote agents over HTTP, SSL, and XML config. An editor or build host asks the farm for compile slots instead of scanning only the LAN. In large CI, this module is the bridge from UBA to Epic Horde."
+  },
+  {
+    "slug": "ubacoordinatorhordetests",
+    "kind": "module",
+    "cn": "UbaCoordinatorHordeTests 用 Core 与 JSON 覆盖 Horde 协调器的消息与配置解析。它在不拉起完整 Horde 集群的情况下验证契约，避免调度协议静默破坏。提交协调器改动时应先让这些测试说明 JSON 形状仍然兼容。",
+    "en": "UbaCoordinatorHordeTests covers Horde coordinator messages and config parsing with Core and JSON. It checks the contract without standing up a full Horde cluster. Coordinator changes should keep these tests green so the JSON shape stays compatible."
+  },
+  {
+    "slug": "ubacore",
+    "kind": "module",
+    "cn": "UbaCore 是加速器最底层的哈希、分配与版本原语，使用 BLAKE3 标识编译输入。UbaMimalloc 为热路径提供分配器，UbaVersion 钉住协议版本。所有更高层 UBA 模块都建立在这组不可再分割的核心上。",
+    "en": "UbaCore is the lowest UBA layer: hashing, allocation, and version primitives, with BLAKE3 identifying compile inputs. UbaMimalloc serves the hot path and UbaVersion pins the protocol. Every higher UBA module is built on this indivisible core."
+  },
+  {
+    "slug": "ubadetours",
+    "kind": "module",
+    "cn": "UbaDetours 利用 Microsoft Detours 拦截文件系统与进程 API，从而在远程执行时虚拟化工作目录。编译器以为自己在本地写 obj，实际 I/O 被重定向并经 Oodle 压缩回传。这是 UBA 能把 cl/clang 当黑盒分布式执行的关键。",
+    "en": "UbaDetours uses Microsoft Detours to intercept file and process APIs so a remote compile sees a virtualized working directory. The compiler thinks it writes objects locally while I/O is redirected and Oodle-compressed home. This is how UBA distributes cl and clang as black boxes."
+  },
+  {
+    "slug": "ubahost",
+    "kind": "module",
+    "cn": "UbaHost 运行在发起编译的机器上，负责把动作图分给 Agent 并回收产物。它链接 UbaCommon 与 Mimalloc，是本地 UBA 会话的调度中枢。UBT 启用加速器时，真正排程的就是这个 Host 进程。",
+    "en": "UbaHost runs on the machine that initiated the compile, farming the action graph to agents and collecting artifacts. Linked with UbaCommon and Mimalloc, it is the scheduler for a local UBA session. When UBT enables the accelerator, this host process does the real dispatch."
+  },
+  {
+    "slug": "ubamimalloc",
+    "kind": "module",
+    "cn": "UbaMimalloc 把 mimalloc 2.12 包装成 UBA 专用分配器模块，降低多线程编译代理的堆竞争。加速器进程分配极其频繁，标准堆往往成为瓶颈。该模块让 Agent 与 Host 共用同一套高并发分配策略。",
+    "en": "UbaMimalloc wraps mimalloc 2.12 as UBA’s allocator to cut heap contention in multithreaded compile agents. Accelerator processes allocate extremely often and the CRT heap becomes a bottleneck. Agent and Host share this high-concurrency strategy."
+  },
+  {
+    "slug": "ubaninja",
+    "kind": "module",
+    "cn": "UbaNinja 集成 Ninja 风格的构建图执行，使 UBA 能理解或驱动以 Ninja 描述的编译动作。它没有额外引擎依赖，作为加速器树内的独立适配层。部分外部工具链通过这条路径把 Ninja 作业交给 UBA 分发。",
+    "en": "UbaNinja integrates Ninja-style build-graph execution so UBA can understand or drive actions described as Ninja. It declares no extra engine dependencies and sits as an adapter inside the accelerator tree. Some external toolchains hand Ninja jobs to UBA through this path."
+  },
+  {
+    "slug": "ubaobjtool",
+    "kind": "module",
+    "cn": "UbaObjTool 检查或改写 UBA 产生的目标文件，用于诊断缓存命中与 ABI 问题。开发者可用它查看远程编译回来的 obj 是否完整、是否与本地工具链一致。当缓存污染导致链接错误时，这个工具帮助定位坏产物。",
+    "en": "UbaObjTool inspects or rewrites objects produced by UBA when diagnosing cache hits and ABI issues. Developers check that a remotely compiled obj is complete and matches the local toolchain. Linker failures from a poisoned cache are often isolated with this tool."
+  },
+  {
+    "slug": "ubatest",
+    "kind": "module",
+    "cn": "UbaTest 是加速器自身的集成测试程序，覆盖分发、缓存与 Detours 重定向的基本路径。它链接 UbaCommon，在不启动完整编辑器构建的情况下验证协议。UBA 核心改动应先通过该套件再进入生产构建农场。",
+    "en": "UbaTest is UBA’s own integration program, covering dispatch, cache, and Detours redirection. It links UbaCommon and validates the protocol without a full editor build. Core UBA changes should pass this suite before they reach a production farm."
+  },
+  {
+    "slug": "ubatestapp",
+    "kind": "module",
+    "cn": "UbaTestApp 是几乎无依赖的占位可执行文件，专供 UBA 测试当作被分发的“编译目标”。测试框架启动它来验证进程拦截、工作目录与回传是否正确。它本身不做编译，只扮演远程动作里的傀儡程序。",
+    "en": "UbaTestApp is a nearly dependency-free stub executable that UBA tests treat as a distributed “compile target.” The harness launches it to prove process interception, working directories, and artifact return. It does not compile; it is a dummy payload inside remote actions."
+  },
+  {
+    "slug": "ubaversion",
+    "kind": "module",
+    "cn": "UbaVersion 只承载加速器协议与二进制的版本戳，供 Host 与 Agent 在握手时比对。版本不一致时会话会拒绝混用，避免缓存键和 Detours ABI 错配。发布 UBA 时通常先抬高这个模块再编其余进程。",
+    "en": "UbaVersion holds only the accelerator protocol and binary stamp that Host and Agent compare at handshake. Mismatched versions refuse to mix, preventing cache-key and Detours ABI skew. Shipping UBA usually bumps this module before rebuilding the rest."
+  },
+  {
+    "slug": "ubavisualizer",
+    "kind": "module",
+    "cn": "UbaVisualizer 可视化正在进行的 UBA 会话：哪些动作在远程执行、缓存命中率以及传输状况。构建工程师用它判断农场是否饥饿或网络是否成为瓶颈。它读取 UbaCommon 会话数据，把加速器从黑盒变成可观察的时间线。",
+    "en": "UbaVisualizer shows a live UBA session: which actions run remotely, cache hit rate, and transfer health. Build engineers use it to see a starved farm or a network bottleneck. It reads UbaCommon session data and turns the accelerator into an observable timeline."
+  },
+  {
+    "slug": "uejpegcomp",
+    "kind": "module",
+    "cn": "UEJpegComp 是引擎运行时的 JPEG 压缩/解压封装，面向流式或内存中的 JPEG 比特流。它作为 External 模块提供编解码入口，供纹理、截图或媒体路径使用。需要在游戏进程内处理 JPEG 而不走完整 ImageWrapper 插件时会链到这里。",
+    "en": "UEJpegComp is the runtime JPEG compress/decompress wrapper for in-memory or streaming JPEG bitstreams. Shipped as an External module, it feeds textures, screenshots, or media paths. Game processes that must handle JPEG without the full ImageWrapper plugin link here."
+  },
+  {
+    "slug": "uelibjpg",
+    "kind": "module",
+    "cn": "UElibJPG 打包 libjpeg（或引擎采用的 JPEG 参考实现），给上层 JPEG 模块提供 C API。它没有引擎依赖，纯粹是第三方源码的 Build.cs 外壳。真正的霍夫曼表与 DCT 实现位于这个库中。",
+    "en": "UElibJPG vendors libjpeg (or Unreal’s chosen JPEG reference) and exposes its C API to higher JPEG modules. It has no engine dependencies and is purely a Build.cs shell around third-party sources. Huffman tables and DCT live in this library."
+  },
+  {
+    "slug": "uelibpng",
+    "kind": "module",
+    "cn": "UElibPNG 引入 libpng，供引擎读写 PNG 文件与内存缓冲。导入器、UI 与构建工具在需要无损位图容器时依赖这份第三方代码。模块本身不感知 UObject，只提供 C 级编解码。",
+    "en": "UElibPNG brings in libpng so the engine can read and write PNG files and buffers. Importers, UI, and build tools depend on this third-party code for lossless bitmap containers. The module is unaware of UObject and only offers C-level codecs."
+  },
+  {
+    "slug": "uelibrary",
+    "kind": "module",
+    "cn": "UELibrary 允许把 Unreal 作为嵌入库启动，而不是以独立 Game 可执行文件运行。它衔接 ApplicationCore、Engine、Input 与 Launch，把引擎生命周期暴露给外部宿主。需要把 UE 视口嵌进自有应用程序时，从该模块进入引擎。",
+    "en": "UELibrary lets Unreal start as an embedded library instead of a standalone Game executable. It wires ApplicationCore, Engine, Input, and Launch so an external host owns the engine lifetime. Embedding a UE viewport in a custom application enters the engine through this module."
+  },
+  {
+    "slug": "uelibsamplerate",
+    "kind": "module",
+    "cn": "UELibSampleRate 包装 Secret Rabbit Code（libsamplerate），在音频管线中做高质量采样率转换。语音、导入的 Wave 与平台输出时钟不一致时，会经过这次重采样。它只依赖 Core，以便混音器各后端共用同一转换器。",
+    "en": "UELibSampleRate wraps Secret Rabbit Code (libsamplerate) for high-quality rate conversion in the audio pipeline. Voice, imported waves, and platform output clocks that disagree pass through this resampler. It depends only on Core so mixer backends share one converter."
+  },
+  {
+    "slug": "ueogg",
+    "kind": "module",
+    "cn": "UEOgg 是 libogg 容器库的引擎封装，为 Vorbis、Opus 等负载提供分页与逻辑流。音频格式插件在解包 Ogg 文件时链接该 External 模块。它不解码具体音频，只处理 Ogg 比特流结构。",
+    "en": "UEOgg is Unreal’s libogg wrapper, providing pages and logical streams for Vorbis, Opus, and similar payloads. Audio format plugins link this External module when unpacking Ogg files. It does not decode audio; it only understands the Ogg bitstream."
+  },
+  {
+    "slug": "ueopenapv",
+    "kind": "module",
+    "cn": "UEOpenAPV 接入 OpenAPV（Advanced Professional Video）编解码，面向高质量视频中间片。虚拟制片和后期工具可用它处理专业视频本质，而不是消费级编码。该第三方模块把 APV 库编进引擎工具链。",
+    "en": "UEOpenAPV brings in OpenAPV (Advanced Professional Video) codecs for high-quality video intermediates. Virtual production and finishing tools can handle professional essence instead of consumer codecs. This third-party module compiles the APV library into the engine toolchain."
+  },
+  {
+    "slug": "ueopenexr",
+    "kind": "module",
+    "cn": "UEOpenExr 包装 OpenEXR，并依赖 Imath 处理半精度与多层 HDR 图像。电影级合成、延迟渲染调试和 EXR 序列导入都走这条路径。它让引擎能读写产业标准的 HDR 图像容器。",
+    "en": "UEOpenExr wraps OpenEXR and depends on Imath for half-float and multi-part HDR images. Film composites, deferred-rendering debug dumps, and EXR sequence import travel this path. It is how the engine reads and writes the industry HDR image container."
+  },
+  {
+    "slug": "uewavcomp",
+    "kind": "module",
+    "cn": "UEWavComp 提供运行时 WAV 相关的压缩或编解码辅助，面向引擎内部音频资产路径。它作为 External 模块存在，避免把 WAV 处理逻辑散落在各个导入器。短音效与未压缩 PCM 资源常经此模块规范化。",
+    "en": "UEWavComp supplies runtime WAV compress/codec helpers on internal audio asset paths. As an External module it keeps WAV handling from scattering across importers. Short cues and uncompressed PCM assets are often normalized here."
+  },
+  {
+    "slug": "ugscore",
+    "kind": "module",
+    "cn": "UGSCore 是 Unreal Game Sync 的核心库，解析工作区、流与 JSON 状态供同步客户端使用。艺术家与程序员的 UGS 应用在此读取构建标签和 Perforce 工作区元数据。它不画界面，只提供同步工具共享的数据与规则。",
+    "en": "UGSCore is the Unreal Game Sync core library: workspaces, streams, and JSON state for sync clients. Artist and programmer UGS apps read build labels and Perforce workspace metadata here. It draws no UI; it is the shared data and rules for the sync tools."
+  },
+  {
+    "slug": "ulangcore",
+    "kind": "module",
+    "cn": "uLangCore 是 Solaris/Verse 语言栈的核心：AST、类型与运行时表示，并接入 AutoRTFM 事务内存。后续 DAP、LSP 与 UE 绑定都建立在这套核心上。它让 Verse 编译器与虚拟机在引擎进程内有统一的语言内核。",
+    "en": "uLangCore is the Solaris/Verse language kernel: AST, types, and runtime representation, including AutoRTFM. DAP, LSP, and UE bindings all build on this core. It gives the Verse compiler and VM a single language kernel inside the engine process."
+  },
+  {
+    "slug": "ulangdap",
+    "kind": "module",
+    "cn": "uLangDAP 实现 Verse 的 Debug Adapter Protocol，让 VS Code 等编辑器能调试 Verse 程序。它把断点与堆栈请求翻译成 uLangCore 上的调试操作，并用 uLangJSON 交换 DAP 消息。语言调试体验不依赖 Unreal 编辑器也能工作。",
+    "en": "uLangDAP implements the Debug Adapter Protocol for Verse so VS Code and similar editors can debug Verse programs. It maps breakpoints and stack requests onto uLangCore and speaks DAP through uLangJSON. Language debugging therefore works even outside Unreal Editor."
+  },
+  {
+    "slug": "ulangdigests",
+    "kind": "module",
+    "cn": "uLangDigests 为 Verse 模块生成摘要（digest），供增量编译与依赖失效判断。它结合 VerseCompiler 与 JSON 输出，把接口指纹固化下来。修改实现但不改导出时，摘要帮助跳过不必要的下游重编。",
+    "en": "uLangDigests builds Verse module digests used for incremental compile and dependency invalidation. Together with VerseCompiler and JSON it freezes an interface fingerprint. Changing a body without touching exports lets the digest skip unnecessary downstream rebuilds."
+  },
+  {
+    "slug": "ulangidesupport",
+    "kind": "module",
+    "cn": "uLangIdeSupport 向 IDE 提供补全、跳转与诊断所需的编译器服务，紧贴 VerseCompiler。它被标为 External，强调这是语言工具链而不是游戏运行时。编辑器插件通过它询问“这个 Verse 符号在哪定义”。",
+    "en": "uLangIdeSupport offers compiler services for completion, go-to-definition, and diagnostics, sitting next to VerseCompiler. Marked External, it is language tooling rather than game runtime. Editor plugins ask it where a Verse symbol is defined."
+  },
+  {
+    "slug": "ulangjson",
+    "kind": "module",
+    "cn": "uLangJSON 用 RapidJSON 为 Verse 工具协议提供 JSON 编解码，供 DAP 与 LSP 复用。它把 uLangCore 类型与 JSON 文档互转，避免每个语言服务自己解析文本。稳定的 JSON 层让外部 IDE 协议变更集中在一处。",
+    "en": "uLangJSON uses RapidJSON to encode Verse tooling protocols for DAP and LSP. It maps uLangCore types to JSON documents so each language service is not parsing text by hand. A stable JSON layer keeps IDE protocol changes in one place."
+  },
+  {
+    "slug": "ulanglsp",
+    "kind": "module",
+    "cn": "uLangLSP 实现 Verse 的 Language Server Protocol，向编辑器推送诊断、符号和文档同步。它建立在 uLangCore 与 uLangJSON 上，作为独立语言服务器进程的逻辑核心。写 Verse 的 IDE 体验主要由此模块驱动。",
+    "en": "uLangLSP implements the Language Server Protocol for Verse: diagnostics, symbols, and document sync. It sits on uLangCore and uLangJSON as the logic core of a language-server process. The Verse IDE experience is driven primarily from this module."
+  },
+  {
+    "slug": "ulangue",
+    "kind": "module",
+    "cn": "uLangUE 把 Verse 语言内核接到 Unreal 的 UObject 世界，让 Verse 代码能看见引擎类型。它依赖 VerseCompiler 与 CoreUObject，是游戏中运行 Verse 的绑定层。没有它，Verse 只能作为离线语言，无法驱动 Actor 与反射。",
+    "en": "uLangUE binds the Verse kernel to Unreal’s UObject world so Verse can see engine types. Depending on VerseCompiler and CoreUObject, it is the in-game binding layer. Without it Verse stays an offline language and cannot drive Actors or reflection."
+  },
+  {
+    "slug": "umg",
+    "kind": "module",
+    "cn": "UMG 是运行时用户界面模块，把 Slate 控件包装成可在蓝图与动画中驱动的 Widget。它连接 MovieScene、输入、渲染和 FieldNotification，让 HUD 与菜单成为引擎对象。游戏 UI 的绝大部分控件树在运行时由该模块持有。",
+    "en": "UMG is the runtime UI module that wraps Slate controls as Widgets driven from Blueprint and animation. It joins MovieScene, input, rendering, and FieldNotification so HUDs and menus are engine objects. Most game UI widget trees are owned by this module at runtime."
+  },
+  {
+    "slug": "umgeditor",
+    "kind": "module",
+    "cn": "UMGEditor 提供 Widget 设计器、层次大纲、蓝图绑定和动画轨道编辑。它深度接入 GraphEditor、Content Browser 与交互工具，是制作 UMG 界面的主工作台。设计师在此摆放控件并预览，而不直接手写 Slate C++。",
+    "en": "UMGEditor supplies the Widget Designer, hierarchy, Blueprint bindings, and animation tracks. It reaches GraphEditor, the Content Browser, and interactive tools, and is the primary workbench for UMG. Designers place controls and preview here instead of writing Slate C++ by hand."
+  },
+  {
+    "slug": "uncontrolledchangelists",
+    "kind": "module",
+    "cn": "UncontrolledChangelists 跟踪未纳入正式源码控制变更单的资产修改，防止“脏文件”在提交前丢失。它结合 AssetRegistry、SourceControl 与 JSON 状态，在编辑器框架中列出不受控更改。团队用它发现那些改了但还没进 P4/Git 变更列表的内容。",
+    "en": "UncontrolledChangelists tracks asset edits that are not yet on a formal source-control changelist so dirty files are not lost. It combines AssetRegistry, SourceControl, and JSON state to list uncontrolled changes in the editor. Teams spot content that was edited but never added to a P4 or Git changelist."
+  },
+  {
+    "slug": "undohistory",
+    "kind": "module",
+    "cn": "UndoHistory 记录事务性撤销栈的历史条目，供 UI 展示可回退的操作序列。它基于 Slate 与 CoreUObject，把引擎 Transaction 系统变成可浏览的列表。工具可以查询最近一次关卡编辑或属性修改而不必自己保存快照。",
+    "en": "UndoHistory records transactional undo entries so UI can show a rewindable action list. Built on Slate and CoreUObject, it turns the engine Transaction system into a browsable history. Tools can inspect the last level or property edit without keeping their own snapshots."
+  },
+  {
+    "slug": "undohistoryeditor",
+    "kind": "module",
+    "cn": "UndoHistoryEditor 把撤销历史嵌进 UnrealEd，提供可点选回退的编辑器面板。它复用 ToolWidgets，让历史条目与编辑器外观一致。关卡设计师在误操作后可通过该面板跳到更早的事务，而不只靠快捷键逐步撤销。",
+    "en": "UndoHistoryEditor embeds undo history in UnrealEd as a clickable rewind panel. It reuses ToolWidgets so entries match editor chrome. Level designers can jump to an earlier transaction after a mistake instead of only stepping undo with a hotkey."
+  },
+  {
+    "slug": "uninstallhelper",
+    "kind": "module",
+    "cn": "UninstallHelper 是卸载引擎或工具安装时使用的辅助程序，读取 BuildSettings 与 Projects 定位要删除的布局。它避免卸载器硬编码路径，从而正确清理已注册的引擎关联。Launcher 或安装包在卸载阶段会调用这个小程序。",
+    "en": "UninstallHelper is the helper used when removing an engine or tools install, locating the layout via BuildSettings and Projects. It avoids hard-coded paths so registered engine associations are cleaned correctly. The launcher or installer invokes this small program during uninstall."
+  },
+  {
+    "slug": "universalobjectlocator",
+    "kind": "module",
+    "cn": "UniversalObjectLocator 定义跨世界、跨关卡定位 UObject 的通用定位符，并可经 HTTP 解析远程引用。Sequencer 与关卡实例化用它指向“不一定已加载”的对象。相对软指针，UOL 更强调可脚本化、可解析的地址空间。",
+    "en": "UniversalObjectLocator defines a universal address for UObjects across worlds and levels, including HTTP-resolvable remote refs. Sequencer and level instancing use it to point at objects that may not be loaded yet. Compared with soft pointers, UOL emphasizes a scriptable, resolvable address space."
+  },
+  {
+    "slug": "universalobjectlocatoreditor",
+    "kind": "module",
+    "cn": "UniversalObjectLocatorEditor 为定位符提供属性定制、场景大纲与 Sequencer 集成，方便在编辑器里拾取目标。它通过 MessageLog 报告无法解析的引用。绑定过场动画或工具到动态对象时，用户在此编辑 UOL 而不是手写路径字符串。",
+    "en": "UniversalObjectLocatorEditor adds property customization, Scene Outliner, and Sequencer integration so users pick locator targets in the editor. MessageLog reports references that fail to resolve. Binding cinematics or tools to dynamic objects is done by editing a UOL here rather than typing raw paths."
+  },
+  {
+    "slug": "unixcommonstartup",
+    "kind": "module",
+    "cn": "UnixCommonStartup 封装 Linux 与同类 Unix 宿主上程序启动的公共步骤：信号、项目发现和 Slate 引导。独立工具如 Insights、Version Selector 在 Unix 上复用这套启动，避免每家复制一份 main。它还带上源码控制初始化，方便工具直接操作工作区。",
+    "en": "UnixCommonStartup factors shared program startup on Linux and similar Unix hosts: signals, project discovery, and Slate bootstrap. Standalone tools such as Insights and Version Selector reuse this instead of copying main(). It also initializes source control so tools can touch the workspace immediately."
+  },
+  {
+    "slug": "unrealassetstringify",
+    "kind": "module",
+    "cn": "UnrealAssetStringify 把 UAsset 通过 JsonObjectGraph 转成可读 JSON，便于 diff 与脚本处理。命令行程序加载工程后导出对象图，而不打开编辑器。内容管线可用它做资产文本化审查或自动比较。",
+    "en": "UnrealAssetStringify turns UAssets into readable JSON via JsonObjectGraph for diffing and scripts. The CLI loads a project and dumps object graphs without opening the editor. Content pipelines use it for textual asset review or automated comparison."
+  },
+  {
+    "slug": "unrealatos",
+    "kind": "module",
+    "cn": "UnrealAtoS 是 macOS 上的地址到符号工具，模仿 Apple atos 为引擎崩溃地址做符号化。它运行在 Mac 程序目录下，读取本机符号与项目上下文。Mac 崩溃报告在没有完整 LLDB 会话时，常用它还原调用栈。",
+    "en": "UnrealAtoS is the macOS address-to-symbol tool, in the spirit of Apple atos, for engine crash addresses. It lives under Mac programs and reads local symbols plus project context. Mac crash reports are often symbolicated with it when a full LLDB session is unavailable."
+  },
+  {
+    "slug": "unrealconsole",
+    "kind": "module",
+    "cn": "UnrealConsole 是独立控制台宿主程序，通过 UnrealConsoleRuntimeAPI 与运行中的游戏会话对话。开发者可在不嵌入游戏窗口的情况下发送命令、看日志。它把控制台从游戏进程 UI 中拆出来，适合双机或远程调试布局。",
+    "en": "UnrealConsole is a standalone console host that talks to a running game through UnrealConsoleRuntimeAPI. Developers send commands and read logs without embedding in the game window. Splitting the console out of the game UI suits dual-machine or remote debug layouts."
+  },
+  {
+    "slug": "unrealconsoleruntimeapi",
+    "kind": "module",
+    "cn": "UnrealConsoleRuntimeAPI 是游戏进程内的控制台运行时 API，供独立 UnrealConsole 连接。它只依赖 Core，保持控制台通道轻量。引擎把命令执行与日志广播暴露给外部控制台宿主。",
+    "en": "UnrealConsoleRuntimeAPI is the in-game console runtime that the standalone UnrealConsole attaches to. Depending only on Core, it keeps the console channel lean. The engine exposes command execution and log broadcast to an external console host through this API."
+  },
+  {
+    "slug": "unrealed",
+    "kind": "module",
+    "cn": "UnrealEd 是虚幻编辑器的核心模块，聚合关卡编辑、资产管线、烹饪入口和绝大多数编辑器子系统。它依赖极广，从动画图到自动化控制器都为这一宿主服务。启动 UnrealEditor 后，真正撑起世界编辑体验的就是这个模块。",
+    "en": "UnrealEd is the Unreal Editor core, aggregating level editing, asset pipelines, cook entry points, and most editor subsystems. Its dependency fan-in is huge: anim graphs through automation controllers all serve this host. After UnrealEditor starts, this module is what actually holds the world-editing experience."
+  },
+  {
+    "slug": "unrealeditorservices",
+    "kind": "module",
+    "cn": "UnrealEditorServices 是 macOS 上的编辑器系统服务，处理文件关联、用编辑器打开资源以及与 Finder 的协作。它读取 DesktopPlatform 与 JSON，把 .uproject/.uasset 交给正确的引擎实例。在 Mac 上双击项目文件时，往往先经过这个小程序。",
+    "en": "UnrealEditorServices is the macOS editor system service for file association, opening assets in the editor, and Finder cooperation. It reads DesktopPlatform and JSON to hand .uproject and .uasset files to the right engine instance. Double-clicking a project on Mac often starts in this small program."
+  },
+  {
+    "slug": "unrealedmessages",
+    "kind": "module",
+    "cn": "UnrealEdMessages 定义编辑器进程间通信使用的 UObject 消息类型，本身很薄。远程编辑会话、多进程工具通过这些消息描述资产与编辑器命令。把消息单独成模块，可让轻量客户端不链接整个 UnrealEd。",
+    "en": "UnrealEdMessages defines the thin UObject message types used for editor IPC. Remote edit sessions and multi-process tools describe assets and editor commands with these structs. Isolating messages lets a light client avoid linking all of UnrealEd."
+  },
+  {
+    "slug": "unrealfrontend",
+    "kind": "module",
+    "cn": "UnrealFrontend 是独立的会话与自动化前端，集设备管理、项目启动器、分析器和消息总线于一身。测试与性能团队用它连接多台目标机、跑自动化并看 Profiler。它不打开完整关卡编辑器，却覆盖发行前的设备与会话工作流。",
+    "en": "UnrealFrontend is the standalone session and automation front end, combining device manager, project launcher, profiler, and messaging. QA and perf teams attach many targets, run automation, and inspect the profiler here. It never opens the full level editor, yet covers pre-ship device and session workflows."
+  },
+  {
+    "slug": "unrealgame",
+    "kind": "module",
+    "cn": "UnrealGame 是游戏目标的薄运行时模块，把 Core、CoreUObject 与 Engine 组成可运行的 Game 程序入口。项目的 Game 目标通常链接它作为默认游戏模块骨架。它几乎不含玩法，只负责“这是一个游戏进程”的模块边界。",
+    "en": "UnrealGame is the thin runtime module for a Game target, composing Core, CoreUObject, and Engine into a runnable game entry. Project Game targets typically link it as the default game-module skeleton. It holds almost no gameplay; it only draws the “this is a game process” module boundary."
+  },
+  {
+    "slug": "unrealinsights",
+    "kind": "module",
+    "cn": "UnrealInsights 是独立剖析应用程序的主模块，组装 TraceInsights 前后端、会话前端与独立渲染器。性能工程师无需启动游戏编辑器即可打开 .utrace。它还接入 Live Coding 与源码访问，便于从时间线跳回代码。",
+    "en": "UnrealInsights is the main module of the standalone profiler app, assembling TraceInsights front and back ends, session UI, and a standalone renderer. Perf engineers open .utrace files without launching the game editor. Live Coding and source-code access let them jump from a timeline back into code."
+  },
+  {
+    "slug": "unreallaunchdaemon",
+    "kind": "module",
+    "cn": "UnrealLaunchDaemon 运行在 iOS 设备上，接收编辑器的启动与文件推送消息。它结合 NetworkFile、StreamingFile 与 UdpMessaging，让真机迭代不必每次走完整 Xcode 安装。设备上的这个守护进程是移动端“从编辑器一键 Play”的对端。",
+    "en": "UnrealLaunchDaemon runs on an iOS device and accepts launch and file-push messages from the editor. With NetworkFile, StreamingFile, and UdpMessaging it enables on-device iteration without a full Xcode install every time. This daemon is the mobile peer of “Play on Device” from the editor."
+  },
+  {
+    "slug": "unreallightmass",
+    "kind": "module",
+    "cn": "UnrealLightmass 是独立的全局光照求解程序，用 Embree 与 Intel TBB 计算烘焙光照。它通过 Swarm 与 UDP 消息从编辑器领取构建任务，把光照图写回。静态光照烘焙的重计算发生在这个进程，而不是编辑器主线程。",
+    "en": "UnrealLightmass is the standalone global-illumination solver that uses Embree and Intel TBB to bake lighting. Swarm and UDP messages deliver jobs from the editor and lightmaps are written back. Static-light rebuilds happen in this process, not on the editor UI thread."
+  },
+  {
+    "slug": "unrealmultiuserserver",
+    "kind": "module",
+    "cn": "UnrealMultiUserServer 运行 Concert 多人编辑服务器，让多个编辑器会话同步事务。它带 TraceInsights 依赖，便于观察协同服务器的性能。虚拟制片与关卡团队用这个无 UI 服务器作为会话权威。",
+    "en": "UnrealMultiUserServer runs the Concert multi-user editing server that replicates transactions across editor sessions. A TraceInsights dependency helps observe server performance. Virtual production and level teams treat this UI-less process as the session authority."
+  },
+  {
+    "slug": "unrealmultiuserslateserver",
+    "kind": "module",
+    "cn": "UnrealMultiUserSlateServer 是带 Slate 与 Unix 启动路径的 Concert 服务器变体，便于在桌面或 Linux 上以窗口方式值守。它同样托管 ConcertServer，但能显示状态而不是纯后台。需要值班人员盯着协同会话时，会选择这个带界面的服务器。",
+    "en": "UnrealMultiUserSlateServer is the Concert server variant with Slate and Unix startup, so it can sit on a desktop or Linux box with a window. It still hosts ConcertServer, but can show status instead of running headless. Operators who must watch a collaborative session pick this UI-bearing server."
+  },
+  {
+    "slug": "unrealobjectptrtool",
+    "kind": "module",
+    "cn": "UnrealObjectPtrTool 用于扫描或转换工程中的对象指针用法，协助迁移到 TObjectPtr 等新指针约定。它作为独立程序读取项目模块，而不启动编辑器。大规模引擎升级时，这个工具批量处理原生指针注解。",
+    "en": "UnrealObjectPtrTool scans or converts object-pointer usage in a project, helping migrate to TObjectPtr and related conventions. As a standalone program it reads project modules without starting the editor. Large engine upgrades use it to batch native pointer annotations."
+  },
+  {
+    "slug": "unrealpackagetool",
+    "kind": "module",
+    "cn": "UnrealPackageTool 检查烹饪后的包、CookMetadata 与资产注册表，并可把结果写入 SQLite 或 JSON。发行管线用它审计包内容、依赖和命令行开关（CLI11）。当包体异常膨胀时，这个工具帮助列出究竟装进了哪些对象。",
+    "en": "UnrealPackageTool inspects cooked packages, CookMetadata, and the asset registry, optionally writing SQLite or JSON. Ship pipelines audit package contents, dependencies, and CLI switches via CLI11. When a package inflates unexpectedly, this tool lists which objects actually landed inside."
+  },
+  {
+    "slug": "unrealpak",
+    "kind": "module",
+    "cn": "UnrealPak 创建、列出、提取和签名 .pak 文件，是发行包文件系统的主工具。它结合 PakFile、RSA 与遥测，支持加密包与完整性校验。打包完成后几乎都会经过 UnrealPak 把松散文件收成可分发容器。",
+    "en": "UnrealPak creates, lists, extracts, and signs .pak files, the primary shipping filesystem container. With PakFile, RSA, and telemetry it supports encrypted packs and integrity checks. After cook, loose files are almost always gathered into a distributable container by this tool."
+  },
+  {
+    "slug": "unrealrecoverysvc",
+    "kind": "module",
+    "cn": "UnrealRecoverySvc 是 Concert 协同会话的恢复服务，基于 ConcertSyncCore 重放或修复中断的事务日志。多人编辑在主机掉线后，可依靠它把工作区拉回一致状态。它与实时 MultiUser 服务器分工：一个管在线同步，一个管灾后恢复。",
+    "en": "UnrealRecoverySvc is the Concert recovery service that replays or repairs interrupted transaction logs via ConcertSyncCore. After a host drop in multi-user editing, it brings workspaces back to a consistent state. It splits duty with the live MultiUser server: one syncs online, the other recovers after failure."
+  },
+  {
+    "slug": "unrealversionselector",
+    "kind": "module",
+    "cn": "UnrealVersionSelector 根据 .uproject 描述的引擎关联，弹出或静默选择用哪套已安装引擎打开项目。它在桌面与 Unix 上都有 Slate 文件对话框，处理生成工程文件和切换引擎版本。双击项目时看到的版本选择器就是这个程序。",
+    "en": "UnrealVersionSelector reads engine association from a .uproject and interactively or silently picks which installed engine opens the project. On desktop and Unix it uses Slate file dialogs, generates project files, and switches engine versions. The picker you see when double-clicking a project is this program."
+  },
+  {
+    "slug": "unrealvirtualizationtool",
+    "kind": "module",
+    "cn": "UnrealVirtualizationTool 把资产提交到虚拟化后端（如派生数据/虚拟化存储），并与 Perforce 源码控制集成。它让大型二进制资产按需拉取，而不是全部驻留工作区。内容团队用这个命令行把已有资产迁入虚拟化工作流。",
+    "en": "UnrealVirtualizationTool submits assets into a virtualization backend and integrates with Perforce source control. Large binaries can be fetched on demand instead of living in every workspace. Content teams use this CLI to migrate existing assets into a virtualized workflow."
+  },
+  {
+    "slug": "unsavedassetstracker",
+    "kind": "module",
+    "cn": "UnsavedAssetsTracker 监视编辑器中尚未保存的资产，并与源码控制、未受控变更单联动。它在子系统中汇总脏资产，避免关闭编辑器时漏存。状态栏和保存对话框依赖这份清单决定提示哪些包。",
+    "en": "UnsavedAssetsTracker watches editor assets that are dirty and coordinates with source control and uncontrolled changelists. An editor subsystem aggregates the dirty set so shutdown does not drop unsaved work. The status bar and save dialogs use this list to decide which packages to prompt."
+  },
+  {
+    "slug": "unsync",
+    "kind": "module",
+    "cn": "Unsync 是基于内容寻址的增量同步工具，使用 BLAKE3、zstd 与 HTTP 高效搬运构建产物或工作区。它用 LibreSSL 保护传输，用 CLI11 提供命令行。与 UGS 的工作区语义不同，Unsync 更偏向通用的块级差量同步。",
+    "en": "Unsync is a content-addressed incremental sync tool using BLAKE3, zstd, and HTTP to move build outputs or workspaces efficiently. LibreSSL protects the transport and CLI11 parses the command line. Unlike UGS workspace semantics, Unsync focuses on generic block-level delta sync."
+  },
+  {
+    "slug": "userassettagseditor",
+    "kind": "module",
+    "cn": "UserAssetTagsEditor 让用户在内容浏览器中为资产打自定义标签，并提供层次编辑与预览。它接入 Asset Tools、Kismet 与 MediaAssets，标签可驱动筛选和工具脚本。项目用这套编辑器建立美术分类，而不修改资产自身的原生 Tag。",
+    "en": "UserAssetTagsEditor lets users stamp custom tags on assets in the Content Browser, with hierarchy editing and preview. It hooks Asset Tools, Kismet, and MediaAssets so tags can drive filters and tool scripts. Projects build art taxonomies here without changing an asset’s native tags."
+  },
+  {
+    "slug": "vcpkg",
+    "kind": "module",
+    "cn": "Vcpkg 模块把 Microsoft vcpkg 布局接入 Unreal 的第三方构建图，便于声明式获取 C++ 库。它没有额外依赖，只作为引擎 ThirdParty 树中的端口入口。需要用 vcpkg 清单管理的本地库时，Build.cs 会指向这个模块。",
+    "en": "The Vcpkg module folds Microsoft vcpkg’s layout into Unreal’s third-party build graph for declarative C++ libraries. It has no extra dependencies and is a port entry in the engine ThirdParty tree. Build.cs files point here when a local library is managed via a vcpkg manifest."
+  },
+  {
+    "slug": "vectorvm",
+    "kind": "module",
+    "cn": "VectorVM 是 Niagara 等系统使用的向量虚拟机，在 CPU 上批量执行 SIMD 风格的字节码。粒子与场计算把图编译成 VM 脚本后在此解释或 JIT。它让特效图在没有 GPU 的路径上仍能大规模并行更新。",
+    "en": "VectorVM is the vector virtual machine Niagara and related systems use to run SIMD-style bytecode on the CPU. Particle and field graphs compile to VM scripts that are interpreted or JIT’d here. Effect graphs can still update at scale on a CPU path when GPU execution is unavailable."
+  },
+  {
+    "slug": "verseassist",
+    "kind": "module",
+    "cn": "VerseAssist 结合编译器、JSON 与 LSP，为 Verse 提供辅助补全、修复和智能建议。它站在语言服务器之上，把编译器洞察变成面向作者的协助功能。写 Verse 时的高阶提示与重构入口由该模块供给。",
+    "en": "VerseAssist combines the compiler, JSON, and LSP to offer Verse completion, fixes, and intelligent suggestions. It sits above the language server and turns compiler insight into author-facing assistance. Higher-level hints and refactor entry points while writing Verse come from this module."
+  },
+  {
+    "slug": "versebenchmarknative",
+    "kind": "module",
+    "cn": "VerseBenchmarkNative 是针对 Verse 原生运行时的基准程序，测量绑定与执行开销。它链接 VerseNative 与 CoreUObject，在可控场景下对比语言实现性能。语言团队用它防止运行时改动悄悄拖慢 Verse 热路径。",
+    "en": "VerseBenchmarkNative is a benchmark program for the Verse native runtime, measuring binding and execution cost. It links VerseNative and CoreUObject and compares language-implementation performance in controlled scenes. Language teams use it to stop runtime changes from silently slowing Verse hot paths."
+  }
+]

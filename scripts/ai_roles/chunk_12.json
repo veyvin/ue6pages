@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "iosruntimesettings",
+    "kind": "module",
+    "cn": "IOSRuntimeSettings 保存 iOS/tvOS 运行时项目设置，包括证书、Bundle 标识、方向、Metal、音频会话和远程通知等。Cook 与打包时从这些 UObject 配置读取平台约束，而不是在启动代码里硬编码。运行游戏进程也会查询同一套设置，以保证编辑器里勾选的选项真正落到设备上。",
+    "en": "IOSRuntimeSettings stores the project's runtime iOS and tvOS options: signing, bundle identifiers, orientations, Metal, audio session, and push notifications. Cook and package pipelines read those UObject settings instead of hard-coding platform constraints. The game process queries the same objects so editor checkboxes actually reach the device."
+  },
+  {
+    "slug": "iostargetplatform",
+    "kind": "module",
+    "cn": "IOSTargetPlatform 向 TargetPlatform 框架注册 iOS 作为可选择的构建与 Cook 目标。它声明该平台的设备类型、格式名和能否作为宿主，让 UAT 与编辑器的平台下拉框能列出 iOS。具体 cook 规则和设备控制被拆到 Settings 与 Controls 模块，本模块只做平台登记。",
+    "en": "IOSTargetPlatform registers iOS as a first-class build and cook target inside the TargetPlatform framework. It declares device type, format names, and host capability so UAT and the editor platform picker can list iOS. Cook rules and device control live in the Settings and Controls modules; this one only registers the platform."
+  },
+  {
+    "slug": "iostargetplatformcontrols",
+    "kind": "module",
+    "cn": "IOSTargetPlatformControls 实现真正把包打到 iOS 设备上的控制面：发现设备、走 LaunchDaemon 消息、推送 IPA、触发远程启动。它把音频平台配置、网络套接字和 JSON 清单拼进部署流程。没有它，iOS 目标只能被 Cook，却无法从编辑器一键部署。",
+    "en": "IOSTargetPlatformControls is the control plane that actually deploys to iOS hardware: device discovery, LaunchDaemon messages, IPA push, and remote launch. It folds audio platform config, sockets, and JSON manifests into that deploy path. Without it, iOS can be cooked but not one-click deployed from the editor."
+  },
+  {
+    "slug": "iostargetplatformsettings",
+    "kind": "module",
+    "cn": "IOSTargetPlatformSettings 集中 iOS 目标的 Cook 与打包参数：纹理格式、着色器平台、压缩和最低 OS 版本。Controls 在部署时读取这些设置，避免把可调策略写进设备通信代码。改 iOS 包体格式时通常先动这里，而不是改 LaunchDaemon 协议。",
+    "en": "IOSTargetPlatformSettings holds cook and package knobs for iOS: texture formats, shader platforms, compression, and minimum OS version. Controls reads those values at deploy time so policy stays out of the device-comms code. Changing how an iOS package is cooked usually starts here, not in the LaunchDaemon protocol."
+  },
+  {
+    "slug": "iostoredependencyviewer",
+    "kind": "module",
+    "cn": "IoStoreDependencyViewer 是独立程序，用来打开 IoStore/pak 容器并可视化 chunk、包和按需下载依赖图。它走 HTTP 与 RSA 校验，还能对着按需核心与工具模块解析容器清单。打包后排查「为什么这个 chunk 被拉下来」时，用的就是这个查看器而不是文本日志。",
+    "en": "IoStoreDependencyViewer is a standalone program that opens IoStore and pak containers and draws chunk, package, and on-demand dependency graphs. It talks HTTP, verifies RSA, and parses container manifests against the on-demand core and utilities. After packaging, it is the place to ask why a chunk was pulled, instead of grepping logs."
+  },
+  {
+    "slug": "iostorehttpclient",
+    "kind": "module",
+    "cn": "IoStoreHttpClient 为按需 IoStore 提供 HTTP/2 客户端，底层用 OpenSSL 与 nghttp2。它负责 chunk 下载、连接复用和 Trace 埋点，不解析容器 TOC。OnDemand 运行时通过它从 CDN 或对象存储拉字节，而不是直接链 libcurl。",
+    "en": "IoStoreHttpClient is the HTTP/2 client for on-demand IoStore, built on OpenSSL and nghttp2. It owns chunk downloads, connection reuse, and Trace instrumentation, not container TOC parsing. The OnDemand runtime pulls bytes from a CDN or object store through this client instead of linking libcurl directly."
+  },
+  {
+    "slug": "iostoreondemand",
+    "kind": "module",
+    "cn": "IoStoreOnDemand 是按需安装的运行时：按引用从远端拉 IoStore chunk，写入索引缓存，并用 RSA 校验。它对接分析、S3 客户端和写监视器，把「缺包再下」接到引擎包加载路径上。安装包可以只带 TOC，真正资源在玩家走到对应关卡时才下载。",
+    "en": "IoStoreOnDemand is the runtime for install-on-demand: it fetches IoStore chunks by reference, writes an indexed cache, and verifies RSA. Analytics, the S3 client, and the write monitor plug in so missing packages hitch onto the engine load path. A build can ship only the TOC; bulk assets download when the player reaches that content."
+  },
+  {
+    "slug": "iostoreondemandcore",
+    "kind": "module",
+    "cn": "IoStoreOnDemandCore 定义按需 IoStore 的共享类型：chunk id、TOC 结构、缓存键和请求状态，不碰网络。OnDemand、Debug 与 Utilities 都依赖它，以免各写一套字节布局。改容器协议时，序列化合同首先落在这个核心模块。",
+    "en": "IoStoreOnDemandCore defines shared on-demand IoStore types: chunk ids, TOC layout, cache keys, and request state, with no networking. OnDemand, Debug, and Utilities all depend on it so they do not invent parallel byte layouts. When the container protocol changes, the serialization contract lives here first."
+  },
+  {
+    "slug": "iostoreondemanddebug",
+    "kind": "module",
+    "cn": "IoStoreOnDemandDebug 把按需下载状态暴露给引擎调试：当前请求、缓存命中和渲染线程可见的缺块。它链 Engine 与 RenderCore，以便在游戏视图里标出尚未到达的流式资源。排查卡顿是「等 chunk」还是「着色器编译」时用这个模块。",
+    "en": "IoStoreOnDemandDebug exposes on-demand download state to engine debugging: inflight requests, cache hits, and missing blocks visible to the render thread. It links Engine and RenderCore so a play view can mark streamed assets that have not arrived. Use it when a hitch might be waiting on a chunk rather than compiling a shader."
+  },
+  {
+    "slug": "iostoreondemandtests",
+    "kind": "module",
+    "cn": "IoStoreOnDemandTests 是按需 IoStore 运行时的自动化测试，覆盖缓存填充、失败重试和 TOC 解析。它只依赖 Core 与 IoStoreOnDemand，方便在无编辑器的低层测试里跑。合并按需下载改动前，这些用例用来锁住回归。",
+    "en": "IoStoreOnDemandTests is the automated suite for the on-demand IoStore runtime: cache fill, failure retry, and TOC parse. It depends only on Core and IoStoreOnDemand so it can run as a low-level test without the editor. Merge on-demand download changes only after these cases lock the regressions."
+  },
+  {
+    "slug": "iostoreondemandutilities",
+    "kind": "module",
+    "cn": "IoStoreOnDemandUtilities 是开发者侧工具集，用于构建、签名和上传按需容器到 S3 或 HTTP 源。它复用运行时的 HTTP 客户端、RSA 与 JSON，但面向 Cook 后处理而不是游戏进程。发 CDN 清单、切 chunk、验 SSL 主机名都走这里。",
+    "en": "IoStoreOnDemandUtilities is the developer-side toolkit that builds, signs, and uploads on-demand containers to S3 or an HTTP origin. It reuses the runtime HTTP client, RSA, and JSON, but targets cook post-process rather than the game process. Publishing a CDN manifest, splitting chunks, and checking SSL hostnames happen here."
+  },
+  {
+    "slug": "iostoreutilities",
+    "kind": "module",
+    "cn": "IoStoreUtilities 在 Cook 管线里生成 .utoc/.ucas：收集资产注册表、派生数据、着色器与 pak，再写入 Zen 兼容容器。它还会做 RSA 签名、走 DevHttp 并上报 StudioTelemetry。UnrealPak / IoStore 命令行的主体逻辑在这个开发者模块，而不是运行时加载器。",
+    "en": "IoStoreUtilities builds .utoc/.ucas during cook: it gathers asset registry, derived data, shaders, and pak content into Zen-compatible containers. It also signs with RSA, talks DevHttp, and reports StudioTelemetry. UnrealPak and IoStore command-line work lives in this developer module, not in the runtime loader."
+  },
+  {
+    "slug": "ipc",
+    "kind": "module",
+    "cn": "IPC 提供引擎进程间通信原语：命名管道、共享内存和消息帧，只依赖 Core。编辑器子进程、Live Coding 助手和部分平台守护进程用它传命令，而不是自己开套接字。它不实现业务协议，只保证跨进程的可靠字节通道。",
+    "en": "IPC supplies engine inter-process primitives: named pipes, shared memory, and message framing, depending only on Core. Editor child processes, Live Coding helpers, and some platform daemons send commands through it instead of opening raw sockets. It does not define a business protocol; it only guarantees a reliable byte channel across processes."
+  },
+  {
+    "slug": "iriscore",
+    "kind": "module",
+    "cn": "IrisCore 是 Iris 复制系统的核心：对象引用、网络序列化布局、过滤和 Push Model 状态，建立在 NetCore 上。它用 TraceLog 记录复制图，便于对照旧版 Actor 复制调试。项目启用 Iris 后，复制驱动走这里而不是 NetDriver 里那套遗留路径。",
+    "en": "IrisCore is the heart of Iris replication: object references, net-serialize layouts, filtering, and push-model state on top of NetCore. TraceLog records the replication graph so you can debug against legacy Actor replication. With Iris enabled, the replication driver runs here instead of the older NetDriver path."
+  },
+  {
+    "slug": "ismpool",
+    "kind": "module",
+    "cn": "ISMPool 管理实例化静态网格池，把大量相同网格的实例合并进可共享的 ISM/HISM 容器。运行时系统（含部分实验性植被与 Nanite 实例路径）向池租用槽位，避免每株草一个 Actor。它降低绘制调用与组件开销，但不负责草地刷写工具本身。",
+    "en": "ISMPool manages instanced static mesh pools, packing many copies of the same mesh into shared ISM/HISM containers. Runtime systems, including experimental foliage and Nanite instance paths, rent slots instead of spawning one Actor per blade. It cuts draw calls and component cost; it does not own the grass painting tools."
+  },
+  {
+    "slug": "itoo",
+    "kind": "module",
+    "cn": "Itoo 封装 Itoo Software（Forest Pack / RailClone）在 3ds Max Datasmith 导出器里所需的第三方头文件与库。导出带散布实例的 Max 场景时，Datasmith 通过它读取 Itoo 对象，而不是把专有 SDK 编进引擎运行时。没有对应 Max 插件时，这个模块不会出现在游戏目标里。",
+    "en": "Itoo wraps the Itoo Software (Forest Pack / RailClone) headers and libraries used by the 3ds Max Datasmith exporter. When a Max scene uses scatter instances, Datasmith reads those objects through this module instead of compiling the vendor SDK into the game runtime. It never ships in a game target unless that Max plugin path is being built."
+  },
+  {
+    "slug": "jemalloc",
+    "kind": "module",
+    "cn": "jemalloc 是引擎可选的第三方分配器，提供分桶、arena 和剖析友好的 malloc。部分平台或调试配置用它替代 CRT 堆，以降低碎片、看分配热点。Build.cs 只负责把预编译库链进需要自定义堆的目标。",
+    "en": "jemalloc is an optional third-party allocator with size classes, arenas, and profiling-friendly malloc. Some platforms and debug configs swap it in for the CRT heap to cut fragmentation and inspect allocation hot spots. The Build.cs only links the prebuilt library into targets that want that custom heap."
+  },
+  {
+    "slug": "json",
+    "kind": "module",
+    "cn": "Json 是引擎自己的 JSON 读写层，在 RapidJSON 之上提供 FJsonValue、FJsonObject 和序列化 reader/writer。配置、HTTP 载荷和不少开发者工具都走这套 API，而不是直接包含第三方头。TraceLog 钩子能标出异常大的解析。",
+    "en": "Json is the engine's own JSON read/write layer, exposing FJsonValue, FJsonObject, and reader/writer types on top of RapidJSON. Config, HTTP payloads, and many developer tools go through this API instead of including the third-party headers. TraceLog hooks can flag unusually large parses."
+  },
+  {
+    "slug": "jsonobjectgraph",
+    "kind": "module",
+    "cn": "JsonObjectGraph 把 UObject 图转成结构化 JSON（及反向），保留引用和子对象关系，而不只是平铺属性。实验性工具和蓝图相关管线用它做可互操作的对象转储。它依赖 Json 与 CoreUObject，但不提供编辑器 UI。",
+    "en": "JsonObjectGraph converts a UObject graph to structured JSON and back, preserving references and subobject relationships instead of flattening properties. Experimental tools and Blueprint-related pipelines use it for interoperable object dumps. It depends on Json and CoreUObject and does not ship an editor UI."
+  },
+  {
+    "slug": "jsonutilities",
+    "kind": "module",
+    "cn": "JsonUtilities 提供 FJsonObjectConverter，在 USTRUCT/UObject 与 JSON 之间按反射互转。保存游戏、REST 封装和命令行工具用它，而不手写每个字段。它建立在 Json 模块之上，处理默认值、日期和容器包装。",
+    "en": "JsonUtilities provides FJsonObjectConverter, reflecting USTRUCT and UObject types to and from JSON. Save games, REST wrappers, and commandlets use it instead of writing every field by hand. It sits on the Json module and handles defaults, dates, and container wrapping."
+  },
+  {
+    "slug": "jsonutilitieseditor",
+    "kind": "module",
+    "cn": "JsonUtilitiesEditor 为 JSON 转换补上编辑器体验：资产操作、蓝图节点和 Slate 提示，让人能从内容浏览器导出/导入 JSON。它只在编辑器进程加载，不能链进 Game 目标。改转换器行为仍在运行时 JsonUtilities，这里只管交互。",
+    "en": "JsonUtilitiesEditor adds the editor experience around JSON conversion: asset actions, Blueprint nodes, and Slate prompts so you can export or import JSON from the Content Browser. It loads only in the editor process and must not be linked into a Game target. Converter behavior still lives in runtime JsonUtilities; this module owns the interaction."
+  },
+  {
+    "slug": "kismet",
+    "kind": "module",
+    "cn": "Kismet 是蓝图编辑器本体：图表画布、编译入口、调试器挂钩、资产编辑器和与 GraphEditor 的集成。它拉齐视口、热重载、GameplayTag 和属性编辑器，构成你打开蓝图时看到的整套工作台。游戏目标绝不能链接本模块；运行时执行走编译后的字节码，不走这个编辑器。",
+    "en": "Kismet is the Blueprint editor itself: graph canvas, compile entry points, debugger hooks, asset editors, and GraphEditor integration. It pulls in viewports, hot reload, Gameplay Tags, and the details panel to form the workbench you see when a Blueprint opens. Game targets must never link it; runtime execution uses compiled bytecode, not this editor."
+  },
+  {
+    "slug": "kismetcompiler",
+    "kind": "module",
+    "cn": "KismetCompiler 把蓝图图编译成 UFunction、字节码和属性布局，处理执行线、变量和宏展开。它只在编辑器进程运行，产出运行时虚拟机要执行的脚本。图表看起来对但 PIE 行为不对时，错误往往出在这条编译器，而不是 Kismet 控件。",
+    "en": "KismetCompiler turns a Blueprint graph into UFunctions, bytecode, and property layouts, walking exec wires, variables, and macro expansion. It runs only in the editor process and emits the script the runtime VM will execute. When a graph looks right but PIE behaves wrong, the bug is often in this compiler rather than in Kismet widgets."
+  },
+  {
+    "slug": "kismetwidgets",
+    "kind": "module",
+    "cn": "KismetWidgets 提供蓝图编辑器复用的 Slate 控件：引脚选择器、类选择器、软引用控件和内联搜索。Kismet 与 Persona 等编辑器共享它们，避免每个图表编辑器自绘一套。它不编译图，只提供编辑蓝图时的输入控件。",
+    "en": "KismetWidgets supplies reusable Slate controls for Blueprint editors: pin pickers, class pickers, soft-reference widgets, and inline search. Kismet and editors such as Persona share them so every graph editor does not redraw the same choosers. It does not compile graphs; it only hosts the input widgets used while editing Blueprints."
+  },
+  {
+    "slug": "kiss_fft",
+    "kind": "module",
+    "cn": "Kiss_FFT 打包 KissFFT 库，为音频与信号处理提供轻量离散傅里叶变换。引擎在不引入大型 FFT 框架的场合用它做频谱分析。第三方 Build.cs 只暴露头文件与静态库，没有 Unreal 对象模型。",
+    "en": "Kiss_FFT packages the KissFFT library for lightweight discrete Fourier transforms in audio and signal processing. The engine uses it for spectral work where a full FFT framework would be overweight. The third-party Build.cs only exposes headers and a static lib; there is no Unreal object model."
+  },
+  {
+    "slug": "landscape",
+    "kind": "module",
+    "cn": "Landscape 是地形运行时：高度图、权重图、组件流送、材质与植被碰撞代理。它与 Foliage、网格描述和渲染器协作，在世界里绘制可编辑地形。编辑器笔刷在 LandscapeEditor；本模块是 PIE 与打包游戏里实际模拟和渲染的那一层。",
+    "en": "Landscape is the terrain runtime: heightmaps, weightmaps, component streaming, materials, and foliage collision proxies. It works with Foliage, mesh description, and the renderer to draw an editable landscape in the world. Editor brushes live in LandscapeEditor; this module is what simulates and renders in PIE and cooked games."
+  },
+  {
+    "slug": "landscapeeditor",
+    "kind": "module",
+    "cn": "LandscapeEditor 实现地形雕刻、绘制、管理与导入工具，含交互式笔刷、Gizmo 和与放置模式的集成。它编辑 Landscape 运行时组件，并接导航重建与源码控制。只在编辑器加载；游戏包不会带上这些工具。",
+    "en": "LandscapeEditor implements sculpt, paint, manage, and import tools for landscapes, including interactive brushes, gizmos, and Placement Mode integration. It edits Landscape runtime components and kicks navigation rebuilds and source control. It loads only in the editor; cooked games do not ship these tools."
+  },
+  {
+    "slug": "landscapeeditorutilities",
+    "kind": "module",
+    "cn": "LandscapeEditorUtilities 抽出可被命令行、脚本和其他编辑器模块调用的地形辅助函数，而不拉起完整笔刷 UI。批量重建碰撞、重采样高度或修复组件数据时走这里。它依赖 Landscape 运行时，但保持无界面。",
+    "en": "LandscapeEditorUtilities extracts landscape helpers that commandlets, scripts, and other editor modules can call without bringing up the full brush UI. Batch collision rebuilds, height resampling, and component repair go through it. It depends on the Landscape runtime but stays UI-free."
+  },
+  {
+    "slug": "launch",
+    "kind": "module",
+    "cn": "Launch 是引擎进程入口：平台 main、预加载、RHI 启动，并把控制权交给 Engine。它按目标拉齐音频混音、Cook-on-the-fly、HMD、安装包管理器和自动化 worker。无论编辑器还是游戏，启动路径都经过这个模块，而不是直接调 UEngine。",
+    "en": "Launch is the engine process entry: platform main, preloading, RHI bring-up, then handing control to Engine. It wires audio mixers, cook-on-the-fly, HMD, install bundle management, and automation workers depending on the target. Editor and game alike boot through this module rather than calling UEngine directly."
+  },
+  {
+    "slug": "launchdaemonmessages",
+    "kind": "module",
+    "cn": "LaunchDaemonMessages 定义与 iOS Launch Daemon 通信的 USTRUCT 消息：安装、启动、日志和设备状态。编辑器部署栈序列化这些对象，通过网络发给设备上的守护进程。改消息字段必须同时改主机与设备两端，否则远程启动会静默失败。",
+    "en": "LaunchDaemonMessages defines the USTRUCT messages spoken with the iOS Launch Daemon: install, launch, logs, and device status. The editor deploy stack serializes these objects over the network to the on-device daemon. Changing a field requires matching host and device builds, or remote launch fails silently."
+  },
+  {
+    "slug": "launchercheck",
+    "kind": "module",
+    "cn": "LauncherCheck 在启动时询问 Epic Launcher / Portal，游戏是否应重定向到启动器更新流。它用 HTTP 与 LauncherPlatform 比较已安装构建和渠道。独立发行可以关掉这条检查；从启动器分发的标题用它避免玩家跑过期二进制。",
+    "en": "LauncherCheck asks the Epic Launcher / Portal at startup whether the game should redirect into the launcher update flow. It uses HTTP and LauncherPlatform to compare the installed build against the channel. Standalone shipping can disable it; titles distributed through the launcher use it so players do not run a stale binary."
+  },
+  {
+    "slug": "launcherplatform",
+    "kind": "module",
+    "cn": "LauncherPlatform 抽象与 Epic Games Launcher 的平台侧对话：安装路径、应用身份和更新查询。LauncherCheck 和 Portal 代码通过它，而不直接解析启动器注册表或 plist。它只依赖 Core 与 HTTP，可在编辑器与游戏里使用。",
+    "en": "LauncherPlatform abstracts talking to the Epic Games Launcher on the local OS: install location, app identity, and update queries. LauncherCheck and Portal code go through it instead of parsing launcher registry or plist files directly. It depends only on Core and HTTP, so both editor and game can use it."
+  },
+  {
+    "slug": "launcherservices",
+    "kind": "module",
+    "cn": "LauncherServices 实现编辑器「启动 / 打包」会话：创建设备、Cook、部署，并与 Turnkey、Zen 和会话消息协作。它编排 Project Launcher 配置文件，而不是画界面。LegacyProjectLauncher 与 MainFrame 的启动按钮把工作交给这个开发者模块。",
+    "en": "LauncherServices implements editor launch/package sessions: creating devices, cooking, deploying, and talking to Turnkey, Zen, and session messages. It orchestrates Project Launcher profiles rather than drawing UI. LegacyProjectLauncher and MainFrame launch buttons hand work to this developer module."
+  },
+  {
+    "slug": "layers",
+    "kind": "module",
+    "cn": "Layers 是关卡编辑器的图层面板：把 Actor 编组到命名层，控制可见性与选择。它挂在 Scene Outliner 和 UnrealEd 上，便于在复杂关卡里批量显隐布景。World Partition / Data Layers 是另一套系统；本模块仍服务传统图层工作流。",
+    "en": "Layers is the Level Editor Layers panel: grouping Actors into named layers for visibility and selection. It hooks Scene Outliner and UnrealEd so a busy level can hide whole dressing passes at once. World Partition Data Layers are a separate system; this module still serves the classic layer workflow."
+  },
+  {
+    "slug": "legacyprojectlauncher",
+    "kind": "module",
+    "cn": "LegacyProjectLauncher 保留旧版 Project Launcher UI 与配置文件格式，以便老的 .ulp 启动配置仍能运行。新会话走 LauncherServices 和 Turnkey；本模块给尚未迁移的管线当兼容层。改启动器外观前要确认工作室是否还依赖这些遗留面板。",
+    "en": "LegacyProjectLauncher keeps the older Project Launcher UI and profile format alive so existing .ulp launch configs still run. New sessions go through LauncherServices and Turnkey; this module is the compatibility shim for pipelines that have not migrated. Check whether the studio still depends on those legacy panels before restyling the launcher."
+  },
+  {
+    "slug": "leveleditor",
+    "kind": "module",
+    "cn": "LevelEditor 是关卡编辑器外壳：视口、工具栏、模式、细节面板宿主，以及内容浏览器与场景大纲的布局。选中 Actor、切视角模式、保存当前关卡都经过它。它是编辑器最大的集成模块之一，但不实现地形笔刷或蓝图图表本身。",
+    "en": "LevelEditor is the level-editor shell: viewports, toolbars, modes, details-panel host, and the layout that docks Content Browser and Outliner. Selecting Actors, switching view modes, and saving the current level all pass through it. It is one of the largest editor integration modules, but it does not implement landscape brushes or Blueprint graphs themselves."
+  },
+  {
+    "slug": "levelinstanceeditor",
+    "kind": "module",
+    "cn": "LevelInstanceEditor 提供关卡实例的编辑器：创建、进入、提交嵌套关卡，以及与 World Partition 的交互。它在关卡编辑器里打开专用模式，用属性定制和大纲过滤实例 Actor。打包游戏只流送已提交的关卡实例；本模块不会进游戏目标。",
+    "en": "LevelInstanceEditor provides the editor for Level Instances: creating, entering, committing nested levels, and talking to World Partition. It opens a dedicated mode in the Level Editor with details customizations and Outliner filters for instance Actors. Cooked games only stream committed level instances; this module does not ship in a game target."
+  },
+  {
+    "slug": "levelsequence",
+    "kind": "module",
+    "cn": "LevelSequence 是关卡序列运行时资产：在 MovieScene 轨道上绑定 Actor、摄像机、媒体和 UMG。Sequencer 播放、过场和录制都实例化这些对象。编辑器 UI 在 Sequencer 插件；本模块是 PIE 与打包过场实际求值的运行时。",
+    "en": "LevelSequence is the runtime asset for cinematic level sequences: binding Actors, cameras, media, and UMG onto MovieScene tracks. Sequencer playback, cutscenes, and takes instantiate these objects. Editor UI lives in Sequencer plugins; this module is the runtime that evaluates in PIE and cooked cinematics."
+  },
+  {
+    "slug": "libav",
+    "kind": "module",
+    "cn": "libav 封装 libav/FFmpeg 族编解码库，供引擎媒体后端解码音视频容器。平台媒体播放器在需要软件解码或不走系统解码器时链接它。Build.cs 处理按平台选择的预编译二进制，而不是把 FFmpeg 源码编进每次引擎构建。",
+    "en": "libav wraps the libav/FFmpeg family of codecs so engine media backends can decode audio and video containers. Platform media players link it when they need software decode or cannot use a system decoder. The Build.cs selects per-platform prebuilt binaries rather than compiling FFmpeg from source on every engine build."
+  },
+  {
+    "slug": "libcurl",
+    "kind": "module",
+    "cn": "libcurl 是引擎 HTTP 模块使用的第三方传输库，覆盖 TLS、代理和重定向。多数游戏代码应走引擎 HTTP 接口；本模块只是把 curl 链进需要原生客户端的目标。换 SSL 后端或启用 HTTP/2 时，通常改这里的第三方开关。",
+    "en": "libcurl is the third-party transfer library behind the engine HTTP module, covering TLS, proxies, and redirects. Game code should call the engine HTTP interface; this module only links curl into targets that need the native client. Switching SSL backends or enabling HTTP/2 usually means flipping flags on this third-party target."
+  },
+  {
+    "slug": "libgpucounters",
+    "kind": "module",
+    "cn": "libGPUCounters 提供读取厂商 GPU 性能计数器的第三方辅助库。剖析工具在平台允许时用它采样周期、占用率和带宽，而不直接链专有 GPU SDK。不是所有平台都启用；缺失时计数器 UI 会降级。",
+    "en": "libGPUCounters is a third-party helper for reading vendor GPU performance counters. Profiling tools sample clocks, occupancy, and bandwidth through it when the platform allows, instead of linking proprietary GPU SDKs directly. Not every platform enables it; the counters UI degrades when the library is absent."
+  },
+  {
+    "slug": "libjpegturbo",
+    "kind": "module",
+    "cn": "LibJpegTurbo 打包 SIMD 加速的 JPEG 编解码，供 ImageWrapper 和导入管线使用。导入照片参考、UI 图和部分光照烘焙图走这条快速路径。它不理解 UTexture；只处理 JPEG 比特流。",
+    "en": "LibJpegTurbo packages SIMD-accelerated JPEG encode and decode for ImageWrapper and import pipelines. Photo references, UI images, and some lightmass-related maps take this fast path. It does not understand UTexture; it only handles JPEG bitstreams."
+  },
+  {
+    "slug": "libpas",
+    "kind": "module",
+    "cn": "libpas 是 WebKit 的便携分配系统，作为引擎某些目标上的实验性/可选堆。它强调隔离的 size class 与安全导向的分配，有别于 jemalloc。只有显式选择该分配器的构建才会链接。",
+    "en": "libpas is WebKit's portable allocation system, offered as an experimental or optional heap on some engine targets. It emphasizes isolated size classes and safety-oriented allocation, distinct from jemalloc. Only builds that opt into that allocator link it."
+  },
+  {
+    "slug": "libphonon",
+    "kind": "module",
+    "cn": "libPhonon 封装 Steam Audio（Phonon）原生库，用于基于物理的空间化、遮挡和混响。音频插件在构建时链它，游戏代码则走 Unreal 的 Phonon/Steam Audio 包装。没有对应插件时，这个第三方目标不会进游戏。",
+    "en": "libPhonon wraps the Steam Audio (Phonon) native library for physically based spatialization, occlusion, and reverb. Audio plugins link it at build time; game code talks to Unreal's Phonon/Steam Audio wrappers. The third-party target does not enter a game unless that plugin is enabled."
+  },
+  {
+    "slug": "libressl",
+    "kind": "module",
+    "cn": "LibreSSL 是部分平台上作为 OpenSSL 替代的 TLS 库，提供加密原语和证书校验。需要兼容 LibreSSL ABI 的工具与网络栈通过这个第三方模块链接。应用代码应继续使用引擎的 SSL 模块，而不是直接调用 LibreSSL API。",
+    "en": "LibreSSL is the TLS library used on some platforms as an OpenSSL alternative, supplying crypto primitives and certificate checks. Tools and network stacks that need the LibreSSL ABI link this third-party module. Application code should keep using the engine SSL module rather than calling LibreSSL APIs directly."
+  },
+  {
+    "slug": "libstrophe",
+    "kind": "module",
+    "cn": "libstrophe 是轻量 XMPP 客户端库，供引擎或插件在需要 Jabber 风格即时消息时使用。Voice/chat 实验和部分在线服务桥通过它发送 XML stanza。多数游戏从不链接它；只有显式聊天后端才会拉进这个第三方。",
+    "en": "libstrophe is a lightweight XMPP client library for engine or plugin code that needs Jabber-style messaging. Experimental voice/chat and some online-service bridges send XML stanzas through it. Most games never link it; only an explicit chat backend pulls in this third party."
+  },
+  {
+    "slug": "libtiff",
+    "kind": "module",
+    "cn": "LibTiff 读写 TIFF 图像，包括多页和 16 位扫描，供导入管线与 ImageWrapper 使用。地形高度图、胶片扫描和打印工作流常用 TIFF 而不是 PNG。模块不创建纹理资产；调用方把解码像素再导入为 UTexture。",
+    "en": "LibTiff reads and writes TIFF images, including multipage and 16-bit scans, for import pipelines and ImageWrapper. Landscape heightmaps, film scans, and print workflows often arrive as TIFF rather than PNG. The module does not create texture assets; callers import decoded pixels into UTexture."
+  },
+  {
+    "slug": "libunwind",
+    "kind": "module",
+    "cn": "libunwind 为 Android（及其他 ELF）目标提供栈展开，以便崩溃报告和剖析能走出原生帧。引擎崩溃调用栈在设备上靠它符号化到函数。没有它，Android minidump 往往只剩地址。",
+    "en": "libunwind provides stack unwinding for Android and other ELF targets so crash reports and profilers can walk native frames. Engine crash callstacks on-device rely on it to resolve functions. Without it, Android minidumps often contain only raw addresses."
+  },
+  {
+    "slug": "libwebsockets",
+    "kind": "module",
+    "cn": "libWebSockets 是带可选 TLS（OpenSSL）的 C WebSocket 实现，供引擎网络与工具服务器使用。编辑器实时预览、远程会话和部分像素流路径用它做帧协议。游戏玩法复制仍然走 Actor/Iris 网络，而不是 WebSocket。",
+    "en": "libWebSockets is a C WebSocket implementation with optional TLS via OpenSSL, used by engine networking and tool servers. Editor live-preview, remote sessions, and some pixel-streaming paths use it for the framed protocol. Gameplay replication still uses Actor/Iris networking, not WebSockets."
+  },
+  {
+    "slug": "libzip",
+    "kind": "module",
+    "cn": "libzip 读写 ZIP 归档，并可选用 OpenSSL 做加密条目，底层用 zlib 做压缩。打包辅助、插件分发和部分 Io 工具用它处理 .zip，而不是手写中央目录。它不替代 pak/IoStore；只处理通用 ZIP。",
+    "en": "libzip reads and writes ZIP archives, optionally encrypting entries with OpenSSL and compressing with zlib. Packaging helpers, plugin distribution, and some Io tools handle .zip through it instead of hand-rolling the central directory. It does not replace pak/IoStore; it only speaks generic ZIP."
+  },
+  {
+    "slug": "linuxarm64targetplatform",
+    "kind": "module",
+    "cn": "LinuxArm64TargetPlatform 把 Linux AArch64 登记为 Cook/构建目标，与 x86_64 Linux 目标分开。交叉编译服务器、嵌入式和部分云实例走这条平台 ID。与 iOS 模块类似，本文件只做登记；设置与部署在 Controls/Settings。",
+    "en": "LinuxArm64TargetPlatform registers Linux AArch64 as a cook/build target, separate from x86_64 Linux. Cross-compile servers, embedded boards, and some cloud instances use this platform id. Like the iOS modules, this file only registers; settings and deploy live in Controls/Settings."
+  },
+  {
+    "slug": "linuxarm64targetplatformcontrols",
+    "kind": "module",
+    "cn": "LinuxArm64TargetPlatformControls 实现 Linux ARM64 的设备与部署控制：如何跑 cooked 构建、传二进制、查询该架构能力。它读取 LinuxArm64TargetPlatformSettings，以免把 ABI 细节写进部署脚本。从 Windows 编辑器面向 ARM64 Linux 板子迭代时会用到。",
+    "en": "LinuxArm64TargetPlatformControls implements device and deploy control for Linux ARM64: how to run a cooked build, copy binaries, and query architecture capabilities. It reads LinuxArm64TargetPlatformSettings so ABI details stay out of deploy scripts. Iterate from a Windows editor onto an ARM64 Linux board through this module."
+  },
+  {
+    "slug": "linuxarm64targetplatformsettings",
+    "kind": "module",
+    "cn": "LinuxArm64TargetPlatformSettings 保存 Linux AArch64 的 Cook 格式、工具链三元组和引擎兼容开关。ARM64 与 x64 Linux 的纹理/着色器差异在此分叉。改 sysroot 或默认压缩时改这个设置模块。",
+    "en": "LinuxArm64TargetPlatformSettings stores cook formats, toolchain triples, and engine compatibility flags for Linux AArch64. Texture and shader differences versus x64 Linux fork here. Changing sysroot or default compression means editing this settings module."
+  },
+  {
+    "slug": "linuxplatformeditor",
+    "kind": "module",
+    "cn": "LinuxPlatformEditor 在编辑器项目设置里画出 Linux 平台页：窗口、输入、着色器质量和源码控制提示。它把 LinuxTargetPlatform 的 Controls/Settings 接到 PropertyEditor。只在编辑器出现；cooked Linux 游戏不加载这些面板。",
+    "en": "LinuxPlatformEditor draws the Linux platform pages in editor Project Settings: windowing, input, shader quality, and source-control hints. It binds LinuxTargetPlatform Controls/Settings into PropertyEditor. It appears only in the editor; cooked Linux games do not load these panels."
+  },
+  {
+    "slug": "linuxtargetplatform",
+    "kind": "module",
+    "cn": "LinuxTargetPlatform 登记桌面 Linux（通常是 x86_64）作为构建与 Cook 目标。它聚合 Controls 与 Settings，让平台下拉框出现「Linux」。UAT 和编辑器通过这个入口发现 SDK，而不是直接扫 /usr。",
+    "en": "LinuxTargetPlatform registers desktop Linux, typically x86_64, as a build and cook target. It aggregates Controls and Settings so the platform dropdown shows Linux. UAT and the editor discover the SDK through this entry rather than scanning /usr themselves."
+  },
+  {
+    "slug": "linuxtargetplatformcontrols",
+    "kind": "module",
+    "cn": "LinuxTargetPlatformControls 处理桌面 Linux 的部署与运行：复制 cooked 输出、启动二进制、报告设备能力。它读取 LinuxTargetPlatformSettings 和 Projects 信息以匹配暂存目录。从另一台主机向 Linux 目标推送测试构建时走这里。",
+    "en": "LinuxTargetPlatformControls handles deploy and run for desktop Linux: copying cook output, launching the binary, and reporting device capabilities. It reads LinuxTargetPlatformSettings and Projects data so staging directories match. Pushing a test build from another host onto a Linux target goes through here."
+  },
+  {
+    "slug": "linuxtargetplatformsettings",
+    "kind": "module",
+    "cn": "LinuxTargetPlatformSettings 保存桌面 Linux 的 Cook 设置：RHI 后端、ICU 数据、插件白名单和包布局。Controls 在暂存时读取，避免策略散落在 shell 脚本里。Linux 与 LinuxArm64 设置刻意分开，以免混用 ABI。",
+    "en": "LinuxTargetPlatformSettings holds desktop Linux cook settings: RHI backends, ICU data, plugin allow-lists, and package layout. Controls reads them at staging time so policy is not scattered through shell scripts. Linux and LinuxArm64 settings stay separate on purpose so ABIs are not mixed."
+  },
+  {
+    "slug": "livecoding",
+    "kind": "module",
+    "cn": "LiveCoding 在编辑器里启用 C++ 热重载：编译改动、用 Oodle 压缩补丁，并在不重启编辑器的情况下打到运行中的模块。它与 Settings 和 Slate 集成，提供启用开关和状态。这是 Windows 上的 Live Coding 客户端；实际编译由 LiveCodingServer 完成。",
+    "en": "LiveCoding enables C++ hot reload in the editor: compiling a change, compressing the patch with Oodle, and applying it to running modules without restarting. It integrates with Settings and Slate for the enable switch and status UI. This is the Live Coding client on Windows; LiveCodingServer performs the actual compile."
+  },
+  {
+    "slug": "livecodingconsole",
+    "kind": "module",
+    "cn": "LiveCodingConsole 是 Live Coding 的独立控制台进程，显示编译输出、模块列表和补丁结果，与编辑器 UI 分离。它作为 Programs 目标构建，以便编译器崩溃时不拖垮 Unreal Editor。开发者开着控制台看实时重载日志与错误。",
+    "en": "LiveCodingConsole is the standalone console process for Live Coding, showing compile output, module lists, and patch results away from the editor UI. It builds as a Programs target so a compiler crash does not take down Unreal Editor. Developers keep it open to watch live-reload logs and errors."
+  },
+  {
+    "slug": "livecodingserver",
+    "kind": "module",
+    "cn": "LiveCodingServer 驱动 Live Coding 构建：调用工具链，用 DIA SDK 读 PDB，并通过 Visual Studio DTE 可选地与 IDE 对话。编辑器里的 LiveCoding 模块把增量请求发给这个服务器。它把编译器细节挡在游戏/编辑器进程之外。",
+    "en": "LiveCodingServer drives the Live Coding build: invoking the toolchain, reading PDBs with the DIA SDK, and optionally talking to Visual Studio DTE. The editor LiveCoding module sends incremental requests to this server. It keeps compiler details out of the game and editor processes."
+  },
+  {
+    "slug": "livelinkanimationcore",
+    "kind": "module",
+    "cn": "LiveLinkAnimationCore 把 Live Link 骨架姿态转成引擎动画求值可用的数据：重定向、角色曲线和帧应用。它依赖 LiveLinkInterface 与 Engine，以便 AnimGraph 节点消费直播流。没有它，Live Link 只有抽象源，没有骨骼动画桥。",
+    "en": "LiveLinkAnimationCore turns Live Link skeletal poses into data the engine animation evaluation can consume: retargeting, character curves, and applying a frame. It depends on LiveLinkInterface and Engine so AnimGraph nodes can ingest a live stream. Without it, Live Link has abstract sources but no skeletal animation bridge."
+  },
+  {
+    "slug": "livelinkfbxprovider",
+    "kind": "module",
+    "cn": "LiveLinkFbxProvider 是独立程序，从 FBX 读取动画/摄像机并通过 Live Link 消息总线发给引擎。DCC 或录制文件可通过 UDP 消息把预烘焙镜头推到编辑器，而无需完整 Live Link 插件宿主。它用于离线镜头预览和没有原生 Live Link 插件的工具。",
+    "en": "LiveLinkFbxProvider is a standalone program that reads animation or cameras from FBX and sends them over the Live Link message bus. A DCC or recorded file can push a pre-baked shot into the editor via UDP messaging without hosting a full Live Link plugin. Use it for offline shot preview and tools that lack a native Live Link plugin."
+  },
+  {
+    "slug": "livelinkhublauncher",
+    "kind": "module",
+    "cn": "LiveLinkHubLauncher 启动 Live Link Hub 独立应用：预加载屏、插件浏览器、自动化和渲染器，把 Hub 做成可发给舞台团队的可执行文件。它不实现 Live Link 协议本身，只启动 LiveLinkHub 模块。现场活动常用 Hub 代替完整 Unreal Editor 来路由设备。",
+    "en": "LiveLinkHubLauncher boots the Live Link Hub standalone app: preload screens, plugin browser, automation, and renderer, turning Hub into an executable you can give to a stage crew. It does not implement the Live Link protocol; it starts the LiveLinkHub module. Live events often run Hub instead of a full Unreal Editor to route devices."
+  },
+  {
+    "slug": "livelinkinterface",
+    "kind": "module",
+    "cn": "LiveLinkInterface 定义源、主题、角色和帧的公共 API，供所有 Live Link 提供者与消费者实现。运行时动画、消息总线和编辑器 UI 都针对这些类型编程。添加新设备源时先实现这些接口，而不是依赖某个具体提供者。",
+    "en": "LiveLinkInterface defines the public API for sources, subjects, roles, and frames that every Live Link provider and consumer implements. Runtime animation, the message bus, and editor UI all program against these types. Adding a new device source starts by implementing these interfaces, not by depending on a concrete provider."
+  },
+  {
+    "slug": "livelinkmessagebusframework",
+    "kind": "module",
+    "cn": "LiveLinkMessageBusFramework 把 Live Link 帧序列化到引擎消息总线，便于跨进程、跨机器传源。FbxProvider 和 UDP 消息插件用它，而不重复写打包代码。它依赖 MessagingCommon，保持与引擎消息系统同一套传输。",
+    "en": "LiveLinkMessageBusFramework serializes Live Link frames onto the engine message bus so sources can travel across processes and machines. The FbxProvider and UDP messaging plugins use it instead of rewriting packing code. It depends on MessagingCommon so the same transport as the rest of engine messaging is reused."
+  },
+  {
+    "slug": "llvm",
+    "kind": "module",
+    "cn": "llvm 打包 LLVM 工具链与库，供需要 Clang/LLVM 二进制的引擎工具使用，例如着色器编译辅助或平台工具链。它不在运行时执行游戏逻辑。目标按平台选择预编译 LLVM，避免从源码引导编译器。",
+    "en": "llvm packages the LLVM toolchain and libraries for engine tools that need Clang/LLVM binaries, such as shader compile helpers or platform toolchains. It does not execute game logic at runtime. Targets pick prebuilt LLVM per platform instead of bootstrapping the compiler from source."
+  },
+  {
+    "slug": "lmdb",
+    "kind": "module",
+    "cn": "lmdb 嵌入 Lightning Memory-Mapped Database，提供进程内键值存储，用于派生数据、缓存和部分开发者索引。调用方内存映射文件，获得无服务器的持久 KV。这不是游戏存档格式；只是引擎工具的嵌入式数据库。",
+    "en": "lmdb embeds Lightning Memory-Mapped Database, an in-process key-value store used by derived data, caches, and some developer indexes. Callers memory-map a file and get a durable KV without a server. It is not a game save format; it is an embedded DB for engine tooling."
+  },
+  {
+    "slug": "localfilenetworkreplaystreaming",
+    "kind": "module",
+    "cn": "LocalFileNetworkReplayStreaming 把网络回放写到本地磁盘（通常是 demo 文件），实现 NetworkReplayStreaming 接口。Listen server 和 PIE 用它在不架回放 HTTP 服务的情况下录制对局。JSON 元数据与引擎回放流格式一起存放，供稍后打开。",
+    "en": "LocalFileNetworkReplayStreaming writes network replays to local disk, typically demo files, implementing the NetworkReplayStreaming interface. Listen-server and PIE sessions record matches without standing up a replay HTTP service. JSON metadata sits beside the engine replay stream format for later open."
+  },
+  {
+    "slug": "localization",
+    "kind": "module",
+    "cn": "Localization 实现收集、编译和暂存本地化资源：PO/LocRes、清单和源码控制挂钩。开发者命令行与仪表盘通过它生成译文包。运行时读已编译 LocRes；本模块属于 Cook/收集阶段。",
+    "en": "Localization implements gathering, compiling, and staging localized resources: PO/LocRes, manifests, and source-control hooks. Developer commandlets and the dashboard generate translation packs through it. Runtime reads compiled LocRes; this module belongs to the cook/gather phase."
+  },
+  {
+    "slug": "localizationcommandletexecution",
+    "kind": "module",
+    "cn": "LocalizationCommandletExecution 从编辑器 UI 运行本地化命令行，显示进度并捕获日志。仪表盘点击「收集/编译」时走这里，而不是手动开命令提示符。它链 Localization 与 UnrealEd，把长任务放进带 Slate 反馈的编辑器进程。",
+    "en": "LocalizationCommandletExecution runs localization commandlets from the editor UI, showing progress and capturing logs. Dashboard Gather/Compile clicks go through here instead of a manual command prompt. It links Localization and UnrealEd so long jobs stay in the editor process with Slate feedback."
+  },
+  {
+    "slug": "localizationdashboard",
+    "kind": "module",
+    "cn": "LocalizationDashboard 是翻译状态的编辑器仪表盘：目标文化、收集配置、单词统计和跳转到翻译编辑器。它编排 LocalizationService 与 CommandletExecution。本地化制片人主要待在这个面板，而不是 JSON 清单里。",
+    "en": "LocalizationDashboard is the editor dashboard for translation status: target cultures, gather configs, word counts, and jumping into the translation editor. It orchestrates LocalizationService and CommandletExecution. Localization producers spend time here rather than in JSON manifests."
+  },
+  {
+    "slug": "localizationservice",
+    "kind": "module",
+    "cn": "LocalizationService 抽象外部翻译供应商连接（类似源码控制提供者），用于提交和拉回译文。仪表盘通过它，而不把厂商 SDK 编进运行时。没有配置供应商时，工作室仍可用纯文件的 Localization 模块。",
+    "en": "LocalizationService abstracts connecting to an external translation vendor, similar to a source-control provider, for pushing and pulling translations. The dashboard talks to it so vendor SDKs are not compiled into runtime. Studios that never configure a vendor still use the file-based Localization module."
+  },
+  {
+    "slug": "locreschunker",
+    "kind": "module",
+    "cn": "LocResChunker 是把已编译本地化资源切进 IoStore chunk 的程序，以便按语言做按需下载。它读取 Localization 输出和 IoStoreUtilities，写出可暂存的容器。发多语言标题且希望玩家只拉当前语言时使用。",
+    "en": "LocResChunker is a program that splits compiled localization into IoStore chunks so languages can download on demand. It reads Localization output and IoStoreUtilities, then writes containers ready to stage. Ship a multi-language title this way when players should only pull the language they use."
+  },
+  {
+    "slug": "logvisualizer",
+    "kind": "module",
+    "cn": "LogVisualizer 在视口中画出带时间的游戏日志（AI 决策、移动、自定义类别），用于调试。它把 JSON 记录的事件重放成 3D 叠加层和时间轴。AI 程序员用它看黑板与路径，而不是只扫 Output Log。",
+    "en": "LogVisualizer draws time-coded gameplay logs in the viewport—AI decisions, movement, custom categories—for debugging. It replays JSON-recorded events as 3D overlays and a timeline. AI programmers inspect blackboards and paths here instead of only scanning the Output Log."
+  },
+  {
+    "slug": "lore",
+    "kind": "module",
+    "cn": "Lore 是引擎 ThirdParty 树中的外部库封装，向需要该厂商代码的工具提供头文件与二进制。它没有 Unreal 模块依赖，也不会单独出现在游戏玩法里。是否链入取决于上层功能是否引用 Lore API。",
+    "en": "Lore wraps an external library in the engine ThirdParty tree, exposing headers and binaries to tools that call that vendor code. It declares no Unreal module dependencies and does not appear in gameplay by itself. Linking happens only when a higher-level feature references the Lore API."
+  },
+  {
+    "slug": "lowleveltestsrunner",
+    "kind": "module",
+    "cn": "LowLevelTestsRunner 用 Catch2 和可选的空 Slate 渲染器启动低层测试可执行文件。MathCoreTests 等套件通过它获得 Engine/CoreUObject 而不必打开完整编辑器。CI 用这个 runner 跑快速、无窗口的引擎测试。",
+    "en": "LowLevelTestsRunner boots low-level test executables with Catch2 and an optional null Slate renderer. Suites such as MathCoreTests get Engine and CoreUObject through it without opening the full editor. CI uses this runner for fast, windowless engine tests."
+  },
+  {
+    "slug": "macmenu",
+    "kind": "module",
+    "cn": "MacMenu 把 Slate 菜单映射到 macOS 菜单栏和 AppKit 命令，处理快捷键和隐藏/显示应用等系统项。Apple 运行时用它让编辑器/游戏菜单像原生 Mac 应用。Windows 与 Linux 忽略此模块。",
+    "en": "MacMenu maps Slate menus onto the macOS menu bar and AppKit commands, including shortcuts and Hide/Show Application. The Apple runtime uses it so editor and game menus behave like a native Mac app. Windows and Linux ignore this module."
+  },
+  {
+    "slug": "macplatformeditor",
+    "kind": "module",
+    "cn": "MacPlatformEditor 提供编辑器里的 macOS 项目设置：音频、Metal/着色器质量、签名相关属性和共享设置控件。它把 MacTargetPlatform 的 Controls/Settings 绑到细节面板。只在编辑器加载，用于调整 Mac 目标而不改 DefaultEngine.ini 手写段。",
+    "en": "MacPlatformEditor supplies macOS project settings in the editor: audio, Metal/shader quality, signing-related properties, and shared settings widgets. It binds MacTargetPlatform Controls/Settings into the details panel. Load it only in the editor to tune a Mac target without hand-editing DefaultEngine.ini sections."
+  },
+  {
+    "slug": "mactargetplatform",
+    "kind": "module",
+    "cn": "MacTargetPlatform 登记 macOS 为 Cook 与构建目标，并聚合 Mac 的 Controls 与 Settings。UAT 和编辑器平台列表通过它发现 Mac SDK。它不签名 .app；那是 Controls 与 Xcode 工具链的工作。",
+    "en": "MacTargetPlatform registers macOS as a cook and build target and aggregates Mac Controls and Settings. UAT and the editor platform list discover the Mac SDK through it. It does not sign the .app; Controls and the Xcode toolchain do that."
+  },
+  {
+    "slug": "mactargetplatformcontrols",
+    "kind": "module",
+    "cn": "MacTargetPlatformControls 实现 Mac 部署：暂存 .app、处理 Cooked Editor 变体，以及启动 cooked 构建。它读取 MacTargetPlatformSettings 以匹配架构和编辑器/游戏切换。从另一台机器向 Mac 推包时走这个控制面。",
+    "en": "MacTargetPlatformControls implements Mac deploy: staging the .app, handling Cooked Editor variants, and launching a cooked build. It reads MacTargetPlatformSettings to match architecture and editor-versus-game switches. Pushing a build onto a Mac from another machine uses this control plane."
+  },
+  {
+    "slug": "mactargetplatformsettings",
+    "kind": "module",
+    "cn": "MacTargetPlatformSettings 保存 Mac Cook 策略：RHI、Cooked Editor 支持和包内容。Controls 在暂存时读取，使 Apple Silicon 与 Intel 差异保持数据驱动。改默认 Metal 功能级别时改这个设置模块。",
+    "en": "MacTargetPlatformSettings stores Mac cook policy: RHI, Cooked Editor support, and bundle contents. Controls reads it at staging time so Apple Silicon versus Intel differences stay data-driven. Changing the default Metal feature level means editing this settings module."
+  },
+  {
+    "slug": "mainframe",
+    "kind": "module",
+    "cn": "MainFrame 拥有 Unreal Editor 主窗口：菜单栏、选项卡管理、关于框，以及启动、源码控制和文档入口。它把 Level Editor、翻译工具和 UAT 辅助接进同一外壳。没有它就没有编辑器「框架」，只有游离的工具包。",
+    "en": "MainFrame owns the Unreal Editor main window: menu bar, tab manager, about box, and entry points for launch, source control, and docs. It docks the Level Editor, translation tools, and UAT helpers into one shell. Without it there is no editor chrome, only free-floating toolkits."
+  },
+  {
+    "slug": "managedstoragedebug",
+    "kind": "module",
+    "cn": "ManagedStorageDebug 暴露托管存储/包缓存的运行时调试钩子，便于检查驻留数据和逐出。它链 Engine 以便控制台命令与屏幕统计可用。调查流式安装「为什么还占着这块内存」时用这个模块。",
+    "en": "ManagedStorageDebug exposes runtime debug hooks for managed storage and package caches so you can inspect residency and eviction. It links Engine so console commands and on-screen stats work. Use it when a streamed install still holds memory and you need to know why."
+  },
+  {
+    "slug": "marketplacekit",
+    "kind": "module",
+    "cn": "MarketplaceKit 包装 Apple MarketplaceKit，供 iOS 上的替代应用市场安装与更新流程使用。发行走欧盟替代商店（而非仅 App Store）的游戏在运行时链这个 iOS 模块。它不实现商店目录 UI；只桥接系统 API。",
+    "en": "MarketplaceKit wraps Apple MarketplaceKit for alternative-app-marketplace install and update flows on iOS. Games that ship through an EU alternative store rather than only the App Store link this iOS runtime module. It does not implement store catalog UI; it bridges the system API."
+  },
+  {
+    "slug": "masscore",
+    "kind": "module",
+    "cn": "MassCore 提供 Mass Entity 的核心类型：实体句柄、碎片、处理器调度和 Trace 埋点，尽量不依赖 Engine。更高层的 MassEngine 与 MassEntity 建立在这些原语上。写不需要 Actor 的大规模模拟时从这里开始。",
+    "en": "MassCore supplies Mass Entity core types: entity handles, fragments, processor scheduling, and Trace, with minimal Engine dependency. Higher MassEngine and MassEntity layers build on these primitives. Start here when writing large-scale simulation that should not require Actors."
+  },
+  {
+    "slug": "massdeveloper",
+    "kind": "module",
+    "cn": "MassDeveloper 把 Mass 处理器执行接到 Insights Trace 分析，便于在时间轴上查看批次与处理器耗时。它依赖 TraceAnalysis/Services，而不是游戏世界。优化 Mass 帧预算时先看这些轨迹，再改游戏代码。",
+    "en": "MassDeveloper hooks Mass processor execution into Insights Trace analysis so you can see batches and processor time on a timeline. It depends on TraceAnalysis and TraceServices, not the game world. Optimize a Mass frame budget from these traces before rewriting gameplay code."
+  },
+  {
+    "slug": "massengine",
+    "kind": "module",
+    "cn": "MassEngine 把 Mass 接到 Unreal 世界：Actor 表示、Chaos 碰撞、音频扩展、渲染和编辑器 tick。纯 MassCore 模拟通过这里获得关卡里的可见代理。它是「ECS 核心」与「引擎子系统」之间的胶水。",
+    "en": "MassEngine binds Mass to the Unreal world: Actor representation, Chaos collision, audio extensions, rendering, and editor tick. A pure MassCore simulation gets visible proxies in the level through this layer. It is the glue between the ECS core and engine subsystems."
+  },
+  {
+    "slug": "massentity",
+    "kind": "module",
+    "cn": "MassEntity 实现实体存储、archetype 和碎片布局，供 Mass 处理器迭代。历史上它曾是独立运行时模块；查询与生成实体走这里。它刻意保持少依赖，以便测试套件不拉起整个引擎。",
+    "en": "MassEntity implements the entity store, archetypes, and fragment layouts that Mass processors iterate. Historically a standalone runtime module, it is where you spawn and query entities. It stays lightly dependent so test suites can run without booting the whole engine."
+  },
+  {
+    "slug": "massentitydebugger",
+    "kind": "module",
+    "cn": "MassEntityDebugger 是检查 Mass 实体、碎片和处理器的编辑器 UI，可停靠在工作区菜单。选择一个实体并查看其 archetype，而无需断到 C++。它只在编辑器加载，用于调试人群与 ECS 场景。",
+    "en": "MassEntityDebugger is the editor UI for inspecting Mass entities, fragments, and processors, docked from the workspace menu. Select an entity and see its archetype without breaking into C++. It loads only in the editor for debugging crowd and ECS scenes."
+  },
+  {
+    "slug": "massentityeditor",
+    "kind": "module",
+    "cn": "MassEntityEditor 提供 Mass 的编辑器集成：图表、细节定制、可视化器和 Rewind Debugger 挂钩。设计 Mass 模式与处理器资源时用这些工具，而不是纯运行时 API。它比 Debugger 更重，面向资产创作而非只读检查。",
+    "en": "MassEntityEditor provides Mass editor integration: graphs, details customizations, visualizers, and Rewind Debugger hooks. Author Mass schemas and processor assets with these tools rather than raw runtime APIs. It is heavier than the Debugger and aimed at asset creation, not read-only inspection."
+  },
+  {
+    "slug": "massentitytestsuite",
+    "kind": "module",
+    "cn": "MassEntityTestSuite 在 AITestSuite 风格环境中运行 Mass 实体与处理器的自动化测试。合并碎片布局或调度改动时用它防回归。它链 Engine 与 MassCore，但不打开编辑器 UI。",
+    "en": "MassEntityTestSuite runs automated tests of Mass entities and processors in an AITestSuite-style environment. Merge fragment-layout or scheduling changes against it to prevent regressions. It links Engine and MassCore but does not open editor UI."
+  },
+  {
+    "slug": "masssignals",
+    "kind": "module",
+    "cn": "MassSignals 实现 Mass 的信号/事件碎片，让处理器能延迟通知「某实体发生了某事」而无需紧耦合。生成、受击和状态转换常通过信号在帧间排队。它保持无依赖，以便任何 Mass 层都能发送或刷新信号。",
+    "en": "MassSignals implements Mass signal/event fragments so processors can defer “something happened to this entity” without tight coupling. Spawns, hits, and state changes often queue through signals across frames. It stays dependency-free so any Mass layer can raise or flush signals."
+  },
+  {
+    "slug": "masstests",
+    "kind": "module",
+    "cn": "MassTests 是以程序形式运行的 Mass 测试可执行文件，用于更大的端到端 ECS 场景。与 MassEntityTestSuite 不同，它是独立 Programs 目标。CI 可在不启动编辑器的情况下启动它做压力测试。",
+    "en": "MassTests is a program-style Mass test executable for larger end-to-end ECS scenarios. Unlike MassEntityTestSuite, it is a standalone Programs target. CI can launch it for stress tests without starting the editor."
+  },
+  {
+    "slug": "massunloadingtestmodule",
+    "kind": "module",
+    "cn": "MassUnloadingTestModule 专门测试 Mass 实体与处理器在关卡卸载、热重载和编辑器关闭时的卸载行为。它链 UnrealEd，因为泄漏常出现在编辑器切换地图时。修复「卸载世界后 Mass 仍持有 Actor」类 bug 时用它。",
+    "en": "MassUnloadingTestModule specifically tests Mass entity and processor teardown during level unload, hot reload, and editor shutdown. It links UnrealEd because leaks often appear when the editor switches maps. Use it when fixing bugs where Mass still holds Actors after the world unloads."
+  },
+  {
+    "slug": "materialbaking",
+    "kind": "module",
+    "cn": "MaterialBaking 把复杂材质图烘到纹理（简化网格、合并 Actor、代理 LOD）。它驱动渲染器离屏绘制，并把结果写入静态网格描述。合并 Actor 与 HLOD 管线调用它，而不是在运行时求值完整材质图。",
+    "en": "MaterialBaking bakes a complex material graph down to textures for simplified meshes, merged Actors, and proxy LODs. It drives the renderer to draw offline and writes results into static mesh descriptions. Merge Actors and HLOD pipelines call it instead of evaluating the full graph at runtime."
+  },
+  {
+    "slug": "materialeditor",
+    "kind": "module",
+    "cn": "MaterialEditor 是材质与材质实例的图表编辑器：预览场景、统计、节点菜单和应用到地形/网格。它集成 GraphEditor、内容浏览器和属性面板。游戏从不加载它；运行时只使用编译后的材质着色器。",
+    "en": "MaterialEditor is the graph editor for materials and material instances: preview scene, stats, node palettes, and applying to landscapes or meshes. It integrates GraphEditor, Content Browser, and the details panel. Games never load it; runtime uses compiled material shaders only."
+  },
+  {
+    "slug": "materialshaderqualitysettings",
+    "kind": "module",
+    "cn": "MaterialShaderQualitySettings 按平台存储材质着色器质量开关（特性级别、蒙版、精度），供 RHI 在 Cook 时读取。设备上的材质降级查这些设置，而不是硬编码 ifdefs。移动与主机可以各有一份质量配置。",
+    "en": "MaterialShaderQualitySettings stores per-platform material shader quality switches—feature level, masking, precision—that the RHI reads at cook time. Material downgrades on device consult these settings instead of hard-coded ifdefs. Mobile and console can each own a quality profile."
+  },
+  {
+    "slug": "materialshaderqualitysettingseditor",
+    "kind": "module",
+    "cn": "MaterialShaderQualitySettingsEditor 为上述质量对象绘制属性布局，并按目标平台筛选。图形程序员在项目设置里调平台功能，而不直接编辑 ini。它只在编辑器加载，并依赖 TargetPlatform 列出平台。",
+    "en": "MaterialShaderQualitySettingsEditor draws the details customization for those quality objects and filters them per target platform. Graphics programmers toggle platform features in Project Settings instead of editing ini files. It loads only in the editor and depends on TargetPlatform to list platforms."
+  },
+  {
+    "slug": "materialutilities",
+    "kind": "module",
+    "cn": "MaterialUtilities 提供开发者侧材质辅助：展平、代理材质创建和烘焙调用方共享的分析。MergeActors、地形和网格工具链接它，以免重复图遍历。它保持少依赖，便于在无完整材质编辑器的情况下使用。",
+    "en": "MaterialUtilities provides developer-side material helpers: flattening, proxy material creation, and analysis shared by bake callers. MergeActors, landscape, and mesh tools link it so they do not duplicate graph walks. It stays lightly dependent so it can run without the full material editor."
+  },
+  {
+    "slug": "materialx",
+    "kind": "module",
+    "cn": "MaterialX 打包 Academy Software Foundation 的 MaterialX 库，供 Interchange/USD 风格材质导入。节点图以 MaterialX XML 进入引擎，再转成 Unreal 材质。没有这份第三方，跨 DCC 的标准材质交换就缺少运行时解析器。",
+    "en": "MaterialX packages the Academy Software Foundation MaterialX library for Interchange and USD-style material import. Node graphs arrive as MaterialX XML and convert into Unreal materials. Without this third party, standard material exchange across DCCs has no runtime parser."
+  },
+  {
+    "slug": "mathcore",
+    "kind": "module",
+    "cn": "MathCore 在 Core 的 FVector 之上提供更高层数学：几何谓词、数值辅助，以及被网格与几何模块共享的例程。需要稳定、与引擎无关的数学又不想拉完整 Engine 时用它。测试套件单独覆盖这一层。",
+    "en": "MathCore adds higher-level math on top of Core's FVector types: geometric predicates, numeric helpers, and routines shared by mesh and geometry modules. Use it when you need stable, engine-agnostic math without linking full Engine. The dedicated test suite covers this layer in isolation."
+  },
+  {
+    "slug": "mathcoretests",
+    "kind": "module",
+    "cn": "MathCoreTests 是 MathCore 的低层测试目标，验证数值边角和几何例程。它声明无引擎依赖，以便测试在最小进程中运行。改相交或插值辅助时，先跑这个程序。",
+    "en": "MathCoreTests is the low-level test target for MathCore, asserting numeric edge cases and geometry routines. It declares no engine dependencies so tests run in a minimal process. Change an intersection or interpolation helper, then run this program first."
+  },
+  {
+    "slug": "media",
+    "kind": "module",
+    "cn": "Media 定义播放器、采样器和时钟的抽象媒体框架，供平台插件实现。它依赖 RenderCore 以便视频帧能进入 GPU。具体解码器（Electra、Avf、Wmf）是独立插件；本模块是它们实现的接口。",
+    "en": "Media defines the abstract media framework—players, samples, clocks—that platform plugins implement. It depends on RenderCore so video frames can reach the GPU. Concrete decoders (Electra, AVF, WMF) are separate plugins; this module is the interface they implement."
+  },
+  {
+    "slug": "mediaassets",
+    "kind": "module",
+    "cn": "MediaAssets 提供 UMediaPlayer、UMediaTexture、UMediaSoundComponent 等游戏可用资产，把 Media 框架接到 Actor 与 UMG。过场、广告牌和 UI 视频使用这些对象。音频混音与信号处理从解码后的样本馈入。",
+    "en": "MediaAssets provides gameplay-facing UMediaPlayer, UMediaTexture, and UMediaSoundComponent assets that bind the Media framework to Actors and UMG. Cinematics, billboards, and UI videos use these objects. Audio mixer and signal processing feed from decoded samples."
+  },
+  {
+    "slug": "mediautils",
+    "kind": "module",
+    "cn": "MediaUtils 放置时间码转换、图像写出队列和共享样本转换等媒体辅助，供播放器与资产共用。截帧、转码静图和时钟数学走这里。它不实现解码器，只是播放栈的工具箱。",
+    "en": "MediaUtils holds media helpers shared by players and assets: timecode conversion, image write queues, and sample conversion. Grabbing a frame, transcoding a still, and clock math go through it. It does not implement a decoder; it is the toolbox under the playback stack."
+  },
+  {
+    "slug": "merge",
+    "kind": "module",
+    "cn": "Merge 实现蓝图与资产的三路合并 UI，用于源码控制冲突：差异图表、属性并排和接受/拒绝。它挂在 Kismet 与 GraphEditor 上，以便合并节点而不仅是文本。关卡设计师在 Perforce 冲突时会进入这个工具。",
+    "en": "Merge implements three-way merge UI for Blueprints and assets during source-control conflicts: diffing graphs, property side-by-side, and accept/reject. It hooks Kismet and GraphEditor so you merge nodes rather than only text. Level designers land in this tool when a Perforce conflict hits a Blueprint."
+  },
+  {
+    "slug": "mergeactors",
+    "kind": "module",
+    "cn": "MergeActors 是把多个静态网格 Actor 合成一个网格（可带烘培材质）的编辑器工具，用于优化绘制。它使用 MaterialUtilities 与 Slate 向导。代理 LOD 和关卡优化常从这里开始，而不是在 DCC 里手动焊接。",
+    "en": "MergeActors is the editor tool that combines several static mesh Actors into one mesh, optionally with baked materials, to cut draws. It uses MaterialUtilities and a Slate wizard. Proxy LOD and level optimization often start here instead of welding in a DCC by hand."
+  },
+  {
+    "slug": "meshbonereduction",
+    "kind": "module",
+    "cn": "MeshBoneReduction 为骨骼网格 LOD 折叠骨骼，更新蒙皮权重并保持动画蓝图可用的骨架。导入或生成 LOD 时调用它。没有受控的骨骼缩减，低 LOD 会在运行时仍求解完整骨骼。",
+    "en": "MeshBoneReduction collapses bones for skeletal mesh LODs, updating skin weights and keeping a skeleton animation Blueprints can still use. Import and LOD generation call it. Without controlled bone reduction, a low LOD would still solve the full skeleton at runtime."
+  },
+  {
+    "slug": "meshbuilder",
+    "kind": "module",
+    "cn": "MeshBuilder 从网格描述构建渲染网格：切线、简化、布料、派生数据和静态/骨骼描述。Cook 与导入通过它生成 GPU 就绪缓冲区。MeshBuilderCommon 提供共享数学；本模块编排完整构建。",
+    "en": "MeshBuilder builds render meshes from mesh descriptions: tangents, reduction, clothing, derived data, and static/skeletal descriptions. Cook and import generate GPU-ready buffers through it. MeshBuilderCommon supplies shared math; this module orchestrates the full build."
+  },
+  {
+    "slug": "meshbuildercommon",
+    "kind": "module",
+    "cn": "MeshBuilderCommon 保存 MeshBuilder 与运行时网格工具共享的构建辅助，只依赖 Core 与 Engine。切线空间和顶点打包等例程放在这里以避免循环依赖。改构建数学时，静态与骨骼路径都会受影响。",
+    "en": "MeshBuilderCommon holds build helpers shared by MeshBuilder and runtime mesh tools, depending only on Core and Engine. Tangent-space and vertex-packing routines live here to avoid circular links. Changing build math here affects both static and skeletal paths."
+  },
+  {
+    "slug": "meshconversion",
+    "kind": "module",
+    "cn": "MeshConversion 在 GeometryCore 动态网格与 MeshDescription（含静态/骨骼变体）之间转换。几何脚本与建模工具用它，以便同一网格能进入渲染资产管线。它不绘制编辑器 UI。",
+    "en": "MeshConversion converts between GeometryCore dynamic meshes and MeshDescription, including static and skeletal variants. Geometry Script and modeling tools use it so the same mesh can enter the render-asset pipeline. It does not draw editor UI."
+  },
+  {
+    "slug": "meshconversionenginetypes",
+    "kind": "module",
+    "cn": "MeshConversionEngineTypes 把 Chaos 碰撞与 Engine 网格类型接入 MeshConversion，以便物理资产和组件能从同一转换器创建。纯几何转换仍留在 MeshConversion；本层知道 UObject 世界。从建模工具生成阻挡体积时会经过这里。",
+    "en": "MeshConversionEngineTypes adds Chaos collision and Engine mesh types onto MeshConversion so physics assets and components can be created from the same converters. Pure geometry conversion stays in MeshConversion; this layer knows about the UObject world. Generating blocking volumes from a modeling tool passes through here."
+  },
+  {
+    "slug": "meshdescription",
+    "kind": "module",
+    "cn": "MeshDescription 是引擎可编辑网格的权威半边式表示：顶点、实例、三角形、属性和派生数据缓存键。静态与骨骼网格在导入时都填充它。渲染线程不直接消费它；MeshBuilder 会把它烘焙成 GPU 缓冲区。",
+    "en": "MeshDescription is the engine's editable mesh representation—vertices, instances, triangles, attributes, and DDC keys—in a half-edge style container. Static and skeletal meshes populate it at import. The render thread does not consume it directly; MeshBuilder bakes it into GPU buffers."
+  },
+  {
+    "slug": "meshdescriptionoperations",
+    "kind": "module",
+    "cn": "MeshDescriptionOperations 在 MeshDescription 上实现焊接、三角化、法线和静态网格专用编辑。导入后处理与建模命令调用这些操作，而不是手写属性数组。它同时依赖 MeshDescription 与 StaticMeshDescription。",
+    "en": "MeshDescriptionOperations implements weld, triangulate, normals, and static-mesh-specific edits on a MeshDescription. Import post-steps and modeling commands call these operations instead of mutating attribute arrays by hand. It depends on both MeshDescription and StaticMeshDescription."
+  },
+  {
+    "slug": "meshmergeutilities",
+    "kind": "module",
+    "cn": "MeshMergeUtilities 实现合并网格、材质和 LOD 的共享算法，供 MergeActors、HLOD 和代理生成使用。它被抽成开发者模块，以便命令行不加载 MergeActors UI 也能运行。输出是新的静态网格资产，而不是运行时组件。",
+    "en": "MeshMergeUtilities implements the shared algorithms for merging meshes, materials, and LODs used by MergeActors, HLOD, and proxy generation. It is extracted as a developer module so commandlets can run without loading the MergeActors UI. Output is a new static mesh asset, not a runtime component."
+  },
+  {
+    "slug": "meshpaint",
+    "kind": "module",
+    "cn": "MeshPaint 是在静态网格与实例上绘制顶点色和纹理的编辑器模式，含视口笔刷和源码控制结账。材质可用这些顶点色做掩码与变化。它只在编辑器存在；游戏只看到已绘制的顶点数据。",
+    "en": "MeshPaint is the editor mode for painting vertex colors and textures on static meshes and instances, with viewport brushes and source-control checkout. Materials read those vertex colors for masks and variation. It exists only in the editor; the game just sees the painted vertex data."
+  },
+  {
+    "slug": "meshreductioninterface",
+    "kind": "module",
+    "cn": "MeshReductionInterface 定义网格简化插件（SkeletalMeshReduction、Simplygon 等）实现的 API。MeshBuilder 针对接口编程，以便工作室可替换简化器。没有实现时，LOD 生成会跳过或走回退路径。",
+    "en": "MeshReductionInterface defines the API that mesh simplification plugins such as SkeletalMeshReduction or Simplygon implement. MeshBuilder programs against the interface so a studio can swap reducers. If no implementation is enabled, LOD generation skips or falls back."
+  },
+  {
+    "slug": "meshutilities",
+    "kind": "module",
+    "cn": "MeshUtilities 是编辑器网格工具箱：LOD 生成、骨骼缩减、布料、HLOD 辅助，以及与 Persona/关卡编辑器的集成。导入静态或骨骼网格时，许多菜单命令会调用它。它比 MeshUtilitiesCommon 更重，并且知道编辑器框架。",
+    "en": "MeshUtilities is the editor mesh toolbox: LOD generation, bone reduction, clothing, HLOD helpers, and integration with Persona and the Level Editor. Importing a static or skeletal mesh ends up in many of its menu commands. It is heavier than MeshUtilitiesCommon and knows about the editor framework."
+  },
+  {
+    "slug": "meshutilitiescommon",
+    "kind": "module",
+    "cn": "MeshUtilitiesCommon 保存运行时与构建器都能链接的轻量网格辅助，只依赖 Core。布局无关的顶点作业和共享常量放在这里。把它保持无 Engine 依赖，以免把编辑器工具箱拉进游戏。",
+    "en": "MeshUtilitiesCommon holds lightweight mesh helpers that both runtime and builders can link, depending only on Core. Layout-agnostic vertex jobs and shared constants live here. Keep it Engine-free so the editor toolbox is not pulled into a game."
+  },
+  {
+    "slug": "meshutilitiesengine",
+    "kind": "module",
+    "cn": "MeshUtilitiesEngine 把 MeshUtilitiesCommon 接到 Engine 类型：UStaticMesh、组件和渲染数据，供需要真实资产而不要完整编辑器工具箱的开发者代码使用。它是 Common 与更重的 MeshUtilities 编辑器模块之间的中间层。Cook 辅助常链这一层。",
+    "en": "MeshUtilitiesEngine binds MeshUtilitiesCommon to Engine types—UStaticMesh, components, render data—for developer code that needs real assets without the full editor toolbox. It is the middle layer between Common and the heavier MeshUtilities editor module. Cook helpers often link this layer."
+  }
+]

@@ -1,0 +1,316 @@
+[
+  {
+    "slug": "10x-editor-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 的 Programming 分组启用 `10X Editor Integration`（模块 `N10XSourceCodeAccess`）并重启编辑器。",
+      "打开 `Edit > Editor Preferences > General > Source Code`，将 `Source Code Editor` 设为 `10X Editor`。",
+      "确认本机已安装 10X Editor，且已对当前引擎/`Source` 生成过工程文件。",
+      "在内容浏览器双击 C++ 类，或使用 `Tools > Open IDE` / 同类“打开源代码”入口，应由 `N10XSourceCodeAccess` 把文件交给 10X，而不是 Visual Studio。",
+      "从 Class Viewer 或蓝图的 Goto C++ Definition 再验证一次跳转目标。"
+    ],
+    "en_steps": [
+      "Enable `10X Editor Integration` under `Edit > Plugins` (Programming); it loads `N10XSourceCodeAccess`, then restart.",
+      "Open `Edit > Editor Preferences > General > Source Code` and set `Source Code Editor` to `10X Editor`.",
+      "Install 10X Editor locally and generate project files for this engine/`Source` tree.",
+      "Double-click a C++ class in the Content Browser, or use `Tools > Open IDE` / Open Source Code; `N10XSourceCodeAccess` should hand the file to 10X, not Visual Studio.",
+      "Confirm Goto C++ Definition from Class Viewer or a Blueprint also lands in 10X."
+    ],
+    "note_cn": "这是编辑器源码访问器，不要写进 Game Target 或 Shipping 包。",
+    "note_en": "Editor-only source accessor; do not link it into a Game target or shipping build."
+  },
+  {
+    "slug": "5.8-gizmo-testing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `5.8 Gizmo Testing`（描述符 `EditorTRSGizmo.uplugin`，模块 `EditorTRSGizmoTests`）并重启。",
+      "在关卡视口选中 Actor，用 W/E/R 切换平移/旋转/缩放，检查新版 TRS Gizmo 的操作手感（不是可放到 Actor 上的游戏组件）。",
+      "打开 `Tools > Session Frontend` 的 `Automation` 页，筛选 `EditorTRSGizmo` / TRS Gizmo 相关用例并跑一遍。",
+      "不要把 `EditorTRSGizmoTests` 写进游戏模块 `Build.cs` 或包装目标。",
+      "仅把它当作验证新 Gizmo 的临时测试插件，不要当正式关卡工具依赖。"
+    ],
+    "en_steps": [
+      "Enable the Experimental plugin `5.8 Gizmo Testing` (`EditorTRSGizmo.uplugin`, module `EditorTRSGizmoTests`) and restart.",
+      "Select an actor in the viewport and use W/E/R to exercise the new TRS gizmo; it is not a gameplay component you add to an actor.",
+      "Open `Tools > Session Frontend` → `Automation`, filter `EditorTRSGizmo` / TRS gizmo tests, and run them.",
+      "Do not add `EditorTRSGizmoTests` to a game module `Build.cs` or a packaged target.",
+      "Treat this as a temporary test harness for the new gizmo, not a production level-editing dependency."
+    ],
+    "note_cn": "Experimental 临时插件，接口可能随夜构建变化。",
+    "note_en": "Experimental and temporary; the contract can change on nightly builds."
+  },
+  {
+    "slug": "accumulation-depth-of-field",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Accumulation Depth of Field`（运行时 `AccumulationDOF`，编辑器 `AccumulationDOFEditor`）。",
+      "放置 `CineCameraActor`，在 Details 的 `Current Camera Settings` / `Focus Settings` 里设置 Focal Length、Aperture（F-stop）和 Manual Focus Distance。",
+      "打开 `Window > Cinematics > Movie Render Queue`（或 Movie Render Graph），把该摄像机加入渲染任务。",
+      "提高 Anti-Aliasing 的 Temporal/Spatial Sample Count，让薄透镜孔径采样跨帧累积，而不是依赖实时 Circle DOF。",
+      "检查输出序列的焦外散景；不要以 PIE 实时后期为准。",
+      "`AccumulationDOFEditor` 只做编辑器细节定制，不要链进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Accumulation Depth of Field` (runtime `AccumulationDOF`, editor `AccumulationDOFEditor`).",
+      "Place a `CineCameraActor` and set Focal Length, Aperture (F-stop), and Manual Focus Distance under Details `Current Camera Settings` / `Focus Settings`.",
+      "Open `Window > Cinematics > Movie Render Queue` (or Movie Render Graph) and add that camera to the job.",
+      "Raise Anti-Aliasing Temporal/Spatial Sample Count so thin-lens aperture samples accumulate across frames instead of using real-time circle DOF.",
+      "Judge bokeh on the rendered sequence, not on PIE post-process.",
+      "Keep `AccumulationDOFEditor` on an Editor target only."
+    ],
+    "note_cn": "这是生产/离线累积景深，实时视口观感不能代表最终成像。",
+    "note_en": "This is production/offline accumulated DOF; the real-time viewport is not the final look."
+  },
+  {
+    "slug": "actor-layer-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Actor Layer Utilities`（运行时模块 `ActorLayerUtilities`）。",
+      "打开 `Window > Layers`，新建 Layer，并把关卡 Actor 拖进层（或在 World Outliner 指定 Layer）。",
+      "在 Actor/关卡蓝图中搜索 Layers 分类，调用 `Add Actor to Layer`、`Remove Actor from Layer`、`Get Actors from Layer`（`ULayersBlueprintLibrary`）。",
+      "C++ 游戏模块只依赖 `ActorLayerUtilities`，不要依赖 `ActorLayerUtilitiesEditor`。",
+      "PIE 中用蓝图查询/改层，对照 `Window > Layers` 面板是否一致。"
+    ],
+    "en_steps": [
+      "Enable `Actor Layer Utilities` (runtime module `ActorLayerUtilities`).",
+      "Open `Window > Layers`, create a layer, and assign level actors (or set Layer in the World Outliner).",
+      "In an Actor/Level Blueprint, use the Layers category: `Add Actor to Layer`, `Remove Actor from Layer`, `Get Actors from Layer` (`ULayersBlueprintLibrary`).",
+      "Depend on `ActorLayerUtilities` in game modules only; never `ActorLayerUtilitiesEditor`.",
+      "In PIE, query or change layers from Blueprint and confirm they match the `Window > Layers` panel."
+    ],
+    "note_cn": "这是蓝图层 API，不是新的视口绘制模式；层本身仍由 Layers 面板管理。",
+    "note_en": "This is a Blueprint layer API, not a new viewport mode; layers are still authored in the Layers panel."
+  },
+  {
+    "slug": "actor-modifier-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Actor Modifier Core`（`ActorModifierCore`、`ActorModifierCoreBlueprint`、`ActorModifierCoreEditor`）；要真正的布局/渲染修改器还需同时启用 `Actor Modifier`。",
+      "在关卡中选中 Actor，打开 Details 里由 `ActorModifierCoreEditor` 绘制的 Modifier 栈（不是 Sequencer 也不是 nDisplay 面板）。",
+      "用 Add Modifier 往栈上挂修改器对象，由 Core 按栈顺序求值。",
+      "蓝图侧通过 `ActorModifierCoreBlueprint` 启用/禁用或刷新栈，不要把它当摄像机追踪插件。",
+      "自定义修改器应继承 Core 的 Modifier 基类并放在项目模块；`ActorModifierCoreEditor` 仅 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Actor Modifier Core` (`ActorModifierCore`, `ActorModifierCoreBlueprint`, `ActorModifierCoreEditor`); turn on `Actor Modifier` as well if you need stock layout/rendering modifiers.",
+      "Select a level actor and use the Modifier stack in Details (drawn by `ActorModifierCoreEditor`) — not Sequencer or nDisplay.",
+      "Click Add Modifier to push modifier objects onto the stack; Core evaluates them in stack order.",
+      "From Blueprint, use `ActorModifierCoreBlueprint` to enable, disable, or refresh the stack; this is not a camera-tracking plugin.",
+      "Subclass Core’s modifier base in your module for custom modifiers; keep `ActorModifierCoreEditor` on an Editor target only."
+    ],
+    "note_cn": "Core 只提供修改器栈框架，单独启用看不到布局/渲染成品修改器。",
+    "note_en": "Core is only the modifier-stack framework; stock layout/rendering modifiers live in the Actor Modifier plugin."
+  },
+  {
+    "slug": "actor-modifier",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `Actor Modifier Core` 与 `Actor Modifier`（`ActorModifier`、`ActorModifierLayout`、`ActorModifierRendering`）。",
+      "选中关卡 Actor，在 Details 的 Modifier 栈点 Add，加入 Layout（阵列/变换）或 Rendering（材质/可见性）类修改器。",
+      "改修改器参数并看视口即时结果：多实例排布走 `ActorModifierLayout`，外观覆盖走 `ActorModifierRendering`。",
+      "调整栈顺序（自上而下求值），并单独开关某一个修改器做对比。",
+      "这是虚拟制片场景布置工具，不要当成 Gameplay Ability 或关卡序列。",
+      "`ActorModifierEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable both `Actor Modifier Core` and `Actor Modifier` (`ActorModifier`, `ActorModifierLayout`, `ActorModifierRendering`).",
+      "Select a level actor, open the Modifier stack in Details, and Add a Layout (array/transform) or Rendering (material/visibility) modifier.",
+      "Tweak parameters in the viewport: instance layouts come from `ActorModifierLayout`, look overrides from `ActorModifierRendering`.",
+      "Reorder the stack (top-to-bottom evaluation) and toggle individual modifiers to compare.",
+      "This is a virtual-production layout tool, not a Gameplay Ability or level sequence.",
+      "Keep `ActorModifierEditor` on an Editor target only."
+    ],
+    "note_cn": "没有 Core 插件时，本插件的具体修改器无法挂到 Actor 栈上。",
+    "note_en": "Without Actor Modifier Core, these concrete modifiers cannot attach to an actor stack."
+  },
+  {
+    "slug": "actor-palette",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `Actor Palette`（模块 `ActorPalette`）并重启。",
+      "打开 `Window > Actor Palette`（不是 `Place Actors` 面板）。",
+      "在面板中指定一个已有关卡作为调色板源，列出该关卡里的 Actor。",
+      "把条目从调色板拖进当前关卡视口完成摆放。",
+      "只用于关卡编辑摆件，不要当运行时对象池或生成器。"
+    ],
+    "en_steps": [
+      "Enable the Experimental plugin `Actor Palette` (module `ActorPalette`) and restart.",
+      "Open `Window > Actor Palette` (not the `Place Actors` panel).",
+      "Point the panel at an existing level as the palette source so its actors are listed.",
+      "Drag entries from the palette into the current viewport to place them.",
+      "Use it only for level-editing placement, not as a runtime pool or spawner."
+    ],
+    "note_cn": "Experimental 编辑器工具，接口可能变动，且不会进 Shipping。",
+    "note_en": "Experimental editor tool; the UI may change and it does not ship."
+  },
+  {
+    "slug": "actor-sequence-experimental",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Actor Sequence (Experimental)`（`ActorSequence` + `ActorSequenceEditor`）。",
+      "给目标 Actor 添加 `Actor Sequence Component`（`UActorSequenceComponent`）。",
+      "在该组件 Details 里打开内嵌 Sequence，用 Sequencer 对该 Actor 自身做关键帧（不是关卡上的 Level Sequence 资产）。",
+      "运行时或蓝图调用组件的 Play 播放这段嵌入序列。",
+      "插件名已标明 Experimental；新项目优先用 Level Sequence + Sequencer。",
+      "`ActorSequenceEditor` 不要写入 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Actor Sequence (Experimental)` (`ActorSequence` + `ActorSequenceEditor`).",
+      "Add an `Actor Sequence Component` (`UActorSequenceComponent`) to the actor.",
+      "Open the embedded Sequence from the component Details and keyframe that actor in Sequencer (this is not a Level Sequence asset).",
+      "At runtime or from Blueprint, call Play on the component to run the embedded sequence.",
+      "The plugin is Experimental; prefer Level Sequence + Sequencer for new work.",
+      "Do not add `ActorSequenceEditor` to a Game target."
+    ],
+    "note_cn": "嵌入式 Actor Sequence 仍是实验路径，长期维护请改用 Level Sequence。",
+    "note_en": "Embedded actor sequences remain experimental; use Level Sequence for anything you must maintain."
+  },
+  {
+    "slug": "adjust-analytics-provider",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Adjust Analytics Provider`（`AndroidAdjust`、`IOSAdjust`、`AdjustEditor`）。",
+      "在 Adjust 控制台创建应用并复制 App Token。",
+      "在 `Project Settings` 的 Analytics 页，或 `DefaultEngine.ini` 的 `[Analytics]`，把 provider 设为 `AndroidAdjust` 或 `IOSAdjust` 并填入 token。",
+      "用 `UAnalyticsBlueprintLibrary` 的 `Record Event` / `Record Event with Attributes` 打点，不要找 Window 菜单面板。",
+      "打 Android/iOS 开发包，到 Adjust 后台核对事件；桌面 PIE 没有原生 Adjust SDK。",
+      "`AdjustEditor` 只用于编辑器里配密钥，不要链进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Adjust Analytics Provider` (`AndroidAdjust`, `IOSAdjust`, `AdjustEditor`).",
+      "Create the app in the Adjust dashboard and copy the App Token.",
+      "In `Project Settings` Analytics, or `[Analytics]` in `DefaultEngine.ini`, set the provider to `AndroidAdjust` or `IOSAdjust` and paste the token.",
+      "Fire events with `UAnalyticsBlueprintLibrary` `Record Event` / `Record Event with Attributes`; there is no Window panel.",
+      "Verify on an Android/iOS dev build in the Adjust dashboard; desktop PIE has no native Adjust SDK.",
+      "`AdjustEditor` is editor configuration only — keep it off Game targets."
+    ],
+    "note_cn": "仅 Android/iOS 运行时有效，桌面编辑器里看不到真实归因数据。",
+    "note_en": "Live only on Android/iOS runtimes; the desktop editor will not show real Adjust attribution."
+  },
+  {
+    "slug": "advanced-professional-video-apv-decoder-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Advanced Professional Video (APV) Decoder for Electra`（模块 `APVDecoderElectra`），并让项目走 Electra 播放器而不是 WMF。",
+      "准备 OpenAPV/APV 编码的视频；该解码器不处理 H.264/H.265。",
+      "内容浏览器右键 `Media > File Media Source`，指向该文件。",
+      "新建 `Media Player`（Electra）和 `Media Texture`，对 Source 执行 Open 后 Play。",
+      "把 `Media Texture` 赋给材质采样或 `Media Plate` 进行画面输出。",
+      "没有独立 Window 菜单；播不出来时先确认 Player 后端是 Electra 且容器里是 APV 码流。"
+    ],
+    "en_steps": [
+      "Enable `Advanced Professional Video (APV) Decoder for Electra` (`APVDecoderElectra`) and use Electra, not WMF, as the player.",
+      "Supply OpenAPV/APV-encoded video; this decoder does not handle H.264/H.265.",
+      "Create `Media > File Media Source` in the Content Browser and point it at that file.",
+      "Create an Electra `Media Player` plus a `Media Texture`, then Open the source and Play.",
+      "Assign the `Media Texture` to a material sampler or a `Media Plate`.",
+      "There is no Window menu; if playback fails, confirm the Electra backend and that the bitstream is APV."
+    ],
+    "note_cn": "这是 Electra 的 OpenAPV 解码插件，不会在编辑器里注册独立播放窗口。",
+    "note_en": "This is an Electra OpenAPV decoder only; it does not register a standalone editor player window."
+  },
+  {
+    "slug": "aes-gcm-network-packet-handler",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `AES GCM network packet handler`（模块 `AESGCMHandlerComponent`）。",
+      "在客户端与服务器的 `DefaultEngine.ini` 写入 `[PacketHandlerComponents]`，并设置 `Components=AESGCMHandlerComponent`。",
+      "配置同一把加密密钥（Project Settings 的 Network encryption / Encryption，或启动参数把 key 同时交给 DS 与客户端）。",
+      "用 listen server 或 dedicated server 进关，确认握手后复制包走 AES-GCM 加解密。",
+      "这是 `PacketHandler` 管道组件，不能当 `UActorComponent` 加到 Actor 上。",
+      "新项目优先用本 GCM 组件，而不是旧的 `AESHandlerComponent`。"
+    ],
+    "en_steps": [
+      "Enable `AES GCM network packet handler` (module `AESGCMHandlerComponent`).",
+      "On both client and server `DefaultEngine.ini`, add `[PacketHandlerComponents]` with `Components=AESGCMHandlerComponent`.",
+      "Configure the same encryption key via Project Settings Network encryption / Encryption, or pass the key to both DS and clients at launch.",
+      "Join via listen or dedicated server and confirm replication is AES-GCM encrypted after handshake.",
+      "This is a `PacketHandler` pipeline component, not a `UActorComponent` you add to an actor.",
+      "Prefer this GCM handler over the older `AESHandlerComponent` for new projects."
+    ],
+    "note_cn": "客户端与服务器必须使用相同的 PacketHandler 列表和密钥，否则无法完成加密握手。",
+    "note_en": "Client and server must share the same PacketHandler list and key or the encrypted handshake will fail."
+  },
+  {
+    "slug": "aes-network-packet-handler",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `AES network packet handler`（模块 `AESHandlerComponent`）。",
+      "在两端 `DefaultEngine.ini` 的 `[PacketHandlerComponents]` 设置 `Components=AESHandlerComponent`（组件名与 GCM 插件不同）。",
+      "配置预共享 AES 密钥，保证 dedicated server 与客户端一致。",
+      "联机进关验证加密通道；该实现没有 GCM 那种认证标签。",
+      "不要在蓝图组件列表里搜索并添加这个 Handler。",
+      "能进 Shipping，但安全上更推荐改用 `AESGCMHandlerComponent`。"
+    ],
+    "en_steps": [
+      "Enable `AES network packet handler` (module `AESHandlerComponent`).",
+      "Set `[PacketHandlerComponents]` `Components=AESHandlerComponent` in both ends’ `DefaultEngine.ini` (a different component name from the GCM plugin).",
+      "Configure a pre-shared AES key so dedicated server and clients match.",
+      "Join a networked session to verify the encrypted channel; this path has no GCM authentication tag.",
+      "Do not search Blueprint component lists to add this handler onto an actor.",
+      "It can ship, but `AESGCMHandlerComponent` is the stronger choice."
+    ],
+    "note_cn": "旧版 AES 包处理，缺少 GCM 完整性校验，新项目应改用 AES-GCM。",
+    "note_en": "Legacy AES packet encryption without GCM integrity; new projects should use AES-GCM instead."
+  },
+  {
+    "slug": "agent-capability",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Agent Capability`（`AgentCapability`），通常与编辑器 AI / Toolset 插件一起开。",
+      "本插件做被动发现：扫描已配置的 agent 插件和工作区能力，没有关卡 Actor 或 Window 面板工作流。",
+      "把 Claude/Codex 等 agent 清单和工作区说明放到项目约定目录，供发现逻辑读取。",
+      "需要回归时在 `Tools > Session Frontend` 跑 `AgentCapabilityTests`，不要当游戏子系统调用。",
+      "发现结果给其他 agent/toolset 消费，而不是给你一条可玩的 AI 角色。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Agent Capability` (`AgentCapability`), usually together with editor AI / Toolset plugins.",
+      "It performs passive discovery of configured agent plugins and workspace capabilities; there is no level-actor or Window-panel workflow.",
+      "Place Claude/Codex agent manifests and workspace instruction files where the project expects them so discovery can read them.",
+      "Run `AgentCapabilityTests` from `Tools > Session Frontend` when you need a regression; do not treat this as a game subsystem.",
+      "Other agent/toolset plugins consume the results; it does not spawn a playable AI character."
+    ],
+    "note_cn": "Experimental 编辑器发现层，不进 Shipping，接口会随夜构建变化。",
+    "note_en": "Experimental editor discovery layer; it does not ship and the contract can change nightly."
+  },
+  {
+    "slug": "agent-plugin-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Agent Plugin Toolset`（`AgentPluginToolset`、`AgentPluginToolsetEditor`），并同时打开 AI Toolset Registry。",
+      "在项目工作目录放入 Claude/Codex 代理插件清单，以及 `AGENTS.md` / `CLAUDE.md` 这类指令文件。",
+      "重启或刷新后，Registry 通过本插件枚举这些插件与工作目录指令。",
+      "在编辑器 AI 助手里确认工具已注册可用；这与 `AIModule` 行为树无关。",
+      "`AgentPluginToolsetEditor` 仅 Editor Target；`AgentPluginToolsetTests` 用 Session Frontend 跑。"
+    ],
+    "en_steps": [
+      "Enable `Agent Plugin Toolset` (`AgentPluginToolset`, `AgentPluginToolsetEditor`) together with the AI Toolset Registry.",
+      "Put Claude/Codex agent plugin manifests and working-directory instruction files such as `AGENTS.md` / `CLAUDE.md` in the project.",
+      "After restart or refresh, the Registry enumerates those plugins and instructions through this toolset.",
+      "Confirm the tools appear in the in-editor AI assistant; this is unrelated to `AIModule` behavior trees.",
+      "Keep `AgentPluginToolsetEditor` on an Editor target; run `AgentPluginToolsetTests` from Session Frontend."
+    ],
+    "note_cn": "Experimental 编辑器 Toolset，给 AI 助手读插件/指令，不进游戏包。",
+    "note_en": "Experimental editor toolset that feeds the AI assistant; it is not a shipping game feature."
+  },
+  {
+    "slug": "ai-assistant",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `AI Assistant`（模块 `AIAssistant`）并重启。",
+      "从编辑器 `Window` 菜单或工具栏打开 AI Assistant 聊天面板（编辑器内助手，不是 `AIModule` 行为树）。",
+      "按面板提示完成登录或模型选择后，针对当前资产、蓝图或关卡提问。",
+      "若要让助手调用工作区工具，再启用 `Agent Capability` 与 `Agent Plugin Toolset`。",
+      "官方 Description 为空，面板入口和 API 会变；不要把 `AIAssistant` 加进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable Experimental `AI Assistant` (module `AIAssistant`) and restart.",
+      "Open the AI Assistant chat from the editor `Window` menu or toolbar (an in-editor assistant, not `AIModule` behavior trees).",
+      "Sign in or pick a model as the panel requires, then ask about the current asset, Blueprint, or level.",
+      "Enable `Agent Capability` and `Agent Plugin Toolset` as well if the assistant should call workspace tools.",
+      "Epic ships no Description; the panel and API can change — do not add `AIAssistant` to Shipping."
+    ],
+    "note_cn": "Experimental 编辑器助手，无稳定官方说明，不能当运行时游戏 AI。",
+    "note_en": "Experimental in-editor assistant with no stable official description; it is not runtime game AI."
+  }
+]

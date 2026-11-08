@@ -3,7 +3,6 @@ layout: default
 title: 蓝图捕捉节点原型 / Blueprint Snap Nodes Prototype
 ---
 
-
 <h1>蓝图捕捉节点原型 / Blueprint Snap Nodes Prototype</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 蓝图捕捉节点原型 / Blueprint Snap Nodes Prototype
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">以更紧凑的方式布局蓝图节点的替代方法的原型</div><div class="lang-content">Prototype of an alternative way to lay out Blueprint nodes in a more compact manner</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 启用实验性 <code class="usage-code">Blueprint Snap Nodes Prototype</code>（模块 <code class="usage-code">BlueprintSnapNodes</code>）并重启。</li><li>打开蓝图图表，在节点搜索里找 <code class="usage-code">Snap</code> / Snap Container，放入一张空容器节点。</li><li>按容器提示把已有节点拖进框内（目前主要靠拖放，不能在容器内直接搜节点添加）。</li><li>带参数的节点会收成类似函数调用的紧凑行；参数名被省略，悬停引脚查看含义，把连线拖到参数槽绑定。</li><li>容器内部本质是折叠图 + Sequence；要改内部逻辑需双击进入，删除节点往往要进容器内部手动拆。</li><li>只在实验图表上试用紧凑布局，确认编译与调试断点仍可用后再考虑团队规范；不要把 <code class="usage-code">BlueprintSnapNodes</code> 加入游戏 <code class="usage-code">Build.cs</code>。</li></ol><p class="usage-note">Experimental 原型：添加依赖拖放，删除/self 引脚仍有已知限制，勿用于正式资产流水线。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">Blueprint Snap Nodes Prototype</code> in <code class="usage-code">Edit &gt; Plugins</code> (module <code class="usage-code">BlueprintSnapNodes</code>) and restart.</li><li>In a Blueprint graph, search for <code class="usage-code">Snap</code> / Snap Container and place an empty container.</li><li>Drag existing nodes into the box (drag-and-drop is the supported add path; you cannot search-add inside the container).</li><li>Parameterized nodes collapse into compact call-like rows; argument names are hidden — hover pins, and drag wires onto argument slots to bind.</li><li>Internally the container is a collapsed graph plus Sequence; edit or delete nodes by opening the container, not from the outer graph alone.</li><li>Prototype on a throwaway graph and confirm compile/debug still work before adopting it. Do not add <code class="usage-code">BlueprintSnapNodes</code> to a game <code class="usage-code">Build.cs</code>.</li></ol><p class="usage-note">Experimental prototype: add-by-drag only; delete/self-pin handling is incomplete. Keep it off production assets.</p></div></div></div>
+    </div>
+

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "game-input-windows",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Game Input (Windows)` 插件（运行时模块 `GameInputWindows`），在 Windows 目标里可用。",
+      "在项目设置或初始化代码里调用 `GameInput` API 创建 device、注册回调，而不是走旧的 XInput / RawInput。",
+      "用统一的 device 接口读取手柄、键鼠等设备状态；同一套代码可映射到不同设备。",
+      "运行时游戏模块在 `Build.cs` 只依赖 `GameInputWindows`；非 Windows 平台不要直接依赖它。"
+    ],
+    "en_steps": [
+      "Enable `Game Input (Windows)` (runtime module `GameInputWindows`); it targets Windows.",
+      "Create devices and register callbacks through the `GameInput` API instead of legacy XInput / RawInput.",
+      "Read gamepad and mouse/keyboard state through the unified device interface so one code path maps to different devices.",
+      "At runtime depend on `GameInputWindows` via `Build.cs` only; do not depend on it on non-Windows platforms."
+    ],
+    "note_cn": "这是 Windows 上的新输入 API（GameInput）封装，不是 Enhanced Input 本身。",
+    "note_en": "A Windows wrapper over the GameInput API, not Enhanced Input itself."
+  },
+  {
+    "slug": "gameplay-abilities-game-feature-actions",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Gameplay Abilities Game Feature Actions`（模块 `AbilitySystemGameFeatureActions`）。",
+      "在 Game Feature 插件里添加 GAS 相关的 Game Feature Action，用它在 Feature 激活/停用时授予或移除 GameplayAbility。",
+      "让角色的 AbilitySystemComponent 通过 GameFeature 的 Add/Remove 流程取得技能，而不是手写 GrantAbility。",
+      "Experimental：接口随夜构建可能变化，先在空关卡验证 Feature 激活顺序。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Gameplay Abilities Game Feature Actions` (module `AbilitySystemGameFeatureActions`).",
+      "Inside a Game Feature plugin, add the GAS Game Feature Actions to grant/remove GameplayAbilities as the feature activates or deactivates.",
+      "Let the character's AbilitySystemComponent receive abilities through the GameFeature Add/Remove flow instead of hand-calling GrantAbility.",
+      "Experimental: the contract may shift on nightlies; prove feature activation order in an empty map first."
+    ],
+    "note_cn": "给 GAS 用的 Game Feature Action，真正的 GAS 核心在 `Gameplay Abilities` 插件。",
+    "note_en": "Game Feature Actions for GAS; the actual GAS core lives in the `Gameplay Abilities` plugin."
+  },
+  {
+    "slug": "gameplay-abilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Gameplay Abilities`（运行时 `GameplayAbilities`，编辑器 `GameplayAbilitiesEditor`）。",
+      "在角色上挂 `AbilitySystemComponent` 与 `AttributeSet`，初始化属性与初始技能。",
+      "用 `GameplayAbility` 写攻击/翻滚等技能，用 `GameplayEffect` 做冷却、消耗、Buff，用 `GameplayCue` 加表现（特效/音效）。",
+      "多人玩法在服务器授予技能、客户端预测；Game 模块依赖 `GameplayAbilities`，`GameplayAbilitiesEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Gameplay Abilities` (runtime `GameplayAbilities`, editor `GameplayAbilitiesEditor`).",
+      "Add an `AbilitySystemComponent` and an `AttributeSet` to the character and initialize attributes and starting abilities.",
+      "Author attacks/dodges as `GameplayAbility`, use `GameplayEffect` for cooldowns, costs, and buffs, and `GameplayCue` for VFX/SFX.",
+      "For multiplayer, grant on server and predict on client; depend on `GameplayAbilities` from game modules and keep `GameplayAbilitiesEditor` on Editor targets."
+    ],
+    "note_cn": "GAS 数据驱动技能框架，支持复制；示例常用 Lyra 的 GAS 用法对照。",
+    "note_en": "The data-driven GAS framework with replication; Lyra is a common reference implementation."
+  },
+  {
+    "slug": "gameplay-cameras",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Gameplay Cameras`（运行时 `GameplayCameras`，还有 `GameplayCamerasUncookedOnly` 与编辑器 `GameplayCamerasEditor`）。",
+      "用 `Camera Asset / Camera Rig` 搭建模块化相机：在 Camera Director 里选择当前激活的相机 rig。",
+      "把 Camera Director 组件挂到 Player Controller 或 Pawn，通过 Camera Node（偏移、注视、遮挡等）组合行为。",
+      "Game 模块依赖 `GameplayCameras`；`GameplayCamerasEditor` 只用于编辑器。"
+    ],
+    "en_steps": [
+      "Enable `Gameplay Cameras` (runtime `GameplayCameras`, plus `GameplayCamerasUncookedOnly` and editor `GameplayCamerasEditor`).",
+      "Build cameras modularly from `Camera Asset / Camera Rig` and pick the active rig through the Camera Director.",
+      "Attach the Camera Director component to the Player Controller or Pawn and compose behavior via Camera Nodes (offset, look-at, occlusion, etc.).",
+      "Game modules depend on `GameplayCameras`; `GameplayCamerasEditor` is editor-only."
+    ],
+    "note_cn": "模块化数据驱动相机系统（Gameplay Cameras 2.0），不是旧 Camera Component 直接挂载。",
+    "note_en": "The modular data-driven camera system (Gameplay Cameras 2.0), not the classic Camera Component."
+  },
+  {
+    "slug": "gameplay-capture-interfaces",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Gameplay Capture Interfaces`（模块 `GameplayCaptureInterfaces`）。",
+      "这是一个共享接口层：只有在编写 GameplayCapture 相关插件、需要与其互操作时才依赖它。",
+      "在模块 `Build.cs` 里依赖 `GameplayCaptureInterfaces`，实现/引用其中的接口，避免各 Capture 插件互相直接依赖。",
+      "普通玩法内容一般不直接用；Experimental，接口可能随夜构建变化。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Gameplay Capture Interfaces` (module `GameplayCaptureInterfaces`).",
+      "This is a shared interface layer: depend on it only when writing GameplayCapture-related plugins that must interoperate.",
+      "Add `GameplayCaptureInterfaces` to your module `Build.cs` and implement/reference its interfaces so capture plugins avoid depending on each other directly.",
+      "Normal gameplay content rarely touches it; it is Experimental and may change on nightlies."
+    ],
+    "note_cn": "面向插件作者的共享接口，不是可放置的 Gameplay 组件。",
+    "note_en": "A shared interface for plugin authors, not a placeable gameplay component."
+  },
+  {
+    "slug": "gameplay-graph",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Gameplay Graph`（模块 `GameplayGraph`）。",
+      "在需要图结构（节点/边、寻路、依赖关系等）的玩法逻辑里，使用插件提供的图模型与常见图算法。",
+      "从模块 `Build.cs` 依赖 `GameplayGraph`，用其类型构建图并在运行时查询。",
+      "Experimental：算法接口可能随夜构建变化，别写死未文档化类型。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Gameplay Graph` (module `GameplayGraph`).",
+      "Use the provided graph model and common graph algorithms where gameplay needs node/edge data, pathing, or dependency graphs.",
+      "Depend on `GameplayGraph` from your module `Build.cs`, build graphs with its types, and query them at runtime.",
+      "Experimental: algorithm API may shift on nightlies; do not freeze undocumented types."
+    ],
+    "note_cn": "通用图模型与算法库，不是可视化的关卡工具。",
+    "note_en": "A general graph model and algorithms library, not a visual level tool."
+  },
+  {
+    "slug": "gameplay-messages",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Gameplay Messages`（运行时 `GameplayMessages`，编辑器 `GameplayMessagesEditor`）。",
+      "用它在系统之间做解耦的消息传递：定义消息并在合适时机广播，其他系统订阅处理。",
+      "编辑器里用 `GameplayMessagesEditor` 调试/查看消息；Game 模块只依赖 `GameplayMessages`。",
+      "它是轻量消息总线，不替代复制型网络 RPC；联网逻辑仍走正常的复制通道。"
+    ],
+    "en_steps": [
+      "Enable `Gameplay Messages` (runtime `GameplayMessages`, editor `GameplayMessagesEditor`).",
+      "Use it to decouple systems: define messages, broadcast at the right moment, and let other systems subscribe.",
+      "Use `GameplayMessagesEditor` for editor-side debugging/viewing; game modules depend on `GameplayMessages` only.",
+      "It is a lightweight message bus, not a replication RPC layer; networking still uses normal replication."
+    ],
+    "note_cn": "轻量玩法消息总线，用于解耦，不是网络 RPC。",
+    "note_en": "A lightweight gameplay message bus for decoupling, not a network RPC layer."
+  },
+  {
+    "slug": "gameplay-tags-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Gameplay Tags Toolset`（模块 `GameplayTagsToolset`），它面向 AI Toolset Registry。",
+      "让 AI 助手/工具通过 Toolset Registry 调用它，读取或管理 Gameplay Tags，而不是手动改 ini。",
+      "在 `DefaultGameplayTags.ini` 已定义标签的前提下使用；工具集只做读取/管理接口。",
+      "这是给 AI 工具链用的 Toolset，不是游戏运行时给玩家用的功能。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Gameplay Tags Toolset` (module `GameplayTagsToolset`); it targets the AI Toolset Registry.",
+      "Let AI assistants/tools call it through the Toolset Registry to read or manage Gameplay Tags instead of hand-editing ini files.",
+      "Use it against tags already defined in `DefaultGameplayTags.ini`; the toolset only reads/manages them.",
+      "It is a toolset for the AI toolchain, not a player-facing runtime feature."
+    ],
+    "note_cn": "AI 工具集注册表里的 GameplayTags 工具，不是运行时标签系统本身。",
+    "note_en": "A GameplayTags tool inside the AI Toolset Registry, not the runtime tag system itself."
+  },
+  {
+    "slug": "gameplaybehaviorsmartobjects",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `GameplayBehaviorSmartObjects`（模块 `GameplayBehaviorSmartObjectsModule`）。",
+      "在关卡放置 Smart Object，并让它的默认运行时行为走 `GameplayBehavior`。",
+      "AI 或玩家通过 Smart Object 交互时，由 GameplayBehavior 驱动对应行为，而不是自定义 Claim/Release 逻辑。",
+      "需要基础 Smart Objects 能力，确保 Smart Objects 相关插件已启用；本插件只补 GameplayBehavior 行为层。"
+    ],
+    "en_steps": [
+      "Enable `GameplayBehaviorSmartObjects` (module `GameplayBehaviorSmartObjectsModule`).",
+      "Place Smart Objects in the level and make their default runtime behavior use `GameplayBehavior`.",
+      "When AI or players interact through the Smart Object, GameplayBehavior drives the behavior instead of custom claim/release logic.",
+      "Make sure the base Smart Objects plugins are enabled; this plugin only adds the GameplayBehavior behavior layer."
+    ],
+    "note_cn": "把 SmartObject 的运行时行为接到 GameplayBehavior，不是 SmartObject 框架本体。",
+    "note_en": "Wires SmartObject runtime behavior to GameplayBehavior; it is not the SmartObject framework itself."
+  },
+  {
+    "slug": "gameplayinteractions",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `GameplayInteractions`（模块 `GameplayInteractionsModule`）。",
+      "用它搭建玩家与 NPC / 世界对象之间的交互（交互点、状态机、进入/退出交互）。",
+      "把交互数据与 StateTree/行为配合：角色靠近交互目标时触发对应的交互任务。",
+      "交互逻辑是运行时玩法，Game 模块依赖 `GameplayInteractionsModule`。"
+    ],
+    "en_steps": [
+      "Enable `GameplayInteractions` (module `GameplayInteractionsModule`).",
+      "Use it to build player-to-NPC/world interactions (interaction points, state machine, enter/exit interaction).",
+      "Pair interaction data with StateTree/behavior so approaching an interaction target triggers the matching interaction task.",
+      "Interaction logic is runtime gameplay; game modules depend on `GameplayInteractionsModule`."
+    ],
+    "note_cn": "玩家/NPC 交互框架，常与 StateTree 搭配，不是单纯的 SmartObject。",
+    "note_en": "A player/NPC interaction framework often paired with StateTree, distinct from SmartObject."
+  },
+  {
+    "slug": "gameplaystatetree",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `GameplayStateTree`（模块 `GameplayStateTreeModule`）。",
+      "为角色/AI 创建 StateTree，在 StateTree 编辑器里用玩法任务、条件、过渡组织行为。",
+      "让控制器或 AI 组件运行该 StateTree 资产，由它驱动移动、交互、战斗等状态。",
+      "Game 模块依赖 `GameplayStateTreeModule`；它是 StateTree 框架的玩法扩展层。"
+    ],
+    "en_steps": [
+      "Enable `GameplayStateTree` (module `GameplayStateTreeModule`).",
+      "Create a StateTree for characters/AI and organize behavior with gameplay tasks, conditions, and transitions in the StateTree editor.",
+      "Have the controller or AI component run that StateTree asset to drive movement, interactions, combat, and other states.",
+      "Game modules depend on `GameplayStateTreeModule`; it is the gameplay extension layer over the StateTree framework."
+    ],
+    "note_cn": "StateTree 的玩法/AI 扩展，不是 Mass 或行为树。",
+    "note_en": "The gameplay/AI extension over StateTree, not Mass or Behavior Trees."
+  },
+  {
+    "slug": "gameplaytagseditor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `GameplayTagsEditor`（模块 `GameplayTagsEditor`）并重启。",
+      "在 `Project Settings > Gameplay Tags` 或细节面板里用它提供的编辑器 UI 增删、重命名 Gameplay Tags。",
+      "用其蓝图节点/编辑器支持给资产和对象打标签；改完记得保存标签列表。",
+      "它是编辑器工具，只能进 Editor Target，不要写进 Game `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `GameplayTagsEditor` (module `GameplayTagsEditor`) and restart.",
+      "Use its editor UI in `Project Settings > Gameplay Tags` or Details to add, rename, and remove Gameplay Tags.",
+      "Use its Blueprint nodes/editor support to tag assets and objects; save the tag list after edits.",
+      "It is an editor tool for Editor targets only; never add it to a game `Build.cs`."
+    ],
+    "note_cn": "Gameplay Tags 的编辑器 UI/节点，运行时标签在别的模块。",
+    "note_en": "Editor UI/nodes for Gameplay Tags; the runtime tag system lives elsewhere."
+  },
+  {
+    "slug": "gastoolsets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `GASToolsets`（模块 `GASToolsets`），它面向 AI Toolset Registry。",
+      "让 AI 助手通过 Toolset Registry 调用它来查询/操作 Gameplay Ability System（技能、效果等）。",
+      "在已启用 `Gameplay Abilities` 的前提下使用；Toolset 只是给工具链的接口层。",
+      "这是开发期工具集，不是玩家运行时功能；Experimental，接口可能变化。"
+    ],
+    "en_steps": [
+      "Enable Experimental `GASToolsets` (module `GASToolsets`); it targets the AI Toolset Registry.",
+      "Let AI assistants call it through the Toolset Registry to inspect/operate Gameplay Ability System data (abilities, effects, etc.).",
+      "Use it with `Gameplay Abilities` enabled; the toolset is an interface layer for tooling.",
+      "It is a development-time toolset, not a player runtime feature; Experimental and subject to change."
+    ],
+    "note_cn": "给 AI 工具链用的 GAS 工具集，不是 GAS 运行时。",
+    "note_en": "A GAS toolset for the AI toolchain, not the GAS runtime."
+  },
+  {
+    "slug": "gauntlet",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Gauntlet`（模块 `Gauntlet`）。",
+      "用 Gauntlet 的控制器/辅助类在游戏里创建和管理自动化测试会话，跑构建与用例。",
+      "在命令行或自动化流水线里调用对应的 Gauntlet 目标，收集测试结果。",
+      "这是测试框架，不要打包进玩家版本；Experimental，接口可能随版本变化。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Gauntlet` (module `Gauntlet`).",
+      "Use Gauntlet's controller/helper classes to create and manage automated test sessions in your game, running builds and test cases.",
+      "Invoke the matching Gauntlet target from the command line or CI pipeline and collect the results.",
+      "It is a test framework; do not ship it to players; Experimental with a contract that may change."
+    ],
+    "note_cn": "自动化测试框架（配合运行/构建目标），不是游戏内玩法系统。",
+    "note_en": "An automation test framework (with run/build targets), not an in-game gameplay system."
+  },
+  {
+    "slug": "gaussian-splat",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Gaussian Splat`（运行时 `GaussianSplat`，另有 `GaussianSplatShader`、`GaussianSplatSceneViewExtension` 与 `GaussianSplatEditor`、Niagara 相关模块）。",
+      "导入或创建 Gaussian Splat 资产，把它放进关卡（或用 Niagara 版本驱动）。",
+      "确认目标平台支持 ES3.1+ 的渲染路径，PIE 里查看 splat 的显示效果。",
+      "游戏运行时依赖 `GaussianSplat`；`GaussianSplatEditor` 只用于编辑器。"
+    ],
+    "en_steps": [
+      "Enable `Gaussian Splat` (runtime `GaussianSplat`, plus `GaussianSplatShader`, `GaussianSplatSceneViewExtension`, `GaussianSplatEditor`, and Niagara modules).",
+      "Import or create a Gaussian Splat asset and place it in the level (or drive the Niagara variant).",
+      "Confirm the target platform supports the ES3.1+ rendering path and check the splat in PIE.",
+      "Game runtime depends on `GaussianSplat`; `GaussianSplatEditor` is editor-only."
+    ],
+    "note_cn": "Gaussian Splat 资产与 ES3.1+ 渲染，需要相应 RHI/移动端支持。",
+    "note_en": "Gaussian Splat assets and ES3.1+ rendering; requires the matching RHI/mobile support."
+  }
+]

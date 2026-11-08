@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "variant-manager-content",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Variant Manager Content`（运行时 `VariantManagerContent`，编辑器 `VariantManagerContentEditor`）。",
+      "它是 Variant Manager 插件的数据类与资源（变体、属性捕获的数据层）。",
+      "作为 Variant Manager 的底层数据依赖，随其启用。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Variant Manager Content` (runtime `VariantManagerContent`, editor `VariantManagerContentEditor`).",
+      "It holds the data classes and assets for the Variant Manager plugin (variants, property-capture data layer).",
+      "A low-level data dependency for Variant Manager; enabled with it.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "Variant Manager 的数据类与资源层。",
+    "note_en": "The data classes/assets layer for Variant Manager."
+  },
+  {
+    "slug": "variant-manager",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Variant Manager`（模块 `VariantManager`）。",
+      "它用于管理场景 Actor 的变体（不同配置/状态切换）。",
+      "打开 Variant Manager 面板，为 Actor 定义变体并切换。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Variant Manager` (module `VariantManager`).",
+      "It manages scene actor variants (switching different configurations/states).",
+      "Open the Variant Manager panel to define variants for actors and toggle them.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "管理场景 Actor 变体（配置/状态切换）。",
+    "note_en": "Manage scene actor variants (config/state switching)."
+  },
+  {
+    "slug": "verse-colors",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Colors`（运行时 `VerseColors`，编辑器 `VerseColorsEditor`）。",
+      "它为 Verse 提供颜色相关能力（Verse 脚本里的颜色类型/工具）。",
+      "在 Verse 代码里使用其颜色 API。",
+      "属 Verse 生态模块；Verse 面向 UEFN/Fortnite。"
+    ],
+    "en_steps": [
+      "Enable `Verse Colors` (runtime `VerseColors`, editor `VerseColorsEditor`).",
+      "It provides color-related capabilities for Verse (color types/utilities in Verse scripts).",
+      "Use its color API in Verse code.",
+      "It is a Verse-ecosystem module; Verse targets UEFN/Fortnite."
+    ],
+    "note_cn": "Verse 的颜色能力。",
+    "note_en": "Color capabilities for Verse."
+  },
+  {
+    "slug": "verse-engine",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Engine`（模块 `VerseEngine`、`VerseAssets`、`VerseAssetsEditor`、`VerseAssetsToolset`）。",
+      "它是 Verse 的引擎侧实现（虚拟机/资产集成）。",
+      "在 Verse 项目里用其引擎集成运行 Verse 代码与资产。",
+      "属 Verse 生态；编辑器/工具集模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Verse Engine` (modules `VerseEngine`, `VerseAssets`, `VerseAssetsEditor`, `VerseAssetsToolset`).",
+      "It is the engine-side implementation of Verse (VM/asset integration).",
+      "In Verse projects, use its engine integration to run Verse code and assets.",
+      "It is Verse-ecosystem; editor/toolset modules go to Editor targets only."
+    ],
+    "note_cn": "Verse 的引擎侧实现（VM/资产集成）。",
+    "note_en": "The engine-side implementation of Verse (VM/asset integration)."
+  },
+  {
+    "slug": "verse-experimental",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Experimental`（模块 `VerseExperimental`、`VerseTestingUtilities`）。",
+      "它承载 Verse 的实验性功能与测试工具。",
+      "用于试用/验证 Verse 新能力。",
+      "属 Verse 生态实验模块；不保证稳定。"
+    ],
+    "en_steps": [
+      "Enable `Verse Experimental` (modules `VerseExperimental`, `VerseTestingUtilities`).",
+      "It hosts experimental Verse features and testing utilities.",
+      "Use it to try/validate new Verse capabilities.",
+      "It is an experimental Verse-ecosystem module; stability not guaranteed."
+    ],
+    "note_cn": "Verse 的实验性功能与测试工具。",
+    "note_en": "Experimental Verse features and testing utilities."
+  },
+  {
+    "slug": "verse-gameplay-debug",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Gameplay Debug`（模块 `VerseGameplayDebug`）。",
+      "它提供 Verse 游戏调试 API（输出/可视化 Verse 游戏逻辑状态）。",
+      "在 Verse 项目里用其 API 调试游戏行为。",
+      "属 Verse 生态调试模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse Gameplay Debug` (module `VerseGameplayDebug`).",
+      "It provides a Verse gameplay debug API (output/visualize Verse gameplay logic state).",
+      "Use its API to debug gameplay behavior in Verse projects.",
+      "It is a Verse-ecosystem debug module."
+    ],
+    "note_cn": "Verse 游戏调试 API。",
+    "note_en": "A Verse gameplay debug API."
+  },
+  {
+    "slug": "verse-json",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse JSON`（模块 `VerseJSON`）。",
+      "它为 Verse 提供 JSON 解析/序列化能力。",
+      "在 Verse 代码里读写 JSON 数据。",
+      "属 Verse 生态模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse JSON` (module `VerseJSON`).",
+      "It provides JSON parse/serialize capability for Verse.",
+      "Read/write JSON data in Verse code.",
+      "It is a Verse-ecosystem module."
+    ],
+    "note_cn": "Verse 的 JSON 解析/序列化。",
+    "note_en": "JSON parse/serialize for Verse."
+  },
+  {
+    "slug": "verse-perception",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Perception`（模块 `VersePerception`）。",
+      "它是场景图驱动的感知系统（供 Verse AI/角色感知世界）。",
+      "在 Verse 项目里用其感知系统做 AI 视觉/听觉等。",
+      "属 Verse 生态 AI 模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse Perception` (module `VersePerception`).",
+      "It is a scene-graph-driven perception system (lets Verse AI/characters perceive the world).",
+      "Use its perception system for AI sight/hearing in Verse projects.",
+      "It is a Verse-ecosystem AI module."
+    ],
+    "note_cn": "场景图驱动的感知系统（Verse AI）。",
+    "note_en": "A scene-graph-driven perception system (for Verse AI)."
+  },
+  {
+    "slug": "verse-persona-metadata",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Persona Metadata`（模块 `VersePersonaMetadata`）。",
+      "它提供 Verse 角色（persona）元数据。",
+      "在 Verse 项目里为角色/内容附加元数据。",
+      "属 Verse 生态元数据模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse Persona Metadata` (module `VersePersonaMetadata`).",
+      "It provides Verse persona metadata.",
+      "Attach metadata to characters/content in Verse projects.",
+      "It is a Verse-ecosystem metadata module."
+    ],
+    "note_cn": "Verse 角色(persona)元数据。",
+    "note_en": "Verse persona metadata."
+  },
+  {
+    "slug": "verse-print",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Print`（模块 `VersePrint`）。",
+      "它为 Verse 提供打印/输出能力（调试输出到日志/屏幕）。",
+      "在 Verse 代码里打印信息辅助调试。",
+      "属 Verse 生态调试模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse Print` (module `VersePrint`).",
+      "It provides print/output capability for Verse (debug output to log/screen).",
+      "Print information in Verse code to aid debugging.",
+      "It is a Verse-ecosystem debug module."
+    ],
+    "note_cn": "Verse 的打印/输出能力。",
+    "note_en": "Print/output capability for Verse."
+  },
+  {
+    "slug": "verse-restricted",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Restricted`（模块 `VerseRestricted`）。",
+      "它提供 Verse 受限 API —— 不适合公共使用（内部/受控接口）。",
+      "一般不要直接依赖；按团队/平台约束使用。",
+      "属 Verse 生态受限模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse Restricted` (module `VerseRestricted`).",
+      "It provides restricted Verse APIs — not intended for public use (internal/controlled interfaces).",
+      "Generally do not depend on it directly; use per team/platform constraints.",
+      "It is a restricted Verse-ecosystem module."
+    ],
+    "note_cn": "Verse 受限 API（不适合公共使用）。",
+    "note_en": "Restricted Verse APIs (not for public use)."
+  },
+  {
+    "slug": "verse-simulation-metadata",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Simulation Metadata`（模块 `VerseSimulationMetadata`）。",
+      "它为 Verse 模拟提供元数据（描述模拟实体/配置）。",
+      "在 Verse 模拟项目里为实体附加模拟元数据。",
+      "属 Verse 生态模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse Simulation Metadata` (module `VerseSimulationMetadata`).",
+      "It provides metadata for Verse simulation (describing simulated entities/config).",
+      "Attach simulation metadata to entities in Verse simulation projects.",
+      "It is a Verse-ecosystem module."
+    ],
+    "note_cn": "Verse 模拟元数据。",
+    "note_en": "Verse simulation metadata."
+  },
+  {
+    "slug": "verse-simulation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Simulation`（模块 `VerseSimulation`）。",
+      "它提供 Verse 模拟能力（Verse 驱动的游戏/世界模拟）。",
+      "在 Verse 项目里用其模拟系统驱动玩法。",
+      "属 Verse 生态核心模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse Simulation` (module `VerseSimulation`).",
+      "It provides Verse simulation capability (Verse-driven game/world simulation).",
+      "Use its simulation system to drive gameplay in Verse projects.",
+      "It is a Verse-ecosystem core module."
+    ],
+    "note_cn": "Verse 模拟能力。",
+    "note_en": "Verse simulation capability."
+  },
+  {
+    "slug": "verse-social-synergy",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Social Synergy`（模块 `VerseSocialSynergy`），类别 Online。",
+      "它为 Verse 提供社交 API（好友/社交互动）。",
+      "在 Verse 项目里用其社交 API 实现好友/社交功能。",
+      "属 Verse 生态在线/社交模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse Social Synergy` (module `VerseSocialSynergy`), category Online.",
+      "It provides social APIs for Verse (friends/social interaction).",
+      "Use its social API for friend/social features in Verse projects.",
+      "It is a Verse-ecosystem online/social module."
+    ],
+    "note_cn": "Verse 的社交 API。",
+    "note_en": "Social APIs for Verse."
+  },
+  {
+    "slug": "verse-spatial-math",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Spatial Math`（运行时 `VerseSpatialMath`，编辑器 `VerseSpatialMathEditor`）。",
+      "它为 Verse 提供空间数学能力（向量/变换等，插件无官方描述，按源码使用）。",
+      "在 Verse 代码里做空间计算。",
+      "属 Verse 生态数学模块。"
+    ],
+    "en_steps": [
+      "Enable `Verse Spatial Math` (runtime `VerseSpatialMath`, editor `VerseSpatialMathEditor`).",
+      "It provides spatial-math capability for Verse (vectors/transforms, etc.; no official description, follow source).",
+      "Do spatial computations in Verse code.",
+      "It is a Verse-ecosystem math module."
+    ],
+    "note_cn": "Verse 的空间数学能力。",
+    "note_en": "Spatial-math capability for Verse."
+  }
+]

@@ -3,7 +3,6 @@ layout: default
 title: CLion集成 / CLion Integration
 ---
 
-
 <h1>CLion集成 / CLion Integration</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: CLion集成 / CLion Integration
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许访问 CLion 中的源代码。</div><div class="lang-content">Allows access to source code in CLion.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 的 Programming 启用 <code class="usage-code">CLion Integration</code>（模块 <code class="usage-code">CLionSourceCodeAccess</code>）并重启。</li><li>打开 <code class="usage-code">Edit &gt; Editor Preferences &gt; General &gt; Source Code</code>，把 <code class="usage-code">Source Code Editor</code> 设为 <code class="usage-code">CLion</code>。</li><li>本机安装 CLion，并对当前 <code class="usage-code">.uproject</code> / 引擎源码执行 Generate Project Files（CMake）。</li><li>内容浏览器双击 C++ 类，或 <code class="usage-code">Tools &gt; Open CLion</code> / Open Source Code；应由 <code class="usage-code">CLionSourceCodeAccess</code> 把文件交给 CLion，而不是 Visual Studio。</li><li>从 Class Viewer 或蓝图 Goto C++ Definition 再验证跳转。不要把该模块写进 Game Target。</li></ol><p class="usage-note">编辑器源码访问器，不进 Shipping。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">CLion Integration</code> under <code class="usage-code">Edit &gt; Plugins</code> (Programming); it loads <code class="usage-code">CLionSourceCodeAccess</code>, then restart.</li><li>Open <code class="usage-code">Edit &gt; Editor Preferences &gt; General &gt; Source Code</code> and set <code class="usage-code">Source Code Editor</code> to <code class="usage-code">CLion</code>.</li><li>Install CLion locally and generate project files (CMake) for this <code class="usage-code">.uproject</code> / engine tree.</li><li>Double-click a C++ class in the Content Browser, or use <code class="usage-code">Tools &gt; Open CLion</code> / Open Source Code; <code class="usage-code">CLionSourceCodeAccess</code> should hand the file to CLion, not Visual Studio.</li><li>Confirm Goto C++ Definition from Class Viewer or a Blueprint also lands in CLion. Do not link this module into a Game target.</li></ol><p class="usage-note">Editor-only source accessor; do not ship it.</p></div></div></div>
+    </div>
+

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "stage-monitor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Stage Monitor`（模块 `StageMonitor`、`StageDataProvider`、`StageMonitorCommon`，编辑器 `StageMonitorEditor`），属 Virtual Production。",
+      "它监控在多台机器上运行的虚拟制片阶段（stage）状态。",
+      "在多机虚拟制片环境里启动 Stage Monitor，集中查看各节点/设备状态。",
+      "Game 模块依赖运行时模块；`StageMonitorEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Stage Monitor` (modules `StageMonitor`, `StageDataProvider`, `StageMonitorCommon`, editor `StageMonitorEditor`), part of Virtual Production.",
+      "It monitors the state of a virtual production stage running across multiple machines.",
+      "In multi-machine virtual production, start Stage Monitor to view node/device status centrally.",
+      "Game modules depend on runtime modules; `StageMonitorEditor` is Editor-target only."
+    ],
+    "note_cn": "监控多机虚拟制片阶段状态。",
+    "note_en": "Monitors a multi-machine virtual production stage's state."
+  },
+  {
+    "slug": "state-graph",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `State Graph`（模块 `StateGraph`、`StateGraphManager`）。",
+      "它提供通用状态机管理类（状态/转移/管理器）。",
+      "用其状态图组织游戏或系统逻辑的状态切换。",
+      "属通用状态机工具；项目代码可依赖。"
+    ],
+    "en_steps": [
+      "Enable `State Graph` (modules `StateGraph`, `StateGraphManager`).",
+      "It provides general state-machine management classes (states/transitions/manager).",
+      "Use its state graphs to organize state switching for game or system logic.",
+      "It is a general state-machine utility; project code can depend on it."
+    ],
+    "note_cn": "通用状态机管理类。",
+    "note_en": "General state-machine management classes."
+  },
+  {
+    "slug": "statetree",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `StateTree`（运行时 `StateTreeModule`，编辑器 `StateTreeEditorModule`，测试 `StateTreeTestSuite`、`StateTreeDeveloper`）。",
+      "它是通用分层状态机运行时（状态树：状态、任务、条件、评估器）。",
+      "用 StateTree 资产搭建 AI/玩法逻辑，运行时按条件在状态间切换。",
+      "Game 模块依赖运行时模块；编辑器/测试模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `StateTree` (runtime `StateTreeModule`, editor `StateTreeEditorModule`, tests `StateTreeTestSuite`, `StateTreeDeveloper`).",
+      "It is a general hierarchical state-machine runtime (state tree: states, tasks, conditions, evaluators).",
+      "Build AI/gameplay logic in StateTree assets that switch states by conditions at runtime.",
+      "Game modules depend on runtime modules; editor/test modules go to Editor targets only."
+    ],
+    "note_cn": "通用分层状态机运行时（StateTree）。",
+    "note_en": "A general hierarchical state-machine runtime (StateTree)."
+  },
+  {
+    "slug": "statetreetoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `StateTreeToolset`（模块 `StateTreeToolset`）。",
+      "它提供 StateTree 检查工具集（供 AI 助手/自动化读取状态树结构）。",
+      "用其工具检查 StateTree 内容排查逻辑问题。",
+      "属 AI 工具链/编辑器自动化；非运行时功能。"
+    ],
+    "en_steps": [
+      "Enable `StateTreeToolset` (module `StateTreeToolset`).",
+      "It provides a StateTree inspection toolset (for AI assistants/automation to read the state tree structure).",
+      "Use its tools to inspect StateTree content and troubleshoot logic.",
+      "It is AI-toolchain/editor automation, not a runtime feature."
+    ],
+    "note_cn": "StateTree 检查工具集。",
+    "note_en": "A StateTree inspection toolset."
+  },
+  {
+    "slug": "static-mesh-editor-modeling-mode",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Static Mesh Editor Modeling Mode`（模块 `StaticMeshEditorModeling`）并重启。",
+      "它在静态网格体编辑器中启用“建模工具”选项卡。",
+      "在静态网格编辑器里直接用建模工具修改网格。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Static Mesh Editor Modeling Mode` (module `StaticMeshEditorModeling`) and restart.",
+      "It enables the Modeling Tools tab in the Static Mesh Editor.",
+      "Modify meshes directly with modeling tools inside the static mesh editor.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "在静态网格编辑器里开启建模工具选项卡。",
+    "note_en": "Enables the Modeling Tools tab in the Static Mesh Editor."
+  },
+  {
+    "slug": "steam-audio-deprecated",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Steam Audio (Deprecated)` 已弃用，并将在未来引擎版本删除。",
+      "改用 Valve 官网提供的 Steam Audio 插件。",
+      "新项目移除对该内置弃用插件的依赖。",
+      "迁移完成后禁用本插件。"
+    ],
+    "en_steps": [
+      "`Steam Audio (Deprecated)` is deprecated and will be removed in a future engine version.",
+      "Use the Steam Audio plugin provided on Valve's website instead.",
+      "New projects should drop the dependency on this built-in deprecated plugin.",
+      "Disable this plugin after migration."
+    ],
+    "note_cn": "已弃用，改用 Valve 官网的 Steam Audio 插件。",
+    "note_en": "Deprecated; use Valve's Steam Audio plugin instead."
+  },
+  {
+    "slug": "steam-controller-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Steam Controller Plugin`（模块 `SteamController`）。",
+      "它是 Steam 控制器的 InputDevice 插件（把 Steam 手柄接入输入系统）。",
+      "在支持 Steam 输入的项目里启用，识别 Steam 控制器按键/触摸板。",
+      "属输入设备扩展；需 Steam 配置。"
+    ],
+    "en_steps": [
+      "Enable `Steam Controller Plugin` (module `SteamController`).",
+      "It is the InputDevice plugin for Steam Controllers (brings the Steam gamepad into the input system).",
+      "Enable it in Steam-input projects to recognize Steam controller buttons/touchpads.",
+      "It is an input-device extension; requires Steam config."
+    ],
+    "note_cn": "Steam 控制器的 InputDevice 插件。",
+    "note_en": "The InputDevice plugin for Steam Controllers."
+  },
+  {
+    "slug": "steam-shared-module",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Steam Shared Module`（模块 `SteamShared`）。",
+      "它是 Steam API 的共享模块加载器（加载/初始化 Steamworks）。",
+      "作为 Steam 相关插件的底层依赖，统一加载 Steam API。",
+      "属平台底层；不直接面向用户。"
+    ],
+    "en_steps": [
+      "Enable `Steam Shared Module` (module `SteamShared`).",
+      "It is the shared module loader for the Steam API (loads/initializes Steamworks).",
+      "A low-level dependency for Steam-related plugins; centralizes Steam API loading.",
+      "It is a platform base layer; not directly user-facing."
+    ],
+    "note_cn": "Steam API 的共享模块加载器。",
+    "note_en": "A shared module loader for the Steam API."
+  },
+  {
+    "slug": "steam-sockets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Steam Sockets`（模块 `SteamSockets`）。",
+      "它实现基于 SteamSockets 接口的新 Steamworks 网络代码（P2P/中继）。",
+      "仅在 SteamSockets NetDriver 下兼容；需正确设置网络驱动定义。",
+      "属联网扩展；需 Steam 配置。"
+    ],
+    "en_steps": [
+      "Enable `Steam Sockets` (module `SteamSockets`).",
+      "It implements new Steamworks networking code using the SteamSockets interface (P2P/relay).",
+      "Compatible only with the SteamSockets NetDriver; set the net-driver defines correctly.",
+      "It is a networking extension; requires Steam config."
+    ],
+    "note_cn": "基于 SteamSockets 的网络代码（仅配 SteamSockets NetDriver）。",
+    "note_en": "SteamSockets-based networking (SteamSockets NetDriver only)."
+  },
+  {
+    "slug": "storm-sync-motion-design-bridge",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Storm Sync Motion Design Bridge`（运行时 `StormSyncAvaBridge`，编辑器 `StormSyncAvaBridgeEditor`），属 Virtual Production。",
+      "它是 Motion Design 插件与 Storm Sync 之间的桥，提供编辑器内集成以同步资产。",
+      "在 Motion Design 工作流里用它在编辑器间同步资产。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Storm Sync Motion Design Bridge` (runtime `StormSyncAvaBridge`, editor `StormSyncAvaBridgeEditor`), part of Virtual Production.",
+      "It bridges the Motion Design plugin and Storm Sync, providing in-editor integration to sync assets.",
+      "In a Motion Design workflow, use it to sync assets across editors.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "Motion Design 与 Storm Sync 之间的资产同步桥。",
+    "note_en": "A bridge between Motion Design and Storm Sync for asset sync."
+  },
+  {
+    "slug": "storm-sync",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Storm Sync`（模块 `StormSyncCore`、`StormSyncDrives`、`StormSyncTransportCore/Client/Server`、`StormSyncImport`，编辑器 `StormSyncEditor`，测试 `StormSyncTests`）。",
+      "它提供同步、拉取、推送与资产依赖管理，是运动设计工作流的推荐组成部分。",
+      "在 Motion Design/虚拟制片里用 Storm Sync 在多端同步/推送资产。",
+      "Game 模块依赖运行时模块；编辑器/测试模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Storm Sync` (modules `StormSyncCore`, `StormSyncDrives`, `StormSyncTransportCore/Client/Server`, `StormSyncImport`, editor `StormSyncEditor`, tests `StormSyncTests`).",
+      "It provides sync/pull/push and asset-dependency management; a recommended part of the motion-design workflow.",
+      "In Motion Design/virtual production, use Storm Sync to sync/push assets across endpoints.",
+      "Game modules depend on runtime modules; editor/test modules go to Editor targets only."
+    ],
+    "note_cn": "同步/拉取/推送/资产依赖管理（运动设计工作流）。",
+    "note_en": "Sync/pull/push and asset-dependency management (motion-design workflow)."
+  },
+  {
+    "slug": "streaming-audio-driven-animation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Streaming Audio Driven Animation`（模块 `SpeechAnimationSolver`）。",
+      "它提供流式音频驱动动画（用语音/音频实时驱动口型/表情）。",
+      "把语音流喂给其求解器，驱动角色的说话动画。",
+      "运行时模块；用于实时对话/虚拟人。"
+    ],
+    "en_steps": [
+      "Enable `Streaming Audio Driven Animation` (module `SpeechAnimationSolver`).",
+      "It provides streaming audio-driven animation (drive lipsync/expressions from speech/audio in real time).",
+      "Feed a speech stream to its solver to drive the character's talking animation.",
+      "A runtime module; for real-time dialogue/virtual humans."
+    ],
+    "note_cn": "流式音频驱动的角色动画（口型/表情）。",
+    "note_en": "Streaming audio-driven character animation (lipsync/expressions)."
+  },
+  {
+    "slug": "struct-utils",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Struct Utils`（模块 `StructUtils`、`StructUtilsEngine`）。",
+      "它为 InstancedStruct 类型提供实验性结构实用程序（动态结构值/类型转发）。",
+      "在数据驱动的玩法里用 InstancedStruct 存异构结构数据。",
+      "属通用数据结构工具；广泛用于 GAS/StateTree 等。"
+    ],
+    "en_steps": [
+      "Enable `Struct Utils` (modules `StructUtils`, `StructUtilsEngine`).",
+      "It provides experimental struct utilities for the InstancedStruct type (dynamic struct values/type forwarding).",
+      "Use InstancedStruct for heterogeneous struct data in data-driven gameplay.",
+      "It is a general data-structure utility; widely used by GAS/StateTree, etc."
+    ],
+    "note_cn": "InstancedStruct 的实验结构实用程序。",
+    "note_en": "Experimental struct utilities for InstancedStruct."
+  },
+  {
+    "slug": "stylus-tablet-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Stylus & Tablet Plugin`（模块 `StylusInput`、`StylusInputMac`、`StylusInputRealTimeStylus`、`StylusInputWintab`、`StylusInputDebugWidget`）。",
+      "它支持高级手写笔/平板输入：压力、笔/板按钮、笔倾角。",
+      "在绘画/建模等需要压感的编辑器工具里接入笔输入。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Stylus & Tablet Plugin` (modules `StylusInput`, `StylusInputMac`, `StylusInputRealTimeStylus`, `StylusInputWintab`, `StylusInputDebugWidget`).",
+      "It supports advanced stylus/tablet input: pressure, pen/tablet buttons, and pen tilt.",
+      "Integrate pen input in pressure-sensitive editor tools like painting/modeling.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "高级手写笔/平板输入（压力/按钮/倾角），编辑器向。",
+    "note_en": "Advanced stylus/tablet input (pressure/buttons/tilt), editor-oriented."
+  },
+  {
+    "slug": "submit-tool-editor-override",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Submit Tool Editor Override`（模块 `SubmitToolEditor`）。",
+      "它设置由编辑器启动的提交工具（自定义提交流程）。",
+      "在源码管理/提交流程里指定自定义提交工具。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Submit Tool Editor Override` (module `SubmitToolEditor`).",
+      "It sets the submit tool launched by the editor (custom submit flow).",
+      "Specify a custom submit tool in the source-control/submit flow.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "设置编辑器启动的提交工具。",
+    "note_en": "Sets the submit tool launched by the editor."
+  }
+]

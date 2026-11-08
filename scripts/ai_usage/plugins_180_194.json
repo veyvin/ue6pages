@@ -1,0 +1,310 @@
+[
+  {
+    "slug": "code-view",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 的 Programming / Experimental 启用 `Code View`（模块 `CodeView`）并重启；这是编辑器内看类声明的辅助，不要写进 Shipping `Build.cs`。",
+      "确认 `Edit > Editor Preferences > Source Code` 里已选定本机 IDE（Visual Studio / Rider 等），并已 Generate Project Files，否则双击函数无法跳转。",
+      "在关卡里选中一个带 C++ 父类的 Actor（或打开其蓝图），Details 会出现 `Code View` 分类：列出当前类与公开 `UFUNCTION`。",
+      "双击列表中的函数：`CodeView` 通过 `ISourceCodeAccessor` 打开对应 `.cpp` 并定位到实现；结构体/UCLASS 声明同样可从该列表进头文件。",
+      "对照父类与蓝图覆写：若函数只存在于蓝图图表，列表不会给出 C++ 跳转；去图表或自己的 `.h` 里改。",
+      "不要把 `CodeView` 加进游戏模块依赖；它只服务编辑器选中对象的源码导航。"
+    ],
+    "en_steps": [
+      "Enable `Code View` (module `CodeView`) under `Edit > Plugins` > Programming / Experimental and restart. It is an in-editor class browser, not a Shipping `Build.cs` dependency.",
+      "Set `Edit > Editor Preferences > Source Code` to your local IDE (Visual Studio / Rider, etc.) and Generate Project Files, or double-click will not jump.",
+      "Select a level Actor with a C++ parent (or open its Blueprint). Details gains a `Code View` category listing the class and public `UFUNCTION`s.",
+      "Double-click a function: `CodeView` uses `ISourceCodeAccessor` to open the `.cpp` at the implementation. UCLASS/struct declarations jump to the header the same way.",
+      "Blueprint-only overrides have no C++ jump target; edit the graph or your own `.h` instead.",
+      "Do not add `CodeView` to game modules; it only navigates source for the editor selection."
+    ],
+    "note_cn": "Experimental 的编辑器源码导航，不是内置代码编辑器（那是 `Code Editor` 插件）。无运行时组件。",
+    "note_en": "Experimental editor source navigation, not the in-editor `Code Editor` plugin. No runtime component."
+  },
+  {
+    "slug": "codelite-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 Linux 开发机启用 `CodeLite Integration`（模块 `CodeLiteSourceCodeAccess`，`CodeLiteSourceCodeAccess.uplugin`）并重启；Windows 上通常应改用 Visual Studio 访问器。",
+      "安装并启动 CodeLite，确认 `codelite` 在 PATH。到 `Edit > Editor Preferences > Source Code`，把 `Source Code Editor` 设为 `CodeLite`。",
+      "用引擎的 Generate Project Files（或 `GenerateProjectFiles.sh -codelite`）生成 `.workspace`；用 CodeLite 打开该工作区，不要手搓 VS 工程再硬接。",
+      "在编辑器里对 C++ 类右键 `Open in IDE`，或编译失败日志里点文件名：`FCodeLiteSourceCodeAccessor` 会唤起 CodeLite 并定位行。",
+      "热重载/Live Coding 仍走 UnrealBuildTool；CodeLite 只负责打开与调试符号，不要指望它替代 `Build.cs` 编译。"
+    ],
+    "en_steps": [
+      "On a Linux machine enable `CodeLite Integration` (module `CodeLiteSourceCodeAccess`, `CodeLiteSourceCodeAccess.uplugin`) and restart. On Windows prefer the Visual Studio accessor instead.",
+      "Install CodeLite with `codelite` on PATH. In `Edit > Editor Preferences > Source Code`, set `Source Code Editor` to `CodeLite`.",
+      "Generate a `.workspace` with Generate Project Files (or `GenerateProjectFiles.sh -codelite`) and open that workspace in CodeLite — do not bolt a VS solution onto this accessor.",
+      "Right-click a C++ class `Open in IDE`, or click a compile-error path: `FCodeLiteSourceCodeAccessor` launches CodeLite at the line.",
+      "Live Coding / hot reload still go through UnrealBuildTool. CodeLite only opens files and debug symbols; it does not replace `Build.cs` compiles."
+    ],
+    "note_cn": "开发者源码访问器，只服务 CodeLite。不要加进游戏运行时模块，也不要在 Win64 上当默认 IDE。",
+    "note_en": "Developer `ISourceCodeAccessor` for CodeLite only. Not a game runtime module and not the default Win64 IDE."
+  },
+  {
+    "slug": "color-correction-regions-ccr",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Color Correction Regions (CCR)`（`ColorCorrectRegions` + `ColorCorrectRegionsEditor`）并重启。",
+      "到 `Project Settings > Engine > Rendering`，把 `Custom Depth-Stencil Pass` 设为 `Enabled with Stencil`；CCR/CCW 靠模板标记物体，关了就没有局部校色。",
+      "从 Place Actors 的 Volumes 拖入 `Color Correction Region`（体积：Sphere/Box/Cylinder/Cone）或 `Color Correction Window`（相对摄像机的平面：Circle/Square）。",
+      "在 Details 调 `Priority`（重叠时 CCR 按优先级合成；CCW 按距相机远近）、`Intensity`、`Inner`/`Outer`/`Falloff`、`Temperature Type`（White Balance / Color Temperature / Legacy）和 `Color Grading Settings`。",
+      "需要只打到某些 Actor 时勾选 Per-Actor CC，把目标填进 `Affected Actors`（Include 或 Exclude）；`Invert` 则校色体积外、体积内保持原样。",
+      "ICVFX/nDisplay 上把区域对齐实景与 LED 墙接缝；运行时由 `UColorCorrectRegionsSubsystem` 每帧聚合 `AColorCorrectRegion`，游戏模块只依赖 `ColorCorrectRegions`。"
+    ],
+    "en_steps": [
+      "Enable `Color Correction Regions (CCR)` (`ColorCorrectRegions` + `ColorCorrectRegionsEditor`) and restart.",
+      "In `Project Settings > Engine > Rendering`, set `Custom Depth-Stencil Pass` to `Enabled with Stencil`. CCR/CCW mark objects with stencil; without it local grading does nothing.",
+      "From Place Actors > Volumes, drop a `Color Correction Region` (Sphere/Box/Cylinder/Cone) or a `Color Correction Window` (camera-facing Circle/Square plane).",
+      "Tune `Priority` (CCR blend order; CCW is distance-to-camera), `Intensity`, `Inner`/`Outer`/`Falloff`, `Temperature Type` (White Balance / Color Temperature / Legacy), and `Color Grading Settings`.",
+      "For selective hits, enable Per-Actor CC and fill `Affected Actors` (Include or Exclude). `Invert` grades everything except the volume.",
+      "On ICVFX/nDisplay, line regions up with set-to-LED seams. `UColorCorrectRegionsSubsystem` aggregates `AColorCorrectRegion` each tick; game modules depend on `ColorCorrectRegions` only."
+    ],
+    "note_cn": "局部体积/窗口校色，不是全局 Post Process Volume。必须开 Custom Depth Stencil。`AColorCorrectRegion` 本身标记为 Abstract/NotPlaceable，关卡里放的是具体 CCR/CCW 子类。",
+    "note_en": "Local volume/window grading, not a global Post Process Volume. Custom Depth Stencil is required. `AColorCorrectRegion` is Abstract/NotPlaceable; place the concrete CCR/CCW subclasses."
+  },
+  {
+    "slug": "color-grading",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Color Grading`（仅模块 `ColorGradingEditor`）并重启；不要把它写进 Game Target。",
+      "打开 `Window > Color Grading`。左侧 Object Mixer 列出带校色控件的对象：`Post Process Volume`、`Cine Camera Actor`、`Camera Actor`，以及已启用 CCR 插件时的 Color Correction Region/Window、启用 nDisplay 时的 nDisplay Root。",
+      "在 Mixer 里多选或建文件夹编组；选中一条后，右侧色轮编辑 Shadows / Midtones / Highlights，以及 Saturation、Contrast、Gain、Gamma。",
+      "改的是选中对象上已有的 `Color Grading` 属性，会写进该 Actor/PPV，可进 Sequencer 做关键帧；不是另存一份独立 LUT 资产。",
+      "先选关卡里已开启 `Unbound` 或覆盖摄像机的 PPV，再拧色轮；空 Mixer 通常表示当前关卡没有可校色对象，而不是面板坏了。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Color Grading` (module `ColorGradingEditor` only) and restart. Never add it to a Game Target.",
+      "Open `Window > Color Grading`. The Object Mixer lists objects with grading controls: `Post Process Volume`, `Cine Camera Actor`, `Camera Actor`, plus Color Correction Region/Window if CCR is on, and nDisplay Root if nDisplay is on.",
+      "Multi-select or folder-group in the mixer. Color wheels edit Shadows / Midtones / Highlights plus Saturation, Contrast, Gain, Gamma.",
+      "Edits write into the selected Actor/PPV `Color Grading` properties and can be Sequencer-keyed. This panel does not create a standalone LUT asset.",
+      "Select an unbound or camera-covering PPV before turning wheels. An empty mixer means the level has no gradeable objects, not a broken panel."
+    ],
+    "note_cn": "编辑器色轮面板，读写已有 PPV/摄像机/CCR 的校色属性。无运行时模块；LUT 烘焙走 OpenColorIO 或自身 Lookup Table，不在本插件。",
+    "note_en": "Editor color-wheel panel that edits existing PPV/camera/CCR grading. No runtime module. LUT baking is OCIO or a Lookup Table, not this plugin."
+  },
+  {
+    "slug": "command-link-server",
+    "kind": "plugin",
+    "cn_steps": [
+      "确认 `Command Link Server`（模块 `CmdLinkServer`）已启用——引擎默认常开。它在编辑器/游戏进程里开命名管道，执行 `CmdLink.exe` 送来的控制台命令。",
+      "在控制台执行 `console.CmdLink.enable 1`（或写入 `DefaultEngine.ini` 的 `[ConsoleVariables]`）。多实例时用 `console.CmdLink.key YourPipeName` 区分管道名。",
+      "从引擎 `Binaries` 运行 `CmdLink.exe`，把要执行的命令当作参数传入（例如 `stat fps`、`open /Game/Maps/MyMap`）；进程经命名管道交给 `FCmdLinkServerModule`。",
+      "命令若跨帧（加载关卡、自动化），在自定义 `exec` 里调用 `FCmdLinkServerModule::Get()->BeginAsyncCommand`，完成后再 `EndAsyncCommand`，否则 CmdLink 会提前退出。",
+      "这不是游戏内聊天或 Online 会话。CI/外部工具远程敲命令时用；Shipping 若不想暴露 exec，不要启用该插件或关闭 `console.CmdLink.enable`。"
+    ],
+    "en_steps": [
+      "Keep `Command Link Server` (module `CmdLinkServer`) enabled — it is often on by default. It opens a named pipe in the editor/game process and runs console commands sent by `CmdLink.exe`.",
+      "Run `console.CmdLink.enable 1` (or set it under `[ConsoleVariables]` in `DefaultEngine.ini`). For multiple instances, set `console.CmdLink.key YourPipeName`.",
+      "Launch `CmdLink.exe` from engine `Binaries` with the console command as arguments (e.g. `stat fps`, `open /Game/Maps/MyMap`). `FCmdLinkServerModule` executes it over the pipe.",
+      "For commands that span frames (map load, automation), call `FCmdLinkServerModule::Get()->BeginAsyncCommand` in your `exec` and `EndAsyncCommand` when finished, or CmdLink exits early.",
+      "This is not in-game chat or an Online session. Use it for CI/external tools. Leave the plugin off or `console.CmdLink.enable` at 0 in Shipping if you do not want remote exec."
+    ],
+    "note_cn": "给 `CmdLink.exe` 用的命名管道 exec 服务器，不是网络复制。无关卡组件、无蓝图节点。",
+    "note_en": "Named-pipe exec server for `CmdLink.exe`, not gameplay replication. No level component and no Blueprint nodes."
+  },
+  {
+    "slug": "common-conversation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Common Conversation`（运行时 `CommonConversationRuntime`，图表 `CommonConversationGraph`，编辑器 `CommonConversationEditor`）并重启。",
+      "内容浏览器新建 `Conversation Database`（`UConversationDatabase`）。打开图：添加 Speaker 槽位（Gameplay Tag 标识 NPC/Player），从 Entry 节点拉出对白、条件、任务节点。",
+      "给入口节点指定 `Conversation Entry` Gameplay Tag（及可选 Entry Point Identifier）。保存后由对话注册表编译 `EntryTags` / 可达节点，不要运行时直接改 SourceGraphs。",
+      "在玩家与 NPC 上添加 `UConversationParticipantComponent`。权威端调用 `UConversationLibrary::StartConversationFromGraph`（Entry Tag、Instigator/Target Actor 与各自 Participant Tag、Database）。",
+      "监听该组件上的 `ConversationUpdated` / `ConversationStarted`，把客户端消息和选项做成 UI；玩家选一项后调用 `RequestServerAdvanceConversation`（`FAdvanceConversationRequest`）。",
+      "游戏 `Build.cs` 只加 `CommonConversationRuntime`。`CommonConversationEditor` / 图编译留在 Editor 模块。Experimental：节点类型与 Tag 约定可能随版本变。"
+    ],
+    "en_steps": [
+      "Enable experimental `Common Conversation` (runtime `CommonConversationRuntime`, graph `CommonConversationGraph`, editor `CommonConversationEditor`) and restart.",
+      "Create a `Conversation Database` (`UConversationDatabase`). Add Speaker slots (Gameplay Tags for NPC/Player) and wire dialogue, condition, and task nodes from an Entry.",
+      "Assign a `Conversation Entry` Gameplay Tag (and optional Entry Point Identifier) on the entry node. Save so the registry compiles `EntryTags` / reachable nodes — do not mutate SourceGraphs at runtime.",
+      "Add `UConversationParticipantComponent` to player and NPC. On authority call `UConversationLibrary::StartConversationFromGraph` with the entry tag, instigator/target actors and participant tags, and the database.",
+      "Listen to `ConversationUpdated` / `ConversationStarted` on the component to drive UI. Advance with `RequestServerAdvanceConversation` (`FAdvanceConversationRequest`) when the player picks a choice.",
+      "Game `Build.cs` depends on `CommonConversationRuntime` only. Keep `CommonConversationEditor` / graph compile in editor modules. Experimental: node types and tag contracts may change."
+    ],
+    "note_cn": "基于 Gameplay Tag 的对话树，不是字幕轨也不是 Sequencer 对白。必须在服务器/权威端 `StartConversation*`；客户端只收 `ClientUpdateConversation` 做 UI。",
+    "note_en": "Gameplay-Tag conversation trees, not subtitle tracks or Sequencer dialogue. Call `StartConversation*` on authority; clients only receive `ClientUpdateConversation` for UI."
+  },
+  {
+    "slug": "common-ui-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用运行时 `Common UI Plugin`（`CommonUI`、`CommonInput`，编辑器 `CommonUIEditor`）并重启。",
+      "在 `Project Settings > Game > Common Input Settings` 配置 `Input Data`（键鼠/手柄/触控图标表）和平台策略；把 `Game Viewport Client Class` 换成 `UCommonGameViewportClient`（或项目子类）。",
+      "Widget Blueprint 父类用 `UCommonActivatableWidget` 做界面栈页、`UCommonButtonBase` 做按钮。在按钮上绑 `Input Action`（Enhanced Input），让 `UCommonUIActionRouterBase` 按激活栈路由手柄焦点。",
+      "用自己的 HUD/`UCommonActivatableWidgetContainer`（Stack / Queue）`AddWidget` 推入页面；返回时 `DeactivateWidget`，不要对每层都 `Add to Viewport`。",
+      "运行时用 `UCommonInputSubsystem` 读当前输入类型，切换按钮图标。C++ 游戏模块依赖 `CommonUI` 与 `CommonInput`；`CommonUIEditor` 仅 Editor。"
+    ],
+    "en_steps": [
+      "Enable runtime `Common UI Plugin` (`CommonUI`, `CommonInput`, editor `CommonUIEditor`) and restart.",
+      "In `Project Settings > Game > Common Input Settings`, set `Input Data` (keyboard/gamepad/touch icon tables) and platform policy. Switch `Game Viewport Client Class` to `UCommonGameViewportClient` (or a project subclass).",
+      "Parent screen widgets on `UCommonActivatableWidget` and buttons on `UCommonButtonBase`. Bind Enhanced Input `Input Action`s on buttons so `UCommonUIActionRouterBase` routes gamepad focus through the activation stack.",
+      "Push pages with your HUD / `UCommonActivatableWidgetContainer` (Stack or Queue) `AddWidget`; pop with `DeactivateWidget`. Do not `Add to Viewport` every layer.",
+      "Read the current input type from `UCommonInputSubsystem` to swap button icons. Game modules depend on `CommonUI` and `CommonInput`; `CommonUIEditor` is editor-only."
+    ],
+    "note_cn": "可激活控件栈 + 跨设备输入图标，不是 UMG 替代品。不用 Activatable 容器而直接 Add to Viewport，手柄焦点会丢。",
+    "note_en": "Activatable widget stack plus cross-device input icons — not a UMG replacement. Skipping the activatable container and using Add to Viewport drops gamepad focus."
+  },
+  {
+    "slug": "commonui-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "先启用 `Common UI Plugin`，再开实验性 `CommonUI ToolSet`（模块 `CommonUIToolset`）。这是给编辑器 AI/自动化的调试工具集，不是游戏 UI 库。",
+      "在 PIE 里打开至少一层 `UCommonActivatableWidget`，让 Action Router 有激活树。",
+      "让编辑器助手调用 Toolset 的只读工具：抓 activatable-tree 快照、对比期望焦点与 `UCommonUIActionRouterBase` 实际焦点（focus divergence）、录制激活/路由事件。",
+      "对假设做写入测试（强制激活某页、改焦点目标）后立刻再拍一帧快照，确认栈序与 `GetDesiredFocusTarget` 一致。",
+      "不要把 `CommonUIToolset` 写进 Shipping `Build.cs` 或打包进游戏；工具契约随 Experimental 夜构建可能变。"
+    ],
+    "en_steps": [
+      "Enable `Common UI Plugin` first, then experimental `CommonUI ToolSet` (module `CommonUIToolset`). It is an editor AI/automation debugger, not a game UI library.",
+      "PIE with at least one `UCommonActivatableWidget` so the Action Router has an activation tree.",
+      "Have the editor assistant call the toolset’s read tools: snapshot the activatable tree, diagnose focus divergence versus `UCommonUIActionRouterBase`, and record activation/routing events.",
+      "After a write/hypothesis test (force-activate a page, retarget focus), snapshot again and check stack order against `GetDesiredFocusTarget`.",
+      "Do not add `CommonUIToolset` to Shipping `Build.cs` or cook it into the game. The Experimental contract can change on nightlies."
+    ],
+    "note_cn": "调试 CommonUI 激活树与焦点路由的 AI Toolset，不能替代 `CommonUI` 控件。无玩家可见面板。",
+    "note_en": "AI toolset for CommonUI activation trees and focus routing — not a substitute for `CommonUI` widgets. No player-facing panel."
+  },
+  {
+    "slug": "composite-plane",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Composite Plane`（模块 `CompositePlane`）并重启，让插件内容里的 `BP_CineCameraProj` 可见。",
+      "在关卡放置接收投影的静态网格（按实拍透视搭简易几何，而不是一张 HDRI Backdrop）。",
+      "从插件内容拖入 `BP_CineCameraProj`（电影摄像机 + 投影）。在 Details 指定要投影的 `Texture2D` 或 `Media Texture`（视频先走 Media Player 出纹理）。",
+      "在 `Projection` 数组里 Add，把每一项指到要吃投影的网格；相机会按自身视锥把贴图投上去。需要抠像时用该蓝图自带的 Keyer 参数，而不是另开一套合成图。",
+      "用 Sequencer 带动摄像机或 Media 轨；投影随摄像机运动。这是相机映射合成，不是 nDisplay LED 墙，也不是新版 `Composite Actor` 管线。"
+    ],
+    "en_steps": [
+      "Enable `Composite Plane` (module `CompositePlane`) and restart so plugin content `BP_CineCameraProj` is visible.",
+      "Place receiving static meshes that match the plate’s perspective (simple proxy geo, not an HDRI Backdrop).",
+      "Drop `BP_CineCameraProj` (cine camera + projector). Assign a `Texture2D` or `Media Texture` (video must already be a Media Player texture).",
+      "Add entries in the `Projection` array pointing at each receiving mesh. The camera projects the texture along its frustum. Use the Blueprint’s built-in keyer params for simple pull keys.",
+      "Animate the camera or a Media track in Sequencer; the projection follows the camera. This is camera-mapping, not nDisplay LED walls and not the new `Composite Actor` pipeline."
+    ],
+    "note_cn": "用 `BP_CineCameraProj` 做相机投影贴图/视频。默认投影材质偏 Unlit，接影需要改材质。与 Composure/`Composite` 插件不是同一套 Actor。",
+    "note_en": "Camera-maps textures/video via `BP_CineCameraProj`. Default projection materials are Unlit, so receiving shadows needs a material change. Not the Composure/`Composite` Actor."
+  },
+  {
+    "slug": "compositecore",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `CompositeCore`（模块 `CompositeCore`）。它是实时合成的底层：默认经后处理的 holdout 管线，被新版 Composure（`Composite`）扩展，不是引擎 `Core` 模块。",
+      "关卡里准备要从主渲染抠掉、改由合成层补上的图元（前景 CG 或投影板网格）。",
+      "用 `UCompositeCoreSubsystem::RegisterPrimitive` 注册 `UPrimitiveComponent`，`HoldoutManagement` 用 `Automatic`（让核心改 holdout 标志）或手动。注销走 `UnregisterPrimitive`。",
+      "主视角渲染这些图元时走 alpha holdout，避免与实拍板双重遮挡；合成层再把板/CG 叠回。不要在蓝图里找「CompositeCore 组件」——入口是该 World Subsystem。",
+      "一般项目启用上层 `Composure`（`Composite` 插件）即可，由它自动管理 Scene Capture 与 holdout。只有自写合成扩展才直接依赖 `CompositeCore`。"
+    ],
+    "en_steps": [
+      "Enable `CompositeCore` (module `CompositeCore`). It is the real-time compositing core: a default holdout pipeline through post-process that the new Composure (`Composite`) plugin extends — not engine `Core`.",
+      "Identify primitives that should be held out of the main render and restored by a composite layer (CG foreground or projection meshes).",
+      "Call `UCompositeCoreSubsystem::RegisterPrimitive` on each `UPrimitiveComponent` with `HoldoutManagement` `Automatic` (lets the core toggle holdout) or manual. Unregister with `UnregisterPrimitive`.",
+      "Those primitives render as alpha holdouts in the main view so they do not double-occlude the plate; composite layers put plate/CG back. There is no Blueprint “CompositeCore component” — the World Subsystem is the API.",
+      "Most projects enable the higher-level `Composure` (`Composite`) plugin and let it own scene captures and holdout. Depend on `CompositeCore` directly only when writing a custom composite extension."
+    ],
+    "note_cn": "合成 holdout 核心，不是 `Core`/`CoreUObject`。默认管线走后处理；上层 Actor/图层在 `Composite` 插件。",
+    "note_en": "Compositing holdout core, not `Core`/`CoreUObject`. Default path is post-process; actors and layers live in the `Composite` plugin."
+  },
+  {
+    "slug": "composure-shared",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用内容插件 `Composure Shared`（`ComposureShared.uplugin`）。它几乎没有 C++ 模块，只提供从旧版 Composure 迁过来的材质、贴图、网格。",
+      "同时启用 `CompositeCore` 与新版 `Composure`（`Composite`）或仍在用的 Legacy Composure，让它们能引用这批共享资产。",
+      "在内容浏览器打开插件内容（Show Plugin Content），浏览 `Engine/Plugins/Compositing/ComposureShared/Content`：抠像材质、CG 合成网格、默认 LUT/纹理。",
+      "新 Composite Actor 的 Plate/Keyer 通道或旧 `Composure` 元素应指向这里的材质实例，不要把整份目录复制进项目再改到丢失引擎更新。",
+      "不要在游戏 `Build.cs` 里写不存在的 `ComposureShared` 模块名；依赖关系由 .uplugin 的 content 挂载完成。"
+    ],
+    "en_steps": [
+      "Enable the content plugin `Composure Shared` (`ComposureShared.uplugin`). It ships almost no C++ modules — only materials, textures, and meshes migrated from legacy Composure.",
+      "Also enable `CompositeCore` plus new `Composure` (`Composite`) or leftover Legacy Composure so those plugins can reference the shared assets.",
+      "Turn on Show Plugin Content and browse `Engine/Plugins/Compositing/ComposureShared/Content` for keyer materials, CG composite meshes, and default LUT/textures.",
+      "Point new Composite Actor plate/keyer slots (or legacy Composure elements) at those material instances. Do not duplicate the folder into the project and lose engine updates.",
+      "Do not add a fictional `ComposureShared` module to game `Build.cs`; mounting is content via the `.uplugin`."
+    ],
+    "note_cn": "共享内容包，不是合成执行器。没有可放置的 Composure Actor；缺了它，Composite/Composure 的默认材质会变紫或丢失。",
+    "note_en": "Shared content pack, not the compositor. No placeable Composure Actor. Without it, Composite/Composure default materials go missing or purple."
+  },
+  {
+    "slug": "composure",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用新版 `Composure`（描述符 `Composite.uplugin`，模块 `Composite` + `CompositeEditor`），并同时打开 `CompositeCore` 与 `Composure Shared`。这是 Legacy Composure 的继任，不是旧 `Composure.uplugin` 元素图。",
+      "关卡放一台与实拍对齐的 `Cine Camera Actor`（可选 Lens File、Live Link 跟踪/FIZ）。",
+      "打开 `Window > Virtual Production > Composure`，添加 `Composite Actor`。它会编排 Layer（合并）与 Pass（处理），并按需自动建 Scene Capture。",
+      "典型：`Main Render Layer` + `Plate Layer`（`UCompositeLayerPlate` 指定 `Texture2D`/`Media Texture` 或 Media Profile）。CG over video 给 Plate 加 Composite Meshes 做 holdout；video over CG 用 Color Keyer Pass。",
+      "在 Layer 的次级输入上挂 Pass：Centered Scale（过扫描）、Color Grade、Color Keyer、OCIO、畸变、FXAA/SMAA、Post-Process Material。Shadow/Reflection Catcher Layer 把实拍光影打到 CG。",
+      "游戏/VP 运行时只依赖 `Composite`；`CompositeEditor` 留在 Editor。旧 Virtual Production 菜单里的 Legacy Composure 不再维护，新镜头不要混用两套。"
+    ],
+    "en_steps": [
+      "Enable new `Composure` (descriptor `Composite.uplugin`, modules `Composite` + `CompositeEditor`) plus `CompositeCore` and `Composure Shared`. This succeeds Legacy Composure — it is not the old `Composure.uplugin` element graph.",
+      "Place a `Cine Camera Actor` matched to the physical camera (optional Lens File, Live Link tracking/FIZ).",
+      "Open `Window > Virtual Production > Composure` and add a `Composite Actor`. It owns layers (merge) and passes (process) and spawns scene captures as needed.",
+      "Typical stack: `Main Render Layer` plus `Plate Layer` (`UCompositeLayerPlate` with a `Texture2D`/`Media Texture` or Media Profile). CG-over-video: composite meshes on the plate for holdout. Video-over-CG: Color Keyer Pass.",
+      "Attach passes on a layer’s secondary input: Centered Scale (overscan), Color Grade, Color Keyer, OCIO, distortion, FXAA/SMAA, Post-Process Material. Shadow/Reflection Catcher layers light CG from the plate.",
+      "Runtime depends on `Composite` only; keep `CompositeEditor` in the editor. Legacy Composure in the old Virtual Production menu is unmaintained — do not mix both on new shots."
+    ],
+    "note_cn": "新层/Pass 合成系统（插件内部名 `Composite`）。目录 slug 仍叫 composure。需要 `CompositeCore` holdout 与 `Composure Shared` 默认资产。",
+    "note_en": "New layer/pass compositor (internal plugin `Composite`). The catalog slug remains composure. Needs `CompositeCore` holdout and `Composure Shared` default assets."
+  },
+  {
+    "slug": "compute-framework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Compute Framework`（运行时 `ComputeFramework`、`ComputeDataInterface`、`EditableComputeGraph`；编辑器 `ComputeFrameworkEditor`、`EditableComputeGraphEditor`）。",
+      "这是 GPU compute 图基础设施：`UComputeGraph` 描述 Kernel 与 `UComputeDataInterface` 的拓扑并编译着色器。动画变形器、PCG GPU 等在此之上做资源，很少在内容浏览器里「新建 Compute Graph」当独立玩法资产。",
+      "自研变形器/GPU 系统时：子类 `UComputeGraph`，添加 Kernel Invocation 与 Data Interface，改图后调用 `UpdateResources`（着色器异步编译，用 `HasKernelResourcesPendingShaderCompilation` 轮询）。",
+      "运行时用 `FComputeGraphInstance::CreateDataProviders` 按 BindingIndex 绑定场景对象，校验 `ValidateGraph` / `ValidateProviders`，再在渲染线程走 `GetRenderProxy()`。",
+      "游戏 `Build.cs` 加 `ComputeFramework`（需要接口再加 `ComputeDataInterface`）。`EditableComputeGraph*` 与 `*Editor` 模块不要进 Game Target。不要在 PPV 里找 Show Flag 当开关。"
+    ],
+    "en_steps": [
+      "Enable `Compute Framework` (runtime `ComputeFramework`, `ComputeDataInterface`, `EditableComputeGraph`; editor `ComputeFrameworkEditor`, `EditableComputeGraphEditor`).",
+      "It is GPU compute-graph infrastructure: `UComputeGraph` links kernels to `UComputeDataInterface`s and compiles shaders. Animation deformers and PCG GPU sit on top — you rarely create a standalone “Compute Graph” gameplay asset.",
+      "For a custom deformer/GPU system, subclass `UComputeGraph`, add kernel invocations and data interfaces, then `UpdateResources` (shader compile is async; poll `HasKernelResourcesPendingShaderCompilation`).",
+      "At runtime `FComputeGraphInstance::CreateDataProviders` binds scene objects by BindingIndex. `ValidateGraph` / `ValidateProviders`, then execute via `GetRenderProxy()` on the render thread.",
+      "Game `Build.cs` gets `ComputeFramework` (and `ComputeDataInterface` if you author interfaces). Keep `EditableComputeGraph*` and `*Editor` modules out of Game Targets. There is no Post Process Volume show-flag switch."
+    ],
+    "note_cn": "给变形器/PCG 等用的 GPU 图运行时，不是 Niagara，也不是后期处理开关。蓝图几乎无入口。",
+    "note_en": "GPU graph runtime for deformers/PCG — not Niagara and not a post-process toggle. Essentially no Blueprint entry point."
+  },
+  {
+    "slug": "concert---main",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Concert - Main`（`Concert`、`ConcertClient`、`ConcertServer`、`ConcertTransport`）。这是多人编辑的会话/传输层；关卡同步还需要 `Multi-User Editing`（Concert Sync）一起开。",
+      "一台机器当服务器：`Window > Multi-User Browser`（或独立 `UnrealMultiUserServer`）创建 Session，确认端口与 `ConcertTransport` UDP/TCP 可达。",
+      "其他编辑器在同一 Browser 里 Join，显示名与会话名一致。连接后 `ConcertClient` 把事务发到 `ConcertServer`，再广播给各客户端。",
+      "先在沙盒关卡验证移动 Actor 是否出现在其他机器；冲突用 Multi-User 的事务/锁定 UI 处理，而不是 Git 合并 `.umap`。",
+      "不要把这些模块加进游戏 Shipping。Concert 同步的是编辑器会话，不是 PIE 网络游戏复制。"
+    ],
+    "en_steps": [
+      "Enable `Concert - Main` (`Concert`, `ConcertClient`, `ConcertServer`, `ConcertTransport`). This is the session/transport layer; level/asset sync also needs `Multi-User Editing` (Concert Sync).",
+      "On the host, open `Window > Multi-User Browser` (or standalone `UnrealMultiUserServer`) and create a Session. Ensure `ConcertTransport` UDP/TCP ports are reachable.",
+      "Other editors Join the same session with matching display names. `ConcertClient` sends transactions to `ConcertServer`, which broadcasts to clients.",
+      "Prove Actor moves on a sandbox map before production. Resolve conflicts with Multi-User transaction/lock UI, not by Git-merging `.umap`.",
+      "Do not add these modules to Shipping. Concert syncs editor sessions, not PIE gameplay replication."
+    ],
+    "note_cn": "Concert 传输与会话核心。没有 Sync 插件就没有开箱即用的关卡协作。不是游戏 NetDriver。",
+    "note_en": "Concert transport and session core. Without the Sync plugin there is no turnkey level collab. Not a gameplay NetDriver."
+  },
+  {
+    "slug": "concert-replication-scripting",
+    "kind": "plugin",
+    "cn_steps": [
+      "在已能加入 Multi-User 会话的前提下，启用 `Concert Replication Scripting`（`ConcertReplicationScripting` + `ConcertReplicationScriptingEditor`）。",
+      "这是把 Concert Replication 类型暴露给蓝图/Editor Utility 的脚本层：属性路径、静音/离开复制等，不是在线游戏 `Replicated` 属性。",
+      "开一个 Editor Utility Widget 或编辑器工具蓝图，搜 `Concert Replication` 分类（`UConcertReplicationBlueprintFunctionLibrary`）。用 `Get Property String Path` 把 `FConcertPropertyChain` 变成如 `RelativeLocation` / `X` 的 Name 数组。",
+      "在已连接的会话里，用这些节点组装要流的属性选择、Mute/Leave Replication 请求；先对一个 Actor 的 Transform 做流式同步，再扩到动画/组件。",
+      "权威与过滤仍由 Concert Sync 的 replication manager 决定（先注册先权威）。游戏 Target 不要链接这两个模块；只在编辑器工具里用。"
+    ],
+    "en_steps": [
+      "With Multi-User sessions already working, enable `Concert Replication Scripting` (`ConcertReplicationScripting` + `ConcertReplicationScriptingEditor`).",
+      "It exposes Concert Replication types to Blueprints/Editor Utilities (property paths, mute/leave replication) — not gameplay `Replicated` properties.",
+      "In an Editor Utility Widget, search the `Concert Replication` category (`UConcertReplicationBlueprintFunctionLibrary`). `Get Property String Path` turns an `FConcertPropertyChain` into names like `RelativeLocation` / `X`.",
+      "In a live session, build property selections and Mute/Leave Replication requests with those nodes. Prove streaming on one Actor’s Transform before adding animation/components.",
+      "Authority and filtering stay in Concert Sync’s replication manager (first registrant wins). Do not link these modules from a game Target; editor tools only."
+    ],
+    "note_cn": "多人编辑属性流的蓝图包装，不是 Actor 复制。没有 Concert Sync 会话则节点无对象可流。",
+    "note_en": "Blueprint wrappers for Multi-User property streaming, not Actor replication. Without a Concert Sync session the nodes have nothing to stream."
+  }
+]

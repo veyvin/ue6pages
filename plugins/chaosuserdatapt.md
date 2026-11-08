@@ -3,7 +3,6 @@ layout: default
 title: 混沌用户数据PT / ChaosUserDataPT
 ---
 
-
 <h1>混沌用户数据PT / ChaosUserDataPT</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 混沌用户数据PT / ChaosUserDataPT
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">自定义每粒子用户数据。在游戏线程上只写，在物理线程上只读。</div><div class="lang-content">Custom per-particle userdata. Write-only on game thread, read-only on physics thread.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">ChaosUserDataPT</code>（模块 <code class="usage-code">ChaosUserDataPT</code>）并重启。它提供「游戏线程只写、物理线程只读」的每粒子自定义数据，没有窗口面板。</li><li>游戏 <code class="usage-code">Build.cs</code> 加入 <code class="usage-code">ChaosUserDataPT</code>，<code class="usage-code">#include</code> 插件 Public 头，在 GT 上按粒子句柄写入伤害类型、队伍、忽略碰撞掩码等用户数据。</li><li>在物理线程回调（碰撞修饰、接触过滤、求解器中间件）里只读这份数据，不要在 PT 回写，也不要在 GT 读同一槽做同步假设。</li><li>粒子被销毁或 GC 簇释放时清掉对应 userdata，避免句柄复用读到脏标签。</li><li>用引擎 <code class="usage-code">ChaosUserDataPTTests</code> 程序验证封送；联机时 userdata 不会自动复制，复制的是你在 GT 写入前的玩法状态。</li><li>不要用它在物理线程碰 <code class="usage-code">UObject</code>。它只是粒子侧 POD/句柄载荷，用来避免 GT/PT 竞态。</li></ol><p class="usage-note">C++ 粒子用户数据通道：GT 写、PT 读。不是编辑器工具，尽管分类写的是 Editor。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">ChaosUserDataPT</code> (module <code class="usage-code">ChaosUserDataPT</code>) and restart. It is per-particle userdata that is write-only on the game thread and read-only on the physics thread — no editor panel.</li><li>Add <code class="usage-code">ChaosUserDataPT</code> to game <code class="usage-code">Build.cs</code>, include the plugin Public headers, and from the GT write damage type, team, ignore masks, etc. keyed by particle handle.</li><li>In PT callbacks (collision modifiers, contact filters, solver middleware) only read that payload. Do not write it on the PT, and do not treat a GT read of the same slot as synchronized.</li><li>Clear userdata when particles die or GC clusters release, or handle reuse will see stale tags.</li><li>Use the engine <code class="usage-code">ChaosUserDataPTTests</code> program to verify marshalling. Userdata is not replicated; replicate the gameplay state you write from on the GT.</li><li>Do not touch <code class="usage-code">UObject</code>s on the physics thread. This is POD/handle payload on particles to avoid GT/PT races.</li></ol><p class="usage-note">C++ per-particle userdata channel: GT write, PT read. Not an editor tool, despite the Editor category.</p></div></div></div>
+    </div>
+

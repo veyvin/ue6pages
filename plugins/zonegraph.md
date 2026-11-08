@@ -3,7 +3,6 @@ layout: default
 title: 区域图 / ZoneGraph
 ---
 
-
 <h1>区域图 / ZoneGraph</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 区域图 / ZoneGraph
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">缺少说明。</div><div class="lang-content">Description missing.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">ZoneGraph</code>（运行时 <code class="usage-code">ZoneGraph</code>，编辑器 <code class="usage-code">ZoneGraphEditor</code>，测试 <code class="usage-code">ZoneGraphTestSuite</code>，<code class="usage-code">ZoneGraphDebug</code>）。</li><li>它是区域图系统（为 AI/人群提供沿通道/车道的高效移动与寻路图）。</li><li>用 ZoneGraph 搭建车道/通道图，驱动 AI/车辆/人群移动。</li><li>Game 模块依赖运行时模块；编辑器/测试/调试模块只进 Editor Target。</li></ol><p class="usage-note">为 AI/人群提供通道图移动与寻路的区域图系统。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">ZoneGraph</code> (runtime <code class="usage-code">ZoneGraph</code>, editor <code class="usage-code">ZoneGraphEditor</code>, tests <code class="usage-code">ZoneGraphTestSuite</code>, <code class="usage-code">ZoneGraphDebug</code>).</li><li>It is the ZoneGraph system (an efficient movement/pathing graph of lanes/corridors for AI/crowds).</li><li>Build lane/corridor graphs with ZoneGraph to drive AI/vehicle/crowd movement.</li><li>Game modules depend on runtime modules; editor/test/debug modules go to Editor targets only.</li></ol><p class="usage-note">A lane/corridor graph system for AI/crowd movement and pathing.</p></div></div></div>
+    </div>
+

@@ -3,7 +3,6 @@ layout: default
 title: 音乐会洞察可视化工具 / ConcertInsightsVisualizer
 ---
 
-
 <h1>音乐会洞察可视化工具 / ConcertInsightsVisualizer</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 音乐会洞察可视化工具 / ConcertInsightsVisualizer
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">在 Unreal Insights 中分析并提供 Concert 消息类型的可视化小部件。</div><div class="lang-content">Analyses and provides visualization widgets for Concert message types in Unreal Insights.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>对 <code class="usage-code">UnrealInsights</code> 启用 <code class="usage-code">ConcertInsightsVisualizer</code>（模块 <code class="usage-code">ConcertInsightsVisualizer</code>）；它分析 Concert 消息类型并画出控件，不是编辑器状态栏。</li><li>用 <code class="usage-code">ConcertInsightsClient</code> 录好多端 <code class="usage-code">.utrace</code> 后，用 Insights 打开其中一份（或同时打开服务器那份）。</li><li>在 Timing Insights / Concert 相关分析页查看消息类型时间线（会话事件、事务、包、presence），不要当普通 CPU 采样。</li><li>选一条 Concert 消息看载荷大小与发送端点，用来查同步卡顿是广播风暴还是单端卡编译。</li><li>可视化只存在于 Insights 进程；不要把该模块加进游戏或普通编辑器运行时依赖。</li></ol><p class="usage-note">Insights 插件：看 Concert 报文，不负责开录。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">ConcertInsightsVisualizer</code> (module <code class="usage-code">ConcertInsightsVisualizer</code>) for <code class="usage-code">UnrealInsights</code>. It analyzes Concert message types and draws widgets — not the editor status bar.</li><li>After <code class="usage-code">ConcertInsightsClient</code> records multi-endpoint <code class="usage-code">.utrace</code> files, open one in Insights (and the server file if you have it).</li><li>In Timing Insights / Concert analyzer views, read message-type timelines (session events, transactions, packages, presence) — not generic CPU samples.</li><li>Select a Concert message to inspect payload size and sending endpoint when deciding whether a hitch is a broadcast storm or a local compile stall.</li><li>Visualization lives in the Insights process; do not add this module to a game or normal editor runtime.</li></ol><p class="usage-note">Insights plugin for Concert messages; it does not start recording.</p></div></div></div>
+    </div>
+

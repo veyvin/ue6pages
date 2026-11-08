@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "androiddevicedetection",
+    "kind": "module",
+    "cn": "AndroidDeviceDetection 负责在编辑器与打包流水线中识别已连接的 Android 真机与模拟器。它读取设备型号、GPU、API 级别等信息，并与 PIEPreviewDeviceSpecification 的预览配置对齐。桌面端通过 JSON 描述设备能力，供 Android 目标平台选择部署对象。没有这层探测，编辑器无法把包推到正确的手持设备上。",
+    "en": "AndroidDeviceDetection identifies connected Android handsets and emulators for the editor and cook/deploy pipeline. It gathers model, GPU, and API-level facts and matches them against PIE preview device specifications. Desktop tooling consumes the JSON device records so the Android target platform can pick a deploy destination. Without this probe layer, the editor cannot push a package onto the intended device."
+  },
+  {
+    "slug": "androidlocalnotification",
+    "kind": "module",
+    "cn": "AndroidLocalNotification 把引擎的本地通知请求落到 Android 的 NotificationManager 上。它在进程不在前台时仍可按日程弹出标题、正文与图标，并处理点击后的启动 Intent。该模块挂在 Launch 启动路径上，确保游戏进程尚未完全起来时系统回调也能送达。用于日程提醒、体力恢复一类不依赖服务器推送的提示。",
+    "en": "AndroidLocalNotification maps engine local-notification requests onto Android’s NotificationManager. It can still show title, body, and icon on a schedule while the process is backgrounded, and it handles the launch Intent when the user taps the notice. The module is wired into the Launch path so system callbacks arrive even before the game is fully up. Use it for timers and stamina-style alerts that do not need a push server."
+  },
+  {
+    "slug": "androidplatformeditor",
+    "kind": "module",
+    "cn": "AndroidPlatformEditor 提供编辑器里 Android 工程页的全部界面：SDK 路径、包名、签名、纹理与着色器质量、音频设置以及源码控制相关选项。它把 AndroidRuntimeSettings 与设备探测结果呈现为 PropertyEditor 细节面板。材质着色器质量与共享设置控件也从这里接入，避免在项目设置里散落多套 Android 页。改打包行为时，优先改的是这个编辑器模块而不是运行时。",
+    "en": "AndroidPlatformEditor owns the editor Project Settings pages for Android: SDK paths, package id, signing, texture and shader quality, audio, and source-control related options. It surfaces AndroidRuntimeSettings and device-detection results through PropertyEditor details. Material shader quality and shared settings widgets are wired in here so Android pages are not scattered. When packaging behavior needs a UI change, this editor module is the place to edit—not the runtime."
+  },
+  {
+    "slug": "androidruntimesettings",
+    "kind": "module",
+    "cn": "AndroidRuntimeSettings 保存会打进游戏包的 Android 运行时配置：最低/目标 API、方向、沉浸式模式、音频后端选择等。它作为 UObject 配置对象被 TargetPlatform 在 cook 时读取。音频平台配置也从这里汇总，保证设备上的混音器与编辑器里勾选的一致。修改这些字段会改变安装包清单与启动行为，而不仅是编辑器显示。",
+    "en": "AndroidRuntimeSettings stores Android runtime options that are cooked into the game: min/target API, orientation, immersive mode, and audio-backend choice. TargetPlatform reads this UObject config during cook. Audio platform configuration is folded in so the on-device mixer matches what was ticked in the editor. Changing these fields alters the package manifest and launch behavior, not merely editor display."
+  },
+  {
+    "slug": "androidtargetplatform",
+    "kind": "module",
+    "cn": "AndroidTargetPlatform 实现引擎的 ITargetPlatform 接口，定义 Android 如何被 cook、部署与运行。它结合设备探测与音频平台配置，决定纹理格式、着色器平台和包布局。DesktopPlatform 用于调用 SDK 工具链完成安装与启动。这是编辑器“启动到 Android”按钮背后的平台实现，而不是设置面板本身。",
+    "en": "AndroidTargetPlatform implements ITargetPlatform for how Android is cooked, deployed, and run. It combines device detection with audio platform configuration to choose texture formats, shader platforms, and package layout. DesktopPlatform is used to invoke the SDK toolchain for install and launch. This is the platform implementation behind “Launch on Android”, not the settings panel itself."
+  },
+  {
+    "slug": "androidtargetplatformcontrols",
+    "kind": "module",
+    "cn": "AndroidTargetPlatformControls 把 Android 目标平台的交互控件从设置数据中拆出来，负责设备选择、部署按钮与 cook 选项的实际操作。它依赖 AndroidTargetPlatformSettings 读取当前配置，再通过设备探测刷新可选真机列表。音频平台配置同样参与控件状态，避免在不支持的设备上启用错误后端。该模块只存在于开发者工具侧，不会打进游戏包。",
+    "en": "AndroidTargetPlatformControls splits interactive Android target-platform widgets from the settings data: device pickers, deploy actions, and cook option controls. It reads AndroidTargetPlatformSettings and refreshes the live device list via detection. Audio platform configuration also drives control state so an unsupported backend is not offered. This module stays in developer tools and is not cooked into the game."
+  },
+  {
+    "slug": "androidtargetplatformsettings",
+    "kind": "module",
+    "cn": "AndroidTargetPlatformSettings 存放 Android 目标平台的 cook/部署参数，与运行时设置分离。它告诉目标平台使用哪套架构、纹理压缩和包变体，供 Controls 模块展示。DesktopPlatform 用于解析本机 SDK 与 NDK 路径是否可用。改这里影响的是“如何为 Android 出包”，而不是设备上的玩家选项。",
+    "en": "AndroidTargetPlatformSettings holds cook and deploy parameters for the Android target platform, separate from runtime settings. It tells the target platform which architectures, texture compression, and package flavors to use, which Controls then display. DesktopPlatform is used to resolve whether local SDK and NDK paths are valid. Edits here change how an Android package is built, not in-game player options."
+  },
+  {
+    "slug": "angle",
+    "kind": "module",
+    "cn": "ANGLE 是 Google 的 Almost Native Graphics Layer Engine，把 OpenGL ES 调用翻译到 Direct3D、Vulkan 或 Metal。引擎把它作为第三方图形层，用于在没有原生 GLES 驱动的桌面或测试环境中跑 ES 着色器路径。该 Build.cs 不声明引擎模块依赖，只负责把头文件与库链进需要 GLES 兼容的目标。移动预览、部分编辑器视口和自动化截图会间接触到它。",
+    "en": "ANGLE is Google’s Almost Native Graphics Layer Engine; it translates OpenGL ES calls onto Direct3D, Vulkan, or Metal. Unreal vendors it so ES shader paths can run on desktops or test hosts that lack a native GLES driver. The Build.cs declares no engine module dependencies and only injects headers and libs into GLES-compatible targets. Mobile preview, some editor viewports, and screenshot automation can hit it indirectly."
+  },
+  {
+    "slug": "animationblueprinteditor",
+    "kind": "module",
+    "cn": "AnimationBlueprintEditor 是动画蓝图资源的专用编辑器，基于 Persona 骨架视口与 GraphEditor 图表面板。它编辑 AnimGraph 节点、状态机与事件图表，并把 AnimGraphRuntime 的求值结果画在预览角色上。属性面板、Kismet 小部件和 ToolMenus 一起构成工具栏与细节视图。打开一份 AnimBP 时，真正承载图表交互的就是这个模块。",
+    "en": "AnimationBlueprintEditor is the dedicated asset editor for Animation Blueprints, built on Persona’s skeleton viewport and GraphEditor. It edits AnimGraph nodes, state machines, and event graphs, and draws AnimGraphRuntime evaluation on the preview character. Property panels, Kismet widgets, and ToolMenus form the toolbar and details view. When an AnimBP is opened, this module owns the graph interaction."
+  },
+  {
+    "slug": "animationcore",
+    "kind": "module",
+    "cn": "AnimationCore 提供与引擎对象系统解耦的动画数学：约束、骨骼层次、两骨 IK、瞄准与空间转换。它只依赖 Core 与 CoreUObject，因此运行时与编辑器工具都能安全引用同一套求解器。控制绑定、重定向和许多 AnimGraph 节点底层都调用这里的数据结构。它不播放 Montage，只做姿态空间里的几何计算。",
+    "en": "AnimationCore supplies animation math that is decoupled from the full engine object model: constraints, bone hierarchies, two-bone IK, look-at, and space conversion. It depends only on Core and CoreUObject, so runtime and editor tools can share the same solvers. Control Rig, retargeting, and many AnimGraph nodes call its data structures. It does not play montages; it computes geometry in pose space."
+  },
+  {
+    "slug": "animationeditmode",
+    "kind": "module",
+    "cn": "AnimationEditMode 把 Interactive Tools Framework 接到动画编辑视口，提供骨骼操纵、约束小工具与视口点击选择。它作为编辑模式注册到 UnrealEd，与网格体编辑模式并列。EditorInteractiveToolsFramework 负责工具生命周期，本模块则定义动画场景下的点击与 Gizmo 行为。在 Persona 或动画编辑器里拖骨骼时走的就是这条路径。",
+    "en": "AnimationEditMode plugs the Interactive Tools Framework into animation viewports for bone manipulators, constraint gizmos, and click selection. It registers with UnrealEd as an edit mode alongside mesh editing. EditorInteractiveToolsFramework owns tool lifetime; this module defines click and gizmo behavior in an animation scene. Dragging bones in Persona or the animation editor follows this path."
+  },
+  {
+    "slug": "animationeditor",
+    "kind": "module",
+    "cn": "AnimationEditor 打开 Animation Sequence、Blend Space 等动画资源，提供时间轴、曲线和骨架预览。它复用 Persona 与 SkeletonEditor，而把序列特有的轨道与通知编辑放在本模块。AnimGraph 依赖用于预览动画蓝图叠加，TypedElementRuntime 支持视口里的元素选择。这是内容浏览器双击动画资产后进入的主编辑器，不是动画蓝图图表。",
+    "en": "AnimationEditor opens Animation Sequences, blend spaces, and related assets with a timeline, curves, and skeleton preview. It reuses Persona and SkeletonEditor, and keeps sequence-specific track and notify editing here. AnimGraph is used when previewing AnimBP overlays; TypedElementRuntime supports viewport element selection. This is the editor you enter after double-clicking an animation asset, not the AnimBP graph."
+  },
+  {
+    "slug": "animationeditorwidgets",
+    "kind": "module",
+    "cn": "AnimationEditorWidgets 集中存放动画编辑器共用的 Slate 控件：曲线编辑条、时间轴片段、骨骼树过滤与工具菜单注册。它依赖 AnimationCore 来绘制约束与空间指示，并用 WidgetRegistration 把控件挂到可扩展工具栏。GraphEditor 与 PropertyEditor 在此组合成可嵌入的面板，而不是完整的资源编辑器。其他动画工具通过这个模块避免复制一套 UI。",
+    "en": "AnimationEditorWidgets hosts shared Slate controls for animation editors: curve strips, timeline fragments, bone-tree filters, and tool-menu registration. It uses AnimationCore to draw constraint and space cues, and WidgetRegistration to attach controls to extensible toolbars. GraphEditor and PropertyEditor are composed into embeddable panels rather than a full asset editor. Other animation tools consume this module instead of cloning UI."
+  },
+  {
+    "slug": "animationmodifiers",
+    "kind": "module",
+    "cn": "AnimationModifiers 实现动画修改器资源：在导入或重新应用时批处理曲线、通知、根运动和骨骼轨道。它通过 AnimationBlueprintLibrary 读写序列，并在内容浏览器与类查看器里暴露可创建的修改器类。开发者设置决定默认应用时机，ToolMenus 提供“应用修改器”入口。适合统一脚步通知或剥离无用曲线，而无需手改每一条动画。",
+    "en": "AnimationModifiers implements animation-modifier assets that batch-edit curves, notifies, root motion, and bone tracks on import or re-apply. It reads and writes sequences through AnimationBlueprintLibrary and exposes creatable modifier classes in the Content Browser and class viewer. Developer settings choose default apply timing; ToolMenus add the Apply Modifiers entry. Use it to stamp footstep notifies or strip unused curves without hand-editing every sequence."
+  },
+  {
+    "slug": "animationsettings",
+    "kind": "module",
+    "cn": "AnimationSettings 对应项目设置中的动画页，保存默认插值、压缩提示、根运动与 Tick 相关选项。编辑器在打开动画工具前读取这些默认值，运行时 cook 时也会带上需要的标志。它几乎没有模块依赖，只作为配置容器存在。改压缩或默认采样率时，改的是这份设置而不是单个 AnimSequence。",
+    "en": "AnimationSettings backs the Animation page in Project Settings: default interpolation, compression hints, root-motion, and tick-related options. Editors read these defaults before animation tools open, and cook can stamp the flags that must ship. It declares almost no module dependencies and exists as a config container. Compression or default sample-rate changes belong here, not on a single AnimSequence."
+  },
+  {
+    "slug": "animationwidgets",
+    "kind": "module",
+    "cn": "AnimationWidgets 是 Developer 层的动画 Slate 控件库，比 AnimationEditorWidgets 更底层、更可被非 Persona 工具复用。它用 AnimationCore 画骨骼与约束小部件，并接入 GraphEditor 与属性面板。UnrealEd 依赖让这些控件能出现在独立开发者窗口里。自定义动画调试器或控制绑定面板通常会链到这里。",
+    "en": "AnimationWidgets is the Developer-layer Slate library for animation controls, lower-level than AnimationEditorWidgets and reusable outside Persona. It draws bone and constraint widgets via AnimationCore and hooks GraphEditor plus property panels. UnrealEd lets these controls appear in standalone developer windows. Custom animation debuggers or Control Rig panels typically link this module."
+  },
+  {
+    "slug": "animgraph",
+    "kind": "module",
+    "cn": "AnimGraph 定义动画蓝图图表在编辑器中的节点类型：状态机、混合空间、Linked Anim Graph、属性访问等 UK2 风格节点。它把 BlueprintGraph 的引脚与编译规则特化到动画，并在 AnimationEditMode 下支持视口里的节点预览。Persona 与动画蓝图编辑器都通过本模块创建节点实例。运行时求值不在这里，而在 AnimGraphRuntime。",
+    "en": "AnimGraph defines editor-side Animation Blueprint node types: state machines, blend spaces, linked anim graphs, property access, and other K2-style nodes. It specializes BlueprintGraph pins and compile rules for animation, and supports viewport node preview under AnimationEditMode. Persona and the AnimBP editor instantiate nodes through this module. Runtime evaluation lives in AnimGraphRuntime, not here."
+  },
+  {
+    "slug": "animgraphruntime",
+    "kind": "module",
+    "cn": "AnimGraphRuntime 在游戏线程上求值动画图表：混合、AimOffset、刚体、几何集合驱动的节点以及时间管理。它使用 AnimationCore 做姿态数学，并用 TraceLog 输出动画洞察通道。GeometryCollectionEngine 依赖让破碎网格体也能作为动画输入。Cook 后的 AnimBP 在设备上跑的就是这一套，不含任何编辑器节点 UI。",
+    "en": "AnimGraphRuntime evaluates animation graphs on the game thread: blends, aim offsets, rigid-body nodes, geometry-collection-driven nodes, and time management. It uses AnimationCore for pose math and TraceLog for animation insight channels. GeometryCollectionEngine lets fractured meshes feed animation inputs. Cooked AnimBPs run this code on device; there is no editor node UI here."
+  },
+  {
+    "slug": "appframework",
+    "kind": "module",
+    "cn": "AppFramework 提供建立在 Slate 之上的应用程序级控件：颜色选择器、独立窗口框架、通知与常用对话框。它连接 ApplicationCore 的原生窗口与 SlateCore 的绘制，让工具程序不必直接碰操作系统 API。许多编辑器浮动面板和独立程序（如虚幻前端）都复用这里的窗口外壳。它不负责游戏视口，只负责桌面应用框架。",
+    "en": "AppFramework supplies application-level Slate widgets: color pickers, standalone window frames, notifications, and common dialogs. It bridges ApplicationCore native windows with SlateCore painting so tools need not call OS APIs directly. Many editor floating panels and standalone programs such as Unreal Frontend reuse this window chrome. It does not own the game viewport; it owns desktop app scaffolding."
+  },
+  {
+    "slug": "applecryptokit",
+    "kind": "module",
+    "cn": "AppleCryptoKit 把 Apple CryptoKit 的摘要、对称加密与安全随机数封装给引擎 Core 层调用。它只在 Apple 目标上编译，用于密钥材料与完整性校验，而不是通用网络栈。依赖极窄，避免把 Security.framework 细节泄漏到游戏代码。iOS/macOS 上需要系统级加密原语时走这个模块。",
+    "en": "AppleCryptoKit wraps Apple CryptoKit digests, symmetric crypto, and secure random for the engine Core layer. It compiles only on Apple targets and is meant for key material and integrity checks, not a general networking stack. The dependency surface is tiny so Security.framework details stay out of game code. Use this module when iOS or macOS needs system cryptographic primitives."
+  },
+  {
+    "slug": "applicationcore",
+    "kind": "module",
+    "cn": "ApplicationCore 是平台应用的根基：消息循环、原生窗口、光标、剪贴板、IME 与应用生命周期。它把各操作系统的入口统一成 FGenericApplication，供 Slate 和 RHI 创建交换链。后台 HTTP 文件哈希与 iOS 后台传输也在此衔接，因为系统会在应用挂起时回调。没有它就没有编辑器窗口，也没有游戏的主窗口。",
+    "en": "ApplicationCore is the platform application root: message pump, native windows, cursor, clipboard, IME, and app lifetime. It unifies OS entry points into FGenericApplication so Slate and RHI can create swap chains. Background HTTP file hashing and iOS background transfers hook in here because the OS callbacks during suspend. Without it there is no editor window and no game main window."
+  },
+  {
+    "slug": "applicationcoreinputtests",
+    "kind": "module",
+    "cn": "ApplicationCoreInputTests 是独立测试程序，专门验证 ApplicationCore 的键鼠、触控与焦点路径。它不启动完整引擎，只拉起 Core 与窗口层，便于在 CI 上复现输入回归。失败时指向的是平台消息循环或按键映射，而不是游戏 PlayerController。平台输入改动后应先跑这个程序再进编辑器。",
+    "en": "ApplicationCoreInputTests is a standalone program that stresses ApplicationCore keyboard, mouse, touch, and focus paths. It does not boot the full engine; it only brings up Core and the window layer so CI can reproduce input regressions. Failures point at the platform message pump or key mapping, not a PlayerController. Run it after platform input changes before opening the editor."
+  },
+  {
+    "slug": "armlibgpuinfo",
+    "kind": "module",
+    "cn": "ArmlibGPUInfo 封装 ARM 官方 GPU 信息库，用于查询 Mali / Immortalis 的架构、核心数与特性位。渲染与设备分析代码据此选择着色器变体或警告不支持的扩展。作为第三方模块，它不依赖引擎其它模块，只向外导出查询 API。在 Android 上做 ARM GPU 分级或驱动 workaround 时会用到。",
+    "en": "ArmlibGPUInfo wraps ARM’s official GPU info library to query Mali and Immortalis architecture, core count, and feature bits. Rendering and device-profiling code uses that to pick shader variants or warn about missing extensions. As a third-party module it depends on nothing else in the engine and only exports query APIs. Android GPU tiering and driver workarounds for ARM GPUs go through it."
+  },
+  {
+    "slug": "asdcore",
+    "kind": "module",
+    "cn": "ASDCore 是 Windows 上着色器与派生数据服务的客户端核心，通过 HTTP 与 JSON 与远程端点对话。它把编译任务、缓存键和状态机从具体工具程序中抽出来，供 ASDTool 复用。运行时模块放在 Runtime/Windows，以便编辑器进程也能查询同一套服务。不处理 D3D 设备创建，只处理服务协议与会话。",
+    "en": "ASDCore is the Windows client core for shader and derived-data services, speaking HTTP and JSON to remote endpoints. It factors compilation jobs, cache keys, and session state out of concrete tool programs so ASDTool can reuse them. Living under Runtime/Windows lets the editor process query the same service. It does not create D3D devices; it owns the service protocol and session."
+  },
+  {
+    "slug": "asdtool",
+    "kind": "module",
+    "cn": "ASDTool 是 Windows 独立程序，负责远程/分布式着色器编译、派生数据写入以及与 S3、UBA、Pak 工具链对接。它使用 ASDCore 的协议，再挂上 D3D12RHI、ShaderCompilerCommon 和 DerivedDataCache 真正出字节。SQLite 与 SSL 用于本地任务账本和安全传输。农场出着色器或把缓存推到对象存储时，跑的是这个命令行，而不是编辑器按钮。",
+    "en": "ASDTool is a Windows standalone program for remote or distributed shader compilation, derived-data writes, and hand-off to S3, UBA, and pak tooling. It uses ASDCore’s protocol, then D3D12RHI, ShaderCompilerCommon, and DerivedDataCache to emit bytes. SQLite and SSL back a local job ledger and secure transport. Shader farms and cache pushes to object storage run this CLI, not an editor button."
+  },
+  {
+    "slug": "asio",
+    "kind": "module",
+    "cn": "Asio 把独立版 Boost.Asio 以引擎模块形式导出，提供异步 socket、定时器与 SSL 流。它依赖 OpenSSL，供需要 proactor 网络模型的工具和运行时代码使用。这不是引擎高层的 OnlineSubsystem，而是底层 C++ 异步 I/O。自定义网关、构建工具或遥测上报若不想自带 Asio，就链这个第三方模块。",
+    "en": "Asio exports standalone Boost.Asio as an engine module, with async sockets, timers, and SSL streams. It depends on OpenSSL for tools and runtime code that want a proactor networking model. This is not OnlineSubsystem; it is low-level C++ async I/O. Custom gateways, build tools, or telemetry that should not vendor their own Asio link this third-party module."
+  },
+  {
+    "slug": "assetdefinition",
+    "kind": "module",
+    "cn": "AssetDefinition 定义内容浏览器里每类资产的颜色、动作、打开方式和菜单扩展点。新资产类型通过它注册“双击打开哪个编辑器、能拖到哪个 Actor”。编辑器其它系统（AssetTools、内容浏览器数据）都查询这份注册表，而不是硬编码类名。扩展项目资产类型时，应先实现 Asset Definition，而不是改内容浏览器源码。",
+    "en": "AssetDefinition describes how each asset type appears in the Content Browser: color, actions, open behavior, and menu extension points. New types register which editor opens on double-click and which actors accept drops. AssetTools and Content Browser data query this registry instead of hard-coded class names. When adding a project asset type, implement an Asset Definition rather than patching the browser."
+  },
+  {
+    "slug": "assetregistry",
+    "kind": "module",
+    "cn": "AssetRegistry 扫描并缓存包内资产的类、依赖、标签与磁盘路径，供编辑器搜索与运行时软引用解析。它能从 Pak 与工程描述读取，并用 TraceLog 记录扫描耗时。TelemetryUtils 上报资源发现指标，ApplicationCore 则提供应用生命周期以便后台刷新。内容浏览器过滤器、引用查看器和加载重定向都建立在这份注册表上。",
+    "en": "AssetRegistry scans and caches class, dependency, tag, and disk-path data for packaged assets so the editor can search and runtime can resolve soft references. It reads from pak files and project descriptors, and traces scan cost via TraceLog. TelemetryUtils reports discovery metrics; ApplicationCore supplies app lifetime for background refresh. Content Browser filters, reference viewers, and load redirectors sit on this registry."
+  },
+  {
+    "slug": "assetstatuscontributor",
+    "kind": "module",
+    "cn": "AssetStatusContributor 允许其它系统向资产缩略图或列表行贡献状态徽章，例如检出锁定、校验错误或协作占用。它只依赖 Slate，把绘制协议标准化，避免每个工具自己画角标。内容浏览器和资产视图通过接口查询贡献者列表。源码控制或数据校验插件应实现贡献者，而不是改浏览器绘制代码。",
+    "en": "AssetStatusContributor lets other systems stamp status badges onto asset thumbnails or list rows—checked-out locks, validation errors, or collaboration occupancy. It depends only on Slate and standardizes the draw protocol so every tool does not paint its own corner glyph. The Content Browser and asset views query the contributor list through the interface. Source-control or data-validation plugins should implement a contributor instead of patching browser painting."
+  },
+  {
+    "slug": "assettagseditor",
+    "kind": "module",
+    "cn": "AssetTagsEditor 提供编辑资产 Collection / Tag 元数据的 Slate 界面，让策划在不写代码的情况下给资产打检索标签。它读写 CoreUObject 上的标签字段，并与内容浏览器的过滤栏联动。该编辑器模块不负责扫描磁盘，只负责改标签。批量整理资源库分类时用这个面板，而不是手改 AssetRegistry 二进制。",
+    "en": "AssetTagsEditor provides Slate UI for editing asset collection and tag metadata so designers can stamp searchable tags without code. It reads and writes tag fields on CoreUObject objects and stays in sync with Content Browser filter bars. The module does not scan disk; it only edits tags. Use this panel to bulk-organize a library rather than hand-editing AssetRegistry binaries."
+  },
+  {
+    "slug": "assettools",
+    "kind": "module",
+    "cn": "AssetTools 是资产操作的中枢：创建、复制、重命名、合并、迁移、修正重定向器，以及调用对应工厂。它查询 AssetDefinition 与 AssetRegistry，并在需要时打开类查看器和属性窗口。地形、植被、物理与 Interchange 导入管线都通过它落地为资产。编辑器脚本与内容浏览器右键菜单最终大多会调到这个模块。",
+    "en": "AssetTools is the hub for asset operations: create, duplicate, rename, consolidate, migrate, fix up redirectors, and invoke factories. It queries AssetDefinition and AssetRegistry, and opens the class viewer or property windows when needed. Landscape, foliage, physics, and Interchange import pipelines land as assets through it. Editor scripting and Content Browser context menus almost always end up here."
+  },
+  {
+    "slug": "astcenc",
+    "kind": "module",
+    "cn": "astcenc 封装 ARM 的 ASTC 纹理编码器，把源像素压成 ASTC 块供移动 GPU 直接采样。它作为 External 模块链进纹理格式与 cook worker，不依赖引擎运行时。Android/iOS 打包选择 ASTC 时，压缩内核就是这个库。调整质量与速度权衡应通过纹理格式模块的选项，而不是改游戏材质。",
+    "en": "astcenc wraps ARM’s ASTC texture encoder, compressing source pixels into ASTC blocks that mobile GPUs sample directly. It is an External module linked from texture-format code and cook workers, with no engine runtime dependency. When Android or iOS packaging selects ASTC, this library is the compressor. Quality versus speed belongs in texture-format options, not in gameplay materials."
+  },
+  {
+    "slug": "asyncfunctionresult",
+    "kind": "module",
+    "cn": "AsyncFunctionResult 用 JSON 表达异步函数的完成、失败与进度，供编辑器工具、脚本和远程调用在线程间传递结果。它不绑定具体业务，只提供可序列化的结果信封和 CoreUObject 包装。JsonUtilities 负责结构体进出 JSON。长任务需要把状态写回 UI 或自动化控制器时使用这套类型。",
+    "en": "AsyncFunctionResult expresses async completion, failure, and progress as JSON so editor tools, scripts, and remote calls can pass results across threads. It is not tied to one feature; it is a serializable result envelope wrapped in CoreUObject. JsonUtilities moves structs in and out of JSON. Long-running work that must report status back to UI or an automation controller uses these types."
+  },
+  {
+    "slug": "asyncfunctionresulteditor",
+    "kind": "module",
+    "cn": "AsyncFunctionResultEditor 在 UnrealEd 中展示与调试 AsyncFunctionResult，把 JSON 结果变成可检查的细节面板。它让编辑器工具作者看到进行中任务的结构化输出，而不是只看日志。引擎依赖用于在 PIE 或编辑器子系统里订阅结果。没有这个模块，运行时信封类型仍可用，只是缺少编辑器可视化。",
+    "en": "AsyncFunctionResultEditor surfaces and debugs AsyncFunctionResult inside UnrealEd, turning JSON payloads into inspectable details panels. Tool authors can see structured output of in-flight work instead of log lines only. Engine is linked so PIE or editor subsystems can subscribe to results. Without this module the runtime envelope still works; you just lose editor visualization."
+  },
+  {
+    "slug": "atomicqueue",
+    "kind": "module",
+    "cn": "AtomicQueue 引入无锁多生产者/多消费者队列实现，用于音频、任务图或其它不能加互斥锁的热路径。作为 External 模块它不拉引擎依赖，只提供头文件级并发结构。在需要比 TQueue 更低延迟的跨线程投递时替换标准容器。选用前仍需确认内存序与容量是否符合该实现的约束。",
+    "en": "AtomicQueue vendors a lock-free MPMC queue for audio, task graphs, or other hot paths that cannot take a mutex. As an External module it pulls no engine dependencies and exposes header-level concurrent structures. Swap it in when cross-thread posting must beat TQueue latency. Capacity and memory-order constraints of this implementation still have to match the call site."
+  },
+  {
+    "slug": "audioanalyzer",
+    "kind": "module",
+    "cn": "AudioAnalyzer 在运行时对混音器输出或指定 SoundWave 做频谱、包络与节拍分析。它走 SignalProcessing 与 AudioMixer，把分析结果作为 UObject 属性提供给材质、灯光或游戏逻辑。适合做音画同步，而不是替代 MetaSound 里的 DSP 图。分析器资产在编辑器里配置，在游戏里 Tick 取样。",
+    "en": "AudioAnalyzer runs spectrum, envelope, and beat analysis on mixer output or a chosen SoundWave at runtime. It uses SignalProcessing and AudioMixer and exposes results as UObject properties for materials, lights, or gameplay. It is for audio-reactive visuals, not a replacement for a MetaSound DSP graph. Analyzer assets are configured in the editor and sampled on tick in-game."
+  },
+  {
+    "slug": "audiocaptureandroid",
+    "kind": "module",
+    "cn": "AudioCaptureAndroid 用 Google Oboe 在 Android 上实现麦克风采集，向 AudioCaptureCore 送 PCM。它处理低延迟独占/共享流、设备热插拔与权限失败。游戏语音、口型或录音功能在 Android 真机上走这条后端。不要在桌面编辑器里期望它工作，那是其它平台实现的职责。",
+    "en": "AudioCaptureAndroid captures microphone audio on Android via Google Oboe and feeds PCM into AudioCaptureCore. It handles low-latency exclusive or shared streams, device hotplug, and permission failure. In-game voice, lip-sync, or recording on Android devices uses this backend. Do not expect it in the desktop editor; other platform implementations cover that."
+  },
+  {
+    "slug": "audiocaptureaudiounit",
+    "kind": "module",
+    "cn": "AudioCaptureAudioUnit 通过 Apple Audio Unit 在 iOS/tvOS 上采集输入，实现 AudioCaptureCore 的平台接口。它管理 AVAudioSession 类别、中断（来电）与采样率协商。移动端语音聊天或现场录音在 Apple 设备上依赖此模块。与 macOS 的 Core Audio 混音器输出是不同路径。",
+    "en": "AudioCaptureAudioUnit captures input on iOS and tvOS through Apple Audio Units, implementing AudioCaptureCore’s platform interface. It manages AVAudioSession category, phone-call interrupts, and sample-rate negotiation. Mobile voice chat or field recording on Apple devices depends on this module. macOS Core Audio mixer output is a separate path."
+  },
+  {
+    "slug": "audiocapturecore",
+    "kind": "module",
+    "cn": "AudioCaptureCore 定义跨平台麦克风采集的抽象：设备枚举、开始/停止、缓冲回调与简单信号处理挂钩。各平台实现（WASAPI、Oboe、AudioUnit、SDL、RtAudio）都向这个核心投递采样。Engine 依赖让蓝图与子系统能拿到采集组件。写新平台采集后端时，应实现这里的接口而不是直接改游戏代码。",
+    "en": "AudioCaptureCore defines the cross-platform microphone capture abstraction: device enumeration, start/stop, buffer callbacks, and a light signal-processing hook. Platform backends (WASAPI, Oboe, AudioUnit, SDL, RtAudio) all post samples into this core. Engine is linked so Blueprints and subsystems can own capture components. A new platform capture backend should implement this interface rather than patching game code."
+  },
+  {
+    "slug": "audiocapturertaudio",
+    "kind": "module",
+    "cn": "AudioCaptureRtAudio 用 RtAudio 在桌面（尤其是没有专用 WASAPI/CoreAudio 路径的配置）上采集输入。它把设备名与通道布局翻译成 AudioCaptureCore 缓冲。适合编辑器预览、部分桌面目标或需要快速对接 ASIO/DirectSound 包装的场景。低延迟 Windows 发行版通常会优先 WASAPI 实现。",
+    "en": "AudioCaptureRtAudio captures desktop input through RtAudio, especially where a dedicated WASAPI or Core Audio path is not selected. It translates device names and channel layouts into AudioCaptureCore buffers. It fits editor preview, some desktop targets, or a quick ASIO/DirectSound wrap. Low-latency Windows shipping builds usually prefer the WASAPI implementation."
+  },
+  {
+    "slug": "audiocapturesdl",
+    "kind": "module",
+    "cn": "AudioCaptureSDL 在 Linux 上通过 SDL 音频 API 采集麦克风，并依赖 ApplicationCore 获取窗口/应用生命周期。它把 SDL 回调线程上的采样推入 AudioCaptureCore。发行 Linux 客户端的语音功能走这条路径。设备权限与 PulseAudio/PipeWire 冲突需要在 SDL 层处理，而不是在混音器图里处理。",
+    "en": "AudioCaptureSDL captures microphones on Linux through the SDL audio API and uses ApplicationCore for window and app lifetime. It posts samples from the SDL callback thread into AudioCaptureCore. Voice features on a shipping Linux client take this path. Device permissions and PulseAudio or PipeWire conflicts belong at the SDL layer, not in the mixer graph."
+  },
+  {
+    "slug": "audiocapturewasapi",
+    "kind": "module",
+    "cn": "AudioCaptureWasapi 使用 Windows Audio Session API 采集输入，并复用 AudioPlatformSupportWasapi 的设备枚举与格式协商。它面向低延迟共享/独占模式，是 Windows 上默认的采集后端。与 XAudio2/WASAPI 播放模块成对出现，但只负责输入。编辑器与 Win64 游戏的麦克风组件最终会落到这里。",
+    "en": "AudioCaptureWasapi captures input with the Windows Audio Session API, reusing AudioPlatformSupportWasapi for device enumeration and format negotiation. It targets low-latency shared or exclusive mode and is the default Windows capture backend. It pairs with XAudio2/WASAPI playback modules but owns input only. Editor and Win64 game microphone components land here."
+  },
+  {
+    "slug": "audiochannelagnosticcore",
+    "kind": "module",
+    "cn": "AudioChannelAgnosticCore 提供与扬声器布局无关的音频处理原语，让同一套 DSP 在立体声、5.1 或双耳之间转换。它建立在 SignalProcessing 上，被混音器和声场渲染在通道数变化时调用。核心目标是避免为每种声道配置复制算法。空间音频与平台混音器在重映射时依赖这份代码。",
+    "en": "AudioChannelAgnosticCore provides speaker-layout-agnostic audio primitives so the same DSP can move between stereo, 5.1, and binaural. It sits on SignalProcessing and is called by the mixer and sound-field rendering when channel counts change. The point is to avoid cloning algorithms per layout. Spatial audio and platform mixers depend on this remapping code."
+  },
+  {
+    "slug": "audioeditor",
+    "kind": "module",
+    "cn": "AudioEditor 承载 SoundWave、SoundCue、混响、衰减与音频音量等资产的编辑器，并集成 AudioMixer 预听。它大量依赖内容浏览器、蓝图图表与细节自定义，把导入、压缩预览和 AudioLink 发送做到同一套界面。关卡编辑器与 MovieScene 集成用于在关卡和过场中摆放音频。这是声音设计师日常打开的编辑器壳，不是运行时混音器。",
+    "en": "AudioEditor hosts editors for SoundWave, SoundCue, reverb, attenuation, and sound-class assets, with AudioMixer audition. It leans on the Content Browser, Blueprint graphs, and detail customizations so import, compression preview, and AudioLink send live in one UI. Level Editor and MovieScene integration place audio in levels and cinematics. This is the sound designer’s editor shell, not the runtime mixer."
+  },
+  {
+    "slug": "audioextensions",
+    "kind": "module",
+    "cn": "AudioExtensions 定义编解码器、子混合、效果与源总线的插件接口，让第三方音频系统接入 AudioMixerCore。它只依赖信号处理与 CoreUObject，保持扩展点稳定。Wwise、FMOD 或自定义编解码器通过实现这些接口挂上引擎，而不是分叉混音器。引擎升级时音频插件的二进制兼容主要靠这份 API。",
+    "en": "AudioExtensions defines plugin interfaces for codecs, submixes, effects, and source buses so third-party audio can attach to AudioMixerCore. It depends only on signal processing and CoreUObject to keep the extension surface stable. Wwise, FMOD, or a custom codec implement these interfaces instead of forking the mixer. Binary compatibility for audio plugins across engine upgrades rests on this API."
+  },
+  {
+    "slug": "audioformatadpcm",
+    "kind": "module",
+    "cn": "AudioFormatADPCM 是 cook 时把导入音频转成 ADPCM 的格式模块，调用 AdpcmAudioDecoder 做往返校验。它注册到引擎的音频格式工厂，供目标平台选择低内存压缩。移动或内存敏感平台常在包设置里启用它。运行时解码走对应的 ADPCM 解码器，本模块主要参与导入与 cook。",
+    "en": "AudioFormatADPCM is the cook-time format module that transcodes imported audio to ADPCM, using AdpcmAudioDecoder for round-trip checks. It registers with the engine audio format factory so target platforms can pick a low-memory codec. Mobile or memory-sensitive platforms often enable it in package settings. Runtime decode uses the matching ADPCM decoder; this module is mainly import and cook."
+  },
+  {
+    "slug": "audioformatbink",
+    "kind": "module",
+    "cn": "AudioFormatBink 在 cook 管线中把音频编码为 Bink Audio，供使用 Bink 解码器的目标使用。它只依赖 Core 与 Engine 的格式注册表，实际码流细节由 RAD 工具链完成。当项目选择 Bink 作为压缩格式时，导入的 SoundWave 会经此模块写出。与运行时 BinkAudioDecoder 成对，但职责停在编码侧。",
+    "en": "AudioFormatBink encodes audio to Bink Audio during cook for targets that use the Bink decoder. It depends only on Core and Engine’s format registry; bitstream details come from the RAD toolchain. When a project selects Bink compression, imported SoundWaves are written through this module. It pairs with runtime BinkAudioDecoder but stops at the encode side."
+  },
+  {
+    "slug": "audioformatogg",
+    "kind": "module",
+    "cn": "AudioFormatOgg 在 cook 时把 PCM 压成 Ogg Vorbis，并借助 VorbisAudioDecoder 验证。桌面与许多非移动目标仍用 Vorbis 作为质量/体积折中。格式模块向 Engine 注册扩展名与质量预设，供导入选项显示。运行时解的是 Vorbis 解码器，本模块负责出包前的转码。",
+    "en": "AudioFormatOgg compresses PCM to Ogg Vorbis at cook time and verifies with VorbisAudioDecoder. Desktop and many non-mobile targets still use Vorbis as a quality versus size tradeoff. The format module registers extensions and quality presets with Engine so import options can show them. Runtime decode is the Vorbis decoder; this module transcodes before packaging."
+  },
+  {
+    "slug": "audioformatopus",
+    "kind": "module",
+    "cn": "AudioFormatOpus 把导入音频 cook 成 Opus，适合语音与低码率音乐。它同时链接 Opus 与 Vorbis 解码器，以便在质量对比或回退路径上做转码检查。目标平台选择 Opus 后，SoundWave 的压缩数据由此写出。与 ADPCM/Bink 格式模块互斥选择，而不是运行时混用多种头。",
+    "en": "AudioFormatOpus cooks imported audio to Opus, which suits voice and low-bitrate music. It links both Opus and Vorbis decoders so transcode checks can compare quality or fall back. After a target platform selects Opus, SoundWave compressed bytes are written here. It is chosen instead of ADPCM or Bink format modules, not mixed with multiple headers at runtime."
+  },
+  {
+    "slug": "audioformatrad",
+    "kind": "module",
+    "cn": "AudioFormatRad 对接 RAD Game Tools 的音频编码路径（与 Bink 相关的 RAD 格式变体），在 cook 时写出引擎可注册的压缩块。它同样只依赖 Core 与 Engine 格式工厂。需要 RAD 工具链授权与对应运行时解码器才能在设备上播放。项目若统一使用 RAD 音频，导入设置会指向这个格式。",
+    "en": "AudioFormatRad hooks RAD Game Tools’ audio encode path (RAD-format variants related to Bink) and writes compressed blocks the engine can register at cook. It likewise depends only on Core and the Engine format factory. Playback on device still needs a RAD license and the matching runtime decoder. Projects standardized on RAD audio point import settings at this format."
+  },
+  {
+    "slug": "audiolinkcore",
+    "kind": "module",
+    "cn": "AudioLinkCore 定义把引擎音频送到外部混音器（DAW、中间件）的核心类型与时钟接口，不依赖 Engine 模块。它让 AudioLink 在没有完整游戏世界时也能做缓冲与格式描述。Wwise/FMOD 桥或外部监听工具首先链这个核心。真正的 Actor 与衰减计算在 AudioLinkEngine。",
+    "en": "AudioLinkCore defines the types and clock interface that send engine audio to an external mixer (DAW or middleware) without depending on Engine. AudioLink can describe buffers and formats even without a full game world. Wwise/FMOD bridges or external monitor tools link this core first. Actor and attenuation work lives in AudioLinkEngine."
+  },
+  {
+    "slug": "audiolinkengine",
+    "kind": "module",
+    "cn": "AudioLinkEngine 把 AudioLink 接到 Engine：世界、衰减、空间化和信号处理，使外部音频引擎能跟随关卡中的声源。它在游戏线程与音频线程之间搬运参数，而把原始缓冲协议留在 AudioLinkCore。需要让中间件听到与游戏一致的 3D 位置时启用此模块。平台混音器仍负责最终设备输出，除非走 AudioMixerPlatformAudioLink。",
+    "en": "AudioLinkEngine attaches AudioLink to Engine—world, attenuation, spatialization, and signal processing—so an external audio engine can follow in-level sources. It shuttles parameters between game and audio threads, leaving the raw buffer protocol in AudioLinkCore. Enable it when middleware must hear the same 3D positions as the game. The platform mixer still owns final device output unless AudioMixerPlatformAudioLink is used."
+  },
+  {
+    "slug": "audiomixer",
+    "kind": "module",
+    "cn": "AudioMixer 是引擎的软件混音图：源、子混合、效果、声场与 AudioLink 发送在此汇总，再交给平台后端出声。它读取 AudioPlatformConfiguration，并用 TraceLog 记录混音器洞察。HeadMountedDisplay 依赖用于 HRTF/XR 音频路径。游戏里听到的几乎所有声音都经过这个模块，而不是旧的 XAudio 单体。",
+    "en": "AudioMixer is the engine’s software mix graph: sources, submixes, effects, sound fields, and AudioLink sends gather here before a platform backend speaks. It reads AudioPlatformConfiguration and traces mixer insights. HeadMountedDisplay is linked for HRTF and XR audio paths. Almost every in-game sound passes through this module rather than a legacy XAudio monolith."
+  },
+  {
+    "slug": "audiomixerandroid",
+    "kind": "module",
+    "cn": "AudioMixerAndroid 是 Android 上的混音器后端，把 AudioMixerCore 的交错缓冲提交给 OpenSL ES 或 AAudio/Oboe 路径。它处理设备路由（听筒/扬声器）、焦点丢失和采样率转换。发行 Android 包时，软件混音图的最后一公里就是这个模块。编辑器预听不会使用它。",
+    "en": "AudioMixerAndroid is the Android mixer backend; it submits AudioMixerCore interleaved buffers to OpenSL ES or AAudio/Oboe. It handles routing (earpiece versus speaker), audio focus loss, and sample-rate conversion. On a shipping Android package, this module is the last mile of the software mix graph. Editor audition does not use it."
+  },
+  {
+    "slug": "audiomixeraudiounit",
+    "kind": "module",
+    "cn": "AudioMixerAudioUnit 用 Apple Audio Unit 在 iOS 系列系统上播放混音器输出。它管理 RemoteIO 单元、中断恢复和与 AVAudioSession 的协作。相比 macOS 的 Core Audio 后端，它更关注移动端的会话类别与静音开关。iPhone/iPad 上的游戏声音从 AudioMixer 送到这里出硬件。",
+    "en": "AudioMixerAudioUnit plays mixer output on iOS-family systems through Apple Audio Units. It manages the RemoteIO unit, interrupt recovery, and AVAudioSession cooperation. Unlike the macOS Core Audio backend, it cares about mobile session categories and the mute switch. Game audio on iPhone and iPad leaves AudioMixer through this module onto hardware."
+  },
+  {
+    "slug": "audiomixercore",
+    "kind": "module",
+    "cn": "AudioMixerCore 实现与平台无关的混音器内核：缓冲队列、参数平滑、DSP 调度和 Trace 探测点。各平台 AudioMixer* 模块都消费这份内核，再调用系统 API。它不引用 Engine，以便独立程序和测试也能跑混音图。改混音算法或线程模型应落在这里，而不是某个 OS 后端。",
+    "en": "AudioMixerCore is the platform-agnostic mixer kernel: buffer queues, parameter smoothing, DSP scheduling, and trace probes. Every AudioMixer* platform module consumes this kernel then calls OS APIs. It does not reference Engine, so standalone programs and tests can run a mix graph. Mixer algorithm or threading changes belong here, not in an OS backend."
+  },
+  {
+    "slug": "audiomixercoreaudio",
+    "kind": "module",
+    "cn": "AudioMixerCoreAudio 是 macOS 上的输出后端，把混音器缓冲写进 Core Audio 输出单元。它处理默认设备切换、采样率锁定和与系统音量的配合。编辑器在 Mac 上预听声音走这条路径。与 iOS 的 Audio Unit 模块分离，因为桌面会话模型和设备热插拔完全不同。",
+    "en": "AudioMixerCoreAudio is the macOS output backend, writing mixer buffers into a Core Audio output unit. It handles default-device switches, sample-rate lock, and cooperation with system volume. Editor audition on Mac takes this path. It is separate from the iOS Audio Unit module because desktop session model and device hotplug differ completely."
+  },
+  {
+    "slug": "audiomixerplatformaudiolink",
+    "kind": "module",
+    "cn": "AudioMixerPlatformAudioLink 把混音器的最终输出改送到 AudioLink，而不是系统声卡，便于外部 DAW 或中间件成为“虚拟声卡”。它同时依赖 AudioMixer 与 AudioLinkEngine，在音频线程上交换缓冲。当项目要以 Wwise 等为唯一输出设备时启用这个平台后端。本机扬声器将保持静音，除非外部端再打回来。",
+    "en": "AudioMixerPlatformAudioLink sends the mixer’s final output to AudioLink instead of the system sound card, so an external DAW or middleware becomes the virtual device. It depends on both AudioMixer and AudioLinkEngine and exchanges buffers on the audio thread. Enable this platform backend when Wwise or similar should be the only output device. Local speakers stay silent unless the external side plays back."
+  },
+  {
+    "slug": "audiomixerplatformnull",
+    "kind": "module",
+    "cn": "AudioMixerPlatformNull 是空输出后端：混音图照常跑，但不向任何硬件写采样。用于无头服务器、自动化测试和没有声卡的 CI 机器，避免打开设备失败。它仍链接 AudioMixer 以保持时间推进与回调。需要验证游戏逻辑不依赖真实 DAC 时使用这个后端。",
+    "en": "AudioMixerPlatformNull is a null output backend: the mix graph still runs, but no samples are written to hardware. It is for headless servers, automation, and CI boxes without a sound card, avoiding device-open failures. AudioMixer stays linked so clocks and callbacks still advance. Use it to prove gameplay does not require a real DAC."
+  },
+  {
+    "slug": "audiomixersdl",
+    "kind": "module",
+    "cn": "AudioMixerSDL 在 Linux 上用 SDL 打开播放设备，把 AudioMixerCore 的缓冲提交给 PulseAudio/PipeWire/ALSA。ApplicationCore 提供应用生命周期，以便窗口最小化或退出时停流。Linux 编辑器与游戏的默认出声路径通常是它。设备名与延迟应在 SDL 层配置，而不是改混音图节点。",
+    "en": "AudioMixerSDL opens the Linux playback device through SDL and submits AudioMixerCore buffers to PulseAudio, PipeWire, or ALSA. ApplicationCore supplies app lifetime so streams stop on minimize or quit. Linux editor and game default output usually goes through it. Device name and latency belong in SDL configuration, not mixer graph nodes."
+  },
+  {
+    "slug": "audiomixerwasapi",
+    "kind": "module",
+    "cn": "AudioMixerWasapi 用 WASAPI 在 Windows 上播放混音器输出，并借助 WindowsMMDeviceEnumeration 跟踪默认设备变化。AudioPlatformSupportWasapi 提供格式与会话封装，SignalProcessing 处理重采样。需要低延迟共享模式或与系统混音器共存时选这条后端。它与采集用的 AudioCaptureWasapi 共用支持层，但方向相反。",
+    "en": "AudioMixerWasapi plays mixer output on Windows via WASAPI and tracks default-device changes with WindowsMMDeviceEnumeration. AudioPlatformSupportWasapi wraps format and session details; SignalProcessing handles resample. Choose this backend for low-latency shared mode or coexistence with the system mixer. It shares the support layer with AudioCaptureWasapi but in the opposite direction."
+  },
+  {
+    "slug": "audiomixerxaudio2",
+    "kind": "module",
+    "cn": "AudioMixerXAudio2 把混音器主缓冲交给 XAudio2 输出图，是 Windows/Xbox 上另一条播放路径。它同样使用 WindowsMMDeviceEnumeration 跟随系统设备。当项目需要 XAudio2 的硬件适配或主机认证路径时走这里，而不是 WASAPI。软件混音仍在 AudioMixerCore，XAudio2 只负责提交与设备回调。",
+    "en": "AudioMixerXAudio2 hands the mixer master buffer to an XAudio2 output graph—the other Windows/Xbox playback path. It also uses WindowsMMDeviceEnumeration to follow the system device. Use it when a project needs XAudio2 hardware plumbing or console certification, not WASAPI. Software mixing remains in AudioMixerCore; XAudio2 only submits and takes device callbacks."
+  },
+  {
+    "slug": "audioplatformconfiguration",
+    "kind": "module",
+    "cn": "AudioPlatformConfiguration 保存按平台划分的音频质量、通道数、采样率和压缩提示，供混音器与目标平台读取。它是 UObject 配置，不绑定具体 OS 后端。AndroidRuntimeSettings 与各 TargetPlatform 都引用这份数据来决定 cook 哪些 SoundWave 变体。改这里会影响包体大小和运行时混音器初始化，而不是某一条音效的音量。",
+    "en": "AudioPlatformConfiguration stores per-platform audio quality, channel count, sample rate, and compression hints for the mixer and target platforms. It is UObject config, not tied to one OS backend. AndroidRuntimeSettings and target platforms read it to decide which SoundWave variants to cook. Changes affect package size and mixer init, not the volume of a single cue."
+  },
+  {
+    "slug": "audioplatformsupportwasapi",
+    "kind": "module",
+    "cn": "AudioPlatformSupportWasapi 把 WASAPI 设备枚举、WAVEFORMATEX 协商和会话错误处理抽成可复用支持层。采集与播放两个 Windows 模块都依赖它，避免复制 COM 样板。它只依赖 Core，不拉混音器，因此测试程序也能单独链接。Windows 音频设备热插拔的公共逻辑应改在这里。",
+    "en": "AudioPlatformSupportWasapi factors WASAPI device enumeration, WAVEFORMATEX negotiation, and session error handling into a shared support layer. Both Windows capture and playback modules depend on it instead of copying COM boilerplate. It depends only on Core and not the mixer, so test programs can link it alone. Shared Windows hotplug logic belongs here."
+  },
+  {
+    "slug": "audiosettingseditor",
+    "kind": "module",
+    "cn": "AudioSettingsEditor 为项目音频设置绘制 PropertyEditor 界面：音质、声类、子混合默认和平台覆盖。它让声音设计师在编辑器里改 AudioPlatformConfiguration 一类对象，而不手写 ini。UnrealEd 与 Slate 依赖使面板出现在项目设置窗口。改的是配置 UI，真正生效的数据仍在运行时配置对象上。",
+    "en": "AudioSettingsEditor draws PropertyEditor UI for project audio settings: quality, sound classes, default submixes, and platform overrides. Sound designers edit objects such as AudioPlatformConfiguration here instead of hand-writing ini files. UnrealEd and Slate place the panel in Project Settings. This is configuration UI; the live data still lives on runtime config objects."
+  },
+  {
+    "slug": "automationcontroller",
+    "kind": "module",
+    "cn": "AutomationController 在编辑器或前端进程中编排自动化测试：发现用例、分发给 worker、收集截图对比与 JSON 报告。它通过 AutomationMessages 与会话中的实例通信，并用 HTTP 上报结果。MessageLog 与 ScreenShotComparisonTools 处理失败展示。点“开始测试”后，调度逻辑在这个模块，执行在 AutomationWorker。",
+    "en": "AutomationController orchestrates automation tests in the editor or frontend: discovering cases, dispatching workers, collecting screenshot diffs and JSON reports. It talks to session instances through AutomationMessages and can post results over HTTP. MessageLog and ScreenShotComparisonTools handle failure display. After you hit Start Tests, scheduling lives here and execution lives in AutomationWorker."
+  },
+  {
+    "slug": "automationdriver",
+    "kind": "module",
+    "cn": "AutomationDriver 用脚本驱动 Slate UI：查找控件、点击、输入、等待，类似编辑器内的 UI 自动化司机。它把操作序列存成 JSON，便于回归菜单与对话框。ApplicationCore 与 InputCore 提供真实输入注入，而不是直接改控件状态。写“打开这个窗口并按下按钮”的测试应使用 Driver，而不是只调 C++ API。",
+    "en": "AutomationDriver scripts Slate UI: find widgets, click, type, and wait—an in-editor UI driver. Sequences serialize to JSON for regressing menus and dialogs. ApplicationCore and InputCore inject real input rather than poking widget state. Tests that must open a window and press a button should use the Driver, not only call C++ APIs."
+  },
+  {
+    "slug": "automationmessages",
+    "kind": "module",
+    "cn": "AutomationMessages 定义控制器与 worker 之间的 UStruct 消息：开始测试、进度、完成、设备信息和附件。它依赖 AutomationTest 的用例描述，以便序列化同一套测试名。运行时模块保证游戏进程也能收发，而不仅是编辑器。改测试协议时必须同时改两端，否则会话握手会失败。",
+    "en": "AutomationMessages defines UStruct messages between controller and worker: start, progress, complete, device info, and attachments. It depends on AutomationTest case descriptions so the same test names serialize. As a runtime module, a game process can send and receive, not only the editor. Protocol changes must land on both ends or session handshake fails."
+  },
+  {
+    "slug": "automationtest",
+    "kind": "module",
+    "cn": "AutomationTest 是用例注册与断言框架本身：IMPLEMENT_SIMPLE_AUTOMATION_TEST 一类宏、预期错误、以及与源码控制的轻微集成（标记脏文件）。控制器和 worker 都依赖它来列举同一份测试清单。它不负责网络分发，只负责进程内如何声明和跑一条测试。写引擎或项目自动化用例时，包含的就是这个模块。",
+    "en": "AutomationTest is the case registration and assert framework itself: IMPLEMENT_SIMPLE_AUTOMATION_TEST-style macros, expected errors, and light source-control integration for dirty files. Controller and worker both depend on it to list the same tests. It does not network-dispatch; it defines how a process declares and runs one test. Engine or project automation cases include this module."
+  },
+  {
+    "slug": "automationwindow",
+    "kind": "module",
+    "cn": "AutomationWindow 是编辑器里的 Session Frontend 测试窗口：勾选用例、看日志、对比截图、导出报告。它绑定 AutomationController，并用 Kismet/Slate 展示树形测试列表。源码控制集成允许从失败直接打开资源。这是给人点的 UI，真正跑测试的仍是 Controller 与 Worker。",
+    "en": "AutomationWindow is the editor Session Frontend test UI: check cases, view logs, diff screenshots, export reports. It binds AutomationController and uses Kismet/Slate for the test tree. Source-control integration can open an asset from a failure. This is the human-facing UI; Controller and Worker still run the tests."
+  },
+  {
+    "slug": "automationworker",
+    "kind": "module",
+    "cn": "AutomationWorker 在游戏或编辑器实例内执行收到的测试消息，回传断言、截图和分析事件。它链接 AnalyticsET 以便把跑批结果打到遥测，并用 RHI 做截图。作为 Runtime 模块，打包的游戏也能作为农场工人。控制器发“跑这些测试”后，设备上干活的就是它。",
+    "en": "AutomationWorker executes received test messages inside a game or editor instance and returns asserts, screenshots, and analytics events. AnalyticsET records batch results; RHI captures screenshots. As a runtime module, a packaged game can be a farm worker. After the controller says “run these tests”, this is the process that does the work on device."
+  },
+  {
+    "slug": "autortfm",
+    "kind": "module",
+    "cn": "AutoRTFM 是 Epic 的自动受限事务内存运行时，用于在并发物理等系统里对内存更新做事务提交或回滚。它不依赖其它引擎模块，由编译器插桩与运行时库配合，给 Chaos 等提供更强的确定性。开发者通常不直接调用，而是由开启 AutoRTFM 的目标编译进来。关闭它则退回普通的锁与顺序内存模型。",
+    "en": "AutoRTFM is Epic’s automatic restricted transactional memory runtime, committing or rolling back memory updates in concurrent systems such as physics. It depends on no other engine module; compiler instrumentation plus this runtime give Chaos stronger determinism. Game code rarely calls it directly—targets built with AutoRTFM enabled pull it in. Disable it and you fall back to ordinary locks and a sequential memory model."
+  },
+  {
+    "slug": "autortfmtests",
+    "kind": "module",
+    "cn": "AutoRTFMTests 是独立程序，用 Catch2 与引擎 Core 验证 AutoRTFM 事务、冲突与重试语义。它拉起 AssetRegistry 与 DesktopPlatform，覆盖需要文件系统的用例。CI 在改编译器插桩或运行时后应跑这个套件。失败指向事务运行时，而不是某个游戏玩法测试。",
+    "en": "AutoRTFMTests is a standalone program that uses Catch2 and engine Core to verify AutoRTFM transaction, conflict, and retry semantics. It brings up AssetRegistry and DesktopPlatform for cases that need the filesystem. CI should run this suite after compiler instrumentation or runtime changes. Failures point at the STM runtime, not a gameplay test."
+  },
+  {
+    "slug": "autortfmtestsreloadable",
+    "kind": "module",
+    "cn": "AutoRTFMTestsReloadable 是可热重载的 AutoRTFM 测试模块，只依赖 Core，用于验证事务代码在模块卸载/加载后仍正确。主测试程序会把它当作插件式目标反复加载。专门捕捉静态状态泄漏和插桩符号在重载后失效的问题。普通功能测试不必链接它。",
+    "en": "AutoRTFMTestsReloadable is a hot-reloadable AutoRTFM test module that depends only on Core, checking that transactional code survives unload and reload. The main test program loads it repeatedly as a plugin-style target. It exists to catch leaked static state and instrumentation symbols that break after reload. Ordinary feature tests should not link it."
+  },
+  {
+    "slug": "avencoder",
+    "kind": "module",
+    "cn": "AVEncoder 把渲染目标或音频缓冲编码成 H.264/HEVC 等码流，可走 CUDA/NVENC 或其它硬件路径。它依赖 RHI 与 RenderCore 抓帧，SignalProcessing 处理音频时钟。像素流送、录制与云游戏管线用它生成实时视频。这不是媒体播放器，只负责编码侧。",
+    "en": "AVEncoder encodes render targets or audio buffers into H.264/HEVC (and similar) bitstreams, optionally via CUDA/NVENC or other hardware. It uses RHI and RenderCore to grab frames and SignalProcessing for audio clocks. Pixel streaming, recording, and cloud-game pipelines produce realtime video here. It is not a media player; it is encode-only."
+  },
+  {
+    "slug": "aviwriter",
+    "kind": "module",
+    "cn": "AVIWriter 把帧序列写成经典 AVI 容器，供编辑器 Sequencer 或工具链导出简单视频。它只依赖 Core，保持对旧工具链的兼容，而不是完整的媒体框架。需要无插件即可在 Windows 上打开的预览视频时仍会用到。高质量发行录制应改走 AVEncoder 或外部编码器。",
+    "en": "AVIWriter writes frame sequences into classic AVI containers for Sequencer or tool-chain preview exports. It depends only on Core and stays compatible with older Windows tooling rather than being a full media stack. Use it when you need a preview file that opens without extra plugins. High-quality shipping captures should use AVEncoder or an external encoder."
+  },
+  {
+    "slug": "backgroundhttp",
+    "kind": "module",
+    "cn": "BackgroundHTTP 在应用进入后台后继续下载补丁或资源，尤其对接 iOS 后台传输与通用 HTTP。它结合 BackgroundHTTPFileHash 校验完整性，并在 ApplicationCore 生命周期回调里恢复任务。移动端热更新不能假设游戏进程一直活着，必须走这套系统任务。前台普通请求仍用标准 HTTP 模块即可。",
+    "en": "BackgroundHTTP keeps downloading patches or assets after the app backgrounds, especially via iOS background transfer plus generic HTTP. BackgroundHTTPFileHash verifies integrity, and ApplicationCore lifetime callbacks resume work. Mobile hot-updates cannot assume the game process stays alive, so they use these system tasks. Foreground ordinary requests can stay on the standard HTTP module."
+  },
+  {
+    "slug": "backgroundhttpfilehash",
+    "kind": "module",
+    "cn": "BackgroundHTTPFileHash 计算后台下载文件的哈希并与清单比对，防止半包或篡改进入安装目录。它依赖 BuildSettings 以匹配官方包的哈希算法版本。BackgroundHTTP 在任务完成回调里调用它，而不是在游戏线程上现算。哈希失败应删除临时文件并重试，而不是直接加载。",
+    "en": "BackgroundHTTPFileHash hashes background-downloaded files against a manifest so partial or tampered packs never enter the install directory. It depends on BuildSettings to match the shipping hash algorithm version. BackgroundHTTP calls it from completion callbacks rather than hashing on the game thread. A mismatch should delete the temp file and retry, not load it."
+  },
+  {
+    "slug": "bandwidthdebugdelegates",
+    "kind": "module",
+    "cn": "BandwidthDebugDelegates 暴露一套委托，让网络复制与带宽探测代码把采样推给可视化或日志，而不把调试 UI 编进运行时核心。它只依赖 CoreUObject，保持钩子极瘦。ClientBandwidthDebugVisualizer 一类模块会绑定这些委托。发行包可以不绑任何监听者，委托调用即空操作。",
+    "en": "BandwidthDebugDelegates exposes delegates so replication and bandwidth probes can push samples to visualizers or logs without compiling debug UI into the runtime core. It depends only on CoreUObject and keeps the hook tiny. Modules such as ClientBandwidthDebugVisualizer bind these delegates. A shipping build can bind nothing; the calls become no-ops."
+  },
+  {
+    "slug": "bandwidthmeasurementtool",
+    "kind": "module",
+    "cn": "BandwidthMeasurementTool 测量客户端到服务器路径上的吞吐与延迟分布，给复制带宽分配提供实验数据。它位于 Online 实验目录，面向开发与 QA，而不是玩家功能。测试会话里打出上下行曲线，用来校准复制预算和拥塞策略。不要把它当成发行遥测；测完即可从目标中移除。",
+    "en": "BandwidthMeasurementTool measures throughput and latency spread on the client-to-server path to feed replication bandwidth experiments. It lives under Online experimental code for development and QA, not as a player feature. A test session prints uplink and downlink curves used to tune replication budgets and congestion policy. Do not treat it as shipping telemetry; drop it from the target when the study ends."
+  },
+  {
+    "slug": "basetexturebuildworker",
+    "kind": "module",
+    "cn": "BaseTextureBuildWorker 是独立 cook worker，专门压缩纹理：ASTC、ETC2、Oodle、未压缩以及共享 TextureBuild 工具。派生数据农场把它拉起，避免在编辑器进程里做重 CPU/SIMD 压缩。TextureFormat* 模块决定块格式，本程序只是进程外壳与任务循环。改纹理压缩算法通常改格式模块，改调度才动这个 worker。",
+    "en": "BaseTextureBuildWorker is a standalone cook worker that compresses textures: ASTC, ETC2, Oodle, uncompressed, plus shared TextureBuild utilities. Derived-data farms spawn it so heavy CPU/SIMD compression stays out of the editor process. TextureFormat* modules choose the block format; this program is the process shell and job loop. Algorithm changes usually belong in a format module; scheduling changes belong here."
+  },
+  {
+    "slug": "behaviortreeeditor",
+    "kind": "module",
+    "cn": "BehaviorTreeEditor 编辑行为树与黑板资产，使用 AIGraph 节点、GameplayTags 过滤和 GraphEditor 布线。它对接 AIModule 的运行时类型，使编辑器里拖的任务节点与游戏里执行的一致。RewindDebugger 与 TraceServices 用于回放 AI 决策。打开 Behavior Tree 资源时进入的就是这个编辑器，而不是普通蓝图。",
+    "en": "BehaviorTreeEditor edits behavior tree and blackboard assets with AIGraph nodes, GameplayTags filters, and GraphEditor wiring. It talks to AIModule runtime types so task nodes you drag match what the game executes. RewindDebugger and TraceServices replay AI decisions. Opening a Behavior Tree asset enters this editor, not a normal Blueprint."
+  },
+  {
+    "slug": "benchmarktool",
+    "kind": "module",
+    "cn": "BenchmarkTool 是轻量命令行，用于对引擎基础层做微基准（分配、容器、哈希等），只依赖 Core 与 Projects。它不启动渲染或游戏世界，结果用于回归性能悬崖。提交底层改动后可在 CI 跑这个程序对比数字。不要用它测帧率；那是 Gauntlet 或内部统计的职责。",
+    "en": "BenchmarkTool is a thin CLI for microbenchmarks of engine fundamentals (allocators, containers, hashing) and depends only on Core and Projects. It does not start rendering or a game world; results catch performance cliffs in review. Run it in CI after low-level changes and compare the numbers. Do not use it for frame-rate; that is Gauntlet or in-engine stats."
+  },
+  {
+    "slug": "binkaudiodecoder",
+    "kind": "module",
+    "cn": "BinkAudioDecoder 在运行时解码 Bink Audio 码流，把 PCM 交给混音器。SoundWave 若以 Bink 格式 cook，设备上的解码入口就是这个模块。它依赖 Engine 以便注册解码器工厂。没有对应的 AudioFormatBink cook 步骤，运行时将没有合法数据可解。",
+    "en": "BinkAudioDecoder decodes Bink Audio bitstreams at runtime and hands PCM to the mixer. If a SoundWave was cooked as Bink, this module is the on-device decode entry. Engine is linked to register the decoder factory. Without a matching AudioFormatBink cook step, runtime has no valid payload to decode."
+  },
+  {
+    "slug": "blake3",
+    "kind": "module",
+    "cn": "BLAKE3 引入快速加密哈希实现，供派生数据键、包校验或内容寻址使用。作为 External 模块不依赖引擎，调用方可在 Core 之上自行包一层。相比 SHA-1 旧路径，它更适合高吞吐的 cook 与 DDC。选择哈希算法时需与清单格式版本一起升级。",
+    "en": "BLAKE3 vendors a fast cryptographic hash for derived-data keys, package checks, or content addressing. As an External module it depends on nothing in the engine; callers wrap it above Core. Versus legacy SHA-1 paths it suits high-throughput cook and DDC. Changing hash algorithms must version the manifest format at the same time."
+  },
+  {
+    "slug": "blankmodule",
+    "kind": "module",
+    "cn": "BlankModule 是引擎自带的空模块模板，只依赖 Core，演示 ModuleRules 与启动宏的最小写法。它不提供游戏功能，供学习 UBT 或复制出新模块骨架。不要在发行目标里启用它，以免多链一个空 DLL。真正的功能应复制其 Build.cs 结构后改名实现。",
+    "en": "BlankModule is the engine’s empty module template, depending only on Core, showing the minimum ModuleRules and startup macros. It ships no gameplay; it is for learning UBT or copying a new module skeleton. Do not enable it on a shipping target or you link an empty DLL. Real features should copy its Build.cs shape, rename, and implement."
+  },
+  {
+    "slug": "blankprogram",
+    "kind": "module",
+    "cn": "BlankProgram 是最小独立程序目标，链接 Core、CoreUObject 与 Projects，演示如何写一个不启动引擎循环的 UE 命令行。新工具（转换器、校验器）常从它克隆。它加载项目描述以便读取引擎目录，但不创建窗口。写桌面工具时以它为起点，比从编辑器进程里塞逻辑更干净。",
+    "en": "BlankProgram is the smallest standalone program target, linking Core, CoreUObject, and Projects, showing a UE command line that never starts the engine loop. New converters and validators are often cloned from it. It loads project descriptors to find engine directories but creates no window. Start desktop tools here instead of stuffing logic into the editor process."
+  },
+  {
+    "slug": "blosc",
+    "kind": "module",
+    "cn": "Blosc 是高速元压缩库，把多个编解码器（LZ4、Zstd 等）组成分块压缩，常用于体积数据和中间缓存。引擎把它作为 External 依赖给需要块级压缩的系统。它不感知 UObject，只处理原始字节。大数据表或模拟缓存若要缩小磁盘占用，可在 IO 层调用 Blosc。",
+    "en": "Blosc is a high-speed meta-compressor that shards codecs such as LZ4 and Zstd for volumetric data and intermediate caches. The engine vendors it as an External dependency for block-level compression. It has no UObject awareness; it only sees raw bytes. Large tables or simulation caches that must shrink on disk can call Blosc at the IO layer."
+  },
+  {
+    "slug": "blueprinteditorlibrary",
+    "kind": "module",
+    "cn": "BlueprintEditorLibrary 向编辑器脚本与工具暴露操作蓝图资产的函数：增删节点、改图表、导入导出 JSON。它走 AssetTools 与 BlueprintGraph，让 Python/Editor Utility 能批处理蓝图而不打开 UI。AnimGraph 依赖用于动画蓝图的同样操作。做大规模蓝图重构时调用这个库，而不是解析 .uasset。",
+    "en": "BlueprintEditorLibrary exposes editor-script functions that mutate Blueprint assets: add or remove nodes, edit graphs, import or export JSON. It uses AssetTools and BlueprintGraph so Python or Editor Utilities can batch Blueprints without opening UI. AnimGraph is linked for the same operations on AnimBPs. Large Blueprint refactors should call this library instead of parsing .uasset files."
+  },
+  {
+    "slug": "blueprintgraph",
+    "kind": "module",
+    "cn": "BlueprintGraph 实现 UK2Node、引脚、编译器后端对接以及蓝图图表在编辑器中的语义。几乎所有蓝图节点类型都从这里长出来，并与 UMG、FieldNotification、Live Coding 等子系统协作。属性编辑与 ToolMenus 提供节点右键和默认值。运行时虚拟机不在本模块；这里是图表定义与编译输入。",
+    "en": "BlueprintGraph implements UK2Node, pins, compiler-backend hookup, and editor semantics of Blueprint graphs. Almost every Blueprint node type grows from here and cooperates with UMG, FieldNotification, and Live Coding. Property editing and ToolMenus supply node context menus and default values. The runtime VM is not in this module; this is graph definition and compiler input."
+  },
+  {
+    "slug": "blueprintruntime",
+    "kind": "module",
+    "cn": "BlueprintRuntime 存放运行时仍需要的蓝图辅助与设置，而不把整个编辑器图表模块打进游戏。它声明依赖很少，作为薄运行时层存在。Cook 后的蓝图字节码由虚拟机执行，本模块提供配套的运行时对象与配置。发行包需要蓝图设置对象时链接它，而不是 BlueprintGraph。",
+    "en": "BlueprintRuntime holds Blueprint helpers and settings that must exist at runtime without shipping the full editor graph module. It declares few dependencies and stays a thin runtime layer. Cooked Blueprint bytecode runs on the VM; this module supplies companion runtime objects and config. Shipping packages that need Blueprint settings objects link it, not BlueprintGraph."
+  },
+  {
+    "slug": "blutility",
+    "kind": "module",
+    "cn": "Blutility 实现 Editor Utility Blueprint / Widget：在编辑器里用蓝图写一次性工具、批处理与自定义面板。它连接内容浏览器、资产工具、自动化控制器和视口，让工具蓝图能选资产、截图、改关卡。Kismet 与 ToolMenus 把工具挂到菜单。策划与TA用它做管线工具，而不写 C++ 编辑器模块。",
+    "en": "Blutility implements Editor Utility Blueprints and Widgets: one-off editor tools, batch jobs, and custom panels written in Blueprint. It connects Content Browser, Asset Tools, Automation Controller, and viewports so a utility can select assets, capture, or mutate a level. Kismet and ToolMenus hang tools on menus. Technical artists use it for pipeline tools without a C++ editor module."
+  },
+  {
+    "slug": "bolts",
+    "kind": "module",
+    "cn": "Bolts 是 Facebook 的 iOS 任务/延续库，作为 ThirdParty/IOS 依赖给旧的 Facebook SDK 路径使用。它把异步回调链成 Task，避免嵌套 block。新项目若已不用 Facebook iOS SDK，通常不必直接链接 Bolts。保留它是为了平台社交模块的二进制兼容。",
+    "en": "Bolts is Facebook’s iOS task/continuation library, vendored under ThirdParty/IOS for legacy Facebook SDK paths. It chains async callbacks as Tasks instead of nested blocks. New projects that no longer use the Facebook iOS SDK typically should not link Bolts directly. It remains for binary compatibility with platform social modules."
+  },
+  {
+    "slug": "boost",
+    "kind": "module",
+    "cn": "Boost 模块把选定的 Boost 头文件与库导出给引擎与插件，避免每个功能各带一份。它是 External，不依赖 UE 模块。几何、序列化或智能指针等第三方代码若需要 Boost，应走这一处。新增 Boost 组件时要评估许可证与编译时间，而不是整库全开。",
+    "en": "The Boost module exports selected Boost headers and libraries to the engine and plugins so features do not vendor their own copies. It is External and depends on no UE module. Third-party geometry, serialization, or smart-pointer code that needs Boost should come through here. Adding Boost components should weigh license and compile time rather than enabling the entire suite."
+  },
+  {
+    "slug": "bootstrappackagedgame",
+    "kind": "module",
+    "cn": "BootstrapPackagedGame 生成 Windows 包装游戏的启动引导可执行文件，负责找到真实游戏二进制、处理工作目录与基础错误提示。它几乎无引擎依赖，体积小，便于放在安装包根目录。玩家双击的往往是这个引导程序，而不是巨大的 UE 主 exe。改启动参数或缺失 DLL 的提示应改这里。",
+    "en": "BootstrapPackagedGame builds the Windows packaged-game bootstrap executable that locates the real game binary, sets the working directory, and shows basic errors. It has almost no engine dependencies and stays small at the install-root. Players often double-click this stub rather than the huge UE main exe. Launch-argument or missing-DLL messages belong here."
+  },
+  {
+    "slug": "breakpadsymbolencoder",
+    "kind": "module",
+    "cn": "BreakpadSymbolEncoder 把调试符号转成 Breakpad 可用的编码格式，供崩溃上报服务端符号化。它作为独立程序跑在构建机上，不进入游戏包。CrashReport 流水线依赖它产出的符号文件。每次出发行二进制都应同步跑编码器，否则堆栈只能看到原始地址。",
+    "en": "BreakpadSymbolEncoder converts debug symbols into Breakpad’s encoded format for crash-service symbolication. It runs as a standalone program on the build machine and does not ship in the game. The CrashReport pipeline consumes the files it emits. Every shipping binary should run the encoder in lockstep, or stacks remain raw addresses."
+  },
+  {
+    "slug": "bsputils",
+    "kind": "module",
+    "cn": "BSPUtils 提供旧版 BSP 几何的切割、合并与转换辅助，供几何模式和关卡转换工具使用。它依赖 Engine 的刷体与模型类型，但不包含编辑器 UI。把传统减法刷转换成静态网格或修复空洞时会调用这些函数。新项目应尽量用静态网格与建模模式，只在维护老图时需要它。",
+    "en": "BSPUtils supplies cut, merge, and convert helpers for legacy BSP geometry used by geometry mode and level conversion tools. It depends on Engine brush and model types but has no editor UI. Converting subtractive brushes to static meshes or repairing holes calls these functions. New projects should prefer static meshes and modeling mode; this is for maintaining old maps."
+  },
+  {
+    "slug": "buildpatchservices",
+    "kind": "module",
+    "cn": "BuildPatchServices 实现增量补丁协议：清单、块哈希、HTTP 下载与安装，并上报 AnalyticsET。启动器与游戏内更新用它只拉变化的块而不是整包。运行时模块可打进客户端，以便玩家在大厅热更。与 BuildPatchTool 成对：服务/库在此，命令行生成补丁在 Tool。",
+    "en": "BuildPatchServices implements the incremental patch protocol: manifests, chunk hashes, HTTP download and install, with AnalyticsET telemetry. Launchers and in-game updates pull changed chunks instead of whole packages. As a runtime module it can ship in the client for lobby hotfixes. It pairs with BuildPatchTool: the library lives here, the CLI that builds patches lives there."
+  },
+  {
+    "slug": "buildpatchtool",
+    "kind": "module",
+    "cn": "BuildPatchTool 是生成、合并、校验 BuildPatch 清单与块仓库的命令行，依赖 BuildPatchServices 与网络栈。构建农场在出包后跑它，产出启动器可消费的补丁云。GoogleTest 覆盖清单边界情况。不要在游戏进程里生成补丁；应在 CI 上调用这个程序。",
+    "en": "BuildPatchTool is the CLI that builds, merges, and verifies BuildPatch manifests and chunk stores, depending on BuildPatchServices and the net stack. Build farms run it after packaging to produce launcher-consumable patch clouds. GoogleTest covers manifest edge cases. Do not generate patches inside the game process; invoke this program on CI."
+  },
+  {
+    "slug": "buildsettings",
+    "kind": "module",
+    "cn": "BuildSettings 以编译期常量形式嵌入分支名、构建版本、是否官方包等标志，供运行时与后台哈希选择算法。它几乎无依赖，被 ApplicationCore 和补丁系统广泛引用。改这些值通常通过 UBT/Build.version，而不是改游戏代码。判断当前二进制是否与补丁清单匹配时会读这里。",
+    "en": "BuildSettings embeds branch name, build version, and official-build flags as compile-time constants for runtime and background-hash algorithm selection. It has almost no dependencies and is referenced by ApplicationCore and patching. Changing the values usually goes through UBT and Build.version, not game code. Matching a binary against a patch manifest reads this module."
+  },
+  {
+    "slug": "buildstoragetool",
+    "kind": "module",
+    "cn": "BuildStorageTool 是面向 Zen/存储服务器的独立图形或命令工具，浏览 Pak、DDC 与构建存储，并带 Slate 界面。它连接 Sockets、Zen 与 StorageServerWidgets，给管线同学检查缓存命中。StudioTelemetry 上报工具使用情况。这是存储运维工具，不是游戏里的保存系统。",
+    "en": "BuildStorageTool is a standalone graphical or command tool for Zen and storage servers, browsing pak, DDC, and build storage with a Slate UI. It connects Sockets, Zen, and StorageServerWidgets so pipeline engineers can inspect cache hits. StudioTelemetry records tool usage. It is storage operations tooling, not the in-game save system."
+  },
+  {
+    "slug": "cadkernel",
+    "kind": "module",
+    "cn": "CADKernel 是 Datasmith CAD 内核的几何层：B-rep 求值、拓扑与曲线曲面数学，依赖 GeometryCore。它不引用 UObject 引擎对象，以便在导入 worker 进程中独立运行。精确 CAD 转网格的数学基础在此，网格化与 UE 资产化在 CADKernelEngine。改曲面容差或拓扑修复应先看这个库。",
+    "en": "CADKernel is Datasmith’s CAD geometry layer: B-rep evaluation, topology, and curve/surface math on GeometryCore. It does not reference UObject engine types, so import worker processes can run it alone. Exact CAD-to-mesh math lives here; meshing and UE assetization live in CADKernelEngine. Surface tolerance or topology repair starts in this library."
+  },
+  {
+    "slug": "cadkerneleditor",
+    "kind": "module",
+    "cn": "CADKernelEditor 为 CAD 导入结果提供编辑器入口：在内容浏览器打开、用静态网格编辑器检查、通过 ToolMenus 触发重新网格化。它把 CADKernelEngine 的资源接到 EditorFramework。美术检查 CAD 缝隙或重新生成 LOD 时用这些命令。运行时玩家不会加载这个模块。",
+    "en": "CADKernelEditor gives editor entry points for CAD import results: open from the Content Browser, inspect in the Static Mesh Editor, and retessellate from ToolMenus. It attaches CADKernelEngine assets to EditorFramework. Artists use these commands to inspect CAD gaps or rebuild LODs. Players never load this module at runtime."
+  },
+  {
+    "slug": "cadkernelengine",
+    "kind": "module",
+    "cn": "CADKernelEngine 把 CADKernel 的 B-rep 转成引擎 MeshDescription / StaticMesh，并可走 TechSoft 与 JSON 中间表示。MeshConversion 负责拓扑到三角网的桥。Datasmith CAD 导入在 worker 或编辑器里调用的就是这一层。它仍可在非编辑器目标使用，以便命令行导入。",
+    "en": "CADKernelEngine turns CADKernel B-reps into engine MeshDescription and StaticMesh, optionally via TechSoft and JSON intermediates. MeshConversion bridges topology to triangle meshes. Datasmith CAD import in a worker or the editor calls this layer. It can still run on non-editor targets for command-line import."
+  },
+  {
+    "slug": "cares",
+    "kind": "module",
+    "cn": "cares（c-ares）是异步 DNS 解析库，让网络栈在不阻塞游戏线程的情况下做域名查询。作为 External 模块导出给 HTTP 与 socket 层。自定义在线服务若直接解析主机名，应使用这份库而不是同步 getaddrinfo。解析失败与 TTL 缓存策略由调用方处理。",
+    "en": "cares (c-ares) is an asynchronous DNS resolver so the net stack can look up hostnames without blocking the game thread. It is exported as an External module to HTTP and socket layers. Custom online code that resolves hosts should use this library rather than synchronous getaddrinfo. Failure handling and TTL caching stay with the caller."
+  },
+  {
+    "slug": "catch2extras",
+    "kind": "module",
+    "cn": "Catch2Extras 提供 Catch2 测试框架的额外匹配器、主函数钩子或引擎侧适配，补齐官方 Catch2 模块未包含的部分。AutoRTFM 与其它低层测试程序会链到它。它不包含游戏断言宏（那是 AutomationTest）。写 Catch2 风格的独立程序测试时，按需加上这个 extras 目标。",
+    "en": "Catch2Extras adds extra Catch2 matchers, main-hook helpers, or engine-side adapters missing from the stock Catch2 module. AutoRTFM and other low-level test programs link it. It does not contain gameplay assert macros—that is AutomationTest. Standalone Catch2-style test programs should add this extras target when needed."
+  },
+  {
+    "slug": "cbor",
+    "kind": "module",
+    "cn": "Cbor 实现 RFC 7049 CBOR 编解码，供紧凑二进制序列化（消息总线、保存块、网络载荷）使用。它只依赖 Core，可在无 UObject 反射的情况下读写。需要比 JSON 更小、仍自描述的格式时用 CBOR。与引擎的 Json 模块互补，而不是替换 SaveGame 整套系统。",
+    "en": "Cbor implements RFC 7049 CBOR encode and decode for compact binary payloads on message buses, save blobs, or the network. It depends only on Core and can read and write without UObject reflection. Use CBOR when you need smaller-than-JSON yet self-describing data. It complements the Json module; it does not replace SaveGame."
+  },
+  {
+    "slug": "cef3utils",
+    "kind": "module",
+    "cn": "CEF3Utils 封装 Chromium Embedded Framework 的进程启动、路径与崩溃处理辅助，给 WebBrowser 控件使用。它只依赖 Core，把 CEF 子进程与资源目录的样板从 UI 模块中拿出来。编辑器内嵌网页、登录框或文档预览依赖这些工具函数。不要在游戏线程上直接乱调 CEF API，应走这里的生命周期辅助。",
+    "en": "CEF3Utils wraps Chromium Embedded Framework process launch, paths, and crash helpers for the WebBrowser widget. It depends only on Core and pulls CEF subprocess and resource-directory boilerplate out of UI modules. In-editor web views, login panes, or doc previews rely on these helpers. Do not call CEF APIs ad hoc on the game thread; use this lifetime scaffolding."
+  },
+  {
+    "slug": "celspec",
+    "kind": "module",
+    "cn": "CelSpec 引入 Common Expression Language 的 Protobuf 规范定义，供策略引擎或配置表达式解析。它依赖 Core 与 Protobuf，本身不做求值，只提供消息类型。需要跨服务共享同一套表达式 AST 时链接此模块。真正的 CEL 解释器在其它库，本模块是规格绑定。",
+    "en": "CelSpec vendors Common Expression Language protobuf spec types for policy engines or config expressions. It depends on Core and Protobuf and does not evaluate expressions—it only provides messages. Link it when services must share the same expression AST. The actual CEL interpreter lives elsewhere; this module is the spec binding."
+  },
+  {
+    "slug": "chaos",
+    "kind": "module",
+    "cn": "Chaos 是引擎的实验/现行物理求解内核：刚体、布料耦合相关结构、碰撞几何与岛屿求解，并可用 AutoRTFM 加强并发确定性。它依赖 ChaosCore、Eigen、GeometryCore 与 Voronoi，并可走 NNE 做学习型辅助。Trace 与 ChaosVDRuntime 输出可视化调试通道。游戏里的 Chaos 物理场景最终在这一层步进，而不是 PhysX。",
+    "en": "Chaos is the engine’s experimental/current physics solver kernel: rigid bodies, cloth-related structures, collision geometry, and island solving, optionally with AutoRTFM for concurrent determinism. It depends on ChaosCore, Eigen, GeometryCore, and Voronoi, and can use NNE for learned assists. Trace and ChaosVDRuntime emit visual debugger channels. In-game Chaos scenes step here, not in PhysX."
+  },
+  {
+    "slug": "chaoscore",
+    "kind": "module",
+    "cn": "ChaosCore 提供 Chaos 的底层数学与容器：向量化内核、ISPC 热路径和求解器共用的数据结构，不拉完整物理场景。Chaos 与空间划分模块都建立在它之上。改 SIMD 内核或内存布局应先动 ChaosCore。它有意保持依赖极窄，以便测试与工具单独链接。",
+    "en": "ChaosCore supplies Chaos’s low-level math and containers: vectorized kernels, ISPC hot paths, and solver-shared data structures without a full physics scene. Chaos and spatial-partition modules sit on top of it. SIMD kernel or memory-layout changes start in ChaosCore. Dependencies stay intentionally tiny so tests and tools can link it alone."
+  },
+  {
+    "slug": "chaosphysicstests",
+    "kind": "module",
+    "cn": "ChaosPhysicsTests 是独立程序，在 ChaosTestHarness 上跑物理回归：碰撞、约束、求解稳定性。它启动精简 Engine 以便构造世界，但不打开编辑器。提交求解器改动后应在 CI 跑此套件。失败日志对应物理岛屿，而不是渲染帧。",
+    "en": "ChaosPhysicsTests is a standalone program running physics regressions—collision, constraints, solver stability—on ChaosTestHarness. It boots a slim Engine to build worlds but does not open the editor. CI should run this suite after solver changes. Failure logs correspond to physics islands, not render frames."
+  },
+  {
+    "slug": "chaossolverengine",
+    "kind": "module",
+    "cn": "ChaosSolverEngine 把 Chaos 求解器接到 Engine Actor/组件、Dataflow 模拟图和渲染调试绘制。它处理求解器 Actor、步进调度、与 RigidPhysics 的桥，以及 Chaos Visual Debugger 的运行时挂钩。关卡里放 Chaos Solver 后，场景对象通过这个模块进入求解世界。纯数学内核仍在 Chaos，这里是引擎侧粘合。",
+    "en": "ChaosSolverEngine attaches the Chaos solver to Engine actors and components, Dataflow simulation graphs, and render debug draw. It owns solver actors, step scheduling, the RigidPhysics bridge, and Chaos Visual Debugger runtime hooks. After a Chaos Solver is placed in a level, scene objects enter the solve world through this module. The math kernel stays in Chaos; this is engine glue."
+  },
+  {
+    "slug": "chaosspatialpartitions",
+    "kind": "module",
+    "cn": "ChaosSpatialPartitions 实现 Chaos 使用的空间加速结构（层次网格/树一类），加速宽相碰撞查询。它只依赖 ChaosCore 与 Core，可在求解器外部单独测试。物体移动后的 dirty 更新与查询遍历都在此。改宽相算法不必碰约束求解器。",
+    "en": "ChaosSpatialPartitions implements spatial accelerators (hierarchical grids/trees) that Chaos uses to speed broadphase collision queries. It depends only on ChaosCore and Core and can be tested outside the solver. Dirty updates after movement and query traversal live here. Broadphase algorithm changes need not touch the constraint solver."
+  },
+  {
+    "slug": "chaosspatialpartitionstests",
+    "kind": "module",
+    "cn": "ChaosSpatialPartitionsTests 针对空间划分做单元/集成测试：插入、删除、重叠查询与回归夹具。它通过 ChaosTestHarness 启动，并可拉 Engine 构造简单世界。宽相错误会在这里以 Catch 风格失败表现出来。改网格分辨率或树平衡后必须跑这套程序。",
+    "en": "ChaosSpatialPartitionsTests unit- and integration-tests spatial partitions: insert, delete, overlap queries, and regression fixtures. It boots through ChaosTestHarness and can pull Engine for simple worlds. Broadphase bugs show up here as Catch-style failures. Run this program after grid-resolution or tree-balance changes."
+  },
+  {
+    "slug": "chaostestharness",
+    "kind": "module",
+    "cn": "ChaosTestHarness 为所有 Chaos 低层测试提供 Catch2 启动、Engine 薄包装和 LowLevelTestsRunner 集成。物理、空间划分与用户数据测试都链这个开发者模块，避免各自写 main。它不是给游戏用的物理 API。新增 Chaos 测试程序应优先复用 Harness 的夹具。",
+    "en": "ChaosTestHarness gives every Chaos low-level test Catch2 startup, a thin Engine wrap, and LowLevelTestsRunner integration. Physics, spatial-partition, and user-data tests link this developer module instead of writing their own main. It is not a gameplay physics API. New Chaos test programs should reuse the harness fixtures."
+  },
+  {
+    "slug": "chaosuserdatapttests",
+    "kind": "module",
+    "cn": "ChaosUserDataPTTests 验证 Chaos 物理线程上的用户数据（UserData PT）在求解步进中的生命周期与回调。它链接 Chaos 与 ChaosUserDataPT，并带 ApplicationCore 以便独立进程运行。确保游戏把自定义指针挂到刚体时不会在岛屿重建后悬空。只在改用户数据 API 时需要跑。",
+    "en": "ChaosUserDataPTTests verifies user data on the Chaos physics thread—lifetime and callbacks across solver steps. It links Chaos and ChaosUserDataPT and uses ApplicationCore so it can run as its own process. It ensures game pointers hung on rigid bodies do not dangle after island rebuilds. Run it when the user-data API changes."
+  },
+  {
+    "slug": "chaosvdruntime",
+    "kind": "module",
+    "cn": "ChaosVDRuntime 是 Chaos Visual Debugger 的运行时埋点：把求解快照写到 Trace，供外部 VD 应用回放。它依赖 TraceBasedDebuggers 与 TraceLog，体积保持较小以便可选开启。游戏或 PIE 开物理调试通道时激活。可视化窗口本身不在这个模块，只负责采集。",
+    "en": "ChaosVDRuntime is the Chaos Visual Debugger’s runtime instrumentation: solver snapshots go to Trace for an external VD app to replay. It depends on TraceBasedDebuggers and TraceLog and stays small so it can be optional. Enable it when a game or PIE session turns on physics debug channels. The visualizer window is not in this module; collection is."
+  },
+  {
+    "slug": "chaosvehiclescore",
+    "kind": "module",
+    "cn": "ChaosVehiclesCore 实现基于 Chaos 的载具物理核心：悬挂、轮胎模型、传动与刚体约束，不依赖渲染。它建立在 Chaos 求解器类型上，可被无头模拟使用。载具调参的数学与状态机在此，而不是蓝图节点。引擎侧组件与网格同步在 ChaosVehiclesEngine。",
+    "en": "ChaosVehiclesCore implements Chaos-based vehicle physics: suspension, tire models, drivetrain, and rigid constraints, with no rendering dependency. It builds on Chaos solver types and can run in headless simulation. Vehicle tuning math and state live here, not in Blueprint nodes. Engine components and mesh sync live in ChaosVehiclesEngine."
+  },
+  {
+    "slug": "chaosvehiclesengine",
+    "kind": "module",
+    "cn": "ChaosVehiclesEngine 把 ChaosVehiclesCore 接到 Engine：载具 Actor/组件、轮胎网格、RHI 调试绘制。它在游戏世界里创建 Chaos 载具并与渲染同步变换。关卡里放置的载具Pawn通过这个模块步进物理。核心轮胎公式仍在 VehiclesCore；这里负责世界集成与可视化。",
+    "en": "ChaosVehiclesEngine attaches ChaosVehiclesCore to Engine: vehicle actors and components, tire meshes, and RHI debug draw. It spawns Chaos vehicles in the game world and syncs transforms to rendering. A vehicle pawn placed in a level steps physics through this module. Tire formulas stay in VehiclesCore; world integration and visualization stay here."
+  }
+]

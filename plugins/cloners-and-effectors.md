@@ -3,7 +3,6 @@ layout: default
 title: 克隆人和效应器 / Cloners and Effectors
 ---
 
-
 <h1>克隆人和效应器 / Cloners and Effectors</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 克隆人和效应器 / Cloners and Effectors
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">基于 Niagara 的克隆系统，具有影响每个克隆实例的各种布局和效应器</div><div class="lang-content">Niagara based cloner system with various layouts and effector affecting each clone instances</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Cloners and Effectors</code>（<code class="usage-code">ClonerEffector</code>、<code class="usage-code">ClonerEffectorMeshBuilder</code>、编辑器 <code class="usage-code">ClonerEffectorEditor</code>），并确保 Niagara 已开。</li><li>在放置 Actor 列表里放 <code class="usage-code">Cloner</code> Actor，选 Layout（Grid / Circle / Line / Spline / Mesh 等），指定要克隆的静态或骨骼网格。</li><li>再放置 <code class="usage-code">Effector</code> Actor，让其范围覆盖克隆实例；选噪声、吸引、平面等效应，调强度与衰减，观察实例变换/颜色被逐个推动。</li><li>需要碰撞网格时走 <code class="usage-code">ClonerEffectorMeshBuilder</code> 生成合并网格，而不是在 Niagara 编辑器里新建一个空白 System 当入口。</li><li>把 Cloner/Effector 加进 Sequencer，关键帧效应器位置或强度，做虚拟制片运动图形。</li><li>游戏运行时只依赖 <code class="usage-code">ClonerEffector</code>（及需要的 MeshBuilder）；编辑器模块勿进 Game Target。</li></ol><p class="usage-note">关卡里的 Niagara 克隆器/效应器 Actor，不是 Niagara 模块栈里的普通发射器模板。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Cloners and Effectors</code> (<code class="usage-code">ClonerEffector</code>, <code class="usage-code">ClonerEffectorMeshBuilder</code>, editor <code class="usage-code">ClonerEffectorEditor</code>) and make sure Niagara is on.</li><li>Place a <code class="usage-code">Cloner</code> actor, pick a layout (Grid / Circle / Line / Spline / Mesh, …), and assign the static or skeletal mesh to instance.</li><li>Place <code class="usage-code">Effector</code> actors so their volume covers clones; choose noise/attractor/plane etc., tune strength/falloff, and watch per-instance transform/color.</li><li>Use <code class="usage-code">ClonerEffectorMeshBuilder</code> when you need a built collision/render mesh. Do not start from a blank Niagara System as the entry point.</li><li>Add cloner/effectors to Sequencer and key effector transforms or strength for VP motion-graphics shots.</li><li>Runtime depends on <code class="usage-code">ClonerEffector</code> (and MeshBuilder if needed); keep the editor module off Game targets.</li></ol><p class="usage-note">Level-placed Niagara cloner/effector actors, not a generic Niagara emitter template.</p></div></div></div>
+    </div>
+

@@ -3,7 +3,6 @@ layout: default
 title: FastGeo 流媒体 / FastGeo Streaming
 ---
 
-
 <h1>FastGeo 流媒体 / FastGeo Streaming</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: FastGeo 流媒体 / FastGeo Streaming
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">提取并转换分区世界几何图形以优化世界流性能的系统。</div><div class="lang-content">A system that extracts and converts a partitioned world's geometry to optimize world streaming performance.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">FastGeoStreaming</code>（模块 <code class="usage-code">FastGeoStreaming</code> + <code class="usage-code">FastGeoStreamingEditor</code>），它的用途是把 World Partition 分区世界的几何提取并转换，以优化流式加载性能。</li><li>打开一个已启用 World Partition 的关卡，确认单元格（cell）已生成、世界分区数据完整。</li><li>运行该插件提供的提取/转换流程，把分区世界几何转成更适合流式加载的数据。</li><li>转换后检查生成数据是否随 cell 正确加载与卸载，而非一次性全量加载。</li><li>用 <code class="usage-code">stat streaming</code> 与 World Partition 视图对比转换前后的流式表现，确认优化生效。</li><li>C++ 运行时代码只依赖 <code class="usage-code">FastGeoStreaming</code>；编辑器流程模块 <code class="usage-code">FastGeoStreamingEditor</code> 只进 <code class="usage-code">*Editor.Build.cs</code>。</li><li>Experimental：先在副本关卡上验证转换不破坏几何，再用于正式世界。</li></ol><p class="usage-note">针对 World Partition 几何做提取转换优化流式；先副本关卡验证再上正式世界。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">FastGeoStreaming</code> (modules <code class="usage-code">FastGeoStreaming</code> + <code class="usage-code">FastGeoStreamingEditor</code>). Its job is extracting and converting a World Partition world&#x27;s geometry to optimize streaming performance.</li><li>Open a level already using World Partition and confirm cells are generated and the partition data is complete.</li><li>Run the plugin&#x27;s extraction/conversion flow to convert the partitioned world geometry into streaming-friendly data.</li><li>After conversion, verify the generated data loads and unloads with its cells correctly rather than loading all at once.</li><li>Compare streaming behavior before and after using <code class="usage-code">stat streaming</code> and the World Partition view to confirm the optimization works.</li><li>Runtime C++ depends only on <code class="usage-code">FastGeoStreaming</code>; the editor flow module <code class="usage-code">FastGeoStreamingEditor</code> goes only in <code class="usage-code">*Editor.Build.cs</code>.</li><li>Experimental: validate on a duplicated level that conversion does not break geometry before applying it to the real world.</li></ol><p class="usage-note">Extracts/converts World Partition geometry to optimize streaming; validate on a duplicated level before applying to the real world.</p></div></div></div>
+    </div>
+

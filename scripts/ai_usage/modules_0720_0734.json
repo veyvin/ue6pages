@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "staticmesheditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StaticMeshEditor` 位于 `Editor`，构建规则 `Editor/StaticMeshEditor/StaticMeshEditor.Build.cs`。它直接依赖 8 个模块：`AdvancedPreviewScene`, `ApplicationCore`, `CommonMenuExtensions`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `DetailCustomizations`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StaticMeshEditor\" });`；对外暴露 `StaticMeshEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StaticMeshEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `StaticMeshEditor.h` / `StaticMeshEditorModule.h`），再用 `FModuleManager::LoadModulePtr<StaticMeshEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`StaticMeshEditor` 还依赖 `AdvancedPreviewScene`, `ApplicationCore`, `CommonMenuExtensions`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `DetailCustomizations`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StaticMeshEditor` lives under `Editor`; build rule `Editor/StaticMeshEditor/StaticMeshEditor.Build.cs`.It directly depends on 8 modules: `AdvancedPreviewScene`, `ApplicationCore`, `CommonMenuExtensions`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `DetailCustomizations`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StaticMeshEditor\" });`. Use Public when exposing `StaticMeshEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StaticMeshEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `StaticMeshEditor.h` / `StaticMeshEditorModule.h`), then use `FModuleManager::LoadModulePtr<StaticMeshEditorModule>` or the exported types directly.",
+      "Transitive deps: `StaticMeshEditor` also needs `AdvancedPreviewScene`, `ApplicationCore`, `CommonMenuExtensions`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `DetailCustomizations`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StaticMeshEditor` 的构建规则位于 `Editor/StaticMeshEditor/StaticMeshEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`StaticMeshEditor` build rule is `Editor/StaticMeshEditor/StaticMeshEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "statsviewer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StatsViewer` 位于 `Editor`，构建规则 `Editor/StatsViewer/StatsViewer.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Landscape`, `RHI`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StatsViewer\" });`；对外暴露 `StatsViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StatsViewer` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `StatsViewer.h` / `StatsViewerModule.h`），再用 `FModuleManager::LoadModulePtr<StatsViewerModule>` 或直接使用导出类型。",
+      "传递依赖：`StatsViewer` 还依赖 `AssetRegistry`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Landscape`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StatsViewer` lives under `Editor`; build rule `Editor/StatsViewer/StatsViewer.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Landscape`, `RHI`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StatsViewer\" });`. Use Public when exposing `StatsViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StatsViewer` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `StatsViewer.h` / `StatsViewerModule.h`), then use `FModuleManager::LoadModulePtr<StatsViewerModule>` or the exported types directly.",
+      "Transitive deps: `StatsViewer` also needs `AssetRegistry`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Landscape`, `RHI`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StatsViewer` 的构建规则位于 `Editor/StatsViewer/StatsViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`StatsViewer` build rule is `Editor/StatsViewer/StatsViewer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "statusbar",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StatusBar` 位于 `Editor`，构建规则 `Editor/StatusBar/StatusBar.Build.cs`。它直接依赖 8 个模块：`AssetTools`, `Core`, `CoreUObject`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StatusBar\" });`；对外暴露 `StatusBar` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StatusBar` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `StatusBar.h` / `StatusBarModule.h`），再用 `FModuleManager::LoadModulePtr<StatusBarModule>` 或直接使用导出类型。",
+      "传递依赖：`StatusBar` 还依赖 `AssetTools`, `Core`, `CoreUObject`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StatusBar` lives under `Editor`; build rule `Editor/StatusBar/StatusBar.Build.cs`.It directly depends on 8 modules: `AssetTools`, `Core`, `CoreUObject`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StatusBar\" });`. Use Public when exposing `StatusBar` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StatusBar` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `StatusBar.h` / `StatusBarModule.h`), then use `FModuleManager::LoadModulePtr<StatusBarModule>` or the exported types directly.",
+      "Transitive deps: `StatusBar` also needs `AssetTools`, `Core`, `CoreUObject`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StatusBar` 的构建规则位于 `Editor/StatusBar/StatusBar.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`StatusBar` build rule is `Editor/StatusBar/StatusBar.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "stb_image_resize2",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`stb_image_resize2` 位于 `ThirdParty`，构建规则 `ThirdParty/stb_image_resize/stb_image_resize2.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"stb_image_resize2\" });`；对外暴露 `stb_image_resize2` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`stb_image_resize2` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `stbimageresize2.h` / `stbimageresize2Module.h`），再用 `FModuleManager::LoadModulePtr<stbimageresize2Module>` 或直接使用导出类型。",
+      "传递依赖：`stb_image_resize2` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `stb_image_resize2` lives under `ThirdParty`; build rule `ThirdParty/stb_image_resize/stb_image_resize2.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"stb_image_resize2\" });`. Use Public when exposing `stb_image_resize2` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `stb_image_resize2` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `stbimageresize2.h` / `stbimageresize2Module.h`), then use `FModuleManager::LoadModulePtr<stbimageresize2Module>` or the exported types directly.",
+      "Transitive deps: `stb_image_resize2` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`stb_image_resize2` 的构建规则位于 `ThirdParty/stb_image_resize/stb_image_resize2.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`stb_image_resize2` build rule is `ThirdParty/stb_image_resize/stb_image_resize2.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "stomp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Stomp` 位于 `Runtime`，构建规则 `Runtime/Online/Stomp/Stomp.Build.cs`。它直接依赖 2 个模块：`Core`, `WebSockets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Stomp\" });`；对外暴露 `Stomp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Stomp` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Stomp.h` / `StompModule.h`），再用 `FModuleManager::LoadModulePtr<StompModule>` 或直接使用导出类型。",
+      "传递依赖：`Stomp` 还依赖 `Core`, `WebSockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Stomp` lives under `Runtime`; build rule `Runtime/Online/Stomp/Stomp.Build.cs`.It directly depends on 2 modules: `Core`, `WebSockets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Stomp\" });`. Use Public when exposing `Stomp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Stomp` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Stomp.h` / `StompModule.h`), then use `FModuleManager::LoadModulePtr<StompModule>` or the exported types directly.",
+      "Transitive deps: `Stomp` also needs `Core`, `WebSockets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Stomp` 的构建规则位于 `Runtime/Online/Stomp/Stomp.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`Stomp` build rule is `Runtime/Online/Stomp/Stomp.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "storageserverclient",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StorageServerClient` 位于 `Runtime`，构建规则 `Runtime/StorageServerClient/StorageServerClient.Build.cs`。它直接依赖 6 个模块：`CookOnTheFly`, `Core`, `CoreUObject`, `DeveloperSettings`, `Json`, `Sockets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StorageServerClient\" });`；对外暴露 `StorageServerClient` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StorageServerClient` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `StorageServerClient.h` / `StorageServerClientModule.h`），再用 `FModuleManager::LoadModulePtr<StorageServerClientModule>` 或直接使用导出类型。",
+      "传递依赖：`StorageServerClient` 还依赖 `CookOnTheFly`, `Core`, `CoreUObject`, `DeveloperSettings`, `Json`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StorageServerClient` lives under `Runtime`; build rule `Runtime/StorageServerClient/StorageServerClient.Build.cs`.It directly depends on 6 modules: `CookOnTheFly`, `Core`, `CoreUObject`, `DeveloperSettings`, `Json`, `Sockets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StorageServerClient\" });`. Use Public when exposing `StorageServerClient` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StorageServerClient` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `StorageServerClient.h` / `StorageServerClientModule.h`), then use `FModuleManager::LoadModulePtr<StorageServerClientModule>` or the exported types directly.",
+      "Transitive deps: `StorageServerClient` also needs `CookOnTheFly`, `Core`, `CoreUObject`, `DeveloperSettings`, `Json`, `Sockets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StorageServerClient` 的构建规则位于 `Runtime/StorageServerClient/StorageServerClient.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`StorageServerClient` build rule is `Runtime/StorageServerClient/StorageServerClient.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "storageserverclientdebug",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StorageServerClientDebug` 位于 `Runtime`，构建规则 `Runtime/StorageServerClientDebug/StorageServerClientDebug.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `Engine`, `Json`, `Sockets`, `StorageServerClient`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StorageServerClientDebug\" });`；对外暴露 `StorageServerClientDebug` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StorageServerClientDebug` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `StorageServerClientDebug.h` / `StorageServerClientDebugModule.h`），再用 `FModuleManager::LoadModulePtr<StorageServerClientDebugModule>` 或直接使用导出类型。",
+      "传递依赖：`StorageServerClientDebug` 还依赖 `Core`, `CoreUObject`, `Engine`, `Json`, `Sockets`, `StorageServerClient`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StorageServerClientDebug` lives under `Runtime`; build rule `Runtime/StorageServerClientDebug/StorageServerClientDebug.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `Engine`, `Json`, `Sockets`, `StorageServerClient`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StorageServerClientDebug\" });`. Use Public when exposing `StorageServerClientDebug` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StorageServerClientDebug` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `StorageServerClientDebug.h` / `StorageServerClientDebugModule.h`), then use `FModuleManager::LoadModulePtr<StorageServerClientDebugModule>` or the exported types directly.",
+      "Transitive deps: `StorageServerClientDebug` also needs `Core`, `CoreUObject`, `Engine`, `Json`, `Sockets`, `StorageServerClient`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StorageServerClientDebug` 的构建规则位于 `Runtime/StorageServerClientDebug/StorageServerClientDebug.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`StorageServerClientDebug` build rule is `Runtime/StorageServerClientDebug/StorageServerClientDebug.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "storageserverwidgets",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StorageServerWidgets` 位于 `Editor`，构建规则 `Editor/StorageServerWidgets/StorageServerWidgets.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DevHttp`, `InputCore`, `Json`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StorageServerWidgets\" });`；对外暴露 `StorageServerWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StorageServerWidgets` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `StorageServerWidgets.h` / `StorageServerWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<StorageServerWidgetsModule>` 或直接使用导出类型。",
+      "传递依赖：`StorageServerWidgets` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DevHttp`, `InputCore`, `Json`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StorageServerWidgets` lives under `Editor`; build rule `Editor/StorageServerWidgets/StorageServerWidgets.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DevHttp`, `InputCore`, `Json`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StorageServerWidgets\" });`. Use Public when exposing `StorageServerWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StorageServerWidgets` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `StorageServerWidgets.h` / `StorageServerWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<StorageServerWidgetsModule>` or the exported types directly.",
+      "Transitive deps: `StorageServerWidgets` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DevHttp`, `InputCore`, `Json`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StorageServerWidgets` 的构建规则位于 `Editor/StorageServerWidgets/StorageServerWidgets.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`StorageServerWidgets` build rule is `Editor/StorageServerWidgets/StorageServerWidgets.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "streamingfile",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StreamingFile` 位于 `Runtime`，构建规则 `Runtime/StreamingFile/StreamingFile.Build.cs`。它直接依赖 3 个模块：`Core`, `NetworkFile`, `Sockets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StreamingFile\" });`；对外暴露 `StreamingFile` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StreamingFile` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `StreamingFile.h` / `StreamingFileModule.h`），再用 `FModuleManager::LoadModulePtr<StreamingFileModule>` 或直接使用导出类型。",
+      "传递依赖：`StreamingFile` 还依赖 `Core`, `NetworkFile`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StreamingFile` lives under `Runtime`; build rule `Runtime/StreamingFile/StreamingFile.Build.cs`.It directly depends on 3 modules: `Core`, `NetworkFile`, `Sockets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StreamingFile\" });`. Use Public when exposing `StreamingFile` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StreamingFile` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `StreamingFile.h` / `StreamingFileModule.h`), then use `FModuleManager::LoadModulePtr<StreamingFileModule>` or the exported types directly.",
+      "Transitive deps: `StreamingFile` also needs `Core`, `NetworkFile`, `Sockets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StreamingFile` 的构建规则位于 `Runtime/StreamingFile/StreamingFile.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`StreamingFile` build rule is `Runtime/StreamingFile/StreamingFile.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "streamingpauserendering",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StreamingPauseRendering` 位于 `Runtime`，构建规则 `Runtime/StreamingPauseRendering/StreamingPauseRendering.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `InputCore`, `MoviePlayer`, `RHI`, `RenderCore`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StreamingPauseRendering\" });`；对外暴露 `StreamingPauseRendering` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StreamingPauseRendering` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `StreamingPauseRendering.h` / `StreamingPauseRenderingModule.h`），再用 `FModuleManager::LoadModulePtr<StreamingPauseRenderingModule>` 或直接使用导出类型。",
+      "传递依赖：`StreamingPauseRendering` 还依赖 `Core`, `CoreUObject`, `Engine`, `InputCore`, `MoviePlayer`, `RHI`, `RenderCore`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StreamingPauseRendering` lives under `Runtime`; build rule `Runtime/StreamingPauseRendering/StreamingPauseRendering.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `MoviePlayer`, `RHI`, `RenderCore`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StreamingPauseRendering\" });`. Use Public when exposing `StreamingPauseRendering` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StreamingPauseRendering` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `StreamingPauseRendering.h` / `StreamingPauseRenderingModule.h`), then use `FModuleManager::LoadModulePtr<StreamingPauseRenderingModule>` or the exported types directly.",
+      "Transitive deps: `StreamingPauseRendering` also needs `Core`, `CoreUObject`, `Engine`, `InputCore`, `MoviePlayer`, `RHI`, `RenderCore`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StreamingPauseRendering` 的构建规则位于 `Runtime/StreamingPauseRendering/StreamingPauseRendering.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`StreamingPauseRendering` build rule is `Runtime/StreamingPauseRendering/StreamingPauseRendering.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "stringtableeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StringTableEditor` 位于 `Editor`，构建规则 `Editor/StringTableEditor/StringTableEditor.Build.cs`。它直接依赖 8 个模块：`AssetDefinition`, `AssetTools`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StringTableEditor\" });`；对外暴露 `StringTableEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StringTableEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `StringTableEditor.h` / `StringTableEditorModule.h`），再用 `FModuleManager::LoadModulePtr<StringTableEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`StringTableEditor` 还依赖 `AssetDefinition`, `AssetTools`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StringTableEditor` lives under `Editor`; build rule `Editor/StringTableEditor/StringTableEditor.Build.cs`.It directly depends on 8 modules: `AssetDefinition`, `AssetTools`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StringTableEditor\" });`. Use Public when exposing `StringTableEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StringTableEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `StringTableEditor.h` / `StringTableEditorModule.h`), then use `FModuleManager::LoadModulePtr<StringTableEditorModule>` or the exported types directly.",
+      "Transitive deps: `StringTableEditor` also needs `AssetDefinition`, `AssetTools`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StringTableEditor` 的构建规则位于 `Editor/StringTableEditor/StringTableEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`StringTableEditor` build rule is `Editor/StringTableEditor/StringTableEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "structutilseditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StructUtilsEditor` 位于 `Editor`，构建规则 `Editor/StructUtilsEditor/StructUtilsEditor.Build.cs`。它直接依赖 8 个模块：`AIGraph`, `AIModule`, `ApplicationCore`, `AssetTools`, `BlueprintGraph`, `ComponentVisualizers`, `Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StructUtilsEditor\" });`；对外暴露 `StructUtilsEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StructUtilsEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `StructUtilsEditor.h` / `StructUtilsEditorModule.h`），再用 `FModuleManager::LoadModulePtr<StructUtilsEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`StructUtilsEditor` 还依赖 `AIGraph`, `AIModule`, `ApplicationCore`, `AssetTools`, `BlueprintGraph`, `ComponentVisualizers`, `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StructUtilsEditor` lives under `Editor`; build rule `Editor/StructUtilsEditor/StructUtilsEditor.Build.cs`.It directly depends on 8 modules: `AIGraph`, `AIModule`, `ApplicationCore`, `AssetTools`, `BlueprintGraph`, `ComponentVisualizers`, `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StructUtilsEditor\" });`. Use Public when exposing `StructUtilsEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StructUtilsEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `StructUtilsEditor.h` / `StructUtilsEditorModule.h`), then use `FModuleManager::LoadModulePtr<StructUtilsEditorModule>` or the exported types directly.",
+      "Transitive deps: `StructUtilsEditor` also needs `AIGraph`, `AIModule`, `ApplicationCore`, `AssetTools`, `BlueprintGraph`, `ComponentVisualizers`, `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StructUtilsEditor` 的构建规则位于 `Editor/StructUtilsEditor/StructUtilsEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`StructUtilsEditor` build rule is `Editor/StructUtilsEditor/StructUtilsEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "structutilstestsuite",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StructUtilsTestSuite` 位于 `Developer`，构建规则 `Developer/StructUtilsTestSuite/StructUtilsTestSuite.Build.cs`。它直接依赖 6 个模块：`AIModule`, `AITestSuite`, `Core`, `CoreUObject`, `Engine`, `UnrealEd`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StructUtilsTestSuite\" });`；对外暴露 `StructUtilsTestSuite` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StructUtilsTestSuite` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `StructUtilsTestSuite.h` / `StructUtilsTestSuiteModule.h`），再用 `FModuleManager::LoadModulePtr<StructUtilsTestSuiteModule>` 或直接使用导出类型。",
+      "传递依赖：`StructUtilsTestSuite` 还依赖 `AIModule`, `AITestSuite`, `Core`, `CoreUObject`, `Engine`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StructUtilsTestSuite` lives under `Developer`; build rule `Developer/StructUtilsTestSuite/StructUtilsTestSuite.Build.cs`.It directly depends on 6 modules: `AIModule`, `AITestSuite`, `Core`, `CoreUObject`, `Engine`, `UnrealEd`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StructUtilsTestSuite\" });`. Use Public when exposing `StructUtilsTestSuite` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StructUtilsTestSuite` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `StructUtilsTestSuite.h` / `StructUtilsTestSuiteModule.h`), then use `FModuleManager::LoadModulePtr<StructUtilsTestSuiteModule>` or the exported types directly.",
+      "Transitive deps: `StructUtilsTestSuite` also needs `AIModule`, `AITestSuite`, `Core`, `CoreUObject`, `Engine`, `UnrealEd`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StructUtilsTestSuite` 的构建规则位于 `Developer/StructUtilsTestSuite/StructUtilsTestSuite.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`StructUtilsTestSuite` build rule is `Developer/StructUtilsTestSuite/StructUtilsTestSuite.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "structviewer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StructViewer` 位于 `Editor`，构建规则 `Editor/StructViewer/StructViewer.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Settings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StructViewer\" });`；对外暴露 `StructViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StructViewer` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `StructViewer.h` / `StructViewerModule.h`），再用 `FModuleManager::LoadModulePtr<StructViewerModule>` 或直接使用导出类型。",
+      "传递依赖：`StructViewer` 还依赖 `ApplicationCore`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Settings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StructViewer` lives under `Editor`; build rule `Editor/StructViewer/StructViewer.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Settings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StructViewer\" });`. Use Public when exposing `StructViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StructViewer` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `StructViewer.h` / `StructViewerModule.h`), then use `FModuleManager::LoadModulePtr<StructViewerModule>` or the exported types directly.",
+      "Transitive deps: `StructViewer` also needs `ApplicationCore`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Settings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StructViewer` 的构建规则位于 `Editor/StructViewer/StructViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`StructViewer` build rule is `Editor/StructViewer/StructViewer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "submittool",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SubmitTool` 位于 `Programs`，构建规则 `Programs/SubmitTool/SubmitTool.Build.cs`。它直接依赖 8 个模块：`Analytics`, `AnalyticsET`, `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `HTTP`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SubmitTool\" });`；对外暴露 `SubmitTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SubmitTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `SubmitTool.h` / `SubmitToolModule.h`），再用 `FModuleManager::LoadModulePtr<SubmitToolModule>` 或直接使用导出类型。",
+      "传递依赖：`SubmitTool` 还依赖 `Analytics`, `AnalyticsET`, `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `HTTP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SubmitTool` lives under `Programs`; build rule `Programs/SubmitTool/SubmitTool.Build.cs`.It directly depends on 8 modules: `Analytics`, `AnalyticsET`, `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `HTTP`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SubmitTool\" });`. Use Public when exposing `SubmitTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SubmitTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `SubmitTool.h` / `SubmitToolModule.h`), then use `FModuleManager::LoadModulePtr<SubmitToolModule>` or the exported types directly.",
+      "Transitive deps: `SubmitTool` also needs `Analytics`, `AnalyticsET`, `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `HTTP`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SubmitTool` 的构建规则位于 `Programs/SubmitTool/SubmitTool.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SubmitTool` build rule is `Programs/SubmitTool/SubmitTool.Build.cs`; depends on 8 modules; category Module."
+  }
+]

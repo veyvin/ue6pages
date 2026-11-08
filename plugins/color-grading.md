@@ -3,7 +3,6 @@ layout: default
 title: 颜色分级 / Color Grading
 ---
 
-
 <h1>颜色分级 / Color Grading</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 颜色分级 / Color Grading
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">添加带有详细颜色分级控件的面板</div><div class="lang-content">Adds a panel with detailed color grading controls</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用编辑器插件 <code class="usage-code">Color Grading</code>（仅模块 <code class="usage-code">ColorGradingEditor</code>）并重启；不要把它写进 Game Target。</li><li>打开 <code class="usage-code">Window &gt; Color Grading</code>。左侧 Object Mixer 列出带校色控件的对象：<code class="usage-code">Post Process Volume</code>、<code class="usage-code">Cine Camera Actor</code>、<code class="usage-code">Camera Actor</code>，以及已启用 CCR 插件时的 Color Correction Region/Window、启用 nDisplay 时的 nDisplay Root。</li><li>在 Mixer 里多选或建文件夹编组；选中一条后，右侧色轮编辑 Shadows / Midtones / Highlights，以及 Saturation、Contrast、Gain、Gamma。</li><li>改的是选中对象上已有的 <code class="usage-code">Color Grading</code> 属性，会写进该 Actor/PPV，可进 Sequencer 做关键帧；不是另存一份独立 LUT 资产。</li><li>先选关卡里已开启 <code class="usage-code">Unbound</code> 或覆盖摄像机的 PPV，再拧色轮；空 Mixer 通常表示当前关卡没有可校色对象，而不是面板坏了。</li></ol><p class="usage-note">编辑器色轮面板，读写已有 PPV/摄像机/CCR 的校色属性。无运行时模块；LUT 烘焙走 OpenColorIO 或自身 Lookup Table，不在本插件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the editor plugin <code class="usage-code">Color Grading</code> (module <code class="usage-code">ColorGradingEditor</code> only) and restart. Never add it to a Game Target.</li><li>Open <code class="usage-code">Window &gt; Color Grading</code>. The Object Mixer lists objects with grading controls: <code class="usage-code">Post Process Volume</code>, <code class="usage-code">Cine Camera Actor</code>, <code class="usage-code">Camera Actor</code>, plus Color Correction Region/Window if CCR is on, and nDisplay Root if nDisplay is on.</li><li>Multi-select or folder-group in the mixer. Color wheels edit Shadows / Midtones / Highlights plus Saturation, Contrast, Gain, Gamma.</li><li>Edits write into the selected Actor/PPV <code class="usage-code">Color Grading</code> properties and can be Sequencer-keyed. This panel does not create a standalone LUT asset.</li><li>Select an unbound or camera-covering PPV before turning wheels. An empty mixer means the level has no gradeable objects, not a broken panel.</li></ol><p class="usage-note">Editor color-wheel panel that edits existing PPV/camera/CCR grading. No runtime module. LUT baking is OCIO or a Lookup Table, not this plugin.</p></div></div></div>
+    </div>
+

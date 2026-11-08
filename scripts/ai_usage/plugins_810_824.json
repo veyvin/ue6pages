@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "remote-database-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Remote Database Support`（模块 `RemoteDatabaseSupport`）。",
+      "它提供远程数据库支持（把引擎侧数据接到远程 DB）。",
+      "在需要远程查询/写入数据库的工具或运行时流程里依赖该模块。",
+      "按项目自行配置连接与凭据；不要把密钥打进 Shipping 包。"
+    ],
+    "en_steps": [
+      "Enable `Remote Database Support` (module `RemoteDatabaseSupport`).",
+      "It provides remote-database support (engine-side access to a remote DB).",
+      "Depend on this module in tools or runtime flows that need remote query/write.",
+      "Configure connection and credentials per project; do not bake secrets into a shipping build."
+    ],
+    "note_cn": "引擎侧的远程数据库访问支持。",
+    "note_en": "Engine-side remote database access support."
+  },
+  {
+    "slug": "remote-procedure-calls-base",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Remote Procedure Calls Base`（模块 `RPCBase`）。",
+      "它是客户端应用可用来实现 RPC 库的基础框架。",
+      "在自研 RPC 库时依赖 `RPCBase`，而不是从零搭调用约定。",
+      "属基础框架；上层协议/传输由应用自己接。"
+    ],
+    "en_steps": [
+      "Enable `Remote Procedure Calls Base` (module `RPCBase`).",
+      "It is an RPC base framework that client applications can use to implement RPC libraries.",
+      "Depend on `RPCBase` when building your own RPC library instead of inventing the call convention from scratch.",
+      "It is a foundation framework; the app supplies the upper protocol/transport."
+    ],
+    "note_cn": "供客户端实现 RPC 库的基础框架。",
+    "note_en": "Base RPC framework for client apps to implement RPC libraries."
+  },
+  {
+    "slug": "remotesession",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RemoteSession`（运行时 `RemoteSession`，编辑器 `RemoteSessionEditor`）。",
+      "它让一个引擎实例充当第二个实例的瘦客户端（渲染画面 + 回传输入）。",
+      "一台跑完整游戏，另一台只显示/操作，用于远程预览或设备协同。",
+      "属实验性远程会话；接口可能随版本变化。"
+    ],
+    "en_steps": [
+      "Enable `RemoteSession` (runtime `RemoteSession`, editor `RemoteSessionEditor`).",
+      "It lets one engine instance act as a thin client (rendering and input) to a second instance.",
+      "Run the full game on one machine and display/control from another for remote preview or device pairing.",
+      "It is an experimental remote-session plugin; the contract may change across versions."
+    ],
+    "note_cn": "一个实例当瘦客户端，显示并操作另一个实例。",
+    "note_en": "One instance as a thin client (video + input) to another."
+  },
+  {
+    "slug": "render-grid",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Render Grid`（模块 `RenderGrid`、`RenderGridDeveloper`、`RenderGridEditor`）。",
+      "它是创建渲染过场动画的高级管线（批量/网格化渲染任务）。",
+      "用 Render Grid 组织多镜头/多变体渲染作业，而不是逐条手点 MRQ。",
+      "Game 模块依赖运行时；编辑器/开发者模块只进对应 Target。"
+    ],
+    "en_steps": [
+      "Enable `Render Grid` (modules `RenderGrid`, `RenderGridDeveloper`, `RenderGridEditor`).",
+      "It is an advanced pipeline for creating rendered cinematics (batched/grid render jobs).",
+      "Organize multi-shot/multi-variant render jobs in Render Grid instead of firing MRQ one by one.",
+      "Game modules depend on runtime; editor/developer modules go to matching targets only."
+    ],
+    "note_cn": "批量/网格化渲染过场动画的高级管线。",
+    "note_en": "Advanced pipeline for batched/grid cinematic renders."
+  },
+  {
+    "slug": "render-trace",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Render Trace`（模块 `RenderTrace`）。",
+      "它提供对网格上物理材质的像素级采样（按屏幕像素打到物理材质）。",
+      "用于需要精确采样物理表面（轮胎、足迹、弹着点）的玩法。",
+      "属运行时采样；可进游戏包。"
+    ],
+    "en_steps": [
+      "Enable `Render Trace` (module `RenderTrace`).",
+      "It provides pixel-perfect sampling of physical materials on meshes.",
+      "Use it for gameplay that must sample physical surfaces precisely (tires, footprints, impact points).",
+      "It is runtime sampling; can ship in a cooked game."
+    ],
+    "note_cn": "对网格物理材质做像素级采样。",
+    "note_en": "Pixel-perfect sampling of physical materials on meshes."
+  },
+  {
+    "slug": "renderdoc-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RenderDoc Plugin`（模块 `RenderDocPlugin`）。",
+      "它把 RenderDoc 图形调试器/分析器接到引擎。",
+      "在编辑器里一键捕捉帧，用 RenderDoc 查 draw call 与资源。",
+      "属编辑器/开发者插件；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `RenderDoc Plugin` (module `RenderDocPlugin`).",
+      "It integrates the RenderDoc graphics debugger/profiler with the engine.",
+      "Capture a frame from the editor, then inspect draw calls and resources in RenderDoc.",
+      "It is an editor/developer plugin; it does not ship by default."
+    ],
+    "note_cn": "引擎与 RenderDoc 图形调试器的集成。",
+    "note_en": "Engine integration with the RenderDoc graphics debugger."
+  },
+  {
+    "slug": "rendertrace-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RenderTrace Insights`（模块 `RenderTraceInsights`）。",
+      "它在 Unreal Insights 里提供渲染调试设施。",
+      "开 Insights 采集后查看渲染相关 Trace，配合 Render Trace 分析。",
+      "属 Insights/Trace 可视化；开发机使用。"
+    ],
+    "en_steps": [
+      "Enable `RenderTrace Insights` (module `RenderTraceInsights`).",
+      "It provides rendering debug facilities in Unreal Insights.",
+      "Capture in Insights, then inspect render-related traces (pairs with Render Trace).",
+      "It is Insights/Trace visualization; used on dev machines."
+    ],
+    "note_cn": "Unreal Insights 中的渲染调试设施。",
+    "note_en": "Rendering debug facilities in Unreal Insights."
+  },
+  {
+    "slug": "replay-tracks-experimental",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Replay Tracks (Experimental)`（运行时 `ReplayTracks`，编辑器 `ReplayTracksEditor`）。",
+      "它提供用于播放已录制玩法的 Sequencer 轨道。",
+      "把 Replay 轨加到 Level Sequence，在过场里回放录制的游戏。",
+      "属实验性 Sequencer 扩展；接口可能随版本变化。"
+    ],
+    "en_steps": [
+      "Enable `Replay Tracks (Experimental)` (runtime `ReplayTracks`, editor `ReplayTracksEditor`).",
+      "It provides Sequencer tracks for playing recorded gameplay.",
+      "Add Replay tracks to a Level Sequence to play back recorded gameplay in a cinematic.",
+      "It is an experimental Sequencer extension; the contract may change across versions."
+    ],
+    "note_cn": "在 Sequencer 里播放已录制玩法的轨道。",
+    "note_en": "Sequencer tracks for playing recorded gameplay."
+  },
+  {
+    "slug": "replaykit-for-ios",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ReplayKit for iOS`（模块 `IOSReplayKit`）。",
+      "它支持用 Apple ReplayKit 做本地录制与直播。",
+      "在 iOS 目标上调用 ReplayKit 开始/停止录屏或广播。",
+      "仅 iOS 有意义；需相应系统权限。"
+    ],
+    "en_steps": [
+      "Enable `ReplayKit for iOS` (module `IOSReplayKit`).",
+      "It supports local recording and broadcasting via Apple ReplayKit.",
+      "On iOS targets, start/stop ReplayKit capture or broadcast from game code.",
+      "Meaningful on iOS only; requires the matching system permissions."
+    ],
+    "note_cn": "iOS 上用 ReplayKit 本地录屏/直播。",
+    "note_en": "Local recording and broadcasting on iOS via ReplayKit."
+  },
+  {
+    "slug": "replication-graph",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Replication Graph`（模块 `ReplicationGraph`）。",
+      "它用图结构维护持久的复制 Actor 列表，作为面向大量 Actor 与连接的 Replication Driver。",
+      "在 `DefaultEngine.ini` 里把 Replication Driver 换成 ReplicationGraph，并按玩法划分节点/空间网格。",
+      "大型联机项目常用；替代默认的简单复制驱动。"
+    ],
+    "en_steps": [
+      "Enable `Replication Graph` (module `ReplicationGraph`).",
+      "It is a Replication Driver that keeps persistent replicated-actor lists in a graph, designed for many actors and connections.",
+      "Switch the Replication Driver to ReplicationGraph in `DefaultEngine.ini` and partition nodes/spatial grids for your game.",
+      "Common in large net games; replaces the default simple replication driver."
+    ],
+    "note_cn": "面向大量 Actor/连接的图结构复制驱动。",
+    "note_en": "Graph-structured replication driver for many actors/connections."
+  },
+  {
+    "slug": "replication-system-test-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Replication System Test Plugin`（模块 `ReplicationSystemTestPlugin`）。",
+      "它提供网络复制系统的单元测试与功能测试。",
+      "跑这些测试来校验复制系统行为，而不是当游戏功能。",
+      "属测试插件；不要当 Shipping 玩法。"
+    ],
+    "en_steps": [
+      "Enable `Replication System Test Plugin` (module `ReplicationSystemTestPlugin`).",
+      "It provides unit and functional tests for the network replication system.",
+      "Run these tests to validate replication behavior; they are not a gameplay feature.",
+      "It is a test plugin; do not ship it as gameplay."
+    ],
+    "note_cn": "网络复制系统的单元/功能测试。",
+    "note_en": "Unit and functional tests for the network replication system."
+  },
+  {
+    "slug": "resonance-audio",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Resonance Audio`（运行时 `ResonanceAudio`，编辑器 `ResonanceAudioEditor`）。",
+      "它是 Google 的 3D 音频空间化与室内声学模拟插件。",
+      "在项目设置里把空间化插件选为 Resonance Audio，给音源配置房间/遮挡。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Resonance Audio` (runtime `ResonanceAudio`, editor `ResonanceAudioEditor`).",
+      "It is Google's 3D audio spatialization and room-acoustics simulation plugin.",
+      "Select Resonance Audio as the spatialization plugin in project settings and configure rooms/occlusion on sources.",
+      "Game modules depend on runtime modules; editor modules are Editor-target only."
+    ],
+    "note_cn": "Google 的 3D 空间化与室内声学插件。",
+    "note_en": "Google 3D spatialization and room-acoustics plugin."
+  },
+  {
+    "slug": "rewinddebuggertoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RewindDebuggerToolset`（模块 `RewindDebuggerToolset`、`RewindDebuggerToolsetTests`）。",
+      "它提供只读的 Rewind Debugger 记录检查工具（给 AI 助手/自动化）。",
+      "通过工具集注册表查看回放记录，而不是当 Shipping 游戏功能。",
+      "属 Toolset；测试模块只进测试 Target。"
+    ],
+    "en_steps": [
+      "Enable `RewindDebuggerToolset` (modules `RewindDebuggerToolset`, `RewindDebuggerToolsetTests`).",
+      "It provides read-only Rewind Debugger recording inspection tools (for the AI assistant/automation).",
+      "Inspect rewind recordings via the Toolset Registry; not a shipping gameplay feature.",
+      "It is a Toolset; test modules go to test targets only."
+    ],
+    "note_cn": "只读检查 Rewind Debugger 记录的 AI 工具集。",
+    "note_en": "Read-only AI toolset to inspect Rewind Debugger recordings."
+  },
+  {
+    "slug": "rhi-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RHI Tests`（模块 `RHITests`）。",
+      "它是渲染硬件接口 (RHI) 的自动化测试。",
+      "跑这些测试来校验 RHI 后端（资源创建、绘制、同步）。",
+      "属测试插件；一般只进测试/Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `RHI Tests` (module `RHITests`).",
+      "It is automation tests for the Rendering Hardware Interface (RHI).",
+      "Run these tests to validate RHI backends (resource creation, draws, sync).",
+      "It is a test plugin; typically Editor/test targets only."
+    ],
+    "note_cn": "渲染硬件接口 (RHI) 的自动化测试。",
+    "note_en": "Automation tests for the Rendering Hardware Interface (RHI)."
+  },
+  {
+    "slug": "rider-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Rider Integration`（模块 `RiderSourceCodeAccess`）。",
+      "它允许从编辑器访问/打开 Rider 中的源代码。",
+      "在编辑器源码访问设置里选 Rider，双击 C++ 类即可跳到 Rider。",
+      "属编辑器开发者插件；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Rider Integration` (module `RiderSourceCodeAccess`).",
+      "It allows accessing/opening source code in Rider from the editor.",
+      "Choose Rider in editor source-code access settings, then double-click a C++ class to jump to Rider.",
+      "It is an editor/developer plugin; it does not ship by default."
+    ],
+    "note_cn": "从编辑器跳转到 Rider 打开源代码。",
+    "note_en": "Open source code in Rider from the Unreal Editor."
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "localization",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Localization` 位于 `Developer`，构建规则 `Developer/Localization/Localization.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `Json`, `JsonUtilities`, `Projects`, `SourceControl`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Localization\" });`；对外暴露 `Localization` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Localization` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `Localization.h` / `LocalizationModule.h`），再用 `FModuleManager::LoadModulePtr<LocalizationModule>` 或直接使用导出类型。",
+      "传递依赖：`Localization` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `Json`, `JsonUtilities`, `Projects`, `SourceControl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Localization` lives under `Developer`; build rule `Developer/Localization/Localization.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `Json`, `JsonUtilities`, `Projects`, `SourceControl`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Localization\" });`. Use Public when exposing `Localization` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Localization` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `Localization.h` / `LocalizationModule.h`), then use `FModuleManager::LoadModulePtr<LocalizationModule>` or the exported types directly.",
+      "Transitive deps: `Localization` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `Json`, `JsonUtilities`, `Projects`, `SourceControl`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Localization` 的构建规则位于 `Developer/Localization/Localization.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`Localization` build rule is `Developer/Localization/Localization.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "localizationcommandletexecution",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LocalizationCommandletExecution` 位于 `Editor`，构建规则 `Editor/LocalizationCommandletExecution/LocalizationCommandletExecution.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`, `Localization`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LocalizationCommandletExecution\" });`；对外暴露 `LocalizationCommandletExecution` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LocalizationCommandletExecution` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `LocalizationCommandletExecution.h` / `LocalizationCommandletExecutionModule.h`），再用 `FModuleManager::LoadModulePtr<LocalizationCommandletExecutionModule>` 或直接使用导出类型。",
+      "传递依赖：`LocalizationCommandletExecution` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`, `Localization`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LocalizationCommandletExecution` lives under `Editor`; build rule `Editor/LocalizationCommandletExecution/LocalizationCommandletExecution.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`, `Localization`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LocalizationCommandletExecution\" });`. Use Public when exposing `LocalizationCommandletExecution` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LocalizationCommandletExecution` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `LocalizationCommandletExecution.h` / `LocalizationCommandletExecutionModule.h`), then use `FModuleManager::LoadModulePtr<LocalizationCommandletExecutionModule>` or the exported types directly.",
+      "Transitive deps: `LocalizationCommandletExecution` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`, `Localization`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LocalizationCommandletExecution` 的构建规则位于 `Editor/LocalizationCommandletExecution/LocalizationCommandletExecution.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LocalizationCommandletExecution` build rule is `Editor/LocalizationCommandletExecution/LocalizationCommandletExecution.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "localizationdashboard",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LocalizationDashboard` 位于 `Editor`，构建规则 `Editor/LocalizationDashboard/LocalizationDashboard.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`, `InternationalizationSettings`, `Localization`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LocalizationDashboard\" });`；对外暴露 `LocalizationDashboard` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LocalizationDashboard` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `LocalizationDashboard.h` / `LocalizationDashboardModule.h`），再用 `FModuleManager::LoadModulePtr<LocalizationDashboardModule>` 或直接使用导出类型。",
+      "传递依赖：`LocalizationDashboard` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`, `InternationalizationSettings`, `Localization`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LocalizationDashboard` lives under `Editor`; build rule `Editor/LocalizationDashboard/LocalizationDashboard.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`, `InternationalizationSettings`, `Localization`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LocalizationDashboard\" });`. Use Public when exposing `LocalizationDashboard` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LocalizationDashboard` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `LocalizationDashboard.h` / `LocalizationDashboardModule.h`), then use `FModuleManager::LoadModulePtr<LocalizationDashboardModule>` or the exported types directly.",
+      "Transitive deps: `LocalizationDashboard` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `InputCore`, `InternationalizationSettings`, `Localization`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LocalizationDashboard` 的构建规则位于 `Editor/LocalizationDashboard/LocalizationDashboard.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LocalizationDashboard` build rule is `Editor/LocalizationDashboard/LocalizationDashboard.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "localizationservice",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LocalizationService` 位于 `Developer`，构建规则 `Developer/LocalizationService/LocalizationService.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MessageLog`, `PropertyEditor`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LocalizationService\" });`；对外暴露 `LocalizationService` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LocalizationService` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LocalizationService.h` / `LocalizationServiceModule.h`），再用 `FModuleManager::LoadModulePtr<LocalizationServiceModule>` 或直接使用导出类型。",
+      "传递依赖：`LocalizationService` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MessageLog`, `PropertyEditor`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LocalizationService` lives under `Developer`; build rule `Developer/LocalizationService/LocalizationService.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MessageLog`, `PropertyEditor`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LocalizationService\" });`. Use Public when exposing `LocalizationService` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LocalizationService` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LocalizationService.h` / `LocalizationServiceModule.h`), then use `FModuleManager::LoadModulePtr<LocalizationServiceModule>` or the exported types directly.",
+      "Transitive deps: `LocalizationService` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MessageLog`, `PropertyEditor`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LocalizationService` 的构建规则位于 `Developer/LocalizationService/LocalizationService.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LocalizationService` build rule is `Developer/LocalizationService/LocalizationService.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "locreschunker",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LocResChunker` 位于 `Programs`，构建规则 `Programs/LocResChunker/LocResChunker.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `IoStoreUtilities`, `Localization`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LocResChunker\" });`；对外暴露 `LocResChunker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LocResChunker` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `LocResChunker.h` / `LocResChunkerModule.h`），再用 `FModuleManager::LoadModulePtr<LocResChunkerModule>` 或直接使用导出类型。",
+      "传递依赖：`LocResChunker` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `IoStoreUtilities`, `Localization`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LocResChunker` lives under `Programs`; build rule `Programs/LocResChunker/LocResChunker.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `IoStoreUtilities`, `Localization`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LocResChunker\" });`. Use Public when exposing `LocResChunker` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LocResChunker` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `LocResChunker.h` / `LocResChunkerModule.h`), then use `FModuleManager::LoadModulePtr<LocResChunkerModule>` or the exported types directly.",
+      "Transitive deps: `LocResChunker` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `IoStoreUtilities`, `Localization`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LocResChunker` 的构建规则位于 `Programs/LocResChunker/LocResChunker.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`LocResChunker` build rule is `Programs/LocResChunker/LocResChunker.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "logvisualizer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LogVisualizer` 位于 `Developer`，构建规则 `Developer/LogVisualizer/LogVisualizer.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `EditorViewport`, `Engine`, `InputCore`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LogVisualizer\" });`；对外暴露 `LogVisualizer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LogVisualizer` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LogVisualizer.h` / `LogVisualizerModule.h`），再用 `FModuleManager::LoadModulePtr<LogVisualizerModule>` 或直接使用导出类型。",
+      "传递依赖：`LogVisualizer` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `EditorViewport`, `Engine`, `InputCore`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LogVisualizer` lives under `Developer`; build rule `Developer/LogVisualizer/LogVisualizer.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `EditorViewport`, `Engine`, `InputCore`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LogVisualizer\" });`. Use Public when exposing `LogVisualizer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LogVisualizer` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LogVisualizer.h` / `LogVisualizerModule.h`), then use `FModuleManager::LoadModulePtr<LogVisualizerModule>` or the exported types directly.",
+      "Transitive deps: `LogVisualizer` also needs `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `EditorViewport`, `Engine`, `InputCore`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LogVisualizer` 的构建规则位于 `Developer/LogVisualizer/LogVisualizer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LogVisualizer` build rule is `Developer/LogVisualizer/LogVisualizer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "lore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Lore` 位于 `ThirdParty`，构建规则 `ThirdParty/Lore/Lore.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Lore\" });`；对外暴露 `Lore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Lore` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Lore.h` / `LoreModule.h`），再用 `FModuleManager::LoadModulePtr<LoreModule>` 或直接使用导出类型。",
+      "传递依赖：`Lore` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Lore` lives under `ThirdParty`; build rule `ThirdParty/Lore/Lore.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Lore\" });`. Use Public when exposing `Lore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Lore` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Lore.h` / `LoreModule.h`), then use `FModuleManager::LoadModulePtr<LoreModule>` or the exported types directly.",
+      "Transitive deps: `Lore` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Lore` 的构建规则位于 `ThirdParty/Lore/Lore.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Lore` build rule is `ThirdParty/Lore/Lore.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "lowleveltestsrunner",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LowLevelTestsRunner` 位于 `Developer`，构建规则 `Developer/LowLevelTestsRunner/LowLevelTestsRunner.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Catch2`, `Core`, `CoreUObject`, `DerivedDataCache`, `Engine`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LowLevelTestsRunner\" });`；对外暴露 `LowLevelTestsRunner` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LowLevelTestsRunner` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LowLevelTestsRunner.h` / `LowLevelTestsRunnerModule.h`），再用 `FModuleManager::LoadModulePtr<LowLevelTestsRunnerModule>` 或直接使用导出类型。",
+      "传递依赖：`LowLevelTestsRunner` 还依赖 `ApplicationCore`, `Catch2`, `Core`, `CoreUObject`, `DerivedDataCache`, `Engine`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LowLevelTestsRunner` lives under `Developer`; build rule `Developer/LowLevelTestsRunner/LowLevelTestsRunner.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Catch2`, `Core`, `CoreUObject`, `DerivedDataCache`, `Engine`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LowLevelTestsRunner\" });`. Use Public when exposing `LowLevelTestsRunner` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LowLevelTestsRunner` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LowLevelTestsRunner.h` / `LowLevelTestsRunnerModule.h`), then use `FModuleManager::LoadModulePtr<LowLevelTestsRunnerModule>` or the exported types directly.",
+      "Transitive deps: `LowLevelTestsRunner` also needs `ApplicationCore`, `Catch2`, `Core`, `CoreUObject`, `DerivedDataCache`, `Engine`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LowLevelTestsRunner` 的构建规则位于 `Developer/LowLevelTestsRunner/LowLevelTestsRunner.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LowLevelTestsRunner` build rule is `Developer/LowLevelTestsRunner/LowLevelTestsRunner.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "macmenu",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MacMenu` 位于 `Runtime`，构建规则 `Runtime/Apple/MacMenu/MacMenu.Build.cs`。它直接依赖 6 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MacMenu\" });`；对外暴露 `MacMenu` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MacMenu` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `MacMenu.h` / `MacMenuModule.h`），再用 `FModuleManager::LoadModulePtr<MacMenuModule>` 或直接使用导出类型。",
+      "传递依赖：`MacMenu` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MacMenu` lives under `Runtime`; build rule `Runtime/Apple/MacMenu/MacMenu.Build.cs`.It directly depends on 6 modules: `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MacMenu\" });`. Use Public when exposing `MacMenu` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MacMenu` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `MacMenu.h` / `MacMenuModule.h`), then use `FModuleManager::LoadModulePtr<MacMenuModule>` or the exported types directly.",
+      "Transitive deps: `MacMenu` also needs `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MacMenu` 的构建规则位于 `Runtime/Apple/MacMenu/MacMenu.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`MacMenu` build rule is `Runtime/Apple/MacMenu/MacMenu.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "macplatformeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MacPlatformEditor` 位于 `Developer`，构建规则 `Developer/Mac/MacPlatformEditor/MacPlatformEditor.Build.cs`。它直接依赖 8 个模块：`AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `MacTargetPlatformControls`, `MacTargetPlatformSettings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MacPlatformEditor\" });`；对外暴露 `MacPlatformEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MacPlatformEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `MacPlatformEditor.h` / `MacPlatformEditorModule.h`），再用 `FModuleManager::LoadModulePtr<MacPlatformEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`MacPlatformEditor` 还依赖 `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `MacTargetPlatformControls`, `MacTargetPlatformSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MacPlatformEditor` lives under `Developer`; build rule `Developer/Mac/MacPlatformEditor/MacPlatformEditor.Build.cs`.It directly depends on 8 modules: `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `MacTargetPlatformControls`, `MacTargetPlatformSettings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MacPlatformEditor\" });`. Use Public when exposing `MacPlatformEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MacPlatformEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `MacPlatformEditor.h` / `MacPlatformEditorModule.h`), then use `FModuleManager::LoadModulePtr<MacPlatformEditorModule>` or the exported types directly.",
+      "Transitive deps: `MacPlatformEditor` also needs `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `MacTargetPlatformControls`, `MacTargetPlatformSettings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MacPlatformEditor` 的构建规则位于 `Developer/Mac/MacPlatformEditor/MacPlatformEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`MacPlatformEditor` build rule is `Developer/Mac/MacPlatformEditor/MacPlatformEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "mactargetplatform",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MacTargetPlatform` 位于 `Developer`，构建规则 `Developer/Mac/MacTargetPlatform/MacTargetPlatform.Build.cs`。它直接依赖 5 个模块：`Core`, `DesktopPlatform`, `MacTargetPlatformControls`, `MacTargetPlatformSettings`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MacTargetPlatform\" });`；对外暴露 `MacTargetPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MacTargetPlatform` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `MacTargetPlatform.h` / `MacTargetPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<MacTargetPlatformModule>` 或直接使用导出类型。",
+      "传递依赖：`MacTargetPlatform` 还依赖 `Core`, `DesktopPlatform`, `MacTargetPlatformControls`, `MacTargetPlatformSettings`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MacTargetPlatform` lives under `Developer`; build rule `Developer/Mac/MacTargetPlatform/MacTargetPlatform.Build.cs`.It directly depends on 5 modules: `Core`, `DesktopPlatform`, `MacTargetPlatformControls`, `MacTargetPlatformSettings`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MacTargetPlatform\" });`. Use Public when exposing `MacTargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MacTargetPlatform` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `MacTargetPlatform.h` / `MacTargetPlatformModule.h`), then use `FModuleManager::LoadModulePtr<MacTargetPlatformModule>` or the exported types directly.",
+      "Transitive deps: `MacTargetPlatform` also needs `Core`, `DesktopPlatform`, `MacTargetPlatformControls`, `MacTargetPlatformSettings`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MacTargetPlatform` 的构建规则位于 `Developer/Mac/MacTargetPlatform/MacTargetPlatform.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`MacTargetPlatform` build rule is `Developer/Mac/MacTargetPlatform/MacTargetPlatform.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "mactargetplatformcontrols",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MacTargetPlatformControls` 位于 `Developer`，构建规则 `Developer/Mac/MacTargetPlatformControls/MacTargetPlatformControls.Build.cs`。它直接依赖 7 个模块：`CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `MacTargetPlatformSettings`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MacTargetPlatformControls\" });`；对外暴露 `MacTargetPlatformControls` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MacTargetPlatformControls` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `MacTargetPlatformControls.h` / `MacTargetPlatformControlsModule.h`），再用 `FModuleManager::LoadModulePtr<MacTargetPlatformControlsModule>` 或直接使用导出类型。",
+      "传递依赖：`MacTargetPlatformControls` 还依赖 `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `MacTargetPlatformSettings`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MacTargetPlatformControls` lives under `Developer`; build rule `Developer/Mac/MacTargetPlatformControls/MacTargetPlatformControls.Build.cs`.It directly depends on 7 modules: `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `MacTargetPlatformSettings`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MacTargetPlatformControls\" });`. Use Public when exposing `MacTargetPlatformControls` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MacTargetPlatformControls` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `MacTargetPlatformControls.h` / `MacTargetPlatformControlsModule.h`), then use `FModuleManager::LoadModulePtr<MacTargetPlatformControlsModule>` or the exported types directly.",
+      "Transitive deps: `MacTargetPlatformControls` also needs `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `MacTargetPlatformSettings`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MacTargetPlatformControls` 的构建规则位于 `Developer/Mac/MacTargetPlatformControls/MacTargetPlatformControls.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`MacTargetPlatformControls` build rule is `Developer/Mac/MacTargetPlatformControls/MacTargetPlatformControls.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "mactargetplatformsettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MacTargetPlatformSettings` 位于 `Developer`，构建规则 `Developer/Mac/MacTargetPlatformSettings/MacTargetPlatformSettings.Build.cs`。它直接依赖 7 个模块：`CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MacTargetPlatformSettings\" });`；对外暴露 `MacTargetPlatformSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MacTargetPlatformSettings` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `MacTargetPlatformSettings.h` / `MacTargetPlatformSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<MacTargetPlatformSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`MacTargetPlatformSettings` 还依赖 `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MacTargetPlatformSettings` lives under `Developer`; build rule `Developer/Mac/MacTargetPlatformSettings/MacTargetPlatformSettings.Build.cs`.It directly depends on 7 modules: `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MacTargetPlatformSettings\" });`. Use Public when exposing `MacTargetPlatformSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MacTargetPlatformSettings` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `MacTargetPlatformSettings.h` / `MacTargetPlatformSettingsModule.h`), then use `FModuleManager::LoadModulePtr<MacTargetPlatformSettingsModule>` or the exported types directly.",
+      "Transitive deps: `MacTargetPlatformSettings` also needs `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MacTargetPlatformSettings` 的构建规则位于 `Developer/Mac/MacTargetPlatformSettings/MacTargetPlatformSettings.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`MacTargetPlatformSettings` build rule is `Developer/Mac/MacTargetPlatformSettings/MacTargetPlatformSettings.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "mainframe",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MainFrame` 位于 `Editor`，构建规则 `Editor/MainFrame/MainFrame.Build.cs`。它直接依赖 8 个模块：`Analytics`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `DeviceProfileEditor`, `Documentation`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MainFrame\" });`；对外暴露 `MainFrame` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MainFrame` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `MainFrame.h` / `MainFrameModule.h`），再用 `FModuleManager::LoadModulePtr<MainFrameModule>` 或直接使用导出类型。",
+      "传递依赖：`MainFrame` 还依赖 `Analytics`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `DeviceProfileEditor`, `Documentation`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MainFrame` lives under `Editor`; build rule `Editor/MainFrame/MainFrame.Build.cs`.It directly depends on 8 modules: `Analytics`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `DeviceProfileEditor`, `Documentation`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MainFrame\" });`. Use Public when exposing `MainFrame` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MainFrame` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `MainFrame.h` / `MainFrameModule.h`), then use `FModuleManager::LoadModulePtr<MainFrameModule>` or the exported types directly.",
+      "Transitive deps: `MainFrame` also needs `Analytics`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperToolSettings`, `DeviceProfileEditor`, `Documentation`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MainFrame` 的构建规则位于 `Editor/MainFrame/MainFrame.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`MainFrame` build rule is `Editor/MainFrame/MainFrame.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "managedstoragedebug",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ManagedStorageDebug` 位于 `Runtime`，构建规则 `Runtime/ManagedStorageDebug/ManagedStorageDebug.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ManagedStorageDebug\" });`；对外暴露 `ManagedStorageDebug` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ManagedStorageDebug` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ManagedStorageDebug.h` / `ManagedStorageDebugModule.h`），再用 `FModuleManager::LoadModulePtr<ManagedStorageDebugModule>` 或直接使用导出类型。",
+      "传递依赖：`ManagedStorageDebug` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ManagedStorageDebug` lives under `Runtime`; build rule `Runtime/ManagedStorageDebug/ManagedStorageDebug.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ManagedStorageDebug\" });`. Use Public when exposing `ManagedStorageDebug` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ManagedStorageDebug` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ManagedStorageDebug.h` / `ManagedStorageDebugModule.h`), then use `FModuleManager::LoadModulePtr<ManagedStorageDebugModule>` or the exported types directly.",
+      "Transitive deps: `ManagedStorageDebug` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ManagedStorageDebug` 的构建规则位于 `Runtime/ManagedStorageDebug/ManagedStorageDebug.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ManagedStorageDebug` build rule is `Runtime/ManagedStorageDebug/ManagedStorageDebug.Build.cs`; depends on 3 modules; category Module."
+  }
+]

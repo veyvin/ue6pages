@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "portalmessages",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`PortalMessages` 位于 `Runtime`，构建规则 `Runtime/Portal/Messages/PortalMessages.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `MessagingRpc`, `PortalServices`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PortalMessages\" });`；对外暴露 `PortalMessages` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`PortalMessages` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `PortalMessages.h` / `PortalMessagesModule.h`），再用 `FModuleManager::LoadModulePtr<PortalMessagesModule>` 或直接使用导出类型。",
+      "传递依赖：`PortalMessages` 还依赖 `Core`, `CoreUObject`, `MessagingRpc`, `PortalServices`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `PortalMessages` lives under `Runtime`; build rule `Runtime/Portal/Messages/PortalMessages.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `MessagingRpc`, `PortalServices`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PortalMessages\" });`. Use Public when exposing `PortalMessages` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `PortalMessages` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `PortalMessages.h` / `PortalMessagesModule.h`), then use `FModuleManager::LoadModulePtr<PortalMessagesModule>` or the exported types directly.",
+      "Transitive deps: `PortalMessages` also needs `Core`, `CoreUObject`, `MessagingRpc`, `PortalServices`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`PortalMessages` 的构建规则位于 `Runtime/Portal/Messages/PortalMessages.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`PortalMessages` build rule is `Runtime/Portal/Messages/PortalMessages.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "portalproxies",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`PortalProxies` 位于 `Runtime`，构建规则 `Runtime/Portal/Proxies/PortalProxies.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `PortalMessages`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PortalProxies\" });`；对外暴露 `PortalProxies` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`PortalProxies` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `PortalProxies.h` / `PortalProxiesModule.h`），再用 `FModuleManager::LoadModulePtr<PortalProxiesModule>` 或直接使用导出类型。",
+      "传递依赖：`PortalProxies` 还依赖 `Core`, `CoreUObject`, `PortalMessages`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `PortalProxies` lives under `Runtime`; build rule `Runtime/Portal/Proxies/PortalProxies.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `PortalMessages`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PortalProxies\" });`. Use Public when exposing `PortalProxies` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `PortalProxies` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `PortalProxies.h` / `PortalProxiesModule.h`), then use `FModuleManager::LoadModulePtr<PortalProxiesModule>` or the exported types directly.",
+      "Transitive deps: `PortalProxies` also needs `Core`, `CoreUObject`, `PortalMessages`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`PortalProxies` 的构建规则位于 `Runtime/Portal/Proxies/PortalProxies.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`PortalProxies` build rule is `Runtime/Portal/Proxies/PortalProxies.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "portalrpc",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`PortalRpc` 位于 `Runtime`，构建规则 `Runtime/Portal/Rpc/PortalRpc.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `MessagingRpc`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PortalRpc\" });`；对外暴露 `PortalRpc` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`PortalRpc` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `PortalRpc.h` / `PortalRpcModule.h`），再用 `FModuleManager::LoadModulePtr<PortalRpcModule>` 或直接使用导出类型。",
+      "传递依赖：`PortalRpc` 还依赖 `Core`, `CoreUObject`, `MessagingRpc`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `PortalRpc` lives under `Runtime`; build rule `Runtime/Portal/Rpc/PortalRpc.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `MessagingRpc`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PortalRpc\" });`. Use Public when exposing `PortalRpc` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `PortalRpc` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `PortalRpc.h` / `PortalRpcModule.h`), then use `FModuleManager::LoadModulePtr<PortalRpcModule>` or the exported types directly.",
+      "Transitive deps: `PortalRpc` also needs `Core`, `CoreUObject`, `MessagingRpc`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`PortalRpc` 的构建规则位于 `Runtime/Portal/Rpc/PortalRpc.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`PortalRpc` build rule is `Runtime/Portal/Rpc/PortalRpc.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "portalservices",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`PortalServices` 位于 `Runtime`，构建规则 `Runtime/Portal/Services/PortalServices.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PortalServices\" });`；对外暴露 `PortalServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`PortalServices` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `PortalServices.h` / `PortalServicesModule.h`），再用 `FModuleManager::LoadModulePtr<PortalServicesModule>` 或直接使用导出类型。",
+      "传递依赖：`PortalServices` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `PortalServices` lives under `Runtime`; build rule `Runtime/Portal/Services/PortalServices.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PortalServices\" });`. Use Public when exposing `PortalServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `PortalServices` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `PortalServices.h` / `PortalServicesModule.h`), then use `FModuleManager::LoadModulePtr<PortalServicesModule>` or the exported types directly.",
+      "Transitive deps: `PortalServices` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`PortalServices` 的构建规则位于 `Runtime/Portal/Services/PortalServices.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`PortalServices` build rule is `Runtime/Portal/Services/PortalServices.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "portmidi",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`portmidi` 位于 `ThirdParty`，构建规则 `ThirdParty/portmidi/portmidi.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"portmidi\" });`；对外暴露 `portmidi` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`portmidi` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `portmidi.h` / `portmidiModule.h`），再用 `FModuleManager::LoadModulePtr<portmidiModule>` 或直接使用导出类型。",
+      "传递依赖：`portmidi` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `portmidi` lives under `ThirdParty`; build rule `ThirdParty/portmidi/portmidi.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"portmidi\" });`. Use Public when exposing `portmidi` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `portmidi` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `portmidi.h` / `portmidiModule.h`), then use `FModuleManager::LoadModulePtr<portmidiModule>` or the exported types directly.",
+      "Transitive deps: `portmidi` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`portmidi` 的构建规则位于 `ThirdParty/portmidi/portmidi.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`portmidi` build rule is `ThirdParty/portmidi/portmidi.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "posixshim",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`PosixShim` 位于 `Runtime`，构建规则 `Runtime/PlatformThirdPartyHelpers/PosixShim/PosixShim.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PosixShim\" });`；对外暴露 `PosixShim` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`PosixShim` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `PosixShim.h` / `PosixShimModule.h`），再用 `FModuleManager::LoadModulePtr<PosixShimModule>` 或直接使用导出类型。",
+      "传递依赖：`PosixShim` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `PosixShim` lives under `Runtime`; build rule `Runtime/PlatformThirdPartyHelpers/PosixShim/PosixShim.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PosixShim\" });`. Use Public when exposing `PosixShim` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `PosixShim` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `PosixShim.h` / `PosixShimModule.h`), then use `FModuleManager::LoadModulePtr<PosixShimModule>` or the exported types directly.",
+      "Transitive deps: `PosixShim` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`PosixShim` 的构建规则位于 `Runtime/PlatformThirdPartyHelpers/PosixShim/PosixShim.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`PosixShim` build rule is `Runtime/PlatformThirdPartyHelpers/PosixShim/PosixShim.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "preloadscreen",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`PreLoadScreen` 位于 `Runtime`，构建规则 `Runtime/PreLoadScreen/PreLoadScreen.Build.cs`。它直接依赖 8 个模块：`Analytics`, `AnalyticsET`, `ApplicationCore`, `BuildPatchServices`, `Core`, `CoreUObject`, `Engine`, `InputCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PreLoadScreen\" });`；对外暴露 `PreLoadScreen` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`PreLoadScreen` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `PreLoadScreen.h` / `PreLoadScreenModule.h`），再用 `FModuleManager::LoadModulePtr<PreLoadScreenModule>` 或直接使用导出类型。",
+      "传递依赖：`PreLoadScreen` 还依赖 `Analytics`, `AnalyticsET`, `ApplicationCore`, `BuildPatchServices`, `Core`, `CoreUObject`, `Engine`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `PreLoadScreen` lives under `Runtime`; build rule `Runtime/PreLoadScreen/PreLoadScreen.Build.cs`.It directly depends on 8 modules: `Analytics`, `AnalyticsET`, `ApplicationCore`, `BuildPatchServices`, `Core`, `CoreUObject`, `Engine`, `InputCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PreLoadScreen\" });`. Use Public when exposing `PreLoadScreen` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `PreLoadScreen` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `PreLoadScreen.h` / `PreLoadScreenModule.h`), then use `FModuleManager::LoadModulePtr<PreLoadScreenModule>` or the exported types directly.",
+      "Transitive deps: `PreLoadScreen` also needs `Analytics`, `AnalyticsET`, `ApplicationCore`, `BuildPatchServices`, `Core`, `CoreUObject`, `Engine`, `InputCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`PreLoadScreen` 的构建规则位于 `Runtime/PreLoadScreen/PreLoadScreen.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`PreLoadScreen` build rule is `Runtime/PreLoadScreen/PreLoadScreen.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "profilevisualizer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ProfileVisualizer` 位于 `Developer`，构建规则 `Developer/ProfileVisualizer/ProfileVisualizer.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `WorkspaceMenuStructure`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ProfileVisualizer\" });`；对外暴露 `ProfileVisualizer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ProfileVisualizer` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `ProfileVisualizer.h` / `ProfileVisualizerModule.h`），再用 `FModuleManager::LoadModulePtr<ProfileVisualizerModule>` 或直接使用导出类型。",
+      "传递依赖：`ProfileVisualizer` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `WorkspaceMenuStructure`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ProfileVisualizer` lives under `Developer`; build rule `Developer/ProfileVisualizer/ProfileVisualizer.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `WorkspaceMenuStructure`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ProfileVisualizer\" });`. Use Public when exposing `ProfileVisualizer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ProfileVisualizer` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `ProfileVisualizer.h` / `ProfileVisualizerModule.h`), then use `FModuleManager::LoadModulePtr<ProfileVisualizerModule>` or the exported types directly.",
+      "Transitive deps: `ProfileVisualizer` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `WorkspaceMenuStructure`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ProfileVisualizer` 的构建规则位于 `Developer/ProfileVisualizer/ProfileVisualizer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ProfileVisualizer` build rule is `Developer/ProfileVisualizer/ProfileVisualizer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "projectlauncher",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ProjectLauncher` 位于 `Developer`，构建规则 `Developer/ProjectLauncher/ProjectLauncher/ProjectLauncher.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ProjectLauncher\" });`；对外暴露 `ProjectLauncher` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ProjectLauncher` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `ProjectLauncher.h` / `ProjectLauncherModule.h`），再用 `FModuleManager::LoadModulePtr<ProjectLauncherModule>` 或直接使用导出类型。",
+      "传递依赖：`ProjectLauncher` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `ProjectLauncher` lives under `Developer`; build rule `Developer/ProjectLauncher/ProjectLauncher/ProjectLauncher.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ProjectLauncher\" });`. Use Public when exposing `ProjectLauncher` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ProjectLauncher` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `ProjectLauncher.h` / `ProjectLauncherModule.h`), then use `FModuleManager::LoadModulePtr<ProjectLauncherModule>` or the exported types directly.",
+      "Transitive deps: `ProjectLauncher` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`ProjectLauncher` 的构建规则位于 `Developer/ProjectLauncher/ProjectLauncher/ProjectLauncher.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`ProjectLauncher` build rule is `Developer/ProjectLauncher/ProjectLauncher/ProjectLauncher.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "projects",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Projects` 位于 `Runtime`，构建规则 `Runtime/Projects/Projects.Build.cs`。它直接依赖 1 个模块：`DesktopPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Projects\" });`；对外暴露 `Projects` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Projects` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Projects.h` / `ProjectsModule.h`），再用 `FModuleManager::LoadModulePtr<ProjectsModule>` 或直接使用导出类型。",
+      "传递依赖：`Projects` 还依赖 `DesktopPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Projects` lives under `Runtime`; build rule `Runtime/Projects/Projects.Build.cs`.It directly depends on 1 modules: `DesktopPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Projects\" });`. Use Public when exposing `Projects` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Projects` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Projects.h` / `ProjectsModule.h`), then use `FModuleManager::LoadModulePtr<ProjectsModule>` or the exported types directly.",
+      "Transitive deps: `Projects` also needs `DesktopPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Projects` 的构建规则位于 `Runtime/Projects/Projects.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`Projects` build rule is `Runtime/Projects/Projects.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "projectsettingsviewer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ProjectSettingsViewer` 位于 `Editor`，构建规则 `Editor/ProjectSettingsViewer/ProjectSettingsViewer.Build.cs`。它直接依赖 8 个模块：`AIModule`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`, `EngineSettings`, `MoviePlayer`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ProjectSettingsViewer\" });`；对外暴露 `ProjectSettingsViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ProjectSettingsViewer` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ProjectSettingsViewer.h` / `ProjectSettingsViewerModule.h`），再用 `FModuleManager::LoadModulePtr<ProjectSettingsViewerModule>` 或直接使用导出类型。",
+      "传递依赖：`ProjectSettingsViewer` 还依赖 `AIModule`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`, `EngineSettings`, `MoviePlayer`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ProjectSettingsViewer` lives under `Editor`; build rule `Editor/ProjectSettingsViewer/ProjectSettingsViewer.Build.cs`.It directly depends on 8 modules: `AIModule`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`, `EngineSettings`, `MoviePlayer`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ProjectSettingsViewer\" });`. Use Public when exposing `ProjectSettingsViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ProjectSettingsViewer` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ProjectSettingsViewer.h` / `ProjectSettingsViewerModule.h`), then use `FModuleManager::LoadModulePtr<ProjectSettingsViewerModule>` or the exported types directly.",
+      "Transitive deps: `ProjectSettingsViewer` also needs `AIModule`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`, `EngineSettings`, `MoviePlayer`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ProjectSettingsViewer` 的构建规则位于 `Editor/ProjectSettingsViewer/ProjectSettingsViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ProjectSettingsViewer` build rule is `Editor/ProjectSettingsViewer/ProjectSettingsViewer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "projecttargetplatformeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ProjectTargetPlatformEditor` 位于 `Editor`，构建规则 `Editor/ProjectTargetPlatformEditor/ProjectTargetPlatformEditor.Build.cs`。它直接依赖 7 个模块：`Core`, `DesktopPlatform`, `Projects`, `Settings`, `Slate`, `SlateCore`, `UnrealEd`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ProjectTargetPlatformEditor\" });`；对外暴露 `ProjectTargetPlatformEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ProjectTargetPlatformEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ProjectTargetPlatformEditor.h` / `ProjectTargetPlatformEditorModule.h`），再用 `FModuleManager::LoadModulePtr<ProjectTargetPlatformEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`ProjectTargetPlatformEditor` 还依赖 `Core`, `DesktopPlatform`, `Projects`, `Settings`, `Slate`, `SlateCore`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ProjectTargetPlatformEditor` lives under `Editor`; build rule `Editor/ProjectTargetPlatformEditor/ProjectTargetPlatformEditor.Build.cs`.It directly depends on 7 modules: `Core`, `DesktopPlatform`, `Projects`, `Settings`, `Slate`, `SlateCore`, `UnrealEd`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ProjectTargetPlatformEditor\" });`. Use Public when exposing `ProjectTargetPlatformEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ProjectTargetPlatformEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ProjectTargetPlatformEditor.h` / `ProjectTargetPlatformEditorModule.h`), then use `FModuleManager::LoadModulePtr<ProjectTargetPlatformEditorModule>` or the exported types directly.",
+      "Transitive deps: `ProjectTargetPlatformEditor` also needs `Core`, `DesktopPlatform`, `Projects`, `Settings`, `Slate`, `SlateCore`, `UnrealEd`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ProjectTargetPlatformEditor` 的构建规则位于 `Editor/ProjectTargetPlatformEditor/ProjectTargetPlatformEditor.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`ProjectTargetPlatformEditor` build rule is `Editor/ProjectTargetPlatformEditor/ProjectTargetPlatformEditor.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "propertyeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`PropertyEditor` 位于 `Editor`，构建规则 `Editor/PropertyEditor/PropertyEditor.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PropertyEditor\" });`；对外暴露 `PropertyEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`PropertyEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `PropertyEditor.h` / `PropertyEditorModule.h`），再用 `FModuleManager::LoadModulePtr<PropertyEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`PropertyEditor` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `PropertyEditor` lives under `Editor`; build rule `Editor/PropertyEditor/PropertyEditor.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PropertyEditor\" });`. Use Public when exposing `PropertyEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `PropertyEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `PropertyEditor.h` / `PropertyEditorModule.h`), then use `FModuleManager::LoadModulePtr<PropertyEditorModule>` or the exported types directly.",
+      "Transitive deps: `PropertyEditor` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`PropertyEditor` 的构建规则位于 `Editor/PropertyEditor/PropertyEditor.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`PropertyEditor` build rule is `Editor/PropertyEditor/PropertyEditor.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "propertyeditortoolkit",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`PropertyEditorToolkit` 位于 `Editor`，构建规则 `Editor/PropertyEditorToolkit/PropertyEditorToolkit.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `Engine`, `InputCore`, `PropertyEditor`, `PropertyPath`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PropertyEditorToolkit\" });`；对外暴露 `PropertyEditorToolkit` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`PropertyEditorToolkit` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `PropertyEditorToolkit.h` / `PropertyEditorToolkitModule.h`），再用 `FModuleManager::LoadModulePtr<PropertyEditorToolkitModule>` 或直接使用导出类型。",
+      "传递依赖：`PropertyEditorToolkit` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `Engine`, `InputCore`, `PropertyEditor`, `PropertyPath`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `PropertyEditorToolkit` lives under `Editor`; build rule `Editor/PropertyEditorToolkit/PropertyEditorToolkit.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `Engine`, `InputCore`, `PropertyEditor`, `PropertyPath`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PropertyEditorToolkit\" });`. Use Public when exposing `PropertyEditorToolkit` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `PropertyEditorToolkit` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `PropertyEditorToolkit.h` / `PropertyEditorToolkitModule.h`), then use `FModuleManager::LoadModulePtr<PropertyEditorToolkitModule>` or the exported types directly.",
+      "Transitive deps: `PropertyEditorToolkit` also needs `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`, `Engine`, `InputCore`, `PropertyEditor`, `PropertyPath`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`PropertyEditorToolkit` 的构建规则位于 `Editor/PropertyEditorToolkit/PropertyEditorToolkit.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`PropertyEditorToolkit` build rule is `Editor/PropertyEditorToolkit/PropertyEditorToolkit.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "propertypath",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`PropertyPath` 位于 `Runtime`，构建规则 `Runtime/PropertyPath/PropertyPath.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"PropertyPath\" });`；对外暴露 `PropertyPath` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`PropertyPath` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `PropertyPath.h` / `PropertyPathModule.h`），再用 `FModuleManager::LoadModulePtr<PropertyPathModule>` 或直接使用导出类型。",
+      "传递依赖：`PropertyPath` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `PropertyPath` lives under `Runtime`; build rule `Runtime/PropertyPath/PropertyPath.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"PropertyPath\" });`. Use Public when exposing `PropertyPath` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `PropertyPath` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `PropertyPath.h` / `PropertyPathModule.h`), then use `FModuleManager::LoadModulePtr<PropertyPathModule>` or the exported types directly.",
+      "Transitive deps: `PropertyPath` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`PropertyPath` 的构建规则位于 `Runtime/PropertyPath/PropertyPath.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`PropertyPath` build rule is `Runtime/PropertyPath/PropertyPath.Build.cs`; depends on 2 modules; category Module."
+  }
+]

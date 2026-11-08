@@ -1,0 +1,304 @@
+[
+  {
+    "slug": "mimalloc",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`mimalloc` 位于 `ThirdParty`，构建规则 `ThirdParty/mimalloc/mimalloc.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"mimalloc\" });`；对外暴露 `mimalloc` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`mimalloc` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `mimalloc.h` / `mimallocModule.h`），再用 `FModuleManager::LoadModulePtr<mimallocModule>` 或直接使用导出类型。",
+      "传递依赖：`mimalloc` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `mimalloc` lives under `ThirdParty`; build rule `ThirdParty/mimalloc/mimalloc.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"mimalloc\" });`. Use Public when exposing `mimalloc` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `mimalloc` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `mimalloc.h` / `mimallocModule.h`), then use `FModuleManager::LoadModulePtr<mimallocModule>` or the exported types directly.",
+      "Transitive deps: `mimalloc` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`mimalloc` 的构建规则位于 `ThirdParty/mimalloc/mimalloc.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`mimalloc` build rule is `ThirdParty/mimalloc/mimalloc.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "mimalloc212",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`mimalloc212` 位于 `ThirdParty`，构建规则 `ThirdParty/mimalloc/mimalloc212.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"mimalloc212\" });`；对外暴露 `mimalloc212` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`mimalloc212` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `mimalloc212.h` / `mimalloc212Module.h`），再用 `FModuleManager::LoadModulePtr<mimalloc212Module>` 或直接使用导出类型。",
+      "传递依赖：`mimalloc212` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `mimalloc212` lives under `ThirdParty`; build rule `ThirdParty/mimalloc/mimalloc212.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"mimalloc212\" });`. Use Public when exposing `mimalloc212` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `mimalloc212` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `mimalloc212.h` / `mimalloc212Module.h`), then use `FModuleManager::LoadModulePtr<mimalloc212Module>` or the exported types directly.",
+      "Transitive deps: `mimalloc212` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`mimalloc212` 的构建规则位于 `ThirdParty/mimalloc/mimalloc212.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`mimalloc212` build rule is `ThirdParty/mimalloc/mimalloc212.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "mimalloc331",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`mimalloc331` 位于 `ThirdParty`，构建规则 `ThirdParty/mimalloc/mimalloc331.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"mimalloc331\" });`；对外暴露 `mimalloc331` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`mimalloc331` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `mimalloc331.h` / `mimalloc331Module.h`），再用 `FModuleManager::LoadModulePtr<mimalloc331Module>` 或直接使用导出类型。",
+      "传递依赖：`mimalloc331` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `mimalloc331` lives under `ThirdParty`; build rule `ThirdParty/mimalloc/mimalloc331.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"mimalloc331\" });`. Use Public when exposing `mimalloc331` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `mimalloc331` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `mimalloc331.h` / `mimalloc331Module.h`), then use `FModuleManager::LoadModulePtr<mimalloc331Module>` or the exported types directly.",
+      "Transitive deps: `mimalloc331` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`mimalloc331` 的构建规则位于 `ThirdParty/mimalloc/mimalloc331.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`mimalloc331` build rule is `ThirdParty/mimalloc/mimalloc331.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "mimalloc332",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`mimalloc332` 位于 `ThirdParty`，构建规则 `ThirdParty/mimalloc/mimalloc332.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"mimalloc332\" });`；对外暴露 `mimalloc332` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`mimalloc332` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `mimalloc332.h` / `mimalloc332Module.h`），再用 `FModuleManager::LoadModulePtr<mimalloc332Module>` 或直接使用导出类型。",
+      "传递依赖：`mimalloc332` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `mimalloc332` lives under `ThirdParty`; build rule `ThirdParty/mimalloc/mimalloc332.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"mimalloc332\" });`. Use Public when exposing `mimalloc332` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `mimalloc332` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `mimalloc332.h` / `mimalloc332Module.h`), then use `FModuleManager::LoadModulePtr<mimalloc332Module>` or the exported types directly.",
+      "Transitive deps: `mimalloc332` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`mimalloc332` 的构建规则位于 `ThirdParty/mimalloc/mimalloc332.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`mimalloc332` build rule is `ThirdParty/mimalloc/mimalloc332.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "mirrordatatableeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MirrorDataTableEditor` 位于 `Editor`，构建规则 `Editor/MirrorDataTableEditor/MirrorDataTableEditor.Build.cs`。它直接依赖 8 个模块：`AssetTools`, `Core`, `CoreUObject`, `DataTableEditor`, `EditorStyle`, `Engine`, `SkeletonEditor`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MirrorDataTableEditor\" });`；对外暴露 `MirrorDataTableEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MirrorDataTableEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `MirrorDataTableEditor.h` / `MirrorDataTableEditorModule.h`），再用 `FModuleManager::LoadModulePtr<MirrorDataTableEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`MirrorDataTableEditor` 还依赖 `AssetTools`, `Core`, `CoreUObject`, `DataTableEditor`, `EditorStyle`, `Engine`, `SkeletonEditor`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MirrorDataTableEditor` lives under `Editor`; build rule `Editor/MirrorDataTableEditor/MirrorDataTableEditor.Build.cs`.It directly depends on 8 modules: `AssetTools`, `Core`, `CoreUObject`, `DataTableEditor`, `EditorStyle`, `Engine`, `SkeletonEditor`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MirrorDataTableEditor\" });`. Use Public when exposing `MirrorDataTableEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MirrorDataTableEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `MirrorDataTableEditor.h` / `MirrorDataTableEditorModule.h`), then use `FModuleManager::LoadModulePtr<MirrorDataTableEditorModule>` or the exported types directly.",
+      "Transitive deps: `MirrorDataTableEditor` also needs `AssetTools`, `Core`, `CoreUObject`, `DataTableEditor`, `EditorStyle`, `Engine`, `SkeletonEditor`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MirrorDataTableEditor` 的构建规则位于 `Editor/MirrorDataTableEditor/MirrorDataTableEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`MirrorDataTableEditor` build rule is `Editor/MirrorDataTableEditor/MirrorDataTableEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "modelesstools",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ModelessTools` 位于 `Editor`，构建规则 `Editor/Experimental/ModelessTools/ModelessTools.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `InteractiveToolsFramework`, `PropertyEditor`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ModelessTools\" });`；对外暴露 `ModelessTools` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ModelessTools` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ModelessTools.h` / `ModelessToolsModule.h`），再用 `FModuleManager::LoadModulePtr<ModelessToolsModule>` 或直接使用导出类型。",
+      "传递依赖：`ModelessTools` 还依赖 `Core`, `CoreUObject`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `InteractiveToolsFramework`, `PropertyEditor`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`ModelessTools` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `ModelessTools` lives under `Editor`; build rule `Editor/Experimental/ModelessTools/ModelessTools.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `InteractiveToolsFramework`, `PropertyEditor`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ModelessTools\" });`. Use Public when exposing `ModelessTools` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ModelessTools` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ModelessTools.h` / `ModelessToolsModule.h`), then use `FModuleManager::LoadModulePtr<ModelessToolsModule>` or the exported types directly.",
+      "Transitive deps: `ModelessTools` also needs `Core`, `CoreUObject`, `EditorInteractiveToolsFramework`, `Engine`, `InputCore`, `InteractiveToolsFramework`, `PropertyEditor`, `Slate`; do not re-list them unless you include their headers.",
+      "Note: `ModelessTools` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`ModelessTools` 的构建规则位于 `Editor/Experimental/ModelessTools/ModelessTools.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ModelessTools` build rule is `Editor/Experimental/ModelessTools/ModelessTools.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "modulartesthub",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ModularTestHub` 位于 `Programs`，构建规则 `Programs/ModularTestHub/Source/ModularTestHub/ModularTestHub.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetRegistry`, `BuildSettings`, `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ModularTestHub\" });`；对外暴露 `ModularTestHub` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ModularTestHub` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ModularTestHub.h` / `ModularTestHubModule.h`），再用 `FModuleManager::LoadModulePtr<ModularTestHubModule>` 或直接使用导出类型。",
+      "传递依赖：`ModularTestHub` 还依赖 `ApplicationCore`, `AssetRegistry`, `BuildSettings`, `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ModularTestHub` lives under `Programs`; build rule `Programs/ModularTestHub/Source/ModularTestHub/ModularTestHub.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `BuildSettings`, `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ModularTestHub\" });`. Use Public when exposing `ModularTestHub` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ModularTestHub` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ModularTestHub.h` / `ModularTestHubModule.h`), then use `FModuleManager::LoadModulePtr<ModularTestHubModule>` or the exported types directly.",
+      "Transitive deps: `ModularTestHub` also needs `ApplicationCore`, `AssetRegistry`, `BuildSettings`, `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ModularTestHub` 的构建规则位于 `Programs/ModularTestHub/Source/ModularTestHub/ModularTestHub.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ModularTestHub` build rule is `Programs/ModularTestHub/Source/ModularTestHub/ModularTestHub.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "moverunittests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MoverUnitTests` 位于 `Programs`，构建规则 `Programs/MoverUnitTests/MoverUnitTests.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Mover`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MoverUnitTests\" });`；对外暴露 `MoverUnitTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MoverUnitTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `MoverUnitTests.h` / `MoverUnitTestsModule.h`），再用 `FModuleManager::LoadModulePtr<MoverUnitTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`MoverUnitTests` 还依赖 `Core`, `CoreUObject`, `Mover`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MoverUnitTests` lives under `Programs`; build rule `Programs/MoverUnitTests/MoverUnitTests.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Mover`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MoverUnitTests\" });`. Use Public when exposing `MoverUnitTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MoverUnitTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `MoverUnitTests.h` / `MoverUnitTestsModule.h`), then use `FModuleManager::LoadModulePtr<MoverUnitTestsModule>` or the exported types directly.",
+      "Transitive deps: `MoverUnitTests` also needs `Core`, `CoreUObject`, `Mover`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MoverUnitTests` 的构建规则位于 `Programs/MoverUnitTests/MoverUnitTests.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`MoverUnitTests` build rule is `Programs/MoverUnitTests/MoverUnitTests.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "movieplayer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MoviePlayer` 位于 `Runtime`，构建规则 `Runtime/MoviePlayer/MoviePlayer.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `HeadMountedDisplay`, `InputCore`, `MoviePlayerProxy`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MoviePlayer\" });`；对外暴露 `MoviePlayer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MoviePlayer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `MoviePlayer.h` / `MoviePlayerModule.h`），再用 `FModuleManager::LoadModulePtr<MoviePlayerModule>` 或直接使用导出类型。",
+      "传递依赖：`MoviePlayer` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `HeadMountedDisplay`, `InputCore`, `MoviePlayerProxy`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MoviePlayer` lives under `Runtime`; build rule `Runtime/MoviePlayer/MoviePlayer.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `HeadMountedDisplay`, `InputCore`, `MoviePlayerProxy`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MoviePlayer\" });`. Use Public when exposing `MoviePlayer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MoviePlayer` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `MoviePlayer.h` / `MoviePlayerModule.h`), then use `FModuleManager::LoadModulePtr<MoviePlayerModule>` or the exported types directly.",
+      "Transitive deps: `MoviePlayer` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `HTTP`, `HeadMountedDisplay`, `InputCore`, `MoviePlayerProxy`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MoviePlayer` 的构建规则位于 `Runtime/MoviePlayer/MoviePlayer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`MoviePlayer` build rule is `Runtime/MoviePlayer/MoviePlayer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "movieplayerproxy",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MoviePlayerProxy` 位于 `Runtime`，构建规则 `Runtime/MoviePlayerProxy/MoviePlayerProxy.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MoviePlayerProxy\" });`；对外暴露 `MoviePlayerProxy` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MoviePlayerProxy` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `MoviePlayerProxy.h` / `MoviePlayerProxyModule.h`），再用 `FModuleManager::LoadModulePtr<MoviePlayerProxyModule>` 或直接使用导出类型。",
+      "传递依赖：`MoviePlayerProxy` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MoviePlayerProxy` lives under `Runtime`; build rule `Runtime/MoviePlayerProxy/MoviePlayerProxy.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MoviePlayerProxy\" });`. Use Public when exposing `MoviePlayerProxy` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MoviePlayerProxy` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `MoviePlayerProxy.h` / `MoviePlayerProxyModule.h`), then use `FModuleManager::LoadModulePtr<MoviePlayerProxyModule>` or the exported types directly.",
+      "Transitive deps: `MoviePlayerProxy` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MoviePlayerProxy` 的构建规则位于 `Runtime/MoviePlayerProxy/MoviePlayerProxy.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`MoviePlayerProxy` build rule is `Runtime/MoviePlayerProxy/MoviePlayerProxy.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "moviescene",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MovieScene` 位于 `Runtime`，构建规则 `Runtime/MovieScene/MovieScene.Build.cs`。它直接依赖 8 个模块：`AutoRTFM`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `SlateCore`, `TimeManagement`, `UniversalObjectLocator`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MovieScene\" });`；对外暴露 `MovieScene` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MovieScene` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `MovieScene.h` / `MovieSceneModule.h`），再用 `FModuleManager::LoadModulePtr<MovieSceneModule>` 或直接使用导出类型。",
+      "传递依赖：`MovieScene` 还依赖 `AutoRTFM`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `SlateCore`, `TimeManagement`, `UniversalObjectLocator`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MovieScene` lives under `Runtime`; build rule `Runtime/MovieScene/MovieScene.Build.cs`.It directly depends on 8 modules: `AutoRTFM`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `SlateCore`, `TimeManagement`, `UniversalObjectLocator`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MovieScene\" });`. Use Public when exposing `MovieScene` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MovieScene` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `MovieScene.h` / `MovieSceneModule.h`), then use `FModuleManager::LoadModulePtr<MovieSceneModule>` or the exported types directly.",
+      "Transitive deps: `MovieScene` also needs `AutoRTFM`, `Core`, `CoreUObject`, `Engine`, `InputCore`, `SlateCore`, `TimeManagement`, `UniversalObjectLocator`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MovieScene` 的构建规则位于 `Runtime/MovieScene/MovieScene.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`MovieScene` build rule is `Runtime/MovieScene/MovieScene.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "moviescenecapture",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MovieSceneCapture` 位于 `Runtime`，构建规则 `Runtime/MovieSceneCapture/MovieSceneCapture.Build.cs`。它直接依赖 8 个模块：`AVIWriter`, `AssetRegistry`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `ImageWriteQueue`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneCapture\" });`；对外暴露 `MovieSceneCapture` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MovieSceneCapture` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `MovieSceneCapture.h` / `MovieSceneCaptureModule.h`），再用 `FModuleManager::LoadModulePtr<MovieSceneCaptureModule>` 或直接使用导出类型。",
+      "传递依赖：`MovieSceneCapture` 还依赖 `AVIWriter`, `AssetRegistry`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `ImageWriteQueue`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MovieSceneCapture` lives under `Runtime`; build rule `Runtime/MovieSceneCapture/MovieSceneCapture.Build.cs`.It directly depends on 8 modules: `AVIWriter`, `AssetRegistry`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `ImageWriteQueue`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneCapture\" });`. Use Public when exposing `MovieSceneCapture` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MovieSceneCapture` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `MovieSceneCapture.h` / `MovieSceneCaptureModule.h`), then use `FModuleManager::LoadModulePtr<MovieSceneCaptureModule>` or the exported types directly.",
+      "Transitive deps: `MovieSceneCapture` also needs `AVIWriter`, `AssetRegistry`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `ImageWriteQueue`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MovieSceneCapture` 的构建规则位于 `Runtime/MovieSceneCapture/MovieSceneCapture.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`MovieSceneCapture` build rule is `Runtime/MovieSceneCapture/MovieSceneCapture.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "moviescenecapturedialog",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MovieSceneCaptureDialog` 位于 `Editor`，构建规则 `Editor/MovieSceneCaptureDialog/MovieSceneCaptureDialog.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `JsonUtilities`, `MovieScene`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneCaptureDialog\" });`；对外暴露 `MovieSceneCaptureDialog` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MovieSceneCaptureDialog` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `MovieSceneCaptureDialog.h` / `MovieSceneCaptureDialogModule.h`），再用 `FModuleManager::LoadModulePtr<MovieSceneCaptureDialogModule>` 或直接使用导出类型。",
+      "传递依赖：`MovieSceneCaptureDialog` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `JsonUtilities`, `MovieScene`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MovieSceneCaptureDialog` lives under `Editor`; build rule `Editor/MovieSceneCaptureDialog/MovieSceneCaptureDialog.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `JsonUtilities`, `MovieScene`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneCaptureDialog\" });`. Use Public when exposing `MovieSceneCaptureDialog` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MovieSceneCaptureDialog` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `MovieSceneCaptureDialog.h` / `MovieSceneCaptureDialogModule.h`), then use `FModuleManager::LoadModulePtr<MovieSceneCaptureDialogModule>` or the exported types directly.",
+      "Transitive deps: `MovieSceneCaptureDialog` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `JsonUtilities`, `MovieScene`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MovieSceneCaptureDialog` 的构建规则位于 `Editor/MovieSceneCaptureDialog/MovieSceneCaptureDialog.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`MovieSceneCaptureDialog` build rule is `Editor/MovieSceneCaptureDialog/MovieSceneCaptureDialog.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "moviescenetools",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MovieSceneTools` 位于 `Editor`，构建规则 `Editor/MovieSceneTools/MovieSceneTools.Build.cs`。它直接依赖 8 个模块：`ActorPickerMode`, `AnimGraphRuntime`, `AnimationBlueprintLibrary`, `AnimationCore`, `AppFramework`, `BlueprintGraph`, `CinematicCamera`, `ClassViewer`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneTools\" });`；对外暴露 `MovieSceneTools` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MovieSceneTools` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `MovieSceneTools.h` / `MovieSceneToolsModule.h`），再用 `FModuleManager::LoadModulePtr<MovieSceneToolsModule>` 或直接使用导出类型。",
+      "传递依赖：`MovieSceneTools` 还依赖 `ActorPickerMode`, `AnimGraphRuntime`, `AnimationBlueprintLibrary`, `AnimationCore`, `AppFramework`, `BlueprintGraph`, `CinematicCamera`, `ClassViewer`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MovieSceneTools` lives under `Editor`; build rule `Editor/MovieSceneTools/MovieSceneTools.Build.cs`.It directly depends on 8 modules: `ActorPickerMode`, `AnimGraphRuntime`, `AnimationBlueprintLibrary`, `AnimationCore`, `AppFramework`, `BlueprintGraph`, `CinematicCamera`, `ClassViewer`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneTools\" });`. Use Public when exposing `MovieSceneTools` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MovieSceneTools` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `MovieSceneTools.h` / `MovieSceneToolsModule.h`), then use `FModuleManager::LoadModulePtr<MovieSceneToolsModule>` or the exported types directly.",
+      "Transitive deps: `MovieSceneTools` also needs `ActorPickerMode`, `AnimGraphRuntime`, `AnimationBlueprintLibrary`, `AnimationCore`, `AppFramework`, `BlueprintGraph`, `CinematicCamera`, `ClassViewer`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MovieSceneTools` 的构建规则位于 `Editor/MovieSceneTools/MovieSceneTools.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`MovieSceneTools` build rule is `Editor/MovieSceneTools/MovieSceneTools.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "moviescenetracks",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`MovieSceneTracks` 位于 `Runtime`，构建规则 `Runtime/MovieSceneTracks/MovieSceneTracks.Build.cs`。它直接依赖 8 个模块：`AnimGraphRuntime`, `AnimationCore`, `AssetRegistry`, `AudioMixer`, `Constraints`, `Core`, `CoreUObject`, `EditorFramework`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneTracks\" });`；对外暴露 `MovieSceneTracks` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`MovieSceneTracks` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `MovieSceneTracks.h` / `MovieSceneTracksModule.h`），再用 `FModuleManager::LoadModulePtr<MovieSceneTracksModule>` 或直接使用导出类型。",
+      "传递依赖：`MovieSceneTracks` 还依赖 `AnimGraphRuntime`, `AnimationCore`, `AssetRegistry`, `AudioMixer`, `Constraints`, `Core`, `CoreUObject`, `EditorFramework`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `MovieSceneTracks` lives under `Runtime`; build rule `Runtime/MovieSceneTracks/MovieSceneTracks.Build.cs`.It directly depends on 8 modules: `AnimGraphRuntime`, `AnimationCore`, `AssetRegistry`, `AudioMixer`, `Constraints`, `Core`, `CoreUObject`, `EditorFramework`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"MovieSceneTracks\" });`. Use Public when exposing `MovieSceneTracks` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `MovieSceneTracks` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `MovieSceneTracks.h` / `MovieSceneTracksModule.h`), then use `FModuleManager::LoadModulePtr<MovieSceneTracksModule>` or the exported types directly.",
+      "Transitive deps: `MovieSceneTracks` also needs `AnimGraphRuntime`, `AnimationCore`, `AssetRegistry`, `AudioMixer`, `Constraints`, `Core`, `CoreUObject`, `EditorFramework`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`MovieSceneTracks` 的构建规则位于 `Runtime/MovieSceneTracks/MovieSceneTracks.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`MovieSceneTracks` build rule is `Runtime/MovieSceneTracks/MovieSceneTracks.Build.cs`; depends on 8 modules; category Module."
+  }
+]

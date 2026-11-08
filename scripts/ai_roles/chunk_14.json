@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "radaudiodecoder",
+    "kind": "module",
+    "cn": "RadAudioDecoder 把 RAD Game Tools 的音频码流解成引擎可用的 PCM。运行时 Mixer 通过它播放 Bink Audio / RAD 压缩资源，而不是走 Ogg 或 ADPCM 那条线。解码器挂在 Engine 上，随游戏包一起出货，给过场和大量语音提供更小的磁盘占用。",
+    "en": "RadAudioDecoder turns RAD Game Tools compressed audio into PCM the mixer can play. Runtime code uses it for Bink Audio / RAD assets instead of Ogg or ADPCM. It sits on Engine so cooked games can ship dense cinematics and VO without a second decoder stack."
+  },
+  {
+    "slug": "rapidfuzzcpp",
+    "kind": "module",
+    "cn": "RapidFuzzCPP 是第三方模糊字符串匹配库的引擎封装，提供 Levenshtein、Jaro-Winkler 一类距离计算。编辑器和工具用它做容错搜索、名称纠错，而不是精确相等比较。构建规则不拉引擎模块，只把头文件和静态库交给调用方。",
+    "en": "RapidFuzzCPP wraps the RapidFuzz C++ library so Unreal tools can score fuzzy string matches (Levenshtein, Jaro-Winkler, and related metrics). Editors use it for tolerant search and name correction instead of exact equality. The Build.cs ships headers and the static lib with no engine-module graph."
+  },
+  {
+    "slug": "rapidjson",
+    "kind": "module",
+    "cn": "RapidJSON 把腾讯的 SAX/DOM JSON 解析器接到 Unreal 构建系统。Cook、配置和网络载荷需要高速读写 JSON 时走这条第三方路径，与引擎自带的 Json 模块可以并存。它本身没有 UObject 依赖，适合命令行程序和运行时共用。",
+    "en": "RapidJSON exposes Tencent’s SAX/DOM JSON parser through UnrealBuildTool. Cook pipelines, configs, and network payloads that need a fast C++ JSON core use this third-party path alongside the engine Json module. It has no UObject graph, so standalone programs and runtime code can both link it."
+  },
+  {
+    "slug": "rawmesh",
+    "kind": "module",
+    "cn": "RawMesh 保存导入过程中的 FRawMesh：楔形、切线、多套 UV 和材质槽，尚未变成渲染用的 FStaticMeshRenderData。静态网格构建、简化、碰撞生成都从这份中间数据出发。它只依赖 Core / CoreUObject，方便导入器和构建工具在没有完整 Engine 的情况下处理网格。",
+    "en": "RawMesh holds FRawMesh — wedges, tangents, extra UVs, and material slots — before they become FStaticMeshRenderData. Static-mesh build, reduction, and collision generation all start from this intermediate. It depends only on Core and CoreUObject so importers can process meshes without a full Engine link."
+  },
+  {
+    "slug": "rawpdb",
+    "kind": "module",
+    "cn": "RawPDB 集成 Molecular Matters 的无 DIA 的 PDB 读取器，用来解析 MSVC 调试符号。崩溃工具、转储分析和符号服务器可以在没有完整 Visual Studio DIA SDK 的机器上读类型与行号。作为 ThirdParty 模块，它只提供原生库绑定。",
+    "en": "RawPDB vendors Molecular Matters’ DIA-free PDB reader for MSVC debug symbols. Crash tools, dump analysis, and symbol servers can resolve types and line numbers without a full Visual Studio DIA SDK install. As a ThirdParty module it only binds the native library."
+  },
+  {
+    "slug": "re2",
+    "kind": "module",
+    "cn": "Re2 把 Google RE2 正则引擎引进引擎树，保证线性时间匹配、避免回溯爆炸。日志过滤、配置校验和工具搜索需要安全正则时使用它，而不是 std::regex。第三方封装不声明引擎依赖，由上层模块自行链接。",
+    "en": "Re2 brings Google’s RE2 engine into the tree so matches stay linear-time and cannot explode via backtracking. Log filters, config validation, and tool search use it when a safe regex is required instead of std::regex. The ThirdParty wrapper declares no engine deps; callers link it themselves."
+  },
+  {
+    "slug": "rendercore",
+    "kind": "module",
+    "cn": "RenderCore 是渲染线程与着色器体系的共用层：RenderCommand、FShader、ShaderMap、渲染资源生命周期和全局着色器声明都在这里。Renderer 和各 RHI 后端都建立在它之上，而它自己再对接 DerivedDataCache、ImageWrapper 和 Trace。游戏与编辑器共用这份代码，所以着色器热重载和 GPU 资源跟踪走同一套 API。",
+    "en": "RenderCore is the shared layer for the render thread and shader system: render commands, FShader, shader maps, resource lifetimes, and global-shader declarations. Renderer and the RHI backends sit on it, and it talks to DerivedDataCache, ImageWrapper, and Trace. Games and the editor share this code, so shader hot-reload and GPU resource tracking use one API."
+  },
+  {
+    "slug": "renderdoc",
+    "kind": "module",
+    "cn": "RenderDoc 模块只负责把 RenderDoc 捕获库编进引擎，便于在运行中插入帧捕获。图形程序员用它把单帧 Draw/Dispatch 送进外部 RenderDoc 分析，而不是引擎自带的 Visualize 视图。第三方规则不依赖 UObject，由调试插件在需要时加载。",
+    "en": "The RenderDoc module only compiles in the RenderDoc in-app capture library so a frame can be dumped while the game runs. Graphics programmers send a Draw/Dispatch frame to the external RenderDoc UI rather than Unreal’s own visualize views. The ThirdParty rule has no UObject deps; debug plugins load it on demand."
+  },
+  {
+    "slug": "renderer",
+    "kind": "module",
+    "cn": "Renderer 实现延迟/前向场景渲染：GBuffer、光照、阴影、Nanite、半透明和后处理都在这个运行时模块里调度。它把 RenderCore 的命令和 RHI 的硬件接口组装成每帧可见的画面。GeometryCore 与 MaterialShaderQualitySettings 让它能按平台质量和网格表示裁剪通道。",
+    "en": "Renderer implements deferred and forward scene rendering: GBuffer, lighting, shadows, Nanite, translucency, and post-process are scheduled here. It turns RenderCore commands and RHI hardware calls into the frame you see. GeometryCore and MaterialShaderQualitySettings let it cull passes by platform quality and mesh representation."
+  },
+  {
+    "slug": "renderresourceviewer",
+    "kind": "module",
+    "cn": "RenderResourceViewer 是编辑器里查看 GPU/RHI 资源的窗口，用树图列出纹理、缓冲和渲染目标的尺寸与占用。美术和图形程序员用它定位泄漏或过大的驻留资源，而不是只看 stat 命令。它依赖 UnrealEd 与 TreeMap，只在编辑器进程里打开。",
+    "en": "RenderResourceViewer is an editor window that lists GPU/RHI resources in a treemap: textures, buffers, and render targets with size and residency. Artists and graphics programmers hunt leaks or oversized allocations here instead of relying on stat commands alone. It needs UnrealEd and TreeMap and only runs in the editor process."
+  },
+  {
+    "slug": "replicationsystemlowleveltests",
+    "kind": "module",
+    "cn": "ReplicationSystemLowLevelTests 是独立程序，专门跑 Iris 复制系统的底层用例。它链接 IrisCore 和 ReplicationSystemTestPlugin，在没有完整编辑器的情况下验证序列化、过滤和净荷布局。CI 用这个 Target 抓住复制回归，而不是靠 PIE 里手点多人游戏。",
+    "en": "ReplicationSystemLowLevelTests is a standalone program that runs Iris replication unit tests. It links IrisCore and ReplicationSystemTestPlugin so serialization, filtering, and payload layout can be checked without a full editor. CI uses this target to catch replication regressions instead of clicking PIE multiplayer."
+  },
+  {
+    "slug": "rewinddebuggerinterface",
+    "kind": "module",
+    "cn": "RewindDebuggerInterface 定义 Insights 倒带调试器在编辑器侧的面板与扩展点。动画、Gameplay 轨迹把轨道注册到这个接口，用户才能在时间轴上 scrub 并检查当时的状态。它是 Slate 工具模块，不进 Shipping 游戏。",
+    "en": "RewindDebuggerInterface defines the editor-side panels and extension points for the Insights rewind debugger. Animation and gameplay traces register tracks here so you can scrub a timeline and inspect state at that instant. It is a Slate tools module and does not ship in a game."
+  },
+  {
+    "slug": "rewinddebuggerruntimeinterface",
+    "kind": "module",
+    "cn": "RewindDebuggerRuntimeInterface 给运行时提供倒带调试器的记录钩子，让游戏线程把可回放快照交给 Insights。它刻意只依赖 Core / CoreUObject，避免把编辑器 UI 拉进游戏包。编辑器接口模块通过它读取运行时写出的轨迹。",
+    "en": "RewindDebuggerRuntimeInterface exposes runtime hooks so the game thread can emit rewindable snapshots for Insights. It depends only on Core and CoreUObject so editor UI never lands in the game binary. The editor interface module reads the traces this runtime side writes."
+  },
+  {
+    "slug": "rhi",
+    "kind": "module",
+    "cn": "RHI 是渲染硬件抽象：纹理、缓冲、PSO、命令列表都以平台无关的 RHI 对象出现。D3D、Vulkan、Metal 后端实现这些接口，游戏代码几乎不直接碰原生 API。它还接 TraceLog 和 CBOR，方便捕获 GPU 工作负载与管线状态。",
+    "en": "RHI is the rendering hardware abstraction: textures, buffers, PSOs, and command lists appear as platform-neutral objects. D3D, Vulkan, and Metal backends implement the interface so game code almost never calls native APIs. TraceLog and CBOR hook in so GPU workloads and pipeline state can be captured."
+  },
+  {
+    "slug": "rhicore",
+    "kind": "module",
+    "cn": "RHICore 存放各图形后端共用的校验、格式转换和绑定逻辑，避免 D3D12 与 Vulkan 各写一份。具体 RHI 实现模块依赖它来处理描述符、资源状态和调试命名。它只依赖 Core，可以在很薄的渲染进程里使用。",
+    "en": "RHICore holds validation, format conversion, and binding helpers shared by graphics backends so D3D12 and Vulkan do not duplicate that work. Concrete RHI modules use it for descriptors, resource states, and debug names. It depends only on Core, so thin rendering processes can link it."
+  },
+  {
+    "slug": "rigidphysics",
+    "kind": "module",
+    "cn": "RigidPhysics 是实验性刚体求解路径，放在 Runtime/Experimental 下，用来试验不同于 Chaos 主线的刚体积分。研究代码和原型可以在这里验证约束与碰撞管线，而不改正式物理模块。依赖仅 Core / CoreUObject，表明它还不是完整的世界物理栈。",
+    "en": "RigidPhysics is an experimental rigid-body solver under Runtime/Experimental, a sandbox apart from the shipping Chaos path. Research and prototypes can try constraints and collision here without touching the production physics module. Core and CoreUObject only means it is not yet a full world-physics stack."
+  },
+  {
+    "slug": "rpclib",
+    "kind": "module",
+    "cn": "RPCLib 封装 rpclib，给工具进程提供基于 msgpack 的远程过程调用。Shader 工作进程、构建助手可以用它在本机或局域网里调函数，而不必自研套接字协议。第三方模块不拉引擎运行时。",
+    "en": "RPCLib vendors rpclib so tool processes can do msgpack-based remote procedure calls. Shader workers and build helpers can invoke functions on localhost or LAN without inventing a socket protocol. The ThirdParty module does not pull in engine runtime."
+  },
+  {
+    "slug": "rsa",
+    "kind": "module",
+    "cn": "RSA 模块在 OpenSSL 上提供签名与验签，用于 Pak、网络握手和授权令牌。运行时代码用它验证内容完整性，而不是自己实现大数运算。它依赖 Core 和 OpenSSL，属于可进游戏包的加密原语。",
+    "en": "The RSA module signs and verifies with OpenSSL for pak files, network handshakes, and auth tokens. Runtime code checks content integrity here instead of rolling its own big-integer math. It depends on Core and OpenSSL and is a crypto primitive that can ship in a game."
+  },
+  {
+    "slug": "runtimeassetcache",
+    "kind": "module",
+    "cn": "RuntimeAssetCache 在设备上缓存运行时生成的资产，例如程序化网格或转码结果，避免每次启动都重算。它挂在 Engine 上，按键值把 UObject 或二进制块写到本地存储。移动端和主机常用它缩短第二次进入关卡的等待。",
+    "en": "RuntimeAssetCache stores generated assets on device — procedural meshes, transcodes — so they are not rebuilt every launch. It hangs off Engine and writes UObjects or blobs to local storage by key. Mobile and console titles use it to shorten the second load into a level."
+  },
+  {
+    "slug": "s3client",
+    "kind": "module",
+    "cn": "S3Client 用 libcurl、SSL 和 XmlParser 访问 Amazon S3，给派生数据缓存和云存储后端上传下载对象。开发者工具用它同步 DDC 桶，而不引入完整 AWS SDK。它是 Developer 模块，面向编辑器和构建机，不是玩家客户端。",
+    "en": "S3Client talks to Amazon S3 with libcurl, SSL, and XmlParser so derived-data and cloud backends can put and get objects. Developer tools sync DDC buckets through it without embedding the full AWS SDK. It is a Developer module for editors and build machines, not player clients."
+  },
+  {
+    "slug": "sandboxfile",
+    "kind": "module",
+    "cn": "SandboxFile 提供受限文件系统视图，着色器编译和 Cook 工作进程只能看见白名单目录。这防止并行 worker 误写源码树或互相覆盖中间文件。它只依赖 Core，可嵌入 ShaderCompileWorker 这类瘦进程。",
+    "en": "SandboxFile presents a restricted filesystem so shader compile and cook workers only see allow-listed directories. That stops parallel workers from writing the source tree or clobbering each other’s intermediates. It depends only on Core and fits in thin processes such as ShaderCompileWorker."
+  },
+  {
+    "slug": "savegamenetworkreplaystreaming",
+    "kind": "module",
+    "cn": "SaveGameNetworkReplayStreaming 把网络回放存进 SaveGame 槽，而不是普通本地回放文件。玩法可以像读档一样加载一段对战录像，便于分享和重看。它建立在 LocalFileNetworkReplayStreaming 之上，用 JSON 描述回放元数据。",
+    "en": "SaveGameNetworkReplayStreaming stores network replays in SaveGame slots instead of ordinary local replay files. Gameplay can load a match recording the same way it loads a save, which helps sharing and recap. It builds on LocalFileNetworkReplayStreaming and describes replay metadata in JSON."
+  },
+  {
+    "slug": "sblcore",
+    "kind": "module",
+    "cn": "SblCore 是 Switchboard Listener 的无 UI 核心：认证 JWT、MsQuic 传输、NVAPI/NVML 设备查询以及与 Switchboard 的会话协议。影视虚拟制作里它跑在渲染节点上，接收切换台指令。它属于 Programs/SwitchboardListener，不是游戏运行时。",
+    "en": "SblCore is the headless core of Switchboard Listener: JWT auth, MsQuic transport, NVAPI/NVML device queries, and the Switchboard session protocol. In virtual production it runs on a render node and takes orders from the switcher. It lives under Programs/SwitchboardListener, not in the game runtime."
+  },
+  {
+    "slug": "sblslate",
+    "kind": "module",
+    "cn": "SblSlate 给 Switchboard Listener 加上独立 Slate 窗口：日志、菜单和本机状态，不依赖完整 Unreal Editor。现场技术人员用它确认节点在线、查看 OutputLog。它通过 StandaloneRenderer 画界面，逻辑仍交给 SblCore。",
+    "en": "SblSlate adds a standalone Slate shell to Switchboard Listener: log, menus, and machine status without the full Unreal Editor. Stage techs use it to confirm a node is live and to read OutputLog. StandaloneRenderer paints the UI; SblCore still owns the protocol."
+  },
+  {
+    "slug": "scenedepthpickermode",
+    "kind": "module",
+    "cn": "SceneDepthPickerMode 是视口交互模式，让用户点击场景采样深度或世界位置。后处理、贴花和工具用它把屏幕点转成场景深度，而不是自己做射线检测。作为 Editor 模块，它只在编辑器视口里启用。",
+    "en": "SceneDepthPickerMode is a viewport interaction that samples scene depth or world position under the cursor. Post-process, decal, and editor tools convert a screen click to scene depth here instead of rolling their own ray test. As an Editor module it only activates in editor viewports."
+  },
+  {
+    "slug": "sceneoutliner",
+    "kind": "module",
+    "cn": "SceneOutliner 实现世界大纲视图：Actor 层级、可见性、锁定、源码控制和未保存资产标记。关卡设计师靠它浏览与过滤场景对象，并和 TypedElement 选择系统同步。它深度接入 UnrealEd、ToolMenus 和 SourceControlWindows。",
+    "en": "SceneOutliner implements the World Outliner: actor hierarchy, visibility, lock, source-control badges, and unsaved-asset marks. Level designers browse and filter scene objects here, kept in sync with TypedElement selection. It is wired deeply into UnrealEd, ToolMenus, and SourceControlWindows."
+  },
+  {
+    "slug": "screenshotcomparison",
+    "kind": "module",
+    "cn": "ScreenShotComparison 提供自动化截图对比的 Slate 界面，并排显示基准图、当前图和差异。QA 用它审阅功能测试产出的图像，决定是更新金标准还是报回归。它消费 ScreenShotComparisonTools 的结果并接 SourceControl 以便提交新基准。",
+    "en": "ScreenShotComparison is the Slate UI for automation screenshot diffs: baseline, current, and delta side by side. QA reviews images from functional tests here and either updates the gold or files a regression. It consumes ScreenShotComparisonTools results and talks to SourceControl to check in new baselines."
+  },
+  {
+    "slug": "screenshotcomparisontools",
+    "kind": "module",
+    "cn": "ScreenShotComparisonTools 做截图对比的后台：读图、算差异、写 JSON 报告，不画编辑器窗口。自动化工人和命令行测试调用它比较 RenderCore 输出。ScreenShotComparison UI 模块依赖这份工具层。",
+    "en": "ScreenShotComparisonTools is the headless screenshot-diff backend: load images, compute deltas, write JSON reports, no editor window. Automation workers and command-line tests call it to compare RenderCore output. The ScreenShotComparison UI module sits on this tool layer."
+  },
+  {
+    "slug": "scriptableeditorwidgets",
+    "kind": "module",
+    "cn": "ScriptableEditorWidgets 把一批可脚本化的编辑器控件暴露给 UMG/Python，让工具作者用蓝图组装编辑器面板。它刻意只依赖 CoreUObject 与 UMG，避免把整个 UnrealEd 拉进脚本图。适合做轻量自定义检视器和对话框。",
+    "en": "ScriptableEditorWidgets exposes scriptable editor controls to UMG and Python so tool authors can assemble editor panels in Blueprint. It depends only on CoreUObject and UMG on purpose, avoiding a full UnrealEd pull into script graphs. Use it for light custom inspectors and dialogs."
+  },
+  {
+    "slug": "scriptdisassembler",
+    "kind": "module",
+    "cn": "ScriptDisassembler 把 Unreal 字节码解成可读指令，用于蓝图 VM 调试和字节码审查。开发者工具用它对照 Script 堆和操作码，而不是只看蓝图节点。模块很瘦，只依赖 Core / CoreUObject。",
+    "en": "ScriptDisassembler turns Unreal bytecode into readable opcodes for Blueprint VM debugging and bytecode audits. Developer tools compare the script heap against instructions here instead of staring only at Blueprint nodes. The module is thin: Core and CoreUObject only."
+  },
+  {
+    "slug": "sdl3",
+    "kind": "module",
+    "cn": "SDL3 引入 Simple DirectMedia Layer 3，给部分平台的窗口、输入和音频后端提供跨平台 C 库。引擎在 Linux/设备目标上可通过它补齐系统事件，而不改 RHI。ThirdParty 规则只编译 SDL，不绑定 UObject。",
+    "en": "SDL3 vendors Simple DirectMedia Layer 3 for windowing, input, and audio backends on some platforms. Linux and device targets can take system events from it without changing the RHI. The ThirdParty rule builds SDL only and does not bind UObject."
+  },
+  {
+    "slug": "sentrynative",
+    "kind": "module",
+    "cn": "SentryNative 嵌入 Sentry 原生 SDK，把崩溃、面包屑和发行版本送到 Sentry 项目。发行构建可用它替代或补充引擎自带的 CrashReportClient。作为第三方库模块，具体上报策略由上层游戏代码决定。",
+    "en": "SentryNative embeds the Sentry native SDK so crashes, breadcrumbs, and release names go to a Sentry project. Shipping builds can use it instead of or beside CrashReportClient. As a third-party library the game layer chooses what actually gets reported."
+  },
+  {
+    "slug": "sequencer",
+    "kind": "module",
+    "cn": "Sequencer 是电影时间轴编辑器：轨道、关键帧、摄像机切换、约束和关卡序列预览都在这个模块里。它把 MovieScene 运行时数据可视化，并和 CurveEditor、SceneOutliner、CinematicCamera 协同。这是编辑器专用 UI，不能链进 Game Target。",
+    "en": "Sequencer is the cinematic timeline editor: tracks, keys, camera cuts, constraints, and Level Sequence preview live here. It visualizes MovieScene runtime data and works with CurveEditor, SceneOutliner, and CinematicCamera. This is editor-only UI and must not link into a Game target."
+  },
+  {
+    "slug": "sequencercore",
+    "kind": "module",
+    "cn": "SequencerCore 抽出 Sequencer 共用的时间管理、选择模型和曲线编辑胶水，让主 Sequencer 窗口和其他序列工具共享同一套交互。它比完整 Sequencer 模块更瘦，仍需要 UnrealEd 与 GraphEditor。自定义序列面板应优先依赖这一层。",
+    "en": "SequencerCore extracts shared time management, selection, and curve-editor glue so the main Sequencer window and other sequence tools share one interaction model. It is slimmer than full Sequencer but still needs UnrealEd and GraphEditor. Custom sequence panels should depend on this layer first."
+  },
+  {
+    "slug": "sequencerecorder",
+    "kind": "module",
+    "cn": "SequenceRecorder 在编辑器里把 Actor 运动、动画和 Live Link 录进 Level Sequence。过场团队用它从 PIE 或视口捕获表演，再交给 Sequencer 精修。它连接 SequenceRuntimeRecorder、SceneOutliner 和 NetworkReplayStreaming。",
+    "en": "SequenceRecorder captures actor motion, animation, and Live Link into a Level Sequence from the editor. Cinematics teams record a performance in PIE or the viewport, then polish it in Sequencer. It talks to SequenceRuntimeRecorder, SceneOutliner, and NetworkReplayStreaming."
+  },
+  {
+    "slug": "sequencerecordersections",
+    "kind": "module",
+    "cn": "SequenceRecorderSections 为录制器提供具体的 MovieScene 轨道段类型，例如变换、动画和属性曲线段。没有这些段，录下来的数据无法以可编辑轨道的形式落进序列。它依赖 SequenceRecorder 与 MovieSceneTracks。",
+    "en": "SequenceRecorderSections supplies the MovieScene section types the recorder writes — transform, animation, and property curves. Without those sections, captured data cannot land as editable tracks on a sequence. It depends on SequenceRecorder and MovieSceneTracks."
+  },
+  {
+    "slug": "sequenceruntimerecorder",
+    "kind": "module",
+    "cn": "SequenceRuntimeRecorder 在运行时采集可序列化的表演数据，供编辑器录制器或游戏内重放使用。它通过 SerializedRecorderInterface 写入，并尊重 TimeManagement 的时钟。运行时模块可以进游戏，但 UI 仍由编辑器侧承接。",
+    "en": "SequenceRuntimeRecorder captures serializable performance data at runtime for the editor recorder or in-game replay. It writes through SerializedRecorderInterface and honors TimeManagement clocks. The runtime module can ship; UI still lives on the editor side."
+  },
+  {
+    "slug": "sequencerwidgets",
+    "kind": "module",
+    "cn": "SequencerWidgets 提供时间滑条、轨道头、关键帧绘制等 Sequencer 专用 Slate 控件。Sequencer 主窗口和 CurveEditor 集成都复用这些部件，避免每套工具重画时间轴。它依赖 MovieSceneTracks 以理解轨道数据结构。",
+    "en": "SequencerWidgets provides Sequencer-specific Slate controls: time slider, track headers, and key drawing. The main Sequencer window and CurveEditor integration reuse these instead of redrawing a timeline per tool. It depends on MovieSceneTracks so widgets understand track data."
+  },
+  {
+    "slug": "serialization",
+    "kind": "module",
+    "cn": "Serialization 提供结构化归档：同一套 C++ 对象图可以写成 JSON 或 CBOR。工具和运行时用它做版本化数据交换，而不是手写字段映射。它建立在 CoreUObject 反射之上，适合配置、网络消息和资源元数据。",
+    "en": "Serialization is structured archive support: the same C++ object graph can be written as JSON or CBOR. Tools and runtime use it for versioned data exchange instead of hand-written field maps. It sits on CoreUObject reflection and fits configs, net messages, and asset metadata."
+  },
+  {
+    "slug": "serializedrecorderinterface",
+    "kind": "module",
+    "cn": "SerializedRecorderInterface 定义把 Live Link 和其他实时源写成可回放记录的抽象。录制后端实现该接口，Sequencer 录制器只依赖接口而不绑死存储格式。运行时模块保持轻量，只拉 Core 与 LiveLinkInterface。",
+    "en": "SerializedRecorderInterface is the abstraction for writing Live Link and other live sources into a replayable recording. Recorder backends implement it so Sequencer recording is not tied to one storage format. The runtime module stays light: Core plus LiveLinkInterface."
+  },
+  {
+    "slug": "sessionfrontend",
+    "kind": "module",
+    "cn": "SessionFrontend 是 Session Frontend 窗口，列出编辑器、游戏实例和自动化工人，并聚合截图对比与 Trace。多人调试时用它附加到远程会话、下发控制台命令。它依赖 SessionServices、AutomationWindow 和 ScreenShotComparison。",
+    "en": "SessionFrontend is the Session Frontend window: it lists editors, game instances, and automation workers, and aggregates screenshot compare plus Trace. Multiplayer debugging attaches to remote sessions and sends console commands from here. It depends on SessionServices, AutomationWindow, and ScreenShotComparison."
+  },
+  {
+    "slug": "sessionmessages",
+    "kind": "module",
+    "cn": "SessionMessages 定义会话系统在进程间传递的 UStruct 消息：心跳、描述、命令回执。SessionServices 和前端都序列化这些类型，保证编辑器与工人说同一种协议。模块只依赖 Core / CoreUObject。",
+    "en": "SessionMessages defines the UStruct messages the session system sends between processes: heartbeats, descriptions, command replies. SessionServices and the frontend serialize these types so editor and workers share one protocol. The module depends only on Core and CoreUObject."
+  },
+  {
+    "slug": "sessionservices",
+    "kind": "module",
+    "cn": "SessionServices 实现会话发现、连接和消息分发，把本地和远程引擎实例组成一个会话。自动化和多人工具通过它找到正在运行的编辑器或游戏。它消费 SessionMessages 与 EngineMessages。",
+    "en": "SessionServices implements session discovery, connect, and message dispatch, grouping local and remote engine instances into a session. Automation and multiplayer tools find a running editor or game through it. It consumes SessionMessages and EngineMessages."
+  },
+  {
+    "slug": "settings",
+    "kind": "module",
+    "cn": "Settings 是项目/编辑器设置的容器与注册表，把 UObject 配置页挂到统一的 ISettingsModule。各系统把自己的 Default*.ini 映射成可编辑类别，而不是散落菜单。它依赖 PropertyEditor 来展示属性。",
+    "en": "Settings is the project/editor settings container and registry: UObject config pages hang off ISettingsModule. Systems map Default*.ini into editable categories instead of scattering menus. It depends on PropertyEditor to display properties."
+  },
+  {
+    "slug": "settingseditor",
+    "kind": "module",
+    "cn": "SettingsEditor 画出 Project Settings / Editor Preferences 树状界面，搜索、分类和源码控制状态都在这里。它把 Settings 注册表变成可点击的 Slate，并接入 SharedSettingsWidgets。分析事件用来统计哪些设置页被打开。",
+    "en": "SettingsEditor draws the Project Settings / Editor Preferences tree, including search, categories, and source-control state. It turns the Settings registry into clickable Slate and uses SharedSettingsWidgets. Analytics events track which settings pages people open."
+  },
+  {
+    "slug": "shaderauditviewer",
+    "kind": "module",
+    "cn": "ShaderAuditViewer 是独立程序，用树图浏览着色器变体、指令数和平台覆盖，帮助削减排列爆炸。图形团队不必打开完整编辑器就能审查 ShaderAuditCore 产出的报告。它带 StandaloneRenderer，可在 Unix 构建机上跑。",
+    "en": "ShaderAuditViewer is a standalone program that browses shader permutations, instruction counts, and platform coverage in a treemap to cut permutation explosion. Graphics teams can audit ShaderAuditCore reports without opening the full editor. StandaloneRenderer lets it run on Unix build machines."
+  },
+  {
+    "slug": "shaderbuild",
+    "kind": "module",
+    "cn": "ShaderBuild 把着色器编译结果写入派生数据缓存，供编辑器和 Cook 复用已编译着色器。它连接 RenderCore 的着色器图与 DDC 键空间。开发者模块不直接画 UI，由 ShaderCompileWorker 和编辑器构建管线调用。",
+    "en": "ShaderBuild writes compiled shaders into the derived data cache so the editor and cook can reuse them. It maps RenderCore shader graphs onto DDC keys. The Developer module has no UI; ShaderCompileWorker and the editor build pipeline call it."
+  },
+  {
+    "slug": "shaderbuildworker",
+    "kind": "module",
+    "cn": "ShaderBuildWorker 是派生数据构建图里专门编译着色器的工人进程，与通用 DerivedDataBuildWorker 分工。Cook 把着色器任务投递给它，避免在编辑器进程里同步编译卡死。它对应 Programs/ShaderBuildWorker 这条独立可执行文件。",
+    "en": "ShaderBuildWorker is the derived-data graph worker that compiles shaders, split out from the generic DerivedDataBuildWorker. Cook farms shader jobs to it so the editor process does not stall on synchronous compiles. It is the Programs/ShaderBuildWorker executable."
+  },
+  {
+    "slug": "shaderbuildworkertargetbase",
+    "kind": "module",
+    "cn": "ShaderBuildWorkerTargetBase 提供 ShaderBuildWorker 可执行文件的 Target/模块基类，复用 DerivedDataBuildWorker 的进程模型和启动参数。真正的着色器作业逻辑挂在这个基座上，避免每个平台复制一份工人入口。它与 ShaderBuildWorker 共用同一份 Build.cs 家族。",
+    "en": "ShaderBuildWorkerTargetBase is the Target/module base for the ShaderBuildWorker executable, reusing DerivedDataBuildWorker process shape and launch args. Real shader job logic hangs off this base so each platform does not copy a worker entry point. It shares the ShaderBuildWorker Build.cs family."
+  },
+  {
+    "slug": "shadercompilercommon",
+    "kind": "module",
+    "cn": "ShaderCompilerCommon 是各平台着色器编译器共享的前端：HLSL 解析、JSON 元数据、预处理和错误格式。D3D、OpenGL、VectorVM 等 ShaderFormat 模块都调用它，保证报错和 DDC 键一致。它依赖 HlslParser 与 ShaderPreprocessor。",
+    "en": "ShaderCompilerCommon is the shared front end for platform shader compilers: HLSL parse, JSON metadata, preprocess, and error formatting. D3D, OpenGL, and VectorVM ShaderFormat modules call it so diagnostics and DDC keys stay consistent. It depends on HlslParser and ShaderPreprocessor."
+  },
+  {
+    "slug": "shadercompileworker",
+    "kind": "module",
+    "cn": "ShaderCompileWorker（SCW）是编辑器拉起的独立着色器编译进程，在沙盒文件系统里跑，通过套接字回传结果。多核编译着色器时编辑器保持可响应，崩溃的编译不会带走编辑器。它链接 ShaderCompilerCommon、RHI 和 SandboxFile。",
+    "en": "ShaderCompileWorker (SCW) is the out-of-process shader compiler the editor launches, running in a sandboxed filesystem and returning results over sockets. Multicore shader compiles keep the editor responsive, and a crashed compile does not take the editor down. It links ShaderCompilerCommon, RHI, and SandboxFile."
+  },
+  {
+    "slug": "shaderconductor",
+    "kind": "module",
+    "cn": "ShaderConductor 封装 Microsoft ShaderConductor，把 HLSL 翻译成 SPIR-V 或其他中间表示。需要跨 API 着色器的工具链走这条第三方库，而不是只靠 DXC。模块没有引擎依赖，由 ShaderFormat 层按需链接。",
+    "en": "ShaderConductor wraps Microsoft ShaderConductor to translate HLSL into SPIR-V and other IRs. Toolchains that must retarget shaders across APIs use this library instead of DXC alone. It has no engine deps; ShaderFormat layers link it as needed."
+  },
+  {
+    "slug": "shaderformatd3d",
+    "kind": "module",
+    "cn": "ShaderFormatD3D 把引擎着色器编译成 Direct3D 字节码（DXBC/DXIL），供 D3D11/D3D12 运行时加载。它走 ShaderCompilerCommon 和预处理，再调用 Windows 上的着色器编译器。Windows 开发者模块，Cook 到 DX 平台时必须用到。",
+    "en": "ShaderFormatD3D compiles engine shaders to Direct3D bytecode (DXBC/DXIL) for D3D11/D3D12 runtimes. It runs ShaderCompilerCommon and the preprocessor, then the Windows shader compiler. This Developer module is required when cooking for DX platforms."
+  },
+  {
+    "slug": "shaderformatopengl",
+    "kind": "module",
+    "cn": "ShaderFormatOpenGL 把 HLSL 交叉编译成 GLSL，给 OpenGL / GLES 目标使用。移动和部分桌面后端在 Cook 时走这条格式，而不是 D3D 字节码。它同样建立在 ShaderBuild 与 ShaderCompilerCommon 上。",
+    "en": "ShaderFormatOpenGL cross-compiles HLSL to GLSL for OpenGL / GLES targets. Mobile and some desktop backends cook through this format instead of D3D bytecode. It also sits on ShaderBuild and ShaderCompilerCommon."
+  },
+  {
+    "slug": "shaderformatvectorvm",
+    "kind": "module",
+    "cn": "ShaderFormatVectorVM 把 Niagara 表达式编译成 VectorVM 字节码，让粒子脚本在 CPU VM 上执行。这与 GPU 计算着色器路径并列，给不支持或未启用 GPU 粒子的平台兜底。它依赖 VectorVM 模块本身。",
+    "en": "ShaderFormatVectorVM compiles Niagara expressions to VectorVM bytecode so particle scripts run on the CPU VM. It sits beside the GPU compute-shader path and covers platforms that cannot or do not run GPU particles. It depends on the VectorVM module itself."
+  },
+  {
+    "slug": "shaderplatformconfigeditor",
+    "kind": "module",
+    "cn": "ShaderPlatformConfigEditor 在编辑器里编辑各着色器平台的质量与功能开关，对应 RHI 和 RenderCore 的平台配置。图形程序员用属性面板调整 SM5/SM6、移动等目标的变体裁剪。它属于 Developer 工具，只在编辑器加载。",
+    "en": "ShaderPlatformConfigEditor edits per-shader-platform quality and feature switches, the configs RenderCore and RHI consume. Graphics programmers tweak SM5/SM6 and mobile permutation cuts in the details panel. It is a Developer tool loaded only in the editor."
+  },
+  {
+    "slug": "shaderpreprocessor",
+    "kind": "module",
+    "cn": "ShaderPreprocessor 运行引擎着色器的 C 预处理器，展开 #include、宏和平台定义，再交给各 ShaderFormat。所有后端共享同一份预处理，避免 DX 与 Vulkan 宏行为不一致。它只依赖 Core 与 RenderCore。",
+    "en": "ShaderPreprocessor runs the engine shader C preprocessor: #include, macros, and platform defines, then hands the result to each ShaderFormat. All backends share one preprocess so DX and Vulkan macros do not diverge. It depends only on Core and RenderCore."
+  },
+  {
+    "slug": "shaderruntime",
+    "kind": "module",
+    "cn": "ShaderRuntime 承载运行时着色器图、排列选择和已编译着色器的加载，与编辑器编译管线分开。游戏进程用它按材质质量和功能级别选出正确的 ShaderMap。该模块声明无额外依赖，作为很薄的运行时边界。",
+    "en": "ShaderRuntime owns runtime shader maps, permutation selection, and loading of compiled shaders, separate from the editor compile pipeline. The game process picks the right ShaderMap for material quality and feature level here. It declares no extra dependencies and is a thin runtime boundary."
+  },
+  {
+    "slug": "shadersymboltool",
+    "kind": "module",
+    "cn": "ShaderSymbolTool 是处理着色器调试符号的命令行程序，把符号写入或从派生数据/网络缓存取出。发行构建剥离符号后，图形调试仍能用它还原着色器源。它面向构建农场，依赖 NetworkCacheStores。",
+    "en": "ShaderSymbolTool is a command-line program that stores and retrieves shader debug symbols from derived data and network caches. After shipping builds strip symbols, graphics debugging can still recover shader source through it. It targets build farms and depends on NetworkCacheStores."
+  },
+  {
+    "slug": "sharedsettingswidgets",
+    "kind": "module",
+    "cn": "SharedSettingsWidgets 提供平台设置页共用的 Slate 控件，例如目标 SDK 选择、图标拾取和 RHI 选项。Project Settings 里 Android/iOS/Windows 页复用这些部件，保持外观一致。它接 ExternalImagePicker 与 TargetPlatform。",
+    "en": "SharedSettingsWidgets are Slate controls reused by platform settings pages: SDK pickers, icon pickers, RHI options. Android/iOS/Windows Project Settings share these so the pages look consistent. It uses ExternalImagePicker and TargetPlatform."
+  },
+  {
+    "slug": "signalprocessing",
+    "kind": "module",
+    "cn": "SignalProcessing 提供音频 DSP：FFT、滤波、动态处理和 ISPC 加速内核。AudioMixer 与 SoundField 等模块用它做实时效果，而不是每个插件自写卷积。MathCore 提供向量数学基础。",
+    "en": "SignalProcessing is audio DSP: FFT, filters, dynamics, and ISPC-accelerated kernels. AudioMixer and SoundField modules run realtime effects here instead of each plugin writing its own convolution. MathCore supplies the vector math base."
+  },
+  {
+    "slug": "simde",
+    "kind": "module",
+    "cn": "simde（SIMD Everywhere）用可移植 intrinsic 模拟 SSE/AVX，让同一套向量代码在尚无对应指令的架构上编译。第三方数学与编解码库通过它减少 #ifdef。引擎以头文件库形式接入，无运行时模块图。",
+    "en": "simde (SIMD Everywhere) emulates SSE/AVX with portable intrinsics so the same vector code compiles on architectures that lack those ISAs. Third-party math and codec libraries use it to cut #ifdefs. Unreal vendors it as a header library with no runtime module graph."
+  },
+  {
+    "slug": "skeletalmeshdescription",
+    "kind": "module",
+    "cn": "SkeletalMeshDescription 在 MeshDescription 上扩展蒙皮网格：骨骼影响、LOD 和变形目标布局。导入与 Interchange 把 FBX/USD 骨骼网格写成这种可编辑描述，再构建渲染资源。它与 StaticMeshDescription 共享底层网格拓扑。",
+    "en": "SkeletalMeshDescription extends MeshDescription for skinned meshes: bone influences, LODs, and morph layout. Import and Interchange write FBX/USD skeletal meshes into this editable description before build. It shares mesh topology types with StaticMeshDescription."
+  },
+  {
+    "slug": "skeletalmesheditor",
+    "kind": "module",
+    "cn": "SkeletalMeshEditor 是骨骼网格资产编辑器：LOD、布料、物理资产、缩减和 Persona 预览都在此。角色美术在这里检查蒙皮、插槽和材质槽，而不必打开动画蓝图。它大量依赖 Clothing 接口、Persona 和 Interchange。",
+    "en": "SkeletalMeshEditor is the skeletal mesh asset editor: LODs, clothing, physics asset, reduction, and Persona preview. Character artists inspect skinning, sockets, and material slots here without opening an AnimBP. It leans on Clothing interfaces, Persona, and Interchange."
+  },
+  {
+    "slug": "skeletalmeshutilitiescommon",
+    "kind": "module",
+    "cn": "SkeletalMeshUtilitiesCommon 集中蒙皮网格的导入后处理：切线、简化、布料映射和 MeshDescription 转换。编辑器与 Interchange 管线共用这些函数，避免骨骼网格工具各写一份。它同时碰到 RenderCore 与 ClothingSystemRuntimeCommon。",
+    "en": "SkeletalMeshUtilitiesCommon centralizes post-import work on skinned meshes: tangents, reduction, clothing maps, MeshDescription conversion. Editor and Interchange pipelines share these helpers instead of each skeletal tool copying them. It touches both RenderCore and ClothingSystemRuntimeCommon."
+  },
+  {
+    "slug": "skeletoneditor",
+    "kind": "module",
+    "cn": "SkeletonEditor 编辑 Skeleton 资产：骨骼树、插槽、智能名称和预览网格。动画师在这里维护共享骨骼层级，供多个 Skeletal Mesh 和 AnimBP 复用。它嵌入 Persona 与 AnimGraph，属于编辑器模块。",
+    "en": "SkeletonEditor edits Skeleton assets: bone tree, sockets, smart names, and preview mesh. Animators maintain a shared hierarchy here for many Skeletal Meshes and AnimBPs. It embeds in Persona and AnimGraph and is editor-only."
+  },
+  {
+    "slug": "slackintegrations",
+    "kind": "module",
+    "cn": "SlackIntegrations 通过 HTTP 把构建、审核或自动化通知推到 Slack 频道。开发者流水线用它在编译失败或提交检查完成时发消息，而不嵌入完整聊天客户端。模块只依赖 Core 与 HTTP。",
+    "en": "SlackIntegrations posts build, review, and automation notices to Slack channels over HTTP. Developer pipelines ping a channel when a compile fails or a submit check finishes, without embedding a chat client. The module depends only on Core and HTTP."
+  },
+  {
+    "slug": "slate",
+    "kind": "module",
+    "cn": "Slate 是编辑器和游戏 UI 的控件库：按钮、列表、菜单、窗口布局都在这一层实现。它建立在 SlateCore 的几何与绘制之上，并处理输入路由。几乎所有编辑器面板最终都是 SWidget 树。",
+    "en": "Slate is the widget library for editor and game UI: buttons, lists, menus, and window layout live here. It sits on SlateCore geometry and painting and owns input routing. Almost every editor panel is ultimately an SWidget tree."
+  },
+  {
+    "slug": "slatebaserenderer",
+    "kind": "module",
+    "cn": "SlateBaseRenderer 抽出 Slate 渲染器共用的元素批处理、裁剪和纹理上传，给 RHI 渲染器和空渲染器当基类。不同后端只实现真正的 GPU/空操作，布局算法保持一份。运行时模块可随独立工具或游戏加载。",
+    "en": "SlateBaseRenderer extracts shared Slate renderer work — element batching, clipping, texture upload — as the base for RHI and null renderers. Backends only implement real GPU or no-op submit; layout stays one copy. The runtime module can load in standalone tools or games."
+  },
+  {
+    "slug": "slatecore",
+    "kind": "module",
+    "cn": "SlateCore 定义 Slate 的基础类型：几何、字体、画刷、样式和绘制元素，不含具体控件。Slate 控件层和所有渲染器都依赖它。ApplicationCore 与 InputCore 让它能处理 DPI 和指针事件。",
+    "en": "SlateCore defines Slate primitives: geometry, fonts, brushes, styles, and paint elements, without concrete widgets. The Slate widget layer and every renderer depend on it. ApplicationCore and InputCore feed it DPI and pointer events."
+  },
+  {
+    "slug": "slatefiledialogs",
+    "kind": "module",
+    "cn": "SlateFileDialogs 实现跨平台的 Slate 打开/保存文件对话框，并监视目录变化。独立工具和编辑器在没有原生通用对话框或需要统一皮肤时使用它。DirectoryWatcher 让文件列表能跟随磁盘更新。",
+    "en": "SlateFileDialogs implements cross-platform Slate open/save dialogs and watches the directory. Standalone tools and the editor use it when a native common dialog is missing or a unified skin is required. DirectoryWatcher keeps the file list in sync with disk."
+  },
+  {
+    "slug": "slatefontdialog",
+    "kind": "module",
+    "cn": "SlateFontDialog 提供选择字体族、字重和样式的 Slate 对话框。UMG、Slate 样式编辑器和独立程序用同一套字体挑选体验。它依赖 AppFramework 来嵌入标准对话框框架。",
+    "en": "SlateFontDialog is the Slate dialog for family, weight, and style. UMG, Slate style editors, and standalone apps share one font-picking experience. It depends on AppFramework to sit in the standard dialog shell."
+  },
+  {
+    "slug": "slatenullrenderer",
+    "kind": "module",
+    "cn": "SlateNullRenderer 实现不向 GPU 提交的 Slate 渲染器，用于无头测试、服务器和只需布局/命中测试的进程。控件树仍然测量和绘制到空后端，避免链接完整 RHI。它建立在 SlateBaseRenderer 上。",
+    "en": "SlateNullRenderer is a Slate renderer that never submits to the GPU, for headless tests, servers, and processes that only need layout and hit-testing. The widget tree still measures and paints into a no-op backend without linking a full RHI. It builds on SlateBaseRenderer."
+  },
+  {
+    "slug": "slatereflector",
+    "kind": "module",
+    "cn": "SlateReflector 是 Widget Reflector：运行中点选任意 Slate/UMG 控件，查看层级、绘制盒和耗时。UI 程序员用它诊断布局问题和无效重绘。编辑器模块，可导出层次并打开对应资产。",
+    "en": "SlateReflector is the Widget Reflector: click any live Slate/UMG widget and inspect hierarchy, paint box, and cost. UI programmers debug layout and invalidation here. As an editor module it can dump the tree and jump to the owning asset."
+  },
+  {
+    "slug": "slaterhirenderer",
+    "kind": "module",
+    "cn": "SlateRHIRenderer 用 RHI 把 Slate 元素批画到游戏或编辑器视口，包括立体/HMD 和预加载屏幕。这是玩家实际看到的 UI 渲染路径，对接着 Renderer 与 RenderCore。独立工具若走完整引擎渲染也会用到它。",
+    "en": "SlateRHIRenderer paints batched Slate elements through the RHI into game or editor viewports, including stereo/HMD and preload screens. This is the UI path players actually see, wired to Renderer and RenderCore. Standalone tools that use full engine rendering also take this path."
+  },
+  {
+    "slug": "slatetests",
+    "kind": "module",
+    "cn": "SlateTests 是用于锻炼 Slate 布局、输入和绘制的测试程序，不启动完整编辑器。回归可以在独立进程里点按控件树。它链接 Slate/SlateCore 和 DesktopPlatform。",
+    "en": "SlateTests is a program that exercises Slate layout, input, and paint without booting the full editor. Regressions can click through a widget tree in a standalone process. It links Slate/SlateCore and DesktopPlatform."
+  },
+  {
+    "slug": "slateugs",
+    "kind": "module",
+    "cn": "SlateUGS 是 UnrealGameSync 的 Slate 外壳，用独立渲染器显示同步状态、P4 流和构建徽章。美术和程序员不必开编辑器就能拉取正确的编辑器构建。它依赖 UGSCore 与 PakFile。",
+    "en": "SlateUGS is the Slate shell for UnrealGameSync, showing sync state, Perforce streams, and build badges with a standalone renderer. Artists and programmers can pull the right editor build without opening Unreal Editor. It depends on UGSCore and PakFile."
+  },
+  {
+    "slug": "slateviewer",
+    "kind": "module",
+    "cn": "SlateViewer 是独立的 Slate 控件预览程序，用来在没有编辑器的情况下调试皮肤、WebBrowser 嵌入和源码跳转。UI 开发可快速打开示例窗口验证 StandaloneRenderer。它接 VisualStudio/Xcode 源码访问以便从控件跳到代码。",
+    "en": "SlateViewer is a standalone Slate widget previewer for debugging skins, WebBrowser embedding, and source jumps without the editor. UI developers pop an example window against StandaloneRenderer. It hooks Visual Studio/Xcode source access so a widget can jump to code."
+  },
+  {
+    "slug": "snappylib",
+    "kind": "module",
+    "cn": "SnappyLib 封装 Google Snappy 压缩，位于 HAPMedia 第三方树，给 HAP 视频/音频容器做低延迟解压。播放路径需要快速、不追求极限比的压缩时用它，而不是 Oodle。纯库绑定，无引擎模块依赖。",
+    "en": "SnappyLib wraps Google Snappy compression under the HAPMedia third-party tree for low-latency HAP video/audio containers. Playback uses it when it needs fast, not maximum-ratio, compression instead of Oodle. It is a library binding with no engine module graph."
+  },
+  {
+    "slug": "sockets",
+    "kind": "module",
+    "cn": "Sockets 抽象 BSD/WinSock 套接字：TCP、UDP、多播和平台差异都收在这一层。网络驱动、HTTP 和回放流都通过它发字节，而不是直接调 OS。NetCommon 提供共享的地址与错误类型。",
+    "en": "Sockets abstracts BSD/WinSock: TCP, UDP, multicast, and platform quirks. Net drivers, HTTP, and replay streams send bytes through it instead of calling the OS. NetCommon supplies shared address and error types."
+  },
+  {
+    "slug": "solarisbridge",
+    "kind": "module",
+    "cn": "SolarisBridge 把 Verse 编译器（uLang）接到引擎运行时，处理摘要、编译产物和与 Solaris/Verse 前端的桥接。UEFN 和 Verse 项目通过它把脚本变成可加载模块。它依赖 VerseCompiler 与 uLangDigests。",
+    "en": "SolarisBridge connects the Verse compiler (uLang) to the engine runtime: digests, compile artifacts, and the Solaris/Verse front-end bridge. UEFN and Verse projects turn scripts into loadable modules through it. It depends on VerseCompiler and uLangDigests."
+  },
+  {
+    "slug": "soundfieldrendering",
+    "kind": "module",
+    "cn": "SoundFieldRendering 实现声场/Ambisonic 编码与解码，把空间音频送进 AudioExtensions 管线。混音器可用它渲染一阶或高阶声场，而不是仅点声源。SignalProcessing 提供其中的 DSP 内核。",
+    "en": "SoundFieldRendering implements soundfield / Ambisonic encode and decode into the AudioExtensions pipeline. The mixer can render first- or higher-order soundfields instead of point sources only. SignalProcessing supplies the DSP kernels."
+  },
+  {
+    "slug": "soundswitch",
+    "kind": "module",
+    "cn": "SoundSwitch 是 iOS 侧的第三方音频会话辅助，处理静音键、路由切换和系统声音类别。移动音频后端用它响应插拔耳机或来电，而不是自己解析 AVAudioSession。仅作为 ThirdParty/IOS 库接入。",
+    "en": "SoundSwitch is an iOS third-party helper for audio session, mute switch, and route changes. Mobile audio backends react to headphones and phone calls through it instead of parsing AVAudioSession themselves. It is wired only as a ThirdParty/IOS library."
+  },
+  {
+    "slug": "soundtouchz",
+    "kind": "module",
+    "cn": "SoundTouchZ 引入 SoundTouch 变调/变速库，可在几乎不改音高感知的情况下拉伸语音或音乐。过场和本地化配音工具用它做时间对齐。第三方模块无引擎依赖。",
+    "en": "SoundTouchZ vendors the SoundTouch pitch/tempo library to time-stretch speech or music with little perceived pitch shift. Cinematic and localization VO tools use it for timing alignment. The ThirdParty module has no engine deps."
+  },
+  {
+    "slug": "sourcecodeaccess",
+    "kind": "module",
+    "cn": "SourceCodeAccess 是“在 IDE 中打开文件”的插件接口，VisualStudio、Xcode 等实现都挂在这里。从蓝图或日志点击堆栈即可跳转到正确的编辑器。它通过 Settings 选择当前源码访问器。",
+    "en": "SourceCodeAccess is the “open this file in an IDE” plugin interface; Visual Studio and Xcode accessors implement it. Clicking a Blueprint or log stack jumps to the right editor. Settings selects the active accessor."
+  },
+  {
+    "slug": "sourcecontrol",
+    "kind": "module",
+    "cn": "SourceControl 是版本控制提供者抽象：checkout、submit、status 对 Perforce/Git 都走同一套接口。编辑器资源操作和 MessageLog 都通过它显示锁与冲突。它还碰 RHI/RenderCore，以便在缩略图或视口标记状态。",
+    "en": "SourceControl is the VCS provider abstraction: checkout, submit, and status look the same for Perforce or Git. Editor asset ops and MessageLog show locks and conflicts through it. It also touches RHI/RenderCore so thumbnails or viewports can badge state."
+  },
+  {
+    "slug": "sourcecontrolcheckinprompt",
+    "kind": "module",
+    "cn": "SourceControlCheckInPrompt 在保存或关闭工作流时弹出签入提醒，避免美术改完资产却忘了 submit。它调用 SourceControlWindows 打开提交对话框。纯编辑器辅助，不进游戏。",
+    "en": "SourceControlCheckInPrompt pops a check-in reminder on save or close so artists do not forget to submit edited assets. It opens the submit dialog via SourceControlWindows. Editor-only helper; it does not ship in a game."
+  },
+  {
+    "slug": "sourcecontrolviewport",
+    "kind": "module",
+    "cn": "SourceControlViewport 在关卡视口上叠加源码控制状态，例如未 checkout 的 Actor 着色或徽章。关卡设计师不用离开视口就能看出哪些对象只读。它挂在 LevelEditor 与 ToolMenus 上。",
+    "en": "SourceControlViewport overlays source-control state in the level viewport, such as tint or badges on actors that are not checked out. Level designers see which objects are read-only without leaving the viewport. It hangs off LevelEditor and ToolMenus."
+  },
+  {
+    "slug": "sourcecontrolwindowextender",
+    "kind": "module",
+    "cn": "SourceControlWindowExtender 把签出/历史等命令扩展到已有编辑器窗口和菜单，而不是只放在专用源码控制面板。内容浏览器和资产编辑器通过 ToolMenus 接到同一套操作。编辑器模块，依赖 SourceControlWindows。",
+    "en": "SourceControlWindowExtender adds checkout/history commands onto existing editor windows and menus, not only the dedicated source-control panel. Content Browser and asset editors get the same actions via ToolMenus. Editor module; depends on SourceControlWindows."
+  },
+  {
+    "slug": "sourcecontrolwindows",
+    "kind": "module",
+    "cn": "SourceControlWindows 实现提交、历史、状态和 Changelist 等完整 Slate 窗口。这是编辑器里日常 Perforce/Git 操作的主界面，并跟踪未保存资产。它连接 AssetTools、PropertyEditor 和 WorkspaceMenuStructure。",
+    "en": "SourceControlWindows implements the full Slate windows for submit, history, status, and changelists. This is the day-to-day Perforce/Git UI in the editor and tracks unsaved assets. It connects AssetTools, PropertyEditor, and WorkspaceMenuStructure."
+  },
+  {
+    "slug": "sparsevolumetexture",
+    "kind": "module",
+    "cn": "SparseVolumeTexture 编辑器模块用来导入、预览和调整稀疏体积纹理（OpenVDB 一类体积特效资源）。特效与图形团队在独立窗口里检查砖块占用和渲染数据，再交给 Renderer。它需要完整 UnrealEd 视口栈。",
+    "en": "The SparseVolumeTexture editor module imports, previews, and tunes sparse volume textures (OpenVDB-style volume FX). FX and graphics teams inspect brick occupancy and render data in a dedicated window before Renderer consumes it. It needs the full UnrealEd viewport stack."
+  },
+  {
+    "slug": "speedtree",
+    "kind": "module",
+    "cn": "SpeedTree 接入 SpeedTree SDK，让引擎能读取 SpeedTree 模型、风场和 LOD 数据。植被管线用它导入 .st 资源，而不是把树拆成普通静态网格。第三方库模块，运行时植被组件再调用更高层引擎代码。",
+    "en": "SpeedTree vendors the SpeedTree SDK so the engine can read SpeedTree models, wind, and LOD data. Vegetation pipelines import .st assets through it instead of exploding trees into ordinary static meshes. Third-party library; runtime foliage components sit in higher engine modules."
+  },
+  {
+    "slug": "spirvreflect",
+    "kind": "module",
+    "cn": "SPIRVReflect 封装 SPIRV-Reflect，从 SPIR-V 模块里抽出描述符集、输入输出和推送常量。Vulkan 着色器工具链用它生成反射数据，而不手写解析器。纯第三方绑定。",
+    "en": "SPIRVReflect wraps SPIRV-Reflect to extract descriptor sets, I/O, and push constants from a SPIR-V module. Vulkan shader toolchains generate reflection with it instead of a hand-rolled parser. Pure third-party binding."
+  },
+  {
+    "slug": "ssl",
+    "kind": "module",
+    "cn": "SSL 模块把 OpenSSL（或平台 TLS）接到引擎，给 HTTP、WebSocket 和自定义套接字提供 TLS。Online 子系统的安全连接都经过这一层。它只依赖 Core，可在运行时和工具进程共用。",
+    "en": "The SSL module binds OpenSSL (or platform TLS) so HTTP, WebSockets, and custom sockets can speak TLS. Secure connections in Online subsystems go through this layer. It depends only on Core and is shared by runtime and tool processes."
+  },
+  {
+    "slug": "standalonerenderer",
+    "kind": "module",
+    "cn": "StandaloneRenderer 为不启动 Engine 循环的程序提供 Slate 渲染后端，例如 Switchboard、UGS、SlateViewer。它能选择空渲染器或平台窗口，让工具画出界面。ImageWrapper 用于加载图标与图片。",
+    "en": "StandaloneRenderer gives Slate a render backend in programs that never start an Engine tick, such as Switchboard, UGS, and SlateViewer. It can pick a null renderer or a platform window so tools still paint UI. ImageWrapper loads icons and images."
+  },
+  {
+    "slug": "statestream",
+    "kind": "module",
+    "cn": "StateStream 以流的方式推送世界/渲染状态快照，供异步消费者跟随而不锁游戏线程。新渲染架构用它把对象变换、可见性等状态送到渲染端。模块保持最小依赖，便于在运行时测试。",
+    "en": "StateStream pushes world/render state snapshots as a stream so async consumers can follow without locking the game thread. Newer rendering architecture sends transforms and visibility across this pipe. Dependencies stay minimal so runtime tests can link it."
+  },
+  {
+    "slug": "statestreamtests",
+    "kind": "module",
+    "cn": "StateStreamTests 是 LowLevelTests 程序，专门验证 StateStream 的写入、读取和同步语义。CI 在无编辑器环境下抓住流协议回归。它只链接 Core、CoreUObject 和 StateStream。",
+    "en": "StateStreamTests is a LowLevelTests program that checks StateStream write, read, and sync semantics. CI catches stream-protocol regressions without an editor. It links only Core, CoreUObject, and StateStream."
+  },
+  {
+    "slug": "staticmeshdescription",
+    "kind": "module",
+    "cn": "StaticMeshDescription 把静态网格表示为可编辑的 MeshDescription，并可与 RawMesh 互转。构建、UV 编辑和 Nanite 准备都从这份描述出发。MeshUtilitiesCommon 提供共享的拓扑工具。",
+    "en": "StaticMeshDescription represents a static mesh as an editable MeshDescription and converts to and from RawMesh. Build, UV edit, and Nanite prep start from this description. MeshUtilitiesCommon provides shared topology helpers."
+  },
+  {
+    "slug": "staticmesheditor",
+    "kind": "module",
+    "cn": "StaticMeshEditor 是静态网格资产编辑器：LOD、碰撞、Nanite、光照图 UV 和预览场景。场景美术在这里检查截面、简化误差和材质槽。它依赖 AdvancedPreviewScene、MeshUtilities 和大量视口工具。",
+    "en": "StaticMeshEditor is the static mesh asset editor: LODs, collision, Nanite, lightmap UVs, and preview scene. Environment artists inspect sections, reduction error, and material slots here. It depends on AdvancedPreviewScene, MeshUtilities, and a large viewport tool stack."
+  },
+  {
+    "slug": "statsviewer",
+    "kind": "module",
+    "cn": "StatsViewer 以表格展示关卡里图元、纹理、骨骼网格和地形的统计，帮助找出超预算资产。技术美术在编辑器里排序 draw call 和内存，而不必只靠 profilegpu。它读取 AssetRegistry 与 Landscape 数据。",
+    "en": "StatsViewer tables primitive, texture, skeletal mesh, and landscape stats in the level so over-budget assets stand out. Technical artists sort draw calls and memory in the editor instead of relying only on profilegpu. It reads AssetRegistry and Landscape data."
+  },
+  {
+    "slug": "statusbar",
+    "kind": "module",
+    "cn": "StatusBar 实现编辑器底部状态栏：源码控制、未保存资产、选择信息和工具消息。几乎所有主编辑器窗口都把扩展写到这条栏上。它依赖 ToolMenus、SourceControlWindows 和 UnsavedAssetsTracker。",
+    "en": "StatusBar implements the editor bottom bar: source control, unsaved assets, selection info, and tool messages. Almost every main editor window extends this strip. It depends on ToolMenus, SourceControlWindows, and UnsavedAssetsTracker."
+  },
+  {
+    "slug": "stb_image_resize2",
+    "kind": "module",
+    "cn": "stb_image_resize2 接入 stb 的高质量图像缩放实现，给缩略图、导入和工具链做重采样。需要比引擎默认更可控的滤镜时走这条第三方库。无引擎依赖的头文件/源码封装。",
+    "en": "stb_image_resize2 vendors stb’s high-quality image resizer for thumbnails, import, and tool resampling. Pipelines that need more control than the engine default filters use this library. Header/source wrap with no engine deps."
+  },
+  {
+    "slug": "stomp",
+    "kind": "module",
+    "cn": "Stomp 实现 STOMP 消息协议，跑在 WebSockets 之上，用于与消息代理订阅/发布。在线服务和工具可用它对接 ActiveMQ 一类中间件。它属于 Runtime/Online，可进需要实时总线的游戏或工具。",
+    "en": "Stomp implements the STOMP messaging protocol over WebSockets for subscribe/publish against a broker. Online services and tools can talk to middleware such as ActiveMQ. It lives under Runtime/Online and can ship in games or tools that need a realtime bus."
+  },
+  {
+    "slug": "storageserverclient",
+    "kind": "module",
+    "cn": "StorageServerClient 连接 Zen / Storage Server，按需拉取 IoStore 与 Cook-on-the-fly 数据。编辑器和不完整安装的客户端用它从共享缓存读包，而不是本地备齐全部 cooked 文件。Sockets 与 JSON 承载控制面。",
+    "en": "StorageServerClient connects to Zen / Storage Server to pull IoStore and cook-on-the-fly data on demand. Editors and incomplete installs read packages from a shared cache instead of keeping a full cooked tree locally. Sockets and JSON carry the control plane."
+  },
+  {
+    "slug": "storageserverclientdebug",
+    "kind": "module",
+    "cn": "StorageServerClientDebug 给存储服务器客户端加上调试统计与可视化钩子，便于观察缓存命中和请求延迟。开发构建用它诊断 Zen 拉取 stall，而不是在 Shipping 里保留开销。它依赖 Engine 以便挂控制台命令。",
+    "en": "StorageServerClientDebug adds debug stats and visualization hooks on the storage-server client so cache hits and request latency are visible. Dev builds diagnose Zen fetch stalls here without paying that cost in Shipping. It depends on Engine for console commands."
+  },
+  {
+    "slug": "storageserverwidgets",
+    "kind": "module",
+    "cn": "StorageServerWidgets 是编辑器里查看 Zen/存储服务器状态的 Slate 面板，可检查连接、清单和 DevHttp 端点。技术团队用它确认本机是否连上共享 DDC/IoStore。它链接 Zen 与 DesktopPlatform。",
+    "en": "StorageServerWidgets are editor Slate panels for Zen / storage-server status: connection, manifests, DevHttp endpoints. Tech teams confirm the machine is on the shared DDC/IoStore from here. It links Zen and DesktopPlatform."
+  },
+  {
+    "slug": "streamingfile",
+    "kind": "module",
+    "cn": "StreamingFile 把远程 NetworkFile 伪装成本地 IFileHandle，让 Cook-on-the-fly 和网络文件系统对上层透明。编辑器或设备通过套接字读主机上的文件，无需先拷完整目录。它建立在 NetworkFile 与 Sockets 上。",
+    "en": "StreamingFile presents a remote NetworkFile as a local IFileHandle so cook-on-the-fly and network filesystems stay transparent. An editor or device reads host files over sockets without copying the whole tree first. It builds on NetworkFile and Sockets."
+  },
+  {
+    "slug": "streamingpauserendering",
+    "kind": "module",
+    "cn": "StreamingPauseRendering 在关卡流送暂停时绘制加载画面或 MoviePlayer 过场，避免玩家看到半加载世界。它接管 RHI/Slate 输出，直到流送完成再把控制权交回游戏。运行时模块，常与无缝旅行配合。",
+    "en": "StreamingPauseRendering draws a load screen or MoviePlayer cinematic while level streaming is paused so players never see a half-loaded world. It takes RHI/Slate output until streaming finishes, then returns control to the game. Runtime module, often paired with seamless travel."
+  },
+  {
+    "slug": "stringtableeditor",
+    "kind": "module",
+    "cn": "StringTableEditor 编辑 String Table 资产：键、命名空间和本地化字符串，并支持从磁盘导入导出。本地化团队在此维护 UI 文案，而不把字符串散落在蓝图里。它是标准 UnrealEd 资产编辑器。",
+    "en": "StringTableEditor edits String Table assets: keys, namespaces, and localized strings, with import/export from disk. Localization teams maintain UI copy here instead of scattering strings across Blueprints. It is a standard UnrealEd asset editor."
+  },
+  {
+    "slug": "structutilseditor",
+    "kind": "module",
+    "cn": "StructUtilsEditor 为 Instanced Struct / 结构体工具提供细节面板、可视化器和蓝图针脚定制。AI 和行为树编辑器靠它编辑多态结构体字段。它连接 PropertyEditor、GraphEditor 和 AIGraph。",
+    "en": "StructUtilsEditor customizes details panels, visualizers, and Blueprint pins for instanced structs / struct utils. AI and Behavior Tree editors edit polymorphic struct fields through it. It connects PropertyEditor, GraphEditor, and AIGraph."
+  },
+  {
+    "slug": "structutilstestsuite",
+    "kind": "module",
+    "cn": "StructUtilsTestSuite 运行 Instanced Struct 与相关工具的自动化测试，挂在 AITestSuite 和编辑器测试框架上。用来防止结构体序列化、继承和属性定制回归。Developer 测试模块，不进 Shipping。",
+    "en": "StructUtilsTestSuite runs automation for instanced structs and related utilities, hanging off AITestSuite and the editor test framework. It guards serialization, inheritance, and property customization against regressions. Developer test module; not in Shipping."
+  },
+  {
+    "slug": "structviewer",
+    "kind": "module",
+    "cn": "StructViewer 是挑选 UStruct 类型的浏览器，类似 Class Viewer，但面向结构体。细节面板和数据资产编辑器用它让用户选择 Instanced Struct 的具体类型。编辑器模块，读取 ContentBrowserData。",
+    "en": "StructViewer is a UStruct type browser, like Class Viewer but for structs. Details panels and data-asset editors let users pick a concrete instanced-struct type here. Editor module; reads ContentBrowserData."
+  },
+  {
+    "slug": "submittool",
+    "kind": "module",
+    "cn": "SubmitTool 是独立的提交门禁程序：跑校验、遥测、HTTP 服务和受限检查，再允许 Perforce 提交。大型工作室用它在 changelist 进入主干前强制规范。它带自己的 Slate UI 和 SubmitToolCore。",
+    "en": "SubmitTool is a standalone submit gate: validators, telemetry, HTTP, and restricted checks run before a Perforce submit is allowed. Large studios enforce policy on a changelist before it hits main. It has its own Slate UI plus SubmitToolCore."
+  },
+  {
+    "slug": "submittoolcore",
+    "kind": "module",
+    "cn": "SubmitToolCore 存放提交工具的校验流水线、配置 JSON 和日志，不含独立程序的窗口壳。SubmitTool 可执行文件和可能的编辑器集成都复用这套规则。它依赖 Analytics 与 OutputLog 记录门禁结果。",
+    "en": "SubmitToolCore holds the submit-tool validator pipeline, JSON config, and logging without the standalone window chrome. The SubmitTool executable and any editor integration reuse these rules. Analytics and OutputLog record gate results."
+  },
+  {
+    "slug": "subobjectdatainterface",
+    "kind": "module",
+    "cn": "SubobjectDataInterface 定义 Actor 组件/子对象树的数据模型接口，让细节面板和组件层级不直接依赖一套实现。蓝图组件面板通过它枚举可添加的子对象。该模块刻意不声明依赖，作为稳定的编辑器契约。",
+    "en": "SubobjectDataInterface defines the data-model interface for actor component/subobject trees so details panels do not hard-bind one implementation. The Blueprint components panel enumerates addable subobjects through it. It declares no deps on purpose, as a stable editor contract."
+  },
+  {
+    "slug": "subobjecteditor",
+    "kind": "module",
+    "cn": "SubobjectEditor 是组件面板：添加、重排、复制 Actor 子对象，并与蓝图图表选择同步。关卡和蓝图编辑器共用这一套组件树 UI。它实现 SubobjectDataInterface 并深度使用 Kismet/GraphEditor。",
+    "en": "SubobjectEditor is the Components panel: add, reorder, and duplicate actor subobjects, kept in sync with Blueprint graph selection. Level and Blueprint editors share this component-tree UI. It implements SubobjectDataInterface and uses Kismet/GraphEditor heavily."
+  },
+  {
+    "slug": "superluminal",
+    "kind": "module",
+    "cn": "SuperLuminal 接入 SuperLuminal 性能分析器的原生 API，把引擎作用域标进外部时间线。开发构建可在不改 Unreal Insights 的情况下用 SuperLuminal 看 CPU 热点。第三方模块，Shipping 通常剥离。",
+    "en": "SuperLuminal binds the SuperLuminal profiler native API so engine scopes appear on an external timeline. Dev builds can inspect CPU hotspots in SuperLuminal without switching off Unreal Insights. Third-party module; usually stripped from Shipping."
+  },
+  {
+    "slug": "svgdistancefield",
+    "kind": "module",
+    "cn": "SVGDistanceField 把 SVG 矢量轮廓栅格成距离场纹理，供 UI、字体或网格倒角使用。编辑器工具用它从矢量图标生成 SDF，而不是手绘灰度图。它依赖 Engine 以便写出纹理资产。",
+    "en": "SVGDistanceField rasterizes SVG vector outlines into distance-field textures for UI, fonts, or mesh bevels. Editor tools generate SDFs from vector icons here instead of painting grayscale maps. It depends on Engine so it can write texture assets."
+  },
+  {
+    "slug": "swarminterface",
+    "kind": "module",
+    "cn": "SwarmInterface 是 Swarm 光照构建代理的客户端接口：把 Lightmass 任务发到局域网工人并收回结果。打开“使用 Swarm”烘焙时，编辑器通过套接字与 SwarmAgent 通信。它依赖 Networking 与 Sockets。",
+    "en": "SwarmInterface is the client API for Swarm lighting-build agents: Lightmass jobs go to LAN workers and results come back. When “Use Swarm” baking is on, the editor talks to SwarmAgent over sockets. It depends on Networking and Sockets."
+  },
+  {
+    "slug": "swift",
+    "kind": "module",
+    "cn": "Swift 模块把 Apple Swift 运行时/标准库引进 Unreal 的 Apple 平台构建。需要与 Swift 系统框架互操作的 iOS/macOS 代码通过这个 ThirdParty 规则链接，而不是在每个目标里手配 Swift。它不拉 UObject。",
+    "en": "The Swift module brings the Apple Swift runtime/stdlib into Unreal Apple-platform builds. iOS/macOS code that must interop with Swift system frameworks links this ThirdParty rule instead of hand-configuring Swift per target. It does not pull UObject."
+  }
+]

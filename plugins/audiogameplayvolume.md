@@ -3,7 +3,6 @@ layout: default
 title: 音频游戏音量 / AudioGameplayVolume
 ---
 
-
 <h1>音频游戏音量 / AudioGameplayVolume</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 音频游戏音量 / AudioGameplayVolume
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">音频游戏音量插件</div><div class="lang-content">Audio Gameplay Volume Plugin</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>同时启用 <code class="usage-code">AudioGameplay</code> 与 <code class="usage-code">AudioGameplayVolume</code>（<code class="usage-code">AudioGameplayVolume</code>、<code class="usage-code">AudioGameplayVolumeEditor</code>）。</li><li>在关卡放置 <code class="usage-code">AAudioGameplayVolume</code>，用笔刷/碰撞体划定听者进入区域（不是 <code class="usage-code">AAudioVolume</code> 的 Ambient Zone）。</li><li>在该 Actor 上添加 Mutator 组件：Filter、Reverb、Submix Send / Override、Attenuation 等，由 <code class="usage-code">UAudioGameplayVolumeMutator</code> 在进出时应用。</li><li>重叠多个 Volume 时靠优先级与代理解析；用 <code class="usage-code">AudioGameplayVolumeEditor</code> 在视口里看体积线框。</li><li>PIE 把听者走进走出，确认滤波/混响/发送变化；不要在 Project Settings &gt; Audio 里找同名子混合。</li><li>游戏模块只依赖 <code class="usage-code">AudioGameplayVolume</code>；Editor 模块勿进 Game Target。</li></ol><p class="usage-note">听者进出时应用滤波/混响/Submix 的玩法体积，依赖 AudioGameplay 核心。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable both <code class="usage-code">AudioGameplay</code> and <code class="usage-code">AudioGameplayVolume</code> (<code class="usage-code">AudioGameplayVolume</code>, <code class="usage-code">AudioGameplayVolumeEditor</code>).</li><li>Place <code class="usage-code">AAudioGameplayVolume</code> and shape its collision so the listener enters a region (not <code class="usage-code">AAudioVolume</code> ambient zones).</li><li>Add mutator components on that actor: Filter, Reverb, Submix Send / Override, Attenuation; <code class="usage-code">UAudioGameplayVolumeMutator</code> applies them on enter/exit.</li><li>Overlapping volumes resolve by priority/proxy; <code class="usage-code">AudioGameplayVolumeEditor</code> draws the volume in the viewport.</li><li>In PIE walk the listener in and out and confirm filter/reverb/send changes; there is no Project Settings submix named AudioGameplayVolume.</li><li>Game modules depend on <code class="usage-code">AudioGameplayVolume</code> only; keep the editor module off Game targets.</li></ol><p class="usage-note">Listener-enter gameplay volumes for filter/reverb/submix; requires the AudioGameplay core plugin.</p></div></div></div>
+    </div>
+

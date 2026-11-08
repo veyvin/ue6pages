@@ -3,7 +3,6 @@ layout: default
 title: Widget自动化测试 / WidgetAutomationTests
 ---
 
-
 <h1>Widget自动化测试 / WidgetAutomationTests</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: Widget自动化测试 / WidgetAutomationTests
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">WidgetAutomationTests</code>（模块 <code class="usage-code">WidgetAutomationTests</code>）。</li><li>它提供 UMG 小部件的自动化测试。</li><li>在 CI/自动化里跑这些用例验证 UI 行为。</li><li>这是测试插件，不要打进发行版本。</li></ol><p class="usage-note">UMG 小部件自动化测试。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">WidgetAutomationTests</code> (module <code class="usage-code">WidgetAutomationTests</code>).</li><li>It provides automation tests for UMG widgets.</li><li>Run these cases in CI/automation to validate UI behavior.</li><li>It is a test plugin; do not ship it in release builds.</li></ol><p class="usage-note">Automation tests for UMG widgets.</p></div></div></div>
+    </div>
+

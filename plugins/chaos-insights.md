@@ -3,7 +3,6 @@ layout: default
 title: 混沌洞察 / Chaos Insights
 ---
 
-
 <h1>混沌洞察 / Chaos Insights</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 混沌洞察 / Chaos Insights
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于收集混沌见解的插件</div><div class="lang-content">Plugin to gather insights into Chaos</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>用 <code class="usage-code">-trace=cpu,frame,chaoslocks</code> 启动编辑器或打包游戏（也可在会话中执行 <code class="usage-code">Trace.Start cpu,frame,chaoslocks</code>）。<code class="usage-code">ChaosLocks</code> 通道记录 Chaos 求解器读写锁的 begin / acquired / end 周期时间戳。</li><li>复现卡顿：让关卡里出现大量刚体碰撞、Geometry Collection 破碎或求解器迭代尖峰，使物理线程与游戏线程争锁。</li><li>打开 <code class="usage-code">UnrealInsights.exe</code>，加载这次生成的 <code class="usage-code">.utrace</code>。分析器模块 <code class="usage-code">ChaosInsightsAnalysis</code> 会解析锁事件；<code class="usage-code">ChaosInsightsUI</code> 在 Insights 里画出 Chaos 锁时间线。</li><li>对照 Timing Insights 的 Physics / Chaos 计时器，找出长时间持锁或反复失败获取的区间，再回头减碰撞对数、求解器迭代或错开 GT 对物理场景的写入。</li><li>不要把 <code class="usage-code">ChaosInsightsUI</code> 写进游戏 <code class="usage-code">Build.cs</code>；Shipping 包只在需要时带 Analysis 依赖，平时用命令行 Trace，不要为洞察功能加运行时 Actor。</li></ol><p class="usage-note">这是 Unreal Insights 的 Chaos 锁分析扩展，不是关卡组件。关注 `ChaosLocks` 通道，不要和 Chaos Visual Debugger 的 `.utrace` 物理录像混用。</p></div><div class="lang-content"><ol class="usage-steps"><li>Launch the editor or a cooked build with <code class="usage-code">-trace=cpu,frame,chaoslocks</code> (or <code class="usage-code">Trace.Start cpu,frame,chaoslocks</code> mid-session). The <code class="usage-code">ChaosLocks</code> channel records Chaos solver read/write lock begin / acquired / end cycle timestamps.</li><li>Reproduce the hitch: heavy rigid contacts, Geometry Collection breaks, or solver-iteration spikes so the physics thread contends with the game thread.</li><li>Open <code class="usage-code">UnrealInsights.exe</code> and load the <code class="usage-code">.utrace</code>. <code class="usage-code">ChaosInsightsAnalysis</code> parses lock events; <code class="usage-code">ChaosInsightsUI</code> draws the Chaos lock timeline inside Insights.</li><li>Align those spans with Physics / Chaos timers in Timing Insights, then cut contact pairs, solver iterations, or game-thread writes into the physics scene.</li><li>Do not add <code class="usage-code">ChaosInsightsUI</code> to a game <code class="usage-code">Build.cs</code>. Ship Analysis only if you must; drive capture from the command line, not a runtime Actor.</li></ol><p class="usage-note">Unreal Insights extension for Chaos lock contention, not a level component. Use the `ChaosLocks` channel; do not confuse it with Chaos Visual Debugger physics recordings.</p></div></div></div>
+    </div>
+

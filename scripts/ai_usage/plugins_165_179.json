@@ -1,0 +1,328 @@
+[
+  {
+    "slug": "chaosvehiclesplugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 的 Physics / Experimental 启用 `ChaosVehiclesPlugin`（运行时 `ChaosVehicles`，编辑器 `ChaosVehiclesEditor`）并重启。",
+      "新建继承 `AWheeledVehiclePawn` 的 Pawn（或从插件示例复制），给根加上 `UChaosWheeledVehicleMovementComponent`，不要再用旧 PhysX `UWheeledVehicleMovementComponent`。",
+      "为每个轮胎创建 `ChaosVehicleWheel` 类：半径、悬架刚度/阻尼、转向角、驱动/手刹标志；在 Movement 的 `Wheel Setups` 里把骨骼名绑到这些轮子。",
+      "在同一组件上填 `Engine Setup`、`Transmission Setup`、`Steering Setup` 和 `Differential`（扭矩、换挡、差速），并确认骨骼网格体已开 Chaos 物理资产。",
+      "用 Enhanced Input 把油门/刹车/转向/手刹接到 `Set Throttle Input` / `Set Brake Input` / `Set Steering Input` / `Set Handbrake Input`。",
+      "关卡放 Blocking Volume 当地面，打开 `Chaos Vehicles` 相关 Show Flag 或 Visual Logger，PIE 里检查轮胎接触与侧滑。",
+      "游戏模块 `Build.cs` 只依赖 `ChaosVehicles`；`ChaosVehiclesEditor` 仅放 *Editor 目标。"
+    ],
+    "en_steps": [
+      "Enable Experimental `ChaosVehiclesPlugin` in `Edit > Plugins` (runtime `ChaosVehicles`, editor `ChaosVehiclesEditor`) and restart.",
+      "Create a pawn based on `AWheeledVehiclePawn` (or copy the plugin sample) and add `UChaosWheeledVehicleMovementComponent`; do not use the old PhysX `UWheeledVehicleMovementComponent`.",
+      "Author a `ChaosVehicleWheel` class per tire (radius, spring/damper, steer angle, driven/handbrake flags) and bind bone names in Movement `Wheel Setups`.",
+      "Fill `Engine Setup`, `Transmission Setup`, `Steering Setup`, and `Differential` on that component, and make sure the skeletal mesh has a Chaos physics asset.",
+      "Wire Enhanced Input throttle/brake/steer/handbrake to `Set Throttle Input` / `Set Brake Input` / `Set Steering Input` / `Set Handbrake Input`.",
+      "Give the map collision ground, enable Chaos Vehicles debug / Visual Logger, and PIE to check tire contact and slip.",
+      "Game `Build.cs` depends on `ChaosVehicles` only; keep `ChaosVehiclesEditor` on an Editor target."
+    ],
+    "note_cn": "实验性 Chaos 载具，不是破碎/字段插件，也不是 PhysX Vehicles。接口可能随夜构建变化。",
+    "note_en": "Experimental Chaos vehicles — not fracture/fields, and not PhysX Vehicles. The contract can change on nightlies."
+  },
+  {
+    "slug": "character-creation-tools",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 MetaHuman 插件 `Character Creation Tools`（`CharacterEditState`、`CharacterEditTools`、`CharacterEditInteractiveTools`、`CharacterMeshConformer`、`CharacterEditToolsEditor`）。",
+      "打开或新建 MetaHuman `Character` 资产，进入角色编辑器视口；本插件提供共享编辑状态与 Interactive Tools Framework 外壳，不是单独的动画采样节点。",
+      "用视口里的交互工具刷体型、头部或服装参数；工具会话状态走 `CharacterEditState`，不要自己往 Actor 上挂同名组件当玩法。",
+      "需要把服装/配件贴合身体时走 `CharacterMeshConformer`：选目标骨骼网格与源网格，执行 conform，检查绑定与法线。",
+      "改完后从角色编辑器导出/更新骨骼网格与 Control Rig，再放到关卡或 Sequencer 里看绑定，而不是在 AnimBP 里“采样 Character Creation Tools 资产”。",
+      "`CharacterEditToolsEditor` 只留在 Editor Target；运行时数字人播放依赖 MetaHuman 运行时绑定，不要把编辑工具链进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the MetaHuman plugin `Character Creation Tools` (`CharacterEditState`, `CharacterEditTools`, `CharacterEditInteractiveTools`, `CharacterMeshConformer`, `CharacterEditToolsEditor`).",
+      "Open or create a MetaHuman `Character` asset and enter the character editor viewport. This plugin is the shared edit-state and Interactive Tools Framework shell, not an AnimBP sampler.",
+      "Sculpt body/head/wardrobe with the viewport interactive tools; session state lives in `CharacterEditState`. Do not treat those types as gameplay components on a pawn.",
+      "Fit clothing or accessories with `CharacterMeshConformer`: pick target skeletal mesh and source mesh, run conform, then check skinning and normals.",
+      "Export/update the skeletal mesh and Control Rig from the character editor, then place that mesh in a level or Sequencer. Do not “sample a Character Creation Tools asset” on an animation track.",
+      "Keep `CharacterEditToolsEditor` on an Editor target. Runtime MetaHuman playback uses the runtime binding stack, not these authoring tools."
+    ],
+    "note_cn": "给 MetaHuman 角色编辑器的共享工具壳，不是运行时角色控制器。",
+    "note_en": "Shared authoring shell for the MetaHuman character editor, not a runtime character controller."
+  },
+  {
+    "slug": "characterai",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `CharacterAI`（模块 `CharacterAI`）并重启；内容来自 `Engine/Plugins/Experimental/CharacterAI`。",
+      "准备带 `CharacterMovement` 的 `Character` 与 `AIController`，关卡生成 NavMesh Bounds，这是角色向 AI 的基座，不是通用 EQS 浏览器。",
+      "在插件 Content 里找 CharacterAI 相关资产/组件（移动、朝向、角色感知辅助），挂到 NPC 上，而不是搜索一个叫 `CharacterAI` 的空子系统当玩法入口。",
+      "用行为树或插件提供的任务/服务驱动该角色：巡逻点、对玩家的朝向与移动请求走 Character 移动接口，避免直接 `SetActorLocation`。",
+      "PIE 打开 AI Debug (`'` / `AI` show flags) 看路径与焦点；确认走的是 `CharacterAI` 逻辑而不是默认 `MoveTo` 模板。",
+      "游戏模块可依赖 `CharacterAI`；实验接口可能改名，不要当 Shipping 硬依赖。"
+    ],
+    "en_steps": [
+      "Enable Experimental `CharacterAI` (module `CharacterAI`) and restart. Content lives under `Engine/Plugins/Experimental/CharacterAI`.",
+      "Use a `Character` with `CharacterMovement` plus an `AIController`, and build NavMesh. This plugin targets character-based AI, not a generic EQS browser.",
+      "Attach the plugin’s CharacterAI assets/components (locomotion, facing, character-centric sensing helpers) to the NPC. There is no empty “CharacterAI subsystem” gameplay entry you just search in Details.",
+      "Drive the pawn from Behavior Tree or the plugin’s tasks/services so patrols and player facing go through Character movement, not `SetActorLocation`.",
+      "In PIE, use AI Debug (`'` / AI show flags) and confirm the pawn is following `CharacterAI` logic rather than a stock `MoveTo` template.",
+      "Game modules may depend on `CharacterAI`; treat the API as experimental and avoid a hard Shipping contract."
+    ],
+    "note_cn": "实验性角色向 AI 代码/资产包，不是 Behavior Tree 编辑器本身。",
+    "note_en": "Experimental character-oriented AI code and assets, not the Behavior Tree editor."
+  },
+  {
+    "slug": "cheatstoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental Toolset 插件 `CheatsToolset`（模块 `CheatsToolset`）。这是给编辑器 AI 助手/自动化列作弊命令用的，不是关卡里的 Cheat 组件。",
+      "在 PlayerController 上指定 `Cheat Class`（自定义 `UCheatManager` 子类），用 `UFUNCTION(exec)` 写出 `God`、`Fly` 一类命令。",
+      "PIE 进入游戏，确保本地 Player 已拥有带 CheatManager 的 Controller（非 Shipping、允许 cheats）。",
+      "通过编辑器 Toolset / 助手调用本插件：先列出本地玩家 CheatManager 上的命令，再按名调用并传参数。",
+      "对照控制台 `~` 手动敲同一条 exec，确认 Toolset 调到的是同一 `UCheatManager` 实例。",
+      "不要把 `CheatsToolset` 写进 Game Target 或包装；Shipping 应关闭作弊通道。"
+    ],
+    "en_steps": [
+      "Enable Experimental Toolset plugin `CheatsToolset` (module `CheatsToolset`). It lists/invokes cheats for the in-editor assistant or automation, not a level component.",
+      "Set the PlayerController `Cheat Class` to your `UCheatManager` subclass and expose commands with `UFUNCTION(exec)` (`God`, `Fly`, …).",
+      "PIE so the local player owns a Controller with that CheatManager (cheats allowed, not Shipping).",
+      "From the editor Toolset / assistant, list commands on the local player’s CheatManager, then invoke by name with arguments.",
+      "Cross-check by typing the same exec in the `~` console; both paths must hit the same `UCheatManager` instance.",
+      "Do not link `CheatsToolset` into a Game target or packaged build; disable cheats for Shipping."
+    ],
+    "note_cn": "编辑器 Toolset，面向助手自动化；不是给玩家做内置修改器菜单。",
+    "note_en": "Editor toolset for assistant automation, not an in-game mod menu."
+  },
+  {
+    "slug": "chooser",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chooser`（运行时 `Chooser` / `ProxyTable`，编辑器 `ChooserEditor` / `ProxyTableEditor`；未烹饪模块 `ChooserUncooked` / `ProxyTableUncooked` 不要进 Game Target）。",
+      "内容浏览器右键 `Animation > Chooser Table`，添加上下文列（Bool / Enum / Float / 对象）和结果列（动画序列、Pose Search 数据库或其他 UObject）。",
+      "填行：每行是一组条件 → 选出的资产；用编辑器里的调试/评分查看当前上下文命中哪一行。",
+      "需要按角色换表时再新建 `Proxy Table`：键是逻辑名，值指向不同 Chooser 或资产，把角色差异从 AnimBP 里抽出去。",
+      "在动画蓝图 AnimGraph 加 `Evaluate Chooser`（或 Chooser Player）节点，把移动速度、状态枚举等接到上下文引脚，输出接到 `Output Pose`。",
+      "PIE 用 AnimBP 调试叠层看每次选中的行；烹饪后只保留 `Chooser` 与 `ProxyTable` 运行时数据。"
+    ],
+    "en_steps": [
+      "Enable `Chooser` (runtime `Chooser` / `ProxyTable`, editors `ChooserEditor` / `ProxyTableEditor`). Keep `ChooserUncooked` / `ProxyTableUncooked` off Game targets.",
+      "Content Browser → `Animation > Chooser Table`. Add context columns (Bool / Enum / Float / object) and a result column (AnimSequence, Pose Search database, or other UObject).",
+      "Author rows as condition sets → chosen asset; use the table debugger/scoring to see which row the current context hits.",
+      "For per-character remaps, create a `Proxy Table` (logical names → different Choosers/assets) so AnimBP stays character-agnostic.",
+      "In the AnimGraph add `Evaluate Chooser` (or Chooser Player), wire speed/state enums into context pins, and feed the pose to `Output Pose`.",
+      "PIE with the AnimBP debugger to confirm the selected row. Cooked games keep only runtime `Chooser` / `ProxyTable` data."
+    ],
+    "note_cn": "动态选资产表，不是把 Chooser 资产拖到骨骼网格上采样的组件。",
+    "note_en": "Data-driven asset selection tables, not a component you drop on a skeletal mesh."
+  },
+  {
+    "slug": "chunk-downloader",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用运行时插件 `Chunk Downloader`（模块 `ChunkDownloader`），游戏 `Build.cs` 加入该模块。",
+      "在 `Project Settings > Packaging` 打开 `Generate Chunks`，给要流式下发的资产指定 `Chunk ID`（Pakchunk），打出带清单的 Pak。",
+      "把清单与 Pak 放到 HTTP(S) 分发根目录；在启动代码里 `FChunkDownloader::Get()`，`Initialize(PlatformName, TargetDownloadsInFlight)`，再 `LoadCachedBuild` / `UpdateBuild(DeploymentName, ContentBuildId)`。",
+      "用 `GetLoadingProgress` 更新 UI，下载完成后 `MountChunk` / 挂载 Pak，再 `LoadPackage` 或切关卡。",
+      "在 `DefaultGame.ini` 的 `[ChunkDownloader]` 段配置缓存目录、部署名与可选 BaseUrl；这不是 Online Subsystem 登录凭证。",
+      "用弱网和断点续传各测一遍；Shipping 包只含启动块，其余走本客户端拉取。"
+    ],
+    "en_steps": [
+      "Enable runtime `Chunk Downloader` (module `ChunkDownloader`) and add it to the game `Build.cs`.",
+      "Turn on `Generate Chunks` under `Project Settings > Packaging`, assign `Chunk ID`s to streamed assets, and cook Paks plus a manifest.",
+      "Host the manifest and Paks on HTTP(S). At startup `FChunkDownloader::Get()`, `Initialize(PlatformName, TargetDownloadsInFlight)`, then `LoadCachedBuild` / `UpdateBuild(DeploymentName, ContentBuildId)`.",
+      "Drive UI from `GetLoadingProgress`; after download `MountChunk` / mount Paks, then `LoadPackage` or open the map.",
+      "Configure cache path, deployment name, and optional BaseUrl under `[ChunkDownloader]` in `DefaultGame.ini`. This is not Online Subsystem login.",
+      "Test slow networks and resume. Shipping should ship the bootstrap chunk only; the rest streams through this client."
+    ],
+    "note_cn": "流式安装/分块下载客户端，不是 Online Subsystem 实现。",
+    "note_en": "Streaming-install / chunk client, not an Online Subsystem implementation."
+  },
+  {
+    "slug": "cinecamerarigs",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `CineCameraRigs`（`CineCameraRigs` + `CineCameraRigsEditor`）。",
+      "在关卡放置 `CineCameraRigRail`：编辑样条作为轨道，把 `CineCameraActor` 附加到轨道挂点，用 `Absolute Position on Rail`（0–1）滑车。",
+      "需要摇臂时放置 `CineCameraRigCrane`，调臂长、Yaw/Pitch，把同一台电影机挂到 crane mount。",
+      "打开该镜头的 Level Sequence，给 Rail/Crane 加 Transform 或专用轨道关键帧（沿轨位置、摇臂角），不要只关键帧摄像机世界坐标。",
+      "视口切到该 `CineCameraActor` 看片，核对焦距/胶片门与轨道运动是否一致。",
+      "`CineCameraRigsEditor` 仅编辑器定制；运行时序列播放只依赖 `CineCameraRigs`。"
+    ],
+    "en_steps": [
+      "Enable Experimental `CineCameraRigs` (`CineCameraRigs` + `CineCameraRigsEditor`).",
+      "Place a `CineCameraRigRail`, edit its spline, attach a `CineCameraActor` to the rail mount, and drive `Absolute Position on Rail` (0–1).",
+      "For a jib, place `CineCameraRigCrane`, set arm length and yaw/pitch, and attach the same cine camera to the crane mount.",
+      "In the shot’s Level Sequence, key the rail/crane tracks (position on rail, crane angles) instead of only the camera’s world transform.",
+      "Look through that `CineCameraActor` and check focal length / filmback against the rig motion.",
+      "`CineCameraRigsEditor` is editor customization only; sequence playback needs runtime `CineCameraRigs`."
+    ],
+    "note_cn": "电影机轨道/摇臂装置，不是 nDisplay 同步插件。",
+    "note_en": "Cine-camera rail and crane rigs, not an nDisplay sync plugin."
+  },
+  {
+    "slug": "cinecamerascenecapture",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `CineCameraSceneCapture`（模块 `CineCameraSceneCapture`）。",
+      "内容浏览器新建 `TextureRenderTarget2D`（尺寸对齐镜头输出），放到材质或 UMG Image 上预览。",
+      "在已有 `CineCameraActor` 上添加电影机场景捕捉组件（插件提供，行为对齐 `SceneCaptureComponent2D`，但走电影机镜头/胶片门/对焦）。",
+      "把 RT 赋给该组件的 Texture Target，设置 Capture Every Frame 或按需 `Capture Scene`，Primitive Render Mode 按需要 Include/Exclude 演员。",
+      "对比同一台 `CineCameraActor` 的视口取景与 RT：裁切、景深、胶片门应一致；不要用普通 `SceneCapture2D` 冒充电影机成像。",
+      "PIE 或 LED/监看材质上查看 RT；实验接口可能调整，正式流水线先小场景验证。"
+    ],
+    "en_steps": [
+      "Enable Experimental `CineCameraSceneCapture` (module `CineCameraSceneCapture`).",
+      "Create a `TextureRenderTarget2D` sized to the shot and preview it on a material or UMG Image.",
+      "Add the plugin’s cine-camera scene-capture component to an existing `CineCameraActor`. It mirrors `SceneCaptureComponent2D` but uses cine lens, filmback, and focus.",
+      "Assign the RT as Texture Target, capture every frame or call `Capture Scene`, and Include/Exclude primitives as needed.",
+      "Compare the `CineCameraActor` viewfinder to the RT: crop, DOF, and filmback should match. A plain `SceneCapture2D` will not.",
+      "View the RT in PIE or on a monitor surface. Prove it on a small scene; the experimental API can still move."
+    ],
+    "note_cn": "把电影机视图画进 RT，不是再造一套 Scene Capture 摄像机。",
+    "note_en": "Renders a cine-camera view into an RT; it is not a second Scene Capture camera type."
+  },
+  {
+    "slug": "cinematic-assembly-tools-cat",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Cinematic Assembly Tools (CAT)`（`CineAssemblyTools`、`CineAssemblyToolsEditor`）。",
+      "内容浏览器创建 Cine Assembly / CAT 资产，作为镜头集合（线性成片），而不是单条 Level Sequence。",
+      "把已有 `Level Sequence` 镜头登记进 Assembly：镜头号、场景、Take、绑定的关卡与摄像机。",
+      "用 CAT 编辑器浏览/排序镜头、切换当前 Shot、从 Assembly 打开对应 Sequencer，做线性内容的镜头管理。",
+      "需要整段回放时从 Assembly 播放或导出镜头列表，而不是在 nDisplay 面板里找 CAT。",
+      "`CineAssemblyToolsEditor` 只进 Editor；游戏里若只播单条 Sequence，不必依赖 CAT。"
+    ],
+    "en_steps": [
+      "Enable `Cinematic Assembly Tools (CAT)` (`CineAssemblyTools`, `CineAssemblyToolsEditor`).",
+      "Create a Cine Assembly / CAT asset in the Content Browser — a shot collection for linear editorial, not a single Level Sequence.",
+      "Register existing `Level Sequence` shots on the assembly (shot code, scene, take, map, camera).",
+      "Use the CAT editor to sort shots, switch the current shot, and open the matching Sequencer for linear shot management.",
+      "Play or export the assembly as a shot list. Do not look for CAT inside the nDisplay panel.",
+      "Keep `CineAssemblyToolsEditor` on Editor targets. Gameplay that only plays one sequence does not need CAT."
+    ],
+    "note_cn": "镜头装配/成片管理套件，不是摄像机追踪或 LED 墙驱动。",
+    "note_en": "Shot-assembly / editorial suite, not camera tracking or LED-wall drive."
+  },
+  {
+    "slug": "cinematic-prestreaming",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Cinematic Prestreaming`（运行时 `CinematicPrestreaming`，编辑器 `CinematicPrestreamingEditor`）。",
+      "打开过场 `Level Sequence`，确保镜头会触发虚拟纹理、Nanite 或纹理流送（远切近、大场景）。",
+      "用插件的录制流程（Sequencer / Movie Render 相关入口）在过场中记录流送请求，生成 `Cinematic Prestreaming` 数据资产。",
+      "回到时间轴，为该 Sequence 加上 Prestreaming 轨道，把资产挂上，并让请求比摄像机到达提前若干帧/秒。",
+      "PIE 或 MRQ 回放同一镜头，对比未挂轨道时的贴图/几何弹出；预流是提前排队 IO，不是后期处理开关。",
+      "游戏模块只链 `CinematicPrestreaming`；录制 UI 留在 Editor。"
+    ],
+    "en_steps": [
+      "Enable `Cinematic Prestreaming` (runtime `CinematicPrestreaming`, editor `CinematicPrestreamingEditor`).",
+      "Open the cinematic `Level Sequence` and make sure the camera move will hitch virtual textures, Nanite, or texture streaming (hard cuts, large worlds).",
+      "Run the plugin’s record path (Sequencer / Movie Render related) during the cutscene to capture streaming requests into a Cinematic Prestreaming asset.",
+      "Add a Prestreaming track on the sequence, assign that asset, and offset so requests fire seconds/frames before the camera arrives.",
+      "PIE or MRQ the same shot and compare pop-in with the track disabled. This queues IO early; it is not a post-process toggle.",
+      "Link only `CinematicPrestreaming` in game modules; keep recording UI on Editor."
+    ],
+    "note_cn": "给过场预热流送请求，不是 Show Flag 也不是后期体积选项。",
+    "note_en": "Warms streaming requests for cinematics; not a show flag or post-process volume setting."
+  },
+  {
+    "slug": "cinematic-sequence-navigator-bridge",
+    "kind": "plugin",
+    "cn_steps": [
+      "先启用 `Cinematic Assembly Tools (CAT)`，再启用 Experimental `Cinematic Sequence Navigator Bridge`（模块 `CinematicSequenceNavigator`）。",
+      "打开 CAT Assembly，确认其中已登记若干 `Level Sequence` 镜头。",
+      "打开 `Sequence Navigator`（电影装配用的镜头导航器），本桥把它接到 CAT Assembly，而不是普通动画资产。",
+      "在 Navigator 里点镜头名应跳到 Assembly 中对应 Shot 并打开 Sequencer；不要把桥资产挂到骨骼网格。",
+      "增删 Assembly 镜头后刷新 Navigator，确认列表与当前 Shot 同步。",
+      "这是编辑器导航桥，不要写入 Game `Build.cs` 或 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Cinematic Assembly Tools (CAT)` first, then Experimental `Cinematic Sequence Navigator Bridge` (module `CinematicSequenceNavigator`).",
+      "Open a CAT assembly that already lists several `Level Sequence` shots.",
+      "Open `Sequence Navigator`; this bridge binds it to cinematic assemblies, not to generic animation assets.",
+      "Clicking a shot in the Navigator should select that assembly shot and open Sequencer. Do not attach the bridge to a skeletal mesh.",
+      "Add/remove assembly shots and refresh the Navigator to confirm the list and current shot stay in sync.",
+      "Editor navigation only — do not add it to a Game `Build.cs` or Shipping build."
+    ],
+    "note_cn": "CAT 镜头列表与 Sequence Navigator 之间的桥，本身不做动画采样。",
+    "note_en": "Bridge between CAT shot lists and Sequence Navigator; it does not sample animation."
+  },
+  {
+    "slug": "clion-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 的 Programming 启用 `CLion Integration`（模块 `CLionSourceCodeAccess`）并重启。",
+      "打开 `Edit > Editor Preferences > General > Source Code`，把 `Source Code Editor` 设为 `CLion`。",
+      "本机安装 CLion，并对当前 `.uproject` / 引擎源码执行 Generate Project Files（CMake）。",
+      "内容浏览器双击 C++ 类，或 `Tools > Open CLion` / Open Source Code；应由 `CLionSourceCodeAccess` 把文件交给 CLion，而不是 Visual Studio。",
+      "从 Class Viewer 或蓝图 Goto C++ Definition 再验证跳转。不要把该模块写进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `CLion Integration` under `Edit > Plugins` (Programming); it loads `CLionSourceCodeAccess`, then restart.",
+      "Open `Edit > Editor Preferences > General > Source Code` and set `Source Code Editor` to `CLion`.",
+      "Install CLion locally and generate project files (CMake) for this `.uproject` / engine tree.",
+      "Double-click a C++ class in the Content Browser, or use `Tools > Open CLion` / Open Source Code; `CLionSourceCodeAccess` should hand the file to CLion, not Visual Studio.",
+      "Confirm Goto C++ Definition from Class Viewer or a Blueprint also lands in CLion. Do not link this module into a Game target."
+    ],
+    "note_cn": "编辑器源码访问器，不进 Shipping。",
+    "note_en": "Editor-only source accessor; do not ship it."
+  },
+  {
+    "slug": "cloners-and-effectors",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Cloners and Effectors`（`ClonerEffector`、`ClonerEffectorMeshBuilder`、编辑器 `ClonerEffectorEditor`），并确保 Niagara 已开。",
+      "在放置 Actor 列表里放 `Cloner` Actor，选 Layout（Grid / Circle / Line / Spline / Mesh 等），指定要克隆的静态或骨骼网格。",
+      "再放置 `Effector` Actor，让其范围覆盖克隆实例；选噪声、吸引、平面等效应，调强度与衰减，观察实例变换/颜色被逐个推动。",
+      "需要碰撞网格时走 `ClonerEffectorMeshBuilder` 生成合并网格，而不是在 Niagara 编辑器里新建一个空白 System 当入口。",
+      "把 Cloner/Effector 加进 Sequencer，关键帧效应器位置或强度，做虚拟制片运动图形。",
+      "游戏运行时只依赖 `ClonerEffector`（及需要的 MeshBuilder）；编辑器模块勿进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Cloners and Effectors` (`ClonerEffector`, `ClonerEffectorMeshBuilder`, editor `ClonerEffectorEditor`) and make sure Niagara is on.",
+      "Place a `Cloner` actor, pick a layout (Grid / Circle / Line / Spline / Mesh, …), and assign the static or skeletal mesh to instance.",
+      "Place `Effector` actors so their volume covers clones; choose noise/attractor/plane etc., tune strength/falloff, and watch per-instance transform/color.",
+      "Use `ClonerEffectorMeshBuilder` when you need a built collision/render mesh. Do not start from a blank Niagara System as the entry point.",
+      "Add cloner/effectors to Sequencer and key effector transforms or strength for VP motion-graphics shots.",
+      "Runtime depends on `ClonerEffector` (and MeshBuilder if needed); keep the editor module off Game targets."
+    ],
+    "note_cn": "关卡里的 Niagara 克隆器/效应器 Actor，不是 Niagara 模块栈里的普通发射器模板。",
+    "note_en": "Level-placed Niagara cloner/effector actors, not a generic Niagara emitter template."
+  },
+  {
+    "slug": "code-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `Code Editor`（模块 `CodeEditor`）并重启；这是编辑器内嵌代码编辑，不是游戏组件。",
+      "从 `Window` / `Tools` 打开 `Code Editor` 面板（或从 C++ 类资产“在编辑器中打开”）。",
+      "在面板中打开项目 `.h` / `.cpp`，修改后保存到磁盘；不要指望它替代 Rider/VS 的调试与 IntelliSense。",
+      "保存后用 Live Coding 或编译按钮验证；语法错误仍走虚幻编译日志。",
+      "不要把 `CodeEditor` 写进 Game `Build.cs` 或 Shipping。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Code Editor` (module `CodeEditor`) and restart. It edits source inside Unreal, not as a gameplay component.",
+      "Open the `Code Editor` panel from `Window` / `Tools` (or “open in editor” on a C++ class asset).",
+      "Load project `.h` / `.cpp` files, edit, and save to disk. It does not replace Rider/VS debugging or IntelliSense.",
+      "After save, Live Coding or compile and watch the Unreal build log for errors.",
+      "Do not add `CodeEditor` to a Game `Build.cs` or Shipping target."
+    ],
+    "note_cn": "实验性编辑器内代码编辑，接口可能变化；不能当正式 IDE。",
+    "note_en": "Experimental in-editor code editing; not a production IDE, API may change."
+  },
+  {
+    "slug": "code-quality-tests-unreal-test-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用测试插件 `Code Quality Tests Unreal Test Plugin`（描述符 `CQTest.uplugin`，模块 `CQTestTests`）。它测的是引擎 `CQTest` 框架，不是给游戏加组件。",
+      "打开 `Tools > Session Frontend` → `Automation`，筛选 `CQTest` / `CQTestTests`。",
+      "跑这组用例，确认断言、期望宏与测试夹具在编辑器自动化会话里通过。",
+      "命令行也可用 `UnrealEditor-Cmd` 的 `Automation RunTests` 指向 `CQTest` 过滤器，便于 CI。",
+      "不要把 `CQTestTests` 链进游戏模块或 Shipping 包。"
+    ],
+    "en_steps": [
+      "Enable `Code Quality Tests Unreal Test Plugin` (`CQTest.uplugin`, module `CQTestTests`). It tests the engine `CQTest` module; it is not a gameplay component.",
+      "Open `Tools > Session Frontend` → `Automation` and filter `CQTest` / `CQTestTests`.",
+      "Run the suite and confirm asserts, expect macros, and fixtures pass in the editor automation session.",
+      "For CI, invoke `UnrealEditor-Cmd` `Automation RunTests` with a `CQTest` filter.",
+      "Do not link `CQTestTests` into a game module or Shipping package."
+    ],
+    "note_cn": "CQTest 框架的自测插件，不是质量门禁配置工具。",
+    "note_en": "Self-tests for the CQTest framework, not a quality-gate settings UI."
+  }
+]

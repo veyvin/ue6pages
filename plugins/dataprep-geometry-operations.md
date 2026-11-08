@@ -3,7 +3,6 @@ layout: default
 title: Dataprep 几何操作 / Dataprep Geometry Operations
 ---
 
-
 <h1>Dataprep 几何操作 / Dataprep Geometry Operations</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: Dataprep 几何操作 / Dataprep Geometry Operations
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">可在 Dataprep 编辑器中使用的实验几何处理操作。</div><div class="lang-content">Experimental geometry processing operations usable in the Dataprep Editor.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>先启用 <code class="usage-code">Dataprep Editor</code>，再启用 Experimental 的 <code class="usage-code">Dataprep Geometry Operations</code>（模块 <code class="usage-code">DataprepGeometryOperations</code>）。</li><li>打开已有 <code class="usage-code">Dataprep Asset</code>，在操作节点列表里找几何处理项（简化、焊接、重网格、布尔、补洞等），它们不会出现在普通 Actor 组件菜单。</li><li>在 Filter 选出高面数 CAD 网格后接入这些 Operation，设目标三角数/容差。</li><li><code class="usage-code">Execute</code> 后对比操作前后顶点数和法线；失败时看几何内核日志，而不是当普通 Import 选项。</li><li>把该插件当作 Dataprep 图扩展，不要在游戏运行时调用 <code class="usage-code">DataprepGeometryOperations</code>。</li><li>Experimental 操作签名可能变，管道资产升级引擎后要重新 Execute 验证。</li></ol><p class="usage-note">挂在 Dataprep 图上的实验几何算子，离开 Dataprep 编辑器没有独立窗口。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Dataprep Editor</code> first, then Experimental <code class="usage-code">Dataprep Geometry Operations</code> (module <code class="usage-code">DataprepGeometryOperations</code>).</li><li>Open a <code class="usage-code">Dataprep Asset</code> and look in the operation list for geometry processors (simplify, weld, remesh, boolean, fill holes). They do not appear on actor component menus.</li><li>Filter high-poly CAD meshes, then wire those operations with a target triangle count or tolerance.</li><li><code class="usage-code">Execute</code> and compare vertex count and normals before vs after. On failure read the geometry-kernel log, not the generic import options.</li><li>Treat the plugin as a Dataprep graph extension; do not call <code class="usage-code">DataprepGeometryOperations</code> from game runtime.</li><li>Experimental operation signatures can change; re-Execute pipeline assets after an engine upgrade.</li></ol><p class="usage-note">Experimental geometry operators hosted in the Dataprep graph; no standalone window outside that editor.</p></div></div></div>
+    </div>
+

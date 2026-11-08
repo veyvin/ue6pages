@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "hair-modeling-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Hair Modeling Toolset`（模块 `HairModelingToolset`）。",
+      "在 Modeling Tools Mode 里使用插件新增的 Groom/头发建模工具。",
+      "它同时是给编辑器内 AI 助手/自动化的读写工具集（Toolset Registry）。",
+      "这是编辑器工具集，一般不进 Shipping；Experimental，接口可能变动。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Hair Modeling Toolset` (module `HairModelingToolset`).",
+      "In Modeling Tools Mode, use the newly added Groom/hair modeling tools.",
+      "It is also exposed as read/write tools for the in-editor AI assistant/automation (Toolset Registry).",
+      "It is an editor toolset that generally does not ship; Experimental and subject to change."
+    ],
+    "note_cn": "建模工具模式里的头发/Groom 工具，兼作 AI 工具集。",
+    "note_en": "Groom/hair tools inside Modeling Tools Mode, also usable as an AI toolset."
+  },
+  {
+    "slug": "hap-decoder-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `HAP Decoder for Electra`（模块 `HAPDecoderElectra`），属 Media Framework / Electra。",
+      "创建 Media Source 指向 HAP 编码的视频，让 Electra 走该解码器（GPU 上解码）。",
+      "把 Media Texture 接到材质或 Media Plate 播放；核对平台是否支持 HAP。",
+      "运行时模块 `HAPDecoderElectra`；需要 Electra 播放器支持。"
+    ],
+    "en_steps": [
+      "Enable `HAP Decoder for Electra` (module `HAPDecoderElectra`), part of Media Framework / Electra.",
+      "Create a Media Source pointing at an HAP-encoded video so Electra uses this decoder (GPU decode).",
+      "Feed the Media Texture to a material or Media Plate; confirm the platform supports HAP.",
+      "Runtime module is `HAPDecoderElectra`; it relies on the Electra player."
+    ],
+    "note_cn": "Electra 上的 HAP 解码，HAP 是高分辨率 GPU 编解码器。",
+    "note_en": "HAP decode on Electra; HAP is a high-resolution GPU codec."
+  },
+  {
+    "slug": "hap-media",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `HAP Media`（模块 `HAPMedia`），属 Media Framework。",
+      "用 Media Player + Media Source 打开 HAP 视频，由该插件提供 HAP 编解码支持。",
+      "把 Media Texture 赋给材质或 Media Plate，蓝图 Open/Play/Pause 控制播放。",
+      "运行时模块 `HAPMedia`；解决的是 HAP 格式的播流与解码。"
+    ],
+    "en_steps": [
+      "Enable `HAP Media` (module `HAPMedia`), part of Media Framework.",
+      "Open a HAP video with a Media Player + Media Source; this plugin provides the HAP codec support.",
+      "Assign the Media Texture to a material or Media Plate and control Open/Play/Pause from Blueprint.",
+      "Runtime module is `HAPMedia`; it handles HAP-format playback and decode."
+    ],
+    "note_cn": "HAP 格式播放支持（Media Framework 路径），与 Electra 版互补。",
+    "note_en": "HAP playback support via Media Framework; complements the Electra variant."
+  },
+  {
+    "slug": "hardwareencoders",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `HardwareEncoders`（模块 `EncoderAMF`、`EncoderNVENC`），为 AVEncoder 提供硬件编码。",
+      "在需要录制/推流的流程里（如 Media Output / 渲染出片），选择硬件编码器。",
+      "按显卡选 AMF（AMD）或 NVENC（NVIDIA），确认驱动支持。",
+      "运行时模块按平台/显卡启用；缺少对应硬件时回退到软件编码。"
+    ],
+    "en_steps": [
+      "Enable `HardwareEncoders` (modules `EncoderAMF`, `EncoderNVENC`) to add hardware encoding to AVEncoder.",
+      "In recording/streaming flows (e.g. Media Output / render-out), select a hardware encoder.",
+      "Pick AMF (AMD) or NVENC (NVIDIA) per GPU and confirm driver support.",
+      "Runtime modules enable per platform/GPU; fall back to software encoding when the hardware is absent."
+    ],
+    "note_cn": "AVEncoder 的硬件编码后端（AMF/NVENC），用于录制/出片。",
+    "note_en": "Hardware encoder backends (AMF/NVENC) for AVEncoder, used for recording/render-out."
+  },
+  {
+    "slug": "harmonix",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Harmonix`（运行时 `Harmonix`、`HarmonixDsp`、`HarmonixMidi`，编辑器 `HarmonixEditor` 等）。",
+      "用于音乐相关的音频功能（律动、MIDI、DSP 处理等），把 Harmonix 组件/资产接入音频或玩法。",
+      "配置 MIDI/DSP 参数，在 PIE 里试听并调音。",
+      "Game 模块依赖运行时模块；`HarmonixEditor`、测试模块不要进游戏包。"
+    ],
+    "en_steps": [
+      "Enable `Harmonix` (runtime `Harmonix`, `HarmonixDsp`, `HarmonixMidi`; editor `HarmonixEditor`, etc.).",
+      "For music-related audio features (rhythm, MIDI, DSP), hook Harmonix components/assets into audio or gameplay.",
+      "Configure MIDI/DSP parameters and audition/tune in PIE.",
+      "Game modules depend on runtime modules; keep `HarmonixEditor` and test modules out of the cooked game."
+    ],
+    "note_cn": "Harmonix 音乐音频功能包，偏节奏/MIDI/DSP。",
+    "note_en": "The Harmonix music-audio package, rhythm/MIDI/DSP oriented."
+  },
+  {
+    "slug": "hdribackdrop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `HDRIBackdrop`（模块 `HDRIBackdrop`）。",
+      "在关卡放置 HDRIBackdrop Actor，指定 HDRI 贴图作为背景环境。",
+      "调整背景亮度/朝向与地面合成，用于展示、布光或快速出片。",
+      "运行时可放置，用于背景环境与光照参考。"
+    ],
+    "en_steps": [
+      "Enable `HDRIBackdrop` (module `HDRIBackdrop`).",
+      "Place an HDRIBackdrop actor in the level and assign an HDRI texture as the background environment.",
+      "Tune background intensity/orientation and ground compositing for showcase, lighting, or quick renders.",
+      "It is placeable at runtime and serves as background environment and lighting reference."
+    ],
+    "note_cn": "用 HDRI 贴图做背景环境的 Actor，便于布光/展示。",
+    "note_en": "An actor that uses an HDRI texture as background environment for lighting/showcase."
+  },
+  {
+    "slug": "hierarchy-table-animation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Hierarchy Table Animation`（模块 `HierarchyTableAnimationRuntime`、编辑器 `HierarchyTableAnimationEditor`、`HierarchyTableAnimationUncookedOnly`）。",
+      "在 Hierarchy Table 管线里使用动画专用类型定义，承载层级化动画数据。",
+      "配合动画系统读取/驱动层级表动画；先在空关卡验证数据流。",
+      "Experimental：接口可能变动；编辑器/Uncooked 模块不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Hierarchy Table Animation` (modules `HierarchyTableAnimationRuntime`, editor `HierarchyTableAnimationEditor`, `HierarchyTableAnimationUncookedOnly`).",
+      "Use the animation-specific type definitions in the Hierarchy Table pipeline to carry hierarchical animation data.",
+      "Read/drive hierarchy-table animation alongside the animation system; prove the data flow in an empty map first.",
+      "Experimental: contract may change; editor/uncooked modules do not ship."
+    ],
+    "note_cn": "Hierarchy Table 的动画类型定义，需与基础 Hierarchy Table 搭配。",
+    "note_en": "Animation type definitions for Hierarchy Tables; pairs with the base Hierarchy Table plugin."
+  },
+  {
+    "slug": "hierarchy-table",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Hierarchy Table`（运行时 `HierarchyTableRuntime`，编辑器 `HierarchyTableEditor`）。",
+      "用层级表数据结构组织成组的层级实体（如骨骼、变换树），表达父子关系。",
+      "在编辑器里用 `HierarchyTableEditor` 查看/编辑，运行时通过 Runtime 模块读写。",
+      "Experimental：接口可能变动；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Hierarchy Table` (runtime `HierarchyTableRuntime`, editor `HierarchyTableEditor`).",
+      "Use the hierarchy-table data structure to organize grouped hierarchical entities (e.g. bones, transform trees) with parent/child relations.",
+      "Inspect/edit with `HierarchyTableEditor` in the editor; read/write at runtime via the Runtime module.",
+      "Experimental: contract may change; editor modules go to Editor targets only."
+    ],
+    "note_cn": "层级化数据表基础框架；动画等是它的专用类型扩展。",
+    "note_en": "The base hierarchical data-table framework; animation is a specialized type extension of it."
+  },
+  {
+    "slug": "holdoutcomposite",
+    "kind": "plugin",
+    "cn_steps": [
+      "这是一个已废弃（Deprecated）插件，已重定向到 `CompositeCore`。",
+      "新项目不要启用；改用 `CompositeCore` / Composure 相关合成管线。",
+      "如有旧工程引用它，按提示迁移到 CompositeCore。",
+      "没有可依赖的运行时模块列表，迁移后禁用本插件。"
+    ],
+    "en_steps": [
+      "This plugin is Deprecated and now redirected to `CompositeCore`.",
+      "Do not enable it in new projects; use `CompositeCore` / Composure compositing instead.",
+      "If a legacy project references it, migrate to CompositeCore as prompted.",
+      "It ships no runtime module list to depend on; disable it after migration."
+    ],
+    "note_cn": "已废弃，转发到 CompositeCore。",
+    "note_en": "Deprecated; forwarded to CompositeCore."
+  },
+  {
+    "slug": "hp-mixed-reality-controller-keys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `HP Mixed Reality Controller Keys`（模块 `HPMotionControllerKeys`）。",
+      "它只提供输入键定义（`HPMixedRealityController_*` FKeys），仅依赖 InputCore。",
+      "在输入映射里引用这些键；无需 OpenXR 映射的模块（如 Pixel Streaming）也可直接引用。",
+      "这是轻量按键定义插件，不含设备驱动本身。"
+    ],
+    "en_steps": [
+      "Enable `HP Mixed Reality Controller Keys` (module `HPMotionControllerKeys`).",
+      "It only provides input key definitions (`HPMixedRealityController_*` FKeys) and depends on InputCore only.",
+      "Reference these keys in input mappings; modules that map without OpenXR (e.g. Pixel Streaming) can also reference them.",
+      "It is a lightweight key-definition plugin and does not contain the device driver itself."
+    ],
+    "note_cn": "只定义 HP MR 手柄按键，不含设备映射/驱动。",
+    "note_en": "Only defines HP MR controller keys, not the device mapping/driver."
+  },
+  {
+    "slug": "hp-motion-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `HP Motion Controller`（模块 `HPMotionController`）。",
+      "为 OpenXR 与 SteamVR 提供 HP Reverb G2 运动控制器的控制器映射。",
+      "在 VR 项目里接好 OpenXR/SteamVR，佩戴 Reverb G2 验证手柄追踪与按键。",
+      "只在支持的 VR 运行时使用；配合对应按键定义插件。"
+    ],
+    "en_steps": [
+      "Enable `HP Motion Controller` (module `HPMotionController`).",
+      "It provides controller mappings for the HP Reverb G2 motion controller in OpenXR and SteamVR.",
+      "In a VR project, set up OpenXR/SteamVR and wear the Reverb G2 to verify controller tracking and buttons.",
+      "Use it on supported VR runtimes; pair it with the matching key-definition plugin."
+    ],
+    "note_cn": "HP Reverb G2 手柄映射（OpenXR/SteamVR）。",
+    "note_en": "Controller mappings for HP Reverb G2 (OpenXR/SteamVR)."
+  },
+  {
+    "slug": "htc-vive-controller-keys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `HTC Vive Controller Keys`（模块 `ViveControllerKeys`）。",
+      "它只提供输入键定义（`Vive_*` FKeys），仅依赖 InputCore。",
+      "在输入映射里引用这些键；无需 OpenXR 映射的模块也可直接引用。",
+      "这是轻量按键定义插件，不含设备驱动本身。"
+    ],
+    "en_steps": [
+      "Enable `HTC Vive Controller Keys` (module `ViveControllerKeys`).",
+      "It only provides input key definitions (`Vive_*` FKeys) and depends on InputCore only.",
+      "Reference these keys in input mappings; modules that map without OpenXR can reference them too.",
+      "It is a lightweight key-definition plugin and does not contain the device driver itself."
+    ],
+    "note_cn": "只定义 Vive 手柄按键，不含设备映射/驱动。",
+    "note_en": "Only defines Vive controller keys, not the device mapping/driver."
+  },
+  {
+    "slug": "htn-planner",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `HTN planner`（模块 `HTNPlanner`，测试 `HTNTestSuite`）。",
+      "用分层任务网络（HTN）描述 AI 任务分解，规划出可执行的任务序列。",
+      "把 HTNPlanner 接入 AI 行为/控制器，由它规划并驱动 NPC 行为。",
+      "Experimental：接口可能变动；测试模块不要进游戏包。"
+    ],
+    "en_steps": [
+      "Enable Experimental `HTN planner` (module `HTNPlanner`; tests `HTNTestSuite`).",
+      "Describe AI task decomposition with Hierarchical Task Networks (HTN) to plan executable task sequences.",
+      "Wire HTNPlanner into AI behavior/controllers so it plans and drives NPC behavior.",
+      "Experimental: contract may change; keep the test module out of the cooked game."
+    ],
+    "note_cn": "分层任务网络规划器（实验性 AI），与行为树/StateTree 是不同范式。",
+    "note_en": "A Hierarchical Task Network planner (experimental AI), a different paradigm from Behavior Trees/StateTree."
+  },
+  {
+    "slug": "http-chunk-installer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `HTTP Chunk Installer`（模块 `HTTPChunkInstaller`）。",
+      "它实现流式安装客户端：从 HTTP 源按块下载游戏内容。",
+      "配置内容分块与 HTTP 服务器地址，运行时按需拉取并安装 chunk。",
+      "用于分块流式安装；具体 CDN/服务器由项目提供。"
+    ],
+    "en_steps": [
+      "Enable `HTTP Chunk Installer` (module `HTTPChunkInstaller`).",
+      "It implements a streaming-install client that downloads game content in chunks over HTTP.",
+      "Configure content chunks and the HTTP server address, then fetch and install chunks on demand at runtime.",
+      "It handles chunked streaming install; the CDN/server is provided by your project."
+    ],
+    "note_cn": "基于 HTTP 的分块流式安装客户端，通用平台方案。",
+    "note_en": "A generic HTTP-based chunked streaming-install client."
+  },
+  {
+    "slug": "http-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `HTTP Insights`（模块 `HttpInsights`）。",
+      "用它在 Live 会话中捕获 HTTP 流量，trace 在 Unreal Insights 里查看。",
+      "启动带 HttpInsights 的 trace（命令行/Insights 连接），复现网络请求后分析。",
+      "Experimental：接口可能变动；属 Insights/Trace 性能分析工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `HTTP Insights` (module `HttpInsights`).",
+      "Use it to capture HTTP traffic during a live session, then view the trace in Unreal Insights.",
+      "Start a trace with HttpInsights (CLI/Insights connection), reproduce network requests, and analyze.",
+      "Experimental: contract may change; it is an Insights/Trace profiling tool."
+    ],
+    "note_cn": "在 Unreal Insights 里捕获 HTTP 流量，属性能分析工具。",
+    "note_en": "Captures HTTP traffic in Unreal Insights; a profiling tool."
+  }
+]

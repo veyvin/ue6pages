@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "cookededitor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CookedEditor` 位于 `Developer`，构建规则 `Developer/CookedEditor/CookedEditor.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `Core`, `CoreOnline`, `CoreUObject`, `Engine`, `NetCore`, `Projects`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CookedEditor\" });`；对外暴露 `CookedEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CookedEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `CookedEditor.h` / `CookedEditorModule.h`），再用 `FModuleManager::LoadModulePtr<CookedEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`CookedEditor` 还依赖 `AssetRegistry`, `Core`, `CoreOnline`, `CoreUObject`, `Engine`, `NetCore`, `Projects`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CookedEditor` lives under `Developer`; build rule `Developer/CookedEditor/CookedEditor.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `Core`, `CoreOnline`, `CoreUObject`, `Engine`, `NetCore`, `Projects`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CookedEditor\" });`. Use Public when exposing `CookedEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CookedEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `CookedEditor.h` / `CookedEditorModule.h`), then use `FModuleManager::LoadModulePtr<CookedEditorModule>` or the exported types directly.",
+      "Transitive deps: `CookedEditor` also needs `AssetRegistry`, `Core`, `CoreOnline`, `CoreUObject`, `Engine`, `NetCore`, `Projects`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CookedEditor` 的构建规则位于 `Developer/CookedEditor/CookedEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`CookedEditor` build rule is `Developer/CookedEditor/CookedEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "cookmetadata",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CookMetadata` 位于 `Developer`，构建规则 `Developer/CookMetadata/CookMetadata.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CookMetadata\" });`；对外暴露 `CookMetadata` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CookMetadata` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `CookMetadata.h` / `CookMetadataModule.h`），再用 `FModuleManager::LoadModulePtr<CookMetadataModule>` 或直接使用导出类型。",
+      "传递依赖：`CookMetadata` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CookMetadata` lives under `Developer`; build rule `Developer/CookMetadata/CookMetadata.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CookMetadata\" });`. Use Public when exposing `CookMetadata` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CookMetadata` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `CookMetadata.h` / `CookMetadataModule.h`), then use `FModuleManager::LoadModulePtr<CookMetadataModule>` or the exported types directly.",
+      "Transitive deps: `CookMetadata` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CookMetadata` 的构建规则位于 `Developer/CookMetadata/CookMetadata.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`CookMetadata` build rule is `Developer/CookMetadata/CookMetadata.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "cookonthefly",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CookOnTheFly` 位于 `Runtime`，构建规则 `Runtime/CookOnTheFly/CookOnTheFly.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Networking`, `Sockets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CookOnTheFly\" });`；对外暴露 `CookOnTheFly` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CookOnTheFly` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `CookOnTheFly.h` / `CookOnTheFlyModule.h`），再用 `FModuleManager::LoadModulePtr<CookOnTheFlyModule>` 或直接使用导出类型。",
+      "传递依赖：`CookOnTheFly` 还依赖 `Core`, `CoreUObject`, `Networking`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CookOnTheFly` lives under `Runtime`; build rule `Runtime/CookOnTheFly/CookOnTheFly.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Networking`, `Sockets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CookOnTheFly\" });`. Use Public when exposing `CookOnTheFly` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CookOnTheFly` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `CookOnTheFly.h` / `CookOnTheFlyModule.h`), then use `FModuleManager::LoadModulePtr<CookOnTheFlyModule>` or the exported types directly.",
+      "Transitive deps: `CookOnTheFly` also needs `Core`, `CoreUObject`, `Networking`, `Sockets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CookOnTheFly` 的构建规则位于 `Runtime/CookOnTheFly/CookOnTheFly.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`CookOnTheFly` build rule is `Runtime/CookOnTheFly/CookOnTheFly.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "cookontheflynetserver",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CookOnTheFlyNetServer` 位于 `Developer`，构建规则 `Developer/CookOnTheFlyNetServer/CookOnTheFlyNetServer.Build.cs`。它直接依赖 5 个模块：`CookOnTheFly`, `Core`, `Networking`, `Sockets`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CookOnTheFlyNetServer\" });`；对外暴露 `CookOnTheFlyNetServer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CookOnTheFlyNetServer` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `CookOnTheFlyNetServer.h` / `CookOnTheFlyNetServerModule.h`），再用 `FModuleManager::LoadModulePtr<CookOnTheFlyNetServerModule>` 或直接使用导出类型。",
+      "传递依赖：`CookOnTheFlyNetServer` 还依赖 `CookOnTheFly`, `Core`, `Networking`, `Sockets`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CookOnTheFlyNetServer` lives under `Developer`; build rule `Developer/CookOnTheFlyNetServer/CookOnTheFlyNetServer.Build.cs`.It directly depends on 5 modules: `CookOnTheFly`, `Core`, `Networking`, `Sockets`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CookOnTheFlyNetServer\" });`. Use Public when exposing `CookOnTheFlyNetServer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CookOnTheFlyNetServer` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `CookOnTheFlyNetServer.h` / `CookOnTheFlyNetServerModule.h`), then use `FModuleManager::LoadModulePtr<CookOnTheFlyNetServerModule>` or the exported types directly.",
+      "Transitive deps: `CookOnTheFlyNetServer` also needs `CookOnTheFly`, `Core`, `Networking`, `Sockets`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CookOnTheFlyNetServer` 的构建规则位于 `Developer/CookOnTheFlyNetServer/CookOnTheFlyNetServer.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`CookOnTheFlyNetServer` build rule is `Developer/CookOnTheFlyNetServer/CookOnTheFlyNetServer.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "core",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Core` 位于 `Runtime`，构建规则 `Runtime/Core/Core.Build.cs`。它直接依赖 8 个模块：`AtomicQueue`, `AutoRTFM`, `BuildSettings`, `ConcurrencyVisualizer`, `Detours`, `GoogleGameSDK`, `GuidelinesSupportLibrary`, `SuperLuminal`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Core\" });`；对外暴露 `Core` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Core` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Core.h` / `CoreModule.h`），再用 `FModuleManager::LoadModulePtr<CoreModule>` 或直接使用导出类型。",
+      "传递依赖：`Core` 还依赖 `AtomicQueue`, `AutoRTFM`, `BuildSettings`, `ConcurrencyVisualizer`, `Detours`, `GoogleGameSDK`, `GuidelinesSupportLibrary`, `SuperLuminal`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Core` lives under `Runtime`; build rule `Runtime/Core/Core.Build.cs`.It directly depends on 8 modules: `AtomicQueue`, `AutoRTFM`, `BuildSettings`, `ConcurrencyVisualizer`, `Detours`, `GoogleGameSDK`, `GuidelinesSupportLibrary`, `SuperLuminal`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Core\" });`. Use Public when exposing `Core` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Core` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Core.h` / `CoreModule.h`), then use `FModuleManager::LoadModulePtr<CoreModule>` or the exported types directly.",
+      "Transitive deps: `Core` also needs `AtomicQueue`, `AutoRTFM`, `BuildSettings`, `ConcurrencyVisualizer`, `Detours`, `GoogleGameSDK`, `GuidelinesSupportLibrary`, `SuperLuminal`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Core` 的构建规则位于 `Runtime/Core/Core.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`Core` build rule is `Runtime/Core/Core.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "coremod",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`coremod` 位于 `ThirdParty`，构建规则 `ThirdParty/coremod/coremod.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"coremod\" });`；对外暴露 `coremod` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`coremod` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `coremod.h` / `coremodModule.h`），再用 `FModuleManager::LoadModulePtr<coremodModule>` 或直接使用导出类型。",
+      "传递依赖：`coremod` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `coremod` lives under `ThirdParty`; build rule `ThirdParty/coremod/coremod.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"coremod\" });`. Use Public when exposing `coremod` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `coremod` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `coremod.h` / `coremodModule.h`), then use `FModuleManager::LoadModulePtr<coremodModule>` or the exported types directly.",
+      "Transitive deps: `coremod` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`coremod` 的构建规则位于 `ThirdParty/coremod/coremod.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`coremod` build rule is `ThirdParty/coremod/coremod.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "coreonline",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CoreOnline` 位于 `Runtime`，构建规则 `Runtime/CoreOnline/CoreOnline.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CoreOnline\" });`；对外暴露 `CoreOnline` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CoreOnline` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `CoreOnline.h` / `CoreOnlineModule.h`），再用 `FModuleManager::LoadModulePtr<CoreOnlineModule>` 或直接使用导出类型。",
+      "传递依赖：`CoreOnline` 还依赖 `Core`, `CoreUObject`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CoreOnline` lives under `Runtime`; build rule `Runtime/CoreOnline/CoreOnline.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CoreOnline\" });`. Use Public when exposing `CoreOnline` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CoreOnline` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `CoreOnline.h` / `CoreOnlineModule.h`), then use `FModuleManager::LoadModulePtr<CoreOnlineModule>` or the exported types directly.",
+      "Transitive deps: `CoreOnline` also needs `Core`, `CoreUObject`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CoreOnline` 的构建规则位于 `Runtime/CoreOnline/CoreOnline.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`CoreOnline` build rule is `Runtime/CoreOnline/CoreOnline.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "coreuobject",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CoreUObject` 位于 `Runtime`，构建规则 `Runtime/CoreUObject/CoreUObject.Build.cs`。它直接依赖 8 个模块：`AutoRTFM`, `Core`, `CorePreciseFP`, `DerivedDataCache`, `Json`, `NetworkCacheStores`, `Projects`, `TraceLog`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CoreUObject\" });`；对外暴露 `CoreUObject` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CoreUObject` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `CoreUObject.h` / `CoreUObjectModule.h`），再用 `FModuleManager::LoadModulePtr<CoreUObjectModule>` 或直接使用导出类型。",
+      "传递依赖：`CoreUObject` 还依赖 `AutoRTFM`, `Core`, `CorePreciseFP`, `DerivedDataCache`, `Json`, `NetworkCacheStores`, `Projects`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CoreUObject` lives under `Runtime`; build rule `Runtime/CoreUObject/CoreUObject.Build.cs`.It directly depends on 8 modules: `AutoRTFM`, `Core`, `CorePreciseFP`, `DerivedDataCache`, `Json`, `NetworkCacheStores`, `Projects`, `TraceLog`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CoreUObject\" });`. Use Public when exposing `CoreUObject` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CoreUObject` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `CoreUObject.h` / `CoreUObjectModule.h`), then use `FModuleManager::LoadModulePtr<CoreUObjectModule>` or the exported types directly.",
+      "Transitive deps: `CoreUObject` also needs `AutoRTFM`, `Core`, `CorePreciseFP`, `DerivedDataCache`, `Json`, `NetworkCacheStores`, `Projects`, `TraceLog`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CoreUObject` 的构建规则位于 `Runtime/CoreUObject/CoreUObject.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`CoreUObject` build rule is `Runtime/CoreUObject/CoreUObject.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "cqtest",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CQTest` 位于 `Developer`，构建规则 `Developer/CQTest/CQTest.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `EngineSettings`, `LevelEditor`, `NetCore`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CQTest\" });`；对外暴露 `CQTest` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CQTest` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `CQTest.h` / `CQTestModule.h`），再用 `FModuleManager::LoadModulePtr<CQTestModule>` 或直接使用导出类型。",
+      "传递依赖：`CQTest` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `EngineSettings`, `LevelEditor`, `NetCore`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CQTest` lives under `Developer`; build rule `Developer/CQTest/CQTest.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `EngineSettings`, `LevelEditor`, `NetCore`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CQTest\" });`. Use Public when exposing `CQTest` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CQTest` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `CQTest.h` / `CQTestModule.h`), then use `FModuleManager::LoadModulePtr<CQTestModule>` or the exported types directly.",
+      "Transitive deps: `CQTest` also needs `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `EngineSettings`, `LevelEditor`, `NetCore`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CQTest` 的构建规则位于 `Developer/CQTest/CQTest.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`CQTest` build rule is `Developer/CQTest/CQTest.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "crashdebughelper",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CrashDebugHelper` 位于 `Developer`，构建规则 `Developer/CrashDebugHelper/CrashDebugHelper.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CrashDebugHelper\" });`；对外暴露 `CrashDebugHelper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CrashDebugHelper` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `CrashDebugHelper.h` / `CrashDebugHelperModule.h`），再用 `FModuleManager::LoadModulePtr<CrashDebugHelperModule>` 或直接使用导出类型。",
+      "传递依赖：`CrashDebugHelper` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CrashDebugHelper` lives under `Developer`; build rule `Developer/CrashDebugHelper/CrashDebugHelper.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CrashDebugHelper\" });`. Use Public when exposing `CrashDebugHelper` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CrashDebugHelper` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `CrashDebugHelper.h` / `CrashDebugHelperModule.h`), then use `FModuleManager::LoadModulePtr<CrashDebugHelperModule>` or the exported types directly.",
+      "Transitive deps: `CrashDebugHelper` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CrashDebugHelper` 的构建规则位于 `Developer/CrashDebugHelper/CrashDebugHelper.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`CrashDebugHelper` build rule is `Developer/CrashDebugHelper/CrashDebugHelper.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "crashreportclient",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CrashReportClient` 位于 `Programs`，构建规则 `Programs/CrashReportClient/CrashReportClient.Build.cs`。它直接依赖 8 个模块：`Analytics`, `AnalyticsET`, `ApplicationCore`, `Core`, `CoreUObject`, `CrashReportCore`, `DesktopPlatform`, `HTTP`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CrashReportClient\" });`；对外暴露 `CrashReportClient` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CrashReportClient` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `CrashReportClient.h` / `CrashReportClientModule.h`），再用 `FModuleManager::LoadModulePtr<CrashReportClientModule>` 或直接使用导出类型。",
+      "传递依赖：`CrashReportClient` 还依赖 `Analytics`, `AnalyticsET`, `ApplicationCore`, `Core`, `CoreUObject`, `CrashReportCore`, `DesktopPlatform`, `HTTP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CrashReportClient` lives under `Programs`; build rule `Programs/CrashReportClient/CrashReportClient.Build.cs`.It directly depends on 8 modules: `Analytics`, `AnalyticsET`, `ApplicationCore`, `Core`, `CoreUObject`, `CrashReportCore`, `DesktopPlatform`, `HTTP`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CrashReportClient\" });`. Use Public when exposing `CrashReportClient` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CrashReportClient` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `CrashReportClient.h` / `CrashReportClientModule.h`), then use `FModuleManager::LoadModulePtr<CrashReportClientModule>` or the exported types directly.",
+      "Transitive deps: `CrashReportClient` also needs `Analytics`, `AnalyticsET`, `ApplicationCore`, `Core`, `CoreUObject`, `CrashReportCore`, `DesktopPlatform`, `HTTP`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CrashReportClient` 的构建规则位于 `Programs/CrashReportClient/CrashReportClient.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`CrashReportClient` build rule is `Programs/CrashReportClient/CrashReportClient.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "crashreportclienteditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CrashReportClientEditor` 位于 `Programs`，构建规则 `Programs/CrashReportClient/CrashReportClientEditor.Build.cs`。它直接依赖 3 个模块：`Concert`, `EditorAnalyticsSession`, `Messaging`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CrashReportClientEditor\" });`；对外暴露 `CrashReportClientEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CrashReportClientEditor` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `CrashReportClientEditor.h` / `CrashReportClientEditorModule.h`），再用 `FModuleManager::LoadModulePtr<CrashReportClientEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`CrashReportClientEditor` 还依赖 `Concert`, `EditorAnalyticsSession`, `Messaging`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CrashReportClientEditor` lives under `Programs`; build rule `Programs/CrashReportClient/CrashReportClientEditor.Build.cs`.It directly depends on 3 modules: `Concert`, `EditorAnalyticsSession`, `Messaging`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CrashReportClientEditor\" });`. Use Public when exposing `CrashReportClientEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CrashReportClientEditor` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `CrashReportClientEditor.h` / `CrashReportClientEditorModule.h`), then use `FModuleManager::LoadModulePtr<CrashReportClientEditorModule>` or the exported types directly.",
+      "Transitive deps: `CrashReportClientEditor` also needs `Concert`, `EditorAnalyticsSession`, `Messaging`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CrashReportClientEditor` 的构建规则位于 `Programs/CrashReportClient/CrashReportClientEditor.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`CrashReportClientEditor` build rule is `Programs/CrashReportClient/CrashReportClientEditor.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "crashreportcore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CrashReportCore` 位于 `Runtime`，构建规则 `Runtime/CrashReportCore/CrashReportCore.Build.cs`。它直接依赖 7 个模块：`Analytics`, `AnalyticsET`, `Core`, `CrashDebugHelper`, `HTTP`, `Json`, `XmlParser`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CrashReportCore\" });`；对外暴露 `CrashReportCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CrashReportCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `CrashReportCore.h` / `CrashReportCoreModule.h`），再用 `FModuleManager::LoadModulePtr<CrashReportCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`CrashReportCore` 还依赖 `Analytics`, `AnalyticsET`, `Core`, `CrashDebugHelper`, `HTTP`, `Json`, `XmlParser`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CrashReportCore` lives under `Runtime`; build rule `Runtime/CrashReportCore/CrashReportCore.Build.cs`.It directly depends on 7 modules: `Analytics`, `AnalyticsET`, `Core`, `CrashDebugHelper`, `HTTP`, `Json`, `XmlParser`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CrashReportCore\" });`. Use Public when exposing `CrashReportCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CrashReportCore` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `CrashReportCore.h` / `CrashReportCoreModule.h`), then use `FModuleManager::LoadModulePtr<CrashReportCoreModule>` or the exported types directly.",
+      "Transitive deps: `CrashReportCore` also needs `Analytics`, `AnalyticsET`, `Core`, `CrashDebugHelper`, `HTTP`, `Json`, `XmlParser`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CrashReportCore` 的构建规则位于 `Runtime/CrashReportCore/CrashReportCore.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`CrashReportCore` build rule is `Runtime/CrashReportCore/CrashReportCore.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "csvtosvg",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CSVtoSVG` 位于 `Editor`，构建规则 `Editor/CSVtoSVG/CSVtoSVG.Build.cs`。它直接依赖 8 个模块：`ContentBrowserData`, `Core`, `CoreUObject`, `EditorConfig`, `EditorFramework`, `Engine`, `InputCore`, `Settings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CSVtoSVG\" });`；对外暴露 `CSVtoSVG` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CSVtoSVG` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `CSVtoSVG.h` / `CSVtoSVGModule.h`），再用 `FModuleManager::LoadModulePtr<CSVtoSVGModule>` 或直接使用导出类型。",
+      "传递依赖：`CSVtoSVG` 还依赖 `ContentBrowserData`, `Core`, `CoreUObject`, `EditorConfig`, `EditorFramework`, `Engine`, `InputCore`, `Settings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CSVtoSVG` lives under `Editor`; build rule `Editor/CSVtoSVG/CSVtoSVG.Build.cs`.It directly depends on 8 modules: `ContentBrowserData`, `Core`, `CoreUObject`, `EditorConfig`, `EditorFramework`, `Engine`, `InputCore`, `Settings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CSVtoSVG\" });`. Use Public when exposing `CSVtoSVG` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CSVtoSVG` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `CSVtoSVG.h` / `CSVtoSVGModule.h`), then use `FModuleManager::LoadModulePtr<CSVtoSVGModule>` or the exported types directly.",
+      "Transitive deps: `CSVtoSVG` also needs `ContentBrowserData`, `Core`, `CoreUObject`, `EditorConfig`, `EditorFramework`, `Engine`, `InputCore`, `Settings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CSVtoSVG` 的构建规则位于 `Editor/CSVtoSVG/CSVtoSVG.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`CSVtoSVG` build rule is `Editor/CSVtoSVG/CSVtoSVG.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "csvtotelemetry",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CSVToTelemetry` 位于 `Programs`，构建规则 `Programs/CSVTools/CSVToTelemetry/CSVToTelemetry.Build.cs`。它直接依赖 8 个模块：`AnalyticsET`, `ApplicationCore`, `AssetRegistry`, `BuildSettings`, `CSVUtils`, `Core`, `CoreUObject`, `HTTP`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CSVToTelemetry\" });`；对外暴露 `CSVToTelemetry` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CSVToTelemetry` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `CSVToTelemetry.h` / `CSVToTelemetryModule.h`），再用 `FModuleManager::LoadModulePtr<CSVToTelemetryModule>` 或直接使用导出类型。",
+      "传递依赖：`CSVToTelemetry` 还依赖 `AnalyticsET`, `ApplicationCore`, `AssetRegistry`, `BuildSettings`, `CSVUtils`, `Core`, `CoreUObject`, `HTTP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CSVToTelemetry` lives under `Programs`; build rule `Programs/CSVTools/CSVToTelemetry/CSVToTelemetry.Build.cs`.It directly depends on 8 modules: `AnalyticsET`, `ApplicationCore`, `AssetRegistry`, `BuildSettings`, `CSVUtils`, `Core`, `CoreUObject`, `HTTP`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CSVToTelemetry\" });`. Use Public when exposing `CSVToTelemetry` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CSVToTelemetry` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `CSVToTelemetry.h` / `CSVToTelemetryModule.h`), then use `FModuleManager::LoadModulePtr<CSVToTelemetryModule>` or the exported types directly.",
+      "Transitive deps: `CSVToTelemetry` also needs `AnalyticsET`, `ApplicationCore`, `AssetRegistry`, `BuildSettings`, `CSVUtils`, `Core`, `CoreUObject`, `HTTP`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CSVToTelemetry` 的构建规则位于 `Programs/CSVTools/CSVToTelemetry/CSVToTelemetry.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`CSVToTelemetry` build rule is `Programs/CSVTools/CSVToTelemetry/CSVToTelemetry.Build.cs`; depends on 8 modules; category Module."
+  }
+]

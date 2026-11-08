@@ -3,7 +3,6 @@ layout: default
 title: 程序内容生成框架 (PCG) 水互操作 / Procedural Content Generation Framework (PCG) Water Interop
 ---
 
-
 <h1>程序内容生成框架 (PCG) 水互操作 / Procedural Content Generation Framework (PCG) Water Interop</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 程序内容生成框架 (PCG) 水互操作 / Procedural Content Generati
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于与水系统交互的程序内容生成框架的额外插件。</div><div class="lang-content">Extra plugin for Procedural Content Generation Framework interacting with the Water system.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Procedural Content Generation Framework (PCG) Water Interop</code>（模块 <code class="usage-code">PCGWaterInterop</code>）。</li><li>它让 PCG 与 Water 水体系统互操作。</li><li>在 PCG 图里沿河流/湖泊样条采样或避开水面生成内容。</li><li>属实验性 PCG 互操作；需启用 PCG 与 Water。</li></ol><p class="usage-note">PCG 与 Water 水体系统的互操作。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Procedural Content Generation Framework (PCG) Water Interop</code> (module <code class="usage-code">PCGWaterInterop</code>).</li><li>It lets PCG interoperate with the Water system.</li><li>Sample along river/lake splines or keep generated content off the water surface in PCG graphs.</li><li>It is experimental PCG interop; requires PCG and Water.</li></ol><p class="usage-note">PCG interop with the Water system.</p></div></div></div>
+    </div>
+

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "online-services-null",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Services Null`（模块 `OnlineServicesNull`）。",
+      "它提供无需外部服务即可工作的在线服务实现（离线/本地回退用）。",
+      "在无平台/离线测试时作为默认在线服务提供方。",
+      "属在线服务(OSSv2)空实现；常用于本地开发与 CI。"
+    ],
+    "en_steps": [
+      "Enable `Online Services Null` (module `OnlineServicesNull`).",
+      "It provides an online-services implementation that works without an external service (offline/local fallback).",
+      "Use it as the default online-services provider when there is no platform / for offline testing.",
+      "It is an Online Services (OSSv2) null implementation; common in local dev and CI."
+    ],
+    "note_cn": "无需外部服务的在线服务实现（离线/本地回退）。",
+    "note_en": "An online-services implementation needing no external service (offline/local fallback)."
+  },
+  {
+    "slug": "online-services-oss-adapter",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Services OSS Adapter`（模块 `OnlineServicesOSSAdapter`）。",
+      "它把在线子系统（OSSv1）的实现适配到在线服务（OSSv2）接口。",
+      "在已用 OSSv1、但想用 OSSv2 接口编码的项目里做桥接。",
+      "属在线服务/子系统桥接层。"
+    ],
+    "en_steps": [
+      "Enable `Online Services OSS Adapter` (module `OnlineServicesOSSAdapter`).",
+      "It adapts Online Subsystem (OSSv1) implementations to the Online Services (OSSv2) interface.",
+      "Use it to bridge projects already on OSSv1 that want to code against OSSv2.",
+      "It is an Online Services/Subsystem bridge layer."
+    ],
+    "note_cn": "把 OSSv1 实现适配到 OSSv2 接口的桥接层。",
+    "note_en": "Bridges OSSv1 implementations to the OSSv2 interface."
+  },
+  {
+    "slug": "online-services-xbox-live",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Services Xbox Live`（模块 `OnlineServicesXbl`）。",
+      "它是 Xbox Live 的在线服务（OSSv2）实现。",
+      "在在线服务设置里选 Xbox Live 提供方，配置 XBL 凭据与沙盒。",
+      "属平台在线服务实现；Xbox/Windows GDK 目标使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Services Xbox Live` (module `OnlineServicesXbl`).",
+      "It is the Online Services (OSSv2) implementation for Xbox Live.",
+      "Select the Xbox Live provider in Online Services settings and configure XBL credentials and sandbox.",
+      "It is a platform online-services implementation; used on Xbox/Windows GDK targets."
+    ],
+    "note_cn": "Xbox Live 的在线服务(OSSv2)实现。",
+    "note_en": "The Online Services (OSSv2) implementation for Xbox Live."
+  },
+  {
+    "slug": "online-services",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Services`（模块 `OnlineServicesInterface`、`OnlineServicesCommon`、`OnlineServicesCommonEngineUtils`）。",
+      "它提供与在线服务实现交互的共享代码（OSSv2 接口与公共工具）。",
+      "通常作为底层依赖；具体平台能力由 `Online Services <Platform>` 实现提供。",
+      "编写跨平台 OSSv2 逻辑时依赖 `OnlineServicesInterface`。"
+    ],
+    "en_steps": [
+      "Enable `Online Services` (modules `OnlineServicesInterface`, `OnlineServicesCommon`, `OnlineServicesCommonEngineUtils`).",
+      "It provides shared code to interact with Online Services implementations (the OSSv2 interface and common utils).",
+      "Usually a low-level dependency; concrete platform capabilities come from `Online Services <Platform>` impls.",
+      "Depend on `OnlineServicesInterface` when writing cross-platform OSSv2 logic."
+    ],
+    "note_cn": "在线服务(OSSv2)的共享接口与公共工具。",
+    "note_en": "The shared OSSv2 interface and common utilities."
+  },
+  {
+    "slug": "online-subsystem-amazon",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem Amazon`（模块 `OnlineSubsystemAmazon`）。",
+      "它接入亚马逊平台的在线子系统（登录/会话/成就等）。",
+      "在 OSS 设置里为亚马逊目标配置提供方与凭据。",
+      "属平台 OSS 实现；仅亚马逊目标使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem Amazon` (module `OnlineSubsystemAmazon`).",
+      "It integrates the Amazon platform online subsystem (login/sessions/achievements, etc.).",
+      "Configure the provider and credentials for the Amazon target in OSS settings.",
+      "It is a platform OSS implementation; used on Amazon targets only."
+    ],
+    "note_cn": "亚马逊平台的在线子系统(OSSv1)接入。",
+    "note_en": "Amazon platform online subsystem (OSSv1) integration."
+  },
+  {
+    "slug": "online-subsystem-apple",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem Apple`（模块 `OnlineSubsystemApple`）。",
+      "它提供访问 Apple 平台登录的在线子系统（Game Center/Apple 登录等）。",
+      "在 OSS 设置里为 Apple 目标配置提供方与凭据。",
+      "属平台 OSS 实现；iOS/macOS 目标使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem Apple` (module `OnlineSubsystemApple`).",
+      "It provides an online subsystem for Apple platform login (Game Center / Sign in with Apple, etc.).",
+      "Configure the provider and credentials for Apple targets in OSS settings.",
+      "It is a platform OSS implementation; used on iOS/macOS targets."
+    ],
+    "note_cn": "Apple 平台登录的在线子系统(OSSv1)。",
+    "note_en": "The Apple-platform login online subsystem (OSSv1)."
+  },
+  {
+    "slug": "online-subsystem-eos",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem EOS`（模块 `OnlineSubsystemEOS`）。",
+      "它是 Epic 在线服务（EOS）的在线子系统实现。",
+      "在 OSS 设置里选 EOS 提供方，配置 EOS 凭据。",
+      "属平台 OSS 实现；配合 EOS SDK 使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem EOS` (module `OnlineSubsystemEOS`).",
+      "It is the online subsystem implementation for Epic Online Services (EOS).",
+      "Select the EOS provider in OSS settings and configure EOS credentials.",
+      "It is a platform OSS implementation; used with the EOS SDK."
+    ],
+    "note_cn": "Epic 在线服务(EOS)的在线子系统(OSSv1)实现。",
+    "note_en": "The Epic Online Services (EOS) online subsystem (OSSv1) implementation."
+  },
+  {
+    "slug": "online-subsystem-facebook",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem Facebook`（模块 `OnlineSubsystemFacebook`）。",
+      "它接入 Facebook 平台的在线子系统（登录等）。",
+      "在 OSS 设置里为 Facebook 目标配置提供方与 App 凭据。",
+      "属平台 OSS 实现；仅 Facebook 目标使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem Facebook` (module `OnlineSubsystemFacebook`).",
+      "It integrates the Facebook platform online subsystem (login, etc.).",
+      "Configure the provider and app credentials for the Facebook target in OSS settings.",
+      "It is a platform OSS implementation; used on Facebook targets only."
+    ],
+    "note_cn": "Facebook 平台的在线子系统(OSSv1)。",
+    "note_en": "The Facebook platform online subsystem (OSSv1)."
+  },
+  {
+    "slug": "online-subsystem-gdk",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem GDK`（模块 `OnlineSubsystemGDK`）。",
+      "它接入 GDK（Microsoft Game Development Kit）平台的在线子系统。",
+      "在 OSS 设置里为 GDK/Xbox/Windows 目标配置提供方与凭据。",
+      "属平台 OSS 实现；GDK 目标使用（常与 OSS Selector 配合）。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem GDK` (module `OnlineSubsystemGDK`).",
+      "It integrates the GDK (Microsoft Game Development Kit) platform online subsystem.",
+      "Configure the provider and credentials for GDK/Xbox/Windows targets in OSS settings.",
+      "It is a platform OSS implementation; used on GDK targets (often with the OSS Selector)."
+    ],
+    "note_cn": "GDK（Microsoft GDK）平台的在线子系统(OSSv1)。",
+    "note_en": "The GDK (Microsoft GDK) platform online subsystem (OSSv1)."
+  },
+  {
+    "slug": "online-subsystem-google",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem Google`（模块 `OnlineSubsystemGoogle`）。",
+      "它接入谷歌（Google Play Games / Google Sign-In）平台的在线子系统。",
+      "在 OSS 设置里为 Google 目标配置提供方与凭据。",
+      "属平台 OSS 实现；Google 目标使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem Google` (module `OnlineSubsystemGoogle`).",
+      "It integrates the Google platform online subsystem (Google Play Games / Google Sign-In).",
+      "Configure the provider and credentials for Google targets in OSS settings.",
+      "It is a platform OSS implementation; used on Google targets."
+    ],
+    "note_cn": "谷歌平台的在线子系统(OSSv1)。",
+    "note_en": "The Google platform online subsystem (OSSv1)."
+  },
+  {
+    "slug": "online-subsystem-googleplay",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem GooglePlay`（模块 `OnlineSubsystemGooglePlay`）。",
+      "它接入 GooglePlay 平台的在线子系统（成就/排行榜/登录）。",
+      "在 OSS 设置里为 GooglePlay 目标配置提供方与凭据。",
+      "属平台 OSS 实现；Android/GooglePlay 目标使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem GooglePlay` (module `OnlineSubsystemGooglePlay`).",
+      "It integrates the GooglePlay platform online subsystem (achievements/leaderboards/login).",
+      "Configure the provider and credentials for GooglePlay targets in OSS settings.",
+      "It is a platform OSS implementation; used on Android/GooglePlay targets."
+    ],
+    "note_cn": "GooglePlay 平台的在线子系统(OSSv1)。",
+    "note_en": "The GooglePlay platform online subsystem (OSSv1)."
+  },
+  {
+    "slug": "online-subsystem-ios",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem iOS`（模块 `OnlineSubsystemIOS`）。",
+      "它接入 iOS 平台的在线子系统（Game Center 等）。",
+      "在 OSS 设置里为 iOS 目标配置提供方与凭据。",
+      "属平台 OSS 实现；iOS 目标使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem iOS` (module `OnlineSubsystemIOS`).",
+      "It integrates the iOS platform online subsystem (Game Center, etc.).",
+      "Configure the provider and credentials for iOS targets in OSS settings.",
+      "It is a platform OSS implementation; used on iOS targets."
+    ],
+    "note_cn": "iOS 平台的在线子系统(OSSv1)。",
+    "note_en": "The iOS platform online subsystem (OSSv1)."
+  },
+  {
+    "slug": "online-subsystem-null",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem NULL`（模块 `OnlineSubsystemNull`）。",
+      "它提供 NULL 平台（无外部服务）的在线子系统实现。",
+      "在离线/本地测试里作为默认 OSS 提供方（支持基本会话）。",
+      "属 OSSv1 空实现；常用于本地联机/打包测试。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem NULL` (module `OnlineSubsystemNull`).",
+      "It provides the NULL platform (no external service) online subsystem implementation.",
+      "Use it as the default OSS provider for offline/local testing (supports basic sessions).",
+      "It is an OSSv1 null implementation; common for local play/packaging tests."
+    ],
+    "note_cn": "NULL 平台（无外部服务）的在线子系统(OSSv1)。",
+    "note_en": "The NULL platform (no external service) online subsystem (OSSv1)."
+  },
+  {
+    "slug": "online-subsystem-selector---gdk-xbox-pc",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem Selector - GDK (Xbox PC)`（模块 `MSGameOSSSelector`）。",
+      "当游戏通过 Xbox PC 应用程序安装时，它自动切换到 `OnlineSubsystemGDK`。",
+      "随 GDK 打包使用，让同一构建在不同安装渠道选对 OSS。",
+      "属平台选择器；配合 OnlineSubsystemGDK 使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem Selector - GDK (Xbox PC)` (module `MSGameOSSSelector`).",
+      "When the game is installed via the Xbox PC App, it automatically switches to `OnlineSubsystemGDK`.",
+      "Use it with GDK packaging so the same build picks the right OSS per install channel.",
+      "It is a platform selector; used with OnlineSubsystemGDK."
+    ],
+    "note_cn": "通过 Xbox PC 应用安装时自动切到 OnlineSubsystemGDK。",
+    "note_en": "Auto-switches to OnlineSubsystemGDK when installed via the Xbox PC App."
+  },
+  {
+    "slug": "online-subsystem-steam",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem Steam`（模块 `OnlineSubsystemSteam`）。",
+      "它接入 Steam 平台的在线子系统（登录/会话/成就/好友）。",
+      "在 `DefaultEngine.ini` 里把默认 OSS 设为 Steam，并配置 AppID。",
+      "属平台 OSS 实现；需 Steamworks SDK 与凭据。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem Steam` (module `OnlineSubsystemSteam`).",
+      "It integrates the Steam platform online subsystem (login/sessions/achievements/friends).",
+      "Set the default OSS to Steam in `DefaultEngine.ini` and configure the AppID.",
+      "It is a platform OSS implementation; requires the Steamworks SDK and credentials."
+    ],
+    "note_cn": "Steam 平台的在线子系统(OSSv1)。",
+    "note_en": "The Steam platform online subsystem (OSSv1)."
+  }
+]

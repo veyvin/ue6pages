@@ -3,7 +3,6 @@ layout: default
 title: 文件沙箱 / File Sandbox
 ---
 
-
 <h1>文件沙箱 / File Sandbox</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 文件沙箱 / File Sandbox
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">编辑器中沙盒文件的核心功能。</div><div class="lang-content">Core functionality for sandboxing files in the editor.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用开发者插件 <code class="usage-code">File Sandbox</code>（<code class="usage-code">FileSandboxCore</code> + <code class="usage-code">FileSandboxUI</code>）并重启。它给编辑器套一层可重定向的 <code class="usage-code">IPlatformFile</code>，不是运行时 VFS。</li><li>用 <code class="usage-code">FileSandboxUI</code> 指定沙盒根目录（独立于工程 <code class="usage-code">Content/</code>）。之后经沙盒 API 的读写作到该根下，避免实验工具直接改工程资产。</li><li>编辑器工具模块依赖 <code class="usage-code">FileSandboxCore</code>，通过沙盒文件系统打开/保存临时包、导出缓存；不要对 <code class="usage-code">GFileManager</code> 的全局根做假设。</li><li>验证：在沙盒里新建/改文件后，工程 <code class="usage-code">Content</code> 与源码控制应保持干净，文件只出现在沙盒根。退出或关闭沙盒后，工具不得再写项目目录。</li><li><code class="usage-code">FileSandboxUI</code> 与 <code class="usage-code">FileSandboxCore</code> 都不要进 Game Target；Shipping 包没有这套编辑器隔离。</li></ol><p class="usage-note">编辑器写盘隔离层，不是 Pak/IoStore 沙盒，也不是内容浏览器过滤器。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable developer plugin <code class="usage-code">File Sandbox</code> (<code class="usage-code">FileSandboxCore</code> + <code class="usage-code">FileSandboxUI</code>) and restart. It wraps editor I/O in a redirectable <code class="usage-code">IPlatformFile</code>, not a runtime VFS.</li><li>Use <code class="usage-code">FileSandboxUI</code> to pick a sandbox root outside project <code class="usage-code">Content/</code>. Sandbox API reads/writes land there so experimental tools do not mutate project assets.</li><li>Editor tool modules depend on <code class="usage-code">FileSandboxCore</code> and open/save temp packages or export caches through that filesystem; do not assume <code class="usage-code">GFileManager</code>’s global root.</li><li>Verify: files created in the sandbox appear only under the sandbox root; <code class="usage-code">Content</code> and source control stay clean. After closing the sandbox, tools must not write the project tree.</li><li>Keep <code class="usage-code">FileSandboxUI</code> and <code class="usage-code">FileSandboxCore</code> off Game targets; shipping builds have no editor isolation layer.</li></ol><p class="usage-note">Editor write isolation, not Pak/IoStore sandboxing and not a Content Browser filter.</p></div></div></div>
+    </div>
+

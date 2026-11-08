@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "metahuman-calibration-processing-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MetaHuman Calibration Processing Toolset`（模块 `MetaHumanCalibrationProcessingToolset`）。",
+      "它向 AI 助手公开 MetaHuman 立体相机校准工具：校准求解 + 自动帧选择。",
+      "在 MetaHuman 面捕校准流程里，让 AI 助手通过工具集完成求解与挑帧。",
+      "Experimental：接口可能变动；属 MetaHuman 校准工具链。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MetaHuman Calibration Processing Toolset` (module `MetaHumanCalibrationProcessingToolset`).",
+      "It exposes MetaHuman stereo camera calibration (solve + automatic frame selection) to the AI Assistant.",
+      "In the MetaHuman face-capture calibration flow, let the AI Assistant run the solve and frame selection via the toolset.",
+      "Experimental: contract may change; part of the MetaHuman calibration toolchain."
+    ],
+    "note_cn": "给 AI 助手的 MetaHuman 立体相机校准工具集（求解+自动挑帧），实验性。",
+    "note_en": "An AI-assistant toolset for MetaHuman stereo camera calibration (solve + auto frame selection), experimental."
+  },
+  {
+    "slug": "metahuman-collections",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Collections`（模块 `MetaHumanCharacterPalette`、`MetaHumanCollectionUtils`，编辑器 `MetaHumanCharacterPaletteEditor`）。",
+      "它是 MetaHuman Collections 系统的核心插件，用于把多个 MetaHuman 组成集合/调色板管理。",
+      "在编辑器里用 Palette 管理与复用一组 MetaHuman 角色。",
+      "Game 模块依赖运行时模块；`*Editor` 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Collections` (modules `MetaHumanCharacterPalette`, `MetaHumanCollectionUtils`, editor `MetaHumanCharacterPaletteEditor`).",
+      "It is the core of the MetaHuman Collections system for grouping multiple MetaHumans into collections/palettes.",
+      "Use Palettes in the editor to manage and reuse a set of MetaHuman characters.",
+      "Game modules depend on runtime modules; `*Editor` modules go to Editor targets only."
+    ],
+    "note_cn": "把多个 MetaHuman 组织成集合/调色板管理的核心插件。",
+    "note_en": "The core plugin for grouping MetaHumans into collections/palettes."
+  },
+  {
+    "slug": "metahuman-core-tech",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Core Tech`（模块 `MetaHumanCoreTech`、`MetaHumanCoreTechLib`、`MetaHumanImageViewer`、`MetaHumanCaptureData`、`MetaHumanPipelineCore`、`MetaHumanBodyTrackerInterface` 等）。",
+      "它是 MetaHuman Creator 与 MetaHuman Animator 背后的核心技术层。",
+      "通常作为底层依赖随上层 MetaHuman 插件启用，不直接面向最终用户操作。",
+      "写自定义 MetaHuman 管线/处理时才直接依赖这些模块。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Core Tech` (modules `MetaHumanCoreTech`, `MetaHumanCoreTechLib`, `MetaHumanImageViewer`, `MetaHumanCaptureData`, `MetaHumanPipelineCore`, `MetaHumanBodyTrackerInterface`, etc.).",
+      "It is the core technology layer behind MetaHuman Creator and MetaHuman Animator.",
+      "Usually enabled as a low-level dependency with the upper MetaHuman plugins; not directly operated by end users.",
+      "Depend on these modules directly only when writing custom MetaHuman pipelines/processing."
+    ],
+    "note_cn": "MetaHuman Creator/Animator 背后的底层核心技术。",
+    "note_en": "The low-level core tech behind MetaHuman Creator/Animator."
+  },
+  {
+    "slug": "metahuman-coreml",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman CoreML` 插件（无独立模块列表），面向 Apple 平台。",
+      "它提供 MetaHuman 推理所需的 CoreML 模型与依赖，在 macOS/iOS 上走 CoreML 推理。",
+      "随 MetaHuman 面捕/推理相关插件在 Apple 平台上一起使用。",
+      "这是平台推理资源包，非 Apple 平台不需要。"
+    ],
+    "en_steps": [
+      "Enable the `MetaHuman CoreML` plugin (no standalone module list) for Apple platforms.",
+      "It provides the CoreML models and dependencies for MetaHuman inference, using CoreML on macOS/iOS.",
+      "Use it alongside MetaHuman face-capture/inference plugins on Apple platforms.",
+      "It is a platform inference asset pack; not needed on non-Apple platforms."
+    ],
+    "note_cn": "Apple 平台 MetaHuman 推理的 CoreML 模型/依赖包。",
+    "note_en": "A CoreML model/dependency pack for MetaHuman inference on Apple platforms."
+  },
+  {
+    "slug": "metahuman-creator---uaf-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MetaHuman Creator - UAF support`（模块 `MetaHumanCharacterUAFEditor`）。",
+      "它为 MetaHuman Creator 提供 UAF（虚幻动画框架）支持。",
+      "在基于 UAF 的 MetaHuman 角色/动画流程里使用。",
+      "Experimental：接口可能变动；属 MetaHuman + UAF 集成。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MetaHuman Creator - UAF support` (module `MetaHumanCharacterUAFEditor`).",
+      "It provides UAF (Unreal Animation Framework) support for MetaHuman Creator.",
+      "Use it in UAF-based MetaHuman character/animation flows.",
+      "Experimental: contract may change; it is MetaHuman + UAF integration."
+    ],
+    "note_cn": "MetaHuman Creator 的 UAF（虚幻动画框架）支持，实验性。",
+    "note_en": "UAF (Unreal Animation Framework) support for MetaHuman Creator, experimental."
+  },
+  {
+    "slug": "metahuman-creator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Creator`（模块 `MetaHumanCharacter`、`MetaHumanCharacterEditor`、`MetaHumanDefaultPipeline`、`MetaHumanCharacterPalette` 等）。",
+      "它是 MetaHuman 角色资产创建者与编辑器：在编辑器里生成/雕刻/自定义数字人。",
+      "创建 MetaHuman 角色资产，配置外观/调色板，再导出或直接在引擎里用。",
+      "Game 模块依赖运行时模块；`*Editor`/Pipeline 编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Creator` (modules `MetaHumanCharacter`, `MetaHumanCharacterEditor`, `MetaHumanDefaultPipeline`, `MetaHumanCharacterPalette`, etc.).",
+      "It is the MetaHuman character asset creator and editor: generate/sculpt/customize digital humans in the editor.",
+      "Create MetaHuman character assets, configure appearance/palettes, then export or use them in-engine.",
+      "Game modules depend on runtime modules; `*Editor`/pipeline editor modules go to Editor targets only."
+    ],
+    "note_cn": "MetaHuman 角色资产的创建与编辑工具（数字人生成）。",
+    "note_en": "The MetaHuman character asset creator/editor (digital-human generation)."
+  },
+  {
+    "slug": "metahuman-crowd",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Crowd`（运行时 `MetaHumanCrowd`，编辑器 `MetaHumanCrowdEditor`）。",
+      "它支持大量 MetaHuman 组成的群体（人群）。",
+      "在人群/大规模场景里用 MetaHuman Crowd 管理多个数字人。",
+      "Game 模块依赖 `MetaHumanCrowd`；`MetaHumanCrowdEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Crowd` (runtime `MetaHumanCrowd`, editor `MetaHumanCrowdEditor`).",
+      "It supports crowds made of many MetaHumans.",
+      "Use MetaHuman Crowd to manage multiple digital humans in crowd/large-scale scenes.",
+      "Game modules depend on `MetaHumanCrowd`; `MetaHumanCrowdEditor` is Editor-target only."
+    ],
+    "note_cn": "支持大量 MetaHuman 组成人群的插件。",
+    "note_en": "A plugin supporting crowds of many MetaHumans."
+  },
+  {
+    "slug": "metahuman-depth-generator-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MetaHuman Depth Generator Toolset`（模块 `MetaHumanDepthGeneratorToolset`）。",
+      "它向 AI 助手公开 MetaHuman 立体深度生成，用于镜头捕捉数据。",
+      "在 MetaHuman 面捕/镜头捕捉流程里，让 AI 助手生成深度数据。",
+      "Experimental：接口可能变动；属 MetaHuman 捕获工具链。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MetaHuman Depth Generator Toolset` (module `MetaHumanDepthGeneratorToolset`).",
+      "It exposes MetaHuman stereo depth generation for footage capture data to the AI Assistant.",
+      "In the MetaHuman face-capture/footage flow, let the AI Assistant generate depth data.",
+      "Experimental: contract may change; part of the MetaHuman capture toolchain."
+    ],
+    "note_cn": "给 AI 助手的 MetaHuman 立体深度生成工具集（镜头捕捉数据）。",
+    "note_en": "An AI-assistant toolset for MetaHuman stereo depth generation (footage capture data)."
+  },
+  {
+    "slug": "metahuman-generator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Generator`（模块 `MetaHumanGenerator`）。",
+      "它是用于 AI 驱动角色创建与编辑的简化 MetaHuman 工具集。",
+      "通过简化接口生成/编辑 MetaHuman 角色，适合程序化/批量产出。",
+      "属 MetaHuman 工具链的简化生成器，常与 AI 工具链配合。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Generator` (module `MetaHumanGenerator`).",
+      "It is a simplified MetaHuman toolset for AI-driven character creation and editing.",
+      "Generate/edit MetaHuman characters through the simplified interface, suited for procedural/batch output.",
+      "It is a simplified generator in the MetaHuman toolchain, often used with AI tooling."
+    ],
+    "note_cn": "AI 驱动的简化 MetaHuman 角色创建/编辑工具集。",
+    "note_en": "A simplified MetaHuman toolset for AI-driven character creation/editing."
+  },
+  {
+    "slug": "metahuman-live-link",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Live Link`（模块 `MetaHumanLiveLinkSource`、`LiveLinkFaceSource`、`LiveLinkFaceDiscovery`、`MetaHumanLocalLiveLinkSource` 等，含 Editor 版）。",
+      "它提供用于流式传输实时 MetaHuman 动画数据的 Live Link 源。",
+      "把面捕/Live Link Face 数据流进 MetaHuman，实时驱动面部动画。",
+      "Game 模块依赖运行时模块；`*Editor` 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Live Link` (modules `MetaHumanLiveLinkSource`, `LiveLinkFaceSource`, `LiveLinkFaceDiscovery`, `MetaHumanLocalLiveLinkSource`, etc., with Editor variants).",
+      "It provides Live Link sources for streaming real-time MetaHuman animation data.",
+      "Stream face capture / Live Link Face data into a MetaHuman to drive facial animation live.",
+      "Game modules depend on runtime modules; `*Editor` modules go to Editor targets only."
+    ],
+    "note_cn": "流式传输实时 MetaHuman 动画数据的 Live Link 源（面捕驱动）。",
+    "note_en": "Live Link sources streaming real-time MetaHuman animation data (face-capture driven)."
+  },
+  {
+    "slug": "metahuman-sdk",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman SDK`（运行时 `MetaHumanSDKRuntime`，编辑器 `MetaHumanSDKEditor`，`InterchangeDNA`）。",
+      "它提供在引擎中使用 MetaHuman 的实用程序与工具（含通过 Interchange 导入 DNA）。",
+      "导入/管理 MetaHuman 资产，供角色与动画流程使用。",
+      "Game 模块依赖 `MetaHumanSDKRuntime`；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman SDK` (runtime `MetaHumanSDKRuntime`, editor `MetaHumanSDKEditor`, `InterchangeDNA`).",
+      "It provides utilities and tools for working with MetaHumans in Unreal (including DNA import via Interchange).",
+      "Import/manage MetaHuman assets for character and animation flows.",
+      "Game modules depend on `MetaHumanSDKRuntime`; editor modules go to Editor targets only."
+    ],
+    "note_cn": "在引擎里使用 MetaHuman 的实用工具/SDK（含 Interchange DNA 导入）。",
+    "note_en": "Utilities/SDK for working with MetaHumans (incl. Interchange DNA import)."
+  },
+  {
+    "slug": "metahuman-tech-tools",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Tech Tools`（模块 `MetaHumanTechLandmarkTracking`、`MetaHumanTechEditState`、`MetaHumanTechEditTools`、`MetaHumanTechEditInteractiveTools`）。",
+      "它提供 MetaHuman 角色技术栈的可共享实用程序（地标跟踪、编辑工具等）。",
+      "通常作为上层 MetaHuman 工具/编辑器的共享依赖。",
+      "写自定义 MetaHuman 编辑/跟踪工具时才直接依赖。"
+    ],
+    "en_steps": [
+      "Enable `MetaHuman Tech Tools` (modules `MetaHumanTechLandmarkTracking`, `MetaHumanTechEditState`, `MetaHumanTechEditTools`, `MetaHumanTechEditInteractiveTools`).",
+      "It provides shareable utilities of the MetaHuman character tech stack (landmark tracking, edit tools, etc.).",
+      "Usually a shared dependency for upper MetaHuman tools/editors.",
+      "Depend on it directly only when writing custom MetaHuman edit/tracking tools."
+    ],
+    "note_cn": "MetaHuman 角色技术栈的可共享实用程序。",
+    "note_en": "Shareable utilities of the MetaHuman character tech stack."
+  },
+  {
+    "slug": "metahuman-tracking-content",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHuman Tracking Content` 插件（无独立模块列表）。",
+      "它提供 MetaHuman 面部跟踪所需的模型数据与轮廓（contour）配置。",
+      "随 MetaHuman 面捕/跟踪相关插件一起启用，供面部跟踪使用。",
+      "这是内容/数据包，不直接写代码依赖。"
+    ],
+    "en_steps": [
+      "Enable the `MetaHuman Tracking Content` plugin (no standalone module list).",
+      "It provides the model data and contour configuration needed for MetaHuman facial tracking.",
+      "Enable it alongside MetaHuman face-capture/tracking plugins for facial tracking.",
+      "It is a content/data pack; you don't depend on it directly in code."
+    ],
+    "note_cn": "MetaHuman 面部跟踪的模型数据与轮廓配置。",
+    "note_en": "Model data and contour configuration for MetaHuman facial tracking."
+  },
+  {
+    "slug": "metahumancalibrationprocessingtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MetaHumanCalibrationProcessingToolset`（模块 `MetaHumanCalibrationProcessingToolset`）。",
+      "它向 AI 助手公开 MetaHuman 立体相机校准（求解 + 自动帧选择）。",
+      "在面捕校准流程里让 AI 助手完成校准求解与挑帧（与 525 同源工具集）。",
+      "Experimental：接口可能变动；属 MetaHuman 校准工具链。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MetaHumanCalibrationProcessingToolset` (module `MetaHumanCalibrationProcessingToolset`).",
+      "It exposes MetaHuman stereo camera calibration (solve + automatic frame selection) to the AI Assistant.",
+      "In the face-capture calibration flow, let the AI Assistant run calibration solve and frame picking (same toolset as index 525).",
+      "Experimental: contract may change; part of the MetaHuman calibration toolchain."
+    ],
+    "note_cn": "MetaHuman 立体相机校准工具集（无连字符版本，与 525 同源）。",
+    "note_en": "The MetaHuman stereo camera calibration toolset (un-hyphenated variant, same as index 525)."
+  },
+  {
+    "slug": "metahumandepthgeneratortoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MetaHumanDepthGeneratorToolset`（模块 `MetaHumanDepthGeneratorToolset`）。",
+      "它向 AI 助手公开 MetaHuman 立体深度生成，用于镜头捕捉数据。",
+      "在面捕/镜头捕捉流程里让 AI 助手生成深度（与 532 同源工具集）。",
+      "Experimental：接口可能变动；属 MetaHuman 捕获工具链。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MetaHumanDepthGeneratorToolset` (module `MetaHumanDepthGeneratorToolset`).",
+      "It exposes MetaHuman stereo depth generation for footage capture data to the AI Assistant.",
+      "In the face-capture/footage flow, let the AI Assistant generate depth (same toolset as index 532).",
+      "Experimental: contract may change; part of the MetaHuman capture toolchain."
+    ],
+    "note_cn": "MetaHuman 立体深度生成工具集（无连字符版本，与 532 同源）。",
+    "note_en": "The MetaHuman stereo depth generation toolset (un-hyphenated variant, same as index 532)."
+  }
+]

@@ -1,0 +1,274 @@
+[
+  {
+    "slug": "celestialvault",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `CelestialVault`（运行时 `CelestialVault`，编辑器 `CelestialVaultEditor`）。",
+      "关卡里放置或选中 `DaySequence` 相关 Actor，把天穹实现切到基于星历的 `Celestial Vault`（地球），而不是普通天空大气材质。",
+      "在细节面板核对经纬度、日期时间和星历源，让太阳/月亮位置跟地理时间对齐。",
+      "Sequencer 里对 Day Sequence 打关键帧做昼夜；PIE 里看太阳方向是否随时间走。",
+      "游戏模块只依赖 `CelestialVault`；`CelestialVaultEditor` 不要写进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `CelestialVault` (runtime `CelestialVault`, editor `CelestialVaultEditor`).",
+      "In the level, use a `DaySequence` actor and pick the ephemeris-based `Celestial Vault` for Earth instead of a generic sky atmosphere material.",
+      "Set latitude/longitude, date/time, and the ephemeris source in Details so sun/moon match geography.",
+      "Keyframe the Day Sequence in Sequencer; in PIE confirm the sun moves with time.",
+      "Game modules depend on `CelestialVault` only; keep `CelestialVaultEditor` off Game targets."
+    ],
+    "note_cn": "这是 Day Sequence 的地球天穹实现，不是普通 Sky Atmosphere 后处理。",
+    "note_en": "A Day Sequence celestial vault for Earth, not the stock Sky Atmosphere post-process."
+  },
+  {
+    "slug": "changelist-reviews",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Changelist Reviews`（模块 `ChangelistReview`）并重启。",
+      "先在 `Revision Control` 里连上 Perforce（或当前源码管理），提交或挂起一个 changelist。",
+      "打开 `Window` / 源码管理相关面板，用 `ChangelistReview` 查看该 changelist 的文件与审阅状态，而不是去 Content Browser 搜组件。",
+      "不要把 `ChangelistReview` 写进游戏 `Build.cs` 或 Shipping 包。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Changelist Reviews` (module `ChangelistReview`) and restart.",
+      "Connect Perforce (or your revision control) and create or shelve a changelist.",
+      "Open the revision-control UI and inspect that changelist with `ChangelistReview`; this is not a gameplay component.",
+      "Do not add `ChangelistReview` to a game `Build.cs` or a shipping cook."
+    ],
+    "note_cn": "仅服务编辑器源码审阅，默认不进 Shipping。",
+    "note_en": "Editor-only changelist review; it does not ship."
+  },
+  {
+    "slug": "chaos-caching-usd",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Chaos Caching USD`（模块 `ChaosCachingUSD`）。",
+      "关卡里先用 Chaos Cache Manager 录一段刚体/破坏缓存（Chaos Caching）。",
+      "通过 USD Stage / 导出管线把该 Chaos Cache 写成 USD，供外部 DCC 或再导入对拍。",
+      "不要把它当实时 Chaos 求解器本身；求解仍由 Chaos 运行时完成，本插件只管 USD 进出。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Chaos Caching USD` (module `ChaosCachingUSD`).",
+      "Record a rigid/destruction take with a Chaos Cache Manager first.",
+      "Export that cache through the USD stage/export path for DCC or round-trip.",
+      "This is not the Chaos solver; simulation stays in Chaos runtime, this plugin only does USD I/O."
+    ],
+    "note_cn": "Experimental：把已录制的 Chaos Cache 接到 USD，不是在 USD 里跑物理。",
+    "note_en": "Experimental USD I/O for recorded Chaos caches, not physics inside USD."
+  },
+  {
+    "slug": "chaos-cloth-asset-dataflow-nodes",
+    "kind": "plugin",
+    "cn_steps": [
+      "在已启用 Chaos Cloth Asset 的前提下启用 `Chaos Cloth Asset Dataflow Nodes`（`ChaosClothAssetDataflowNodes`）。",
+      "打开 Cloth Asset 的 Dataflow 图，从节点面板加入该插件提供的布料数据流节点（导入、约束、碰撞代理等）。",
+      "编译 Dataflow 后，把结果接到 Cloth Asset 再赋给骨架网格的 Clothing。",
+      "游戏运行时不要直接依赖这个节点模块；它服务于资产构建图。"
+    ],
+    "en_steps": [
+      "With Chaos Cloth Asset enabled, enable `Chaos Cloth Asset Dataflow Nodes` (`ChaosClothAssetDataflowNodes`).",
+      "Open the Cloth Asset Dataflow graph and add this plugin’s cloth nodes (import, constraints, collision proxies).",
+      "Compile the graph, then assign the Cloth Asset to the skeletal mesh clothing slot.",
+      "Do not depend on this node module at game runtime; it is for the asset build graph."
+    ],
+    "note_cn": "给 Cloth Asset Dataflow 用的节点包，不是旧版 Clothing 工具栏。",
+    "note_en": "Dataflow nodes for Cloth Asset authoring, not the legacy Clothing toolbar."
+  },
+  {
+    "slug": "chaos-cloth-asset-editor-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Cloth Asset Editor Core`（`ChaosClothAssetEditor`、`ChaosClothAssetEditorTools`）。",
+      "内容浏览器双击 `Cloth Asset`，用该核心编辑器改面板、视口和工具，而不是 Cascade 或旧 Clothing 窗口。",
+      "在编辑器里绑定骨架、碰撞体和模拟参数，保存后再把资产挂到角色。",
+      "`ChaosClothAssetEditor*` 只能进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Cloth Asset Editor Core` (`ChaosClothAssetEditor`, `ChaosClothAssetEditorTools`).",
+      "Double-click a `Cloth Asset` and author it in this editor, not Cascade or the legacy Clothing window.",
+      "Bind skeleton, colliders, and sim settings, save, then assign the asset on the character.",
+      "Keep `ChaosClothAssetEditor*` on Editor targets only."
+    ],
+    "note_cn": "新 Cloth Asset 编辑器的核心 UI，不含具体 USD/Dataflow 节点。",
+    "note_en": "Core UI for the new Cloth Asset editor; USD/Dataflow nodes live in sibling plugins."
+  },
+  {
+    "slug": "chaos-cloth-asset-editor-deprecated",
+    "kind": "plugin",
+    "cn_steps": [
+      "在插件列表里找到 `Chaos Cloth Asset Editor (Deprecated)`，新项目不要启用。",
+      "已有工程若仍打开旧 Cloth Asset 编辑器，按引擎提示迁到 `Chaos Cloth Asset Editor Core`。",
+      "不要在 `Build.cs` 里新增对该过时描述符的依赖。",
+      "迁移完成后在 `Edit > Plugins` 禁用本插件，避免两套编辑器抢同一资产。"
+    ],
+    "en_steps": [
+      "Find `Chaos Cloth Asset Editor (Deprecated)` and do not enable it on new projects.",
+      "If an existing project still opens the old Cloth Asset editor, migrate to `Chaos Cloth Asset Editor Core`.",
+      "Do not add new `Build.cs` dependencies on this deprecated descriptor.",
+      "After migration, disable this plugin so two editors do not fight over the same asset."
+    ],
+    "note_cn": "已废弃的 Cloth Asset 编辑器壳，没有可依赖的运行时模块列表。",
+    "note_en": "Deprecated editor shell; it ships no runtime module list to depend on."
+  },
+  {
+    "slug": "chaos-cloth-asset-usd-dataflow-nodes",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Cloth Asset USD Dataflow Nodes`（`ChaosClothAssetUsdDataflowNodes`）。",
+      "在 Cloth Asset Dataflow 里加入 USD 导入/导出节点，指向 `.usd` 服装或绑定缓存。",
+      "跑图生成或更新 Cloth Asset，再赋给骨架网格。",
+      "没有 USD 工作流就不必启用；普通布料编辑用 Cloth Asset 编辑器即可。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Cloth Asset USD Dataflow Nodes` (`ChaosClothAssetUsdDataflowNodes`).",
+      "Add USD import/export nodes on the Cloth Asset Dataflow graph and point them at a `.usd` garment or bind cache.",
+      "Run the graph to build or refresh the Cloth Asset, then assign it to the skeletal mesh.",
+      "Skip this plugin if you are not on a USD cloth pipeline; use the Cloth Asset editor instead."
+    ],
+    "note_cn": "只负责 Cloth Asset 图上的 USD 节点，不是通用 USD Importer。",
+    "note_en": "USD nodes for Cloth Asset Dataflow, not the general USD Importer."
+  },
+  {
+    "slug": "chaos-cloth-asset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Cloth Asset`（`ChaosClothAsset`、`ChaosClothAssetEngine`、`ChaosClothAssetTools`）。",
+      "内容浏览器 `Add` 创建 `Cloth Asset`，在 Cloth Asset 编辑器里绑骨骼、碰撞和约束。",
+      "把资产赋到骨架网格体的 Clothing / Cloth Asset 槽，PIE 里看布料随动画动。",
+      "运行时游戏模块依赖 `ChaosClothAsset` / `ChaosClothAssetEngine`；工具模块才用 `ChaosClothAssetTools`。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Cloth Asset` (`ChaosClothAsset`, `ChaosClothAssetEngine`, `ChaosClothAssetTools`).",
+      "Create a `Cloth Asset` and bind skeleton, collision, and constraints in its editor.",
+      "Assign it to the skeletal mesh Clothing / Cloth Asset slot and PIE to see it follow animation.",
+      "Runtime game modules use `ChaosClothAsset` / `ChaosClothAssetEngine`; `ChaosClothAssetTools` is for tools."
+    ],
+    "note_cn": "新一代 Chaos 布料资产，替代旧 Apex/Clothing 工作流。",
+    "note_en": "The new Chaos cloth asset, replacing the old Apex/Clothing workflow."
+  },
+  {
+    "slug": "chaos-cloth-editor-deprecated",
+    "kind": "plugin",
+    "cn_steps": [
+      "插件名带 Deprecated：新项目改用 `Chaos Cloth` + `Chaos Cloth Asset` 编辑器。",
+      "旧工程若还靠本插件打开历史 Cloth 资产，按迁移提示另存为 Cloth Asset。",
+      "不要把已废弃编辑器模块写进新的 `*Editor.Build.cs`。",
+      "迁移后禁用本插件。"
+    ],
+    "en_steps": [
+      "This plugin is Deprecated; new work uses `Chaos Cloth` plus the `Chaos Cloth Asset` editor.",
+      "If a legacy project still opens old cloth assets here, resave them as Cloth Assets.",
+      "Do not add the deprecated editor modules to a new `*Editor.Build.cs`.",
+      "Disable the plugin after migration."
+    ],
+    "note_cn": "旧 Chaos 布料编辑器，将随引擎移除。",
+    "note_en": "Legacy Chaos cloth editor scheduled for removal."
+  },
+  {
+    "slug": "chaos-cloth-generator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Cloth Generator`，用于从网格/面板生成布料资产，而不是手绘每一条约束。",
+      "在 Cloth / Dataflow 相关编辑器里跑 Generator 节点或命令，输入服装网格，输出 Cloth Asset。",
+      "检查生成的碰撞与约束，再挂到角色上模拟。",
+      "这是制作管线工具，不要当运行时布料求解器依赖。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Cloth Generator` to build cloth assets from meshes/panels instead of authoring every constraint by hand.",
+      "Run its generator node or command in the Cloth / Dataflow editor: mesh in, Cloth Asset out.",
+      "Inspect generated collision and constraints, then simulate on the character.",
+      "Pipeline tool only; do not treat it as the runtime cloth solver."
+    ],
+    "note_cn": "生成器，不是 PIE 里驱动布料的那个 Chaos Cloth 运行时。",
+    "note_en": "A generator, not the Chaos Cloth runtime that ticks in PIE."
+  },
+  {
+    "slug": "chaos-cloth",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Cloth` 作为角色服装的运行时求解。",
+      "骨架网格使用 Cloth Asset（或仍支持的 Clothing 数据），确认项目物理是 Chaos。",
+      "PIE 里播放动画，看裙摆/外套；过硬或穿插时回到 Cloth Asset 调阻尼、碰撞半径、约束。",
+      "需要编辑器工具时再开 Cloth Asset Editor；本插件负责运行时模拟。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Cloth` as the runtime solver for character garments.",
+      "Put a Cloth Asset (or supported Clothing data) on the skeletal mesh and confirm the project uses Chaos physics.",
+      "PIE an animation; if cloth is stiff or clips, tweak damping, collision radius, and constraints on the asset.",
+      "Turn on the Cloth Asset editor plugins for authoring; this plugin is the runtime sim."
+    ],
+    "note_cn": "运行时 Chaos 布料求解，需搭配 Cloth Asset 才有可调资产。",
+    "note_en": "Runtime Chaos cloth; authoring lives in the Cloth Asset editor plugins."
+  },
+  {
+    "slug": "chaos-composable-solver",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Chaos Composable Solver`。",
+      "在需要组合多种 Chaos 求解（刚体/布料/可变形）的关卡或系统里，按插件文档把 composable solver 接到现有 Chaos 场景，而不是再放一个独立 Physics Scene。",
+      "先在空关卡验证求解顺序与稳定性，再进正式内容。",
+      "接口可能随夜构建变化，不要写死未文档化的内部类型。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Chaos Composable Solver`.",
+      "Wire the composable solver into the existing Chaos scene when you must combine rigid/cloth/deformable solves; do not spawn a second physics scene.",
+      "Prove solver order and stability in an empty map before production content.",
+      "The contract can change on nightlies; do not freeze undocumented internal types."
+    ],
+    "note_cn": "Experimental 组合求解器，不是默认世界里的 Chaos 场景替换开关。",
+    "note_en": "Experimental composable solver, not a drop-in replacement toggle for the default Chaos world."
+  },
+  {
+    "slug": "chaos-deformable-base",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Deformable Base`，作为 Flesh/可变形体的公共运行时底座。",
+      "游戏或插件模块若要调用可变形 API，在 `Build.cs` 依赖该底座，再依赖具体的 Chaos Flesh 等上层插件。",
+      "不要单独指望它提供可放置的 Actor；场景里放的是 Flesh 资产/组件。",
+      "编辑器工具走 Flesh Generator / Flesh 编辑器，不走这个 base 模块的 UI。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Deformable Base` as the shared runtime for Flesh/deformables.",
+      "If your module calls deformable APIs, depend on this base, then on Chaos Flesh (or similar) above it.",
+      "It does not ship a placeable actor; you place Flesh assets/components.",
+      "Authoring UI lives in Flesh Generator / Flesh editors, not this base module."
+    ],
+    "note_cn": "可变形求解的底层库，最终用户应通过 Chaos Flesh 使用。",
+    "note_en": "Low-level deformable runtime; end users go through Chaos Flesh."
+  },
+  {
+    "slug": "chaos-flesh-generator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Flesh Generator`，用来从封闭三角网格生成四面体 Flesh 资产。",
+      "在 Flesh / Dataflow 工具里选网格，跑四面体化与绑定，输出 Flesh Asset。",
+      "把生成结果交给 `Chaos Flesh` 运行时，挂到角色或缓存网格上模拟。",
+      "生成失败时先检查网格是否封闭、法线是否统一，而不是去改 Chaos 场景重力。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Flesh Generator` to tet-mesh a closed triangle mesh into a Flesh asset.",
+      "In the Flesh / Dataflow tools, pick the mesh, tetrahedralize and bind, and save a Flesh Asset.",
+      "Simulate it with the `Chaos Flesh` runtime on a character or cached mesh.",
+      "If generation fails, fix watertightness and normals before touching world gravity."
+    ],
+    "note_cn": "四面体生成器，不是 PIE 里的软体求解循环。",
+    "note_en": "Tetrahedralizer, not the soft-body tick in PIE."
+  },
+  {
+    "slug": "chaos-flesh",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Flesh` 做四面体软体（肌肉、脂肪、可变形体）。",
+      "准备 Flesh Asset（可用 Flesh Generator），把它赋给支持的网格/组件。",
+      "PIE 中看体积保持与碰撞；过软过硬时调 Flesh 资产上的材料与约束，而不是 Niagara。",
+      "需要缓存或影视拍屏时再接 Chaos Cache；本插件是运行时软体求解。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Flesh` for tetrahedral soft bodies (muscle, fat, deformables).",
+      "Author a Flesh Asset (Flesh Generator helps) and assign it to a supported mesh/component.",
+      "PIE to judge volume and collision; tune material and constraints on the Flesh asset, not Niagara.",
+      "Use Chaos Cache for takes; this plugin is the runtime soft-body solve."
+    ],
+    "note_cn": "Chaos 软体运行时，依赖 Deformable Base；与布料（Cloth）是另一套管线。",
+    "note_en": "Chaos soft-body runtime on Deformable Base; cloth is a separate pipeline."
+  }
+]

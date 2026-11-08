@@ -1,0 +1,304 @@
+[
+  {
+    "slug": "clothingsystemruntimecommon",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ClothingSystemRuntimeCommon` 位于 `Runtime`，构建规则 `Runtime/ClothingSystemRuntimeCommon/ClothingSystemRuntimeCommon.Build.cs`。它直接依赖 5 个模块：`ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `Engine`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemRuntimeCommon\" });`；对外暴露 `ClothingSystemRuntimeCommon` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ClothingSystemRuntimeCommon` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ClothingSystemRuntimeCommon.h` / `ClothingSystemRuntimeCommonModule.h`），再用 `FModuleManager::LoadModulePtr<ClothingSystemRuntimeCommonModule>` 或直接使用导出类型。",
+      "传递依赖：`ClothingSystemRuntimeCommon` 还依赖 `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `Engine`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ClothingSystemRuntimeCommon` lives under `Runtime`; build rule `Runtime/ClothingSystemRuntimeCommon/ClothingSystemRuntimeCommon.Build.cs`.It directly depends on 5 modules: `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `Engine`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemRuntimeCommon\" });`. Use Public when exposing `ClothingSystemRuntimeCommon` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ClothingSystemRuntimeCommon` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ClothingSystemRuntimeCommon.h` / `ClothingSystemRuntimeCommonModule.h`), then use `FModuleManager::LoadModulePtr<ClothingSystemRuntimeCommonModule>` or the exported types directly.",
+      "Transitive deps: `ClothingSystemRuntimeCommon` also needs `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `Engine`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ClothingSystemRuntimeCommon` 的构建规则位于 `Runtime/ClothingSystemRuntimeCommon/ClothingSystemRuntimeCommon.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`ClothingSystemRuntimeCommon` build rule is `Runtime/ClothingSystemRuntimeCommon/ClothingSystemRuntimeCommon.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "clothingsystemruntimeinterface",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ClothingSystemRuntimeInterface` 位于 `Runtime`，构建规则 `Runtime/ClothingSystemRuntimeInterface/ClothingSystemRuntimeInterface.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemRuntimeInterface\" });`；对外暴露 `ClothingSystemRuntimeInterface` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ClothingSystemRuntimeInterface` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ClothingSystemRuntimeInterface.h` / `ClothingSystemRuntimeInterfaceModule.h`），再用 `FModuleManager::LoadModulePtr<ClothingSystemRuntimeInterfaceModule>` 或直接使用导出类型。",
+      "传递依赖：`ClothingSystemRuntimeInterface` 还依赖 `Core`, `CoreUObject`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ClothingSystemRuntimeInterface` lives under `Runtime`; build rule `Runtime/ClothingSystemRuntimeInterface/ClothingSystemRuntimeInterface.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemRuntimeInterface\" });`. Use Public when exposing `ClothingSystemRuntimeInterface` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ClothingSystemRuntimeInterface` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ClothingSystemRuntimeInterface.h` / `ClothingSystemRuntimeInterfaceModule.h`), then use `FModuleManager::LoadModulePtr<ClothingSystemRuntimeInterfaceModule>` or the exported types directly.",
+      "Transitive deps: `ClothingSystemRuntimeInterface` also needs `Core`, `CoreUObject`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ClothingSystemRuntimeInterface` 的构建规则位于 `Runtime/ClothingSystemRuntimeInterface/ClothingSystemRuntimeInterface.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ClothingSystemRuntimeInterface` build rule is `Runtime/ClothingSystemRuntimeInterface/ClothingSystemRuntimeInterface.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "clothingsystemruntimenv",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ClothingSystemRuntimeNv` 位于 `Runtime`，构建规则 `Runtime/ClothingSystemRuntimeNv/ClothingSystemRuntimeNv.Build.cs`。它直接依赖 5 个模块：`ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemRuntimeNv\" });`；对外暴露 `ClothingSystemRuntimeNv` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ClothingSystemRuntimeNv` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ClothingSystemRuntimeNv.h` / `ClothingSystemRuntimeNvModule.h`），再用 `FModuleManager::LoadModulePtr<ClothingSystemRuntimeNvModule>` 或直接使用导出类型。",
+      "传递依赖：`ClothingSystemRuntimeNv` 还依赖 `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ClothingSystemRuntimeNv` lives under `Runtime`; build rule `Runtime/ClothingSystemRuntimeNv/ClothingSystemRuntimeNv.Build.cs`.It directly depends on 5 modules: `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemRuntimeNv\" });`. Use Public when exposing `ClothingSystemRuntimeNv` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ClothingSystemRuntimeNv` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ClothingSystemRuntimeNv.h` / `ClothingSystemRuntimeNvModule.h`), then use `FModuleManager::LoadModulePtr<ClothingSystemRuntimeNvModule>` or the exported types directly.",
+      "Transitive deps: `ClothingSystemRuntimeNv` also needs `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ClothingSystemRuntimeNv` 的构建规则位于 `Runtime/ClothingSystemRuntimeNv/ClothingSystemRuntimeNv.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`ClothingSystemRuntimeNv` build rule is `Runtime/ClothingSystemRuntimeNv/ClothingSystemRuntimeNv.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "clothpainter",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ClothPainter` 位于 `Editor`，构建规则 `Editor/ClothPainter/ClothPainter.Build.cs`。它直接依赖 8 个模块：`AdvancedPreviewScene`, `AssetRegistry`, `AssetTools`, `ClassViewer`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ClothPainter\" });`；对外暴露 `ClothPainter` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ClothPainter` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ClothPainter.h` / `ClothPainterModule.h`），再用 `FModuleManager::LoadModulePtr<ClothPainterModule>` 或直接使用导出类型。",
+      "传递依赖：`ClothPainter` 还依赖 `AdvancedPreviewScene`, `AssetRegistry`, `AssetTools`, `ClassViewer`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ClothPainter` lives under `Editor`; build rule `Editor/ClothPainter/ClothPainter.Build.cs`.It directly depends on 8 modules: `AdvancedPreviewScene`, `AssetRegistry`, `AssetTools`, `ClassViewer`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ClothPainter\" });`. Use Public when exposing `ClothPainter` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ClothPainter` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ClothPainter.h` / `ClothPainterModule.h`), then use `FModuleManager::LoadModulePtr<ClothPainterModule>` or the exported types directly.",
+      "Transitive deps: `ClothPainter` also needs `AdvancedPreviewScene`, `AssetRegistry`, `AssetTools`, `ClassViewer`, `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ClothPainter` 的构建规则位于 `Editor/ClothPainter/ClothPainter.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ClothPainter` build rule is `Editor/ClothPainter/ClothPainter.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "cmdlink",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CmdLink` 位于 `Programs`，构建规则 `Programs/CmdLink/CmdLink.Build.cs`。它直接依赖 2 个模块：`Core`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CmdLink\" });`；对外暴露 `CmdLink` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CmdLink` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `CmdLink.h` / `CmdLinkModule.h`），再用 `FModuleManager::LoadModulePtr<CmdLinkModule>` 或直接使用导出类型。",
+      "传递依赖：`CmdLink` 还依赖 `Core`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CmdLink` lives under `Programs`; build rule `Programs/CmdLink/CmdLink.Build.cs`.It directly depends on 2 modules: `Core`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CmdLink\" });`. Use Public when exposing `CmdLink` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CmdLink` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `CmdLink.h` / `CmdLinkModule.h`), then use `FModuleManager::LoadModulePtr<CmdLinkModule>` or the exported types directly.",
+      "Transitive deps: `CmdLink` also needs `Core`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CmdLink` 的构建规则位于 `Programs/CmdLink/CmdLink.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`CmdLink` build rule is `Programs/CmdLink/CmdLink.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "collectionmanager",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CollectionManager` 位于 `Developer`，构建规则 `Developer/CollectionManager/CollectionManager.Build.cs`。它直接依赖 6 个模块：`Analytics`, `Core`, `CoreUObject`, `DeveloperSettings`, `DirectoryWatcher`, `SourceControl`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CollectionManager\" });`；对外暴露 `CollectionManager` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CollectionManager` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `CollectionManager.h` / `CollectionManagerModule.h`），再用 `FModuleManager::LoadModulePtr<CollectionManagerModule>` 或直接使用导出类型。",
+      "传递依赖：`CollectionManager` 还依赖 `Analytics`, `Core`, `CoreUObject`, `DeveloperSettings`, `DirectoryWatcher`, `SourceControl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CollectionManager` lives under `Developer`; build rule `Developer/CollectionManager/CollectionManager.Build.cs`.It directly depends on 6 modules: `Analytics`, `Core`, `CoreUObject`, `DeveloperSettings`, `DirectoryWatcher`, `SourceControl`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CollectionManager\" });`. Use Public when exposing `CollectionManager` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CollectionManager` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `CollectionManager.h` / `CollectionManagerModule.h`), then use `FModuleManager::LoadModulePtr<CollectionManagerModule>` or the exported types directly.",
+      "Transitive deps: `CollectionManager` also needs `Analytics`, `Core`, `CoreUObject`, `DeveloperSettings`, `DirectoryWatcher`, `SourceControl`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CollectionManager` 的构建规则位于 `Developer/CollectionManager/CollectionManager.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`CollectionManager` build rule is `Developer/CollectionManager/CollectionManager.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "collisionanalyzer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CollisionAnalyzer` 位于 `Developer`，构建规则 `Developer/CollisionAnalyzer/CollisionAnalyzer.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `WorkspaceMenuStructure`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CollisionAnalyzer\" });`；对外暴露 `CollisionAnalyzer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CollisionAnalyzer` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `CollisionAnalyzer.h` / `CollisionAnalyzerModule.h`），再用 `FModuleManager::LoadModulePtr<CollisionAnalyzerModule>` 或直接使用导出类型。",
+      "传递依赖：`CollisionAnalyzer` 还依赖 `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `WorkspaceMenuStructure`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CollisionAnalyzer` lives under `Developer`; build rule `Developer/CollisionAnalyzer/CollisionAnalyzer.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `WorkspaceMenuStructure`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CollisionAnalyzer\" });`. Use Public when exposing `CollisionAnalyzer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CollisionAnalyzer` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `CollisionAnalyzer.h` / `CollisionAnalyzerModule.h`), then use `FModuleManager::LoadModulePtr<CollisionAnalyzerModule>` or the exported types directly.",
+      "Transitive deps: `CollisionAnalyzer` also needs `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `WorkspaceMenuStructure`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CollisionAnalyzer` 的构建规则位于 `Developer/CollisionAnalyzer/CollisionAnalyzer.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`CollisionAnalyzer` build rule is `Developer/CollisionAnalyzer/CollisionAnalyzer.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "commonlaunchextensions",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CommonLaunchExtensions` 位于 `Developer`，构建规则 `Developer/ProjectLauncher/CommonLaunchExtensions/CommonLaunchExtensions.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CommonLaunchExtensions\" });`；对外暴露 `CommonLaunchExtensions` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CommonLaunchExtensions` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `CommonLaunchExtensions.h` / `CommonLaunchExtensionsModule.h`），再用 `FModuleManager::LoadModulePtr<CommonLaunchExtensionsModule>` 或直接使用导出类型。",
+      "传递依赖：`CommonLaunchExtensions` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `CommonLaunchExtensions` lives under `Developer`; build rule `Developer/ProjectLauncher/CommonLaunchExtensions/CommonLaunchExtensions.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CommonLaunchExtensions\" });`. Use Public when exposing `CommonLaunchExtensions` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CommonLaunchExtensions` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `CommonLaunchExtensions.h` / `CommonLaunchExtensionsModule.h`), then use `FModuleManager::LoadModulePtr<CommonLaunchExtensionsModule>` or the exported types directly.",
+      "Transitive deps: `CommonLaunchExtensions` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`CommonLaunchExtensions` 的构建规则位于 `Developer/ProjectLauncher/CommonLaunchExtensions/CommonLaunchExtensions.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`CommonLaunchExtensions` build rule is `Developer/ProjectLauncher/CommonLaunchExtensions/CommonLaunchExtensions.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "commonmenuextensions",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CommonMenuExtensions` 位于 `Editor`，构建规则 `Editor/CommonMenuExtensions/CommonMenuExtensions.Build.cs`。它直接依赖 6 个模块：`Core`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `ToolMenus`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CommonMenuExtensions\" });`；对外暴露 `CommonMenuExtensions` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CommonMenuExtensions` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `CommonMenuExtensions.h` / `CommonMenuExtensionsModule.h`），再用 `FModuleManager::LoadModulePtr<CommonMenuExtensionsModule>` 或直接使用导出类型。",
+      "传递依赖：`CommonMenuExtensions` 还依赖 `Core`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `ToolMenus`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CommonMenuExtensions` lives under `Editor`; build rule `Editor/CommonMenuExtensions/CommonMenuExtensions.Build.cs`.It directly depends on 6 modules: `Core`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `ToolMenus`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CommonMenuExtensions\" });`. Use Public when exposing `CommonMenuExtensions` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CommonMenuExtensions` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `CommonMenuExtensions.h` / `CommonMenuExtensionsModule.h`), then use `FModuleManager::LoadModulePtr<CommonMenuExtensionsModule>` or the exported types directly.",
+      "Transitive deps: `CommonMenuExtensions` also needs `Core`, `Engine`, `InputCore`, `Slate`, `SlateCore`, `ToolMenus`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CommonMenuExtensions` 的构建规则位于 `Editor/CommonMenuExtensions/CommonMenuExtensions.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`CommonMenuExtensions` build rule is `Editor/CommonMenuExtensions/CommonMenuExtensions.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "componentvisualizers",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ComponentVisualizers` 位于 `Editor`，构建规则 `Editor/ComponentVisualizers/ComponentVisualizers.Build.cs`。它直接依赖 8 个模块：`AIModule`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LevelEditor`, `NavigationSystem`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ComponentVisualizers\" });`；对外暴露 `ComponentVisualizers` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ComponentVisualizers` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ComponentVisualizers.h` / `ComponentVisualizersModule.h`），再用 `FModuleManager::LoadModulePtr<ComponentVisualizersModule>` 或直接使用导出类型。",
+      "传递依赖：`ComponentVisualizers` 还依赖 `AIModule`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LevelEditor`, `NavigationSystem`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ComponentVisualizers` lives under `Editor`; build rule `Editor/ComponentVisualizers/ComponentVisualizers.Build.cs`.It directly depends on 8 modules: `AIModule`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LevelEditor`, `NavigationSystem`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ComponentVisualizers\" });`. Use Public when exposing `ComponentVisualizers` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ComponentVisualizers` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ComponentVisualizers.h` / `ComponentVisualizersModule.h`), then use `FModuleManager::LoadModulePtr<ComponentVisualizersModule>` or the exported types directly.",
+      "Transitive deps: `ComponentVisualizers` also needs `AIModule`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `LevelEditor`, `NavigationSystem`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ComponentVisualizers` 的构建规则位于 `Editor/ComponentVisualizers/ComponentVisualizers.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ComponentVisualizers` build rule is `Editor/ComponentVisualizers/ComponentVisualizers.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "concurrencyvisualizer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ConcurrencyVisualizer` 位于 `ThirdParty`，构建规则 `ThirdParty/ConcurrencyVisualizer/ConcurrencyVisualizer.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ConcurrencyVisualizer\" });`；对外暴露 `ConcurrencyVisualizer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ConcurrencyVisualizer` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `ConcurrencyVisualizer.h` / `ConcurrencyVisualizerModule.h`），再用 `FModuleManager::LoadModulePtr<ConcurrencyVisualizerModule>` 或直接使用导出类型。",
+      "传递依赖：`ConcurrencyVisualizer` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `ConcurrencyVisualizer` lives under `ThirdParty`; build rule `ThirdParty/ConcurrencyVisualizer/ConcurrencyVisualizer.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ConcurrencyVisualizer\" });`. Use Public when exposing `ConcurrencyVisualizer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ConcurrencyVisualizer` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `ConcurrencyVisualizer.h` / `ConcurrencyVisualizerModule.h`), then use `FModuleManager::LoadModulePtr<ConcurrencyVisualizerModule>` or the exported types directly.",
+      "Transitive deps: `ConcurrencyVisualizer` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`ConcurrencyVisualizer` 的构建规则位于 `ThirdParty/ConcurrencyVisualizer/ConcurrencyVisualizer.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`ConcurrencyVisualizer` build rule is `ThirdParty/ConcurrencyVisualizer/ConcurrencyVisualizer.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "configeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ConfigEditor` 位于 `Editor`，构建规则 `Editor/ConfigEditor/ConfigEditor.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `PropertyEditor`, `Slate`, `SlateCore`, `SourceControl`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ConfigEditor\" });`；对外暴露 `ConfigEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ConfigEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ConfigEditor.h` / `ConfigEditorModule.h`），再用 `FModuleManager::LoadModulePtr<ConfigEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`ConfigEditor` 还依赖 `Core`, `CoreUObject`, `PropertyEditor`, `Slate`, `SlateCore`, `SourceControl`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ConfigEditor` lives under `Editor`; build rule `Editor/ConfigEditor/ConfigEditor.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `PropertyEditor`, `Slate`, `SlateCore`, `SourceControl`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ConfigEditor\" });`. Use Public when exposing `ConfigEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ConfigEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ConfigEditor.h` / `ConfigEditorModule.h`), then use `FModuleManager::LoadModulePtr<ConfigEditorModule>` or the exported types directly.",
+      "Transitive deps: `ConfigEditor` also needs `Core`, `CoreUObject`, `PropertyEditor`, `Slate`, `SlateCore`, `SourceControl`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ConfigEditor` 的构建规则位于 `Editor/ConfigEditor/ConfigEditor.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`ConfigEditor` build rule is `Editor/ConfigEditor/ConfigEditor.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "constraints",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Constraints` 位于 `Runtime`，构建规则 `Runtime/Experimental/Animation/Constraints/Constraints.Build.cs`。它直接依赖 7 个模块：`AnimationCore`, `Core`, `CoreUObject`, `Engine`, `MovieScene`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Constraints\" });`；对外暴露 `Constraints` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Constraints` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Constraints.h` / `ConstraintsModule.h`），再用 `FModuleManager::LoadModulePtr<ConstraintsModule>` 或直接使用导出类型。",
+      "传递依赖：`Constraints` 还依赖 `AnimationCore`, `Core`, `CoreUObject`, `Engine`, `MovieScene`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`Constraints` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `Constraints` lives under `Runtime`; build rule `Runtime/Experimental/Animation/Constraints/Constraints.Build.cs`.It directly depends on 7 modules: `AnimationCore`, `Core`, `CoreUObject`, `Engine`, `MovieScene`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Constraints\" });`. Use Public when exposing `Constraints` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Constraints` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Constraints.h` / `ConstraintsModule.h`), then use `FModuleManager::LoadModulePtr<ConstraintsModule>` or the exported types directly.",
+      "Transitive deps: `Constraints` also needs `AnimationCore`, `Core`, `CoreUObject`, `Engine`, `MovieScene`, `Slate`, `SlateCore`; do not re-list them unless you include their headers.",
+      "Note: `Constraints` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`Constraints` 的构建规则位于 `Runtime/Experimental/Animation/Constraints/Constraints.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`Constraints` build rule is `Runtime/Experimental/Animation/Constraints/Constraints.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "contentbrowser",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ContentBrowser` 位于 `Editor`，构建规则 `Editor/ContentBrowser/ContentBrowser.Build.cs`。它直接依赖 8 个模块：`AddContentDialog`, `AppFramework`, `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTagsEditor`, `AssetTools`, `ContentBrowserData`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ContentBrowser\" });`；对外暴露 `ContentBrowser` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ContentBrowser` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ContentBrowser.h` / `ContentBrowserModule.h`），再用 `FModuleManager::LoadModulePtr<ContentBrowserModule>` 或直接使用导出类型。",
+      "传递依赖：`ContentBrowser` 还依赖 `AddContentDialog`, `AppFramework`, `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTagsEditor`, `AssetTools`, `ContentBrowserData`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ContentBrowser` lives under `Editor`; build rule `Editor/ContentBrowser/ContentBrowser.Build.cs`.It directly depends on 8 modules: `AddContentDialog`, `AppFramework`, `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTagsEditor`, `AssetTools`, `ContentBrowserData`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ContentBrowser\" });`. Use Public when exposing `ContentBrowser` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ContentBrowser` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ContentBrowser.h` / `ContentBrowserModule.h`), then use `FModuleManager::LoadModulePtr<ContentBrowserModule>` or the exported types directly.",
+      "Transitive deps: `ContentBrowser` also needs `AddContentDialog`, `AppFramework`, `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTagsEditor`, `AssetTools`, `ContentBrowserData`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ContentBrowser` 的构建规则位于 `Editor/ContentBrowser/ContentBrowser.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ContentBrowser` build rule is `Editor/ContentBrowser/ContentBrowser.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "contentbrowserdata",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ContentBrowserData` 位于 `Editor`，构建规则 `Editor/ContentBrowserData/ContentBrowserData.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Projects`, `Slate`, `SlateCore`, `UnrealEd`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ContentBrowserData\" });`；对外暴露 `ContentBrowserData` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ContentBrowserData` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ContentBrowserData.h` / `ContentBrowserDataModule.h`），再用 `FModuleManager::LoadModulePtr<ContentBrowserDataModule>` 或直接使用导出类型。",
+      "传递依赖：`ContentBrowserData` 还依赖 `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Projects`, `Slate`, `SlateCore`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ContentBrowserData` lives under `Editor`; build rule `Editor/ContentBrowserData/ContentBrowserData.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Projects`, `Slate`, `SlateCore`, `UnrealEd`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ContentBrowserData\" });`. Use Public when exposing `ContentBrowserData` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ContentBrowserData` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ContentBrowserData.h` / `ContentBrowserDataModule.h`), then use `FModuleManager::LoadModulePtr<ContentBrowserDataModule>` or the exported types directly.",
+      "Transitive deps: `ContentBrowserData` also needs `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `Projects`, `Slate`, `SlateCore`, `UnrealEd`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ContentBrowserData` 的构建规则位于 `Editor/ContentBrowserData/ContentBrowserData.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ContentBrowserData` build rule is `Editor/ContentBrowserData/ContentBrowserData.Build.cs`; depends on 8 modules; category Module."
+  }
+]

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "shared-memory-media",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Shared Memory Media`（运行时 `SharedMemoryMedia`、`SharedMemoryMediaVulkanPreInit`，编辑器 `SharedMemoryMediaEditor`）。",
+      "它在同一台机器的进程之间共享 GPU 纹理，提供媒体输出与媒体源。",
+      "把本进程画面作为 media source，或作为 media output 接收；用于多进程协作/外部工具。",
+      "Game 模块依赖运行时模块；`SharedMemoryMediaEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Shared Memory Media` (runtime `SharedMemoryMedia`, `SharedMemoryMediaVulkanPreInit`, editor `SharedMemoryMediaEditor`).",
+      "It shares GPU textures between processes on the same machine, providing a media output and media source.",
+      "Expose this process's frames as a media source, or receive as a media output; for multi-process / external-tool collaboration.",
+      "Game modules depend on runtime modules; `SharedMemoryMediaEditor` is Editor-target only."
+    ],
+    "note_cn": "同机进程间共享 GPU 纹理的媒体源/输出。",
+    "note_en": "Mechanism to share GPU textures between same-machine processes as media source/output."
+  },
+  {
+    "slug": "signals",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Signals`（模块 `Signals`）。",
+      "它是 Signals 模式在 Unreal 中的特定实现（信号/响应的解耦通信）。",
+      "用其信号机制解耦对象间通信（发送信号、订阅响应）。",
+      "属通用编程工具；项目代码可依赖。"
+    ],
+    "en_steps": [
+      "Enable `Signals` (module `Signals`).",
+      "It is Unreal's implementation of the Signals pattern (decoupled signal/response communication).",
+      "Use its signal mechanism to decouple object communication (emit signals, subscribe responses).",
+      "It is a general programming utility; project code can depend on it."
+    ],
+    "note_cn": "Signals 模式的 Unreal 实现（解耦通信）。",
+    "note_en": "Unreal's implementation of the Signals pattern (decoupled communication)."
+  },
+  {
+    "slug": "significance-manager",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Significance Manager`（模块 `SignificanceManager`）。",
+      "它提供可扩展框架：计算对象的重要性并据此改变行为（如降频/关闭远处对象的更新）。",
+      "为对象注册意义值计算，按重要性分档调整 Tick/渲染/逻辑开销。",
+      "属性能优化框架；适合大场景降本。"
+    ],
+    "en_steps": [
+      "Enable `Significance Manager` (module `SignificanceManager`).",
+      "It provides an extensible framework to compute object significance and change behavior accordingly (e.g. throttle/disable far objects' updates).",
+      "Register significance computation for objects and tier their Tick/render/logic cost by importance.",
+      "It is a performance-optimization framework; good for cost reduction in large scenes."
+    ],
+    "note_cn": "计算对象重要性并据此调行为的可扩展框架（性能优化）。",
+    "note_en": "An extensible framework computing object significance to adjust behavior (perf optimization)."
+  },
+  {
+    "slug": "simplehmd",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SimpleHMD`（模块 `SimpleHMD`）。",
+      "它是基本立体 HMD 实现的示例（简单头显支持演示）。",
+      "作为学习 HMD 插件写法的参考，不作为正式头显驱动。",
+      "属示例插件；宜作参考。"
+    ],
+    "en_steps": [
+      "Enable `SimpleHMD` (module `SimpleHMD`).",
+      "It is an example of a basic stereo HMD implementation (a simple headset demo).",
+      "Use it as a reference for writing HMD plugins, not a production headset driver.",
+      "It is an example plugin; best as reference."
+    ],
+    "note_cn": "基本立体 HMD 的示例实现。",
+    "note_en": "An example basic stereo HMD implementation."
+  },
+  {
+    "slug": "skeletal-merging",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Skeletal Merging`（模块 `SkeletalMerging`）。",
+      "它提供蓝图功能，在运行时执行骨骼网格体合并。",
+      "在蓝图里调用合并节点，把多个骨骼网格合成一个（如可换装角色的组合体）。",
+      "运行时模块；常用于运行时拼装骨骼网格。"
+    ],
+    "en_steps": [
+      "Enable `Skeletal Merging` (module `SkeletalMerging`).",
+      "It provides Blueprint functionality to perform runtime skeletal mesh merging.",
+      "Call the merge nodes from Blueprint to combine multiple skeletal meshes (e.g. assembling a customizable character).",
+      "A runtime module; common for runtime skeletal-mesh assembly."
+    ],
+    "note_cn": "运行时骨骼网格合并的蓝图功能。",
+    "note_en": "Blueprint functionality for runtime skeletal mesh merging."
+  },
+  {
+    "slug": "skeletal-mesh-editing-tools",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Skeletal Mesh Editing Tools`（模块 `SkeletalMeshModelingTools`）并重启。",
+      "它用于创建骨架、绘制蒙皮权重并编辑骨骼网格体。",
+      "在骨骼网格编辑器里做骨架编辑、权重绘制与网格修改。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Skeletal Mesh Editing Tools` (module `SkeletalMeshModelingTools`) and restart.",
+      "It creates skeletons, paints skin weights, and edits skeletal meshes.",
+      "In the skeletal mesh editor, do skeleton editing, weight painting, and mesh modification.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "创建骨架、绘制权重、编辑骨骼网格的编辑器工具。",
+    "note_en": "Editor tools to create skeletons, paint weights, and edit skeletal meshes."
+  },
+  {
+    "slug": "skeletal-mesh-morph-target-editing-tools",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Skeletal Mesh Morph Target Editing Tools`（模块 `SkeletalMeshMorphTargetEditingTools`）。",
+      "它是用于在骨骼网格体编辑器中编辑变形目标（Morph Target）的工具。",
+      "在骨骼网格编辑器里增删/调整 Morph Target。",
+      "Experimental：接口可能变动；属编辑器工具，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Skeletal Mesh Morph Target Editing Tools` (module `SkeletalMeshMorphTargetEditingTools`).",
+      "It provides tools to edit morph targets in the skeletal mesh editor.",
+      "Add/remove/adjust morph targets in the skeletal mesh editor.",
+      "Experimental: contract may change; an editor tool for Editor targets only."
+    ],
+    "note_cn": "骨骼网格编辑器里编辑 Morph Target 的工具，实验性。",
+    "note_en": "Tools to edit morph targets in the skeletal mesh editor, experimental."
+  },
+  {
+    "slug": "skeletal-mesh-simplifier-early-access",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Skeletal Mesh Simplifier (Early Access)`（模块 `SkeletalMeshReduction`）。",
+      "它用于为变形（骨骼）网格生成 LOD。",
+      "对骨骼网格做化简生成多级 LOD，降低渲染/蒙皮开销。",
+      "Experimental：接口可能变动；编辑器工具，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Skeletal Mesh Simplifier (Early Access)` (module `SkeletalMeshReduction`).",
+      "It generates LODs for deforming (skeletal) meshes.",
+      "Simplify skeletal meshes to produce multiple LOD levels, reducing render/skinning cost.",
+      "Experimental: contract may change; an editor tool for Editor targets only."
+    ],
+    "note_cn": "为骨骼（变形）网格生成 LOD 的化简工具，实验性。",
+    "note_en": "A simplifier generating LODs for skeletal (deforming) meshes, experimental."
+  },
+  {
+    "slug": "slate-debugger",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Slate Debugger`（模块 `SlateDebugger`、`SlateDebuggerCommonUI`）。",
+      "它记录编辑器中的 Slate 焦点与导航事件，并通过 `USlateDebuggerSubsystem` 暴露给 Python 与 AI 工具。",
+      "在 UI 调试时用其子系统/Python 回溯焦点与导航。",
+      "属 UI 调试工具；编辑器向。"
+    ],
+    "en_steps": [
+      "Enable `Slate Debugger` (modules `SlateDebugger`, `SlateDebuggerCommonUI`).",
+      "It records Slate focus and navigation events in the editor and exposes them to Python and AI tools via `USlateDebuggerSubsystem`.",
+      "During UI debugging, use its subsystem/Python to trace focus and navigation.",
+      "It is a UI debug tool; editor-oriented."
+    ],
+    "note_cn": "记录 Slate 焦点/导航并经子系统暴露给 Python/AI。",
+    "note_en": "Records Slate focus/navigation and exposes it to Python/AI via a subsystem."
+  },
+  {
+    "slug": "slate-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Slate Insights`（模块 `SlateInsights`）。",
+      "它允许通过 Unreal Insights 调试 Slate（UI 性能/更新）。",
+      "启动带该插件的 trace，运行后分析 Slate 绘制与刷新开销。",
+      "属 Insights/Trace 调试工具。"
+    ],
+    "en_steps": [
+      "Enable `Slate Insights` (module `SlateInsights`).",
+      "It allows debugging Slate (UI performance/updates) via Unreal Insights.",
+      "Start a trace with this plugin and analyze Slate paint/refresh cost.",
+      "It is an Insights/Trace debugging tool."
+    ],
+    "note_cn": "在 Insights 里调试 Slate UI。",
+    "note_en": "Debug Slate UI in Insights."
+  },
+  {
+    "slug": "slate-model-view-viewmodel",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Slate Model View Viewmodel`（模块 `SlateMVVM`）。",
+      "它为 Slate 提供 MVVM（Model-View-ViewModel）支持，便于数据驱动 UI。",
+      "在 Slate 控件里用 ViewModel 绑定数据，分离 UI 与逻辑。",
+      "Experimental：接口可能变动；运行时模块可进包。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Slate Model View Viewmodel` (module `SlateMVVM`).",
+      "It provides MVVM (Model-View-ViewModel) support for Slate to enable data-driven UI.",
+      "Bind ViewModels to data in Slate widgets, separating UI from logic.",
+      "Experimental: contract may change; runtime modules can ship."
+    ],
+    "note_cn": "Slate 的 MVVM 支持（数据驱动 UI），实验性。",
+    "note_en": "MVVM support for Slate (data-driven UI), experimental."
+  },
+  {
+    "slug": "slate-scripting",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Slate Scripting`（模块 `SlateScriptingCommands`）。",
+      "它允许通过脚本与 Slate 交互（脚本化 UI 操作/命令）。",
+      "在 Python/脚本环境里调用其命令操作 Slate UI。",
+      "属脚本化 UI 工具；编辑器向。"
+    ],
+    "en_steps": [
+      "Enable `Slate Scripting` (module `SlateScriptingCommands`).",
+      "It allows interacting with Slate through scripts (scripted UI operations/commands).",
+      "Call its commands from Python/scripting to drive Slate UI.",
+      "It is a scripted-UI tool; editor-oriented."
+    ],
+    "note_cn": "通过脚本与 Slate 交互（命令）。",
+    "note_en": "Interact with Slate via scripts (commands)."
+  },
+  {
+    "slug": "slateim",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `SlateIM`（模块 `SlateIM`、`SlateIMEngine`、`SlateIMInGame`、`SlateIMBlueprint`）。",
+      "它为 Slate 提供立即模式（Immediate Mode）UI 能力（含引擎/游戏内/蓝图）。",
+      "用立即模式 API 快速构建调试/工具型 UI。",
+      "Experimental：接口可能变动；编辑器/游戏内模块分开。"
+    ],
+    "en_steps": [
+      "Enable Experimental `SlateIM` (modules `SlateIM`, `SlateIMEngine`, `SlateIMInGame`, `SlateIMBlueprint`).",
+      "It provides Immediate Mode UI capability for Slate (engine/in-game/Blueprint).",
+      "Use the immediate-mode API to quickly build debug/tool UIs.",
+      "Experimental: contract may change; editor/in-game modules are separate."
+    ],
+    "note_cn": "Slate 的立即模式 UI（引擎/游戏内/蓝图），实验性。",
+    "note_en": "Immediate Mode UI for Slate (engine/in-game/Blueprint), experimental."
+  },
+  {
+    "slug": "slateinspectortoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SlateInspectorToolset`（模块 `SlateInspectorToolset`，测试 `SlateInspectorToolsetTests`）。",
+      "它提供 Slate UI 的自动化与检查工具。",
+      "用其工具自动检查/驱动 Slate UI 控件。",
+      "属 UI 自动化工具链；测试模块不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable `SlateInspectorToolset` (module `SlateInspectorToolset`, tests `SlateInspectorToolsetTests`).",
+      "It provides Slate UI automation and inspection tools.",
+      "Use its tools to automatically inspect/drive Slate UI widgets.",
+      "It is a UI-automation toolchain; keep the test module out of production."
+    ],
+    "note_cn": "Slate UI 自动化与检查工具。",
+    "note_en": "Slate UI automation and inspection tools."
+  },
+  {
+    "slug": "slatescreenreader",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `SlateScreenReader`（模块 `SlateScreenReader`）。",
+      "它为 Slate 提供屏幕阅读器（无障碍/辅助功能）支持。",
+      "在无障碍场景里让屏幕阅读器朗读 UI 文本与控件。",
+      "Experimental：接口可能变动；属无障碍功能。"
+    ],
+    "en_steps": [
+      "Enable Experimental `SlateScreenReader` (module `SlateScreenReader`).",
+      "It provides screen-reader (accessibility) support for Slate.",
+      "In accessibility scenarios, let a screen reader announce UI text and widgets.",
+      "Experimental: contract may change; part of accessibility features."
+    ],
+    "note_cn": "Slate 的屏幕阅读器/无障碍支持，实验性。",
+    "note_en": "Screen-reader/accessibility support for Slate, experimental."
+  }
+]

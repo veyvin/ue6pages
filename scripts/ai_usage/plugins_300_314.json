@@ -1,0 +1,340 @@
+[
+  {
+    "slug": "epicgamestemporary",
+    "kind": "plugin",
+    "cn_steps": [
+      "`EpicGamesTemporary` 位于 `Plugins/Verse/EpicGamesTemporary`，是没有官方描述的 Verse 临时模块。先打开它的 `EpicGamesTemporary.uplugin` 和模块源码，搞清楚当前到底放了哪些设备/编译代码，再决定是否碰它。",
+      "在 `编辑 > 插件` 启用后重启，确认它在 Verse 会话里是否登记了设备或编译步骤；看不到任何可见入口是正常的，它通常是内部占位实现。",
+      "把它当只读参考：读实现可以，但不要在你自己的 Verse 项目或 C++ 游戏模块里对 `EpicGamesTemporary` 建立长期依赖。",
+      "需要复用其中逻辑时，把相关源码复制进你自己的 Verse 工程或插件，而不是直接链接这个临时模块。",
+      "升级引擎后重新核对：临时模块最可能被改名或删除，打包前在 `编辑 > 插件` 与 `Build.cs` 里确认没有残留引用，避免缺模块链接失败。"
+    ],
+    "en_steps": [
+      "`EpicGamesTemporary` lives under `Plugins/Verse/EpicGamesTemporary` and has no official description. Open its `EpicGamesTemporary.uplugin` and module source first to see what Verse device/compile code it actually holds before touching it.",
+      "Enable it under `Edit > Plugins` and restart, then check whether it registers any Verse device or compile step in the session. No visible entry point is normal — it is usually an internal placeholder.",
+      "Treat it as read-only reference: reading the implementation is fine, but do not build a long-term dependency on `EpicGamesTemporary` from your Verse project or C++ game module.",
+      "If you want the logic, copy the relevant source into your own Verse project or plugin instead of linking this temporary module directly.",
+      "Re-check after an engine upgrade: temporary modules are the first to be renamed or removed. Before packaging, confirm in `Edit > Plugins` and your `Build.cs` that no stale reference remains, or the link will fail."
+    ],
+    "note_cn": "Verse 临时占位模块，没有公开 API 契约；当作只读样例，别做运行时依赖。",
+    "note_en": "A temporary Verse placeholder with no public API contract. Treat it as read-only sample code, not a runtime dependency."
+  },
+  {
+    "slug": "evaluation-notifies",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Evaluation Notifies`（模块 `EvaluationNotifiesRuntime` + `EvaluationNotifiesEditor`），它的用途是给动画通知附带动画评估时间码（animation evaluation time code）。",
+      "打开一个骨架网格体的动画序列，在 `Notifies` 轨道上右键新建基于该插件的通知，而不是普通 `AnimNotify`；它会让通知携带评估侧的时间码。",
+      "在动画蓝图的 `AnimNotify` 事件里读取通知带出的时间码，用它对齐口型、脚步或音效的评估时刻。",
+      "在 Sequencer 里采样同一段动画，对比通知触发点与播放头/评估帧是否一致，验证 Experimental 行为是否符合预期。",
+      "C++ 侧 include `EvaluationNotifiesRuntime` 的 Public 头里的通知类，重写 `Notify` 回调读取时间码；游戏 `Build.cs` 只加 `EvaluationNotifiesRuntime`。",
+      "`EvaluationNotifiesEditor` 只进 `*Editor.Build.cs`。Experimental 接口可能随夜构建变化，先在空关卡验证再接正式动画。"
+    ],
+    "en_steps": [
+      "Enable experimental `Evaluation Notifies` (modules `EvaluationNotifiesRuntime` + `EvaluationNotifiesEditor`). Its job is animation notifies that carry an animation evaluation time code.",
+      "Open a skeletal mesh's animation sequence and right-click the `Notifies` track to add a notify based on this plugin, not a plain `AnimNotify` — this one attaches the evaluation-side time code.",
+      "In the AnimBP `AnimNotify` event, read the time code the notify carries and use it to align lip sync, footfalls, or audio at the exact evaluated moment.",
+      "In Sequencer, sample the same animation and compare the notify firing point against the playhead/evaluated frame to verify the Experimental behavior.",
+      "In C++, include the notify class from `EvaluationNotifiesRuntime` Public headers and override the `Notify` callback to read the time code. Game `Build.cs` adds only `EvaluationNotifiesRuntime`.",
+      "Keep `EvaluationNotifiesEditor` in `*Editor.Build.cs` only. Experimental — the contract can change on nightlies, so validate in an empty map before wiring real animations."
+    ],
+    "note_cn": "关键在通知携带的评估时间码，而不是普通 AnimNotify 的触发；放在 Experimental，慎用于正式项目。",
+    "note_en": "The point is the evaluation time code the notify carries, not a plain AnimNotify trigger. Experimental — be careful in shipping projects."
+  },
+  {
+    "slug": "example-device-profile-selector",
+    "kind": "plugin",
+    "cn_steps": [
+      "`ExampleDeviceProfileSelector` 是引擎里 `IDeviceProfileSelector` 接口的参考实现。先在 `Plugins/Runtime/ExampleDeviceProfileSelector` 下读它的 `.cpp`，看它如何按硬件、分辨率、GPU 等条件匹配设备配置。",
+      "启用插件后，在 `Config/DefaultEngine.ini` 的 `[/Script/Engine.Engine]` 把 `DeviceProfileSelectorModule` 指向示例模块名，观察它如何为当前硬件挑中一个 profile。",
+      "把这个示例当模板：复制它的类，在 `GetDeviceProfileName` 一类的决策函数里换成你自己设备（机型、SoC、显存）的判定逻辑。",
+      "在 `Window > Developer Tools > Device Profiles` 里对照当前生效的 profile，确认选择结果和你写死的规则一致。",
+      "用不同机型/DPI 的构建，或命令行 `-deviceprofile=` 强制切换，验证选择器返回的是预期 profile 而不是回退到默认。",
+      "要自己实现时只需实现 `IDeviceProfileSelectorModule` 并注册为插件模块，不必依赖示例模块本体；示例仅作学习与拷贝来源。"
+    ],
+    "en_steps": [
+      "`ExampleDeviceProfileSelector` is the engine's reference implementation of `IDeviceProfileSelector`. Open its `.cpp` under `Plugins/Runtime/ExampleDeviceProfileSelector` and read how it matches a device profile by hardware, resolution, GPU, etc.",
+      "Enable it, then in `Config/DefaultEngine.ini` under `[/Script/Engine.Engine]` point `DeviceProfileSelectorModule` at the example module and watch how it picks a profile for the current hardware.",
+      "Use the example as a template: copy its class and replace the decision function (e.g. `GetDeviceProfileName`) with your own rules for device model, SoC, or VRAM.",
+      "In `Window > Developer Tools > Device Profiles`, compare against the profile that actually becomes active to confirm the selection matches your hard-coded rules.",
+      "Test with builds for different devices/DPI, or force `-deviceprofile=` on the command line, and verify the selector returns the expected profile instead of falling back to default.",
+      "To ship your own, just implement `IDeviceProfileSelectorModule` and register it as a plugin module — you do not depend on the example itself; it is only a learning/copy source."
+    ],
+    "note_cn": "它只是接口参考实现，真正用途是照它写出自己的「按硬件选设备配置」模块。",
+    "note_en": "It is only a reference implementation; the real use is copying it to write your own hardware-based device-profile selection module."
+  },
+  {
+    "slug": "examplecharacterfxeditor",
+    "kind": "plugin",
+    "cn_steps": [
+      "`ExampleCharacterFXEditor` 是基于 `BaseCharacterFXEditor` 基类的示例资产编辑器。先读它的模块源码，理解如何从基类派生出一个自定义 asset editor。",
+      "启用后在编辑器里打开它注册的示例资产/工具入口，观察自定的 Toolkit 面板、视口与细节面板是怎么拼起来的。",
+      "把它的 `FExampleCharacterFXEditor` 结构当模板：复制骨架，在你自己的 `StartupModule` 里注册 asset editor 与 `AssetTypeActions`。",
+      "在 `Tools` 菜单看到示例入口后，对示例资产执行一次编辑，确认 tool mode、视口交互与细节面板属性联动正常。",
+      "真正做自己的 CharacterFX 编辑器时继承 `BaseCharacterFXEditor` 基类，而不是修改示例本体，避免和 Experimental 版本冲突。",
+      "它注册在 `*Editor` 模块，只用于编辑器侧；不要把 `ExampleCharacterFXEditor` 链接进 Game target。"
+    ],
+    "en_steps": [
+      "`ExampleCharacterFXEditor` is a sample asset editor built on the `BaseCharacterFXEditor` base classes. Read its module source to see how a custom asset editor is derived from the base.",
+      "Enable it, then open the sample asset/tool entry it registers in the editor and study how its Toolkit panels, viewport, and details panel are assembled.",
+      "Treat its `FExampleCharacterFXEditor` as a template: copy the skeleton and register your own asset editor and `AssetTypeActions` in your `StartupModule`.",
+      "With the sample entry visible under the `Tools` menu, edit a sample asset once and confirm tool mode, viewport interaction, and details-property binding all stay in sync.",
+      "To build your own CharacterFX editor, subclass `BaseCharacterFXEditor` rather than modifying the example itself, so Experimental changes do not collide with your code.",
+      "It registers in an `*Editor` module and is editor-only; never link `ExampleCharacterFXEditor` into a Game target."
+    ],
+    "note_cn": "示例源码，教你用 `BaseCharacterFXEditor` 搭自定义资产编辑器；生产时继承基类而非改示例。",
+    "note_en": "Sample source teaching you to build a custom asset editor on `BaseCharacterFXEditor`. For production, subclass the base instead of editing the sample."
+  },
+  {
+    "slug": "experimental-code-quality-unreal-test-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "这是 CQTest 框架的实验测试插件（模块 `CQTestExperimentalTests`）。启用后到源码里找该模块，看它如何用 `TEST_CLASS`、`TEST_METHOD` 等 CQTest 宏组织用例。",
+      "打开 `Session Frontend > Automation`（新版为 `Tools > Test Automation`），用过滤器筛出 CQTest 前缀的实验测试并运行。",
+      "命令行或 CI 里用 `-ExecCmds=\"Automation RunTests CQTest\"` 批量跑，把结果并入回归流水线。",
+      "把它当 CQTest 写法参考：复制其中的 `TEST_CLASS` / `TEST_METHOD` 结构，给你自己的代码质量检查写自动化测试。",
+      "若测试因 Experimental 接口变动而失败，对照当前引擎版本更新断言，不要为了变绿而删掉用例。",
+      "这类测试模块只服务开发流程，默认不参与游戏运行；打包时不必也不应作为运行时依赖。"
+    ],
+    "en_steps": [
+      "This is the CQTest framework's experimental test plugin (module `CQTestExperimentalTests`). Enable it, then find the module in source to see how it organizes cases with `TEST_CLASS`, `TEST_METHOD`, and other CQTest macros.",
+      "Open `Session Frontend > Automation` (or `Tools > Test Automation`), filter for the CQTest-prefixed experimental tests, and run them.",
+      "From the command line or CI, batch-run with `-ExecCmds=\"Automation RunTests CQTest\"` and fold the results into your regression pipeline.",
+      "Use it as a CQTest style reference: copy the `TEST_CLASS` / `TEST_METHOD` structure to write automation tests for your own code-quality checks.",
+      "If a test fails because an Experimental interface changed, update the assertion to the current engine version — do not delete cases just to make it green.",
+      "These test modules serve the development workflow only and are not part of the game runtime; do not make them a runtime dependency when packaging."
+    ],
+    "note_cn": "CQTest 实验用例，重点是学它的宏写法与在 Automation 里跑，不是拿来运行时用。",
+    "note_en": "Experimental CQTest cases — the value is learning its macro style and running via Automation, not shipping it."
+  },
+  {
+    "slug": "experimental-mesh-modeling-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Experimental Mesh Modeling Toolset`（模块 `MeshModelingToolsExp` 等，基于 Interactive Tools Framework），然后在编辑器模式下拉里切到 `Modeling`。",
+      "在 `Modeling` 模式工具面板中，用这套实验工具对选中的静态网格体做挤出、倒角、布尔、雕刻等网格编辑。",
+      "挑一个实验工具，改参数后 `Accept` 提交、`Cancel` 回退，反复确认网格结果符合预期。",
+      "若走 AI 助手/自动化，`MeshModelingToolsExp` 暴露只读/只写工具，可让助手对当前选中网格执行建模操作。",
+      "把结果保存成新的静态网格体资产，或直接在 PCG/关卡里复用。",
+      "C++ 依赖只加运行时模块 `MeshModelingToolsExp`、`GeometryProcessingAdapters`、`ModelingUI`；`MeshModelingToolsEditorOnlyExp`、`ModelingEditorUI` 只进 `*Editor.Build.cs`。",
+      "Experimental 工具行为可能随夜构建变化，正式资产制作前先在测试关卡验证结果再落地。"
+    ],
+    "en_steps": [
+      "Enable `Experimental Mesh Modeling Toolset` (modules like `MeshModelingToolsExp`, built on the Interactive Tools Framework), then switch the editor mode dropdown to `Modeling`.",
+      "In the `Modeling` mode tool panel, use this experimental set to extrude, bevel, boolean, and sculpt the selected static mesh.",
+      "Pick an experimental tool, tweak parameters, then `Accept` to commit or `Cancel` to revert, repeatedly confirming the mesh result.",
+      "For the AI assistant or automation path, `MeshModelingToolsExp` exposes read/write tools so the assistant can drive modeling on the current selection.",
+      "Save the result as a new static mesh asset, or reuse it directly in PCG/levels.",
+      "C++ dependencies: runtime modules `MeshModelingToolsExp`, `GeometryProcessingAdapters`, `ModelingUI` only; `MeshModelingToolsEditorOnlyExp`, `ModelingEditorUI` go only in `*Editor.Build.cs`.",
+      "Experimental behavior can change on nightlies — validate results in a test level before committing production assets."
+    ],
+    "note_cn": "在 Modeling 模式里用的是实验建模工具；工具名与行为会变，AI/自动化通过 `MeshModelingToolsExp` 的读写工具驱动。",
+    "note_en": "You use these inside Modeling mode; tool names/behavior shift, and AI/automation drives them via the read/write tools in `MeshModelingToolsExp`."
+  },
+  {
+    "slug": "experimental-websocket-networking-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用前先改网络配置：在 `Config/DefaultEngine.ini` 的 `[/Script/Engine.Engine]` 里，把原有 `NetDriverDefinitions` 全部禁用或删除，才能用 `WebSocketNetDriver`，否则会和 UDP 驱动冲突。",
+      "新增一条指向 `WebSocketNetDriver` 的 `NetDriverDefinitions`，把默认驱动关到只剩它。",
+      "在 `PacketHandlerComponents` 里禁用 HTML5/WebSocket 不支持的组件（如 `SteamAuthComponentModuleInterface`），否则握手阶段会失败。",
+      "服务端与客户端都要启用 `WebSocketNetworking`，用 `-log` 启动，确认连接日志里使用的是 `WebSocketNetDriver` 而非默认驱动。",
+      "目标为 HTML5/浏览器时，按对应平台打包，确认运行时加载的 NetDriver 名为 `WebSocketNetDriver`。",
+      "握手失败时先查是否仍有残留的其他 `NetDriverDefinitions` 或未禁用的 `PacketHandler`，这是最常见原因。",
+      "Experimental：正式上线前用真实延迟/负载验证稳定性与吞吐。"
+    ],
+    "en_steps": [
+      "Change networking config first: in `Config/DefaultEngine.ini` under `[/Script/Engine.Engine]`, disable or remove all existing `NetDriverDefinitions`, otherwise `WebSocketNetDriver` conflicts with the UDP driver.",
+      "Add one `NetDriverDefinitions` entry pointing to `WebSocketNetDriver`, leaving it as the only default driver.",
+      "Disable `PacketHandlerComponents` that HTML5/WebSocket cannot support (e.g. `SteamAuthComponentModuleInterface`), or the handshake will fail.",
+      "Enable `WebSocketNetworking` on both client and server, launch with `-log`, and confirm the connection log shows `WebSocketNetDriver`, not the default driver.",
+      "For HTML5/browser targets, package for that platform and confirm the runtime-loaded NetDriver is `WebSocketNetDriver`.",
+      "When the handshake fails, first check for leftover other `NetDriverDefinitions` or an un-disabled `PacketHandler` — that is the most common cause.",
+      "Experimental: validate stability and throughput with realistic latency/load before going live."
+    ],
+    "note_cn": "核心是清空其它 NetDriver 并禁用不兼容 PacketHandler；否则 WebSocket 驱动根本接管不了连接。",
+    "note_en": "The key is clearing other NetDrivers and disabling incompatible PacketHandlers; otherwise the WebSocket driver never takes over the connection."
+  },
+  {
+    "slug": "external-gpu-statistics",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ExternalGPUStatistics`（运行时模块 `ExternalGPUStatistics`）后，在 NVIDIA/AMD/Intel 显卡的机器上运行编辑器或打包游戏。",
+      "用控制台 `stat GPU` / `stat RHI` 做基准，再用该插件拉取驱动层更细的 GPU 占用（各引擎、队列与 pass 的耗时）。",
+      "结合外部 GPU 厂商 profiler（如 Nsight、Radeon GPU Profiler）或启动参数导出，交叉比对插件统计与驱动数据。",
+      "分别在 DX12、Vulkan 等 RHI 下各跑一遍，确认统计口径一致再采信数值。",
+      "做性能对比时固定场景与摄像机，一次只改一个变量，避免多变量噪声掩盖真实差异。",
+      "它是运行时插件可进包，但只建议在 profiling 构建里开启，正式发布包关掉以减少额外开销。"
+    ],
+    "en_steps": [
+      "Enable `ExternalGPUStatistics` (runtime module `ExternalGPUStatistics`), then run the editor or a packaged game on an NVIDIA/AMD/Intel GPU machine.",
+      "Take a baseline with `stat GPU` / `stat RHI`, then use the plugin to pull finer driver-level GPU usage (per-engine, per-queue, per-pass timings).",
+      "Cross-check the plugin numbers against an external vendor profiler (Nsight, Radeon GPU Profiler) or an exported run, to validate what the plugin reports.",
+      "Run once each under DX12, Vulkan, etc., and confirm the metrics line up before trusting the numbers.",
+      "For perf comparisons, fix the scene and camera and change one variable at a time so multi-variable noise does not mask the real difference.",
+      "It is a runtime plugin that can ship, but enable it only in profiling builds and turn it off in release packages to avoid the extra overhead."
+    ],
+    "note_cn": "用于拿 GPU 驱动层更细的占用，需与厂商 profiler 交叉验证；建议仅在 profiling 构建开启。",
+    "note_en": "Gets finer driver-level GPU usage; cross-check with vendor profilers and enable it only in profiling builds."
+  },
+  {
+    "slug": "fab",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Fab` 插件并重启，在编辑器主工具栏或 `Window` 菜单打开 Fab 面板。",
+      "在 Fab 面板登录 Epic 账号，搜索或浏览要用的资产、插件与工具。",
+      "获取/购买后，在面板里对该资产点 `Add to Project`，把它直接导入当前项目的内容浏览器。",
+      "导入后在内容浏览器定位新生成的资产目录，按需迁移到你项目自己的 `Content` 结构里整理。",
+      "若安装的是插件类产品，再到 `编辑 > 插件` 确认已启用并重启，使其模块生效。",
+      "团队协作时把导入资产纳入版本管理，留意 Fab 资产的授权条款与体积，避免把大文件塞进仓库。"
+    ],
+    "en_steps": [
+      "Enable the `Fab` plugin and restart, then open the Fab panel from the editor main toolbar or the `Window` menu.",
+      "Log in with your Epic account in the Fab panel and search or browse for the assets, plugins, and tools you need.",
+      "After acquiring/purchasing, click `Add to Project` on the asset in the panel to import it directly into the current project's Content Browser.",
+      "Locate the newly created asset folder in the Content Browser and move things into your project's own `Content` structure as needed.",
+      "If the product is a plugin, confirm it under `Edit > Plugins` and restart so its modules take effect.",
+      "For team work, put imported assets under version control, watch Fab licensing terms, and check size so you do not commit huge files."
+    ],
+    "note_cn": "Fab 面板内登录、获取资产后 `Add to Project` 直接导入；插件类产品还要去插件面板启用。",
+    "note_en": "Log in and acquire assets in the Fab panel, then `Add to Project` to import; plugin products still need enabling in the Plugins panel."
+  },
+  {
+    "slug": "fabtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "`FabToolset` 是给编辑器内 AI 助手用的工具集，启用后助手才有权限列出你 Fab 账号拥有的资产并安装。",
+      "在带 AI 助手的编辑器会话里，让助手「列出我 Fab 上拥有的资产」，确认它返回的是你账号下的资产清单。",
+      "选定某个资产后，让助手「把这个资产安装到当前编辑器」，观察它下载并导入到内容浏览器。",
+      "安装完成后在内容浏览器核对资产是否真正落地；若是插件类资产，再到 `编辑 > 插件` 启用并重启。",
+      "因为它是 Experimental 工具，先在测试项目里跑通整条安装链路，再用于正式项目。",
+      "它只服务编辑器自动化流程，打包游戏时不必把它当作运行时依赖。"
+    ],
+    "en_steps": [
+      "`FabToolset` is a toolset for the in-editor AI assistant. Enable it so the assistant is allowed to list the assets your Fab account owns and install them.",
+      "In an editor session with the AI assistant, ask it to list the assets you own on Fab and confirm it returns your account's asset list.",
+      "Pick an asset and ask the assistant to install it into the running editor, then watch it download and import into the Content Browser.",
+      "After installation, verify the asset actually landed in the Content Browser; if it is a plugin, enable it under `Edit > Plugins` and restart.",
+      "Because it is an Experimental tool, run the full install path in a test project before using it on a production project.",
+      "It serves editor automation only; you do not need it as a runtime dependency when packaging the game."
+    ],
+    "note_cn": "为 AI 助手开后门去列/装 Fab 资产；Experimental，先在测试项目验证安装链路。",
+    "note_en": "Grants the AI assistant the ability to list/install Fab assets. Experimental — validate the install path in a test project first."
+  },
+  {
+    "slug": "facial-animation-bulk-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `FacialAnimation` 插件（模块 `FacialAnimation` + `FacialAnimationEditor`）并重启，确认面部动画导入器与编辑面板就绪。",
+      "准备带面部曲线表（curve table）的 FBX 及对应音频，核对曲线名与目标骨架/曲线命名一致。",
+      "用批量导入器把 FBX 里的面部动画曲线表导入，并映射到目标音频 `SoundWave`；它的本职就是把曲线表导入声波。",
+      "在导入对话框里检查曲线到音频的对应关系与采样帧率，确认后再批量执行导入。",
+      "导入后打开生成的 `SoundWave` / 曲线表，在 Sequencer 或动画蓝图里播放，验证口型与音频同步。",
+      "出现错位时回到映射步骤修正起止帧与曲线对位，再重新导入，不要手改已生成资产。",
+      "它是编辑器侧制作工具，只在管线里用，不进游戏运行时；游戏 `Build.cs` 只加 `FacialAnimation` 运行时模块。"
+    ],
+    "en_steps": [
+      "Enable the `FacialAnimation` plugin (modules `FacialAnimation` + `FacialAnimationEditor`) and restart, confirming the facial importer and edit panel are ready.",
+      "Prepare an FBX with facial curve tables plus the matching audio, and verify the curve names line up with your target skeleton/curve naming.",
+      "Use the bulk importer to import the facial animation curve tables from the FBX and map them onto the target audio `SoundWave` — importing curve tables into sound waves is its core job.",
+      "In the import dialog, check the curve-to-audio mapping and sample rate, then run the bulk import.",
+      "Open the generated `SoundWave` / curve table and play it in Sequencer or the AnimBP to verify lip sync lines up with the audio.",
+      "If it desyncs, go back to the mapping step and fix start/end frames and curve alignment, then re-import — do not hand-edit generated assets.",
+      "It is an editor-side authoring tool for the pipeline, not a runtime dependency; game `Build.cs` adds only the `FacialAnimation` runtime module."
+    ],
+    "note_cn": "把 FBX 面部曲线表批量导入并映射进 `SoundWave`；出错回映射步骤重导，别手改产物。",
+    "note_en": "Bulk-imports FBX facial curve tables and maps them into `SoundWave`; on desync, fix the mapping and re-import instead of editing outputs."
+  },
+  {
+    "slug": "fastbuild-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "先安装 FastBuild 并配好分布式编译环境（broker/worker、`FASTBUILD_BROKER` 等环境变量），确保 broker 可被访问。",
+      "启用 `FastBuildController` 插件，让着色器编译可以走 FastBuild 的分布式后端。",
+      "在项目设置或 `DefaultEngine.ini` 里打开着色器编译分发，指定 broker 与 worker 列表（或多个 worker 节点）。",
+      "启动若干 FastBuild worker 节点，回到编辑器触发着色器编译（改材质、加光源或 `RecompileShaders`）。",
+      "在日志里搜 FastBuild/Broker 相关行，确认编译任务被分发到 worker，而不是本机串行编译。",
+      "对比开启前后的着色器编译耗时验证分发生效；节点掉线时先查 broker 连通性与防火墙。"
+    ],
+    "en_steps": [
+      "Install FastBuild and set up distributed compilation (broker/workers, `FASTBUILD_BROKER` and related env vars) so the broker is reachable.",
+      "Enable the `FastBuildController` plugin so shader compilation can use FastBuild's distributed backend.",
+      "In project settings or `DefaultEngine.ini`, turn on shader compile distribution and specify the broker plus worker list (or multiple worker nodes).",
+      "Start some FastBuild worker nodes, then back in the editor trigger a shader compile (change a material, add a light, or run `RecompileShaders`).",
+      "Search the log for FastBuild/Broker lines to confirm tasks are dispatched to workers rather than compiled serially locally.",
+      "Compare shader-compile time before and after to confirm distribution works; if a node drops, check broker reachability and firewall first."
+    ],
+    "note_cn": "本质是着色器编译的分发，不是输入控制器；要先把 broker/worker 环境配好才能看到分发。",
+    "note_en": "It is shader-compile distribution, not an input controller; set up the broker/worker environment first to see tasks dispatch."
+  },
+  {
+    "slug": "fastgeo-streaming",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `FastGeoStreaming`（模块 `FastGeoStreaming` + `FastGeoStreamingEditor`），它的用途是把 World Partition 分区世界的几何提取并转换，以优化流式加载性能。",
+      "打开一个已启用 World Partition 的关卡，确认单元格（cell）已生成、世界分区数据完整。",
+      "运行该插件提供的提取/转换流程，把分区世界几何转成更适合流式加载的数据。",
+      "转换后检查生成数据是否随 cell 正确加载与卸载，而非一次性全量加载。",
+      "用 `stat streaming` 与 World Partition 视图对比转换前后的流式表现，确认优化生效。",
+      "C++ 运行时代码只依赖 `FastGeoStreaming`；编辑器流程模块 `FastGeoStreamingEditor` 只进 `*Editor.Build.cs`。",
+      "Experimental：先在副本关卡上验证转换不破坏几何，再用于正式世界。"
+    ],
+    "en_steps": [
+      "Enable `FastGeoStreaming` (modules `FastGeoStreaming` + `FastGeoStreamingEditor`). Its job is extracting and converting a World Partition world's geometry to optimize streaming performance.",
+      "Open a level already using World Partition and confirm cells are generated and the partition data is complete.",
+      "Run the plugin's extraction/conversion flow to convert the partitioned world geometry into streaming-friendly data.",
+      "After conversion, verify the generated data loads and unloads with its cells correctly rather than loading all at once.",
+      "Compare streaming behavior before and after using `stat streaming` and the World Partition view to confirm the optimization works.",
+      "Runtime C++ depends only on `FastGeoStreaming`; the editor flow module `FastGeoStreamingEditor` goes only in `*Editor.Build.cs`.",
+      "Experimental: validate on a duplicated level that conversion does not break geometry before applying it to the real world."
+    ],
+    "note_cn": "针对 World Partition 几何做提取转换优化流式；先副本关卡验证再上正式世界。",
+    "note_en": "Extracts/converts World Partition geometry to optimize streaming; validate on a duplicated level before applying to the real world."
+  },
+  {
+    "slug": "fbxautomationtestbuilder",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `FbxAutomationTestBuilder`（模块 `FbxAutomationTestBuilder`，测试类），它用于对 FBX 导入管线做自动化测试。",
+      "打开 `Session Frontend > Automation`（或 `Tools > Test Automation`），筛出该插件构建的 FBX 自动化用例。",
+      "运行用例，观察它如何用测试数据构建 FBX 导入场景，并对导入结果（网格、材质、骨骼）做断言。",
+      "把它当测试脚手架模板：复用其 builder 结构，为你自己的导入器写自动化导入测试。",
+      "在命令行/CI 里用 `-ExecCmds=\"Automation RunTests Fbx\"` 批量跑，把 FBX 导入回归并入流水线。",
+      "它是开发测试模块，只在开发流程里用，不参与游戏运行，不要作为运行时依赖打包。"
+    ],
+    "en_steps": [
+      "Enable `FbxAutomationTestBuilder` (module `FbxAutomationTestBuilder`, a test plugin). It automates tests for the FBX import pipeline.",
+      "Open `Session Frontend > Automation` (or `Tools > Test Automation`) and filter for the FBX automation cases this plugin builds.",
+      "Run the cases and study how it constructs an FBX import scenario from test data and asserts on the result (meshes, materials, skeletons).",
+      "Use it as a test scaffolding template: reuse its builder structure to write automated import tests for your own importer.",
+      "Batch-run from the command line or CI with `-ExecCmds=\"Automation RunTests Fbx\"` and fold FBX-import regression into the pipeline.",
+      "It is a development test module for the dev workflow only and is not part of the game runtime; do not ship it as a runtime dependency."
+    ],
+    "note_cn": "FBX 导入的自动化测试脚手架，学它在 Automation 里构建导入场景并断言；纯开发用途。",
+    "note_en": "An automation-test scaffold for FBX import — learn to build import scenarios and assert in Automation; dev-only."
+  },
+  {
+    "slug": "field-notification-trace",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `FieldNotificationTrace`（模块 `FieldNotificationTrace` + `FieldNotificationTraceEditor`），它给字段通知（Field Notify）对象增加 trace 支持，配合 Unreal Insights 分析。",
+      "启动带 trace 的会话，命令行加对应 channel（如 `-trace=default,fieldnotification` 或 `-trace=fieldnotification`），让字段通知被记录。",
+      "在游戏或 UMG 里触发字段通知：例如 `FieldNotify` 广播、MVVM 视图模型属性变更引发的通知刷新。",
+      "停止 trace 后用 Unreal Insights 打开，在对应 track 里查看字段通知的触发时机、频率与耗时。",
+      "用 trace 定位 UMG/视图模型里频繁或异常的通知刷新，据此减少不必要的通知与重绘。",
+      "C++ 运行时代码只依赖 `FieldNotificationTrace`；编辑器分析模块 `FieldNotificationTraceEditor` 只进 `*Editor.Build.cs`。",
+      "它服务编辑器/开发排障，正式包不必也不应开启 trace 通道。"
+    ],
+    "en_steps": [
+      "Enable `FieldNotificationTrace` (modules `FieldNotificationTrace` + `FieldNotificationTraceEditor`). It adds trace support for field notification (Field Notify) objects, meant for Unreal Insights analysis.",
+      "Start a traced session with the matching channel (e.g. `-trace=default,fieldnotification` or `-trace=fieldnotification`) so field notifications get recorded.",
+      "Trigger field notifications in-game or in UMG — for example a `FieldNotify` broadcast, or the notification refresh caused by a MVVM view-model property change.",
+      "Stop the trace and open it in Unreal Insights, then inspect the relevant track for field-notification trigger timing, frequency, and cost.",
+      "Use the trace to find frequent or anomalous notification refreshes in UMG/view models, then cut unneeded notifications and repaints.",
+      "Runtime C++ depends only on `FieldNotificationTrace`; the editor analysis module `FieldNotificationTraceEditor` goes only in `*Editor.Build.cs`.",
+      "It serves editor/developer troubleshooting; release builds should not enable the trace channel."
+    ],
+    "note_cn": "抓 FieldNotify 的 trace，在 Insights 里看触发时机/频率；排 UMG/MVVM 过度通知时用。",
+    "note_en": "Captures FieldNotify traces to inspect trigger timing/frequency in Insights; use it to debug UMG/MVVM over-notification."
+  }
+]

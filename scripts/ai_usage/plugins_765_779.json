@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "post-process-material-chain-graph",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Post Process Material Chain Graph`（运行时 `PPMChainGraph`，编辑器 `PPMChainGraphEditor`）。",
+      "它允许堆叠后期处理材质，并渲染到与 Scene Color 分开的 Render Target。",
+      "用它在不写回场景颜色的情况下，对其它纹理做后期处理链。",
+      "属实验性后期处理工具；Game 模块依赖运行时，编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Post Process Material Chain Graph` (runtime `PPMChainGraph`, editor `PPMChainGraphEditor`).",
+      "It lets you stack post-process materials and render them into render targets separate from Scene Color.",
+      "Use it to operate on textures other than scene color without writing them back to scene color.",
+      "It is an experimental post-process tool; game modules depend on runtime, editor modules are Editor-target only."
+    ],
+    "note_cn": "把后期处理材质链渲染到独立 RT（可不写 Scene Color）。",
+    "note_en": "Stack post-process materials into separate RTs (not Scene Color)."
+  },
+  {
+    "slug": "pre-load-screen-movie-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Pre-Load Screen Movie Player`（模块 `PreLoadScreenMoviePlayer`）。",
+      "它提供用预加载屏幕播放引擎加载影片的默认实现。",
+      "在启动/加载阶段配置预加载屏幕影片，而不是空白加载。",
+      "属启动体验插件；按项目需要启用。"
+    ],
+    "en_steps": [
+      "Enable `Pre-Load Screen Movie Player` (module `PreLoadScreenMoviePlayer`).",
+      "It is the default implementation of using a pre-load screen to display an engine loading movie.",
+      "Configure a loading movie on the pre-load screen instead of a blank load.",
+      "It is a startup-experience plugin; enable per project need."
+    ],
+    "note_cn": "预加载屏幕播放引擎加载影片的默认实现。",
+    "note_en": "Default pre-load screen implementation for an engine loading movie."
+  },
+  {
+    "slug": "pregen-content",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Pregen Content`（共享内容插件，无独立运行时模块列表）。",
+      "它提供 USD Pregen 的共享内容资产，可在多个项目中复用。",
+      "在 USD 预生成/导入流程里引用这些共享资产，而不是每个项目各拷一份。",
+      "属实验性导入管线内容；配合 USD Pregen 使用。"
+    ],
+    "en_steps": [
+      "Enable `Pregen Content` (shared content plugin; no separate runtime module list).",
+      "It ships shared content assets for USD Pregen, reusable across projects.",
+      "Reference these shared assets in USD pregen/import flows instead of copying them per project.",
+      "It is experimental import-pipeline content; used with USD Pregen."
+    ],
+    "note_cn": "USD Pregen 的跨项目共享内容资产。",
+    "note_en": "Shared USD Pregen content assets usable across projects."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-entity-framework-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) Entity Framework Interop`（运行时 `PCGEntityFrameworkInterop`，编辑器 `PCGEntityFrameworkInteropEditor`）。",
+      "它让 PCG 与 Scene Graph 实体和 Verse 标签交互。",
+      "在 PCG 图里读写实体/Verse 标签，把程序化生成接到场景图。",
+      "属实验性 PCG 互操作；需启用 PCG。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) Entity Framework Interop` (runtime `PCGEntityFrameworkInterop`, editor `PCGEntityFrameworkInteropEditor`).",
+      "It lets PCG interact with Scene Graph entities and Verse tags.",
+      "Read/write entities/Verse tags from PCG graphs to hook procedural generation into the scene graph.",
+      "It is experimental PCG interop; requires PCG enabled."
+    ],
+    "note_cn": "PCG 与 Scene Graph 实体 / Verse 标签的互操作。",
+    "note_en": "PCG interop with Scene Graph entities and Verse tags."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-external-data-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) External Data Interop`（运行时 `PCGExternalDataInterop`，编辑器 `PCGExternalDataInteropEditor`）。",
+      "它让 PCG 与外部数据格式交互。",
+      "在 PCG 图里导入/消费外部数据源，驱动点云或生成规则。",
+      "属实验性 PCG 互操作；需启用 PCG。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) External Data Interop` (runtime `PCGExternalDataInterop`, editor `PCGExternalDataInteropEditor`).",
+      "It lets PCG interact with external data formats.",
+      "Import/consume external data sources in PCG graphs to drive point clouds or spawn rules.",
+      "It is experimental PCG interop; requires PCG enabled."
+    ],
+    "note_cn": "PCG 与外部数据格式的互操作。",
+    "note_en": "PCG interop with external data formats."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-fastgeo-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) FastGeo Interop`（模块 `PCGFastGeoInterop`）。",
+      "它让 PCG 与 FastGeo 几何加速/处理管线互操作。",
+      "在 PCG 图里把 FastGeo 结果接到散布、切割或采样节点。",
+      "属实验性 PCG 互操作；需启用 PCG 与 FastGeo。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) FastGeo Interop` (module `PCGFastGeoInterop`).",
+      "It lets PCG interoperate with the FastGeo geometry acceleration/processing pipeline.",
+      "Wire FastGeo results into scatter, cut, or sample nodes in PCG graphs.",
+      "It is experimental PCG interop; requires PCG and FastGeo."
+    ],
+    "note_cn": "PCG 与 FastGeo 几何管线的互操作。",
+    "note_en": "PCG interop with the FastGeo geometry pipeline."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-geometry-script-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) Geometry Script Interop`（模块 `PCGGeometryScriptInterop`）。",
+      "它让 PCG 与 Geometry Script 交互。",
+      "在 PCG 图里调用几何脚本节点，对生成出的网格做程序化建模。",
+      "属实验性 PCG 互操作；需启用 PCG 与 Geometry Script。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) Geometry Script Interop` (module `PCGGeometryScriptInterop`).",
+      "It lets PCG interact with Geometry Script.",
+      "Call Geometry Script nodes from PCG graphs to procedurally model generated meshes.",
+      "It is experimental PCG interop; requires PCG and Geometry Script."
+    ],
+    "note_cn": "PCG 与 Geometry Script 的互操作。",
+    "note_en": "PCG interop with Geometry Script."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-instanced-actors-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) Instanced Actors Interop`（模块 `PCGInstancedActorsInterop`）。",
+      "它让 PCG 与 Instanced Actors 系统互操作。",
+      "在 PCG 图里把点云输出写成实例化 Actor，而不是逐个普通 Actor。",
+      "属实验性 PCG 互操作；需启用 PCG 与 Instanced Actors。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) Instanced Actors Interop` (module `PCGInstancedActorsInterop`).",
+      "It lets PCG interoperate with the Instanced Actors system.",
+      "Write PCG point-cloud output as instanced actors instead of one regular actor per point.",
+      "It is experimental PCG interop; requires PCG and Instanced Actors."
+    ],
+    "note_cn": "PCG 与 Instanced Actors 的互操作。",
+    "note_en": "PCG interop with Instanced Actors."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-mesh-partition-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) Mesh Partition Interop`（运行时 `PCGMeshPartitionInterop`，编辑器 `PCGMeshPartitionInteropEditor`）。",
+      "它让 PCG 与网格分区互操作。",
+      "在 PCG 图里按网格分区采样/散布，分区结果驱动生成。",
+      "属实验性 PCG 互操作；需启用 PCG。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) Mesh Partition Interop` (runtime `PCGMeshPartitionInterop`, editor `PCGMeshPartitionInteropEditor`).",
+      "It lets PCG interoperate with mesh partitioning.",
+      "Sample/scatter in PCG graphs from mesh partitions so partition results drive generation.",
+      "It is experimental PCG interop; requires PCG enabled."
+    ],
+    "note_cn": "PCG 与网格分区的互操作。",
+    "note_en": "PCG interop with mesh partitioning."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-nanite-assemblies-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) Nanite Assemblies Interop`（模块 `PCGNaniteAssembliesInterop`）。",
+      "它让 PCG 与 Nanite Assemblies 互操作。",
+      "在 PCG 图里生成/放置 Nanite 装配体，而不是普通静态网格实例。",
+      "属实验性 PCG 互操作；需启用 PCG 与 Nanite Assemblies。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) Nanite Assemblies Interop` (module `PCGNaniteAssembliesInterop`).",
+      "It lets PCG interoperate with Nanite Assemblies.",
+      "Generate/place Nanite assemblies from PCG graphs instead of regular static-mesh instances.",
+      "It is experimental PCG interop; requires PCG and Nanite Assemblies."
+    ],
+    "note_cn": "PCG 与 Nanite Assemblies 的互操作。",
+    "note_en": "PCG interop with Nanite Assemblies."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-niagara-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) Niagara Interop`（模块 `PCGNiagaraInterop`）。",
+      "它让 PCG 与 Niagara 特效系统互操作。",
+      "在 PCG 图里把点云/变换喂给 Niagara，或用 Niagara 数据驱动生成。",
+      "属实验性 PCG 互操作；需启用 PCG 与 Niagara。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) Niagara Interop` (module `PCGNiagaraInterop`).",
+      "It lets PCG interoperate with Niagara.",
+      "Feed PCG point clouds/transforms into Niagara, or drive generation from Niagara data.",
+      "It is experimental PCG interop; requires PCG and Niagara."
+    ],
+    "note_cn": "PCG 与 Niagara 的互操作。",
+    "note_en": "PCG interop with Niagara."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-python-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) Python Interop`（模块 `PCGPythonInteropEditor`）。",
+      "它让 PCG 与编辑器 Python 解释器交互。",
+      "用 Python 脚本创建/修改 PCG 图或在图中调用 Python。",
+      "属实验性编辑器互操作；只进 Editor Target，需 PCG 与 Python 脚本插件。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) Python Interop` (module `PCGPythonInteropEditor`).",
+      "It lets PCG interact with the editor Python interpreter.",
+      "Create/modify PCG graphs from Python, or call Python from graphs.",
+      "It is experimental editor interop; Editor-target only, requires PCG and the Python script plugin."
+    ],
+    "note_cn": "PCG 与编辑器 Python 解释器的互操作。",
+    "note_en": "PCG interop with the editor Python interpreter."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg-water-interop",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG) Water Interop`（模块 `PCGWaterInterop`）。",
+      "它让 PCG 与 Water 水体系统互操作。",
+      "在 PCG 图里沿河流/湖泊样条采样或避开水面生成内容。",
+      "属实验性 PCG 互操作；需启用 PCG 与 Water。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG) Water Interop` (module `PCGWaterInterop`).",
+      "It lets PCG interoperate with the Water system.",
+      "Sample along river/lake splines or keep generated content off the water surface in PCG graphs.",
+      "It is experimental PCG interop; requires PCG and Water."
+    ],
+    "note_cn": "PCG 与 Water 水体系统的互操作。",
+    "note_en": "PCG interop with the Water system."
+  },
+  {
+    "slug": "procedural-content-generation-framework-pcg",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Content Generation Framework (PCG)`（模块 `PCG`、`PCGEditor`、`PCGCompute`）。",
+      "它用节点图在编辑器或运行时程序化生成关卡内容：点云、变换、网格、植被与生成规则，可和景观、HLOD、Nanite 配合。",
+      "创建 PCG Graph，放到体积/关卡里执行，再按需启用各 PCG Interop 插件。",
+      "Game 模块依赖 `PCG`/`PCGCompute`；`PCGEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Content Generation Framework (PCG)` (modules `PCG`, `PCGEditor`, `PCGCompute`).",
+      "It is a node graph for procedural level content in editor or at runtime: point clouds, transforms, meshes, foliage, and spawn rules, working with Landscape, HLOD, and Nanite.",
+      "Create a PCG Graph, execute it from a volume/level, then enable PCG Interop plugins as needed.",
+      "Game modules depend on `PCG`/`PCGCompute`; `PCGEditor` is Editor-target only."
+    ],
+    "note_cn": "PCG 主插件：节点图程序化生成关卡内容。",
+    "note_en": "Main PCG plugin: node-graph procedural level content."
+  },
+  {
+    "slug": "procedural-mesh-component",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Procedural Mesh Component`（运行时 `ProceduralMeshComponent`，编辑器 `ProceduralMeshComponentEditor`）。",
+      "它提供可渲染组件和工具库，用于按程序创建和修改网格几何。",
+      "在 Actor 上加 Procedural Mesh Component，运行时填顶点/三角形生成网格。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。更复杂建模可考虑 Geometry Script。"
+    ],
+    "en_steps": [
+      "Enable `Procedural Mesh Component` (runtime `ProceduralMeshComponent`, editor `ProceduralMeshComponentEditor`).",
+      "It provides a renderable component and utility library for creating and modifying mesh geometry procedurally.",
+      "Add a Procedural Mesh Component on an actor and fill vertices/triangles at runtime.",
+      "Game modules depend on runtime modules; editor modules are Editor-target only. For heavier modeling, consider Geometry Script."
+    ],
+    "note_cn": "运行时程序化创建/修改网格的可渲染组件。",
+    "note_en": "Renderable component to create/modify meshes procedurally at runtime."
+  }
+]

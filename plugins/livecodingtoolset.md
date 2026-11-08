@@ -3,8 +3,6 @@ layout: default
 title: 实时编码工具集 / LiveCodingToolset
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,71 @@ title: 实时编码工具集 / LiveCodingToolset
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">实时编码编译工具集。</div><div class="lang-content">Live Coding compile toolset.</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：实时编码编译工具集。</p><p>Toolset：给编辑器里的 AI 助手或自动化准备的只读/只写工具，一般不进 Shipping 游戏。</p><p>Epic 把它放在 Experimental：功能可用，但接口可能随夜构建变化。</p><p>它打包的模块包括：LiveCodingToolset, LiveCodingToolsetTests。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Live Coding compile toolset.</p><p>Toolset: read/write tools for the in-editor AI assistant or automation — not a shipping game feature.</p><p>Epic ships this under Experimental: usable, but the contract may change on nightly builds.</p><p>It ships these modules: LiveCodingToolset, LiveCodingToolsetTests. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">LiveCodingToolset</code>（模块 <code class="usage-code">LiveCodingToolset</code>，测试 <code class="usage-code">LiveCodingToolsetTests</code>）。</li><li>它面向 AI Toolset Registry，提供 Live Coding 编译相关工具集。</li><li>让 AI 助手/自动化触发 Live Coding 编译，加速 C++ 迭代。</li><li>这是开发期工具集，不是运行时功能；测试模块不进游戏包。</li></ol><p class="usage-note">面向 AI 工具链的 Live Coding 编译工具集。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">LiveCodingToolset</code> (module <code class="usage-code">LiveCodingToolset</code>, tests <code class="usage-code">LiveCodingToolsetTests</code>).</li><li>It targets the AI Toolset Registry and provides Live Coding compile tools.</li><li>Let AI assistants/automation trigger Live Coding compiles to speed up C++ iteration.</li><li>It is a development-time toolset, not a runtime feature; keep the test module out of the game.</li></ol><p class="usage-note">A Live Coding compile toolset for the AI toolchain.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">LiveCodingToolset</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">LiveCodingToolsetTests</span><span class="tag runtime">Runtime</span></div></div>

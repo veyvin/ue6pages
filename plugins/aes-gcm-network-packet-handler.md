@@ -3,7 +3,6 @@ layout: default
 title: AES GCM 网络数据包处理程序 / AES GCM network packet handler
 ---
 
-
 <h1>AES GCM 网络数据包处理程序 / AES GCM network packet handler</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: AES GCM 网络数据包处理程序 / AES GCM network packet handler
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">提供数据包处理程序组件来执行 AES GCM 加密和解密。</div><div class="lang-content">Provides a packet handler component to do AES GCM encryption and decryption.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">AES GCM network packet handler</code>（模块 <code class="usage-code">AESGCMHandlerComponent</code>）。</li><li>在客户端与服务器的 <code class="usage-code">DefaultEngine.ini</code> 写入 <code class="usage-code">[PacketHandlerComponents]</code>，并设置 <code class="usage-code">Components=AESGCMHandlerComponent</code>。</li><li>配置同一把加密密钥（Project Settings 的 Network encryption / Encryption，或启动参数把 key 同时交给 DS 与客户端）。</li><li>用 listen server 或 dedicated server 进关，确认握手后复制包走 AES-GCM 加解密。</li><li>这是 <code class="usage-code">PacketHandler</code> 管道组件，不能当 <code class="usage-code">UActorComponent</code> 加到 Actor 上。</li><li>新项目优先用本 GCM 组件，而不是旧的 <code class="usage-code">AESHandlerComponent</code>。</li></ol><p class="usage-note">客户端与服务器必须使用相同的 PacketHandler 列表和密钥，否则无法完成加密握手。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">AES GCM network packet handler</code> (module <code class="usage-code">AESGCMHandlerComponent</code>).</li><li>On both client and server <code class="usage-code">DefaultEngine.ini</code>, add <code class="usage-code">[PacketHandlerComponents]</code> with <code class="usage-code">Components=AESGCMHandlerComponent</code>.</li><li>Configure the same encryption key via Project Settings Network encryption / Encryption, or pass the key to both DS and clients at launch.</li><li>Join via listen or dedicated server and confirm replication is AES-GCM encrypted after handshake.</li><li>This is a <code class="usage-code">PacketHandler</code> pipeline component, not a <code class="usage-code">UActorComponent</code> you add to an actor.</li><li>Prefer this GCM handler over the older <code class="usage-code">AESHandlerComponent</code> for new projects.</li></ol><p class="usage-note">Client and server must share the same PacketHandler list and key or the encrypted handshake will fail.</p></div></div></div>
+    </div>
+

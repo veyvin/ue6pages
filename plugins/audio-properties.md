@@ -3,7 +3,6 @@ layout: default
 title: 音频属性 / Audio Properties
 ---
 
-
 <h1>音频属性 / Audio Properties</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 音频属性 / Audio Properties
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许定义要注入到任何音频资产中的任意可派生属性集</div><div class="lang-content">Allows to define arbitrary derivable sets of properties to be injected in any audio asset</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 插件 <code class="usage-code">Audio Properties</code>（<code class="usage-code">AudioProperties</code>、<code class="usage-code">AudioPropertiesEditor</code>）并重启。</li><li>在内容浏览器创建可派生的 Audio Property Set / Sheet 资产，定义要注入声音的命名属性（而不是 Sound Class 或 Modulation Parameter）。</li><li>用 <code class="usage-code">AudioPropertiesEditor</code> 的细节定制把该属性集挂到目标 <code class="usage-code">Sound Wave</code> / MetaSound / 其它音频资产上，子资产可覆盖父集。</li><li>播放时由 <code class="usage-code">AudioProperties</code> 把派生后的属性注入该资产实例，供 MetaSound 输入或运行时读取。</li><li>C++ 只依赖 <code class="usage-code">AudioProperties</code>；不要把 <code class="usage-code">AudioPropertiesEditor</code> 写进 Game Target。</li><li>接口仍可能随夜构建变化，先在独立声音资产上验证注入结果再铺开。</li></ol><p class="usage-note">Experimental：任意可派生属性集注入音频资产，不是子混合也不是 Control Bus。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the Experimental plugin <code class="usage-code">Audio Properties</code> (<code class="usage-code">AudioProperties</code>, <code class="usage-code">AudioPropertiesEditor</code>) and restart.</li><li>Create a derivable Audio Property Set / Sheet asset and define named properties to inject into sounds (not Sound Classes or Modulation Parameters).</li><li>Using <code class="usage-code">AudioPropertiesEditor</code> details, attach that set to a <code class="usage-code">Sound Wave</code> / MetaSound / other audio asset; children can override the parent set.</li><li>At playback, <code class="usage-code">AudioProperties</code> injects the derived values into that asset instance for MetaSound inputs or runtime reads.</li><li>Depend on <code class="usage-code">AudioProperties</code> in game code; keep <code class="usage-code">AudioPropertiesEditor</code> off Game targets.</li><li>The contract can change on nightlies — prove injection on a single sound before rolling it out.</li></ol><p class="usage-note">Experimental: derivable property sets injected into audio assets, not a submix and not Control Buses.</p></div></div></div>
+    </div>
+

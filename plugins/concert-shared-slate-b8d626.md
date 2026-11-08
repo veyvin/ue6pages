@@ -3,7 +3,6 @@ layout: default
 title: 音乐会共享石板 / Concert Shared Slate
 ---
 
-
 <h1>音乐会共享石板 / Concert Shared Slate</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 音乐会共享石板 / Concert Shared Slate
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">包含仅由客户端 UI 模块共享的 UI</div><div class="lang-content">Contains UI that is shared by client UI modules only</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>把 <code class="usage-code">ConcertClientSharedSlate</code> 与 <code class="usage-code">Concert Sync - Client</code> 一起启用；它只提供**客户端** Multi-User UI 控件，没有独立菜单项。</li><li>打开 <code class="usage-code">Window &gt; Multi-User Browser</code>，会话列表、加入对话框、本机显示名/头像颜色都由本模块的 Slate 控件绘制，而不是游戏 UMG。</li><li>若要改客户端浏览器（过滤会话、自定义列、加入确认框），在 Editor 模块 <code class="usage-code">Build.cs</code> 依赖 <code class="usage-code">ConcertClientSharedSlate</code>，复用其会话浏览器控件，不要复制一套。</li><li>不要依赖 <code class="usage-code">ConcertSharedSlate</code> 来做仅客户端对话框：那一套还要给 <code class="usage-code">UnrealMultiUserServer</code> 界面用。</li><li>不要把 <code class="usage-code">ConcertClientSharedSlate</code> 写进 Game Target 或 Shipping。</li></ol><p class="usage-note">描述符是 `ConcertClientSharedSlate.uplugin`（slug `concert-shared-slate-b8d626`），仅客户端 UI 库。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">ConcertClientSharedSlate</code> with <code class="usage-code">Concert Sync - Client</code>. It only supplies **client** Multi-User Slate; there is no standalone menu.</li><li>Open <code class="usage-code">Window &gt; Multi-User Browser</code>. Session list, join dialog, and local display name/avatar color are drawn by this module, not UMG.</li><li>To customize the client browser (filters, columns, join confirm), depend on <code class="usage-code">ConcertClientSharedSlate</code> in an Editor <code class="usage-code">Build.cs</code> and reuse those widgets.</li><li>Do not pull <code class="usage-code">ConcertSharedSlate</code> for client-only dialogs; that module is also used by the <code class="usage-code">UnrealMultiUserServer</code> UI.</li><li>Do not add <code class="usage-code">ConcertClientSharedSlate</code> to a Game target or Shipping build.</li></ol><p class="usage-note">Descriptor `ConcertClientSharedSlate.uplugin` (slug `concert-shared-slate-b8d626`): client-only UI library.</p></div></div></div>
+    </div>
+

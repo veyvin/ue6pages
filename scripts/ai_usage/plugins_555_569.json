@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "ml-deformer-neural-morph-model",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ML Deformer Neural Morph Model`（运行时 `NeuralMorphModel`，编辑器 `NeuralMorphModelEditor`）。",
+      "它是 ML Deformer 框架的“神经变形模型”，用神经网络学习网格变形。",
+      "在 ML Deformer 资产里选 Neural Morph Model，训练后驱动骨骼网格变形。",
+      "Game 模块依赖 `NeuralMorphModel`；`NeuralMorphModelEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `ML Deformer Neural Morph Model` (runtime `NeuralMorphModel`, editor `NeuralMorphModelEditor`).",
+      "It is the Neural Morph Model for the ML Deformer framework, using a neural network to learn mesh deformation.",
+      "Select Neural Morph Model in an ML Deformer asset; after training, drive skeletal mesh deformation.",
+      "Game modules depend on `NeuralMorphModel`; `NeuralMorphModelEditor` is Editor-target only."
+    ],
+    "note_cn": "ML Deformer 的神经变形模型（可插拔模型之一）。",
+    "note_en": "A Neural Morph Model for ML Deformer (one of the pluggable models)."
+  },
+  {
+    "slug": "ml-deformer-vertex-delta-model",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ML Deformer Vertex Delta Model`（运行时 `VertexDeltaModel`，编辑器 `VertexDeltaModelEditor`）。",
+      "它是 ML Deformer 框架的“顶点增量模型”，学习逐顶点偏移来表现变形细节。",
+      "在 ML Deformer 资产里选 Vertex Delta Model，训练后应用到角色。",
+      "Game 模块依赖 `VertexDeltaModel`；`VertexDeltaModelEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `ML Deformer Vertex Delta Model` (runtime `VertexDeltaModel`, editor `VertexDeltaModelEditor`).",
+      "It is the Vertex Delta Model for the ML Deformer framework, learning per-vertex offsets for deformation detail.",
+      "Select Vertex Delta Model in an ML Deformer asset, train it, and apply to the character.",
+      "Game modules depend on `VertexDeltaModel`; `VertexDeltaModelEditor` is Editor-target only."
+    ],
+    "note_cn": "ML Deformer 的顶点增量模型（逐顶点偏移）。",
+    "note_en": "The ML Deformer Vertex Delta Model (per-vertex offsets)."
+  },
+  {
+    "slug": "mlflow",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MLflow` 插件（无独立模块列表）。",
+      "它提供可选的 mlflow Python 包及其依赖，便于在训练流程里追踪实验。",
+      "配合 ML 相关插件（如 Learning Agents / Python 训练）记录指标与模型。",
+      "这是可选 Python 依赖包，不是运行时功能；Experimental。"
+    ],
+    "en_steps": [
+      "Enable the Experimental `MLflow` plugin (no standalone module list).",
+      "It provides the optional mlflow Python package and dependencies to track experiments in training flows.",
+      "Use it with ML-related plugins (e.g. Learning Agents / Python training) to log metrics and models.",
+      "It is an optional Python dependency pack, not a runtime feature; Experimental."
+    ],
+    "note_cn": "可选的 mlflow Python 包/依赖，用于训练实验追踪。",
+    "note_en": "An optional mlflow Python package/deps for experiment tracking."
+  },
+  {
+    "slug": "mobile-location-services---android-implementation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Mobile Location Services - Android Implementation`（模块 `LocationServicesAndroidImpl`，编辑器 `LocationServicesAndroidEditor`）。",
+      "它是移动定位服务蓝图接口在 Android 上的实现。",
+      "在 Android 设备上通过蓝图读取经纬度定位数据。",
+      "需同时启用通用蓝图库 `Mobile Location Services Blueprints Library`；打包到 Android 生效。"
+    ],
+    "en_steps": [
+      "Enable `Mobile Location Services - Android Implementation` (module `LocationServicesAndroidImpl`, editor `LocationServicesAndroidEditor`).",
+      "It is the Android implementation of the mobile location-services Blueprint interface.",
+      "Read lat/long location data via Blueprint on Android devices.",
+      "Also enable the common `Mobile Location Services Blueprints Library`; takes effect when packaged to Android."
+    ],
+    "note_cn": "移动定位服务蓝图接口的 Android 实现。",
+    "note_en": "The Android implementation of the mobile location-services Blueprint interface."
+  },
+  {
+    "slug": "mobile-location-services---ios-implementation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Mobile Location Services - IOS Implementation`（模块 `LocationServicesIOSImpl`，编辑器 `LocationServicesIOSEditor`）。",
+      "它是移动定位服务蓝图接口在 iOS 上的实现。",
+      "在 iOS 设备上通过蓝图读取经纬度定位数据（申请定位权限）。",
+      "需同时启用通用蓝图库 `Mobile Location Services Blueprints Library`；打包到 iOS 生效。"
+    ],
+    "en_steps": [
+      "Enable `Mobile Location Services - IOS Implementation` (module `LocationServicesIOSImpl`, editor `LocationServicesIOSEditor`).",
+      "It is the iOS implementation of the mobile location-services Blueprint interface.",
+      "Read lat/long location data via Blueprint on iOS devices (request location permission).",
+      "Also enable the common `Mobile Location Services Blueprints Library`; takes effect when packaged to iOS."
+    ],
+    "note_cn": "移动定位服务蓝图接口的 iOS 实现。",
+    "note_en": "The iOS implementation of the mobile location-services Blueprint interface."
+  },
+  {
+    "slug": "mobile-location-services-blueprints-library",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Mobile Location Services Blueprints Library`（模块 `LocationServicesBPLibrary`），运行时插件。",
+      "它提供从移动设备获取位置数据的通用蓝图接口。",
+      "配合平台实现（Android/iOS）一起用，在蓝图里调用定位节点。",
+      "运行时模块可进游戏包；需对应平台实现插件。"
+    ],
+    "en_steps": [
+      "Enable `Mobile Location Services Blueprints Library` (module `LocationServicesBPLibrary`), a runtime plugin.",
+      "It provides the common Blueprint interface for reading location data from mobile devices.",
+      "Use it with the platform implementations (Android/iOS) and call the location nodes in Blueprint.",
+      "Runtime modules can ship; requires the matching platform-implementation plugin."
+    ],
+    "note_cn": "移动定位的通用蓝图接口（配合平台实现）。",
+    "note_en": "The common Blueprint interface for mobile location (paired with platform impls)."
+  },
+  {
+    "slug": "mobile-patching-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Mobile Patching Utilities`（模块 `MobilePatchingUtils`），运行时插件。",
+      "它通过蓝图公开在移动平台下载与修补内容的能力。",
+      "在蓝图中调用其 API 下载/安装补丁内容包，处理进度。",
+      "运行时模块可进游戏包；平台/服务器方案由项目提供。"
+    ],
+    "en_steps": [
+      "Enable `Mobile Patching Utilities` (module `MobilePatchingUtils`), a runtime plugin.",
+      "It exposes Blueprint functionality for downloading and patching content on mobile platforms.",
+      "Call its API from Blueprint to download/install patch content packs and handle progress.",
+      "Runtime modules can ship; platform/server solutions are provided by your project."
+    ],
+    "note_cn": "移动平台蓝图的下载/修补内容工具。",
+    "note_en": "Blueprint download/patch content utilities for mobile."
+  },
+  {
+    "slug": "modeling-tools-editor-mode",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Modeling Tools Editor Mode`（模块 `ModelingToolsEditorMode`）并重启。",
+      "它提供建模工具模式：一套在编辑器里创建/编辑网格的交互式工具。",
+      "在模式工具栏进入建模模式，对网格做建模、布尔、雕刻等操作。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Modeling Tools Editor Mode` (module `ModelingToolsEditorMode`) and restart.",
+      "It provides Modeling Tools Mode: a suite of interactive tools to create/edit meshes in the editor.",
+      "Enter Modeling Mode from the mode toolbar and model, boolean, sculpt meshes, etc.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "编辑器中的建模工具模式（Interactive Tools）。",
+    "note_en": "The in-editor Modeling Tools Mode (Interactive Tools)."
+  },
+  {
+    "slug": "modular-gameplay",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Gameplay`（模块 `ModularGameplay`）。",
+      "它提供支持游戏框架模块化使用的基类与子系统（如 ModularGameplayActorComponent、GameFrameworkComponentManager）。",
+      "用它在 Game Feature 插件里动态给 Actor 添加/移除组件，实现模块化玩法。",
+      "Game 模块依赖 `ModularGameplay`；是 Game Features 的常用底层。"
+    ],
+    "en_steps": [
+      "Enable `Modular Gameplay` (module `ModularGameplay`).",
+      "It provides base classes and subsystems for modular use of the gameplay framework (e.g. ModularGameplayActorComponent, GameFrameworkComponentManager).",
+      "Use it to dynamically add/remove components on actors inside Game Feature plugins for modular gameplay.",
+      "Game modules depend on `ModularGameplay`; it is a common base for Game Features."
+    ],
+    "note_cn": "Game Features 模块化玩法的基类/子系统。",
+    "note_en": "Base classes/subsystems for modular gameplay (Game Features)."
+  },
+  {
+    "slug": "modular-test-framework-self-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Test Framework Self-Tests`（模块 `ModularTestFrameworkTests`）。",
+      "它对模块化测试框架本身做冒烟测试，验证框架可用性。",
+      "在 CI/自动化里跑这些用例，确保 MTF 正常。",
+      "这是测试配套插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `Modular Test Framework Self-Tests` (module `ModularTestFrameworkTests`).",
+      "It smoke-tests the Modular Test Framework itself to verify framework health.",
+      "Run these cases in CI/automation to ensure MTF works.",
+      "It is a test companion; do not ship it in release builds."
+    ],
+    "note_cn": "模块化测试框架自身的冒烟测试。",
+    "note_en": "Smoke tests for the Modular Test Framework itself."
+  },
+  {
+    "slug": "modular-test-framework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Test Framework`（模块 `ModularTestFramework`、`ModularTestRunner`）。",
+      "它是引擎级框架，用于编写和运行范围化的插件测试（scoped plugin tests）。",
+      "按框架约定编写测试，用 Runner 在编辑器/自动化里运行。",
+      "属测试框架；配套截图/GFP/UI 测试等可选插件按需加。"
+    ],
+    "en_steps": [
+      "Enable `Modular Test Framework` (modules `ModularTestFramework`, `ModularTestRunner`).",
+      "It is an engine-level framework for authoring and running scoped plugin tests.",
+      "Write tests per the framework's conventions and run them via the Runner in editor/automation.",
+      "It is a test framework; optional screenshot/GFP/UI test companions are added as needed."
+    ],
+    "note_cn": "编写/运行范围化插件测试的引擎级框架。",
+    "note_en": "An engine-level framework for authoring/running scoped plugin tests."
+  },
+  {
+    "slug": "modular-test-gfp-self-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Test GFP Self-Tests`（模块 `ModularTestGFPTests`）。",
+      "它对 `Modular Test GFP` 插件做冒烟测试。",
+      "在 CI/自动化里跑这些用例，验证 GFP 测试能力。",
+      "这是测试配套插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `Modular Test GFP Self-Tests` (module `ModularTestGFPTests`).",
+      "It smoke-tests the `Modular Test GFP` plugin.",
+      "Run these cases in CI/automation to validate GFP test capability.",
+      "It is a test companion; do not ship it in release builds."
+    ],
+    "note_cn": "Modular Test GFP 的冒烟测试。",
+    "note_en": "Smoke tests for Modular Test GFP."
+  },
+  {
+    "slug": "modular-test-gfp",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Test GFP`（模块 `ModularTestGFP`）。",
+      "它是模块化测试框架的可选 GFP（Game Feature Plugin）测试套件与实用程序。",
+      "需要激活 Game Feature Plugin 的测试应依赖它。",
+      "属测试可选插件；配合 `Modular Test Framework`。"
+    ],
+    "en_steps": [
+      "Enable `Modular Test GFP` (module `ModularTestGFP`).",
+      "It is the optional GFP (Game Feature Plugin) test suite and utilities for the Modular Test Framework.",
+      "Tests that need to activate Game Feature Plugins should depend on it.",
+      "It is an optional test plugin; used with `Modular Test Framework`."
+    ],
+    "note_cn": "模块化测试框架的可选 GFP 测试套件（需激活 Game Feature）。",
+    "note_en": "Optional GFP test suite for the Modular Test Framework (activates Game Features)."
+  },
+  {
+    "slug": "modular-test-resolver",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Test Resolver`（模块 `ModularTestResolver`）。",
+      "它是 `ModularTestFramework` 的插件解析接口。",
+      "供框架解析定位测试所需的插件；一般作为 MTF 的配套使用。",
+      "属测试支撑模块。"
+    ],
+    "en_steps": [
+      "Enable `Modular Test Resolver` (module `ModularTestResolver`).",
+      "It is the plugin resolution interface for the `ModularTestFramework`.",
+      "It lets the framework resolve/locate the plugins a test needs; used as an MTF companion.",
+      "It is a test-support module."
+    ],
+    "note_cn": "ModularTestFramework 的插件解析接口。",
+    "note_en": "The plugin resolution interface for ModularTestFramework."
+  },
+  {
+    "slug": "modular-test-runner-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Modular Test Runner Editor`（模块 `ModularTestRunnerUI`、`ModularTestToolset`、`ModularTestTemplate`）并重启。",
+      "它提供模块化测试框架的编辑器实用程序与 Runner UI/Toolset/模板。",
+      "在编辑器里用 Runner UI 选择/运行 MTF 测试。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Modular Test Runner Editor` (modules `ModularTestRunnerUI`, `ModularTestToolset`, `ModularTestTemplate`) and restart.",
+      "It provides editor utilities plus Runner UI/Toolset/templates for the Modular Test Framework.",
+      "Use the Runner UI in the editor to select/run MTF tests.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "模块化测试框架的编辑器 UI/工具/模板。",
+    "note_en": "Editor UI/toolset/templates for the Modular Test Framework."
+  }
+]

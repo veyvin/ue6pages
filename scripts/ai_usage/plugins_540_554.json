@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "metahumanruntime",
+    "kind": "plugin",
+    "cn_steps": [
+      "`MetaHumanRuntime` 是已弃用（Deprecated）插件，现已重定向到 `MetaHumanSDK`。",
+      "新项目改用 `MetaHumanSDK` / `MetaHumanSDKRuntime`。",
+      "旧工程若仍引用它，按提示迁移。",
+      "没有可依赖的运行时模块列表，迁移后禁用本插件。"
+    ],
+    "en_steps": [
+      "`MetaHumanRuntime` is a deprecated plugin now redirected to `MetaHumanSDK`.",
+      "New projects use `MetaHumanSDK` / `MetaHumanSDKRuntime`.",
+      "If a legacy project still references it, migrate as prompted.",
+      "It ships no runtime module list to depend on; disable it after migration."
+    ],
+    "note_cn": "已弃用，重定向到 MetaHumanSDK。",
+    "note_en": "Deprecated; redirected to MetaHumanSDK."
+  },
+  {
+    "slug": "metahumantoolsetcore",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaHumanToolsetCore`（模块 `MetaHumanToolsetCore`）。",
+      "它为 MetaHuman 及相关 AI 工具集提供共享实用程序与 toast 通知。",
+      "通常作为上层 MetaHuman 工具集的共享依赖，不单独面向用户。",
+      "写自定义 MetaHuman 工具集时可直接依赖它复用通用能力。"
+    ],
+    "en_steps": [
+      "Enable `MetaHumanToolsetCore` (module `MetaHumanToolsetCore`).",
+      "It provides shared utilities and toast notifications for MetaHuman and related AI toolsets.",
+      "Usually a shared dependency for upper MetaHuman toolsets, not directly user-facing.",
+      "Depend on it directly when writing custom MetaHuman toolsets to reuse common capabilities."
+    ],
+    "note_cn": "MetaHuman/AI 工具集的共享实用程序与 toast 通知底座。",
+    "note_en": "Shared utilities and toast notifications base for MetaHuman/AI toolsets."
+  },
+  {
+    "slug": "metasound-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Metasound Tests`（模块 `MetasoundTests`）。",
+      "它提供可复用的、与节点无关的 MetaSound 测试（独立 DSP 检查、新旧等效性）。",
+      "在自动化测试里跑这些用例，验证 MetaSound 节点行为。",
+      "这是测试插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `Metasound Tests` (module `MetasoundTests`).",
+      "It provides reusable, node-agnostic MetaSound tests (isolated DSP checks and old-vs-new equivalence).",
+      "Run these cases in automation to validate MetaSound node behavior.",
+      "It is a test plugin; do not ship it in release builds."
+    ],
+    "note_cn": "MetaSound 节点的可复用无关测试（DSP/新旧等效），测试用。",
+    "note_en": "Reusable node-agnostic MetaSound tests (DSP/equivalence), for testing."
+  },
+  {
+    "slug": "metasound",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MetaSound`（模块 `MetasoundGraphCore`、`MetasoundFrontend`、`MetasoundGenerator`、`MetasoundStandardNodes`、`MetasoundEngine`，编辑器 `MetasoundEditor`）。",
+      "用节点图做音频合成：振荡、滤波、调制，运行时按游戏数据/蓝图参数精确生成声音。",
+      "创建 MetaSound Source/Preset 资产，挂到 Sound 组件播放，用参数实时调制。",
+      "Game 模块依赖运行时模块；`MetasoundEditor`/Test 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MetaSound` (modules `MetasoundGraphCore`, `MetasoundFrontend`, `MetasoundGenerator`, `MetasoundStandardNodes`, `MetasoundEngine`, editor `MetasoundEditor`).",
+      "Synthesize audio in a node graph: oscillators, filters, modulation, generating sound at runtime driven by game data/Blueprint params.",
+      "Create MetaSound Source/Preset assets, play them via a Sound component, and modulate with parameters in real time.",
+      "Game modules depend on runtime modules; `MetasoundEditor`/test modules go to Editor targets only."
+    ],
+    "note_cn": "MetaSound 节点图音频合成系统（“音频界的 Niagara”）。",
+    "note_en": "The MetaSound node-graph audio synthesis system (\"Niagara for audio\")."
+  },
+  {
+    "slug": "metasounds-experimental",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Metasounds Experimental`（模块 `AudioExperimentalRuntime`、`MetasoundExperimentalRuntime`、`MetasoundExperimentalEngineRuntime`、`MetasoundExperimentalEditor`）。",
+      "它是 MetaSound 实验性运行时/引擎扩展，验证新特性（振荡、滤波、调制等）。",
+      "在新特性灰度项目里用它替换/补充稳定版 MetaSound 运行时。",
+      "Experimental：接口可能变动；先在非关键流程验证。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Metasounds Experimental` (modules `AudioExperimentalRuntime`, `MetasoundExperimentalRuntime`, `MetasoundExperimentalEngineRuntime`, `MetasoundExperimentalEditor`).",
+      "It is the experimental MetaSound runtime/engine extension for new features (oscillators, filters, modulation, etc.).",
+      "In new-feature pilot projects, use it to replace/complement the stable MetaSound runtime.",
+      "Experimental: contract may change; prove it on non-critical flows first."
+    ],
+    "note_cn": "MetaSound 的实验性运行时/引擎扩展。",
+    "note_en": "The experimental MetaSound runtime/engine extension."
+  },
+  {
+    "slug": "metasoundtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MetaSoundToolset`（模块 `MetaSoundToolset`），面向 AI Toolset Registry。",
+      "让 AI 助手通过工具集创作与检查 MetaSound 图。",
+      "在 MetaSound 编辑流程里用 AI 助手批量/程序化生成图表。",
+      "这是开发期工具集，不是运行时音频；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MetaSoundToolset` (module `MetaSoundToolset`); it targets the AI Toolset Registry.",
+      "Let AI assistants author and inspect MetaSound graphs via the toolset.",
+      "In the MetaSound editing flow, use the AI assistant to batch/procedurally build graphs.",
+      "It is a development-time toolset, not runtime audio; Experimental."
+    ],
+    "note_cn": "创作/检查 MetaSound 图的 AI 工具集。",
+    "note_en": "An AI toolset to author/inspect MetaSound graphs."
+  },
+  {
+    "slug": "microsoft-gdk-runtime-plug-in-for-unreal-engine",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Microsoft GDK Runtime Plug-in for Unreal Engine`（模块 `MSGamingRuntime`），面向 Windows。",
+      "它为 Windows 游戏提供 GDK 运行时能力（如用户、网络、存档等平台服务）。",
+      "构建/部署到 GDK 目标，用其接口调用平台运行时功能。",
+      "只在 GDK/Windows 目标使用；需对应 GDK 环境。"
+    ],
+    "en_steps": [
+      "Enable `Microsoft GDK Runtime Plug-in for Unreal Engine` (module `MSGamingRuntime`) for Windows.",
+      "It provides GDK runtime capabilities (platform services like users, networking, storage) for Windows games.",
+      "Build/deploy to a GDK target and call platform runtime features through its API.",
+      "Use it on GDK/Windows targets only; requires the GDK environment."
+    ],
+    "note_cn": "Windows 游戏的 GDK 运行时能力（平台服务）。",
+    "note_en": "GDK runtime capabilities (platform services) for Windows games."
+  },
+  {
+    "slug": "microsoft-gdk-store-plug-in-for-unreal-engine",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Microsoft GDK Store Plug-in for Unreal Engine`（模块 `MSGameStore`），面向 Windows。",
+      "它允许打包 Windows 游戏以提交到 Xbox PC App（商店相关）。",
+      "在打包/商店提交流程里配置相应设置。",
+      "只在提交 Xbox PC App 的 Windows 目标使用。"
+    ],
+    "en_steps": [
+      "Enable `Microsoft GDK Store Plug-in for Unreal Engine` (module `MSGameStore`) for Windows.",
+      "It lets you package Windows games for submission to the Xbox PC App (store-related).",
+      "Configure the relevant settings in the packaging/store submission flow.",
+      "Use it on Windows targets submitted to the Xbox PC App only."
+    ],
+    "note_cn": "打包 Windows 游戏提交到 Xbox PC App 的商店插件。",
+    "note_en": "A store plugin to package Windows games for the Xbox PC App."
+  },
+  {
+    "slug": "microsoftspatialsound",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MicrosoftSpatialSound`（模块 `MicrosoftSpatialSound`），面向空间音频。",
+      "它用 Microsoft SASAPI 服务做音频空间化（HRTF/对象音频）。",
+      "在项目音频设置里启用该空间化插件，接入相应设备/服务。",
+      "只在支持的 Windows 平台/设备使用。"
+    ],
+    "en_steps": [
+      "Enable `MicrosoftSpatialSound` (module `MicrosoftSpatialSound`) for spatial audio.",
+      "It uses Microsoft's SASAPI service for audio spatialization (HRTF/object audio).",
+      "Enable this spatialization plugin in project audio settings and hook up the matching device/service.",
+      "Use it on supported Windows platforms/devices only."
+    ],
+    "note_cn": "用 Microsoft SASAPI 的音频空间化插件。",
+    "note_en": "An audio spatialization plugin using Microsoft SASAPI."
+  },
+  {
+    "slug": "midi-device-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MIDI Device Support`（模块 `MIDIDevice`）。",
+      "通过简单 API 在 C++ 或蓝图里发送/接收 MIDI 事件。",
+      "枚举 MIDI 输入/输出设备，绑定回调处理音符/控制变化（CC）。",
+      "运行时模块可进游戏包；用于接 MIDI 控制器或外部音序器。"
+    ],
+    "en_steps": [
+      "Enable `MIDI Device Support` (module `MIDIDevice`).",
+      "Send/receive MIDI events through a simple API in C++ or Blueprint.",
+      "Enumerate MIDI input/output devices and bind callbacks for notes/control changes (CC).",
+      "Runtime modules can ship; use it to hook MIDI controllers or external sequencers."
+    ],
+    "note_cn": "C++/蓝图收发 MIDI 事件的设备支持。",
+    "note_en": "MIDI device support to send/receive MIDI events from C++/Blueprint."
+  },
+  {
+    "slug": "mixed-reality-capture-framework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Mixed Reality Capture Framework`（模块 `MixedRealityCaptureFramework`），面向 VR。",
+      "它提供一个简单框架，把混合现实捕获（MRC）集成到 VR 项目。",
+      "配置捕获相机/合成，把真实与虚拟画面合成输出。",
+      "运行时模块；需 VR + 捕获硬件配合。"
+    ],
+    "en_steps": [
+      "Enable `Mixed Reality Capture Framework` (module `MixedRealityCaptureFramework`) for VR.",
+      "It provides a simple framework to integrate mixed reality capture (MRC) into VR projects.",
+      "Configure the capture camera/compositing to combine real and virtual footage.",
+      "A runtime module; requires VR plus capture hardware."
+    ],
+    "note_cn": "把混合现实捕获(MRC)集成到 VR 项目的框架。",
+    "note_en": "A framework to integrate mixed reality capture (MRC) into VR projects."
+  },
+  {
+    "slug": "ml-adapter",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ML Adapter`（模块 `MLAdapter`，测试 `MLAdapterTestSuite`）。",
+      "它是在游戏中训练和使用机器学习代理的框架：提供 RPC 接口，外部进程可查询游戏状态并控制 Actor。",
+      "训练后，代理可通过从 ONNX 模型加载的神经网络在引擎内运行。",
+      "Game 模块依赖 `MLAdapter`；测试模块不进游戏包。"
+    ],
+    "en_steps": [
+      "Enable `ML Adapter` (module `MLAdapter`, tests `MLAdapterTestSuite`).",
+      "It is a framework for training and using ML agents in games: an RPC interface lets an external process query game state and control actors.",
+      "After training, agents can run in-engine via a neural network loaded from an ONNX model.",
+      "Game modules depend on `MLAdapter`; keep the test module out of the cooked game."
+    ],
+    "note_cn": "游戏内 ML 代理训练/使用框架（RPC + ONNX 推理）。",
+    "note_en": "A framework for training/using ML agents in games (RPC + ONNX inference)."
+  },
+  {
+    "slug": "ml-deformer-detail-pose-model",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `ML Deformer Detail Pose Model`（运行时 `DetailPoseModel`，编辑器 `DetailPoseModelEditor`）。",
+      "它是 ML Deformer 框架的“详细姿势模型”，提高变形精度。",
+      "在 ML Deformer 资产里选择 Detail Pose Model，训练后驱动网格变形。",
+      "Experimental：接口可能变动；`DetailPoseModelEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `ML Deformer Detail Pose Model` (runtime `DetailPoseModel`, editor `DetailPoseModelEditor`).",
+      "It is the Detail Pose Model for the ML Deformer framework, improving deformation accuracy.",
+      "Select Detail Pose Model in an ML Deformer asset; after training, drive mesh deformation.",
+      "Experimental: contract may change; `DetailPoseModelEditor` is Editor-target only."
+    ],
+    "note_cn": "ML Deformer 的详细姿势模型（提高精度），替代最近邻模型。",
+    "note_en": "The ML Deformer Detail Pose Model (higher accuracy), replacing the nearest-neighbor model."
+  },
+  {
+    "slug": "ml-deformer-framework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ML Deformer Framework`（运行时 `MLDeformerFramework`，编辑器 `MLDeformerFrameworkEditor`）。",
+      "它是机器学习网格变形器框架：用训练模型驱动骨骼网格的变形细节。",
+      "创建 ML Deformer 资产、选模型、训练并应用到角色，PIE 验证变形。",
+      "Game 模块依赖 `MLDeformerFramework`；`MLDeformerFrameworkEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `ML Deformer Framework` (runtime `MLDeformerFramework`, editor `MLDeformerFrameworkEditor`).",
+      "It is the machine-learning mesh deformer framework: trained models drive skeletal mesh deformation detail.",
+      "Create an ML Deformer asset, pick a model, train, apply to the character, and verify in PIE.",
+      "Game modules depend on `MLDeformerFramework`; `MLDeformerFrameworkEditor` is Editor-target only."
+    ],
+    "note_cn": "机器学习网格变形器框架（基础），模型是可插拔的。",
+    "note_en": "The ML mesh deformer framework (base); models are pluggable."
+  },
+  {
+    "slug": "ml-deformer-nearest-neighbor-model-deprecated",
+    "kind": "plugin",
+    "cn_steps": [
+      "`ML Deformer Nearest Neighbor Model` 已弃用（DEPRECATED）。",
+      "改用 `ML Deformer Detail Pose Model`。",
+      "不要在 `Build.cs` 新增对该过时模型的依赖。",
+      "迁移完成后禁用本插件。"
+    ],
+    "en_steps": [
+      "`ML Deformer Nearest Neighbor Model` is deprecated (DEPRECATED).",
+      "Use `ML Deformer Detail Pose Model` instead.",
+      "Do not add new `Build.cs` dependencies on this deprecated model.",
+      "Disable this plugin after migration."
+    ],
+    "note_cn": "已弃用，改用 Detail Pose Model。",
+    "note_en": "Deprecated; use the Detail Pose Model instead."
+  }
+]

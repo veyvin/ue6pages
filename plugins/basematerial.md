@@ -3,7 +3,6 @@ layout: default
 title: 基材 / BaseMaterial
 ---
 
-
 <h1>基材 / BaseMaterial</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 基材 / BaseMaterial
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">统一基础材质功能库</div><div class="lang-content">Unified base material function repository</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用内容插件 <code class="usage-code">BaseMaterial</code>（<code class="usage-code">Engine/Plugins/BaseMaterial/BaseMaterial.uplugin</code>）。它几乎没有 C++ 模块，提供的是统一基础材质与材质函数库。</li><li>在内容浏览器打开该插件 Content（Engine 插件资产，过滤器打开 <code class="usage-code">Show Plugin Content</code> / <code class="usage-code">Show Engine Content</code>），找到随插件分发的父材质与 <code class="usage-code">Material Function</code>。</li><li>新建 <code class="usage-code">Material Instance</code> 继承该基础材质（或在自定义材质里调用其 <code class="usage-code">Material Function</code>），接入 Base Color、Metallic、Roughness、Normal、AO 等标准输入，避免每个资产再搭一套 shading。</li><li>把实例赋给网格，在相同光照下对比直连自定义着色器的旧材质。Fab / Megascans 管线常依赖这套统一层，改父材质参数会波及所有实例。</li><li>不要把插件 Content 复制进项目后再分叉一份「私有 Base Material」，除非你准备自己维护升级；引擎更新会改函数签名。</li></ol><p class="usage-note">内容向的统一基础材质库，不是运行时组件。入口是插件 Content 里的材质/函数。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the content plugin <code class="usage-code">BaseMaterial</code> (<code class="usage-code">Engine/Plugins/BaseMaterial/BaseMaterial.uplugin</code>). It ships almost no C++ modules — it is a unified base material and material-function repository.</li><li>In the Content Browser, turn on plugin/engine content and open this plugin’s Content to the shipped parent material and <code class="usage-code">Material Function</code> assets.</li><li>Create a <code class="usage-code">Material Instance</code> from that parent (or call its <code class="usage-code">Material Function</code>s from a custom graph). Wire the standard inputs — Base Color, Metallic, Roughness, Normal, AO — instead of rebuilding shading per asset.</li><li>Assign instances to meshes and compare under a locked lighting setup. Fab/Megascans pipelines often sit on this layer; changing parent parameters affects every instance.</li><li>Avoid copying plugin Content into the project as a private fork unless you will maintain upgrades; engine updates change function signatures.</li></ol><p class="usage-note">Content-only unified base material library, not a runtime component. Entry point is the plugin Content materials/functions.</p></div></div></div>
+    </div>
+

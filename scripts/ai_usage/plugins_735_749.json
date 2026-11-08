@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "pico-neo3-controller-keys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PICO Neo3 Controller Keys`（模块 `PICONeo3ControllerKeys`）。",
+      "它定义 PICO Neo3 控制器的输入键（`PICONeo3_*` FKey），只依赖 InputCore。",
+      "无需 OpenXR 映射即可引用这些键（如 Pixel Streaming 场景）。",
+      "轻量按键定义插件；供需要这些键的模块引用。"
+    ],
+    "en_steps": [
+      "Enable `PICO Neo3 Controller Keys` (module `PICONeo3ControllerKeys`).",
+      "It defines PICO Neo3 controller input keys (`PICONeo3_*` FKeys), depending only on InputCore.",
+      "These keys can be referenced without OpenXR mapping (e.g. Pixel Streaming scenarios).",
+      "A lightweight key-definition plugin; referenced by modules that need these keys."
+    ],
+    "note_cn": "PICO Neo3 控制器输入键定义（仅依赖 InputCore）。",
+    "note_en": "PICO Neo3 controller input-key definitions (InputCore-only)."
+  },
+  {
+    "slug": "pico-neo3-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PICO Neo3 Controller`（模块 `PICONeo3Controller`）。",
+      "它为 PICO Neo3 控制器提供 OpenXR 支持：`/interaction_profiles/bytedance/pico_neo3_controller`（`XR_BD_controller_interaction`）及控制器网格。",
+      "在 Neo3 手柄的 OpenXR 项目里使用对应交互配置与可视化模型。",
+      "属 OpenXR 输入扩展；需 OpenXR 运行时。"
+    ],
+    "en_steps": [
+      "Enable `PICO Neo3 Controller` (module `PICONeo3Controller`).",
+      "It provides OpenXR support for PICO Neo3 controllers: `/interaction_profiles/bytedance/pico_neo3_controller` (`XR_BD_controller_interaction`) plus controller meshes.",
+      "Use the matching interaction profile and visualization meshes in Neo3 OpenXR projects.",
+      "It is an OpenXR input extension; requires an OpenXR runtime."
+    ],
+    "note_cn": "OpenXR 的 PICO Neo3 控制器支持。",
+    "note_en": "OpenXR PICO Neo3 controller support."
+  },
+  {
+    "slug": "pippen",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Pippen`（模块 `Pippen`）。",
+      "它是引擎自带的 Pippen 插件（模块同名），用于该实验性功能的运行时。",
+      "在需要 Pippen 能力的项目里启用本插件，并按模块 API 接入。",
+      "属实验性/内部插件；接口可能随版本变化。"
+    ],
+    "en_steps": [
+      "Enable `Pippen` (module `Pippen`).",
+      "It is the engine-shipped Pippen plugin (same-named module) providing that experimental feature's runtime.",
+      "Enable it in projects that need Pippen capabilities and call into the module API.",
+      "It is an experimental/internal plugin; the contract may change across versions."
+    ],
+    "note_cn": "引擎自带的 Pippen 实验性运行时插件。",
+    "note_en": "Engine-shipped Pippen experimental runtime plugin."
+  },
+  {
+    "slug": "pix-on-windows-gpu-capture-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PIX on Windows GPU Capture Plugin`（模块 `PixWinPlugin`）。",
+      "它把 Windows 上的 PIX 图形调试器接到引擎，便于 GPU 捕捉与分析。",
+      "在 Windows 开发机上配合 PIX 做帧捕捉，排查渲染问题。",
+      "属编辑器/开发者插件；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `PIX on Windows GPU Capture Plugin` (module `PixWinPlugin`).",
+      "It integrates the PIX graphics debugger on Windows for GPU capture and analysis.",
+      "Use it with PIX on a Windows dev machine to capture frames and triage rendering issues.",
+      "It is an editor/developer plugin; it does not ship by default."
+    ],
+    "note_cn": "Windows 上 PIX 图形调试器的 GPU 捕捉集成。",
+    "note_en": "PIX on Windows GPU-capture integration."
+  },
+  {
+    "slug": "pixel-capture",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Pixel Capture`（模块 `PixelCapture`、`PixelCaptureShaders`）。",
+      "它提供把像素缓冲区捕获成其它格式的框架，并允许生产/消费速率解耦。",
+      "常作为 Pixel Streaming 等推流管线的底层捕获层。",
+      "属媒体/推流基础库；一般随 Pixel Streaming 一起启用。"
+    ],
+    "en_steps": [
+      "Enable `Pixel Capture` (modules `PixelCapture`, `PixelCaptureShaders`).",
+      "It is a framework for capturing pixel buffers into other formats while allowing disconnected produce/consume rates.",
+      "Commonly the capture layer under Pixel Streaming and similar streaming pipelines.",
+      "It is a media/streaming foundation library; usually enabled with Pixel Streaming."
+    ],
+    "note_cn": "像素缓冲区捕获框架（生产/消费可解耦）。",
+    "note_en": "Pixel-buffer capture framework (decoupled produce/consume)."
+  },
+  {
+    "slug": "pixel-streaming-2",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Pixel Streaming 2`（模块 `PixelStreaming2Core`、`PixelStreaming2`、`PixelStreaming2Settings`、`PixelStreaming2RTC`、`PixelStreaming2Servers`、`PixelStreaming2Editor`、`PixelStreaming2HMD`、`PixelStreaming2Input`）。",
+      "它把引擎音频与画面通过 WebRTC 推到浏览器等兼容播放器（Pixel Streaming 的新一代实现）。",
+      "配置信令/STUN，启动推流，用浏览器当薄客户端显示并回传输入。",
+      "Game 模块依赖运行时模块；`PixelStreaming2Editor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Pixel Streaming 2` (modules `PixelStreaming2Core`, `PixelStreaming2`, `PixelStreaming2Settings`, `PixelStreaming2RTC`, `PixelStreaming2Servers`, `PixelStreaming2Editor`, `PixelStreaming2HMD`, `PixelStreaming2Input`).",
+      "It streams engine audio and frames over WebRTC to compatible players such as a browser (the next-gen Pixel Streaming implementation).",
+      "Configure signaling/STUN, start streaming, and use a browser as a thin client for video plus input.",
+      "Game modules depend on runtime modules; `PixelStreaming2Editor` is Editor-target only."
+    ],
+    "note_cn": "新一代 Pixel Streaming：WebRTC 推送引擎音视频到浏览器。",
+    "note_en": "Next-gen Pixel Streaming: WebRTC of engine audio/video to browsers."
+  },
+  {
+    "slug": "pixel-streaming-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Pixel Streaming Player`（运行时 `PixelStreamingPlayer`，编辑器 `PixelStreamingPlayerEditor`）。",
+      "它在引擎内作为 Pixel Streaming 的播放端，接收远端 WebRTC 画面。",
+      "用于在编辑器/关卡里预览或嵌入一路 Pixel Streaming 流。",
+      "属实验性播放端；需配合 Pixel Streaming 信令。"
+    ],
+    "en_steps": [
+      "Enable `Pixel Streaming Player` (runtime `PixelStreamingPlayer`, editor `PixelStreamingPlayerEditor`).",
+      "It is an in-engine Pixel Streaming playback client that receives a remote WebRTC video stream.",
+      "Use it to preview or embed a Pixel Streaming feed inside the editor/level.",
+      "It is an experimental player; requires Pixel Streaming signaling."
+    ],
+    "note_cn": "引擎内的 Pixel Streaming 播放端（收 WebRTC 画面）。",
+    "note_en": "In-engine Pixel Streaming player (receives WebRTC video)."
+  },
+  {
+    "slug": "pixel-streaming",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Pixel Streaming`（模块 `PixelStreaming`、`PixelStreamingServers`、`PixelStreamingEditor`、`PixelStreamingBlueprint`、`PixelStreamingBlueprintEditor`、`PixelStreamingHMD`、`PixelStreamingInput`）。",
+      "它把引擎音频与画面通过 WebRTC 推到浏览器等兼容播放器（第一代 Pixel Streaming）。",
+      "配置信令服务器，启动推流，用浏览器当薄客户端显示并回传输入。",
+      "新项目可评估 `Pixel Streaming 2`；本插件仍用于既有云游戏/远程审阅流程。"
+    ],
+    "en_steps": [
+      "Enable `Pixel Streaming` (modules `PixelStreaming`, `PixelStreamingServers`, `PixelStreamingEditor`, `PixelStreamingBlueprint`, `PixelStreamingBlueprintEditor`, `PixelStreamingHMD`, `PixelStreamingInput`).",
+      "It streams engine audio and frames over WebRTC to compatible players such as a browser (first-gen Pixel Streaming).",
+      "Configure a signaling server, start streaming, and use a browser as a thin client for video plus input.",
+      "New projects may evaluate `Pixel Streaming 2`; this plugin still covers existing cloud-gaming/remote-review flows."
+    ],
+    "note_cn": "第一代 Pixel Streaming：WebRTC 推送引擎音视频到浏览器。",
+    "note_en": "First-gen Pixel Streaming: WebRTC of engine audio/video to browsers."
+  },
+  {
+    "slug": "plainprops",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PlainProps`（模块 `PlainProps`）。",
+      "它是新序列化栈的原型核心（PlainProps）。",
+      "仅在评估/开发该序列化原型时启用，不要当生产序列化方案。",
+      "属实验性原型；接口可能随夜构建变化。"
+    ],
+    "en_steps": [
+      "Enable `PlainProps` (module `PlainProps`).",
+      "It is the core of the new serialization-stack prototype (PlainProps).",
+      "Enable it only when evaluating/developing that serialization prototype; not a production serialization path.",
+      "It is an experimental prototype; the contract may change on nightly builds."
+    ],
+    "note_cn": "新序列化栈原型的核心（PlainProps）。",
+    "note_en": "Core of the new serialization-stack prototype (PlainProps)."
+  },
+  {
+    "slug": "plainpropsengine",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PlainPropsEngine`（模块 `PlainPropsEngine`）。",
+      "它把 PlainProps 新序列化原型接到引擎层对象（不是引擎 `Engine` 模块本身）。",
+      "与 `PlainProps` / `PlainPropsUObject` 一起评估该序列化栈。",
+      "属实验性原型；接口可能随夜构建变化。"
+    ],
+    "en_steps": [
+      "Enable `PlainPropsEngine` (module `PlainPropsEngine`).",
+      "It binds the PlainProps serialization prototype to engine-layer objects (not the engine `Engine` module itself).",
+      "Evaluate this serialization stack together with `PlainProps` / `PlainPropsUObject`.",
+      "It is an experimental prototype; the contract may change on nightly builds."
+    ],
+    "note_cn": "PlainProps 序列化原型的引擎层绑定。",
+    "note_en": "Engine-layer bindings for the PlainProps serialization prototype."
+  },
+  {
+    "slug": "plainpropsuobject",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `PlainPropsUObject`（模块 `PlainPropsUObject`）。",
+      "它是新序列化栈原型的 CoreUObject 绑定。",
+      "与 `PlainProps` 一起用于 UObject 路径上的原型序列化。",
+      "属实验性原型；接口可能随夜构建变化。"
+    ],
+    "en_steps": [
+      "Enable `PlainPropsUObject` (module `PlainPropsUObject`).",
+      "It is the CoreUObject bindings for the new serialization-stack prototype.",
+      "Use it with `PlainProps` for prototype serialization on the UObject path.",
+      "It is an experimental prototype; the contract may change on nightly builds."
+    ],
+    "note_cn": "PlainProps 序列化原型的 CoreUObject 绑定。",
+    "note_en": "CoreUObject bindings for the PlainProps serialization prototype."
+  },
+  {
+    "slug": "planar-cut",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Planar Cut`（模块 `PlanarCut`）。",
+      "它提供平面切割模块，用于按平面切开网格。",
+      "在几何处理/破碎相关流程里调用平面切割。",
+      "属实验性几何工具；接口可能随版本变化。"
+    ],
+    "en_steps": [
+      "Enable `Planar Cut` (module `PlanarCut`).",
+      "It adds a planar-cut module for slicing meshes with a plane.",
+      "Call planar cuts from geometry-processing/fracture-related flows.",
+      "It is an experimental geometry tool; the contract may change across versions."
+    ],
+    "note_cn": "按平面切开网格的平面切割模块。",
+    "note_en": "Planar-cut module for slicing meshes with a plane."
+  },
+  {
+    "slug": "plastic-scm",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Plastic SCM`（模块 `PlasticSourceControl`）。",
+      "它提供 Unity Version Control（原 Plastic SCM）的源码管理集成。",
+      "在编辑器 Revision Control 里选 Plastic/UVCS，填写服务器后提交、同步、签出。",
+      "属编辑器源码管理插件；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Plastic SCM` (module `PlasticSourceControl`).",
+      "It provides Unity Version Control (formerly Plastic SCM) source-control integration.",
+      "Choose Plastic/UVCS in editor Revision Control, fill in the server, then submit, sync, and check out.",
+      "It is an editor source-control plugin; it does not ship by default."
+    ],
+    "note_cn": "编辑器里的 Unity Version Control（原 Plastic SCM）。",
+    "note_en": "Unity Version Control (formerly Plastic SCM) in the editor."
+  },
+  {
+    "slug": "platform-cryptography-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Platform Cryptography Plugin`（模块 `PlatformCrypto`、`PlatformCryptoTypes`、`PlatformCryptoContext`）。",
+      "它暴露统一加密 API：优先用平台原生加密，否则回退 OpenSSL。",
+      "在需要哈希/对称加密等能力时依赖这些模块，避免直接绑死某一库。",
+      "属实验性平台加密封装。"
+    ],
+    "en_steps": [
+      "Enable `Platform Cryptography Plugin` (modules `PlatformCrypto`, `PlatformCryptoTypes`, `PlatformCryptoContext`).",
+      "It exposes a unified crypto API: platform-native crypto when available, otherwise OpenSSL.",
+      "Depend on these modules for hashing/symmetric crypto instead of hard-wiring one library.",
+      "It is an experimental platform-crypto wrapper."
+    ],
+    "note_cn": "统一加密 API（平台原生，否则 OpenSSL）。",
+    "note_en": "Unified crypto API (platform-native, else OpenSSL)."
+  },
+  {
+    "slug": "platform-dlc",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Platform DLC`（模块 `PlatformDLC`）。",
+      "它提供对原生平台 DLC 的实验性支持（在支持的平台上）。",
+      "用它查询/装载平台商店 DLC，而不是自己接各平台 SDK。",
+      "属实验性平台 DLC；仅支持的目标有效。"
+    ],
+    "en_steps": [
+      "Enable `Platform DLC` (module `PlatformDLC`).",
+      "It provides experimental support for native platform DLC (on supported platforms).",
+      "Use it to query/mount store DLC instead of wiring each platform SDK yourself.",
+      "It is experimental platform DLC; only meaningful on supported targets."
+    ],
+    "note_cn": "原生平台 DLC 的实验性支持。",
+    "note_en": "Experimental support for native platform DLC."
+  }
+]

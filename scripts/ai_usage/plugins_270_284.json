@@ -1,0 +1,306 @@
+[
+  {
+    "slug": "ease-curve-tool",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `编辑 > 插件` 里启用 `Ease Curve Tool` 并重启编辑器。",
+      "打开一个带动画轨道的 `Sequencer`，选中骨骼或 Transform 轨道上的若干关键帧。",
+      "打开曲线编辑器 `Curve Editor`，用 Ease Curve Tool 的预设库给选中关键帧套用缓入/缓出，例如 `Ease In Out`。",
+      "切换不同预设对比曲线形状，并手动拖动切线手柄做微调。",
+      "把满意的一套切线设置存成自定义预设，供同项目其它镜头复用。",
+      "回到 Sequencer 播放，确认关键帧之间不再是线性插值而是自然缓动。"
+    ],
+    "en_steps": [
+      "Enable `Ease Curve Tool` under `Edit > Plugins` and restart the editor.",
+      "Open a `Sequencer` with an animation track and select several keys on a bone or Transform track.",
+      "Open the `Curve Editor` and apply an ease-in/ease-out preset from the Ease Curve Tool library, e.g. `Ease In Out`, to the selected keys.",
+      "Toggle between presets to compare curve shapes, then drag the tangent handles to fine-tune.",
+      "Save the tuned tangent setup as a custom preset so other shots in the project can reuse it.",
+      "Play back in Sequencer and confirm keys now ease between poses instead of interpolating linearly."
+    ],
+    "note_cn": "Ease Curve Tool 是曲线编辑器里的切线预设工具，只作用于选中的关键帧；预设可在项目内复用。",
+    "note_en": "Ease Curve Tool is a tangent-preset helper inside Curve Editor that acts on selected keys only; presets are reusable across the project."
+  },
+  {
+    "slug": "editor-dataflowgraph",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Dataflow` 插件并重启；在内容浏览器右键新建 Dataflow 资产，或从几何集合的 Dataflow 入口进入。",
+      "在 Dataflow 编辑器节点面板拖入输入节点（几何 / Actor 输入），建立图的起点。",
+      "用 `DataflowNodes` 里的处理节点（采样、变换、生成）按「输入→处理→输出」连线成链。",
+      "选中输出节点点 `Evaluate`（或 Re-evaluate），在视口查看生成或变形结果。",
+      "把这张图绑定到目标资产，改参数后重新求值。",
+      "在编辑器预览确认运行时模块 `DataflowEnginePlugin` 也能重算结果。"
+    ],
+    "en_steps": [
+      "Enable the `Dataflow` plugin and restart; right-click in the Content Browser to create a Dataflow asset, or enter from a Geometry Collection's Dataflow entry.",
+      "In the Dataflow editor, drag an input node (geometry / Actor input) from the palette to seed the graph.",
+      "Wire `DataflowNodes` processing nodes (sample, transform, generate) into an input → process → output chain.",
+      "Select the output node and click `Evaluate` (or Re-evaluate) to see the generated or deformed result in the viewport.",
+      "Bind the graph to the target asset and re-evaluate after changing parameters.",
+      "Preview in the editor to confirm the runtime module `DataflowEnginePlugin` recomputes the result too."
+    ],
+    "note_cn": "`DataflowEditor` 只在编辑器侧；运行时重算由 `DataflowEnginePlugin` 与 `DataflowNodes` 承担，别把编辑器模块加进 Game Target。",
+    "note_en": "`DataflowEditor` is editor-only; runtime recompute comes from `DataflowEnginePlugin` and `DataflowNodes` — never put the editor module in a Game target."
+  },
+  {
+    "slug": "editor-performance",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Editor Performance` 插件并重启（Experimental，先在测试项目里用）。",
+      "复现卡顿操作（大关卡 PIE、全量编译、自动保存），让插件记录编辑器 stall。",
+      "通过 `StallLogSubsystem` 的日志/控制台命令查看 stall 记录，检查 stall 时长与调用栈。",
+      "若触发崩溃，读取 `CrashDiagnostics` 生成的诊断信息定位崩溃上下文。",
+      "对照热点优化（关掉重型视口实时预览、拆关卡、削减编辑器 tick 负担）。",
+      "复跑同样操作，比较前后 stall 次数确认改善。"
+    ],
+    "en_steps": [
+      "Enable `Editor Performance` and restart (Experimental — try it in a test project first).",
+      "Reproduce the hitch (large-map PIE, full compile, autosave) so the plugin records editor stalls.",
+      "Inspect stall records via `StallLogSubsystem` logs/console commands, checking stall duration and call stacks.",
+      "If it crashes, read the `CrashDiagnostics` output to locate the crash context.",
+      "Optimize the hot spots (disable heavy real-time viewport preview, split levels, trim editor tick load).",
+      "Re-run the same operations and compare stall counts before/after to confirm the win."
+    ],
+    "note_cn": "该插件把编辑器性能反馈给开发者，靠 `StallLogSubsystem` 记录卡顿、`CrashDiagnostics` 记录崩溃；Experimental 接口可能变。",
+    "note_en": "It feeds editor performance back to developers via `StallLogSubsystem` for stalls and `CrashDiagnostics` for crashes; Experimental, so the API may change."
+  },
+  {
+    "slug": "editor-scripting-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Editor Scripting Utilities` 插件并重启。",
+      "新建一个 Editor Utility Blueprint，在事件图里右键搜索 `Editor Asset Library`、`Editor Level Library` 节点。",
+      "用 `Get All Assets`、`Rename Asset`、`Set Metadata Tag` 编写批量资产整理逻辑。",
+      "用 `Editor Level Library` 批量选中或替换当前关卡里的 Actor。",
+      "也可在 Output Log 切到 Python，`import unreal` 后调用 `unreal.EditorAssetLibrary` 做同样脚本化操作。",
+      "把脚本做成 Editor Utility Widget 按钮，让团队一键执行。"
+    ],
+    "en_steps": [
+      "Enable `Editor Scripting Utilities` and restart.",
+      "Create an Editor Utility Blueprint and, in the event graph, right-click to search nodes like `Editor Asset Library` and `Editor Level Library`.",
+      "Use `Get All Assets`, `Rename Asset`, and `Set Metadata Tag` to script bulk asset cleanup.",
+      "Use `Editor Level Library` to select or replace Actors in the current level in bulk.",
+      "Alternatively, switch Output Log to Python, `import unreal`, and call `unreal.EditorAssetLibrary` for the same scripting tasks.",
+      "Wrap the script in an Editor Utility Widget button so the team can run it in one click."
+    ],
+    "note_cn": "它是编辑器脚本库（蓝图 / Python 的 EditorAssetLibrary、EditorLevelLibrary 等），只用于编辑器自动化，不要作为游戏运行时依赖。",
+    "note_en": "It is an editor scripting library (Blueprint / Python `EditorAssetLibrary`, `EditorLevelLibrary`, etc.) for editor automation only — not a game runtime dependency."
+  },
+  {
+    "slug": "editor-system-configuration-assistant",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Editor System Configuration Assistant` 并重启。",
+      "在 `Window` / `Tools` 菜单打开该助手面板。",
+      "让它扫描当前机器与项目配置，读取给出的配置建议列表。",
+      "按建议逐项调整项目设置（渲染特性、DDC、内存相关选项等）。",
+      "重启编辑器后复核面板，确认建议项不再报警。"
+    ],
+    "en_steps": [
+      "Enable `Editor System Configuration Assistant` and restart.",
+      "Open its panel from the `Window` / `Tools` menu.",
+      "Let it scan the current machine and project settings and read the suggestion list it returns.",
+      "Apply the suggestions one by one in Project Settings (render features, DDC, memory-related options, etc.).",
+      "Restart and re-check the panel to confirm the flagged items are cleared."
+    ],
+    "note_cn": "该助手只提供系统配置建议，需要按提示逐项改用；属于编辑器侧工具。",
+    "note_en": "The assistant only offers system-configuration suggestions you apply by hand; it is an editor-side utility."
+  },
+  {
+    "slug": "editor-telemetry-4c548b",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Editor Telemetry`（`RuntimeTelemetry` 模块）并重启。",
+      "在项目遥测设置里配置上报端点与开关。",
+      "正常操作编辑器，触发常见事件（启动、退出、崩溃、功能使用）。",
+      "在遥测后端或本地日志核对事件是否经由 `RuntimeTelemetry` 上报。",
+      "按团队隐私策略裁剪要上报的事件类别。"
+    ],
+    "en_steps": [
+      "Enable `Editor Telemetry` (the `RuntimeTelemetry` module) and restart.",
+      "Configure the reporting endpoint and toggles in the project telemetry settings.",
+      "Use the editor normally to trigger common events (startup, shutdown, crash, feature usage).",
+      "Verify in the telemetry backend or local logs that events are emitted through `RuntimeTelemetry`.",
+      "Prune event categories per your team's privacy policy."
+    ],
+    "note_cn": "这份条目对应 `RuntimeTelemetry` 模块版本（运行时模块），Experimental，正式项目接入前先确认合规。",
+    "note_en": "This entry maps to the `RuntimeTelemetry` module variant; Experimental — confirm compliance before adopting in shipping projects."
+  },
+  {
+    "slug": "editor-telemetry-516f9a",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Editor Telemetry`（`EditorTelemetry` 模块）并重启。",
+      "确认它只在编辑器进程里发出遥测，不进入游戏运行时。",
+      "操作编辑器触发事件，检查本地日志或后端确定上报内容。",
+      "按需在遥测设置里开关具体事件，避免收集敏感信息。"
+    ],
+    "en_steps": [
+      "Enable `Editor Telemetry` (the `EditorTelemetry` module) and restart.",
+      "Confirm it emits telemetry only in the editor process and stays out of the game runtime.",
+      "Drive editor actions to trigger events, then check local logs or the backend for what is reported.",
+      "Toggle specific events in telemetry settings as needed to avoid collecting sensitive data."
+    ],
+    "note_cn": "这份条目是 `EditorTelemetry` 编辑器模块版本，与 `RuntimeTelemetry` 同名不同模块；Experimental。",
+    "note_en": "This entry is the `EditorTelemetry` editor-module variant — same display name as, but a different module from, `RuntimeTelemetry`; Experimental."
+  },
+  {
+    "slug": "editor-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Editor Tests` 插件并重启。",
+      "打开 `Tools > Session Frontend`（或 `Window > Developer Tools > Session Frontend`）的 Automation 标签。",
+      "勾选 `Editor` 相关测试集，点 `Start Tests`。",
+      "查看结果面板，定位失败用例并对照日志排查。",
+      "CI 场景改用命令行：`UnrealEditor-Cmd.exe YourProject.uproject -ExecCmds=\"Automation RunTests Editor; Quit\"`。"
+    ],
+    "en_steps": [
+      "Enable `Editor Tests` and restart.",
+      "Open the Automation tab in `Tools > Session Frontend` (or `Window > Developer Tools > Session Frontend`).",
+      "Tick the `Editor` test set and click `Start Tests`.",
+      "Review the results panel, locate failing cases, and inspect the logs.",
+      "For CI, run the command line instead: `UnrealEditor-Cmd.exe YourProject.uproject -ExecCmds=\"Automation RunTests Editor; Quit\"`."
+    ],
+    "note_cn": "这是自动化测试插件，价值在于跑 `Editor` 测试集并看报告，而不是拖进关卡；在 Session Frontend / 命令行里执行。",
+    "note_en": "It is an automation-testing plugin — its value is running the `Editor` test set and reading the report, not dragging into a level; execute via Session Frontend or the command line."
+  },
+  {
+    "slug": "editordatastoragetoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `EditorDataStorageToolset` 并重启（Experimental）。",
+      "确认编辑器正在使用数据存储 (TEDS)，例如大纲视图背后的实体/行数据。",
+      "让编辑器 AI 助手通过工具集注册表调用该工具集的查询接口。",
+      "读取返回的实体与列数据，做只读检查（有哪些实体、每个实体有哪些字段）。",
+      "需要改动时改走其它写入路径，避免直接篡改 TEDS。"
+    ],
+    "en_steps": [
+      "Enable `EditorDataStorageToolset` and restart (Experimental).",
+      "Confirm the editor is using the Data Storage (TEDS), e.g. the entity/row data behind the Outliner.",
+      "Have the in-editor AI assistant call this toolset's query API through the Toolset Registry.",
+      "Read the returned entities and columns for read-only inspection (which entities exist and which fields each has).",
+      "Route any changes through other write paths instead of mutating TEDS directly."
+    ],
+    "note_cn": "这是给编辑器 AI 助手用的只读/查询工具集，用来检查运行时 TEDS；Experimental，不进 Shipping 游戏。",
+    "note_en": "A read/query toolset for the in-editor AI assistant to inspect TEDS at runtime; Experimental and not a shipping game feature."
+  },
+  {
+    "slug": "editordebugtools",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `EditorDebugTools` 并重启。",
+      "在 `Window > Developer Tools` 里找到它注册的调试面板或命令。",
+      "用面板检查目标对象的运行时状态，配合 Output Log 关键字过滤。",
+      "定位问题后关闭面板，避免长期开启拖慢编辑器。"
+    ],
+    "en_steps": [
+      "Enable `EditorDebugTools` and restart.",
+      "Find the debug panel or commands it registers under `Window > Developer Tools`.",
+      "Inspect target-object runtime state with the panel and filter Output Log by keyword.",
+      "Close the panel once the issue is located so it does not slow the editor."
+    ],
+    "note_cn": "编辑器调试工具（无官方描述），主要服务于制作期排错，别加进游戏运行时。",
+    "note_en": "An editor debug tool (no official description) for authoring-time troubleshooting; keep it out of the game runtime."
+  },
+  {
+    "slug": "editortoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `EditorToolset` 并重启（Experimental）。",
+      "确保 AI Toolset Registry 可用且编辑器 AI 助手已连上。",
+      "通过该工具集让助手操作核心类型：列出/创建蓝图、读取或设置 Actor 与属性。",
+      "在 AI 助手里下自然语言指令，观察它对蓝图/Actor/属性的实际读写结果。",
+      "验证结果无误后再让助手做批量改动。"
+    ],
+    "en_steps": [
+      "Enable `EditorToolset` and restart (Experimental).",
+      "Make sure the AI Toolset Registry is available and the in-editor AI assistant is connected.",
+      "Use this toolset to have the assistant act on core types: list/create Blueprints, read or set Actors and properties.",
+      "Issue natural-language instructions in the AI assistant and watch the actual read/write results on Blueprints/Actors/properties.",
+      "Once results are correct, let the assistant perform bulk changes."
+    ],
+    "note_cn": "这是通过 AI 工具集注册表操作编辑器核心类型（蓝图、Actor、属性）的工具集；Experimental，仅供编辑器 AI 助手/自动化。",
+    "note_en": "A toolset that drives core editor types (Blueprints, Actors, properties) through the AI Toolset Registry; Experimental and for the in-editor AI assistant/automation only."
+  },
+  {
+    "slug": "electra-codecs",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Electra Codecs` 并重启。",
+      "在项目设置对应平台的 Media 里把 Electra 设为默认播放器并选定解码器。",
+      "新建 Media Player 与 Media Source（文件或流），`Open` 视频。",
+      "把 Media Texture 贴到材质或 Media Plate 预览，确认 `ElectraDecoders` 解码出画。",
+      "播放时检查所选解码格式，必要时切换解码器。"
+    ],
+    "en_steps": [
+      "Enable `Electra Codecs` and restart.",
+      "In the platform Media settings, set Electra as the default player and pick a decoder.",
+      "Create a Media Player and Media Source (file or stream) and `Open` the video.",
+      "Put the Media Texture on a material or Media Plate to preview and confirm `ElectraDecoders` decodes and renders.",
+      "While playing, check the chosen decode format and switch decoders if needed."
+    ],
+    "note_cn": "它是 Electra 的解码器插件（`ElectraDecoders` / `ElectraCodecFactory`），决定能播哪些编码；支持集合以解码器模块为准。",
+    "note_en": "It is Electra's decoder plugin (`ElectraDecoders` / `ElectraCodecFactory`) that decides which codecs play; the supported set follows the decoder modules."
+  },
+  {
+    "slug": "electra-player-content-decryption-module",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ElectraCDM` 并重启。",
+      "在项目设置为 Electra 配置 DRM（如 Widevine/PlayReady）及许可证服务器地址。",
+      "打开受保护的 Media Source，通过 Electra 播放触发许可证请求。",
+      "由 `ElectraCDM` 处理许可证与解密。",
+      "通过 Media Player 回调确认解密成功后正常出画。"
+    ],
+    "en_steps": [
+      "Enable `ElectraCDM` and restart.",
+      "In Project Settings, configure DRM for Electra (e.g. Widevine/PlayReady) and the license server URL.",
+      "Open the protected Media Source and play through Electra to trigger license acquisition.",
+      "Let `ElectraCDM` handle the license and decryption.",
+      "Confirm via Media Player callbacks that decryption succeeds and video renders."
+    ],
+    "note_cn": "内容解密模块，只负责 DRM/许可证解密；需要有效许可证服务器与密钥配置才能出画。",
+    "note_en": "The content decryption module handles DRM/license decryption only; you need a valid license server and keys for video to render."
+  },
+  {
+    "slug": "electra-player-subtitle-module",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ElectraSubtitles` 并重启。",
+      "打开带字幕轨（如 WebVTT/TTML）的流或文件 Media Source。",
+      "在 Media Player 里选择字幕轨，让 `ElectraSubtitles` 解码字幕样本。",
+      "把字幕文本接到 UI（如 Text Block）或用回调按时码渲染。",
+      "播放中切换字幕轨验证同步。"
+    ],
+    "en_steps": [
+      "Enable `ElectraSubtitles` and restart.",
+      "Open a stream or file Media Source that carries a subtitle track (e.g. WebVTT/TTML).",
+      "Select the subtitle track in the Media Player so `ElectraSubtitles` decodes the caption samples.",
+      "Feed the caption text to UI (e.g. a Text Block) or render via callbacks by timecode.",
+      "Switch subtitle tracks during playback to verify sync."
+    ],
+    "note_cn": "字幕解码模块，负责解出字幕样本；渲染与 UI 需要你自己接。",
+    "note_en": "A subtitle decoder module that yields caption samples; rendering and UI wiring are up to you."
+  },
+  {
+    "slug": "electra-player-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ElectraUtil` 并重启。",
+      "了解它提供的基础组件：`ElectraBase`、`ElectraSamples`、`ElectraHTTPStream`。",
+      "做自定义媒体集成时，链接这些模块处理样本与通过 HTTP 拉流。",
+      "把拉到的流/样本送入 Electra 播放管线，配合 Media Player 预览。",
+      "确认常规 Electra 播放无需额外操作——这些基础组件会被自动复用。"
+    ],
+    "en_steps": [
+      "Enable `ElectraUtil` and restart.",
+      "Note the base components it provides: `ElectraBase`, `ElectraSamples`, `ElectraHTTPStream`.",
+      "For custom media integration, link these modules to process samples and pull streams over HTTP.",
+      "Feed the fetched stream/samples into the Electra playback pipeline and preview with a Media Player.",
+      "Confirm plain Electra playback needs no extra work — these base components are reused automatically."
+    ],
+    "note_cn": "这是 Electra 的可复用基础组件（基础类型、样本、HTTP 流），多见于自定义解封装/拉流集成，一般随播放器自动使用。",
+    "note_en": "Reusable Electra base components (base types, samples, HTTP streaming) mostly used in custom demux/streaming integration; normally reused automatically by the player."
+  }
+]

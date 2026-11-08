@@ -3,7 +3,6 @@ layout: default
 title: 内容浏览器 - 类数据源 / Content Browser - Class Data Source
 ---
 
-
 <h1>内容浏览器 - 类数据源 / Content Browser - Class Data Source</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 内容浏览器 - 类数据源 / Content Browser - Class Data Source
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">数据源插件向内容浏览器提供类数据</div><div class="lang-content">Data Source plugin providing Class Data to the Content Browser</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Content Browser - Class Data Source</code>（模块 <code class="usage-code">ContentBrowserClassDataSource</code>）。它把 <code class="usage-code">UCLASS</code> / 蓝图生成类挂到内容浏览器的 Classes 虚拟树，不是资产网格。</li><li>在内容浏览器过滤器打开 <code class="usage-code">Classes</code>（或切到 Classes 视图），展开 <code class="usage-code">/All/Classes</code>：应看到 <code class="usage-code">Actor</code>、<code class="usage-code">Pawn</code>、项目模块里的 native 类以及生成的 Blueprint 类。</li><li>从该类项拖到关卡或 <code class="usage-code">Place Actors</code>：放置的是该类的实例，磁盘上不会多出一个 <code class="usage-code">.uasset</code> 副本。</li><li>新增 C++ <code class="usage-code">UCLASS</code> 后编译并热载，Classes 树应出现新节点；只改蓝图父类则刷新浏览器即可。</li><li>自定义拾取器可依赖 <code class="usage-code">ContentBrowserClassDataSource</code>，从 <code class="usage-code">FContentBrowserItem</code> 取出 <code class="usage-code">UClass*</code>；不要加进游戏运行时。</li></ol><p class="usage-note">浏览/放置类，不替代 Class Viewer 的完整反射细节面板。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Content Browser - Class Data Source</code> (module <code class="usage-code">ContentBrowserClassDataSource</code>). It mounts <code class="usage-code">UCLASS</code> / Blueprint-generated classes into the Content Browser Classes virtual tree — not the asset grid.</li><li>Turn on the <code class="usage-code">Classes</code> filter (or Classes view) and expand <code class="usage-code">/All/Classes</code>: you should see <code class="usage-code">Actor</code>, <code class="usage-code">Pawn</code>, project native classes, and generated Blueprint classes.</li><li>Drag a class item into a level or <code class="usage-code">Place Actors</code>: you spawn an instance of that class; nothing new is written as a <code class="usage-code">.uasset</code> copy.</li><li>After adding a C++ <code class="usage-code">UCLASS</code>, compile/hot-reload so the Classes tree grows a node. Parent-class changes on Blueprints only need a browser refresh.</li><li>Custom pickers may depend on <code class="usage-code">ContentBrowserClassDataSource</code> and pull <code class="usage-code">UClass*</code> from <code class="usage-code">FContentBrowserItem</code>. Do not add it to game runtime.</li></ol><p class="usage-note">Browse/place classes; it does not replace Class Viewer’s full reflection details.</p></div></div></div>
+    </div>
+

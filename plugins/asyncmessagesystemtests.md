@@ -3,7 +3,6 @@ layout: default
 title: 异步消息系统测试 / AsyncMessageSystemTests
 ---
 
-
 <h1>异步消息系统测试 / AsyncMessageSystemTests</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 异步消息系统测试 / AsyncMessageSystemTests
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">异步消息系统测试</div><div class="lang-content">Async Message System Tests</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>先启用 <code class="usage-code">AsyncMessageSystem</code>，再启用配套测试插件 <code class="usage-code">AsyncMessageSystemTests</code>（模块 <code class="usage-code">AsyncMessageSystemTests</code>）。</li><li>打开 <code class="usage-code">Tools &gt; Session Frontend</code> 的 <code class="usage-code">Automation</code> 页，筛选 <code class="usage-code">AsyncMessageSystem</code> / <code class="usage-code">AsyncMessageSystemTests</code>。</li><li>跑绑定、广播、Tick Group 投递和载荷引用/GC 相关用例；性能测试会用隐藏的 <code class="usage-code">AASyncMessagePerfTest</code> 与 <code class="usage-code">FAsyncMessagePerfTestPayload</code>。</li><li>命令行可用 <code class="usage-code">-ExecCmds=&quot;Automation RunTests AsyncMessageSystem&quot;</code> 做回归，不要把测试 Actor 放进正式关卡。</li><li>不要把 <code class="usage-code">AsyncMessageSystemTests</code> 写进 Shipping；它还依赖 <code class="usage-code">RuntimeTests</code>。</li></ol><p class="usage-note">只验证异步消息系统，不是给玩法用的消息 API。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">AsyncMessageSystem</code> first, then the companion <code class="usage-code">AsyncMessageSystemTests</code> plugin (module <code class="usage-code">AsyncMessageSystemTests</code>).</li><li>Open <code class="usage-code">Tools &gt; Session Frontend</code> → <code class="usage-code">Automation</code> and filter <code class="usage-code">AsyncMessageSystem</code> / <code class="usage-code">AsyncMessageSystemTests</code>.</li><li>Run bind/broadcast, tick-group delivery, and payload ref/GC cases; perf tests use hidden <code class="usage-code">AASyncMessagePerfTest</code> and <code class="usage-code">FAsyncMessagePerfTestPayload</code>.</li><li>For CI, <code class="usage-code">-ExecCmds=&quot;Automation RunTests AsyncMessageSystem&quot;</code> — do not drop the test actors into shipping maps.</li><li>Do not link <code class="usage-code">AsyncMessageSystemTests</code> into Shipping; it also needs <code class="usage-code">RuntimeTests</code>.</li></ol><p class="usage-note">Harness for Async Message System only — not a gameplay messaging API.</p></div></div></div>
+    </div>
+

@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "chaosvisualdebugger",
+    "kind": "module",
+    "cn": "ChaosVisualDebugger 是独立程序 Chaos Visual Debugger 的主模块，用来回放和检视 Chaos 物理仿真轨迹。它把视口、属性面板、时间轴与 Trace 数据绑在一起，让你对照刚体、约束和碰撞事件逐步排查。该工具面向物理与引擎开发者，而不是游戏运行时逻辑。",
+    "en": "ChaosVisualDebugger is the host module for the standalone Chaos Visual Debugger program, which replays recorded Chaos physics traces. It wires a viewport, property panels, and a timeline to rigid bodies, constraints, and collision events so you can step through a simulation. The tool is aimed at physics and engine developers rather than shipped gameplay code."
+  },
+  {
+    "slug": "cinematiccamera",
+    "kind": "module",
+    "cn": "CinematicCamera 提供电影级摄像机 Actor、组件与镜头资产，包含焦距、光圈、胶片后门和景深等参数。它与 Movie Scene 轨道对接，让 Sequencer 能驱动推轨、变焦和焦点。运行时关卡过场和编辑器预览都依赖这套镜头模型。",
+    "en": "CinematicCamera supplies cinematic camera actors, components, and lens assets with film-back, focal length, aperture, and depth-of-field controls. It plugs into Movie Scene tracks so Sequencer can animate dolly, zoom, and focus pulls. Both in-game cinematics and editor previews share this lens model."
+  },
+  {
+    "slug": "classviewer",
+    "kind": "module",
+    "cn": "ClassViewer 是编辑器里的 UClass 浏览与筛选面板，按继承树、模块和元数据列出类型。蓝图父类选择、细节面板类拾取和内容浏览器过滤器都复用它。它只服务编辑器会话，不会进入打包游戏。",
+    "en": "ClassViewer is the editor panel that browses and filters UClass types by inheritance, module, and metadata. Blueprint parent pickers, details-panel class choosers, and content-browser filters reuse this widget. It exists only in editor sessions and is not cooked into games."
+  },
+  {
+    "slug": "cli11",
+    "kind": "module",
+    "cn": "CLI11 是第三方命令行解析库的 UBT 封装，给引擎工具程序提供选项、子命令和帮助文本。独立命令行工具用它声明参数，而不是自己写 argv 解析。游戏运行时一般不会直接链接该模块。",
+    "en": "CLI11 is the Unreal Build Tool wrapper around the CLI11 command-line parsing library. Standalone engine utilities use it to declare flags, subcommands, and help text instead of hand-parsing argv. Game runtimes almost never link this module directly."
+  },
+  {
+    "slug": "clientbandwidthdebugvisualizer",
+    "kind": "module",
+    "cn": "ClientBandwidthDebugVisualizer 把客户端下行带宽调试委托画成可视化叠加层。它可以对照复制通道、优先级和测量结果，帮助判断卡顿是带宽还是游戏逻辑造成的。该模块属于实验性在线调试路径，默认不参与正式发行包。",
+    "en": "ClientBandwidthDebugVisualizer turns client downlink bandwidth debug delegates into on-screen overlays. It correlates replication channels, priorities, and measured throughput so you can tell lag from bandwidth versus gameplay. The module lives on the experimental online debug path and is not meant for shipping builds."
+  },
+  {
+    "slug": "clientpilot",
+    "kind": "module",
+    "cn": "ClientPilot 提供可编程的客户端自动驾驶接口，用于自动化测试中模拟玩家输入与会话流程。测试框架可以驱动连接、移动和操作序列，而不必挂真实手柄。它面向 QA 与自动化流水线，不是面向玩家的操控系统。",
+    "en": "ClientPilot exposes a programmable autopilot for client sessions so automated tests can fake player input and flow. Test harnesses can drive connect, move, and action sequences without a physical controller. It is a QA and automation surface, not a player-facing input stack."
+  },
+  {
+    "slug": "clothingsystemeditor",
+    "kind": "module",
+    "cn": "ClothingSystemEditor 承载布料资产在编辑器中的创建、导入和参数编辑。它对接内容浏览器与骨骼网格工作流，把运行时布料数据暴露给细节面板。美术可以在这里调整碰撞、约束和模拟预设，而无需改运行时模块。",
+    "en": "ClothingSystemEditor hosts creation, import, and parameter editing of clothing assets in the Unreal Editor. It connects the Content Browser and skeletal-mesh workflows so runtime cloth data appears in details panels. Artists tune collisions, constraints, and simulation presets here without touching runtime modules."
+  },
+  {
+    "slug": "clothingsystemeditorinterface",
+    "kind": "module",
+    "cn": "ClothingSystemEditorInterface 定义编辑器布料工具与运行时接口之间的抽象边界。ClothPainter 等上层工具通过它访问布料资产，而不绑定某一家求解器实现。这样更换 NvCloth 或后续求解器时，编辑器侧契约可以保持稳定。",
+    "en": "ClothingSystemEditorInterface defines the abstract boundary between editor cloth tools and the runtime clothing API. Upper tools such as ClothPainter talk to clothing assets through this layer instead of a specific solver. Swapping NvCloth or a later solver can keep the editor contract intact."
+  },
+  {
+    "slug": "clothingsystemruntimecommon",
+    "kind": "module",
+    "cn": "ClothingSystemRuntimeCommon 存放各布料后端共用的运行时数据结构、配置资产和模拟调度。它实现与求解器无关的蒙皮、碰撞代理和 LOD 策略。具体物理步进仍交给 Nv 等专用模块。",
+    "en": "ClothingSystemRuntimeCommon holds shared runtime data, config assets, and simulation scheduling used by every clothing backend. Solver-agnostic skinning, collision proxies, and LOD policy live here. Actual physics stepping remains in specialized modules such as the Nv backend."
+  },
+  {
+    "slug": "clothingsystemruntimeinterface",
+    "kind": "module",
+    "cn": "ClothingSystemRuntimeInterface 是布料系统对外的最小运行时 API，声明模拟器、资产和回调。引擎与游戏代码应依赖这层，而不是某一求解器的头文件。它保证骨骼网格组件可以挂布料而不感知实现细节。",
+    "en": "ClothingSystemRuntimeInterface is the minimal runtime API for clothing: simulators, assets, and callbacks. Engine and game code should depend on this layer rather than a solver-specific header. Skeletal mesh components can attach cloth without knowing the implementation."
+  },
+  {
+    "slug": "clothingsystemruntimenv",
+    "kind": "module",
+    "cn": "ClothingSystemRuntimeNv 把 NVIDIA NvCloth 求解器接到虚幻布料运行时。它负责粒子、约束和碰撞的实际积分，并实现 ClothingSystemRuntimeCommon 约定的后端。项目若使用传统 NVIDIA 布料路径，运行时步进就走这个模块。",
+    "en": "ClothingSystemRuntimeNv binds the NVIDIA NvCloth solver to Unreal’s clothing runtime. It integrates particles, constraints, and collisions and implements the backend expected by ClothingSystemRuntimeCommon. Projects on the classic NVIDIA cloth path step simulation through this module."
+  },
+  {
+    "slug": "clothpainter",
+    "kind": "module",
+    "cn": "ClothPainter 是骨骼网格编辑器中的布料权重绘制工具，可在网格上刷模拟蒙皮、最大距离和碰撞强度。它复用 MeshPaint 交互，并把结果写回 Clothing 资产。该模块只在编辑器中运行，用于迭代布料蒙皮而不是运行时模拟。",
+    "en": "ClothPainter is the skeletal-mesh editor tool for painting cloth weights such as simulation masks, max distance, and collision intensity. It reuses MeshPaint interaction and writes results back into clothing assets. The module is editor-only and iterates cloth skinning rather than running the sim."
+  },
+  {
+    "slug": "cmdlink",
+    "kind": "module",
+    "cn": "CmdLink 是一个小型程序模块，用来在命令行与已运行的引擎/编辑器实例之间建立链接。它可以把外部命令转发进进程，便于脚本和构建系统触发操作。它不实现游戏玩法，只做进程间命令通道。",
+    "en": "CmdLink is a small program module that links a command line to an already running engine or editor process. It forwards external commands into that process so scripts and build systems can trigger work. It is an inter-process command channel, not gameplay."
+  },
+  {
+    "slug": "collectionmanager",
+    "kind": "module",
+    "cn": "CollectionManager 维护内容浏览器集合（Collection）的创建、共享、本地/动态规则和源码控制同步。它监听目录变化，把资产引用集合持久化到磁盘。编辑器工作流用集合给关卡、角色或任务资产分组，而不改文件夹结构。",
+    "en": "CollectionManager creates, shares, and syncs Content Browser collections, including local and dynamic rules plus source-control updates. It watches directories and persists asset-reference sets to disk. Editor workflows group levels, characters, or task assets with collections without rearranging folders."
+  },
+  {
+    "slug": "collisionanalyzer",
+    "kind": "module",
+    "cn": "CollisionAnalyzer 提供碰撞查询的调试窗口，记录射线、扫描和重叠的起点、形状与命中。物理和动画程序员用它核对通道、忽略列表和穿透。界面挂在开发者菜单中，仅用于诊断。",
+    "en": "CollisionAnalyzer is the debug window that logs traces, sweeps, and overlaps with origin, shape, and hits. Physics and animation programmers use it to verify channels, ignore lists, and penetrations. It hangs off developer menus and exists only for diagnosis."
+  },
+  {
+    "slug": "commonlaunchextensions",
+    "kind": "module",
+    "cn": "CommonLaunchExtensions 给项目启动器（Project Launcher）提供可复用的启动配置扩展点。自定义启动配置文件、设备和 cook 选项可以挂在这层，而不改启动器核心。它服务于打包与部署流水线，而不是运行时关卡加载。",
+    "en": "CommonLaunchExtensions gives the Project Launcher reusable extension points for launch profiles. Custom profiles, devices, and cook options hook in here without changing launcher core. It serves packaging and deploy pipelines, not runtime level loading."
+  },
+  {
+    "slug": "commonmenuextensions",
+    "kind": "module",
+    "cn": "CommonMenuExtensions 为编辑器主菜单和工具栏提供共享的菜单项与命令绑定。多个编辑器模块通过 ToolMenus 在这里注册通用入口，避免各自复制菜单样板。它只影响编辑器 UI 布局，不改变资产数据。",
+    "en": "CommonMenuExtensions supplies shared menu entries and command bindings for the editor main menu and toolbars. Other editor modules register common actions through ToolMenus here instead of duplicating boilerplate. It only affects editor UI layout, not asset data."
+  },
+  {
+    "slug": "componentvisualizers",
+    "kind": "module",
+    "cn": "ComponentVisualizers 在关卡视口中绘制组件辅助线，例如样条、AI 感知、导航链接和约束。选中 Actor 时，编辑器通过这些可视化器显示可操作的 Gizmo。它让组件作者把调试形状接到视口交互层。",
+    "en": "ComponentVisualizers draw component helpers in the level viewport, such as splines, AI perception, nav links, and constraints. When an actor is selected, the editor shows interactive gizmos through these visualizers. Component authors hook debug shapes into the viewport interaction layer here."
+  },
+  {
+    "slug": "concurrencyvisualizer",
+    "kind": "module",
+    "cn": "ConcurrencyVisualizer 封装 Visual Studio Concurrency Visualizer SDK 的第三方探测点。Core 可在 Windows 上把任务、锁和线程切换标记进该分析器。它是性能采集挂钩，不是游戏线程调度器本身。",
+    "en": "ConcurrencyVisualizer wraps the Visual Studio Concurrency Visualizer SDK as third-party instrumentation. On Windows, Core can mark tasks, locks, and thread switches for that profiler. It is a capture hook, not the game’s thread scheduler."
+  },
+  {
+    "slug": "configeditor",
+    "kind": "module",
+    "cn": "ConfigEditor 提供 ini / 配置层次的编辑器界面，可查看平台覆盖、源码控制和目标平台相关设置。开发者用它比较 Default 与平台特定配置，而不是手改散落的 ini。它面向工具链配置，而不是游戏存档。",
+    "en": "ConfigEditor is the editor UI for ini hierarchy, platform overrides, source control, and target-platform settings. Developers compare Default versus platform configs here instead of editing scattered ini files by hand. It targets toolchain configuration, not save games."
+  },
+  {
+    "slug": "constraints",
+    "kind": "module",
+    "cn": "Constraints 实现动画与场景中的约束系统，把骨骼、控件或 Actor 用父子、朝向和位置约束绑在一起。它与 AnimationCore 和 MovieScene 协作，支持控制绑定和 Sequencer 驱动的约束动画。运行时求值这些约束以保持绑定关系。",
+    "en": "Constraints implements the animation and scene constraint system that binds bones, controls, or actors with parent, aim, and position rules. It works with AnimationCore and MovieScene for Control Rig and Sequencer-driven constraint animation. Runtime evaluation keeps those bindings in sync."
+  },
+  {
+    "slug": "contentbrowser",
+    "kind": "module",
+    "cn": "ContentBrowser 是编辑器资产浏览器的主界面，负责文件夹树、缩略图、筛选、拖放和源码控制状态。它调用 ContentBrowserData 与 AssetTools 完成浏览、导入和资产操作。几乎所有编辑器资产管理都从这里进入。",
+    "en": "ContentBrowser is the editor’s primary asset browser: folder tree, thumbnails, filters, drag-and-drop, and source-control status. It calls ContentBrowserData and AssetTools to browse, import, and operate on assets. Almost every editor asset workflow starts here."
+  },
+  {
+    "slug": "contentbrowserdata",
+    "kind": "module",
+    "cn": "ContentBrowserData 把内容浏览器的数据源抽象成可插拔的 Item 后端。虚拟文件夹、外部内容源和引擎资产树都实现这套数据接口。ContentBrowser UI 只消费这层，从而支持多种内容来源。",
+    "en": "ContentBrowserData abstracts Content Browser sources as pluggable item backends. Virtual folders, external content, and the engine asset tree all implement this data interface. The Content Browser UI consumes only this layer so multiple content origins can appear."
+  },
+  {
+    "slug": "cookededitor",
+    "kind": "module",
+    "cn": "CookedEditor 支持用已 Cook 的数据启动编辑器相关流程，用于精简或目标平台编辑器变体。它协调资产注册表、网络核心和目标平台，使编辑器不必始终依赖完整开发内容。该路径服务特殊发行与设备上的编辑器场景。",
+    "en": "CookedEditor enables editor-related flows that boot from cooked data for slim or target-platform editor variants. It coordinates the asset registry, net core, and target platforms so the editor need not always load full development content. The path serves specialized shipping and on-device editor scenarios."
+  },
+  {
+    "slug": "cookmetadata",
+    "kind": "module",
+    "cn": "CookMetadata 以轻量方式读写 Cook 过程产生的元数据，只依赖 Core。构建和运行时可以用它查询包是否已 cook、依赖图摘要等信息。它不执行 cook 本身，只保存 cook 结果的索引。",
+    "en": "CookMetadata reads and writes metadata produced by cooking, depending only on Core. Build and runtime code can query whether packages are cooked and inspect dependency summaries. It does not cook; it stores an index of cook results."
+  },
+  {
+    "slug": "cookonthefly",
+    "kind": "module",
+    "cn": "CookOnTheFly 是运行时客户端，在游戏启动时向 cook 服务器按需拉取尚未本地化的已 cook 包。它走套接字与网络层，让设备不必预 cook 全部内容即可迭代。这是开发迭代通道，不是最终 pak 发行方式。",
+    "en": "CookOnTheFly is the runtime client that pulls cooked packages on demand from a cook server at game start. It uses sockets and the networking layer so a device can iterate without pre-cooking everything. This is a development iteration channel, not the final pak shipping path."
+  },
+  {
+    "slug": "cookontheflynetserver",
+    "kind": "module",
+    "cn": "CookOnTheFlyNetServer 是开发机上的 Cook-on-the-Fly 网络服务端，接收设备请求并提供已 cook 资源。它结合 TargetPlatform 决定平台格式，再通过套接字回传。编辑器或独立 cook 进程用它给真机热更新内容。",
+    "en": "CookOnTheFlyNetServer is the development-machine network server for Cook-on-the-Fly, answering device requests with cooked assets. It uses TargetPlatform to choose formats and returns data over sockets. The editor or a standalone cook process uses it to hot-serve content to hardware."
+  },
+  {
+    "slug": "core",
+    "kind": "module",
+    "cn": "Core 是虚幻引擎最底层的运行时：容器、字符串、模块加载、任务图、日志、平台抽象和内存分配器都在这里。几乎所有引擎与游戏模块都直接或间接依赖它。没有 Core，UBT 产出的模块无法作为引擎进程启动。",
+    "en": "Core is Unreal’s lowest runtime layer: containers, strings, module loading, the task graph, logging, platform abstraction, and allocators. Nearly every engine and game module depends on it. Without Core, UBT-built modules cannot start as an engine process."
+  },
+  {
+    "slug": "coremod",
+    "kind": "module",
+    "cn": "coremod 封装第三方 libcoremod 音频模块播放库，用于 tracker / 模块音乐格式。音频管线在需要解码 MOD 类资源时链接该外部库。游戏代码通常不会直接包含它的头文件。",
+    "en": "coremod wraps the third-party libcoremod tracker/module music playback library. The audio pipeline links this external code when MOD-style assets must be decoded. Game code rarely includes its headers directly."
+  },
+  {
+    "slug": "coreonline",
+    "kind": "module",
+    "cn": "CoreOnline 提供与具体 Online Subsystem 实现无关的在线身份、会话和唯一 ID 基础类型。更高层的 OSS 与引擎在线功能都建立在这些共享结构上。它处理 ID 序列化与比较，而不是成就或大厅的完整业务。",
+    "en": "CoreOnline supplies online identity, session, and unique-ID types that are independent of any Online Subsystem implementation. Higher OSS and engine online features build on these shared structs. It handles ID serialization and comparison, not full achievements or lobby logic."
+  },
+  {
+    "slug": "coreuobject",
+    "kind": "module",
+    "cn": "CoreUObject 实现 UObject 反射、垃圾回收、包序列化和类默认对象。蓝图、属性系统和几乎所有游戏对象模型都建立在这层。它位于 Core 之上，是引擎对象宇宙的根基。",
+    "en": "CoreUObject implements UObject reflection, garbage collection, package serialization, and class default objects. Blueprints, the property system, and almost every gameplay object model sit on this layer. It lives above Core and is the foundation of Unreal’s object universe."
+  },
+  {
+    "slug": "cqtest",
+    "kind": "module",
+    "cn": "CQTest 是面向引擎的测试辅助模块，把关卡、网络和编辑器上下文接到自动化用例。团队用它编写可在编辑器或进程中运行的一致性/质量测试。它补充 Automation 框架，强调可组合的测试夹具。",
+    "en": "CQTest is an engine test-helper module that attaches level, net, and editor context to automated cases. Teams write consistency and quality tests that run in-editor or in-process. It complements the Automation framework with composable fixtures."
+  },
+  {
+    "slug": "crashdebughelper",
+    "kind": "module",
+    "cn": "CrashDebugHelper 提供崩溃转储解析与符号解析的底层辅助，只依赖 Core。崩溃报告管线用它从 minidump 提取调用栈和模块列表。它不弹 UI，只做崩溃数据的解读。",
+    "en": "CrashDebugHelper provides low-level crash-dump and symbol helpers and depends only on Core. The crash-reporting pipeline uses it to extract callstacks and module lists from minidumps. It has no UI; it only interprets crash data."
+  },
+  {
+    "slug": "crashreportclient",
+    "kind": "module",
+    "cn": "CrashReportClient 是独立崩溃报告客户端程序的主体，崩溃后弹出收集界面并上传报告。它打包日志、截图、HTTP 提交和分析事件，运行在独立进程以免被崩溃的编辑器拖垮。玩家和开发者看到的崩溃窗口来自这里。",
+    "en": "CrashReportClient is the body of the standalone crash reporter that shows a collection UI and uploads a report after a crash. It bundles logs, screenshots, HTTP submit, and analytics in a separate process so a dead editor cannot take it down. The crash window users see comes from this module."
+  },
+  {
+    "slug": "crashreportclienteditor",
+    "kind": "module",
+    "cn": "CrashReportClientEditor 把崩溃客户端接到编辑器会话，通过 Concert 和编辑器分析会话补充协作与遥测上下文。多人编辑或会话分析数据可以随崩溃报告一起送出。它扩展独立客户端，而不是替代核心上传逻辑。",
+    "en": "CrashReportClientEditor attaches the crash client to an editor session, adding Concert and editor-analytics context. Multi-user editing or session telemetry can ride along with the crash report. It extends the standalone client rather than replacing upload logic."
+  },
+  {
+    "slug": "crashreportcore",
+    "kind": "module",
+    "cn": "CrashReportCore 是崩溃报告的共享运行时：收集、序列化、HTTP 发送和 XML/JSON 描述。CrashReportClient 与引擎内崩溃钩子都调用这层。它把 CrashDebugHelper 的解析结果变成可上传的报告载荷。",
+    "en": "CrashReportCore is the shared crash-report runtime: collection, serialization, HTTP send, and XML/JSON descriptions. Both CrashReportClient and in-engine crash hooks call this layer. It turns CrashDebugHelper parse results into an uploadable payload."
+  },
+  {
+    "slug": "csvtosvg",
+    "kind": "module",
+    "cn": "CSVtoSVG 是编辑器工具，把性能 CSV（如 Unreal Insights / stat 导出）转成 SVG 图表资源。策划和程序员可在内容浏览器中生成可视化曲线以便文档化。它处理表格到矢量图的转换，不采集性能数据本身。",
+    "en": "CSVtoSVG is an editor tool that turns performance CSVs (Unreal Insights or stat exports) into SVG chart assets. Designers and programmers generate visual curves in the Content Browser for documentation. It converts tables to vectors; it does not capture perf data itself."
+  },
+  {
+    "slug": "csvtotelemetry",
+    "kind": "module",
+    "cn": "CSVToTelemetry 是独立程序，把 CSV 性能或构建数据推送到 AnalyticsET、Horde 与 StudioTelemetry。流水线用它把离线表格变成遥测事件，便于跨构建对比。它面向工作室基础设施，而不是游戏内 HUD。",
+    "en": "CSVToTelemetry is a standalone program that pushes CSV performance or build data into AnalyticsET, Horde, and StudioTelemetry. Pipelines turn offline tables into telemetry events for cross-build comparison. It targets studio infrastructure, not an in-game HUD."
+  },
+  {
+    "slug": "cuda",
+    "kind": "module",
+    "cn": "CUDA 模块把 NVIDIA CUDA 运行时接到虚幻，供 GPU 计算、视频和 ML 相关功能调用内核。它依赖 CUDAHeader 获得驱动 API 声明。只有真正启动 CUDA 上下文的引擎功能才应链接本模块。",
+    "en": "The CUDA module binds the NVIDIA CUDA runtime into Unreal so GPU compute, video, and ML features can launch kernels. It depends on CUDAHeader for driver API declarations. Only engine features that actually create a CUDA context should link this module."
+  },
+  {
+    "slug": "cudaheader",
+    "kind": "module",
+    "cn": "CUDAHeader 是 NVIDIA CUDA 头文件与导入库的第三方封装，不包含引擎逻辑。CUDA 模块和需要编译期 CUDA API 的代码通过它找到 include 路径。它本身不启动 GPU 上下文。",
+    "en": "CUDAHeader is the third-party wrapper for NVIDIA CUDA headers and import libraries, with no engine logic. The CUDA module and anything that compiles against the CUDA API get include paths from here. It does not create a GPU context by itself."
+  },
+  {
+    "slug": "curveasseteditor",
+    "kind": "module",
+    "cn": "CurveAssetEditor 打开独立的曲线资产（CurveFloat 等）编辑器，复用 CurveEditor 控件。用户可以编辑关键帧、切线和循环模式，供材质、动画和游戏逻辑采样。它是资产编辑器外壳，不是通用曲线控件本身。",
+    "en": "CurveAssetEditor opens standalone curve assets (CurveFloat and friends) and reuses the CurveEditor widget. Users edit keys, tangents, and looping for materials, animation, and gameplay sampling. It is the asset-editor shell, not the generic curve widget itself."
+  },
+  {
+    "slug": "curveeditor",
+    "kind": "module",
+    "cn": "CurveEditor 是共享的曲线编辑控件，Sequencer、动画和曲线资产都嵌这套时间轴与关键帧操作。它处理选择、框选、吸附和多曲线叠加显示。各专业编辑器在其上叠加领域工具栏。",
+    "en": "CurveEditor is the shared curve widget used by Sequencer, animation, and curve assets for timeline and key editing. It handles selection, marquee, snapping, and stacked curves. Domain editors layer their toolbars on top of it."
+  },
+  {
+    "slug": "curvetableeditor",
+    "kind": "module",
+    "cn": "CurveTableEditor 编辑 Curve Table 资产，以表格加曲线的方式管理多行随时间或输入变化的数值。数值策划用它维护升级曲线、伤害衰减等数据驱动表。它把 CurveEditor 嵌进表格行工作流。",
+    "en": "CurveTableEditor edits Curve Table assets, combining a spreadsheet with curves for rows that vary over time or input. Numeric designers keep leveling curves, damage falloff, and other data-driven tables here. It embeds CurveEditor into a per-row table workflow."
+  },
+  {
+    "slug": "cxademangle",
+    "kind": "module",
+    "cn": "cxademangle 封装 Android/Itanium C++ ABI 的名称还原（__cxa_demangle）第三方实现。崩溃与调用栈符号化在 Android 上用它把 mangled 符号变成人可读函数名。它是平台符号工具，不是游戏模块。",
+    "en": "cxademangle wraps a third-party __cxa_demangle implementation for the Android/Itanium C++ ABI. Crash and callstack symbolication on Android use it to turn mangled names into readable functions. It is a platform symbol helper, not a game module."
+  },
+  {
+    "slug": "d3d11rhi",
+    "kind": "module",
+    "cn": "D3D11RHI 实现 Direct3D 11 的渲染硬件接口，把 RHI 命令翻译成 D3D11 设备、上下文和资源。Windows 上的 DX11 渲染路径、XR 互换和着色器绑定走这里。选择 DirectX 11 作为 RHI 时由引擎加载本模块。",
+    "en": "D3D11RHI implements the Direct3D 11 Rendering Hardware Interface, translating RHI commands into D3D11 devices, contexts, and resources. The Windows DX11 path, XR interop, and shader binding go through here. The engine loads this module when DirectX 11 is the selected RHI."
+  },
+  {
+    "slug": "d3d12rhi",
+    "kind": "module",
+    "cn": "D3D12RHI 实现 Direct3D 12 后端：命令队列、描述符堆、资源屏障和多线程录制。它对接 Agility/PIX 与头显互操作，是 Windows 与 Xbox 上的主力 RHI 之一。现代渲染特性（网格着色器、光线追踪）优先走这条路径。",
+    "en": "D3D12RHI implements the Direct3D 12 backend: queues, descriptor heaps, barriers, and multi-threaded recording. It talks to Agility/PIX and HMD interop and is a primary RHI on Windows and Xbox. Modern features such as mesh shaders and ray tracing prefer this path."
+  },
+  {
+    "slug": "dataflowcore",
+    "kind": "module",
+    "cn": "DataflowCore 是 Dataflow 图系统的核心：节点类型、求值图、连接和与 Chaos/资产注册表的基础绑定。破坏、布料或程序化资产的数据流图都建立在这套图模型上。它不驱动物理步进，只定义图如何连接与求值。",
+    "en": "DataflowCore is the heart of the Dataflow graph: node types, evaluation graphs, connections, and basic Chaos/asset-registry binding. Destruction, cloth, or procedural asset graphs sit on this graph model. It does not step physics; it defines how graphs connect and evaluate."
+  },
+  {
+    "slug": "dataflowengine",
+    "kind": "module",
+    "cn": "DataflowEngine 把 Dataflow 图接到 Engine 对象、几何和图像数据，使节点能读写 Actor、网格和纹理。运行时关卡中的 Dataflow 资产求值走这一层。它位于 DataflowCore 之上，面向引擎对象模型。",
+    "en": "DataflowEngine binds Dataflow graphs to Engine objects, geometry, and image data so nodes can read and write actors, meshes, and textures. Evaluating Dataflow assets in a level goes through this layer. It sits on DataflowCore and faces the engine object model."
+  },
+  {
+    "slug": "dataflowsimulation",
+    "kind": "module",
+    "cn": "DataflowSimulation 让 Dataflow 图驱动 Chaos 刚体与渲染相关的仿真节点。破坏预缓存、运行时模拟控制和与 RigidPhysics 的桥接在此实现。需要在图里步进物理时使用本模块，而不是纯数据变换图。",
+    "en": "DataflowSimulation lets Dataflow graphs drive Chaos rigid-body and render-related simulation nodes. Destruction caching, runtime sim control, and the RigidPhysics bridge live here. Use this module when the graph must step physics, not for pure data transforms."
+  },
+  {
+    "slug": "datahierarchyeditor",
+    "kind": "module",
+    "cn": "DataHierarchyEditor 提供通用的分层数据树编辑器控件，供 Niagara、Dataflow 等系统展示节点层次。它处理展开、拖放、搜索和工具菜单，而不绑定某一资产类型。各领域编辑器在这棵树上挂自定义列和命令。",
+    "en": "DataHierarchyEditor provides a generic hierarchical data-tree widget for systems such as Niagara and Dataflow. It handles expand, drag-and-drop, search, and tool menus without binding to one asset type. Domain editors attach custom columns and commands to this tree."
+  },
+  {
+    "slug": "datalayereditor",
+    "kind": "module",
+    "cn": "DataLayerEditor 是 World Partition 数据层的编辑器：创建层、分配 Actor、控制加载和可见性。关卡设计师用场景大纲和本面板组织流式世界中的逻辑分组。它只编辑数据层元数据，不执行运行时流送。",
+    "en": "DataLayerEditor is the World Partition data-layer editor: create layers, assign actors, and control load and visibility. Level designers use the outliner and this panel to group streaming worlds logically. It edits data-layer metadata; it does not perform runtime streaming."
+  },
+  {
+    "slug": "datasmithcadworker",
+    "kind": "module",
+    "cn": "DatasmithCADWorker 是独立工作进程，在后台把 CAD 文件转成 Datasmith 场景，以免卡住编辑器。它通过套接字与 DatasmithDispatcher 通信，调用 CADInterfaces 与 CADTools。导入大型装配体时会拉起这个 worker。",
+    "en": "DatasmithCADWorker is a standalone worker that converts CAD files to Datasmith scenes off the editor thread. It talks to DatasmithDispatcher over sockets and calls CADInterfaces and CADTools. Large assembly imports spawn this worker."
+  },
+  {
+    "slug": "datasmithcore",
+    "kind": "module",
+    "cn": "DatasmithCore 定义 Datasmith 场景图、网格描述、材质和 XML/JSON 交换格式。所有导出器与 DirectLink 实时同步都构建在这套核心模型上。它描述“场景如何被 Datasmith 表达”，而不是某个 DCC 的插件 UI。",
+    "en": "DatasmithCore defines the Datasmith scene graph, mesh description, materials, and XML/JSON interchange. Every exporter and DirectLink live sync builds on this core model. It describes how a scene is expressed in Datasmith, not a DCC plugin UI."
+  },
+  {
+    "slug": "datasmithexporter",
+    "kind": "module",
+    "cn": "DatasmithExporter 实现把外部 DCC 场景写成 Datasmith 文件或 DirectLink 流的导出运行时。它处理网格、贴图（含 FreeImage）和独立 Slate 渲染，可在无完整编辑器的进程中运行。3ds Max 等导出插件链接这一层完成写出。",
+    "en": "DatasmithExporter implements the export runtime that writes DCC scenes to Datasmith files or a DirectLink stream. It handles meshes, textures (including FreeImage), and standalone Slate rendering outside a full editor. 3ds Max and other exporter plugins link this layer to write output."
+  },
+  {
+    "slug": "datasmithexporterui",
+    "kind": "module",
+    "cn": "DatasmithExporterUI 为 Datasmith 导出器提供独立窗口：选项、进度、路径选择和 DirectLink 状态。它运行在 DCC 宿主进程的 Slate UI 中，而不是虚幻编辑器里。导出插件用它收集用户选项再交给 DatasmithExporter。",
+    "en": "DatasmithExporterUI supplies standalone windows for Datasmith export: options, progress, path picking, and DirectLink status. It runs Slate inside the DCC host, not the Unreal Editor. Exporter plugins collect user options here and hand them to DatasmithExporter."
+  },
+  {
+    "slug": "datasmithfacade",
+    "kind": "module",
+    "cn": "DatasmithFacade 用稳定的 C++ 门面 API 包装 DatasmithCore 与导出器，方便第三方和 C API 绑定。外部工具不必依赖完整引擎模块图即可构建 Datasmith 场景。它是 SDK 友好层，隐藏内部场景节点细节。",
+    "en": "DatasmithFacade wraps DatasmithCore and the exporter behind a stable C++ facade for third parties and C bindings. External tools can build Datasmith scenes without the full engine module graph. It is the SDK-friendly layer that hides internal scene nodes."
+  },
+  {
+    "slug": "datasmithfacadecsharp",
+    "kind": "module",
+    "cn": "DatasmithFacadeCSharp 生成/承载 Datasmith Facade 的 C# 绑定，供 .NET 宿主和 3ds Max 托管插件调用。它把 C++ 门面、导出 UI 和 UDP 消息接到 CLR。用 C# 写 Datasmith 导出器时走这一程序模块。",
+    "en": "DatasmithFacadeCSharp hosts C# bindings for the Datasmith Facade so .NET hosts and managed 3ds Max plugins can call it. It bridges the C++ facade, exporter UI, and UDP messaging into the CLR. C# Datasmith exporters go through this program module."
+  },
+  {
+    "slug": "datasmithmax2023",
+    "kind": "module",
+    "cn": "DatasmithMax2023 是面向 Autodesk 3ds Max 2023 的 Datasmith 导出插件构建目标。它把 Max 2023 SDK 的场景、材质和相机转换成 Datasmith 数据。与其他年份变体并行存在，以便同一套导出代码适配该版本的 Max API。",
+    "en": "DatasmithMax2023 is the Datasmith exporter build target for Autodesk 3ds Max 2023. It converts that year’s Max SDK scenes, materials, and cameras into Datasmith. It sits beside other year variants so the same export code can match that Max API."
+  },
+  {
+    "slug": "datasmithmax2024",
+    "kind": "module",
+    "cn": "DatasmithMax2024 针对 3ds Max 2024 SDK 编译 Datasmith 导出插件。它处理该版本的对象模型与渲染器差异，把场景送到 DatasmithMaxBase 共享逻辑。安装 Max 2024 插件时加载的是这一变体。",
+    "en": "DatasmithMax2024 compiles the Datasmith exporter against the 3ds Max 2024 SDK. It handles that version’s object model and renderer differences, then feeds DatasmithMaxBase shared logic. Installing the Max 2024 plugin loads this variant."
+  },
+  {
+    "slug": "datasmithmax2025",
+    "kind": "module",
+    "cn": "DatasmithMax2025 是 3ds Max 2025 专用的 Datasmith 导出模块，跟进该年版本的 SDK 与视口变化。它与 2024/2026 变体分开链接，避免一套二进制兼容多年 Max。从 Max 2025 一键同步到虚幻时走这条插件。",
+    "en": "DatasmithMax2025 is the Datasmith exporter built for 3ds Max 2025, tracking that year’s SDK and viewport changes. It links separately from 2024/2026 so one binary need not span many Max versions. One-click sync from Max 2025 into Unreal uses this plugin."
+  },
+  {
+    "slug": "datasmithmax2026",
+    "kind": "module",
+    "cn": "DatasmithMax2026 为 3ds Max 2026 提供 Datasmith 导出与 DirectLink 入口。它按该年版本的插件槽位注册，复用 MaxBase 的网格与材质转换。升级 Max 主版本时需要对应年份的这套模块，而不是混用旧插件。",
+    "en": "DatasmithMax2026 provides Datasmith export and DirectLink entry points for 3ds Max 2026. It registers in that year’s plugin slot and reuses MaxBase mesh and material conversion. A major Max upgrade needs this year-matched module rather than an older plugin."
+  },
+  {
+    "slug": "datasmithmax2027",
+    "kind": "module",
+    "cn": "DatasmithMax2027 是面向 3ds Max 2027 的 Datasmith 导出构建，预留该 SDK 的 API 表面。它让引擎源码能在新 Max 发布时快速接上导出管线。功能与其他 MaxYYYY 模块相同，但二进制与 2027 宿主绑定。",
+    "en": "DatasmithMax2027 is the Datasmith exporter build aimed at 3ds Max 2027, covering that SDK surface. It lets engine sources hook the export pipeline when the new Max ships. Behavior matches other MaxYYYY modules, but the binary binds to the 2027 host."
+  },
+  {
+    "slug": "datasmithmaxbase",
+    "kind": "module",
+    "cn": "DatasmithMaxBase 存放 3ds Max Datasmith 导出器的共享实现：网格提取、OpenEXR 贴图、TBB 并行和 Slate UI。各年份 MaxYYYY 模块在此之上只做 SDK 版本适配。改转换逻辑应优先改 Base，而不是某个年份插件。",
+    "en": "DatasmithMaxBase holds shared 3ds Max Datasmith export: mesh extract, OpenEXR textures, TBB parallelism, and Slate UI. Year-specific MaxYYYY modules only adapt SDK versions on top. Conversion logic changes belong in Base, not a single year plugin."
+  },
+  {
+    "slug": "datasmithsdk",
+    "kind": "module",
+    "cn": "DatasmithSDK 打包可分发给外部开发者的 Datasmith SDK 程序，聚合 Core、Exporter、ExporterUI 与消息层。第三方 DCC 或管线可以用它编写自定义导出器。它是发行单元，而不是编辑器内导入器。",
+    "en": "DatasmithSDK packages the redistributable Datasmith SDK program, aggregating Core, Exporter, ExporterUI, and messaging. Third-party DCCs or pipelines write custom exporters against it. It is a distribution unit, not the in-editor importer."
+  },
+  {
+    "slug": "datatableeditor",
+    "kind": "module",
+    "cn": "DataTableEditor 编辑 Data Table 资产：行列、结构体列类型、JSON 导入导出和蓝图结构体绑定。数值策划在表格里填数据，游戏运行时按行查找。它提供电子表格式体验，而不是曲线编辑。",
+    "en": "DataTableEditor edits Data Table assets: rows, struct column types, JSON import/export, and Blueprint struct binding. Designers fill tables; runtime code looks up rows. It is a spreadsheet experience, not a curve editor."
+  },
+  {
+    "slug": "deriveddatabuildworker",
+    "kind": "module",
+    "cn": "DerivedDataBuildWorker 是独立进程，执行 Derived Data Cache 的远程/分布式构建任务。Cook 和着色器编译可以把重活派给这些 worker，本地编辑器只回收结果。它消费 DerivedDataCache 协议，不提供编辑器 UI。",
+    "en": "DerivedDataBuildWorker is a standalone process that runs remote or distributed Derived Data Cache build jobs. Cook and shader compile can farm heavy work to these workers while the local editor collects results. It speaks the DDC protocol and has no editor UI."
+  },
+  {
+    "slug": "deriveddatacache",
+    "kind": "module",
+    "cn": "DerivedDataCache 实现派生数据缓存：着色器、缩略图、几何处理等昂贵结果的本地与共享存储。编辑器和 cook 用键值查询避免重复计算。几乎所有内容管线的加速都经过这层。",
+    "en": "DerivedDataCache implements the derived data cache for expensive results such as shaders, thumbnails, and geometry processing, locally and shared. Editor and cook lookups by key skip recomputation. Most content-pipeline speedups go through this layer."
+  },
+  {
+    "slug": "deriveddataeditor",
+    "kind": "module",
+    "cn": "DerivedDataEditor 在编辑器中提供 DDC 状态、缓存浏览和故障诊断面板。开发者可以查看命中率、清除条目并配合消息日志定位缓存未命中。它把 DerivedDataCache 操作暴露给编辑器菜单。",
+    "en": "DerivedDataEditor adds DDC status, cache browsing, and diagnostics panels in the editor. Developers inspect hit rates, purge entries, and use the message log to chase misses. It exposes DerivedDataCache operations on editor menus."
+  },
+  {
+    "slug": "deriveddatatool",
+    "kind": "module",
+    "cn": "DerivedDataTool 是命令行工具，用于维护 DDC：列举、删除、迁移和网络缓存存储操作。构建农场和 IT 用它管理共享缓存，而不打开编辑器。它面向运维脚本，不是内容创作。",
+    "en": "DerivedDataTool is the command-line utility for DDC maintenance: list, delete, migrate, and network cache-store operations. Build farms and IT manage shared caches without opening the editor. It is an ops script surface, not a content tool."
+  },
+  {
+    "slug": "deriveddatawidgets",
+    "kind": "module",
+    "cn": "DerivedDataWidgets 提供 DDC 相关的可复用 Slate 控件，供 DerivedDataEditor 和其他面板嵌入。进度、缓存键列表和日志片段在此实现。编辑器 UI 代码应依赖控件层而不是直接画缓存内部结构。",
+    "en": "DerivedDataWidgets supplies reusable Slate widgets for DDC UI, embedded by DerivedDataEditor and other panels. Progress, cache-key lists, and log snippets live here. Editor UI should depend on this widget layer rather than drawing cache internals."
+  },
+  {
+    "slug": "desktopplatform",
+    "kind": "module",
+    "cn": "DesktopPlatform 抽象桌面操作系统能力：文件对话框、进程启动、注册表/书签和引擎关联。编辑器与独立工具通过它打开原生文件选择器，而不是直接调用 Win32 或 Cocoa。移动目标通常不使用该模块。",
+    "en": "DesktopPlatform abstracts desktop OS features: file dialogs, process launch, registry or bookmarks, and engine association. Editor and standalone tools open native pickers through it instead of calling Win32 or Cocoa directly. Mobile targets typically do not use this module."
+  },
+  {
+    "slug": "desktopwidgets",
+    "kind": "module",
+    "cn": "DesktopWidgets 提供基于 DesktopPlatform 的 Slate 控件，例如路径选择器和桌面特有输入。开发者工具用这些控件保持跨 Windows/macOS 的一致体验。它是 UI 适配层，不是平台 API 本身。",
+    "en": "DesktopWidgets provides Slate controls on top of DesktopPlatform, such as path pickers and desktop-specific input. Developer tools use them for a consistent Windows/macOS experience. It is a UI adaptation layer, not the platform API itself."
+  },
+  {
+    "slug": "detailcustomizations",
+    "kind": "module",
+    "cn": "DetailCustomizations 注册引擎类型在细节面板中的自定义布局：摄像机、音频、AI、动画图等上百种类型。没有它，许多 UObject 只会显示原始属性列表。该模块把领域知识变成属性编辑器的分类、按钮和预览。",
+    "en": "DetailCustomizations registers custom Details Panel layouts for engine types: cameras, audio, AI, anim graphs, and many more. Without it, many UObjects would show a raw property list. The module turns domain knowledge into categories, buttons, and previews in the property editor."
+  },
+  {
+    "slug": "detex",
+    "kind": "module",
+    "cn": "detex 封装用于解码 ETC/ASTC 等移动纹理压缩格式的第三方 detex 库。Android 相关工具和引擎路径用它在 CPU 上解开块压缩纹理。它服务于纹理工具链，而不是运行时 GPU 采样。",
+    "en": "detex wraps the third-party detex library for decoding mobile texture compression such as ETC and ASTC. Android-related tools and engine paths unpack block-compressed textures on the CPU with it. It serves the texture toolchain, not GPU sampling at runtime."
+  },
+  {
+    "slug": "detours",
+    "kind": "module",
+    "cn": "Detours 是 Microsoft Detours 的 UBT 封装，用于在 Windows 上拦截函数。Core 和诊断工具可借此挂钩 API 以便分析或兼容。游戏玩法代码不应依赖函数劫持。",
+    "en": "Detours is the UBT wrapper for Microsoft Detours, used to intercept functions on Windows. Core and diagnostic tools can hook APIs for profiling or compatibility. Gameplay code should not rely on function detouring."
+  },
+  {
+    "slug": "developersettings",
+    "kind": "module",
+    "cn": "DeveloperSettings 提供 UDeveloperSettings 基类，让模块用配置对象在项目设置中暴露选项。许多运行时系统通过它把 ini 映射到反射属性。它是设置的对象模型，不是设置 UI 浏览器。",
+    "en": "DeveloperSettings provides UDeveloperSettings so modules can expose options as config objects in Project Settings. Many runtime systems map ini onto reflected properties through it. It is the settings object model, not the settings UI browser."
+  },
+  {
+    "slug": "developertoolsettings",
+    "kind": "module",
+    "cn": "DeveloperToolSettings 存放开发者工具自身的设置，例如桌面路径、输入和项目级工具偏好。它建立在 DeveloperSettings 之上，专门服务编辑器/开发者工具而不是游戏运行时。工具作者把可持久化选项放在这里。",
+    "en": "DeveloperToolSettings stores settings for developer tools themselves, such as desktop paths, input, and per-project tool prefs. It builds on DeveloperSettings for editor/dev tools rather than game runtime. Tool authors put persistent options here."
+  },
+  {
+    "slug": "devhttp",
+    "kind": "module",
+    "cn": "DevHttp 为开发者工具提供带 SSL 的 HTTP 客户端辅助，方便查询内部服务。与游戏 Online HTTP 相比，它面向编辑器和命令行工具的调试请求。不要用它实现玩家面向的生产 API。",
+    "en": "DevHttp gives developer tools an HTTP client helper with SSL for talking to internal services. Compared with game Online HTTP, it targets editor and command-line debug requests. Do not use it for player-facing production APIs."
+  },
+  {
+    "slug": "devicemanager",
+    "kind": "module",
+    "cn": "DeviceManager 是编辑器设备管理器面板，列出已连接的手机、主机和会话，并支持部署与电源操作。它通过 TargetPlatform 发现设备，把桌面平台能力接到 Slate 列表。打包到真机前通常先在这里确认设备在线。",
+    "en": "DeviceManager is the editor Device Manager panel that lists connected phones, consoles, and sessions, with deploy and power actions. It discovers devices via TargetPlatform and binds desktop platform capabilities to a Slate list. Confirming a device is online before a cook-and-push usually happens here."
+  },
+  {
+    "slug": "deviceprofileeditor",
+    "kind": "module",
+    "cn": "DeviceProfileEditor 编辑 Device Profile 资产：按设备分级覆盖 CVar、可扩展性和质量设置。技术美术用它为手机档位指定分辨率和特效开关。修改会进入配置并受源码控制追踪。",
+    "en": "DeviceProfileEditor edits Device Profile assets that override CVars, scalability, and quality per device class. Technical artists set resolution and effect toggles for phone tiers here. Changes land in config and can be source-controlled."
+  },
+  {
+    "slug": "deviceprofileservices",
+    "kind": "module",
+    "cn": "DeviceProfileServices 提供设备档位的查询、PIE 预览规格和 JSON 规格解析，供编辑器模拟目标设备。PIE 预览窗口和平台切换会调用这些服务。它是服务层，不是档位资产的可视化编辑器。",
+    "en": "DeviceProfileServices queries device tiers, PIE preview specs, and JSON device specifications so the editor can emulate a target device. PIE preview windows and platform switching call these services. It is the service layer, not the visual profile editor."
+  },
+  {
+    "slug": "diasdk",
+    "kind": "module",
+    "cn": "DiaSdk 封装 Microsoft Debug Interface Access SDK，用于读取 PDB 符号。DumpSyms 和 Windows 崩溃符号化依赖这套 COM 接口。它是符号读取后端，不实现转储文件格式本身。",
+    "en": "DiaSdk wraps the Microsoft Debug Interface Access SDK for reading PDB symbols. DumpSyms and Windows crash symbolication depend on this COM interface. It is the symbol-read backend, not the dump-file format itself."
+  },
+  {
+    "slug": "diffassetbulkdata",
+    "kind": "module",
+    "cn": "DiffAssetBulkData 是命令行程序，比较资产 Bulk Data（纹理、音频等大块）的差异并输出 JSON。内容管线用它检测 cook 或导入是否意外改了二进制负载。它面向自动化 diff，而不是编辑器里的文本差异视图。",
+    "en": "DiffAssetBulkData is a command-line program that diffs asset bulk data (textures, audio, and other blobs) and emits JSON. Content pipelines detect accidental binary payload changes from cook or import. It is an automated diff, not the editor’s text diff view."
+  },
+  {
+    "slug": "directlink",
+    "kind": "module",
+    "cn": "DirectLink 实现 Datasmith 的实时场景同步协议，基于引擎 Messaging 在 DCC 与虚幻之间推送增量。修改 3ds Max 物体时，编辑器视口可以近乎即时更新。它传输场景增量，而不是完整离线 .udatasmith 文件。",
+    "en": "DirectLink implements Datasmith’s live scene-sync protocol, pushing deltas between a DCC and Unreal over engine Messaging. Edits in 3ds Max can update the editor viewport nearly live. It streams scene deltas, not a full offline .udatasmith file."
+  },
+  {
+    "slug": "directml",
+    "kind": "module",
+    "cn": "DirectML 是 Microsoft DirectML 推理运行时的第三方封装，供 Windows 上的机器学习算子走 DirectX 计算。引擎 ML 功能可在支持的 GPU 上调度 DirectML 图。游戏代码通常通过更高层 ML 模块间接使用它。",
+    "en": "DirectML is the third-party wrapper for Microsoft’s DirectML inference runtime, running ML operators on DirectX compute on Windows. Engine ML features can dispatch DirectML graphs on supported GPUs. Game code usually reaches it through a higher ML module."
+  },
+  {
+    "slug": "directorywatcher",
+    "kind": "module",
+    "cn": "DirectoryWatcher 监听文件系统目录变化，把创建、删除和写入通知给编辑器。热重载、内容浏览器刷新和集合管理都依赖这层。它封装各平台的目录通知 API，对上只暴露统一回调。",
+    "en": "DirectoryWatcher listens for filesystem directory changes and notifies the editor of creates, deletes, and writes. Hot reload, Content Browser refresh, and collections depend on it. It wraps per-platform directory APIs behind a single callback surface."
+  },
+  {
+    "slug": "directshow",
+    "kind": "module",
+    "cn": "DirectShow 封装 Windows DirectShow SDK，用于旧式视频捕获与解码筛选器图。媒体和采集模块在需要兼容 DirectShow 设备时链接它。新项目更常走 Media Framework，但硬件兼容仍可能需要本封装。",
+    "en": "DirectShow wraps the Windows DirectShow SDK for legacy video capture and decoder filter graphs. Media and capture modules link it when a DirectShow device must be supported. Newer projects prefer Media Framework, but hardware compatibility can still need this wrapper."
+  },
+  {
+    "slug": "directsound",
+    "kind": "module",
+    "cn": "DirectSound 提供 Windows DirectSound 头文件与库路径，供旧音频路径或第三方编解码引用。现代混音器多已改用 WASAPI/XAudio2，但构建图仍可能需要这层 SDK。它不实现游戏混音图。",
+    "en": "DirectSound supplies Windows DirectSound headers and library paths for legacy audio paths or third-party codecs. Modern mixers prefer WASAPI/XAudio2, but the build graph may still need this SDK. It does not implement the game mix graph."
+  },
+  {
+    "slug": "directstorage",
+    "kind": "module",
+    "cn": "DirectStorage 封装 Microsoft DirectStorage API，允许 GPU 与存储之间的低开销异步读取。IO 系统在支持的 Windows/Xbox 上可用它加速资产流送。它是平台 IO 后端，不是内容浏览器。",
+    "en": "DirectStorage wraps the Microsoft DirectStorage API for low-overhead async reads between storage and GPU. The IO system can use it on supported Windows/Xbox to accelerate asset streaming. It is a platform IO backend, not the Content Browser."
+  },
+  {
+    "slug": "directx",
+    "kind": "module",
+    "cn": "DirectX 模块汇总 Windows DirectX SDK 的共享头文件、库和着色器编译相关依赖。D3D 后端和工具通过它找到 DXGI、D3DCompiler 等公共组件。游戏项目几乎总是间接依赖，而不会在工程里直接声明该封装。",
+    "en": "The DirectX module aggregates shared Windows DirectX SDK headers, libs, and shader-compiler dependencies. D3D backends and tools find DXGI, D3DCompiler, and similar commons through it. Games almost always depend on it indirectly rather than listing this wrapper themselves."
+  },
+  {
+    "slug": "distcurveeditor",
+    "kind": "module",
+    "cn": "DistCurveEditor 编辑分布曲线（Distribution Curve），常见于粒子和旧级联/插值属性。用户在视口级编辑器中调整随机分布随时间的形状。它服务遗留分布资产，与通用 CurveEditor 的关键帧曲线不同。",
+    "en": "DistCurveEditor edits distribution curves used by particles and legacy cascade/interp properties. Users reshape how a random distribution evolves over time in a viewport-level editor. It serves legacy distribution assets, unlike generic CurveEditor keyframe curves."
+  },
+  {
+    "slug": "dnxhr",
+    "kind": "module",
+    "cn": "DNxHR 封装 Avid DNxHR 编解码库，用于高质量中间编解码视频。媒体管线在导入或导出 DNxHR 素材时链接该第三方模块。它不提供时间轴编辑器，只提供编解码能力。",
+    "en": "DNxHR wraps Avid’s DNxHR codec library for high-quality mezzanine video. The media pipeline links this third-party module when importing or exporting DNxHR footage. It does not provide a timeline editor, only encode/decode."
+  },
+  {
+    "slug": "dnxmxf",
+    "kind": "module",
+    "cn": "DNxMXF 封装 Avid 用于 DNx 媒体的 MXF 容器读写。专业视频工作流把 DNx 码流打进或拆出 MXF 文件时走这里。它处理容器与元数据，而不是像素压缩算法本身。",
+    "en": "DNxMXF wraps Avid MXF container read/write for DNx media. Professional video workflows mux or demux DNx bitstreams in MXF through this module. It handles container and metadata, not the pixel compression algorithm itself."
+  },
+  {
+    "slug": "dnxuncompressed",
+    "kind": "module",
+    "cn": "DNxUncompressed 提供 Avid DNx 未压缩/轻压缩变体的编解码封装，用于最高保真中间文件。当管线需要无 DNxHR 量化损失的帧时使用该库。它与 DNxHR 并列，面向不同质量档位。",
+    "en": "DNxUncompressed wraps Avid’s uncompressed or lightly compressed DNx variant for maximum-fidelity intermediates. Pipelines that cannot accept DNxHR quantization use this library. It sits beside DNxHR for a different quality tier."
+  },
+  {
+    "slug": "documentation",
+    "kind": "module",
+    "cn": "Documentation 模块把编辑器内帮助、文档链接和上下文帮助按钮接到文档源与分析。它可打开本地或在线文档，并与源码访问、源码控制协作定位示例。F1 帮助和许多属性旁的文档图标由它驱动。",
+    "en": "The Documentation module wires in-editor help, doc links, and contextual help buttons to documentation sources and analytics. It can open local or online docs and cooperate with source-code access and source control to locate samples. F1 help and many property-side doc icons are driven from here."
+  },
+  {
+    "slug": "dotnetperforcelib",
+    "kind": "module",
+    "cn": "DotNetPerforceLib 是给托管 Perforce 客户端用的本地库，把版本库操作暴露给 C# 工具，并链接 OpenSSL。Horde、构建和源码控制实用程序通过它访问 Perforce，而不必重写原生协议。它不是编辑器里的 Perforce 窗口。",
+    "en": "DotNetPerforceLib is the native library backing the managed Perforce client, exposing depot operations to C# tools with OpenSSL. Horde, build, and source-control utilities talk to Perforce through it instead of reimplementing the protocol. It is not the editor Perforce window."
+  },
+  {
+    "slug": "downlinkbandwidthallocator",
+    "kind": "module",
+    "cn": "DownlinkBandwidthAllocator 按策略把客户端下行带宽配额分配给复制通道或 Actor。它读取 DownlinkBandwidthManager 的预算，决定谁在拥塞时被削减。这是实验性网络带宽控制，不是通用流量整形器。",
+    "en": "DownlinkBandwidthAllocator assigns client downlink quota to replication channels or actors by policy. It reads the DownlinkBandwidthManager budget and decides who is cut under congestion. This is experimental net bandwidth control, not a generic traffic shaper."
+  },
+  {
+    "slug": "downlinkbandwidthmanager",
+    "kind": "module",
+    "cn": "DownlinkBandwidthManager 维护客户端下行带宽的总预算与调试委托，供分配器查询。实验性复制系统用它跟踪可用比特率。它管理预算数字，不负责把包排进 socket。",
+    "en": "DownlinkBandwidthManager keeps the client downlink budget and debug delegates for allocators to query. Experimental replication uses it to track available bitrate. It manages budget numbers; it does not enqueue packets on a socket."
+  },
+  {
+    "slug": "downlinkbandwidthmeasurementtool",
+    "kind": "module",
+    "cn": "DownlinkBandwidthMeasurementTool 通过 HTTP 与引擎回调测量客户端下行带宽，并把结果交给调试委托。开发者用它标定真实网络条件下的复制预算。它是测量探针，不是运行时分配器。",
+    "en": "DownlinkBandwidthMeasurementTool measures client downlink bandwidth via HTTP and engine callbacks, then feeds debug delegates. Developers calibrate replication budgets under real network conditions with it. It is a measurement probe, not the runtime allocator."
+  },
+  {
+    "slug": "dr_libs",
+    "kind": "module",
+    "cn": "dr_libs 封装 David Reid 的单文件音频解码库（如 dr_wav、dr_mp3、dr_flac）。引擎音频导入或轻量解码路径用它读取常见文件格式。它是第三方解码器集合，不负责空间化或混音。",
+    "en": "dr_libs wraps David Reid’s single-file audio decoders such as dr_wav, dr_mp3, and dr_flac. Engine import or lightweight decode paths read common file formats through it. It is a third-party decoder pack, not spatialization or mixing."
+  },
+  {
+    "slug": "drawprimitivedebugger",
+    "kind": "module",
+    "cn": "DrawPrimitiveDebugger 调试绘制调用：列出图元、材质和渲染状态，帮助定位多余 Draw。渲染程序员可以对照 RHI/Renderer 数据找出重复提交。它是开发者诊断窗口，不会出现在发行游戏 HUD 中。",
+    "en": "DrawPrimitiveDebugger inspects draw calls: primitives, materials, and render state, to hunt extra draws. Rendering programmers correlate RHI/Renderer data to find duplicate submissions. It is a developer diagnostic window, not a shipping game HUD."
+  },
+  {
+    "slug": "dsymexporter",
+    "kind": "module",
+    "cn": "DsymExporter 是 macOS 程序，从构建产物导出 dSYM 调试符号供崩溃符号化使用。Apple 平台流水线在打包后运行它，把符号存档到符号服务器。它不参与游戏运行，只服务崩溃与调试。",
+    "en": "DsymExporter is a macOS program that exports dSYM debug symbols from build products for crash symbolication. Apple-platform pipelines run it after packaging and archive symbols to a symbol server. It never runs in-game; it only serves crash and debug."
+  },
+  {
+    "slug": "dumppackagetojson",
+    "kind": "module",
+    "cn": "DumpPackageToJson 把 UPackage 对象图转储为 JSON，便于离线检查序列化布局和存储服务器内容。它走 JsonObjectGraph 与 StorageServerClient，适合自动化校验包结构。输出面向工具，而不是给玩家看的存档。",
+    "en": "DumpPackageToJson dumps a UPackage object graph to JSON for offline inspection of serialization layout and storage-server content. It uses JsonObjectGraph and StorageServerClient for automated package-structure checks. The output is for tools, not player save games."
+  },
+  {
+    "slug": "dumpsyms",
+    "kind": "module",
+    "cn": "DumpSyms 基于 Breakpad/DIA/LLVM 从 PDB 或目标文件提取符号，生成崩溃服务器可用的符号文件。构建系统在编译后调用它上传符号。没有这步，崩溃堆栈往往无法还原到源码行。",
+    "en": "DumpSyms extracts symbols from PDBs or objects via Breakpad, DIA, and LLVM into files a crash server can use. The build system runs it after compile and uploads symbols. Without this step, crash stacks often cannot map back to source lines."
+  },
+  {
+    "slug": "dx11",
+    "kind": "module",
+    "cn": "DX11 第三方模块提供 Direct3D 11 的 SDK 头文件与库搜索路径。D3D11RHI 和其他 Windows 图形代码通过它链接 d3d11。它是 SDK 包装，不包含引擎 RHI 实现。",
+    "en": "The DX11 third-party module provides Direct3D 11 SDK headers and library search paths. D3D11RHI and other Windows graphics code link d3d11 through it. It is an SDK wrapper, not the engine RHI implementation."
+  },
+  {
+    "slug": "dx11audio",
+    "kind": "module",
+    "cn": "DX11Audio 从 DirectX SDK 中抽出 XAudio/X3DAudio 等相关音频头文件与库。Windows 音频后端在需要这些 API 时依赖该 Build.cs。它不混音，只把 SDK 音频部分接到 UBT。",
+    "en": "DX11Audio extracts XAudio/X3DAudio and related audio headers and libs from the DirectX SDK. Windows audio backends that still need those APIs depend on this Build.cs. It does not mix audio; it exposes the SDK audio slice to UBT."
+  },
+  {
+    "slug": "dx11input",
+    "kind": "module",
+    "cn": "DX11Input 封装 DirectInput / XInput 在 DirectX SDK 中的输入相关部分。Windows 手柄与旧式输入路径通过它找到库。现代 Enhanced Input 仍可能在底层落到这些系统 API。",
+    "en": "DX11Input wraps DirectInput/XInput pieces of the DirectX SDK. Windows gamepad and legacy input paths find libraries through it. Modern Enhanced Input may still bottom out on these system APIs."
+  },
+  {
+    "slug": "dx12",
+    "kind": "module",
+    "cn": "DX12 第三方模块提供 Direct3D 12 头文件、库，并依赖 AgilitySDK 以加载较新的 D3D12 运行时。D3D12RHI 通过它编译和链接。选择 DX12 渲染时，SDK 层与 RHI 层是分开的两个模块。",
+    "en": "The DX12 third-party module provides Direct3D 12 headers and libs and depends on AgilitySDK to load a newer D3D12 runtime. D3D12RHI compiles and links through it. When DX12 rendering is selected, the SDK layer and the RHI remain two separate modules."
+  },
+  {
+    "slug": "dx9",
+    "kind": "module",
+    "cn": "DX9 封装遗留 Direct3D 9 SDK，供仍需 D3D9 接口的工具、捕获或兼容路径使用。现代引擎视口不再以 D3D9 为主 RHI，但部分 Windows 组件仍引用这些头文件。它是历史 SDK 包装，不是推荐的游戏渲染后端。",
+    "en": "DX9 wraps the legacy Direct3D 9 SDK for tools, capture, or compatibility paths that still need D3D9. Modern engine viewports no longer use D3D9 as the primary RHI, but some Windows components still include these headers. It is a historical SDK wrapper, not the recommended game renderer."
+  },
+  {
+    "slug": "editoranalyticssession",
+    "kind": "module",
+    "cn": "EditorAnalyticsSession 记录编辑器会话级分析：启动、时长和会话标识，只依赖 Core。崩溃报告和遥测用它把事件归到同一次编辑会话。它不绘制图表，只维护会话元数据。",
+    "en": "EditorAnalyticsSession records editor session analytics: startup, duration, and session identity, depending only on Core. Crash reports and telemetry attach events to the same editor session through it. It does not draw charts; it maintains session metadata."
+  },
+  {
+    "slug": "editorconfig",
+    "kind": "module",
+    "cn": "EditorConfig 以 JSON 和编辑器子系统的形式持久化编辑器布局与用户配置。窗口布局、每用户偏好可以存在项目或用户目录。它让编辑器状态可序列化，而不是项目 ini 里的 UDeveloperSettings。",
+    "en": "EditorConfig persists editor layout and user configuration as JSON via an editor subsystem. Window layouts and per-user prefs can live in project or user directories. It serializes editor state, unlike UDeveloperSettings in project ini."
+  },
+  {
+    "slug": "editorframework",
+    "kind": "module",
+    "cn": "EditorFramework 是编辑器功能的中层框架：工具、选中集、交互工具与 Typed Element 的编辑器侧胶水。大量编辑器模块依赖它，而不是直接依赖 UnrealEd 的全部表面。它把引擎世界和 Slate 编辑器壳连在一起。",
+    "en": "EditorFramework is the mid-level editor framework: tools, selection, interactive tools, and Typed Element glue on the editor side. Many editor modules depend on it instead of the entire UnrealEd surface. It connects the engine world to the Slate editor shell."
+  },
+  {
+    "slug": "editorinteractivetoolsframework",
+    "kind": "module",
+    "cn": "EditorInteractiveToolsFramework 把 Interactive Tools Framework 接到编辑器视口、吸附、网格描述和属性编辑。建模模式、Gizmo 和视口点击工具在此获得编辑器上下文。它是编辑器建模/交互工具的运行时宿主。",
+    "en": "EditorInteractiveToolsFramework binds the Interactive Tools Framework to editor viewports, snapping, mesh description, and properties. Modeling mode, gizmos, and click tools get editor context here. It hosts editor modeling and interactive tools at runtime in the editor."
+  },
+  {
+    "slug": "editorsettingsviewer",
+    "kind": "module",
+    "cn": "EditorSettingsViewer 实现编辑器偏好与项目设置的浏览界面，聚合输入绑定、国际化、曲线编辑器和 VR 编辑器等设置页。用户在编辑器 UI 里改选项时看到的分类树来自这里。它展示设置，真正的数据对象仍由各模块的 DeveloperSettings 持有。",
+    "en": "EditorSettingsViewer implements the Editor Preferences and Project Settings browser, aggregating pages such as input binding, internationalization, curve editor, and VR editor. The category tree users see when changing options comes from here. It displays settings; the actual data objects remain each module’s DeveloperSettings."
+  },
+  {
+    "slug": "editorstyle",
+    "kind": "module",
+    "cn": "EditorStyle 定义编辑器的 Slate 样式集：图标、颜色、字体和常用画刷。几乎所有编辑器 UI 都从这套样式取外观。换肤或高 DPI 图标调整通常落在本模块的资源上。",
+    "en": "EditorStyle defines the editor Slate style set: icons, colors, fonts, and common brushes. Almost all editor UI takes its look from this set. Reskins or high-DPI icon work usually land in this module’s resources."
+  },
+  {
+    "slug": "editorsubsystem",
+    "kind": "module",
+    "cn": "EditorSubsystem 提供 UEditorSubsystem 基类，让编辑器域单例按世界/编辑器生命周期自动创建。许多编辑器功能用子系统代替裸的模块单例。它把引擎 Subsystem 模型扩展到仅编辑器范围。",
+    "en": "EditorSubsystem provides UEditorSubsystem so editor-domain singletons are created with editor lifetime. Many editor features use subsystems instead of raw module singletons. It extends the engine subsystem model to editor-only scope."
+  },
+  {
+    "slug": "editortoolevents",
+    "kind": "module",
+    "cn": "EditorToolEvents 用 JSON 记录和分发编辑器工具事件，便于遥测或外部监听工具用法。Slate 交互可以发出结构化事件而不耦合具体分析后端。它跟踪“用了什么工具”，而不是实现工具本身。",
+    "en": "EditorToolEvents records and dispatches editor tool events as JSON for telemetry or external listeners. Slate interactions can emit structured events without coupling to a specific analytics backend. It tracks which tools were used; it does not implement those tools."
+  },
+  {
+    "slug": "editorviewport",
+    "kind": "module",
+    "cn": "EditorViewport 实现编辑器 3D/2D 视口控件：相机操控、点击选中和视口工具栏的基础。关卡视口、静态网格编辑器和许多预览窗口建立在这套视口上。它处理视口外壳，场景绘制仍交给引擎渲染器。",
+    "en": "EditorViewport implements editor 3D/2D viewport widgets: camera controls, click selection, and basic viewport toolbars. The level viewport, static mesh editor, and many previews build on this viewport. It is the viewport chrome; scene drawing still goes to the engine renderer."
+  },
+  {
+    "slug": "editorwidgets",
+    "kind": "module",
+    "cn": "EditorWidgets 提供编辑器通用 Slate 控件：资产选择器、对象属性小部件和与 AssetDefinition 集成的拾取器。各资产编辑器复用这些控件以保持交互一致。它是控件库，不是某一个资产编辑器。",
+    "en": "EditorWidgets supplies common editor Slate controls: asset pickers, object property widgets, and AssetDefinition-aware choosers. Asset editors reuse them for consistent interaction. It is a widget library, not a single asset editor."
+  },
+  {
+    "slug": "eigen",
+    "kind": "module",
+    "cn": "Eigen 是 Eigen 线性代数头文件库的 UBT 封装，供几何、物理和求解器做矩阵与分解。引擎模块按需包含 Eigen，而不把该库源码散落到游戏项目。它是数学依赖，不参与 Tick 或渲染。",
+    "en": "Eigen is the UBT wrapper for the Eigen header-only linear algebra library, used by geometry, physics, and solvers for matrices and decompositions. Engine modules include Eigen on demand instead of copying the library into game projects. It is a math dependency and does not tick or render."
+  }
+]

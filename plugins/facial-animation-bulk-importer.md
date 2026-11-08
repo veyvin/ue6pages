@@ -3,7 +3,6 @@ layout: default
 title: 面部动画批量导入器 / Facial Animation Bulk Importer
 ---
 
-
 <h1>面部动画批量导入器 / Facial Animation Bulk Importer</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 面部动画批量导入器 / Facial Animation Bulk Importer
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">面部动画曲线和音频的批量导入器。将面部动画曲线表（来自 FBX）导入到声波中。</div><div class="lang-content">Bulk importer for facial animation curves and audio. Imports facial animation curve tables (from FBX) into sound waves.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">FacialAnimation</code> 插件（模块 <code class="usage-code">FacialAnimation</code> + <code class="usage-code">FacialAnimationEditor</code>）并重启，确认面部动画导入器与编辑面板就绪。</li><li>准备带面部曲线表（curve table）的 FBX 及对应音频，核对曲线名与目标骨架/曲线命名一致。</li><li>用批量导入器把 FBX 里的面部动画曲线表导入，并映射到目标音频 <code class="usage-code">SoundWave</code>；它的本职就是把曲线表导入声波。</li><li>在导入对话框里检查曲线到音频的对应关系与采样帧率，确认后再批量执行导入。</li><li>导入后打开生成的 <code class="usage-code">SoundWave</code> / 曲线表，在 Sequencer 或动画蓝图里播放，验证口型与音频同步。</li><li>出现错位时回到映射步骤修正起止帧与曲线对位，再重新导入，不要手改已生成资产。</li><li>它是编辑器侧制作工具，只在管线里用，不进游戏运行时；游戏 <code class="usage-code">Build.cs</code> 只加 <code class="usage-code">FacialAnimation</code> 运行时模块。</li></ol><p class="usage-note">把 FBX 面部曲线表批量导入并映射进 `SoundWave`；出错回映射步骤重导，别手改产物。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the <code class="usage-code">FacialAnimation</code> plugin (modules <code class="usage-code">FacialAnimation</code> + <code class="usage-code">FacialAnimationEditor</code>) and restart, confirming the facial importer and edit panel are ready.</li><li>Prepare an FBX with facial curve tables plus the matching audio, and verify the curve names line up with your target skeleton/curve naming.</li><li>Use the bulk importer to import the facial animation curve tables from the FBX and map them onto the target audio <code class="usage-code">SoundWave</code> — importing curve tables into sound waves is its core job.</li><li>In the import dialog, check the curve-to-audio mapping and sample rate, then run the bulk import.</li><li>Open the generated <code class="usage-code">SoundWave</code> / curve table and play it in Sequencer or the AnimBP to verify lip sync lines up with the audio.</li><li>If it desyncs, go back to the mapping step and fix start/end frames and curve alignment, then re-import — do not hand-edit generated assets.</li><li>It is an editor-side authoring tool for the pipeline, not a runtime dependency; game <code class="usage-code">Build.cs</code> adds only the <code class="usage-code">FacialAnimation</code> runtime module.</li></ol><p class="usage-note">Bulk-imports FBX facial curve tables and maps them into `SoundWave`; on desync, fix the mapping and re-import instead of editing outputs.</p></div></div></div>
+    </div>
+

@@ -3,8 +3,6 @@ layout: default
 title: IoStoreOnDemandUtilities
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -39,6 +37,28 @@ title: IoStoreOnDemandUtilities
 <div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">该模块依赖于其他 9 个模块：Core、IoStoreHttpClient、IoStoreOnDemand、IoStoreOnDemandCore、Json、RSA、S3Client、SSL、TraceLog。</div><div class="lang-content">This module depends on 9 other module(s): Core, IoStoreHttpClient, IoStoreOnDemand, IoStoreOnDemandCore, Json, RSA, S3Client, SSL, TraceLog.</div></div>
       </div>
     </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：该模块依赖于其他 9 个模块：Core、IoStoreHttpClient、IoStoreOnDemand、IoStoreOnDemandCore、Json、RSA、S3Client、SSL、TraceLog。</p><p>Insights/Trace 家族：采集或可视化一类性能数据（CPU、渲染、IO、网络），在 Unreal Insights 里看。</p><p>这是开发者工具或独立程序模块，给 Insights、UBT、命令行用。</p><p>UBT 声明它还依赖：Core, IoStoreHttpClient, IoStoreOnDemand, IoStoreOnDemandCore, Json, RSA, S3Client, SSL。这些依赖暗示了它和哪些子系统协作。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: This module depends on 9 other module(s): Core, IoStoreHttpClient, IoStoreOnDemand, IoStoreOnDemandCore, Json, RSA, S3Client, SSL, TraceLog.</p><p>Insights/Trace family: records or visualizes a class of perf data (CPU, GPU, IO, net) in Unreal Insights.</p><p>This is a developer tool or program module for Insights, UBT, or command-line apps.</p><p>UBT also lists dependencies on: Core, IoStoreHttpClient, IoStoreOnDemand, IoStoreOnDemandCore, Json, RSA, S3Client, SSL. Those names show which subsystems it talks to.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>用途：<code class="usage-code">IoStoreOnDemandUtilities</code> 位于 <code class="usage-code">Developer</code>，构建规则 <code class="usage-code">Developer/IoStore/OnDemandUtilities/IoStoreOnDemandUtilities.Build.cs</code>。它直接依赖 8 个模块：<code class="usage-code">Core</code>, <code class="usage-code">IoStoreHttpClient</code>, <code class="usage-code">IoStoreOnDemand</code>, <code class="usage-code">IoStoreOnDemandCore</code>, <code class="usage-code">Json</code>, <code class="usage-code">RSA</code>, <code class="usage-code">S3Client</code>, <code class="usage-code">SSL</code>。</li><li>依赖：在 <code class="usage-code">YourModule.Build.cs</code> 加入 <code class="usage-code">PublicDependencyModuleNames.AddRange(new string[] { &quot;IoStoreOnDemandUtilities&quot; });</code>；对外暴露 <code class="usage-code">IoStoreOnDemandUtilities</code> 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。</li><li>部署：<code class="usage-code">IoStoreOnDemandUtilities</code> 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。</li><li>调用：#include 其 Public 头（常见 <code class="usage-code">IoStoreOnDemandUtilities.h</code> / <code class="usage-code">IoStoreOnDemandUtilitiesModule.h</code>），再用 <code class="usage-code">FModuleManager::LoadModulePtr&lt;IoStoreOnDemandUtilitiesModule&gt;</code> 或直接使用导出类型。</li><li>传递依赖：<code class="usage-code">IoStoreOnDemandUtilities</code> 还依赖 <code class="usage-code">Core</code>, <code class="usage-code">IoStoreHttpClient</code>, <code class="usage-code">IoStoreOnDemand</code>, <code class="usage-code">IoStoreOnDemandCore</code>, <code class="usage-code">Json</code>, <code class="usage-code">RSA</code>, <code class="usage-code">S3Client</code>, <code class="usage-code">SSL</code>；不必在游戏模块重复填写，除非你要直接 include 那些头文件。</li></ol><p class="usage-note">`IoStoreOnDemandUtilities` 的构建规则位于 `Developer/IoStore/OnDemandUtilities/IoStoreOnDemandUtilities.Build.cs`，直接依赖 8 个模块，分类 Module。</p></div><div class="lang-content"><ol class="usage-steps"><li>Purpose: <code class="usage-code">IoStoreOnDemandUtilities</code> lives under <code class="usage-code">Developer</code>; build rule <code class="usage-code">Developer/IoStore/OnDemandUtilities/IoStoreOnDemandUtilities.Build.cs</code>.It directly depends on 8 modules: <code class="usage-code">Core</code>, <code class="usage-code">IoStoreHttpClient</code>, <code class="usage-code">IoStoreOnDemand</code>, <code class="usage-code">IoStoreOnDemandCore</code>, <code class="usage-code">Json</code>, <code class="usage-code">RSA</code>, <code class="usage-code">S3Client</code>, <code class="usage-code">SSL</code>.</li><li>Depend: in <code class="usage-code">YourModule.Build.cs</code> add <code class="usage-code">PublicDependencyModuleNames.AddRange(new string[] { &quot;IoStoreOnDemandUtilities&quot; });</code>. Use Public when exposing <code class="usage-code">IoStoreOnDemandUtilities</code> types, Private if only calling it; then Generate Project Files and rebuild.</li><li>Placement: <code class="usage-code">IoStoreOnDemandUtilities</code> is a developer/tool module for editor or CLI use; not a game runtime dependency.</li><li>Call: include Public headers (often <code class="usage-code">IoStoreOnDemandUtilities.h</code> / <code class="usage-code">IoStoreOnDemandUtilitiesModule.h</code>), then use <code class="usage-code">FModuleManager::LoadModulePtr&lt;IoStoreOnDemandUtilitiesModule&gt;</code> or the exported types directly.</li><li>Transitive deps: <code class="usage-code">IoStoreOnDemandUtilities</code> also needs <code class="usage-code">Core</code>, <code class="usage-code">IoStoreHttpClient</code>, <code class="usage-code">IoStoreOnDemand</code>, <code class="usage-code">IoStoreOnDemandCore</code>, <code class="usage-code">Json</code>, <code class="usage-code">RSA</code>, <code class="usage-code">S3Client</code>, <code class="usage-code">SSL</code>; do not re-list them unless you include their headers.</li></ol><p class="usage-note">`IoStoreOnDemandUtilities` build rule is `Developer/IoStore/OnDemandUtilities/IoStoreOnDemandUtilities.Build.cs`; depends on 8 modules; category Module.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card">

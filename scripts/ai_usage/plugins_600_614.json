@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "movie-render-queue",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Movie Render Queue`（模块 `MovieRenderPipelineCore`、`MovieRenderPipelineSettings`、`MovieRenderPipelineRenderPasses`、`MovieRenderPipelineMP4Encoder`、`UEOpenExrRTTI`，编辑器 `MovieRenderPipelineEditor`）。",
+      "它是高级电影渲染管线，用于高质量渲染过场动画/多媒体（抗锯齿、多通道、MP4/EXR 输出）。",
+      "通过 MRQ 面板排队渲染、配置设置与输出，得到最终画面。",
+      "Game 模块依赖运行时模块；`MovieRenderPipelineEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Movie Render Queue` (modules `MovieRenderPipelineCore`, `MovieRenderPipelineSettings`, `MovieRenderPipelineRenderPasses`, `MovieRenderPipelineMP4Encoder`, `UEOpenExrRTTI`, editor `MovieRenderPipelineEditor`).",
+      "It is an advanced movie-render pipeline for high-quality cinematics/multimedia (AA, multi-pass, MP4/EXR output).",
+      "Queue renders in the MRQ panel, set settings and outputs, and produce final frames.",
+      "Game modules depend on runtime modules; `MovieRenderPipelineEditor` is Editor-target only."
+    ],
+    "note_cn": "高质量电影渲染管线（MRQ），输出 MP4/EXR/多通道。",
+    "note_en": "The high-quality movie-render pipeline (MRQ) with MP4/EXR/multi-pass output."
+  },
+  {
+    "slug": "movie-scene-pose-search-tracks",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Movie Scene Pose Search Tracks`（运行时 `MovieScenePoseSearchTracks`，编辑器 `MovieScenePoseSearchTracksEditor`）。",
+      "它用 Anim Mixer 在 Sequencer 里提供姿势搜索（Pose Search）轨道。",
+      "在 Sequencer 里加姿势搜索轨道，用轨迹数据驱动动画选择。",
+      "Experimental：接口可能变动；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Movie Scene Pose Search Tracks` (runtime `MovieScenePoseSearchTracks`, editor `MovieScenePoseSearchTracksEditor`).",
+      "It provides Sequencer pose-search tracks using the Anim Mixer.",
+      "Add a pose-search track in Sequencer to drive animation selection from trajectory data.",
+      "Experimental: contract may change; editor modules go to Editor targets only."
+    ],
+    "note_cn": "Sequencer 里基于 Anim Mixer 的姿势搜索轨道，实验性。",
+    "note_en": "Sequencer pose-search tracks using the Anim Mixer, experimental."
+  },
+  {
+    "slug": "moviescenetexttrack",
+    "kind": "plugin",
+    "cn_steps": [
+      "`MovieSceneTextTrack` 是已弃用（Deprecated）插件。",
+      "文本支持已移到内置的 Movie Scene Tracks 中。",
+      "迁移到内置轨道，不要在 `Build.cs` 新增对该插件依赖。",
+      "迁移完成后禁用本插件。"
+    ],
+    "en_steps": [
+      "`MovieSceneTextTrack` is a deprecated plugin.",
+      "Text support has moved into the built-in Movie Scene Tracks.",
+      "Migrate to the built-in track; do not add new `Build.cs` dependencies on this plugin.",
+      "Disable this plugin after migration."
+    ],
+    "note_cn": "已弃用，文本支持移到内置 Movie Scene Tracks。",
+    "note_en": "Deprecated; text support moved into built-in Movie Scene Tracks."
+  },
+  {
+    "slug": "mp4-iso-iec-14496-12-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MP4 (ISO/IEC 14496-12) utilities`（模块 `MP4Utilities`、`MP4Boxes`、`MP4Muxer`）。",
+      "它提供处理 mp4 文件的帮助程序（解析 box、封装/mux 等）。",
+      "在媒体处理/编码流程里读写 mp4 封装，供 Media Framework/Electra 播放。",
+      "属 Media Framework 工具模块，运行时模块可进包。"
+    ],
+    "en_steps": [
+      "Enable `MP4 (ISO/IEC 14496-12) utilities` (modules `MP4Utilities`, `MP4Boxes`, `MP4Muxer`).",
+      "It provides helpers to work with mp4 files (parse boxes, mux, etc.).",
+      "Read/write mp4 containers in media-processing/encoding flows for Media Framework/Electra playback.",
+      "It is a Media Framework utility module; runtime modules can ship."
+    ],
+    "note_cn": "处理 mp4 文件的工具（box 解析/mux）。",
+    "note_en": "Helpers for mp4 files (box parsing/mux)."
+  },
+  {
+    "slug": "mqtt",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MQTT`（运行时 `MQTTCore`，编辑器 `MQTTCoreEditor`）。",
+      "它提供 MQTT 代理（broker）与客户端，用于 IoT/消息发布订阅。",
+      "用 MQTT 客户端连接 broker，订阅/发布主题，对接外部设备数据。",
+      "Game 模块依赖 `MQTTCore`；`MQTTCoreEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `MQTT` (runtime `MQTTCore`, editor `MQTTCoreEditor`).",
+      "It provides an MQTT broker and client for IoT/pub-sub messaging.",
+      "Use the MQTT client to connect to a broker, subscribe/publish topics, and hook external device data.",
+      "Game modules depend on `MQTTCore`; `MQTTCoreEditor` is Editor-target only."
+    ],
+    "note_cn": "MQTT 代理与客户端（IoT/发布订阅）。",
+    "note_en": "An MQTT broker and client (IoT/pub-sub)."
+  },
+  {
+    "slug": "msquic-runtime-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MsQuic Runtime Plugin`（模块 `MsQuicRuntime`），运行时插件。",
+      "它把 MsQuic 库（基于 QUIC 的传输）作为运行时依赖提供。",
+      "在需要 QUIC 传输的网络/服务集成里，基于它构建连接。",
+      "运行时模块可进游戏包；属底层传输库封装。"
+    ],
+    "en_steps": [
+      "Enable `MsQuic Runtime Plugin` (module `MsQuicRuntime`), a runtime plugin.",
+      "It provides the MsQuic library (QUIC-based transport) as a runtime dependency.",
+      "Use it to build connections in network/service integrations that need QUIC transport.",
+      "Runtime modules can ship; it is a low-level transport library wrapper."
+    ],
+    "note_cn": "MsQuic（QUIC）库的运行时封装。",
+    "note_en": "A runtime wrapper for the MsQuic (QUIC) library."
+  },
+  {
+    "slug": "multi-server-replication",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Multi-server Replication`（模块 `MultiServerReplication`、`MultiServerConfiguration`）。",
+      "它提供帮助多个 UE 服务器进程相互连接的代码（多服务器分区/网关）。",
+      "在分区分服/多进程服务器架构里配置服务器互连与复制。",
+      "属联网扩展；具体拓扑以源码/文档为准。"
+    ],
+    "en_steps": [
+      "Enable `Multi-server Replication` (modules `MultiServerReplication`, `MultiServerConfiguration`).",
+      "It provides code to help connect multiple UE server processes to each other (multi-server partitioning/gateway).",
+      "In a partitioned/multi-process server architecture, configure server interconnection and replication.",
+      "It is a networking extension; topology specifics follow source/docs."
+    ],
+    "note_cn": "多服务器进程互连与复制的代码。",
+    "note_en": "Code facilitating multi-server-process interconnection and replication."
+  },
+  {
+    "slug": "multi-user-editing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Multi-User Editing`（模块 `MultiUserClient`、`MultiUserClientLibrary`、`MultiUserReplicationEditor`）并重启。",
+      "它允许在编辑器中进行协作多用户会话（Concert），在多台编辑器间同步关卡与资产更改。",
+      "加入/创建多用户会话（session），多人同时编辑同一工程。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Multi-User Editing` (modules `MultiUserClient`, `MultiUserClientLibrary`, `MultiUserReplicationEditor`) and restart.",
+      "It allows collaborative multi-user sessions (Concert) in the editor, syncing level and asset edits across editor machines.",
+      "Join/create a multi-user session so several people edit the same project simultaneously.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "多用户协作编辑会话（Concert），多台编辑器同步。",
+    "note_en": "Collaborative multi-user editing sessions (Concert) syncing across editors."
+  },
+  {
+    "slug": "multi-user-server",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Multi User Server`（模块 `MultiUserServer`）并重启。",
+      "它提供可视化的多用户服务器（Concert 服务端），供多个编辑器客户端连接。",
+      "启动多用户服务器，客户端加入同一会话进行协作。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Multi User Server` (module `MultiUserServer`) and restart.",
+      "It provides a visualized multi-user server (Concert server) for multiple editor clients to connect to.",
+      "Start the multi-user server and have clients join the same session for collaboration.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "可视化的多用户（Concert）服务器端。",
+    "note_en": "A visualized multi-user (Concert) server."
+  },
+  {
+    "slug": "multicast-analytics-provider",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Multicast Analytics Provider`（运行时 `AnalyticsMulticast`，编辑器 `AnalyticsMulticastEditor`）。",
+      "它把分析（analytics）API 调用转发到一组分析提供商，一次把数据记录到多个服务。",
+      "配置多个下游 provider，事件经它广播给全部目标。",
+      "Game 模块依赖 `AnalyticsMulticast`；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Multicast Analytics Provider` (runtime `AnalyticsMulticast`, editor `AnalyticsMulticastEditor`).",
+      "It forwards analytics API calls to a list of analytics providers, logging data to multiple services at once.",
+      "Configure multiple downstream providers; events broadcast to all of them.",
+      "Game modules depend on `AnalyticsMulticast`; editor modules go to Editor targets only."
+    ],
+    "note_cn": "把分析调用广播到多个 provider（一次上报多服务）。",
+    "note_en": "Forwards analytics calls to multiple providers at once."
+  },
+  {
+    "slug": "music-environment",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Music Environment`（运行时 `MusicEnvironment`，编辑器 `MusicEnvironmentEditor`，测试 `MusicEnvironmentTests`），运行时插件。",
+      "它提供项目范围内的音乐信息源：音乐同步时钟、音乐事件等。",
+      "在音游/音乐驱动玩法里用其同步时钟与事件对齐节奏。",
+      "Runtime 模块可进游戏包；测试模块不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable `Music Environment` (runtime `MusicEnvironment`, editor `MusicEnvironmentEditor`, tests `MusicEnvironmentTests`), a runtime plugin.",
+      "It provides a project-wide source of musical information: musically synchronized clocks, events, etc.",
+      "In rhythm/music-driven gameplay, use its sync clocks and events to align to the beat.",
+      "Runtime modules can ship; keep the test module out of production."
+    ],
+    "note_cn": "项目级音乐信息源（同步时钟/事件），音游向。",
+    "note_en": "A project-wide musical info source (sync clocks/events) for rhythm gameplay."
+  },
+  {
+    "slug": "mutable-agent-skills",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Mutable Agent Skills`（模块 `MutableAgentSkills`）。",
+      "它让 AI 代理使用 `CustomizableObjectEditor.CustomizableObjectScriptingSubsystem` 工具集创作 Mutable 可自定义对象。",
+      "在 Mutable 角色/物件创作流程里用 AI 代理通过脚本子系统批量生成/编辑。",
+      "属 AI 工具链/Mutable 编辑自动化，非运行时功能。"
+    ],
+    "en_steps": [
+      "Enable `Mutable Agent Skills` (module `MutableAgentSkills`).",
+      "It lets AI agents author Mutable Customizable Objects using the `CustomizableObjectEditor.CustomizableObjectScriptingSubsystem` toolset.",
+      "In Mutable character/object authoring, use AI agents via the scripting subsystem to batch-generate/edit.",
+      "It is AI-toolchain/Mutable authoring automation, not a runtime feature."
+    ],
+    "note_cn": "AI 代理创作 Mutable 可自定义对象的技能/工具集。",
+    "note_en": "AI-agent skills for authoring Mutable Customizable Objects."
+  },
+  {
+    "slug": "mutable-asset-user-data",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mutable Asset User Data`（模块 `MutableAssetUserData`）。",
+      "它添加 Mutable 相关的资产用户数据类型和操作。",
+      "给 Mutable/相关资产挂自定义 user data，按需读取处理。",
+      "Experimental：接口可能变动；属 Mutable 数据扩展。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mutable Asset User Data` (module `MutableAssetUserData`).",
+      "It adds an Asset User Data type and operations for Mutable.",
+      "Attach custom user data to Mutable/related assets and read/process as needed.",
+      "Experimental: contract may change; it is a Mutable data extension."
+    ],
+    "note_cn": "Mutable 的资产用户数据类型与操作，实验性。",
+    "note_en": "Asset User Data type and operations for Mutable, experimental."
+  },
+  {
+    "slug": "mutable-clothing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mutable Clothing`（模块 `MutableClothing`）。",
+      "它为 Mutable 增加处理服装的能力（可自定义服装）。",
+      "在 Mutable 角色自定义里用其节点/逻辑处理衣物。",
+      "Experimental：接口可能变动；需 Mutable 相关插件。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mutable Clothing` (module `MutableClothing`).",
+      "It adds Mutable functionality to work with clothing (customizable garments).",
+      "In Mutable character customization, use its nodes/logic to handle clothing.",
+      "Experimental: contract may change; requires Mutable-related plugins."
+    ],
+    "note_cn": "Mutable 处理服装（可自定义衣物）的能力，实验性。",
+    "note_en": "Mutable functionality for customizable clothing, experimental."
+  },
+  {
+    "slug": "mutable-dataflow-extensions",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mutable Dataflow Extensions`（模块 `MutableDataflowEditor`）。",
+      "它为 Mutable 添加在 Dataflow 插件里使用 Dataflow 对象的能力；注意其节点均为实验性，未来可能变更/弃用。",
+      "在 Dataflow 图里用 Mutable 节点（目前能力有限、需手动操作）。",
+      "Experimental：接口可能变动；属 Mutable + Dataflow 集成。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mutable Dataflow Extensions` (module `MutableDataflowEditor`).",
+      "It adds Mutable functionality to work with Dataflow objects from the Dataflow plugin; note all its nodes are experimental and may change/be deprecated.",
+      "Use Mutable nodes in Dataflow graphs (currently limited and manual).",
+      "Experimental: contract may change; it is Mutable + Dataflow integration."
+    ],
+    "note_cn": "Mutable 在 Dataflow 中处理对象的扩展（节点实验性、能力有限）。",
+    "note_en": "Mutable + Dataflow object extensions (experimental nodes, limited)."
+  }
+]

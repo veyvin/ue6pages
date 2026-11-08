@@ -3,8 +3,6 @@ layout: default
 title: Web 浏览器到本机代理 / Web Browser to Native Proxying
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,31 @@ title: Web 浏览器到本机代理 / Web Browser to Native Proxying
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">维护浏览器到本机代理并提供用于注册 UObjects 绑定的挂钩</div><div class="lang-content">Maintains the browser to native proxy and provides hooks for registering UObjects bindings</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：维护浏览器到本机代理并提供用于注册 UObjects 绑定的挂钩</p><p>运行时插件，启用后可进游戏包。</p><p>它打包的模块包括：WebBrowserNativeProxy。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Maintains the browser to native proxy and provides hooks for registering UObjects bindings</p><p>A runtime plugin that can ship in a cooked game.</p><p>It ships these modules: WebBrowserNativeProxy. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Web Browser to Native Proxying</code>（模块 <code class="usage-code">WebBrowserNativeProxy</code>）。</li><li>它维护浏览器到本机的代理，并提供注册 UObject 绑定的挂钩（让网页与引擎对象交互）。</li><li>在嵌入网页的 UI 里通过代理调用引擎 UObject。</li><li>运行时模块；用于 Web↔引擎桥接。</li></ol><p class="usage-note">浏览器到本机的代理（注册 UObject 绑定）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Web Browser to Native Proxying</code> (module <code class="usage-code">WebBrowserNativeProxy</code>).</li><li>It maintains a browser-to-native proxy and provides hooks to register UObject bindings (let web pages interact with engine objects).</li><li>In embedded-web UI, call engine UObjects through the proxy.</li><li>A runtime module; for Web↔engine bridging.</li></ol><p class="usage-note">A browser-to-native proxy (register UObject bindings).</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">WebBrowserNativeProxy</span><span class="tag runtime">Runtime</span></div></div>

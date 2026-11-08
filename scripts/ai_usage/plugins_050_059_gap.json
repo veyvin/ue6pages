@@ -1,0 +1,206 @@
+[
+  {
+    "slug": "animtotexture",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `AnimToTexture`（运行时 `AnimToTexture`，烘焙 UI 在 `AnimToTextureEditor`）并重启。",
+      "内容浏览器新建 `AnimToTexture Data Asset`（`UAnimToTextureDataAsset`）：指定源 `SkeletalMesh`、要烘焙的 `AnimSequence` 列表、`Num Frames`、精度，以及 Vertex（顶点位置/法线贴图）或 Bone（骨骼矩阵贴图）模式。",
+      "在资产上执行烘焙：生成带额外 UV 通道的 `StaticMesh`、Position/Normal（或 Bone）纹理。不要把结果当成可播的 `AnimSequence`。",
+      "材质里用插件提供的 AnimToTexture 采样函数（按 UV 与时间/帧索引读位移与法线），赋给该静态网格；人群场景用 `Instanced Static Mesh` / Niagara 网格粒子实例化，而不是每实例跑 `AnimBP`。",
+      "蓝图可用 `UAnimToTextureBPLibrary` 查帧范围与切分；游戏模块只依赖 `AnimToTexture`。`AnimToTextureEditor` 仅能进 `*Editor.Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable Experimental `AnimToTexture` (runtime `AnimToTexture`, bake UI in `AnimToTextureEditor`) and restart.",
+      "Create an `AnimToTexture Data Asset` (`UAnimToTextureDataAsset`): source `SkeletalMesh`, `AnimSequence` list, `Num Frames`, precision, and Vertex (position/normal maps) or Bone (bone-matrix map) mode.",
+      "Bake to a `StaticMesh` with an extra UV channel plus Position/Normal (or Bone) textures. The output is not a playable `AnimSequence`.",
+      "Sample those textures in the material with the plugin’s AnimToTexture functions (UV + time/frame index). Instance crowds with `Instanced Static Mesh` / Niagara mesh particles, not a per-instance `AnimBP`.",
+      "Query frame ranges via `UAnimToTextureBPLibrary`. Game modules depend on `AnimToTexture` only; `AnimToTextureEditor` belongs in `*Editor.Build.cs`."
+    ],
+    "note_cn": "把骨骼动画烘焙成 VAT 给实例化网格用；与 `Animation Sharing` 的 Leader-Follower 姿态共享不是同一条路。Experimental。",
+    "note_en": "Bakes skeletal anims to VATs for instanced meshes; not `Animation Sharing` leader-follower. Experimental."
+  },
+  {
+    "slug": "apex-destruction",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Apex Destruction`（运行时 `ApexDestruction`，网格工具在 `ApexDestructionEditor`）。这是 NVIDIA PhysX APEX 的 `UDestructibleMesh` 管线，不是 Chaos `Geometry Collection`。",
+      "在内容浏览器对 `StaticMesh` 右键创建 `Destructible Mesh`，用破碎深度、Voronoi/支持块与残骸寿命参数生成 chunk 层级。",
+      "把 `DestructibleComponent`（`UDestructibleComponent`）放到关卡 Actor 上并指定该资产；运行时调用 `ApplyDamage` / `ApplyRadiusDamage`（或碰撞冲量）触发碎裂。",
+      "游戏 `Build.cs` 只加 `ApexDestruction`；`ApexDestructionEditor` 只进编辑器 Target。",
+      "新项目优先 Chaos Fracture；仅当必须播旧 APEX 资产或 PhysX 破坏内容时才开本插件，并在包装平台确认 PhysX/APEX 仍被该引擎版本编译进去。"
+    ],
+    "en_steps": [
+      "Enable `Apex Destruction` (runtime `ApexDestruction`, mesh tools in `ApexDestructionEditor`). This is NVIDIA PhysX APEX `UDestructibleMesh`, not Chaos `Geometry Collection`.",
+      "Right-click a `StaticMesh` to create a `Destructible Mesh` and author chunk depth, Voronoi/support chunks, and debris lifetime.",
+      "Place a `DestructibleComponent` (`UDestructibleComponent`) on an actor, assign the asset, and fracture at runtime with `ApplyDamage` / `ApplyRadiusDamage` (or impact impulse).",
+      "Game `Build.cs` depends on `ApexDestruction` only; `ApexDestructionEditor` is editor-target only.",
+      "Prefer Chaos Fracture for new work. Keep this plugin for legacy APEX/PhysX content, and confirm PhysX/APEX is still compiled for your cook platform."
+    ],
+    "note_cn": "遗留 PhysX APEX 破碎。UE5 场景破坏请用 Geometry Collection，不要把本插件当 Chaos 字段。",
+    "note_en": "Legacy PhysX APEX fracture. UE5 world destruction is Geometry Collection — this is not a Chaos field."
+  },
+  {
+    "slug": "apple-arkit-face-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `Apple ARKit` 与 `Apple ARKit Face Support`（模块 `AppleARKitFaceSupport`）。人脸会话依赖 TrueDepth（iPhone X / iPad Pro 一类），Windows 编辑器不会出真脸部几何。",
+      "新建 `ARSessionConfig`：把会话类型设为 Face Tracking（或等价 Face 配置），不要用纯 World Tracking 期望 `UARFaceGeometry`。",
+      "Pawn/`AR` 游戏模式里 `Start AR Session`。用 `Get All Geometries` 取 `UARFaceGeometry`，读 blendshape 系数；要网格时挂 `AppleARKitFaceMeshComponent` 并绑定该几何。",
+      "把脸部曲线接到 Live Link / Control Rig 驱动 MetaHuman 或自定义脸部骨骼；本插件不提供完整角色骨架，只提供 ARKit 脸部追踪数据。",
+      "iOS `Info.plist` 填写相机用途说明；游戏模块依赖 `AppleARKitFaceSupport`（通常还要 `AppleARKit`）。包装到真机验证，模拟器不可靠。"
+    ],
+    "en_steps": [
+      "Enable both `Apple ARKit` and `Apple ARKit Face Support` (module `AppleARKitFaceSupport`). Face sessions need TrueDepth (iPhone X / iPad Pro class); the Windows editor will not emit real face geometry.",
+      "Create an `ARSessionConfig` whose session type is Face Tracking (or the equivalent face config). World Tracking alone will not yield `UARFaceGeometry`.",
+      "`Start AR Session` from the pawn / AR game mode. Pull `UARFaceGeometry` via `Get All Geometries` and read blendshape weights; for a mesh, add `AppleARKitFaceMeshComponent` bound to that geometry.",
+      "Drive a MetaHuman or custom face rig through Live Link / Control Rig. This plugin supplies ARKit face tracking, not a full-body skeleton.",
+      "Set the iOS camera usage string in `Info.plist`. Game modules depend on `AppleARKitFaceSupport` (and usually `AppleARKit`). Validate on device; the simulator is not a proof."
+    ],
+    "note_cn": "ARKit 人脸/blendshape 扩展，必须叠在 `Apple ARKit` 上。不是世界平面检测，也不是全身 Pose Live Link。",
+    "note_en": "Face/blendshape add-on on top of `Apple ARKit`. Not world-plane detection and not full-body pose Live Link."
+  },
+  {
+    "slug": "apple-arkit",
+    "kind": "plugin",
+    "cn_steps": [
+      "仅为 iOS/iPadOS 工程启用 `Apple ARKit`（运行时 `AppleARKit`，身体 Pose 转发 `AppleARKitPoseTrackingLiveLink`）。它是 XR/AR 会话后端，不是可拖进关卡的网格组件。",
+      "创建 `ARSessionConfig`：打开平面检测、图像追踪、环境光估计或身体追踪等所需特性；默认 Pawn 使用 AR 游戏模式并在 BeginPlay `Start AR Session`。",
+      "相机背景由 ARKit 合成；用 `ARTrace` / 命中测试把 Actor 钉到平面或图像锚点。图像库用 `ARCandidateImage` 数据资产，不要当普通 `Texture` 去「追踪」。",
+      "身体骨骼走 `AppleARKitPoseTrackingLiveLink`：在 Live Link 客户端接 ARKit Pose 主题，再驱动角色 `AnimBP`。脸部几何另开 `Apple ARKit Face Support`。",
+      "在 `DefaultEngine.ini` 的 `[/Script/AppleARKit.AppleARKitSettings]` 调日志与会话选项；`Info.plist` 声明相机。游戏 `Build.cs` 加 `AppleARKit`，需要 Pose 再加 `AppleARKitPoseTrackingLiveLink`。",
+      "用 Launch on Device 验证；Win64 PIE 没有 ARKit 世界。"
+    ],
+    "en_steps": [
+      "Enable `Apple ARKit` only for iOS/iPadOS (`AppleARKit` runtime, body pose via `AppleARKitPoseTrackingLiveLink`). It is the XR/AR session backend, not a mesh component you drop in a level.",
+      "Author an `ARSessionConfig` (plane detection, image tracking, light estimation, body tracking as needed). Use an AR game mode / pawn and `Start AR Session` on BeginPlay.",
+      "ARKit composites the camera feed. Pin actors with `ARTrace` / hit tests against planes or image anchors. Image libraries are `ARCandidateImage` assets, not plain `Texture` objects.",
+      "Body skeletons go through `AppleARKitPoseTrackingLiveLink` into a Live Link subject and then the character `AnimBP`. Face mesh/blendshapes are the separate `Apple ARKit Face Support` plugin.",
+      "Tune `[/Script/AppleARKit.AppleARKitSettings]` in `DefaultEngine.ini` and declare the camera in `Info.plist`. Game `Build.cs` adds `AppleARKit`, plus `AppleARKitPoseTrackingLiveLink` if you consume pose.",
+      "Prove with Launch on Device; Win64 PIE has no ARKit world."
+    ],
+    "note_cn": "Apple 世界追踪/锚点/身体 Pose 后端。人脸请用 Face Support；启动片请用 `Apple Movie Player`，不要混。",
+    "note_en": "Apple world-tracking / anchors / body-pose backend. Faces are Face Support; startup movies are `Apple Movie Player`."
+  },
+  {
+    "slug": "apple-image-utils",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 Apple 目标上启用 `Apple Image Utils`（`AppleImageUtils` + 蓝图节点 `AppleImageUtilsBlueprintSupport`）。它操作 `CIImage` / `CVPixelBuffer` / `IOSurface`，不是通用图片导入器。",
+      "游戏 `Build.cs` 依赖 `AppleImageUtils`；蓝图图需要节点时再加 `AppleImageUtilsBlueprintSupport`。`#include` `AppleImageUtilsBaseBlueprintFunctionLibrary.h`。",
+      "把实现了 `IAppleImageInterface` 的源（常见：AR 相机 `UARTextureCameraImage`，或可转换的 `UTexture`）交给 `ConvertToJPEG` / `ConvertToHEIF` / `ConvertToPNG` / `ConvertToTIFF`（异步代理 `UAppleImageUtilsBaseAsyncTaskBlueprintProxy`）。",
+      "设置质量、是否要彩色、是否走 GPU；完成回调里的 `FAppleImageUtilsImageConversionResult` 给出压缩字节，再写入文件或上传。失败时看 Apple 平台日志，Win 编辑器会直接不支持。",
+      "只在 iOS/macOS 真机或 Mac 编辑器上验证；不要把本插件当 `Media Texture` 播放器或材质采样节点。"
+    ],
+    "en_steps": [
+      "Enable `Apple Image Utils` on Apple targets (`AppleImageUtils` plus Blueprint nodes in `AppleImageUtilsBlueprintSupport`). It operates on `CIImage` / `CVPixelBuffer` / `IOSurface`, not a generic texture importer.",
+      "Depend on `AppleImageUtils` in game `Build.cs`; add `AppleImageUtilsBlueprintSupport` if you need the K2 nodes. Include `AppleImageUtilsBaseBlueprintFunctionLibrary.h`.",
+      "Pass an `IAppleImageInterface` source (often AR camera `UARTextureCameraImage`, or a convertible `UTexture`) to `ConvertToJPEG` / `ConvertToHEIF` / `ConvertToPNG` / `ConvertToTIFF` (async `UAppleImageUtilsBaseAsyncTaskBlueprintProxy`).",
+      "Set quality, color, and GPU flags. The `FAppleImageUtilsImageConversionResult` callback yields compressed bytes to save or upload. Failures show up in Apple platform logs; Win editor is unsupported.",
+      "Validate on iOS/macOS device or a Mac editor. This is not a `Media Texture` player and not a material sample node."
+    ],
+    "note_cn": "Core Image 转换/压缩工具库，常配合 AR 相机帧。不能在 Win64 当解码器，也不是 `Apple Movie Player`。",
+    "note_en": "Core Image convert/compress helpers, often for AR camera frames. Not a Win64 decoder and not `Apple Movie Player`."
+  },
+  {
+    "slug": "apple-movie-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "仅在 iOS/macOS/tvOS 工程启用 `Apple Movie Player`（模块 `AppleMoviePlayer`）。它用 `AVPlayer` 播引擎启动/加载影片，不是 Media Framework 的 `UMediaPlayer` 资产。",
+      "把 `.mp4` / `.mov` 放到 `Content/Movies/`（或 `Project Settings > Project > Movies` 指向的目录），并纳入对应 Apple 平台烹饪。",
+      "在 `Project Settings > Project > Movies` 把文件名写入 `Startup Movies`，按需勾选 `Wait for Movies to Complete` / `Movies are Skippable`。",
+      "等价配置：`DefaultGame.ini` 的 `[/Script/MoviePlayer.MoviePlayerSettings]` 使用 `+StartupMovies=`。设备上由 `AppleMoviePlayer` 的 `AVPlayer` 流接管 `IGameMoviePlayer`。",
+      "用 Launch on Device / 包装 IPA 看启动片；Windows PIE 不会走这条播放器。",
+      "游戏内循环视频请用 `AVF Media Player` + `File Media Source`；不要给 Actor 加「Movie Player 组件」。游戏 `Build.cs` 通常不必链接 `AppleMoviePlayer`。"
+    ],
+    "en_steps": [
+      "Enable `Apple Movie Player` (module `AppleMoviePlayer`) only on iOS/macOS/tvOS. It plays engine startup/loading movies through `AVPlayer`, not a Media Framework `UMediaPlayer` asset.",
+      "Place `.mp4` / `.mov` under `Content/Movies/` (or the folder from `Project Settings > Project > Movies`) and cook it for the Apple platform.",
+      "Add the clip to `Startup Movies` under `Project Settings > Project > Movies`, and set `Wait for Movies to Complete` / `Movies are Skippable` as needed.",
+      "Equivalently set `+StartupMovies=` under `[/Script/MoviePlayer.MoviePlayerSettings]` in `DefaultGame.ini`. On device, `AppleMoviePlayer`’s `AVPlayer` streamer implements `IGameMoviePlayer`.",
+      "Verify with Launch on Device or a packaged IPA; Windows PIE does not use this player.",
+      "For in-game looping video use `AVF Media Player` with a `File Media Source`. Do not add a “Movie Player component”. Game `Build.cs` usually omits `AppleMoviePlayer`."
+    ],
+    "note_cn": "Apple 启动/加载片，对位 Android 的 `Android Movie Player`。游戏内片源走 AVF/Electra，不要当 `Media Plate`。",
+    "note_en": "Apple startup/loading movies, counterpart to `Android Movie Player`. In-game playback is AVF/Electra, not a `Media Plate`."
+  },
+  {
+    "slug": "apple-prores-decoder-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Apple ProRes Decoder for Electra`（`AppleProResDecoderElectra.uplugin` / 模块 `AppleProResDecoderElectra`），并保持 `Electra Player` 开启后重启。",
+      "准备 Apple ProRes 审查片（常见 `.mov`，四字符码如 `apco`/`apcs`/`apcn`/`apch`/`ap4h`）。本模块只给 Electra 解码，不负责 Movie Render Queue 导出。",
+      "新建 `File Media Source` 指向该文件；`Media Player` 资产首选 Electra。打开后 Electra 按 codec id 挂上 `AppleProResDecoderElectra`。",
+      "用 `Media Texture` / `Media Plate` 上屏，核对分辨率、帧率与 422/4444 色彩。虚拟制片回放时把引擎 `Timecode Provider` 与片源时码对齐。",
+      "蓝图里没有「ProRes 组件」。游戏 `Build.cs` 通常不用链 `AppleProResDecoderElectra`；只有扩展 Electra 解码器列表时才包含该模块。导出 ProRes 请改用 `Apple ProRes Media`。"
+    ],
+    "en_steps": [
+      "Enable `Apple ProRes Decoder for Electra` (`AppleProResDecoderElectra.uplugin` / module `AppleProResDecoderElectra`), keep `Electra Player` on, and restart.",
+      "Stage Apple ProRes review media (typically `.mov`, fourCCs such as `apco`/`apcs`/`apcn`/`apch`/`ap4h`). This module only decodes for Electra; it does not export via Movie Render Queue.",
+      "Create a `File Media Source` to that file and prefer Electra on the `Media Player`. Electra attaches `AppleProResDecoderElectra` from the codec id.",
+      "Display through a `Media Texture` / `Media Plate` and check resolution, frame rate, and 422/4444 color. For virtual-production playback, align the engine `Timecode Provider` with the file’s timecode.",
+      "There is no Blueprint “ProRes component”. Game `Build.cs` files usually skip `AppleProResDecoderElectra`; include it only when extending Electra’s decoder list. Exporting ProRes is `Apple ProRes Media`."
+    ],
+    "note_cn": "Electra 的 ProRes 解码插件。出片编码走 `Apple ProRes Media`；不要与启动片 `Apple Movie Player` 混用。",
+    "note_en": "Electra’s ProRes decoder. Encoding/export is `Apple ProRes Media`; startup movies are `Apple Movie Player`."
+  },
+  {
+    "slug": "apple-prores-media",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Apple ProRes Media`（`AppleProResMedia.uplugin` / 模块 `AppleProResMedia`）并重启。这是 ProRes 导出（及 Media Framework 编解码）插件，不是 Electra 专用软解。",
+      "打开 `Window > Cinematics > Movie Render Queue`，加入 Level Sequence，在 Job Settings 里 `+ Setting` 增加 Apple ProRes 输出（标签随版本可能为 `Apple ProRes` / `ProRes`）。",
+      "容器一般为 `.mov`。在该设置里选档位（Proxy / LT / 422 / HQ / 4444 / 4444 XQ 等），并单独加音频输出（如 `WAV Audio` 或支持的音频轨），不要假设视频轨内嵌最终混音。",
+      "C++ 编码依赖 `AppleProResMedia` 的编码器 API（对照插件 Public 头），`Initialize` → 逐帧送像素 → `Finalize`。回放审查片可用 Media Framework 打开同容器，或改走 `Apple ProRes Decoder for Electra`。",
+      "按交付规格核对待机分辨率与帧率；渲染完成用 NLE 打开 `.mov`。Windows 上能否硬解取决于本机 ProRes 支持，不能用 Win PIE 当调色验收。"
+    ],
+    "en_steps": [
+      "Enable `Apple ProRes Media` (`AppleProResMedia.uplugin` / module `AppleProResMedia`) and restart. This is ProRes export (and Media Framework codec) support, not Electra’s dedicated software decoder.",
+      "Open `Window > Cinematics > Movie Render Queue`, add a Level Sequence, and in job Settings use `+ Setting` to add the Apple ProRes output (label may be `Apple ProRes` / `ProRes`).",
+      "The container is typically `.mov`. Pick a profile (Proxy / LT / 422 / HQ / 4444 / 4444 XQ, etc.) and add a separate audio output (`WAV Audio` or a supported track); do not assume a final mix is embedded.",
+      "C++ encoding depends on `AppleProResMedia` encoder APIs in the plugin Public headers: `Initialize`, submit frames, `Finalize`. Review playback can use Media Framework on the same container, or `Apple ProRes Decoder for Electra`.",
+      "Match delivery resolution and frame rate. Open the `.mov` in an NLE. Windows hardware decode depends on local ProRes support — Win PIE is not a color-finishing check."
+    ],
+    "note_cn": "MRQ / 编码器出 ProRes `.mov`。Electra 只播请用 `AppleProResDecoderElectra`。启动片不是这条管线。",
+    "note_en": "MRQ/encoder path to ProRes `.mov`. Electra-only playback is `AppleProResDecoderElectra`. Not the startup-movie pipeline."
+  },
+  {
+    "slug": "ar-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "在已有 AR 会话（`Apple ARKit`、ARCore 等）的项目中启用 `AR Utilities`（模块 `ARUtilities`）。它提供透视材质与辅助内容，不替代 `ARSessionConfig`。",
+      "给要显示相机透视的网格加上 `UPassthroughMaterialUpdateComponent`，指定材质槽与纹理参数名；组件每帧把 AR 相机画面写入该参数。",
+      "使用插件 Content 里的透视/平面调试材质（路径以 `/ARUtilities/` 为前缀），把平面可视化 Actor 钉到 `UARTrackedGeometry`，而不是手写一张未更新的相机贴图。",
+      "身体/人脸 Live Link 重定向用 `UARLiveLinkRetargetAsset` 接到角色 `AnimBP`，与具体厂商的 Face/Pose 插件配合。",
+      "游戏 `Build.cs` 加 `ARUtilities`。先 `Start AR Session` 再验证透视是否刷新；Win 编辑器无相机帧时组件只会停在占位纹理。"
+    ],
+    "en_steps": [
+      "Enable `AR Utilities` (module `ARUtilities`) in a project that already has an AR session (`Apple ARKit`, ARCore, …). It supplies passthrough materials and helpers; it does not replace `ARSessionConfig`.",
+      "Add `UPassthroughMaterialUpdateComponent` to the mesh that should show camera passthrough, set the material slot and texture parameter name, and let it write the AR camera image each frame.",
+      "Use the plugin Content passthrough/plane-debug materials (paths under `/ARUtilities/`) and pin visualizers to `UARTrackedGeometry` instead of a stale camera texture.",
+      "For body/face Live Link retargeting, assign `UARLiveLinkRetargetAsset` on the character `AnimBP` alongside the vendor Face/Pose plugin.",
+      "Depend on `ARUtilities` in game `Build.cs`. `Start AR Session` before judging passthrough. On a Win editor with no camera frames the component stays on a placeholder."
+    ],
+    "note_cn": "AR 透视与 Live Link 重定向工具层，不是 ARKit 会话本身。世界追踪仍在 `Apple ARKit`。",
+    "note_en": "Passthrough and Live Link retarget helpers, not the ARKit session. World tracking stays in `Apple ARKit`."
+  },
+  {
+    "slug": "archvis-character",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ArchVis Character`（模块 `ArchVisCharacter`）。这是建筑漫游用的 `AArchVisCharacter`，不是动画骨架或 ArchVis 网格库。",
+      "新建继承 `ArchVisCharacter` 的蓝图，确认使用 `UArchVisCharMovementComponent`（平滑旋转加速度，而不是默认 `CharacterMovement` 的瞬时转向手感）。",
+      "在细节里调 `MouseSensitivityScale_Pitch` / `MouseSensitivityScale_Yaw`，以及移动组件上的 `RotationalAcceleration`、`RotationalDeceleration`、`MaxRotationalVelocity`；轴名属性（`MoveForwardAxisName`、`TurnAtRateAxisName` 等）必须与项目 Input Mapping 一致。",
+      "把 Game Mode 的 `Default Pawn Class` 设为该蓝图，碰撞胶囊按真实视高（约 160–180 cm）对齐室内门洞；通常关掉跳跃，避免穿出楼板。",
+      "游戏 `Build.cs` 加 `ArchVisCharacter`，头文件 `ArchVisCharacter.h` / `ArchVisCharMovementComponent.h`。在目标建筑关卡 PIE 走楼梯与窄廊验证加速度，不要用射击游戏默认 `FirstPersonCharacter` 代替。"
+    ],
+    "en_steps": [
+      "Enable `ArchVis Character` (module `ArchVisCharacter`). This is the architectural walkthrough pawn `AArchVisCharacter`, not an animation skeleton or a mesh pack.",
+      "Create a Blueprint subclass of `ArchVisCharacter` and keep `UArchVisCharMovementComponent` (smoothed rotational acceleration, not stock `CharacterMovement` snap-turn feel).",
+      "Tune `MouseSensitivityScale_Pitch` / `MouseSensitivityScale_Yaw` and the movement component’s `RotationalAcceleration`, `RotationalDeceleration`, `MaxRotationalVelocity`. Axis name properties (`MoveForwardAxisName`, `TurnAtRateAxisName`, …) must match the project’s Input Mapping.",
+      "Set the Game Mode `Default Pawn Class` to that Blueprint. Size the capsule to a real eye height (~160–180 cm) for doorways; typically disable jump so you cannot leave the floor slab.",
+      "Add `ArchVisCharacter` to game `Build.cs` and include `ArchVisCharacter.h` / `ArchVisCharMovementComponent.h`. PIE the target interior (stairs, narrow halls). Do not substitute a shooter `FirstPersonCharacter`."
+    ],
+    "note_cn": "建筑第一人称漫游 Pawn。不导入建筑资产，也不替代 Chaos 物理角色。",
+    "note_en": "First-person architectural pawn. It does not import archviz meshes and is not a Chaos physics character."
+  }
+]

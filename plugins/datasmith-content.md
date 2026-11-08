@@ -3,7 +3,6 @@ layout: default
 title: 数据史密斯内容 / Datasmith Content
 ---
 
-
 <h1>数据史密斯内容 / Datasmith Content</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 数据史密斯内容 / Datasmith Content
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Datasmith 导入器的内容。</div><div class="lang-content">Content for Datasmith Importer.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">Datasmith Content</code> 本身不提供导入入口，它是所有 Datasmith 翻译器共享的资产类型库：<code class="usage-code">DatasmithScene</code>、<code class="usage-code">DatasmithAssetUserData</code>、变体集。</li><li>启用后，任意翻译器导入的内容都以这些类型保存；在内容浏览器打开生成的 <code class="usage-code">DatasmithScene</code> 即可查看层级。</li><li>选中导入的 Actor，在细节面板的 Datasmith 分区里查看/编辑 <code class="usage-code">DatasmithAssetUserData</code> 携带的元数据（DCC 对象名、材质名、原始路径）。</li><li>用变体管理器（菜单 <code class="usage-code">Window → Virtual Production → Variant Manager</code>）从导入的变体集生成可切换的状态。</li><li>在关卡蓝图里按标签或元数据筛选 <code class="usage-code">DatasmithScene</code> 下的对象做批量材质覆盖或显隐切换。</li></ol><p class="usage-note">运行时目标只需依赖 `DatasmithContent`；`DatasmithContentEditor` 是纯编辑器模块，别加进 Game Target。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">Datasmith Content</code> has no import entry of its own; it is the shared asset-type library for every Datasmith translator: <code class="usage-code">DatasmithScene</code>, <code class="usage-code">DatasmithAssetUserData</code>, and variant sets.</li><li>Once enabled, content imported by any translator is stored with these types; open the resulting <code class="usage-code">DatasmithScene</code> in the Content Browser to inspect the hierarchy.</li><li>Select an imported actor and read or edit the metadata in <code class="usage-code">DatasmithAssetUserData</code> from the Datasmith section of the Details panel (DCC object name, material name, original path).</li><li>Use the Variant Manager (menu <code class="usage-code">Window → Virtual Production → Variant Manager</code>) to build switchable states from the imported variant set.</li><li>In the level Blueprint, filter actors under the <code class="usage-code">DatasmithScene</code> by tag or metadata to batch material overrides or toggle visibility.</li></ol><p class="usage-note">Runtime targets only need `DatasmithContent`; `DatasmithContentEditor` is editor-only and must not go into a Game target.</p></div></div></div>
+    </div>
+

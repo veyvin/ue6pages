@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "interactioninterface",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Interaction Interface`（模块 `InteractableInterface`）。",
+      "让可交互的 Actor 实现该交互接口（InteractableInterface），暴露“被交互”的契约。",
+      "玩家/系统通过接口统一调用交互，而不硬编码具体 Actor 类型。",
+      "Experimental：接口可能变动；它是交互契约模块，不含具体交互玩法。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Interaction Interface` (module `InteractableInterface`).",
+      "Have interactable actors implement the interaction interface (InteractableInterface) to expose an \"interactable\" contract.",
+      "Players/systems call interaction uniformly through the interface instead of hard-coding concrete actor types.",
+      "Experimental: contract may change; it is an interaction contract module, not concrete interaction gameplay."
+    ],
+    "note_cn": "交互接口契约，配合 GameplayInteractions 等使用。",
+    "note_en": "An interaction contract to pair with things like GameplayInteractions."
+  },
+  {
+    "slug": "interchange-axf-assets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Interchange AxF Assets`（模块 `InterchangeAxFAssets`）。",
+      "它提供 `Interchange AxF` 导入插件所需的资源，本身不做导入逻辑。",
+      "通常与 `Interchange AxF` 一起启用；无需单独在代码里依赖。",
+      "Experimental：接口可能变动；属导入管线资源包。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Interchange AxF Assets` (module `InterchangeAxFAssets`).",
+      "It exposes the assets used by the `Interchange AxF` import plugin; it does not do import logic itself.",
+      "Usually enabled together with `Interchange AxF`; you don't depend on it directly in code.",
+      "Experimental: contract may change; it is an asset pack for the import pipeline."
+    ],
+    "note_cn": "AxF 导入所需的资源包，配合 Interchange AxF 使用。",
+    "note_en": "The asset pack for AxF import, used with Interchange AxF."
+  },
+  {
+    "slug": "interchange-axf",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Interchange AxF`（模块 `InterchangeAxF`），配合 `Interchange AxF Assets`。",
+      "通过 Interchange 框架从 X-Rite Pantora 导入 AxF2UE 文件，落成 Substrate 材质。",
+      "内容浏览器「导入」选 AxF2UE 文件，走 Interchange 管线，再检查材质与贴图。",
+      "Experimental：接口可能变动；依赖 Substrate 材质系统。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Interchange AxF` (module `InterchangeAxF`) together with `Interchange AxF Assets`.",
+      "Via the Interchange framework, import AxF2UE files from X-Rite Pantora as Substrate materials.",
+      "Import the AxF2UE file from the Content Browser, let the Interchange pipeline run, then check materials and textures.",
+      "Experimental: contract may change; it relies on the Substrate material system."
+    ],
+    "note_cn": "通过 Interchange 导入 AxF2UE → Substrate 材质（X-Rite Pantora）。",
+    "note_en": "Imports AxF2UE to Substrate materials via Interchange (X-Rite Pantora)."
+  },
+  {
+    "slug": "interchange-chaos-cloth-asset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Interchange Chaos Cloth Asset`（模块 `InterchangeChaosClothAssetImport`）。",
+      "通过 Interchange 管线导入 Chaos Cloth Asset，把外部服装资产生成 Cloth Asset。",
+      "导入后检查布料绑定与碰撞，再交给 Chaos Cloth / Cloth Asset 编辑器调。",
+      "属导入扩展；运行时不需要它，只在导入阶段用。"
+    ],
+    "en_steps": [
+      "Enable `Interchange Chaos Cloth Asset` (module `InterchangeChaosClothAssetImport`).",
+      "Import a Chaos Cloth Asset through the Interchange pipeline from external garment data.",
+      "After import, check cloth binding and collision, then tune it in the Chaos Cloth / Cloth Asset editor.",
+      "It is an import extension; runtime doesn't need it, only the import stage does."
+    ],
+    "note_cn": "Interchange 的 Cloth Asset 导入扩展，导入期使用。",
+    "note_en": "An Interchange import extension for Cloth Assets, used at import time."
+  },
+  {
+    "slug": "interchange-datasmith",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Interchange Datasmith`（模块 `DatasmithInterchange`）。",
+      "通过 Interchange 框架作为 Datasmith 的交换导入器，导入 Datasmith 场景资产。",
+      "在导入对话框选择走 Interchange 管线，配置导入选项后导入网格、材质、光照。",
+      "Experimental：接口可能变动；与经典 Datasmith 导入互补。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Interchange Datasmith` (module `DatasmithInterchange`).",
+      "It acts as Datasmith's exchange importer through the Interchange framework for Datasmith scene assets.",
+      "In the import dialog choose the Interchange pipeline, set options, and import meshes, materials, and lighting.",
+      "Experimental: contract may change; it complements classic Datasmith import."
+    ],
+    "note_cn": "用 Interchange 管线导入 Datasmith，与经典 Datasmith 导入互补。",
+    "note_en": "Imports Datasmith through Interchange, complementing classic Datasmith import."
+  },
+  {
+    "slug": "interchange-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Interchange Editor`（模块 `InterchangeEditor`、`InterchangeEditorPipelines`、`InterchangeEditorUtilities`）。",
+      "它向编辑器公开 Interchange 导入框架与管道：在编辑器里编辑/选择导入管道和导入选项。",
+      "用它在导入前配置 pipeline stack，决定资产如何被转换。",
+      "这是编辑器侧模块，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Interchange Editor` (modules `InterchangeEditor`, `InterchangeEditorPipelines`, `InterchangeEditorUtilities`).",
+      "It exposes the Interchange import framework and pipelines to the editor for editing/selecting import pipelines and options.",
+      "Use it to configure the pipeline stack before import and control how assets are converted.",
+      "It is editor-side; Editor targets only."
+    ],
+    "note_cn": "Interchange 的编辑器 UI 与管道配置，纯编辑器。",
+    "note_en": "Editor UI and pipeline config for Interchange, editor-only."
+  },
+  {
+    "slug": "interchange-framework-assets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Interchange Framework Assets`（模块 `InterchangeAssets`）。",
+      "它公开 Interchange 导入框架使用的资源（默认管道、设置等）。",
+      "通常随 `Interchange Framework` 一起启用，无需代码直接依赖。",
+      "属资源包，服务导入框架。"
+    ],
+    "en_steps": [
+      "Enable `Interchange Framework Assets` (module `InterchangeAssets`).",
+      "It exposes the assets used by the Interchange import framework (default pipelines, settings, etc.).",
+      "Usually enabled with `Interchange Framework`; you don't depend on it directly in code.",
+      "It is an asset pack serving the import framework."
+    ],
+    "note_cn": "Interchange 框架的资源包，配合 Interchange Framework。",
+    "note_en": "The asset pack for the Interchange framework, used with Interchange Framework."
+  },
+  {
+    "slug": "interchange-framework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Interchange Framework`（模块 `InterchangeImport`、`InterchangeExport`、`InterchangePipelines`、`InterchangeDispatcher`、`InterchangeNodes` 等）。",
+      "用其可自定义的导入/导出系统与可扩展管道处理常见文件类型（glTF、USD、FBX 等）。",
+      "通过管道（Pipeline）决定导入步骤：解析→节点→工厂→资产。",
+      "运行时导入/导出依赖对应模块；编辑器管道配置用 Interchange Editor。"
+    ],
+    "en_steps": [
+      "Enable `Interchange Framework` (modules `InterchangeImport`, `InterchangeExport`, `InterchangePipelines`, `InterchangeDispatcher`, `InterchangeNodes`, etc.).",
+      "Use its customizable import/export system and extensible pipelines to handle common file types (glTF, USD, FBX, etc.).",
+      "Pipelines drive the import steps: parse → nodes → factory → assets.",
+      "Runtime import/export depends on the relevant modules; configure pipelines with Interchange Editor."
+    ],
+    "note_cn": "Interchange 导入/导出的核心框架，取代旧导入器的新体系。",
+    "note_en": "The core Interchange import/export framework, the newer system replacing legacy importers."
+  },
+  {
+    "slug": "interchange-openusd-chaos-cloth-asset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Interchange OpenUSD Chaos Cloth Asset`（模块 `InterchangeOpenUSDChaosClothAssetImport`）。",
+      "通过 Interchange 翻译带 Chaos Cloth Asset schema 的 OpenUSD 文件。",
+      "导入后在 Cloth Asset 编辑器检查布料数据，再由 Chaos Cloth 模拟。",
+      "属导入扩展；需 OpenUSD 与 Cloth Asset 相关插件配合。"
+    ],
+    "en_steps": [
+      "Enable `Interchange OpenUSD Chaos Cloth Asset` (module `InterchangeOpenUSDChaosClothAssetImport`).",
+      "Translate OpenUSD files with Chaos Cloth Asset schemas through Interchange.",
+      "Inspect the cloth data in the Cloth Asset editor, then simulate with Chaos Cloth.",
+      "It is an import extension; it works alongside OpenUSD and Cloth Asset plugins."
+    ],
+    "note_cn": "把 USD 里的 Cloth Asset schema 翻译成引擎布料资产，导入期用。",
+    "note_en": "Translates Cloth Asset schemas in USD into engine cloth assets, at import time."
+  },
+  {
+    "slug": "interchange-openusd",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Interchange OpenUSD`（模块 `InterchangeOpenUSDImport`，编辑器 `InterchangeOpenUSDEditor`）。",
+      "通过 Interchange 框架翻译 OpenUSD（.usd/.usda/.usdc）文件，导入为引擎网格/材质/关卡。",
+      "在导入时选 USD 管道，配置单位、坐标与材质映射。",
+      "导入用 `InterchangeOpenUSDImport`；`InterchangeOpenUSDEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Interchange OpenUSD` (module `InterchangeOpenUSDImport`, editor `InterchangeOpenUSDEditor`).",
+      "Translate OpenUSD (.usd/.usda/.usdc) files via the Interchange framework into engine meshes/materials/levels.",
+      "At import, choose the USD pipeline and configure units, axes, and material mapping.",
+      "Import uses `InterchangeOpenUSDImport`; `InterchangeOpenUSDEditor` is Editor-target only."
+    ],
+    "note_cn": "用 Interchange 导入 OpenUSD，与 USD Importer 路径不同。",
+    "note_en": "Imports OpenUSD via Interchange, a different path from the USD Importer."
+  },
+  {
+    "slug": "interchange-openvdb",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Interchange OpenVDB`（模块 `InterchangeOpenVDBImport`）。",
+      "通过 Interchange 框架翻译 OpenVDB（.vdb）体积文件，导入为引擎体积/稀疏体积纹理。",
+      "导入后检查体素分辨率与材质，用于雾、烟、体积效果。",
+      "属导入扩展；运行时播放体积走对应运行时模块。"
+    ],
+    "en_steps": [
+      "Enable `Interchange OpenVDB` (module `InterchangeOpenVDBImport`).",
+      "Translate OpenVDB (.vdb) volume files via the Interchange framework into engine volumes/sparse volume textures.",
+      "After import, check voxel resolution and materials for fog, smoke, or volumetric effects.",
+      "It is an import extension; playing volumes at runtime uses the relevant runtime modules."
+    ],
+    "note_cn": "用 Interchange 导入 OpenVDB 体积文件。",
+    "note_en": "Imports OpenVDB volume files via Interchange."
+  },
+  {
+    "slug": "interchange-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Interchange Tests`（模块 `InterchangeTests`，编辑器 `InterchangeTestEditor`）。",
+      "它提供 Interchange 的自动化测试用例，用于验证导入/导出管道。",
+      "在自动化测试会话里跑这些用例，检查各格式导入结果。",
+      "这是测试插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `Interchange Tests` (module `InterchangeTests`, editor `InterchangeTestEditor`).",
+      "It provides Interchange automation test cases to validate import/export pipelines.",
+      "Run these cases in automation sessions to check import results for various formats.",
+      "It is a test plugin; do not ship it in release builds."
+    ],
+    "note_cn": "Interchange 的自动化测试套件。",
+    "note_en": "The Interchange automation test suite."
+  },
+  {
+    "slug": "ios-device-profile-selector",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `IOS Device Profile Selector`（模块 `IOSDeviceProfileSelector`、`IOSPreviewDeviceProfileSelector`）。",
+      "它根据 iOS 硬件选择对应的 Device Profile，在设备上运行时自动匹配。",
+      "在 `DeviceProfiles` 配置里为不同 iOS 机型/硬件设置规则与画质参数。",
+      "这是平台设备配置选择器，部署到 iOS 时生效。"
+    ],
+    "en_steps": [
+      "Enable `IOS Device Profile Selector` (modules `IOSDeviceProfileSelector`, `IOSPreviewDeviceProfileSelector`).",
+      "It selects the matching Device Profile based on iOS hardware when running on device.",
+      "In `DeviceProfiles` config, set rules and quality settings for different iOS models/hardware.",
+      "It is a platform device-profile selector that takes effect when deploying to iOS."
+    ],
+    "note_cn": "按 iOS 硬件自动选 Device Profile 的平台插件。",
+    "note_en": "A platform plugin that auto-selects Device Profiles by iOS hardware."
+  },
+  {
+    "slug": "ios-tapjoy-advertising-provider",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `IOS TapJoy Advertising Provider`（模块 `IOSTapJoy`），面向 iOS 广告。",
+      "在 iOS 工程里集成 TapJoy SDK，填入应用 ID/密钥等配置。",
+      "通过广告提供者接口展示 TapJoy 广告，处理回调与奖励逻辑。",
+      "运行时插件；只在 iOS 目标使用，需相应 SDK 与凭证。"
+    ],
+    "en_steps": [
+      "Enable `IOS TapJoy Advertising Provider` (module `IOSTapJoy`) for iOS ads.",
+      "Integrate the TapJoy SDK into the iOS project and fill in app ID/keys and related config.",
+      "Show TapJoy ads through the advertising-provider interface and handle callbacks and rewards.",
+      "A runtime plugin; use on iOS targets only with the SDK and credentials in place."
+    ],
+    "note_cn": "iOS 上的 TapJoy 广告提供者，运行时，需 SDK/凭证。",
+    "note_en": "A TapJoy ads provider for iOS, runtime, requiring the SDK/credentials."
+  },
+  {
+    "slug": "iostore-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `IoStore Insights`（模块 `IoStoreInsights`）。",
+      "用它通过 Unreal Insights 捕获 IoStore 的读写活动。",
+      "启动带 IoStore Insights 的 trace，运行游戏后分析 IoStore I/O 性能。",
+      "属 Insights/Trace 性能分析工具，编辑器/开发期使用。"
+    ],
+    "en_steps": [
+      "Enable `IoStore Insights` (module `IoStoreInsights`).",
+      "Use it to capture IoStore I/O activity through Unreal Insights.",
+      "Start a trace with IoStore Insights, run the game, and analyze IoStore I/O performance.",
+      "It is an Insights/Trace profiling tool used in editor/development."
+    ],
+    "note_cn": "在 Unreal Insights 里捕获 IoStore 活动，性能分析用。",
+    "note_en": "Captures IoStore activity in Unreal Insights for profiling."
+  }
+]

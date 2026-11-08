@@ -3,8 +3,6 @@ layout: default
 title: 适用于 Electra 的 Opus 音频解码器 / Opus audio decoder  for Electra
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,51 @@ title: 适用于 Electra 的 Opus 音频解码器 / Opus audio decoder  for Elec
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">使用 Electra 媒体播放器实现 Opus 音频播放</div><div class="lang-content">Implements Opus audio playback with the Electra media player</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：使用 Electra 媒体播放器实现 Opus 音频播放</p><p>媒体/Electra 家族：为 Electra 播放器提供某种封装格式或硬件解码，供 Media Framework 播视频。</p><p>属于 Media Framework / Electra 播流与解码。</p><p>它打包的模块包括：OpusDecoderElectra。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Implements Opus audio playback with the Electra media player</p><p>Media/Electra family: a container or hardware decoder for Electra so Media Framework can play video.</p><p>Part of Media Framework / Electra playback and decode.</p><p>It ships these modules: OpusDecoderElectra. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Opus audio decoder for Electra</code>（模块 <code class="usage-code">OpusDecoderElectra</code>）。</li><li>它用 Electra 媒体播放器实现 Opus 音频播放。</li><li>在 Media Player 选 Electra 后端播放带 Opus 音轨的媒体。</li><li>属 Media Framework / Electra 解码扩展。</li></ol><p class="usage-note">Electra 的 Opus 音频解码。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Opus audio decoder for Electra</code> (module <code class="usage-code">OpusDecoderElectra</code>).</li><li>It implements Opus audio playback via the Electra media player.</li><li>Play media with an Opus audio track through a Media Player using the Electra backend.</li><li>It is a Media Framework / Electra decode extension.</li></ol><p class="usage-note">Opus audio decoding for Electra.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">OpusDecoderElectra</span><span class="tag runtime">Runtime</span></div></div>

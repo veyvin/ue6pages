@@ -3,8 +3,6 @@ layout: default
 title: 兑换 OpenUSD Chaos Cloth 资产 / Interchange OpenUSD Chaos Cloth Asset
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,73 @@ title: 兑换 OpenUSD Chaos Cloth 资产 / Interchange OpenUSD Chaos Cloth Asset
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">允许通过 Interchange 使用 Chaos Cloth Asset 模式翻译 OpenUSD 文件</div><div class="lang-content">Allows translation of OpenUSD files with Chaos Cloth Asset schemas via Interchange</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Chaos 是引擎默认物理与破坏求解器（刚体、布料、破碎、字段）。相关插件把编辑器工具和运行时求解接到关卡里的几何体上。</p><p>这是引擎 Plugins 目录下的官方插件，由对应 .uplugin 描述其职责。</p><p>它打包的模块包括：InterchangeOpenUSDChaosClothAssetImport。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Chaos is the default physics and destruction solver (rigid body, cloth, fracture, fields). Related plugins connect editor tools and the runtime solver to level geometry.</p><p>This is an engine plugin under Plugins/; its .uplugin states its job.</p><p>It ships these modules: InterchangeOpenUSDChaosClothAssetImport. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Interchange OpenUSD Chaos Cloth Asset</code>（模块 <code class="usage-code">InterchangeOpenUSDChaosClothAssetImport</code>）。</li><li>通过 Interchange 翻译带 Chaos Cloth Asset schema 的 OpenUSD 文件。</li><li>导入后在 Cloth Asset 编辑器检查布料数据，再由 Chaos Cloth 模拟。</li><li>属导入扩展；需 OpenUSD 与 Cloth Asset 相关插件配合。</li></ol><p class="usage-note">把 USD 里的 Cloth Asset schema 翻译成引擎布料资产，导入期用。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Interchange OpenUSD Chaos Cloth Asset</code> (module <code class="usage-code">InterchangeOpenUSDChaosClothAssetImport</code>).</li><li>Translate OpenUSD files with Chaos Cloth Asset schemas through Interchange.</li><li>Inspect the cloth data in the Cloth Asset editor, then simulate with Chaos Cloth.</li><li>It is an import extension; it works alongside OpenUSD and Cloth Asset plugins.</li></ol><p class="usage-note">Translates Cloth Asset schemas in USD into engine cloth assets, at import time.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">InterchangeOpenUSDChaosClothAssetImport</span><span class="tag runtime">Runtime</span></div></div>

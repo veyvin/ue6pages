@@ -3,8 +3,6 @@ layout: default
 title: EpicGames临时 / EpicGamesTemporary
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,79 @@ title: EpicGames临时 / EpicGamesTemporary
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：（无描述）</p><p>Verse 语言/运行时的一块：编译、VM、设备或编辑器支持，服务 UEFN 体验。</p><p>这是引擎 Plugins 目录下的官方插件，由对应 .uplugin 描述其职责。</p><p>它打包的模块包括：EpicGamesTemporary。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: (no description)</p><p>A slice of the Verse language/runtime: compiler, VM, devices, or editor support for UEFN.</p><p>This is an engine plugin under Plugins/; its .uplugin states its job.</p><p>It ships these modules: EpicGamesTemporary. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">EpicGamesTemporary</code> 位于 <code class="usage-code">Plugins/Verse/EpicGamesTemporary</code>，是没有官方描述的 Verse 临时模块。先打开它的 <code class="usage-code">EpicGamesTemporary.uplugin</code> 和模块源码，搞清楚当前到底放了哪些设备/编译代码，再决定是否碰它。</li><li>在 <code class="usage-code">编辑 &gt; 插件</code> 启用后重启，确认它在 Verse 会话里是否登记了设备或编译步骤；看不到任何可见入口是正常的，它通常是内部占位实现。</li><li>把它当只读参考：读实现可以，但不要在你自己的 Verse 项目或 C++ 游戏模块里对 <code class="usage-code">EpicGamesTemporary</code> 建立长期依赖。</li><li>需要复用其中逻辑时，把相关源码复制进你自己的 Verse 工程或插件，而不是直接链接这个临时模块。</li><li>升级引擎后重新核对：临时模块最可能被改名或删除，打包前在 <code class="usage-code">编辑 &gt; 插件</code> 与 <code class="usage-code">Build.cs</code> 里确认没有残留引用，避免缺模块链接失败。</li></ol><p class="usage-note">Verse 临时占位模块，没有公开 API 契约；当作只读样例，别做运行时依赖。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">EpicGamesTemporary</code> lives under <code class="usage-code">Plugins/Verse/EpicGamesTemporary</code> and has no official description. Open its <code class="usage-code">EpicGamesTemporary.uplugin</code> and module source first to see what Verse device/compile code it actually holds before touching it.</li><li>Enable it under <code class="usage-code">Edit &gt; Plugins</code> and restart, then check whether it registers any Verse device or compile step in the session. No visible entry point is normal — it is usually an internal placeholder.</li><li>Treat it as read-only reference: reading the implementation is fine, but do not build a long-term dependency on <code class="usage-code">EpicGamesTemporary</code> from your Verse project or C++ game module.</li><li>If you want the logic, copy the relevant source into your own Verse project or plugin instead of linking this temporary module directly.</li><li>Re-check after an engine upgrade: temporary modules are the first to be renamed or removed. Before packaging, confirm in <code class="usage-code">Edit &gt; Plugins</code> and your <code class="usage-code">Build.cs</code> that no stale reference remains, or the link will fail.</li></ol><p class="usage-note">A temporary Verse placeholder with no public API contract. Treat it as read-only sample code, not a runtime dependency.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">EpicGamesTemporary</span><span class="tag runtime">Runtime</span></div></div>

@@ -1,0 +1,422 @@
+[
+  {
+    "slug": "verseclr",
+    "kind": "module",
+    "cn": "VerseCLR 是独立程序模块，把 Verse 运行时接到 CLR/.NET 宿主上，让 Verse 程序可以在托管环境里加载、调用并调试。它串联 Solaris 桥、Verse 编译器、VM 代码生成和 uLang 核心，而不是游戏里的蓝图节点。面向 UEFN / Fortnite 工具链与自动化宿主，传统单机项目通常不会直接依赖它。",
+    "en": "VerseCLR is a standalone program that hosts the Verse runtime on the CLR/.NET side so Verse programs can be loaded, invoked, and debugged from managed code. It wires Solaris bridging, the Verse compiler, VM codegen, and uLang rather than exposing Blueprint nodes. It belongs to the UEFN / Fortnite toolchain; classic shipped games rarely link it."
+  },
+  {
+    "slug": "versecmd",
+    "kind": "module",
+    "cn": "VerseCmd 是 Verse 的命令行宿主，用来编译、反汇编并执行 Verse 脚本，而不是编辑器视口里的交互工具。它接入 Solaris 测试工具、Verse 编译器、原生绑定和套接字调试器，方便在 CI 或本机终端里跑 Verse 程序。开发者用它验证编译产物与 VM 行为，游戏运行时不会打包这份程序。",
+    "en": "VerseCmd is the command-line host for compiling, disassembling, and running Verse scripts outside the editor viewport. It pulls in Solaris test helpers, the Verse compiler, native bindings, and the socket debugger so you can exercise Verse from a terminal or CI job. It validates compiler output and VM behavior; it is not packaged into a game."
+  },
+  {
+    "slug": "versecompiler",
+    "kind": "module",
+    "cn": "VerseCompiler 实现 Verse 语言的前端与中间表示，把源码解析、类型检查并降到 uLang 可执行形式。它只依赖 Core、uLangCore 和 uLangJSON，是编译器库而不是编辑器 UI。UEFN 体验、Verse 工具和代码生成器都建立在这套编译管线上。",
+    "en": "VerseCompiler implements the Verse language frontend and IR: it parses source, type-checks it, and lowers it to a uLang-executable form. It depends only on Core, uLangCore, and uLangJSON, so it is a compiler library rather than an editor UI. UEFN experiences, Verse tools, and codegen all sit on this pipeline."
+  },
+  {
+    "slug": "versecompilercmd",
+    "kind": "module",
+    "cn": "VerseCompilerCmd 是 Solaris 工具链里的编译器命令行入口，把 VerseCompiler 包成可执行程序。它还会触发 JSON 接口生成和原生接口生成，并调用 VerseProgramHostServices 完成一次完整编译会话。给构建脚本和本地批处理用，不进入玩家客户端。",
+    "en": "VerseCompilerCmd is the Solaris toolchain’s compiler CLI wrapping VerseCompiler as an executable. It also kicks JSON interface generation and native interface generation, then uses VerseProgramHostServices to finish a compile session. Build scripts and local batches invoke it; player clients do not."
+  },
+  {
+    "slug": "versejsoninterfacegen",
+    "kind": "module",
+    "cn": "VerseJsonInterfaceGen 根据 Verse 程序描述生成 JSON 形态的宿主接口，让外部工具能按约定读写 Verse 类型。它是 Solaris 下的代码生成器，没有额外引擎模块依赖。编译 Verse 项目时由编译器命令行带动，而不是在关卡里运行。",
+    "en": "VerseJsonInterfaceGen emits JSON-shaped host interfaces from a Verse program description so external tools can read and write Verse types by contract. It is a Solaris code generator with no extra engine-module dependencies. The compiler CLI drives it when building Verse projects; it does not run inside a level."
+  },
+  {
+    "slug": "versenativeinterfacegen",
+    "kind": "module",
+    "cn": "VerseNativeInterfaceGen 为 Verse 声明生成 C++ 原生绑定桩，让引擎侧可以按固定 ABI 调用 Verse 导出。它同样是 Solaris 代码生成步骤，不依赖运行时渲染或游戏框架。生成结果供 VerseNative 与宿主服务消费，而不是给玩法蓝图直接拖用。",
+    "en": "VerseNativeInterfaceGen writes C++ native binding stubs from Verse declarations so the engine can call Verse exports through a stable ABI. It is another Solaris codegen step and does not depend on rendering or the gameplay framework. VerseNative and host services consume the output; Blueprint graphs do not drag it in."
+  },
+  {
+    "slug": "verseprogramhostservices",
+    "kind": "module",
+    "cn": "VerseProgramHostServices 给 Verse 编译与执行会话提供宿主侧服务：程序加载、符号查询以及和编译器的会话状态。它建立在 VerseCompiler 与 uLangCore 之上，被命令行、测试和重构工具共用。没有这份服务，独立 Verse 程序无法在引擎外完成一次完整的编译宿主循环。",
+    "en": "VerseProgramHostServices supplies host-side session services for Verse compile and run: program load, symbol lookup, and compiler session state. It sits on VerseCompiler and uLangCore and is shared by CLIs, tests, and refactoring tools. Without it, standalone Verse programs cannot complete a full compile-host loop outside the engine."
+  },
+  {
+    "slug": "verserefactoringtools",
+    "kind": "module",
+    "cn": "VerseRefactoringTools 在开发者层提供 Verse 源码的结构化重构，例如基于编译器 AST 的重命名与引用更新。它依赖 Core、VerseCompiler 和 uLangCore，所以改名能跟着类型信息走，而不是纯文本替换。面向 Verse 编辑体验与自动化修复，不参与运行时模拟。",
+    "en": "VerseRefactoringTools offers structured Verse source refactors at the developer layer, such as compiler-AST-backed rename and reference updates. Depending on Core, VerseCompiler, and uLangCore lets those edits follow type information instead of raw text. It serves the Verse editing experience and automated fixes, not runtime simulation."
+  },
+  {
+    "slug": "verserefactoringtoolstests",
+    "kind": "module",
+    "cn": "VerseRefactoringToolsTests 是底层测试程序，专门验证 Verse 重构工具在真实编译会话里是否正确改写源码。它拉起 VerseCompiler、VerseProgramHostServices 和 VerseRefactoringTools，覆盖重命名一类操作的回归。只在引擎测试目标中编译运行，不会进游戏包。",
+    "en": "VerseRefactoringToolsTests is a low-level test program that checks Verse refactors rewrite source correctly inside a real compile session. It boots VerseCompiler, VerseProgramHostServices, and VerseRefactoringTools to regression-test operations such as rename. It builds only in engine test targets and never ships in a game."
+  },
+  {
+    "slug": "verseruntimetests",
+    "kind": "module",
+    "cn": "VerseRuntimeTests 把 Solaris 桥、Verse 原生层和 VM 代码生成串成可执行测试，检验 Verse 运行时的加载与执行。它覆盖编译产物在宿主里的行为，而不是编辑器 UI。给引擎 QA 与提交门禁使用，玩法模块不必依赖它。",
+    "en": "VerseRuntimeTests wires the Solaris bridge, Verse native layer, and VM codegen into an executable that checks Verse runtime load and execution. It covers how compiler output behaves in a host, not editor UI. Engine QA and submit gates use it; gameplay modules should not depend on it."
+  },
+  {
+    "slug": "versetestscriptcmd",
+    "kind": "module",
+    "cn": "VerseTestScriptCmd 用命令行跑 Verse 测试脚本，并接入 Trace 分析、VerseAssist 与套接字调试器。它比单纯的运行时测试更偏脚本驱动：加载受限 Verse API，按脚本断言结果。给 Verse 语言与运行时的自动化套件使用，不是关卡里的调试控制台。",
+    "en": "VerseTestScriptCmd runs Verse test scripts from the command line and hooks Trace analysis, VerseAssist, and the socket debugger. It is more script-driven than a raw runtime test: it loads restricted Verse APIs and asserts results from scripts. It belongs to the Verse language/runtime automation suite, not an in-level debug console."
+  },
+  {
+    "slug": "vhacd",
+    "kind": "module",
+    "cn": "VHACD 封装第三方 Volumetric Hierarchical Approximate Convex Decomposition 库，把复杂三角网格拆成近似凸包层次。物理、破坏和碰撞简化会用这些凸体，而不是直接拿渲染网格当碰撞。引擎通过这份 UBT 包装链接库文件，游戏项目几乎不会单独依赖模块名。",
+    "en": "VHACD wraps the third-party Volumetric Hierarchical Approximate Convex Decomposition library, which splits complex triangle meshes into a hierarchy of approximate convex hulls. Physics, destruction, and collision simplification consume those hulls instead of using render meshes as colliders. The engine links the library through this UBT wrapper; games almost never depend on the module name alone."
+  },
+  {
+    "slug": "viewportinteraction",
+    "kind": "module",
+    "cn": "ViewportInteraction 实现编辑器视口里的三维交互：射线拾取、小工具拖拽、以及和关卡编辑器视口的输入转发。VR 编辑模式也建立在这套交互上，把头显与手柄映射到同样的变换操作。它是编辑器模块，不能链进独立游戏目标。",
+    "en": "ViewportInteraction implements 3D interaction inside editor viewports: ray picking, gizmo dragging, and input forwarding to the level-editor viewport. VR editor mode builds on the same path, mapping HMD and controllers onto those transform operations. It is an editor module and must not be linked into a standalone game target."
+  },
+  {
+    "slug": "viewportpanelstyle",
+    "kind": "module",
+    "cn": "ViewportPanelStyle 是实验性编辑器模块，为视口侧栏和面板提供独立的 Slate 样式集。它把视口相关控件的颜色、边距和画刷从通用 EditorStyle 里拆出来，方便试验新的视口外壳。只影响编辑器外观，不改变视口里的场景渲染。",
+    "en": "ViewportPanelStyle is an experimental editor module that supplies a dedicated Slate style set for viewport side panels. It splits viewport-control colors, padding, and brushes away from generic EditorStyle so new viewport chrome can be tried safely. It only changes editor look, not scene rendering inside the viewport."
+  },
+  {
+    "slug": "viewportsnapping",
+    "kind": "module",
+    "cn": "ViewportSnapping 给编辑器视口提供吸附逻辑：网格、顶点、表面以及自定义吸附点。变换工具在拖动时查询这套服务，把物体对齐到场景几何而不是自由漂浮。它走 RHI/RenderCore 只是为了读视口绘制所需的调试信息，本身不是渲染器。",
+    "en": "ViewportSnapping supplies editor-viewport snap logic: grid, vertex, surface, and custom snap points. Transform tools query it while dragging so actors align to scene geometry instead of floating freely. It touches RHI/RenderCore only to read debug draw data the viewport needs; it is not a renderer."
+  },
+  {
+    "slug": "virtualization",
+    "kind": "module",
+    "cn": "Virtualization 实现包体载荷虚拟化：把大块 Bulk Data 从 uasset 里抽到派生数据缓存、网络存储或源码控制后端。编辑器和构建机通过它按需拉取载荷，从而缩小工作副本。它对接 DerivedDataCache、NetworkCacheStores 和 SourceControl，是资源管线基础设施，不是材质节点。",
+    "en": "Virtualization implements package payload virtualization: it pulls large bulk data out of uassets into DDC, network stores, or source-control backends. Editors and build machines fetch payloads on demand so working copies stay small. It talks to DerivedDataCache, NetworkCacheStores, and SourceControl as asset-pipeline infrastructure, not as a material node."
+  },
+  {
+    "slug": "virtualizationeditor",
+    "kind": "module",
+    "cn": "VirtualizationEditor 在内容浏览器和工具菜单里暴露虚拟化状态：哪些资源已抽出载荷、如何重新水合、以及和源码控制的交互。它让美术和管线人员在编辑器内检查虚拟化，而不必只靠命令行。仅编辑器目标加载，运行时游戏不包含这些界面。",
+    "en": "VirtualizationEditor surfaces virtualization status in the Content Browser and tool menus: which assets have extracted payloads, how to rehydrate them, and how that interacts with source control. Artists and pipeline staff can inspect virtualization in the editor instead of only from a CLI. Only editor targets load it; runtime games do not ship the UI."
+  },
+  {
+    "slug": "virtualtexturingeditor",
+    "kind": "module",
+    "cn": "VirtualTexturingEditor 提供运行时虚拟纹理与虚拟纹理流送相关的编辑器工具，包括资源定义、放置模式和材质编辑器集成。它可以在地形、网格上预览虚拟纹理采样，并管理 VT 构建设置。这是编辑器工作流，最终烘焙结果由 Renderer 在运行时采样。",
+    "en": "VirtualTexturingEditor supplies editor tools for runtime virtual textures and VT streaming, including asset definitions, placement mode, and Material Editor integration. You can preview virtual-texture sampling on landscape or meshes and manage VT build settings. That is an editor workflow; the Renderer samples the baked result at runtime."
+  },
+  {
+    "slug": "visualgraphutils",
+    "kind": "module",
+    "cn": "VisualGraphUtils 为可视化节点图提供与引擎对象交互的辅助函数，例如图数据与 UObject 之间的转换。开发者工具和自定义图编辑器可以复用这些例程，而不必各自解析 CoreUObject。它不是 GraphEditor 控件本身，而是图背后的数据工具箱。",
+    "en": "VisualGraphUtils offers helpers for visual node graphs that talk to engine objects, such as converting graph data to and from UObjects. Developer tools and custom graph editors can reuse those routines instead of each parsing CoreUObject. It is not the GraphEditor widget itself, but a data toolbox behind graphs."
+  },
+  {
+    "slug": "visualstudiodte",
+    "kind": "module",
+    "cn": "VisualStudioDTE 引入 Visual Studio 自动化对象模型（DTE）的 COM 头与库，让引擎的 IDE 集成能驱动解决方案、调试器和编辑器。UnrealVS 一类功能通过它与已打开的 Visual Studio 实例对话。这是 Windows 第三方包装，游戏运行时不会加载 DTE。",
+    "en": "VisualStudioDTE brings in Visual Studio Automation (DTE) COM headers and libs so engine IDE integration can drive solutions, the debugger, and the VS editor. Features such as UnrealVS talk to an already-running Visual Studio instance through it. It is a Windows third-party wrapper; game runtime never loads DTE."
+  },
+  {
+    "slug": "vkquality",
+    "kind": "module",
+    "cn": "VKQuality 包装 Google 的 vkquality 库，在 Android 上根据设备 GPU 与驱动预测 Vulkan 路径是否可靠。引擎启动时可用它决定走 Vulkan 还是回退到 OpenGL ES，减少黑屏和驱动崩溃。这是移动端图形决策用的第三方库，不是着色器编译器。",
+    "en": "VKQuality wraps Google’s vkquality library, which predicts whether the Vulkan path is reliable on a given Android GPU and driver. At startup the engine can choose Vulkan or fall back to OpenGL ES to cut black screens and driver crashes. It is a third-party library for mobile graphics policy, not a shader compiler."
+  },
+  {
+    "slug": "voice",
+    "kind": "module",
+    "cn": "Voice 实现游戏内语音聊天的采集、编码前处理和回放路径，挂在 AudioMixer 与信号处理上。它负责麦克风输入与语音包的引擎侧处理，真正的在线传输通常再交给 Online 子系统。多人项目用它做近距离或小队语音，而不是普通音效播放。",
+    "en": "Voice implements in-game voice-chat capture, pre-encode processing, and playback on top of AudioMixer and signal processing. It owns microphone input and engine-side voice packets; actual online transport usually sits in an Online subsystem. Multiplayer projects use it for proximity or squad voice, not ordinary SFX playback."
+  },
+  {
+    "slug": "vorbis",
+    "kind": "module",
+    "cn": "Vorbis 是 libvorbis 的 UBT 封装，提供 Ogg Vorbis 有损音频编解码实现。引擎音频格式与解码器模块链接这份库来解压缩 .ogg 采样。游戏代码应使用引擎音频接口，而不是直接调用 Vorbis C API。",
+    "en": "Vorbis is the UBT wrapper for libvorbis, the lossy Ogg Vorbis codec implementation. Engine audio-format and decoder modules link this library to decompress .ogg samples. Game code should use engine audio APIs rather than calling the Vorbis C API directly."
+  },
+  {
+    "slug": "vorbisaudiodecoder",
+    "kind": "module",
+    "cn": "VorbisAudioDecoder 是引擎运行时的 Vorbis 解码器模块，把压缩的 Vorbis 码流转成可混音的 PCM。它对接 CoreUObject 与 Engine 的音频资源管线，让 SoundWave 能以 Vorbis 格式导入和播放。选择 Vorbis 作为压缩格式时由音频系统加载，不必在玩法模块里手动启动。",
+    "en": "VorbisAudioDecoder is the engine runtime decoder that turns compressed Vorbis bitstreams into mixable PCM. It plugs into CoreUObject and Engine audio assets so SoundWaves can import and play as Vorbis. The audio system loads it when Vorbis is the chosen compression; gameplay modules do not start it by hand."
+  },
+  {
+    "slug": "vorbisfile",
+    "kind": "module",
+    "cn": "VorbisFile 封装 libvorbisfile，在文件或流上提供按帧解码 Vorbis 的高层 API。相比裸的 libvorbis，它处理 Ogg 分页和定位，适合从磁盘流式读取。引擎音频导入与解码路径通过这份第三方模块使用它。",
+    "en": "VorbisFile wraps libvorbisfile, a higher-level API that decodes Vorbis frame-by-frame from a file or stream. Unlike raw libvorbis it handles Ogg paging and seeking, which suits disk streaming. Engine import and decode paths consume it through this third-party module."
+  },
+  {
+    "slug": "voronoi",
+    "kind": "module",
+    "cn": "Voronoi 提供实验性的三维/二维 Voronoi 图生成，供 Chaos 破碎、程序化剖分等系统切分空间。它在 Runtime/Experimental 下，输出单元、面和邻接而不是渲染网格。几何与物理模块调用它做断裂模式，普通关卡蓝图很少直接碰到。",
+    "en": "Voronoi provides experimental 2D/3D Voronoi diagram generation so Chaos fracture and procedural splitting can partition space. It lives under Runtime/Experimental and emits cells, faces, and adjacency rather than render meshes. Geometry and physics modules call it for break patterns; typical level Blueprints rarely touch it."
+  },
+  {
+    "slug": "vpltextbuffer",
+    "kind": "module",
+    "cn": "VplTextBuffer 为 Verse 源码维护可增量更新的文本缓冲，并与 VerseCompiler / uLang 的词法位置对齐。编辑器和语言服务用它在输入时保持缓冲与 AST 范围一致。它是 Solaris 运行时配套，不是通用 Slate 多行文本框。",
+    "en": "VplTextBuffer keeps an incrementally updated text buffer for Verse source, aligned with VerseCompiler / uLang lexical positions. Editors and language services use it so the buffer and AST ranges stay in sync while typing. It is Solaris runtime support, not a generic Slate multiline text box."
+  },
+  {
+    "slug": "vreditor",
+    "kind": "module",
+    "cn": "VREditor 把虚幻编辑器搬进头显：用手柄在关卡里选物体、打开 Sequencer、以及通过 ViewportInteraction 做三维操作。它集成 HeadMountedDisplay、关卡编辑器和 UMG 面板，让关卡设计师可以在 VR 里摆场景。这是编辑器模式，打包游戏不会带上整套 VR 编辑 UI。",
+    "en": "VREditor moves the Unreal Editor into an HMD: you select actors with controllers, open Sequencer, and perform 3D edits through ViewportInteraction. It integrates HeadMountedDisplay, the Level Editor, and UMG panels so designers can dress a level in VR. It is an editor mode; cooked games do not ship the full VR editing UI."
+  },
+  {
+    "slug": "vsperfexternalprofiler",
+    "kind": "module",
+    "cn": "VSPerfExternalProfiler 接入 Visual Studio 性能探查器（VSPerf）的外部分析接口，让引擎帧可以出现在 VS 的 CPU 采样时间线上。开发者在 Windows 上用 VS 分析 Unreal 进程时由它注入标记。这是第三方分析桥，发布包默认不启用。",
+    "en": "VSPerfExternalProfiler hooks Visual Studio’s VSPerf external profiler so engine frames can appear on VS CPU sampling timelines. It injects markers when you profile an Unreal process from Visual Studio on Windows. It is a third-party profiling bridge and is not enabled in shipping packages by default."
+  },
+  {
+    "slug": "vulkan",
+    "kind": "module",
+    "cn": "Vulkan 模块提供 Khronos Vulkan SDK 头文件与加载库，供 VulkanRHI 和其他图形代码包含 vulkan.h。它不实现渲染，只解决平台上的 SDK 路径与链接。没有这份包装，引擎无法按目标平台找到正确的 Vulkan 加载器。",
+    "en": "The Vulkan module supplies Khronos Vulkan SDK headers and loader libraries so VulkanRHI and other graphics code can include vulkan.h. It does not render; it only resolves SDK paths and linking per platform. Without this wrapper the engine cannot find the correct Vulkan loader for a target."
+  },
+  {
+    "slug": "vulkanrhi",
+    "kind": "module",
+    "cn": "VulkanRHI 是虚幻的 Vulkan 渲染硬件接口，把 RHI 命令翻译成 Vk 管线、描述符、交换链和同步原语。它覆盖桌面与移动 Vulkan，并处理预加载屏、HMD 扩展和设备能力查询。选择 Vulkan 作为 RHI 时由引擎加载，游戏代码仍应只调用 RHI/Renderer 抽象。",
+    "en": "VulkanRHI is Unreal’s Vulkan Rendering Hardware Interface: it turns RHI commands into Vk pipelines, descriptors, swapchains, and sync primitives. It covers desktop and mobile Vulkan plus preload screens, HMD extensions, and device-capability queries. The engine loads it when Vulkan is the chosen RHI; game code should still call RHI/Renderer abstractions only."
+  },
+  {
+    "slug": "vulkanshaderformat",
+    "kind": "module",
+    "cn": "VulkanShaderFormat 把虚幻着色器编译成 SPIR-V，并做 Vulkan 目标的预处理与格式封装。它走 ShaderCompilerCommon 与 ShaderPreprocessor，产出可被 VulkanRHI 加载的着色器码。这是烹饪/着色器编译器工人侧模块，运行时只消费已经编译好的结果。",
+    "en": "VulkanShaderFormat compiles Unreal shaders to SPIR-V and wraps them in the Vulkan shader format after preprocessing. It uses ShaderCompilerCommon and ShaderPreprocessor to emit bytecode VulkanRHI can load. That work runs on cook/shader-compiler workers; runtime only consumes already-compiled results."
+  },
+  {
+    "slug": "webbrowser",
+    "kind": "module",
+    "cn": "WebBrowser 用 CEF 在运行时嵌入完整网页视图，处理输入、HTTP 与 JavaScript 到引擎的桥。UMG 或 Slate 可以把网页作为控件叠在 HUD 上，用于登录页、商店或文档。它依赖 WebBrowserTexture 把页面画到 GPU 纹理，桌面目标最常用。",
+    "en": "WebBrowser embeds a full CEF web view at runtime, handling input, HTTP, and a JavaScript-to-engine bridge. UMG or Slate can stack that view on the HUD for login pages, stores, or docs. It depends on WebBrowserTexture to paint the page into a GPU texture and is most common on desktop."
+  },
+  {
+    "slug": "webbrowsertexture",
+    "kind": "module",
+    "cn": "WebBrowserTexture 把嵌入式浏览器的每一帧提交成引擎纹理，供 Slate 或场景材质采样。它走 RHI 与 RenderCore，解决浏览器软件光栅结果与游戏帧的同步。没有它，WebBrowser 只能在离屏缓冲里画，无法作为 UI 画刷出现。",
+    "en": "WebBrowserTexture submits each embedded-browser frame as an engine texture for Slate or scene materials to sample. It uses RHI and RenderCore to sync the browser’s software raster with the game frame. Without it WebBrowser can only paint off-screen and cannot appear as a UI brush."
+  },
+  {
+    "slug": "webrtc",
+    "kind": "module",
+    "cn": "WebRTC 封装 Google WebRTC 栈，提供点对点音视频、数据通道和 NAT 穿透。像素流送、远程演示和实时通讯插件通过它推送编码器输出。这是第三方库包装，具体会话管理由上层 Pixel Streaming 一类模块完成。",
+    "en": "WebRTC wraps Google’s WebRTC stack for peer-to-peer audio/video, data channels, and NAT traversal. Pixel Streaming, remote demo, and realtime-comms plugins push encoder output through it. It is a third-party library wrapper; session management lives in higher modules such as Pixel Streaming."
+  },
+  {
+    "slug": "websockets",
+    "kind": "module",
+    "cn": "WebSockets 实现引擎侧 WebSocket 客户端，在 HTTP 升级之后走 TLS 收发帧。在线服务、编辑器实时通道和自定义后端可以用它保持长连接。它不充当服务器，只负责作为客户端连到已有的 WebSocket 端点。",
+    "en": "WebSockets implements the engine-side WebSocket client, exchanging frames over TLS after an HTTP upgrade. Online services, editor live channels, and custom backends can keep a long-lived connection through it. It is not a server; it only connects as a client to an existing WebSocket endpoint."
+  },
+  {
+    "slug": "websocketserver",
+    "kind": "module",
+    "cn": "WebSocketServer 在引擎进程内接受 WebSocket 连接并处理 TLS 握手，供工具、测试和本地实时服务使用。与 WebSockets 客户端模块成对，一个听端口，一个去连接。游戏玩法一般不会直接开这个服务器，更多出现在开发者程序里。",
+    "en": "WebSocketServer accepts WebSocket connections inside the engine process and handles the TLS handshake for tools, tests, and local live services. It pairs with the WebSockets client module: one listens, the other connects. Gameplay rarely opens this server; developer programs use it more often."
+  },
+  {
+    "slug": "webtests",
+    "kind": "module",
+    "cn": "WebTests 是独立测试程序，覆盖 HTTP、HTTPServer、WebSockets、SSL 和 XMPP 等网络栈。它在真实事件循环上发请求、握手并断言协议行为，防止回归。只用于引擎网络层 QA，不会作为游戏功能启动。",
+    "en": "WebTests is a standalone program covering HTTP, HTTPServer, WebSockets, SSL, and XMPP. It fires requests, handshakes, and protocol asserts on a real event loop to catch regressions. It exists for engine networking QA, not as a game feature."
+  },
+  {
+    "slug": "webtestsservercpp",
+    "kind": "module",
+    "cn": "WebTestsServerCpp 为 WebTests 提供配套的 C++ 测试服务器，监听 HTTP 与 WebSocket 并返回可控的 JSON 响应。客户端测试可以打到这个进程来验证重试、升级和错误码。它是实验室里的假后端，不是产品 API 网关。",
+    "en": "WebTestsServerCpp is the companion C++ test server for WebTests, listening on HTTP and WebSocket and returning controlled JSON. Client tests hit this process to verify retries, upgrades, and error codes. It is a lab fake backend, not a production API gateway."
+  },
+  {
+    "slug": "wegame",
+    "kind": "module",
+    "cn": "WeGame 封装腾讯 WeGame 平台 SDK，用于国服发行所需的启动器登录、成就和商店接口。针对 WeGame 渠道打包时由平台层链接这份库。非该渠道的项目不应把模块写进通用运行时依赖。",
+    "en": "WeGame wraps Tencent’s WeGame platform SDK for launcher login, achievements, and store APIs required by that China-store channel. The platform layer links this library when you package for WeGame. Projects that are not on that channel should not add it as a generic runtime dependency."
+  },
+  {
+    "slug": "widgetcarousel",
+    "kind": "module",
+    "cn": "WidgetCarousel 提供可循环翻页的 Slate 轮播控件，用于启动画面、教程页或商店横幅一类水平滑动内容。它处理页面吸附、输入和绘制，不绑定具体游戏数据。运行时与编辑器 UI 都可以把它嵌进现有 Slate/UMG 布局。",
+    "en": "WidgetCarousel is a looping Slate carousel for splash screens, tutorial pages, or store banners that swipe horizontally. It handles page snapping, input, and paint without binding to a specific game data model. Runtime and editor UI can both nest it in existing Slate/UMG layouts."
+  },
+  {
+    "slug": "widgetregistration",
+    "kind": "module",
+    "cn": "WidgetRegistration 把编辑器控件登记到 ToolMenus 和 EditorConfig，让窗口、工具栏按钮按名启用并记住布局。开发者工具用它声明「这个 widget 属于哪块工作区」而不是硬编码菜单。它不绘制具体面板，只维护注册表与持久化。",
+    "en": "WidgetRegistration registers editor widgets with ToolMenus and EditorConfig so windows and toolbar buttons can be enabled by name and remember layout. Developer tools declare which workspace a widget belongs to instead of hard-coding menus. It does not paint a panel; it maintains the registry and persistence."
+  },
+  {
+    "slug": "windowsd3d",
+    "kind": "module",
+    "cn": "WindowsD3D 集中 Windows 上 Direct3D 相关的共享辅助，例如设备创建约定和与 Core 的平台胶水。D3D11/D3D12 RHI 会用到这些公共部分，避免各 RHI 重复写 Win32/DXGI 样板。它本身不是完整 RHI，只服务 Windows 图形后端。",
+    "en": "WindowsD3D centralizes shared Direct3D helpers on Windows, such as device-creation conventions and Core platform glue. D3D11/D3D12 RHIs use those commons so each RHI does not rewrite Win32/DXGI boilerplate. It is not a full RHI; it only serves Windows graphics backends."
+  },
+  {
+    "slug": "windowsmmdeviceenumeration",
+    "kind": "module",
+    "cn": "WindowsMMDeviceEnumeration 通过 Windows Multimedia Device（MMDevice）API 枚举音频输入输出设备。音频系统用它列出扬声器、耳机和麦克风，并响应设备热插拔。这是 Windows 专属的设备枚举，其他平台有各自的枚举模块。",
+    "en": "WindowsMMDeviceEnumeration lists audio input and output devices through the Windows MMDevice API. The audio system uses it to show speakers, headphones, and microphones and to react to hot-plug. It is Windows-only enumeration; other platforms have their own enumerator modules."
+  },
+  {
+    "slug": "windowsplatformeditor",
+    "kind": "module",
+    "cn": "WindowsPlatformEditor 在编辑器里展示 Windows 目标相关的工程设置页，读取 WindowsTargetPlatformSettings。打包架构、着色器模型和平台专属开关会从这里编辑。它只存在于编辑器，不影响已打包的 Win64 游戏逻辑。",
+    "en": "WindowsPlatformEditor shows the Windows-target project settings pages in the editor, reading WindowsTargetPlatformSettings. Packaging architecture, shader models, and platform switches are edited here. It exists only in the editor and does not change already-packaged Win64 game logic."
+  },
+  {
+    "slug": "windowsplatformfeatures",
+    "kind": "module",
+    "cn": "WindowsPlatformFeatures 实现 Windows 运行时平台能力，例如把游戏画面和音频交给 GameplayMediaEncoder / AVEncoder 做桌面采集与广播。它连接 AudioMixer 与引擎，让 Game Bar 一类系统功能能抓到游戏输出。仅 Windows 目标加载，其他平台走各自的 PlatformFeatures。",
+    "en": "WindowsPlatformFeatures implements Windows runtime platform capabilities, such as handing game video and audio to GameplayMediaEncoder / AVEncoder for desktop capture and broadcast. It connects AudioMixer and the engine so system features like Game Bar can grab game output. Only Windows targets load it; other platforms have their own PlatformFeatures."
+  },
+  {
+    "slug": "windowstargetplatform",
+    "kind": "module",
+    "cn": "WindowsTargetPlatform 是虚幻 Build 系统里的 Windows 目标平台模块，把 Win64 注册进 TargetPlatform 框架。烹饪、部署和编辑器的「平台」下拉都通过它找到 Windows 控件与设置模块。没有它，编辑器无法把工程煮成 Windows 包。",
+    "en": "WindowsTargetPlatform is the Windows target-platform module in Unreal’s build system, registering Win64 with the TargetPlatform framework. Cook, deploy, and the editor’s platform dropdown find Windows controls and settings through it. Without it the editor cannot cook a project for Windows."
+  },
+  {
+    "slug": "windowstargetplatformcontrols",
+    "kind": "module",
+    "cn": "WindowsTargetPlatformControls 实现 Windows 烹饪与打包过程中的平台控件：设备、纹理格式、音频配置以及 Cooked Editor 相关开关。它根据 RHI 与 DesktopPlatform 决定这份 Win64 包怎么煮。和 Settings 模块分工：这里偏「怎么构建」，那边偏「存哪些默认值」。",
+    "en": "WindowsTargetPlatformControls implements platform controls during Windows cook and package: devices, texture formats, audio configuration, and Cooked Editor switches. It uses RHI and DesktopPlatform to decide how that Win64 build is cooked. It splits work with the Settings module: this one is “how to build,” the other is “which defaults to store.”"
+  },
+  {
+    "slug": "windowstargetplatformsettings",
+    "kind": "module",
+    "cn": "WindowsTargetPlatformSettings 保存 Windows 目标的可配置默认值，例如音频平台配置、RHI 选择和烹饪相关 ini。编辑器设置页和 Controls 模块都读这份数据，保证多次打包使用同一套 Windows 选项。修改这里会影响后续 Win64 烹饪，而不是当前正在玩的关卡。",
+    "en": "WindowsTargetPlatformSettings stores configurable Windows-target defaults such as audio platform configuration, RHI choice, and cook-related ini. Editor settings pages and the Controls module both read this data so repeated packages share the same Windows options. Changing it affects later Win64 cooks, not the level you are playing right now."
+  },
+  {
+    "slug": "winhttp",
+    "kind": "module",
+    "cn": "WinHttp 包装 Windows HTTP Services（WinHTTP），给引擎在 Windows 上走系统 HTTP 栈发请求。部分 HTTP 后端会选它而不是 libcurl，以使用系统代理和证书存储。这是平台 HTTP 实现库，游戏应继续使用引擎 HTTP 模块。",
+    "en": "WinHttp wraps Windows HTTP Services (WinHTTP) so the engine can send requests on Windows through the OS HTTP stack. Some HTTP backends choose it over libcurl to use the system proxy and certificate store. It is a platform HTTP implementation; games should keep using the engine HTTP module."
+  },
+  {
+    "slug": "wininet",
+    "kind": "module",
+    "cn": "WinInet 封装较老的 Windows Internet API，用于需要 WinINet 会话、缓存或 IE 代理行为的遗留 HTTP 路径。引擎少数 Windows 网络代码仍可能链接它。新代码优先 WinHTTP 或跨平台 HTTP，本模块只作为第三方兼容层存在。",
+    "en": "WinInet wraps the older Windows Internet API for legacy HTTP paths that still need WinINet sessions, cache, or IE proxy behavior. A few Windows networking code paths in the engine may still link it. New code should prefer WinHTTP or the cross-platform HTTP module; this exists as a third-party compatibility layer."
+  },
+  {
+    "slug": "winpixeventruntime",
+    "kind": "module",
+    "cn": "WinPixEventRuntime 引入 Microsoft PIX 事件运行时，让 D3D 命令列表上能打用户标记，便于 PIX 和 GPU 调试器按关卡/通道切帧。RHI 在 Windows 开发构建中插入这些标记。发售包通常剥离或空实现，以免依赖 PIX 运行时 DLL。",
+    "en": "WinPixEventRuntime brings in Microsoft’s PIX event runtime so user markers can be placed on D3D command lists for PIX and GPU debuggers. The RHI inserts those markers in Windows development builds. Shipping packages usually strip or stub it so they do not depend on the PIX runtime DLL."
+  },
+  {
+    "slug": "wintab",
+    "kind": "module",
+    "cn": "Wintab 包装 Wacom 等数位板的 WinTab API，把压感、倾斜和触控笔按键送进编辑器输入。绘图、笔刷和部分视口工具用它获得比普通鼠标更细的笔压。仅 Windows 且插着兼容数位板时有意义，游戏运行时很少启用。",
+    "en": "Wintab wraps the WinTab API used by Wacom-style tablets, forwarding pressure, tilt, and stylus buttons into editor input. Painting, brushes, and some viewport tools use it for finer pressure than a mouse. It only matters on Windows with a compatible tablet; game runtime rarely enables it."
+  },
+  {
+    "slug": "workspacemenustructure",
+    "kind": "module",
+    "cn": "WorkspaceMenuStructure 定义编辑器「窗口」菜单的分区结构，例如关卡编辑、调试、日志各占哪一组。其他编辑器模块向它注册停靠页，而不是各自往菜单栏塞条目。改这个结构会改变编辑器菜单信息架构，不会改关卡内容。",
+    "en": "WorkspaceMenuStructure defines the editor Window menu’s sections—Level Editor, debug, logs, and so on. Other editor modules register dock tabs with it instead of stuffing the menu bar themselves. Changing this structure changes editor information architecture, not level content."
+  },
+  {
+    "slug": "worldbookmark",
+    "kind": "module",
+    "cn": "WorldBookmark 让关卡设计师保存并跳转到世界中的书签：摄像机位、选中对象和关卡上下文。它做成资源并接入内容浏览器、场景大纲和源码控制，方便团队共享观察点。这是编辑器导航工具，运行时玩家摄像机不会读取这些书签。",
+    "en": "WorldBookmark lets level designers save and jump to world bookmarks: camera pose, selection, and level context. Bookmarks are assets hooked to the Content Browser, Scene Outliner, and source control so teams can share viewpoints. It is an editor navigation aid; the player camera does not read these bookmarks at runtime."
+  },
+  {
+    "slug": "worldbrowser",
+    "kind": "module",
+    "cn": "WorldBrowser 是关卡窗口 / 世界浏览器，用来管理子关卡、世界构成、地形与植被在大世界中的布局。设计师在二维小地图上加载、卸载和移动关卡流送单元。它深度依赖 Landscape、Foliage 和 LevelEditor，是开放世界编辑的核心面板之一。",
+    "en": "WorldBrowser is the Levels window / world browser for sublevels, world composition, and how landscape and foliage sit in a large world. Designers load, unload, and move streaming units on a 2D minimap. It depends heavily on Landscape, Foliage, and LevelEditor and is a core open-world editing panel."
+  },
+  {
+    "slug": "worldpartitioneditor",
+    "kind": "module",
+    "cn": "WorldPartitionEditor 为世界分区提供编辑器：网格单元、数据层、HLOD 和流送预览都在这里配置。它与 DataLayerEditor、Landscape 和 Scene Outliner 协作，把超大地图切成可烹饪的单元格。使用 World Partition 的关卡依赖这套工具；传统单一 Persistent Level 用不到它。",
+    "en": "WorldPartitionEditor is the editor for World Partition: grid cells, data layers, HLODs, and streaming preview are configured here. It works with DataLayerEditor, Landscape, and the Scene Outliner to slice huge maps into cookable cells. World Partition levels need these tools; a classic single Persistent Level does not."
+  },
+  {
+    "slug": "xaudio2_9",
+    "kind": "module",
+    "cn": "XAudio2_9 提供 Windows 上 XAudio 2.9 的头与库，供 AudioMixerXAudio2 创建 mastering voice 和源语音。这是微软低延迟音频 API 的引擎包装，不是游戏里的 Sound Cue。Windows 音频后端链接它来输出混音结果。",
+    "en": "XAudio2_9 supplies Windows XAudio 2.9 headers and libraries so AudioMixerXAudio2 can create mastering and source voices. It is the engine wrapper for Microsoft’s low-latency audio API, not a Sound Cue. The Windows audio backend links it to output the mixer result."
+  },
+  {
+    "slug": "xinput",
+    "kind": "module",
+    "cn": "XInput 封装 Xbox 手柄的 XInput API，读取摇杆、扳机和振动。Windows 上的游戏手柄输入路径通过这份第三方模块访问系统驱动。新项目仍可能走它或 Raw Input / GameInput，但模块本身只负责 XInput 链接。",
+    "en": "XInput wraps the Xbox controller XInput API for sticks, triggers, and rumble. Windows gamepad input reaches the OS driver through this third-party module. Newer projects may still use it or Raw Input / GameInput, but the module itself only handles XInput linking."
+  },
+  {
+    "slug": "xmlparser",
+    "kind": "module",
+    "cn": "XmlParser 是引擎自带的轻量 XML 读写器，只依赖 Core，用于配置、本地化和部分资源元数据。它解析元素、属性和文本节点，不执行 XSLT。需要读 XML 清单或旧格式中间文件时用它，JSON 工作流则应走 Json 模块。",
+    "en": "XmlParser is the engine’s lightweight XML reader/writer, depending only on Core, used for config, localization, and some asset metadata. It parses elements, attributes, and text nodes and does not run XSLT. Use it for XML manifests or legacy interchange; JSON workflows should use the Json module."
+  },
+  {
+    "slug": "xmpp",
+    "kind": "module",
+    "cn": "XMPP 实现 Jabber/XMPP 客户端协议，走 WebSockets 传输 JSON 风格的 stanza，用于好友、聊天和在线状态。Epic 在线服务的部分聊天路径历史上建立在这套协议上。游戏若接 Epic 社交或自建 XMPP 服会间接用到它，本地单机可忽略。",
+    "en": "XMPP implements a Jabber/XMPP client over WebSockets with JSON-style stanzas for friends, chat, and presence. Parts of Epic online chat historically sat on this protocol. Games talking to Epic social or a custom XMPP server use it indirectly; offline single-player can ignore it."
+  },
+  {
+    "slug": "xxhash",
+    "kind": "module",
+    "cn": "xxhash 引入 XXH64/XXH3 一类高速非加密哈希实现，供内容寻址、缓存键和校验使用。派生数据、包摘要和去重经常选它，因为它比加密哈希便宜。这是第三方算法库，不提供网络加密。",
+    "en": "xxhash brings in fast non-cryptographic hashes such as XXH64/XXH3 for content addressing, cache keys, and checksums. Derived data, package digests, and dedup often pick it because it is cheaper than cryptographic hashes. It is a third-party algorithm library and does not provide network encryption."
+  },
+  {
+    "slug": "zen",
+    "kind": "module",
+    "cn": "Zen 是虚幻 Zen 存储服务器的客户端库，用 HTTP/HTTPS 访问共享的派生数据与烹饪产物。多台编辑器和构建机可以指向同一 Zen 实例，避免每台都重煮缓存。它属于开发者基础设施，运行时游戏进程不会把它当资源加载器。",
+    "en": "Zen is the client library for Unreal’s Zen storage server, reaching shared derived data and cook products over HTTP/HTTPS. Multiple editors and build machines can point at one Zen instance instead of each recooking caches. It is developer infrastructure; a runtime game process does not use it as an asset loader."
+  },
+  {
+    "slug": "zendashboard",
+    "kind": "module",
+    "cn": "ZenDashboard 是独立 Slate 程序，用来监视 Zen 存储服务器的状态、容量和请求。管线人员不必打开完整编辑器就能查看缓存命中与服务健康。它通过 Zen 客户端与 HTTP 通信，只给开发机使用。",
+    "en": "ZenDashboard is a standalone Slate app for watching Zen storage-server status, capacity, and traffic. Pipeline staff can inspect cache hits and service health without launching the full editor. It talks HTTP through the Zen client and is for development machines only."
+  },
+  {
+    "slug": "zeneditor",
+    "kind": "module",
+    "cn": "ZenEditor 把 Zen 存储集成进编辑器：输出日志、消息日志、DDC 控件和工具菜单里的启动/状态入口。美术和程序员可以在 Unreal Editor 内连接或排查 Zen，而不切换到外部仪表盘。仅编辑器加载，不影响打包后的玩家客户端。",
+    "en": "ZenEditor integrates Zen storage into the editor: Output Log, Message Log, DDC widgets, and Tool Menus entries for launch and status. Artists and programmers can connect to or diagnose Zen inside Unreal Editor instead of switching to an external dashboard. Only the editor loads it; packaged player clients are unaffected."
+  },
+  {
+    "slug": "zenlaunch",
+    "kind": "module",
+    "cn": "ZenLaunch 负责拉起本地或配置好的 Zen 服务器进程，并写入项目所需的连接信息。编辑器和构建脚本用它保证缓存服务在烹饪开始前已经在听端口。它是启动器，不是存储实现本身。",
+    "en": "ZenLaunch starts a local or configured Zen server process and writes the connection info a project needs. Editors and build scripts use it so the cache service is listening before a cook begins. It is a launcher, not the storage implementation itself."
+  },
+  {
+    "slug": "zenoplogdifftool",
+    "kind": "module",
+    "cn": "ZenOplogDiffTool 比较 Zen 操作日志（oplog）之间的差异，帮助诊断缓存写入顺序和复制问题。当两台 Zen 或两次烹饪的结果不一致时，用它查看哪条操作分叉。这是开发者诊断程序，依赖 ZenOplogUtils 解析日志。",
+    "en": "ZenOplogDiffTool compares Zen operation logs (oplogs) to diagnose cache write order and replication issues. When two Zen instances or two cooks disagree, it shows where the operation stream forked. It is a developer diagnostic program that parses logs through ZenOplogUtils."
+  },
+  {
+    "slug": "zenoplogutils",
+    "kind": "module",
+    "cn": "ZenOplogUtils 解析和遍历 Zen 的 JSON 操作日志，供差异工具和其他诊断代码复用。它把 oplog 条目变成可比较的结构，而不是提供编辑器窗口。Zen 存储排障链路的底层库就在这里。",
+    "en": "ZenOplogUtils parses and walks Zen’s JSON operation logs so diff tools and other diagnostics can reuse one reader. It turns oplog entries into comparable structures and does not provide an editor window. The bottom of the Zen storage troubleshooting stack lives here."
+  },
+  {
+    "slug": "zlib",
+    "kind": "module",
+    "cn": "zlib 封装经典的 DEFLATE 压缩库，用于包压缩、网络位流和部分资源序列化。引擎多处默认的「zlib 压缩」都链接这份第三方模块。它提供通用压缩，不替代面向纹理或音频的专用编解码。",
+    "en": "zlib wraps the classic DEFLATE compression library for package compression, network bitstreams, and some asset serialization. Engine paths that say “zlib compression” link this third-party module. It is general-purpose compression, not a replacement for texture or audio codecs."
+  },
+  {
+    "slug": "zstd",
+    "kind": "module",
+    "cn": "zstd 封装 Facebook Zstandard 压缩库，在相近压缩率下通常比 zlib 更快，用于 IoStore、派生数据和部分包体压缩选项。烹饪和运行时解压都可以走 zstd 编解码器。选择压缩后端时与 zlib 并列，由项目或引擎设置决定用哪一个。",
+    "en": "zstd wraps Facebook’s Zstandard library, typically faster than zlib at similar ratios, for IoStore, derived data, and some package-compression options. Both cook-time compression and runtime inflate can use the zstd codec. It sits beside zlib as a compression backend; project or engine settings pick which one."
+  }
+]

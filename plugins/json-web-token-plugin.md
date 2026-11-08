@@ -3,7 +3,6 @@ layout: default
 title: JSON Web 令牌插件 / JSON Web Token Plugin
 ---
 
-
 <h1>JSON Web 令牌插件 / JSON Web Token Plugin</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: JSON Web 令牌插件 / JSON Web Token Plugin
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于处理 JSON Web Token (JWT) 数据的 API。</div><div class="lang-content">An API for working with JSON Web Token (JWT) data.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">JSON Web Token Plugin</code>（模块 <code class="usage-code">JWT</code>）。</li><li>用其 API 处理 JWT 数据：编码/解码、签名校验（登录鉴权、令牌交换等场景）。</li><li>在 C++ 里调用 JWT API，验证服务器下发的令牌。</li><li>Experimental：接口可能变动；注意密钥/令牌的安全存储。</li></ol><p class="usage-note">处理 JSON Web Token 的 API，用于鉴权，实验性。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">JSON Web Token Plugin</code> (module <code class="usage-code">JWT</code>).</li><li>Use its API to work with JWT data: encode/decode and verify signatures (login auth, token exchange, etc.).</li><li>Call the JWT API from C++ to validate tokens issued by your server.</li><li>Experimental: contract may change; store keys/tokens securely.</li></ol><p class="usage-note">An API for JSON Web Tokens used for auth, experimental.</p></div></div></div>
+    </div>
+

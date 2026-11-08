@@ -3,9 +3,10 @@ layout: default
 title: Unreal Engine Plugin Docs / 插件与模块
 ---
 
-<div class="page-title-wrap" style="margin-bottom:24px;">
-  <h1 style="font-size:28px;letter-spacing:-0.02em;margin-bottom:4px;">Unreal Engine 插件与模块</h1>
-  <p style="color:var(--on-surface-variant);font-size:14px;">自动生成的虚幻引擎 <span class="mono">1040</span> 个插件 · <span class="mono">917</span> 个模块，按源码每日更新</p>
+<div class="page-title-wrap">
+  <p class="page-kicker">Unreal Engine · Source catalog</p>
+  <h1>插件与模块</h1>
+  <p class="page-lede">从引擎源码同步的 <span class="mono">1040</span> 个插件 · <span class="mono">917</span> 个模块，按路径与类别检索。</p>
 </div>
 
 <!-- Stat cards row (4 columns) -->
@@ -33,6 +34,32 @@ title: Unreal Engine Plugin Docs / 插件与模块
     <div class="stat-card-label">Engine</div>
     <div class="stat-card-value mono" style="font-size:22px;">UE nightly</div>
     <div class="stat-card-sub">Auto-synced daily</div>
+  </div>
+</div>
+
+<div class="card usage-card" id="usage-overview" style="margin-top:28px;">
+  <div class="card-title"><span class="card-title-sep"></span>How to use this site<span class="card-title-cn">整体用法</span></div>
+  <div class="desc-body">
+    <div class="bilingual-block">
+      <div class="lang-tabs">
+        <button class="lang-tab active" onclick="switchLang(this)">中文</button>
+        <button class="lang-tab" onclick="switchLang(this)">English</button>
+      </div>
+      <div class="lang-content active">
+        <ol class="usage-steps">
+          <li><strong>插件</strong>：在虚幻编辑器打开目标项目 → <code class="usage-code">编辑 &gt; 插件</code> 搜索插件名并启用 → 重启编辑器。每个插件详情页的「使用方法」写了它在编辑器里从哪进、蓝图怎么找、C++ 要依赖哪些模块。</li>
+          <li><strong>模块</strong>：打开游戏模块的 <code class="usage-code">YourModule.Build.cs</code>，把模块名加入 <code class="usage-code">PublicDependencyModuleNames</code> 或 <code class="usage-code">PrivateDependencyModuleNames</code> → Generate Project Files → 编译。详情页会标明它是 Runtime / Editor / ThirdParty，避免把编辑器模块链进 Game Target。</li>
+          <li><strong>怎么查</strong>：下面卡片进详情；页内中英切换。Experimental 插件先在空关卡验证。具体 API 以引擎 Public 头文件为准。</li>
+        </ol>
+      </div>
+      <div class="lang-content">
+        <ol class="usage-steps">
+          <li><strong>Plugins</strong>: In the target project, <code class="usage-code">Edit &gt; Plugins</code>, enable the plugin, restart. Each detail page’s How to use section says where it lives in the editor, how to find Blueprint nodes, and which modules to list in C++.</li>
+          <li><strong>Modules</strong>: Add the module name to <code class="usage-code">PublicDependencyModuleNames</code> or <code class="usage-code">PrivateDependencyModuleNames</code> in <code class="usage-code">YourModule.Build.cs</code>, Generate Project Files, rebuild. The page tells you if it is Runtime / Editor / ThirdParty so you do not link editor modules into a Game target.</li>
+          <li><strong>Browse</strong>: Open a card below. Switch 中文 / English on the page. Prove Experimental plugins in an empty map. Engine Public headers are the API source of truth.</li>
+        </ol>
+      </div>
+    </div>
   </div>
 </div>
 

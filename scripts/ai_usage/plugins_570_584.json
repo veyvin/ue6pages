@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "modular-test-runner-ui-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Test Runner UI Tests`（模块 `ModularTestRunnerUITests`）。",
+      "它是测试 `Modular Tests Runner` 编辑器 UI 的配套插件。",
+      "在 CI/自动化里跑这些用例，验证 Runner UI 行为。",
+      "这是测试配套插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `Modular Test Runner UI Tests` (module `ModularTestRunnerUITests`).",
+      "It is the companion plugin that tests the `Modular Tests Runner` editor UI.",
+      "Run these cases in CI/automation to validate Runner UI behavior.",
+      "It is a test companion; do not ship it in release builds."
+    ],
+    "note_cn": "测试 Modular Tests Runner 编辑器 UI 的配套插件。",
+    "note_en": "A companion plugin testing the Modular Tests Runner editor UI."
+  },
+  {
+    "slug": "modular-test-screenshot-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Test Screenshot Tests`（模块 `ModularTestScreenshotTests`）。",
+      "它是 `ModularTestScreenshot` 的测试伴侣：证明客户端捕获能落盘、且比较结论可使测试失败。",
+      "在 CI/自动化里跑这些用例，验证截图比对链路。",
+      "这是测试配套插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `Modular Test Screenshot Tests` (module `ModularTestScreenshotTests`).",
+      "It is the test companion for `ModularTestScreenshot`: proves a client capture reaches disk and a comparison verdict can fail a test.",
+      "Run these cases in CI/automation to validate the screenshot-compare chain.",
+      "It is a test companion; do not ship it in release builds."
+    ],
+    "note_cn": "ModularTestScreenshot 的测试伴侣（验证落盘+比对）。",
+    "note_en": "The test companion for ModularTestScreenshot (disk + compare)."
+  },
+  {
+    "slug": "modular-test-screenshot",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Test Screenshot`（模块 `ModularTestScreenshot`、`ModularTestScreenshotCompare`）。",
+      "它是模块化测试框架的可选截图捕获与比较实用程序。",
+      "需要捕获或比较客户端视口的测试应依赖它。",
+      "属测试可选插件；配合 `Modular Test Framework`。"
+    ],
+    "en_steps": [
+      "Enable `Modular Test Screenshot` (modules `ModularTestScreenshot`, `ModularTestScreenshotCompare`).",
+      "It is the optional screenshot capture and comparison utility for the Modular Test Framework.",
+      "Tests that need to capture or compare a client viewport should depend on it.",
+      "It is an optional test plugin; used with `Modular Test Framework`."
+    ],
+    "note_cn": "模块化测试框架的可选截图捕获/比较工具。",
+    "note_en": "Optional screenshot capture/compare utilities for the Modular Test Framework."
+  },
+  {
+    "slug": "modular-test-unmount-fixture",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Test Unmount Fixture`（模块 `ModularTestUnmountFixture`）。",
+      "它是框架自测试用的“惰性夹具”（mount/unmount 会被自测挂载/卸载），本身不含任何测试。",
+      "无需手动跑；由框架自测使用。",
+      "这是测试夹具，不要当测试套件用。"
+    ],
+    "en_steps": [
+      "Enable `Modular Test Unmount Fixture` (module `ModularTestUnmountFixture`).",
+      "It is an inert fixture the framework self-tests mount and unmount; it contains no tests itself.",
+      "No need to run it manually; the framework self-tests use it.",
+      "It is a test fixture, not a test suite."
+    ],
+    "note_cn": "框架自测用的惰性 mount/unmount 夹具（不含测试）。",
+    "note_en": "An inert mount/unmount fixture for framework self-tests (contains no tests)."
+  },
+  {
+    "slug": "modular-viewports",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Modular Viewports`（模块 `ModularViewports`），运行时插件。",
+      "它提供比 Game Viewport Client 更灵活、更细粒度的 Viewport Client 实现。",
+      "在需要自定义视口布局/多视口/嵌入视口的场景里使用其 Client。",
+      "运行时模块可进游戏包；也可与编辑器工具集成。"
+    ],
+    "en_steps": [
+      "Enable `Modular Viewports` (module `ModularViewports`), a runtime plugin.",
+      "It provides Viewport Client implementations with more flexibility and granularity than the Game Viewport Client.",
+      "Use its clients where you need custom viewport layout/multi-viewport/embedded viewports.",
+      "Runtime modules can ship; it can also integrate with editor tools."
+    ],
+    "note_cn": "比 Game Viewport Client 更灵活的模块化视口客户端。",
+    "note_en": "Modular viewport clients more flexible than the Game Viewport Client."
+  },
+  {
+    "slug": "modulartestverse-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ModularTestVerse Tests`（模块 `ModularTestVerseTests`）。",
+      "它是 ModularTestVerse 的配套测试插件，用真实 Verse 协程对 `UMTFVerseTaskOps` 做验收测试。",
+      "在 CI/自动化里跑这些 Verse 验收用例。",
+      "这是测试配套插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `ModularTestVerse Tests` (module `ModularTestVerseTests`).",
+      "It is the companion test plugin for ModularTestVerse, acceptance-testing `UMTFVerseTaskOps` with a real Verse coroutine.",
+      "Run these Verse acceptance cases in CI/automation.",
+      "It is a test companion; do not ship it in release builds."
+    ],
+    "note_cn": "ModularTestVerse 的 Verse 验收测试配套插件。",
+    "note_en": "The Verse acceptance-test companion for ModularTestVerse."
+  },
+  {
+    "slug": "motion-design-data-link-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Motion Design Data Link Integration`（运行时 `AvalancheDataLink`，编辑器 `AvalancheDataLinkEditor`）。",
+      "它把 Data Link（数据链接）集成进 Motion Design（Avalanche）场景，用于拉取外部实时数据。",
+      "在 Motion Design 里用 Data Link 节点/任务对接 HTTP/JSON/DataTable/WebSocket 等数据源。",
+      "Game 模块依赖 `AvalancheDataLink`；`AvalancheDataLinkEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Motion Design Data Link Integration` (runtime `AvalancheDataLink`, editor `AvalancheDataLinkEditor`).",
+      "It integrates Data Link into Motion Design (Avalanche) scenes for pulling external real-time data.",
+      "In Motion Design, use Data Link nodes/tasks to hook data sources like HTTP/JSON/DataTable/WebSocket.",
+      "Game modules depend on `AvalancheDataLink`; `AvalancheDataLinkEditor` is Editor-target only."
+    ],
+    "note_cn": "把 Data Link 集成进 Motion Design(Avalanche) 的数据对接。",
+    "note_en": "Integrates Data Link into Motion Design (Avalanche) for data hookups."
+  },
+  {
+    "slug": "motion-design-data-link-oauth",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Motion Design Data Link OAuth`（运行时 `DataLinkOAuth`，编辑器 `DataLinkOAuthEditor`）。",
+      "它为 Motion Design Data Link 提供 OAuth 2.0 鉴权能力。",
+      "在 Data Link 拉取需要鉴权的数据源时，用它完成 OAuth 2.0 流程。",
+      "Game 模块依赖 `DataLinkOAuth`；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Motion Design Data Link OAuth` (runtime `DataLinkOAuth`, editor `DataLinkOAuthEditor`).",
+      "It adds OAuth 2.0 authentication to Motion Design Data Link.",
+      "Use it to run the OAuth 2.0 flow when Data Link pulls from authenticated data sources.",
+      "Game modules depend on `DataLinkOAuth`; editor modules go to Editor targets only."
+    ],
+    "note_cn": "Motion Design Data Link 的 OAuth 2.0 鉴权。",
+    "note_en": "OAuth 2.0 auth for Motion Design Data Link."
+  },
+  {
+    "slug": "motion-design-data-link",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Motion Design Data Link`（模块 `DataLink`、`DataLinkEdGraph`、`DataLinkHttp`、`DataLinkJson`、`DataLinkDataTable`、`DataLinkWebSocket`，编辑器 `DataLinkEditor` 等）。",
+      "它用数据链接图把外部数据源（HTTP/JSON/DataTable/WebSocket）接入 Motion Design。",
+      "在数据链接编辑器里搭建图，定义取数/推送逻辑。",
+      "Game 模块依赖运行时模块；`*Editor` 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Motion Design Data Link` (modules `DataLink`, `DataLinkEdGraph`, `DataLinkHttp`, `DataLinkJson`, `DataLinkDataTable`, `DataLinkWebSocket`, editor `DataLinkEditor`, etc.).",
+      "It uses data-link graphs to bring external data sources (HTTP/JSON/DataTable/WebSocket) into Motion Design.",
+      "Build graphs in the Data Link editor to define fetch/push logic.",
+      "Game modules depend on runtime modules; `*Editor` modules go to Editor targets only."
+    ],
+    "note_cn": "Data Link 数据链接图（HTTP/JSON/DataTable/WebSocket 接入）。",
+    "note_en": "Data Link graphs (HTTP/JSON/DataTable/WebSocket hookup)."
+  },
+  {
+    "slug": "motion-design-for-ndisplay",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Motion Design For nDisplay`（模块 `AvalancheDisplayCluster`）。",
+      "它把 Motion Design（Avalanche）渲染接到 nDisplay 集群（LED 墙/CAVE/集群视口）。",
+      "在虚拟制片里配合 Switchboard、Live Link、摄像机跟踪使用。",
+      "Experimental：接口可能变动；需 nDisplay 与 Motion Design 已启用。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Motion Design For nDisplay` (module `AvalancheDisplayCluster`).",
+      "It connects Motion Design (Avalanche) rendering to nDisplay clusters (LED walls/CAVE/cluster viewports).",
+      "In virtual production, use it with Switchboard, Live Link, and camera tracking.",
+      "Experimental: contract may change; requires nDisplay and Motion Design enabled."
+    ],
+    "note_cn": "把 Motion Design 渲染接到 nDisplay 集群，实验性。",
+    "note_en": "Connects Motion Design rendering to nDisplay clusters, experimental."
+  },
+  {
+    "slug": "motion-design-scene-state-data-link-bridge",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Motion Design Scene State Data Link Bridge`（运行时 `SceneStateDataLink`，编辑器 `SceneStateDataLinkEditor`）。",
+      "它提供“执行数据链接图”的场景状态任务，把 Data Link 接进 Scene State。",
+      "在 Scene State 机里用这些任务触发数据链接图执行。",
+      "Game 模块依赖 `SceneStateDataLink`；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Motion Design Scene State Data Link Bridge` (runtime `SceneStateDataLink`, editor `SceneStateDataLinkEditor`).",
+      "It provides Scene State tasks that execute Data Link graphs, bridging Data Link into Scene State.",
+      "In a Scene State machine, use these tasks to trigger data-link graph execution.",
+      "Game modules depend on `SceneStateDataLink`; editor modules go to Editor targets only."
+    ],
+    "note_cn": "执行数据链接图的场景状态任务桥。",
+    "note_en": "Scene State tasks that execute Data Link graphs."
+  },
+  {
+    "slug": "motion-design-scene-state-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Motion Design Scene State Integration`（模块 `AvalancheSceneState`、`AvalancheSceneStateBlueprint`，编辑器 `AvalancheSceneStateEditor`）。",
+      "它把 Scene State 集成进 Motion Design（Avalanche），用状态机驱动 Motion Design 场景。",
+      "在 Motion Design 里用 Scene State 蓝图片驱动场景状态切换。",
+      "Game 模块依赖运行时模块；`*Editor` 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Motion Design Scene State Integration` (modules `AvalancheSceneState`, `AvalancheSceneStateBlueprint`, editor `AvalancheSceneStateEditor`).",
+      "It integrates Scene State into Motion Design (Avalanche) so a state machine drives Motion Design scenes.",
+      "In Motion Design, use Scene State Blueprints to drive scene-state switching.",
+      "Game modules depend on runtime modules; `*Editor` modules go to Editor targets only."
+    ],
+    "note_cn": "把 Scene State 集成进 Motion Design(Avalanche)。",
+    "note_en": "Integrates Scene State into Motion Design (Avalanche)."
+  },
+  {
+    "slug": "motion-design-scene-state",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Motion Design Scene State`（模块 `SceneState`、`SceneStateBinding`、`SceneStateEvent`、`SceneStateTasks`、`SceneStateGameplay`、`SceneStateMachineGraph` 等）。",
+      "它是 Scene State 框架本体：用状态机/事件/任务组织场景状态。",
+      "搭建 State Machine Graph，绑定事件与任务驱动 Motion Design/玩法状态。",
+      "Experimental：接口可能变动；编辑器图模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Motion Design Scene State` (modules `SceneState`, `SceneStateBinding`, `SceneStateEvent`, `SceneStateTasks`, `SceneStateGameplay`, `SceneStateMachineGraph`, etc.).",
+      "It is the Scene State framework itself: organize scene state with state machines/events/tasks.",
+      "Build a State Machine Graph and bind events/tasks to drive Motion Design/gameplay state.",
+      "Experimental: contract may change; editor graph modules go to Editor targets only."
+    ],
+    "note_cn": "Scene State 状态机框架本体（事件/任务/图）。",
+    "note_en": "The Scene State state-machine framework (events/tasks/graphs)."
+  },
+  {
+    "slug": "motion-design-sequence-navigator-bridge",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Motion Design Sequence Navigator Bridge`（模块 `AvalancheSequenceNavigator`）。",
+      "它为嵌入式 Motion Design 序列提供序列导航器桥，方便在序列间跳转。",
+      "在编辑 Motion Design 序列时用导航器桥定位片段。",
+      "Experimental：接口可能变动；属序列编辑辅助。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Motion Design Sequence Navigator Bridge` (module `AvalancheSequenceNavigator`).",
+      "It provides a sequence navigator bridge for embedded Motion Design sequences to jump between them.",
+      "Use the navigator bridge while editing Motion Design sequences to locate segments.",
+      "Experimental: contract may change; it is sequence-editing assist."
+    ],
+    "note_cn": "嵌入式 Motion Design 序列的导航器桥，实验性。",
+    "note_en": "A sequence navigator bridge for embedded Motion Design sequences, experimental."
+  },
+  {
+    "slug": "motion-design",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Motion Design`（模块 `Avalanche`、`AvalancheCore`、`AvalancheCamera`、`AvalancheEffectors`、`AvalancheEditor` 等，含 Editor 版），属 Virtual Production。",
+      "它是合成、设计与广播工具（Motion Design/Avalanche），做动态图形与实时播出。",
+      "用它搭建动态图形场景、效果器与镜头，配合其依赖（Dynamic Material、Geometry Scripting、Media IO、Text3D 等）出片。",
+      "Game 模块依赖运行时模块；`*Editor` 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Motion Design` (modules `Avalanche`, `AvalancheCore`, `AvalancheCamera`, `AvalancheEffectors`, `AvalancheEditor`, etc., with Editor variants), part of Virtual Production.",
+      "It is the compositing, design, and broadcasting tool (Motion Design/Avalanche) for motion graphics and live output.",
+      "Use it to build motion-graphics scenes, effectors, and cameras, leveraging its dependencies (Dynamic Material, Geometry Scripting, Media IO, Text3D, etc.).",
+      "Game modules depend on runtime modules; `*Editor` modules go to Editor targets only."
+    ],
+    "note_cn": "合成/设计/广播工具 Motion Design(Avalanche)，动态图形与实时播出。",
+    "note_en": "The Motion Design (Avalanche) compositing/design/broadcast tool for motion graphics and live output."
+  }
+]

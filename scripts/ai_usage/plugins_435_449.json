@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "led-wall-calibration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Led Wall Calibration`（运行时 `LedWallCalibration`，编辑器 `LedWallCalibrationEditor`），属 Virtual Production。",
+      "在 LED 墙虚拟制片场景里，用该工具对摄像机与 LED 墙做几何/色彩校准。",
+      "按引导采集校准数据，生成校正参数并应用到 nDisplay 配置。",
+      "这是校准工具；具体播放仍由 nDisplay / ICVFX 负责。"
+    ],
+    "en_steps": [
+      "Enable `Led Wall Calibration` (runtime `LedWallCalibration`, editor `LedWallCalibrationEditor`), part of Virtual Production.",
+      "In an LED-wall virtual production scene, use it to calibrate camera and LED wall geometry/color.",
+      "Follow the guided capture to collect calibration data, generate correction parameters, and apply them to the nDisplay config.",
+      "It is a calibration tool; actual playback stays with nDisplay / ICVFX."
+    ],
+    "note_cn": "LED 墙几何/色彩校准，配合 nDisplay 与 ICVFX。",
+    "note_en": "LED wall geometry/color calibration, paired with nDisplay and ICVFX."
+  },
+  {
+    "slug": "legacy---linear-timecode-reader",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Legacy - Linear Timecode Reader`（模块 `LinearTimecode`）。",
+      "用它将线性时间码（LTC）从媒体源读成组件/时间码值，用于同步。",
+      "注意它不使用同步机制，只做读取；需要严格同步时要自行加上下游同步逻辑。",
+      "属 Media Framework；旧版命名，功能仍可用。"
+    ],
+    "en_steps": [
+      "Enable `Legacy - Linear Timecode Reader` (module `LinearTimecode`).",
+      "Use it to read linear timecode (LTC) from a media source into a component/timecode value for sync.",
+      "Note it does not apply a synchronization mechanism, only reads; add downstream sync yourself for strict sync.",
+      "Part of Media Framework; legacy naming but still functional."
+    ],
+    "note_cn": "读取线性时间码的组件，本身不做同步。",
+    "note_en": "A component that reads linear timecode; it does not sync by itself."
+  },
+  {
+    "slug": "legacy-composure",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Legacy Composure` 是不再开发的遗留实时合成系统，新项目用 Composure（`CompositeCore`）方向的版本。",
+      "已有工程若仍依赖旧 Composure，按引擎提示迁移到新合成管线。",
+      "运行时依赖 `Composure`，编辑器模块 `ComposureEditor` / `ComposureLayersEditor` 只进 Editor Target。",
+      "迁移后尽量禁用本遗留插件，避免新旧合成并存。"
+    ],
+    "en_steps": [
+      "`Legacy Composure` is the no-longer-developed legacy real-time compositing system; new projects use the Composure (`CompositeCore`) path.",
+      "Existing projects still on old Composure should migrate to the new compositing pipeline as prompted.",
+      "Runtime depends on `Composure`; editor modules `ComposureEditor` / `ComposureLayersEditor` go to Editor targets only.",
+      "After migration, prefer disabling this legacy plugin so old and new compositing don't coexist."
+    ],
+    "note_cn": "遗留实时合成系统，不再开发，迁移到新 Composure。",
+    "note_en": "The legacy real-time compositing system, no longer developed; migrate to the new Composure."
+  },
+  {
+    "slug": "lens-component",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Lens Component`（运行时 `LensComponent`，编辑器 `LensComponentEditor`），属 Virtual Production。",
+      "把 Lens Component 加到电影摄影机上，用它给相机画面添加镜头失真（与 Camera Calibration 配合）。",
+      "设置失真参数/镜头文件，实时预览并合成。",
+      "Game 模块依赖 `LensComponent`；`LensComponentEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Lens Component` (runtime `LensComponent`, editor `LensComponentEditor`), part of Virtual Production.",
+      "Add the Lens Component to a cinematic camera to apply lens distortion to its image (paired with Camera Calibration).",
+      "Set distortion parameters/lens files and preview/composite in real time.",
+      "Game modules depend on `LensComponent`; `LensComponentEditor` is Editor-target only."
+    ],
+    "note_cn": "给电影摄影机加镜头失真的组件，替代旧的镜头失真插件。",
+    "note_en": "A component that adds lens distortion to cinematic cameras, replacing the legacy lens-distortion plugin."
+  },
+  {
+    "slug": "lens-distortion-deprecated",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Lens Distortion (Deprecated)` 已被弃用，将在未来引擎版本删除。",
+      "迁移到 `CameraCalibration` 插件的功能，以及 `Lens Component` 的失真处理。",
+      "不要在 `Build.cs` 新增对该过时模块的依赖。",
+      "迁移完成后禁用本插件。"
+    ],
+    "en_steps": [
+      "`Lens Distortion (Deprecated)` is deprecated and will be removed in a future engine version.",
+      "Migrate to the `CameraCalibration` plugin's features and `Lens Component` for distortion.",
+      "Do not add new `Build.cs` dependencies on this deprecated module.",
+      "Disable this plugin after migration."
+    ],
+    "note_cn": "已弃用，改用 CameraCalibration + Lens Component。",
+    "note_en": "Deprecated; use CameraCalibration + Lens Component instead."
+  },
+  {
+    "slug": "level-sequence-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Level Sequence Editor`（模块 `LevelSequenceEditor`）并重启。",
+      "双击 LevelSequence 资产，在序列编辑器里编排过场/镜头/事件。",
+      "加轨道、打关键帧、绑定 Actor 与摄像机，用于过场动画与影视制作。",
+      "这是编辑器模块，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Level Sequence Editor` (module `LevelSequenceEditor`) and restart.",
+      "Double-click a LevelSequence asset to author cutscenes/shot/events in the sequence editor.",
+      "Add tracks, keyframe, and bind actors and cameras for cinematic sequences.",
+      "It is editor-only; Editor targets only, does not ship."
+    ],
+    "note_cn": "LevelSequence 资产的编辑器，用于过场编排，纯编辑器。",
+    "note_en": "The editor for LevelSequence assets used for cinematic authoring, editor-only."
+  },
+  {
+    "slug": "level-sequence-navigator-bridge",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Level Sequence Navigator Bridge`（模块 `LevelSequenceNavigatorBridge`）。",
+      "为关卡序列提供序列导航桥，配合 Sequencer 的导航器在镜头/序列间跳转。",
+      "在编辑 Sequencer 时使用导航桥定位到具体序列段。",
+      "Experimental：接口可能变动；属序列编辑辅助，编辑器向。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Level Sequence Navigator Bridge` (module `LevelSequenceNavigatorBridge`).",
+      "It provides a sequence navigator bridge for Level Sequences, pairing with the Sequencer navigator to jump between shots/sequences.",
+      "Use the navigator bridge while editing Sequencer to locate specific sequence segments.",
+      "Experimental: contract may change; it is sequence-editing assist, editor-oriented."
+    ],
+    "note_cn": "关卡序列的序列导航桥，Sequencer 辅助，实验性。",
+    "note_en": "A sequence navigator bridge for Level Sequences, a Sequencer aid, experimental."
+  },
+  {
+    "slug": "level-streaming-persistence",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Level Streaming Persistence`（模块 `LevelStreamingPersistence`）。",
+      "用它持久化世界状态：Actor/子对象属性、被破坏状态、Actor 重生。",
+      "状态与流送关卡关联（可选与持久关卡关联），卸载/重载后恢复。",
+      "Experimental：接口可能变动；面向开放世界的大世界状态持久化。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Level Streaming Persistence` (module `LevelStreamingPersistence`).",
+      "Use it to persist world state: actor/subobject properties, destroyed states, and actor respawning.",
+      "State is associated with streaming levels (optionally with persistent levels) and restored after unload/reload.",
+      "Experimental: contract may change; aimed at large-world state persistence."
+    ],
+    "note_cn": "随流送关卡持久化世界状态（属性/破坏/重生），开放世界用。",
+    "note_en": "Persists world state (properties/destruction/respawn) with streaming levels, for open worlds."
+  },
+  {
+    "slug": "levelsnapshots",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LevelSnapshots`（模块 `LevelSnapshots`、`LevelSnapshotFilters`、`LevelSnapshotsEditor`、`FoliageSupport`、`nDisplaySupport`），属 Virtual Production。",
+      "在编辑器里对关卡拍快照，之后可对比/回滚到指定快照。",
+      "用过滤器选择要快照/恢复的 Actor，支持植被与 nDisplay。",
+      "这是编辑器工作流工具；快照用于版本对比与恢复。"
+    ],
+    "en_steps": [
+      "Enable `LevelSnapshots` (modules `LevelSnapshots`, `LevelSnapshotFilters`, `LevelSnapshotsEditor`, `FoliageSupport`, `nDisplaySupport`), part of Virtual Production.",
+      "Take level snapshots in the editor, then compare or roll back to a chosen snapshot.",
+      "Use filters to choose which actors to snapshot/restore; foliage and nDisplay are supported.",
+      "It is an editor workflow tool; snapshots are for version comparison and recovery."
+    ],
+    "note_cn": "关卡快照与回滚（含植被/nDisplay），编辑器工作流工具。",
+    "note_en": "Level snapshots and rollback (incl. foliage/nDisplay), an editor workflow tool."
+  },
+  {
+    "slug": "libvpxcodecs",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `LibVpxCodecs`（模块 `LibVpxCodecs`）。",
+      "它把 LibVpx 的编解码器（VP8/VP9）加入 AVCodecs，供 AVEncoder 等使用。",
+      "在录制/解码流程里选择 VP8/VP9 编码，核对平台是否支持。",
+      "Experimental：接口可能变动；属编解码扩展。"
+    ],
+    "en_steps": [
+      "Enable Experimental `LibVpxCodecs` (module `LibVpxCodecs`).",
+      "It adds LibVpx codecs (VP8/VP9) to AVCodecs for use by AVEncoder and others.",
+      "Choose VP8/VP9 encoding in recording/decoding flows and confirm platform support.",
+      "Experimental: contract may change; it is a codec extension."
+    ],
+    "note_cn": "把 LibVpx（VP8/VP9）编解码加入 AVCodecs，实验性。",
+    "note_en": "Adds LibVpx (VP8/VP9) codecs to AVCodecs, experimental."
+  },
+  {
+    "slug": "lidar-point-cloud-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiDAR Point Cloud Support`（运行时 `LidarPointCloudRuntime`，编辑器 `LidarPointCloudEditor`）。",
+      "导入 LiDAR 点云数据（.las/.laz 等），在编辑器里处理、裁剪、着色。",
+      "把点云挂到 Actor 上渲染，用于测绘、场景参考或大世界重建。",
+      "Game 模块依赖 `LidarPointCloudRuntime`；`LidarPointCloudEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `LiDAR Point Cloud Support` (runtime `LidarPointCloudRuntime`, editor `LidarPointCloudEditor`).",
+      "Import LiDAR point-cloud data (.las/.laz, etc.) and process/crop/color it in the editor.",
+      "Attach the cloud to an actor for rendering, for surveying, scene reference, or large-world reconstruction.",
+      "Game modules depend on `LidarPointCloudRuntime`; `LidarPointCloudEditor` is Editor-target only."
+    ],
+    "note_cn": "LiDAR 点云的导入、处理与渲染，测绘/大世界参考用。",
+    "note_en": "LiDAR point-cloud import, processing, and rendering for surveying/large-world reference."
+  },
+  {
+    "slug": "light-mixer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Light Mixer`（模块 `LightMixer`）并重启。",
+      "用它的电子表格视图批量编辑场景灯光的任意属性（强度、颜色、温度等）。",
+      "适合灯光调试/布光对拍，快速对比多盏灯。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Light Mixer` (module `LightMixer`) and restart.",
+      "Use its spreadsheet view to batch-edit any scene light properties (intensity, color, temperature, etc.).",
+      "Great for lighting debugging/comparison across multiple lights.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "用电子表格批量编辑场景灯光属性，纯编辑器。",
+    "note_en": "Batch-edit scene light properties in a spreadsheet, editor-only."
+  },
+  {
+    "slug": "lightweightinstanceseditor-deprecated",
+    "kind": "plugin",
+    "cn_steps": [
+      "`LightWeightInstancesEditor` 已弃用（Deprecated）。",
+      "改用 `InstancedActors` 实现类似的大规模实例 Actor 功能。",
+      "不要在 `Build.cs` 新增对该过时模块的依赖。",
+      "迁移完成后禁用本插件。"
+    ],
+    "en_steps": [
+      "`LightWeightInstancesEditor` is deprecated.",
+      "Use `InstancedActors` for similar large-scale instanced-actor functionality.",
+      "Do not add new `Build.cs` dependencies on this deprecated module.",
+      "Disable this plugin after migration."
+    ],
+    "note_cn": "已弃用，改用 InstancedActors。",
+    "note_en": "Deprecated; use InstancedActors instead."
+  },
+  {
+    "slug": "linux-compiler-only-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Linux Compiler-only Integration`（模块 `NullSourceCodeAccess`）并重启。",
+      "它在 Linux 上只查找 clang++、不绑定具体 IDE，用于仅编译的源码访问场景。",
+      "在 `Project Settings > Source Code Access` 里选择它，用外部命令/脚本编译。",
+      "这是编辑器开发者工具，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Linux Compiler-only Integration` (module `NullSourceCodeAccess`) and restart.",
+      "On Linux it only looks for clang++ and binds no IDE, for compile-only source access.",
+      "Pick it in `Project Settings > Source Code Access` and build via external commands/scripts.",
+      "It is an editor developer tool for Editor targets only."
+    ],
+    "note_cn": "Linux 上只找 clang++ 的源码访问集成，无 IDE 绑定。",
+    "note_en": "A compile-only source-access integration on Linux that only looks for clang++, no IDE binding."
+  },
+  {
+    "slug": "linux-device-profile-selector",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Linux Device Profile Selector`（模块 `LinuxDeviceProfileSelector`）。",
+      "它根据 Linux 硬件选择对应的 Device Profile，运行时自动匹配。",
+      "在 `DeviceProfiles` 配置里为不同 Linux 硬件设置规则与画质参数。",
+      "这是平台设备配置选择器，部署到 Linux 时生效。"
+    ],
+    "en_steps": [
+      "Enable `Linux Device Profile Selector` (module `LinuxDeviceProfileSelector`).",
+      "It selects the matching Device Profile based on Linux hardware at runtime.",
+      "In `DeviceProfiles` config, set rules and quality settings for different Linux hardware.",
+      "It is a platform device-profile selector that takes effect when deploying to Linux."
+    ],
+    "note_cn": "按 Linux 硬件自动选 Device Profile。",
+    "note_en": "Auto-selects Device Profiles by Linux hardware."
+  }
+]

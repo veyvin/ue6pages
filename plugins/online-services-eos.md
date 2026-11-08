@@ -3,7 +3,6 @@ layout: default
 title: 在线服务EOS / Online Services EOS
 ---
 
-
 <h1>在线服务EOS / Online Services EOS</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 在线服务EOS / Online Services EOS
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">EOS 帐户和游戏服务的在线服务实施。</div><div class="lang-content">Online Services implementation for EOS Account and Game services.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Online Services EOS</code>（模块 <code class="usage-code">OnlineServicesEOS</code>）。</li><li>它是 EOS 账户与游戏服务的在线服务实现（OSSv2）。</li><li>在在线服务设置里选 EOS 提供方，配置账户/游戏服务凭据。</li><li>属在线服务/平台服务；覆盖登录、会话、成就等。</li></ol><p class="usage-note">EOS 账户与游戏服务的在线服务实现（OSSv2）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Online Services EOS</code> (module <code class="usage-code">OnlineServicesEOS</code>).</li><li>It is the Online Services (OSSv2) implementation for EOS account and game services.</li><li>Select the EOS provider in Online Services settings and configure account/game-service credentials.</li><li>It is online/platform services; covers login, sessions, achievements, etc.</li></ol><p class="usage-note">The Online Services (OSSv2) implementation for EOS account and game services.</p></div></div></div>
+    </div>
+

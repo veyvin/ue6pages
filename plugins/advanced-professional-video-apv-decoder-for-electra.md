@@ -3,7 +3,6 @@ layout: default
 title: 适用于 Electra 的高级专业视频 (APV) 解码器 / Advanced Professional Video (APV) Decoder for Electra
 ---
 
-
 <h1>适用于 Electra 的高级专业视频 (APV) 解码器 / Advanced Professional Video (APV) Decoder for Electra</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 适用于 Electra 的高级专业视频 (APV) 解码器 / Advanced Profes
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">OpenAPV视频解码器</div><div class="lang-content">OpenAPV video decoder</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Advanced Professional Video (APV) Decoder for Electra</code>（模块 <code class="usage-code">APVDecoderElectra</code>），并让项目走 Electra 播放器而不是 WMF。</li><li>准备 OpenAPV/APV 编码的视频；该解码器不处理 H.264/H.265。</li><li>内容浏览器右键 <code class="usage-code">Media &gt; File Media Source</code>，指向该文件。</li><li>新建 <code class="usage-code">Media Player</code>（Electra）和 <code class="usage-code">Media Texture</code>，对 Source 执行 Open 后 Play。</li><li>把 <code class="usage-code">Media Texture</code> 赋给材质采样或 <code class="usage-code">Media Plate</code> 进行画面输出。</li><li>没有独立 Window 菜单；播不出来时先确认 Player 后端是 Electra 且容器里是 APV 码流。</li></ol><p class="usage-note">这是 Electra 的 OpenAPV 解码插件，不会在编辑器里注册独立播放窗口。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Advanced Professional Video (APV) Decoder for Electra</code> (<code class="usage-code">APVDecoderElectra</code>) and use Electra, not WMF, as the player.</li><li>Supply OpenAPV/APV-encoded video; this decoder does not handle H.264/H.265.</li><li>Create <code class="usage-code">Media &gt; File Media Source</code> in the Content Browser and point it at that file.</li><li>Create an Electra <code class="usage-code">Media Player</code> plus a <code class="usage-code">Media Texture</code>, then Open the source and Play.</li><li>Assign the <code class="usage-code">Media Texture</code> to a material sampler or a <code class="usage-code">Media Plate</code>.</li><li>There is no Window menu; if playback fails, confirm the Electra backend and that the bitstream is APV.</li></ol><p class="usage-note">This is an Electra OpenAPV decoder only; it does not register a standalone editor player window.</p></div></div></div>
+    </div>
+

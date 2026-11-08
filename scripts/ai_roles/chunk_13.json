@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "messagelog",
+    "kind": "module",
+    "cn": "MessageLog 为编辑器和工具链提供可筛选、可分组的消息列表，把编译、导入、验证等流程的警告与错误集中展示。它基于 Slate 绘制日志页签，并允许模块注册自己的日志通道与操作按钮。开发者用它把问题从 Output Log 的流水里抽出来，变成可点击、可复查的任务清单。",
+    "en": "MessageLog hosts filterable, grouped message lists for editor and toolchain diagnostics, collecting warnings and errors from compile, import, and validation passes. It draws Slate log pages and lets modules register named channels plus follow-up actions. Teams use it to lift issues out of the raw Output Log into a clickable checklist."
+  },
+  {
+    "slug": "messaging",
+    "kind": "module",
+    "cn": "Messaging 是引擎进程间消息总线的运行时核心，定义主题、发布/订阅与消息信封。编辑器、自动化、设备服务等通过它在本机或局域网交换结构化消息。模块把 TraceLog 接入路径，便于观察总线吞吐与投递延迟。",
+    "en": "Messaging is the runtime core of Unreal’s inter-process message bus, defining topics, publish/subscribe, and message envelopes. The editor, automation, and device services exchange structured payloads on the local machine or LAN through it. TraceLog is wired in so bus throughput and delivery latency can be inspected."
+  },
+  {
+    "slug": "messagingcommon",
+    "kind": "module",
+    "cn": "MessagingCommon 存放消息总线各传输层共用的类型、序列化约定与桥接辅助代码。它不绑定具体传输（UDP、命名管道等），只保证信封字段与寻址规则一致。MessagingRpc 等上层模块依赖它，避免在每个传输插件里重复定义消息头。",
+    "en": "MessagingCommon holds types, serialization conventions, and bridge helpers shared by every message-bus transport. It does not bind UDP or named pipes; it only keeps envelope fields and addressing rules consistent. MessagingRpc and similar layers depend on it so message headers are not redefined in each transport plugin."
+  },
+  {
+    "slug": "messagingrpc",
+    "kind": "module",
+    "cn": "MessagingRpc 在消息总线之上实现请求-应答式远程调用，把接口方法映射为可等待的 RPC 消息。门户服务、编辑器远程控制等用它声明服务端契约并生成客户端桩。它依赖 MessagingCommon 的信封格式，使调用能跨越进程而无需直接套接字编程。",
+    "en": "MessagingRpc layers request/response remote calls on the message bus, mapping interface methods to awaitable RPC messages. Portal services and editor remote control declare server contracts and generate client stubs through it. Envelope formats from MessagingCommon let calls cross process boundaries without raw socket code."
+  },
+  {
+    "slug": "metalcpp",
+    "kind": "module",
+    "cn": "MetalCPP 封装 Apple 官方 metal-cpp 头文件，让引擎用 C++ 调用 Metal 图形与计算 API，而无需直接写 Objective-C。Apple 平台的 RHI 与着色器工具链通过这些绑定创建命令队列、缓冲区与管线状态。该第三方包装本身不实现渲染，只提供类型安全的 Metal 入口。",
+    "en": "MetalCPP wraps Apple’s official metal-cpp headers so the engine can call Metal graphics and compute APIs from C++ without writing Objective-C. Apple-platform RHI and shader tooling create command queues, buffers, and pipeline state through these bindings. The third-party wrapper does not render; it only exposes type-safe Metal entry points."
+  },
+  {
+    "slug": "metalrhi",
+    "kind": "module",
+    "cn": "MetalRHI 是 macOS 与 iOS 上的渲染硬件接口实现，把引擎的 RHI 命令翻译成 Metal 绘制、计算与呈现。它管理 MTLDevice、命令缓冲、纹理与同步，并与 RHICore、RenderCore 共享资源生命周期。Apple 目标上的视口、Slate 与游戏画面都经此后端提交到 GPU。",
+    "en": "MetalRHI is the Render Hardware Interface implementation for macOS and iOS, translating engine RHI commands into Metal draws, computes, and presents. It owns the MTLDevice, command buffers, textures, and fences, sharing resource lifetime with RHICore and RenderCore. Viewports, Slate, and game frames on Apple targets submit to the GPU through this backend."
+  },
+  {
+    "slug": "metalshaderformat",
+    "kind": "module",
+    "cn": "MetalShaderFormat 把 HLSL 着色器编译管线接到 Metal 的 MSL/metallib 目标格式。它走 ShaderCompilerCommon 与预处理器，再针对 Apple GPU 生成可缓存的着色器字节码。Cook 与着色器构建工人依赖它，使同一套材质在 Metal 设备上能正确变体展开。",
+    "en": "MetalShaderFormat connects the HLSL shader compile pipeline to Metal’s MSL/metallib target format. It runs ShaderCompilerCommon and the preprocessor, then emits cacheable bytecode for Apple GPUs. Cook and shader build workers rely on it so one material graph expands correctly on Metal devices."
+  },
+  {
+    "slug": "metis",
+    "kind": "module",
+    "cn": "metis 接入 Karypis 实验室的 METIS 图划分库，并依赖 GKlib 做底层数组与堆操作。引擎用它把网格、聚类或并行域切成负载均衡的子图。几何处理与部分离线剖分流程通过此第三方模块调用分区算法，而不是自写启发式切分。",
+    "en": "metis vendors Karypis Lab’s METIS graph-partitioning library and relies on GKlib for arrays and heaps. The engine uses it to split meshes, clusters, or parallel domains into load-balanced subgraphs. Geometry processing and some offline partitioners call this third-party module instead of hand-rolled heuristics."
+  },
+  {
+    "slug": "mimalloc",
+    "kind": "module",
+    "cn": "mimalloc 把 Microsoft 的 mimalloc 通用分配器接入 Unreal 构建，作为可替换的堆实现。引擎在需要低碎片、多线程友好的 malloc 时链接此包装。它不包含业务逻辑，只向平台层暴露 mimalloc 的符号与头文件。",
+    "en": "mimalloc brings Microsoft’s general-purpose mimalloc allocator into the Unreal build as a swappable heap. The engine links this wrapper when it wants a low-fragmentation, thread-friendly malloc. There is no gameplay logic here—only mimalloc symbols and headers for the platform layer."
+  },
+  {
+    "slug": "mimalloc212",
+    "kind": "module",
+    "cn": "mimalloc212 固定打包 mimalloc 2.1.2 源码，供仍需该次版本 ABI 或行为的目标使用。与默认 mimalloc 包装并存，避免全引擎强制升级分配器。需要对照旧堆统计或复现 2.x 碎片特征时，构建会显式依赖这一份。",
+    "en": "mimalloc212 pins mimalloc 2.1.2 sources for targets that still need that ABI or allocator behavior. It sits beside the default mimalloc wrapper so the whole engine is not forced onto a newer heap. Builds that must match old heap stats or 2.x fragmentation pin this copy."
+  },
+  {
+    "slug": "mimalloc331",
+    "kind": "module",
+    "cn": "mimalloc331 提供 mimalloc 3.3.1 的独立第三方目标，包含该点版本的 arena、分段与统计改动。引擎可在实验或特定平台上选用 3.3.1，而不与 2.1.2 或 3.3.2 混链。版本号写进模块名，是为了让 UBT 能并行保存多套分配器。",
+    "en": "mimalloc331 is a standalone third-party target for mimalloc 3.3.1, including that point-release’s arena, segment, and stats changes. Experimental or platform-specific builds can pick 3.3.1 without mixing 2.1.2 or 3.3.2. The version is in the module name so UBT can keep several allocators side by side."
+  },
+  {
+    "slug": "mimalloc332",
+    "kind": "module",
+    "cn": "mimalloc332 封装 mimalloc 3.3.2，带上相对 3.3.1 的缺陷修复与性能微调。需要最新 3.3 系列堆、又不愿切到尚未钉死的主干 mimalloc 时使用此模块。它与其它 mimalloc* 目标互斥链接，防止同一进程出现两套堆元数据。",
+    "en": "mimalloc332 wraps mimalloc 3.3.2, including the bugfixes and small perf tweaks after 3.3.1. Use it when a build wants the latest 3.3-series heap without jumping to an unpinned trunk mimalloc. It is linked mutually exclusively with the other mimalloc* targets so one process never owns two heap metadatas."
+  },
+  {
+    "slug": "mirrordatatableeditor",
+    "kind": "module",
+    "cn": "MirrorDataTableEditor 为动画镜像数据表提供专用编辑器，把骨骼左右对应关系做成可编辑表格。它建立在 DataTableEditor 与 SkeletonEditor 之上，让动画师配置镜像轴、骨骼对与可选曲线映射。Persona 与动画工具通过它打开镜像资产，而不是手改 CSV。",
+    "en": "MirrorDataTableEditor is the dedicated editor for animation mirror data tables, presenting left/right bone maps as an editable grid. It builds on DataTableEditor and SkeletonEditor so animators can set mirror axes, bone pairs, and optional curve maps. Persona and animation tools open mirror assets through it instead of hand-editing CSV."
+  },
+  {
+    "slug": "modelesstools",
+    "kind": "module",
+    "cn": "ModelessTools 是实验性编辑器模块，把交互式工具做成非模态面板，可与视口同时操作。它挂在 InteractiveToolsFramework 与属性编辑器上，用 TypedElement 选择驱动工具状态。目的是让建模或摆放工具不必抢走整个模式，而是停在侧栏里持续可用。",
+    "en": "ModelessTools is an experimental editor module that hosts interactive tools in non-modal panels so they can run alongside the viewport. It sits on InteractiveToolsFramework and the property editor, driving tool state from TypedElement selection. Modeling and placement tools can stay in a sidebar instead of capturing an entire editor mode."
+  },
+  {
+    "slug": "modulartesthub",
+    "kind": "module",
+    "cn": "ModularTestHub 是独立程序模块，用来拉起模块化自动化测试中枢：加载引擎、消息总线、预加载画面与分析可视化。它把 InstallBundle、DDC、RHI 等依赖收拢到一个可启动的测试宿主。QA 与 CI 用它跑成套模块测试，而不必打开完整编辑器会话。",
+    "en": "ModularTestHub is a standalone program module that boots a modular automation hub: engine, message bus, preload screens, and profile visualization. It gathers InstallBundle, DDC, and RHI dependencies into one launchable test host. QA and CI run module batteries here without opening a full editor session."
+  },
+  {
+    "slug": "moverunittests",
+    "kind": "module",
+    "cn": "MoverUnitTests 是针对 Mover 移动组件的无头单元测试程序。它验证步态、根运动交接与网络校正等逻辑，而不启动游戏世界。Mover 插件的回归由该目标在 CI 中执行，依赖 Core、CoreUObject 与 Mover 运行时。",
+    "en": "MoverUnitTests is a headless unit-test program for the Mover movement component. It checks gait, root-motion handoff, and network correction without spinning up a game world. Mover plugin regressions run on this target in CI, depending on Core, CoreUObject, and the Mover runtime."
+  },
+  {
+    "slug": "movieplayer",
+    "kind": "module",
+    "cn": "MoviePlayer 在引擎启动或关卡切换时播放全屏过场与载入影片，覆盖 Slate 与 RHI 呈现路径。它支持 HTTP 拉流、头显安全区，并通过 MoviePlayerProxy 让尚未加载完整引擎的阶段也能排队播放。打包游戏用它在着色器编译或 I/O 等待期间保持画面。",
+    "en": "MoviePlayer plays fullscreen startup and loading movies over Slate and the RHI present path. It can pull HTTP streams, respect HMD safe areas, and queues playback through MoviePlayerProxy before the full engine is up. Packaged games keep a picture on screen during shader compile or I/O stalls."
+  },
+  {
+    "slug": "movieplayerproxy",
+    "kind": "module",
+    "cn": "MoviePlayerProxy 是 MoviePlayer 的轻量代理，只依赖 Core，供启动极早期代码登记“稍后播放哪部片子”。真正的播放器加载后会接手代理里排队的请求。这样预加载屏与安装流程不必反向依赖完整的影片模块。",
+    "en": "MoviePlayerProxy is a Core-only stand-in for MoviePlayer so very-early startup code can register which movie to play later. The real player drains the queued requests once it loads. Preload screens and install flows therefore do not take a hard dependency on the full movie module."
+  },
+  {
+    "slug": "moviescene",
+    "kind": "module",
+    "cn": "MovieScene 是 Sequencer 的运行时求值内核：时间轴、区段、绑定与播放位置。它用 TimeManagement 处理帧率与时钟，并用 UniversalObjectLocator 解析被驱动的对象。关卡序列、动画与过场在游戏线程上最终都落到这套求值器。",
+    "en": "MovieScene is Sequencer’s runtime evaluation kernel: timelines, sections, bindings, and playhead. TimeManagement owns frame rates and clocks; UniversalObjectLocator resolves driven objects. Level sequences, animation, and cinematics all evaluate through this engine on the game thread."
+  },
+  {
+    "slug": "moviescenecapture",
+    "kind": "module",
+    "cn": "MovieSceneCapture 把 Sequencer 播放捕获成图像序列、AVI 或音频混合输出。它走 ImageWriteQueue 与 AVIWriter，并记录 JSON 捕获设置以便批处理重放。离线渲染与预览拍屏都通过此运行时模块把帧从 RHI 抽出。",
+    "en": "MovieSceneCapture records Sequencer playback to image sequences, AVI, or mixed audio. It uses ImageWriteQueue and AVIWriter and stores JSON capture settings for batch replay. Offline renders and preview playblasts pull frames from the RHI through this runtime module."
+  },
+  {
+    "slug": "moviescenecapturedialog",
+    "kind": "module",
+    "cn": "MovieSceneCaptureDialog 提供编辑器里的“渲染过场/捕获影片”对话框，把捕获协议、分辨率与输出路径做成属性面板。它连接 MovieSceneTools 与会话服务，可在本机或远程会话启动捕获。美术无需手写捕获 JSON 即可从 Sequencer 点出成片。",
+    "en": "MovieSceneCaptureDialog is the editor “render cinematic / capture movie” dialog, exposing protocol, resolution, and output path as a details panel. It talks to MovieSceneTools and session services so capture can start locally or on a remote session. Artists kick off a playblast from Sequencer without writing capture JSON by hand."
+  },
+  {
+    "slug": "moviescenetools",
+    "kind": "module",
+    "cn": "MovieSceneTools 是 Sequencer 编辑器工具层：轨道绘制、关键帧曲线、绑定拾取与关卡序列资产操作。它把 AnimGraph、CinematicCamera、CurveEditor 等几十个编辑器模块接到时间轴 UI。导演在编辑器里剪辑镜头、约束与 Live Link 时，交互都落在这个模块。",
+    "en": "MovieSceneTools is Sequencer’s editor tool layer: track drawing, keyframe curves, binding pickers, and level-sequence asset ops. It wires AnimGraph, CinematicCamera, CurveEditor, and dozens of other editor modules into the timeline UI. Directing cameras, constraints, and Live Link inside the editor all lands here."
+  },
+  {
+    "slug": "moviescenetracks",
+    "kind": "module",
+    "cn": "MovieSceneTracks 实现 Sequencer 运行时的具体轨道类型：动画、音频、变换、约束、属性路径等。求值时它驱动 AnimGraphRuntime 与 AudioMixer，把区段数据写成对象属性。没有它，MovieScene 内核只有时间，没有可播放的轨道语义。",
+    "en": "MovieSceneTracks implements Sequencer’s runtime track types: animation, audio, transform, constraints, property paths, and more. Evaluation drives AnimGraphRuntime and AudioMixer, writing section data onto objects. Without it the MovieScene kernel has time but no playable track semantics."
+  },
+  {
+    "slug": "msgamestoreplatformfeatures",
+    "kind": "module",
+    "cn": "MSGameStorePlatformFeatures 把 Microsoft 商店 / GDK 能力接到 WindowsPlatformFeatures，覆盖成就、商店许可与平台服务入口。它依赖 GRDK，使 PC Game Pass 与微软商店包能使用同一套引擎平台钩子。Windows 目标在需要商店身份而不是 Steam 时链接此模块。",
+    "en": "MSGameStorePlatformFeatures hooks Microsoft Store / GDK capabilities into WindowsPlatformFeatures—achievements, store licensing, and platform service entry points. GRDK lets PC Game Pass and Microsoft Store packages share the same engine platform hooks. Windows targets that need store identity instead of Steam link this module."
+  },
+  {
+    "slug": "msquic",
+    "kind": "module",
+    "cn": "MsQuic 引入 Microsoft 的 QUIC 实现，为引擎提供基于 UDP 的 TLS 多路复用传输库。需要 HTTP/3 或低延迟可靠数据报的网络实验与平台代码链接此第三方目标。模块本身不实现游戏复制，只编译并暴露 msquic 的 API。",
+    "en": "MsQuic vendors Microsoft’s QUIC stack so the engine can use a TLS-multiplexed UDP transport. Network experiments and platform code that want HTTP/3 or low-latency reliable datagrams link this third-party target. It does not implement gameplay replication; it only builds and exposes the msquic API."
+  },
+  {
+    "slug": "nanitebuilder",
+    "kind": "module",
+    "cn": "NaniteBuilder 在导入或 Cook 时把静态网格建成 Nanite 层次簇与集群页。它用 GeometryCore、二次误差简化与 NaniteUtilities 生成 GPU 可读的流式网格。高面数资产要进 Nanite 渲染路径，必须经过这个开发者端构建器。",
+    "en": "NaniteBuilder turns static meshes into Nanite cluster hierarchies and cluster pages at import or cook. GeometryCore, quadric simplification, and NaniteUtilities produce GPU-readable streaming meshes. High-poly assets enter the Nanite rendering path only after this developer-side builder."
+  },
+  {
+    "slug": "naniteutilities",
+    "kind": "module",
+    "cn": "NaniteUtilities 提供 Nanite 构建与调试共用的几何、图像与桌面控件辅助。构建器、简化器与部分编辑器面板都调用这里的簇工具与可视化小部件。它把 Nanite 相关算法从单一 Builder 模块中拆出，供多处复用。",
+    "en": "NaniteUtilities supplies geometry, image, and desktop-widget helpers shared by Nanite build and debug. The builder, simplifier, and some editor panels call cluster tools and visualization widgets here. Nanite algorithms live outside a single Builder module so several tools can reuse them."
+  },
+  {
+    "slug": "nanoflann",
+    "kind": "module",
+    "cn": "nanoflann 打包基于 KD-tree 的最近邻查询头文件库，供几何处理在点云或顶点集上做快速空间搜索。引擎不改其算法，只把 include 与编译开关接到 UBT。需要半径搜索或 K 近邻而不拉完整 PCL 时使用此第三方模块。",
+    "en": "nanoflann vendors the header-only KD-tree nearest-neighbor library for fast spatial queries on point clouds or vertex sets. The engine does not fork the algorithm; it only wires includes and compile flags through UBT. Use this third-party module for radius or k-NN search without pulling in a full PCL."
+  },
+  {
+    "slug": "nanosvg",
+    "kind": "module",
+    "cn": "Nanosvg 把 nanosvg 光栅化库接到引擎 Core，用于把 SVG 路径解析并画成位图。编辑器图标、矢量资源预览与部分 UI 导入走这条轻量路径，而不是完整的 Skia。模块负责内存与颜色约定与 Unreal 图像格式对齐。",
+    "en": "Nanosvg wires the nanosvg rasterizer to engine Core so SVG paths can be parsed and painted to bitmaps. Editor icons, vector asset previews, and some UI imports use this lightweight path instead of full Skia. The module aligns allocator and color conventions with Unreal image formats."
+  },
+  {
+    "slug": "navigationsystem",
+    "kind": "module",
+    "cn": "NavigationSystem 管理导航网格生成、查询与动态障碍，是 AI 寻路的运行时入口。它结合 Recast/Detour（Navmesh）、Chaos 碰撞与几何集合，把世界可走区域维护成可查询图。角色移动、EQS 与 AI 控制器通过此模块要路径，而不是直接碰底层剖分。",
+    "en": "NavigationSystem owns navmesh generation, queries, and dynamic obstacles—the runtime front door for AI pathfinding. It combines Recast/Detour (Navmesh), Chaos collision, and geometry collections into a queryable walkable graph. Character movement, EQS, and AI controllers ask this module for paths instead of touching the tessellator."
+  },
+  {
+    "slug": "navigationtestsuite",
+    "kind": "module",
+    "cn": "NavigationTestSuite 在编辑器测试框架下跑导航系统自动化用例，覆盖网格生成、寻路失败与动态重建。它依赖 AITestSuite 与 UnrealEd，可在关卡上下文中断言路径结果。导航回归不进游戏包，而是作为开发者测试模块执行。",
+    "en": "NavigationTestSuite runs NavigationSystem automation under the editor test harness: mesh generation, failed finds, and dynamic rebuilds. AITestSuite and UnrealEd let it assert path results in a level context. Navigation regressions stay out of the game package and run as a developer test module."
+  },
+  {
+    "slug": "navmesh",
+    "kind": "module",
+    "cn": "Navmesh 嵌入 Recast 与 Detour 导航网格库，只依赖 Core，负责多边形网格构建与走廊寻路原语。NavigationSystem 在更高层调用它来剖分场景并查询折线路径。该模块不处理 Unreal Actor，只提供与引擎分配器对接的底层 nav 数据结构。",
+    "en": "Navmesh embeds Recast and Detour, depending only on Core, for polygon-mesh build and corridor path primitives. NavigationSystem calls it at a higher level to tessellate the scene and query polyline paths. It does not talk to Unreal Actors; it only exposes nav data structures wired to the engine allocator."
+  },
+  {
+    "slug": "nesscore",
+    "kind": "module",
+    "cn": "NessCore 是 Ness 序列化/属性核心运行时，处理精确浮点敏感的二进制布局与核心类型编解码。它依赖 CorePreciseFP，保证往返数值与平台无关。更高层的 UObject 绑定建立在这套与反射解耦的核心之上。",
+    "en": "NessCore is the Ness serialization/property core runtime, encoding binary layouts with precise-float-sensitive codecs. CorePreciseFP keeps round-trips platform-stable. Higher UObject bindings sit on this reflection-decoupled core."
+  },
+  {
+    "slug": "nesscoretests",
+    "kind": "module",
+    "cn": "NessCoreTests 是只链接 NessCore 的独立测试程序，验证编解码往返、边界对齐与精确浮点行为。它不拉 UObject，以便失败时能定位到核心层而非反射。Ness 核心算法的 CI 闸门跑在这个无头目标上。",
+    "en": "NessCoreTests is a standalone program that links only NessCore, checking codec round-trips, alignment, and precise-float behavior. It stays off UObject so failures pin to the core instead of reflection. The CI gate for Ness core algorithms runs on this headless target."
+  },
+  {
+    "slug": "nessuobject",
+    "kind": "module",
+    "cn": "NessUObject 把 Ness 核心接到 UObject 与 JsonObjectGraph，使引擎对象能按 Ness 规则序列化属性图。它处理 UObject 指针、包引用与精确浮点字段在对象图中的落盘。编辑器互操作与新序列化实验通过此模块读写反射对象。",
+    "en": "NessUObject binds Ness core to UObject and JsonObjectGraph so engine objects can serialize property graphs under Ness rules. It handles UObject pointers, package references, and precise-float fields in the object graph. Editor interop and new serialization experiments read and write reflected objects through this module."
+  },
+  {
+    "slug": "nessuobjecttests",
+    "kind": "module",
+    "cn": "NessUObjectTests 是针对 Ness UObject 绑定的独立测试程序，覆盖对象图往返、Json 互操作与反射字段边界。它与 NessCoreTests 分开，专门抓住 UObject 层的回归。无头运行使其适合作为序列化变更的编译后检查。",
+    "en": "NessUObjectTests is a standalone suite for Ness UObject bindings: object-graph round-trips, JSON interop, and reflected-field edges. It is split from NessCoreTests so UObject-layer regressions stay isolated. Headless execution makes it a post-compile check for serialization changes."
+  },
+  {
+    "slug": "netcommon",
+    "kind": "module",
+    "cn": "NetCommon 存放网络栈最底层的共用类型：位序、包头常量与不依赖 UObject 的工具。NetCore 与 PacketHandler 都从这里取与复制无关的原语。把这些符号放在仅依赖 Core 的模块里，避免无引擎工具也去链接整套网络核心。",
+    "en": "NetCommon holds the lowest shared net types: endianness, packet-header constants, and UObject-free helpers. NetCore and PacketHandler take replication-agnostic primitives from here. Keeping those symbols in a Core-only module lets tools avoid linking the full net core."
+  },
+  {
+    "slug": "netcore",
+    "kind": "module",
+    "cn": "NetCore 是引擎网络核心：可靠/不可靠通道、包序列、追踪与复制基础设施的非 Actor 部分。它建立在 NetCommon 上，并用 TraceLog 记录带宽与丢包。Gameplay 复制与回放流都假设这套核心已经在进程里。",
+    "en": "NetCore is the engine network core: reliable/unreliable channels, packet sequencing, tracing, and the non-Actor replication substrate. It sits on NetCommon and records bandwidth and loss with TraceLog. Gameplay replication and replay streaming assume this core is already in-process."
+  },
+  {
+    "slug": "nettrafficcontroltests",
+    "kind": "module",
+    "cn": "NetTrafficControlTests 验证网络流量控制与拥塞相关逻辑，在程序目标中驱动 Engine 与 NetCore。它模拟限速、突发与控制窗口，断言发送调度是否按预期收敛。网络栈改动后，用该测试防止流量整形回归。",
+    "en": "NetTrafficControlTests validates traffic-control and congestion logic by driving Engine and NetCore in a program target. It simulates rate limits, bursts, and control windows and asserts that send scheduling converges. Network-stack changes run this suite to catch shaper regressions."
+  },
+  {
+    "slug": "networkcachestores",
+    "kind": "module",
+    "cn": "NetworkCacheStores 为派生数据缓存提供远程存储后端，通过 HTTP、SSL 与 Zen 访问共享 DDC。桌面平台配置把缓存键映射到网络服务，让农场机器共享着色器与贴图编译结果。没有它，DDC 只能落在本机磁盘。",
+    "en": "NetworkCacheStores adds remote backends to Derived Data Cache, reaching shared DDC over HTTP, SSL, and Zen. Desktop configuration maps cache keys onto a network service so farm machines share shader and texture compiles. Without it, DDC lives only on the local disk."
+  },
+  {
+    "slug": "networkfile",
+    "kind": "module",
+    "cn": "NetworkFile 是 Cook-on-the-Fly 客户端侧的网络文件协议，用套接字向主机拉取已 Cook 的包。设备或编辑器从机通过它按需打开远程文件，而不是预先拷贝整个 cook 输出。它依赖 CookOnTheFly 消息约定，与文件系统服务端配对。",
+    "en": "NetworkFile is the Cook-on-the-Fly client protocol that pulls cooked packages from a host over sockets. A device or editor slave opens remote files on demand instead of copying the whole cook output. It shares CookOnTheFly message conventions with the filesystem server."
+  },
+  {
+    "slug": "networkfilesystem",
+    "kind": "module",
+    "cn": "NetworkFileSystem 实现 Cook-on-the-Fly 的服务端网络文件系统，把沙盒 cook 结果通过套接字暴露给目标平台。它结合 CookOnTheFlyNetServer、SandboxFile 与 TargetPlatform，按设备请求流式发送包。迭代循环里主机开此服务，真机或编辑器从机即可热拉资源。",
+    "en": "NetworkFileSystem implements the Cook-on-the-Fly server filesystem, exposing sandboxed cook output over sockets to target platforms. CookOnTheFlyNetServer, SandboxFile, and TargetPlatform stream packages as devices request them. Iteration loops host this service so a device or editor slave can hot-pull assets."
+  },
+  {
+    "slug": "networking",
+    "kind": "module",
+    "cn": "Networking 提供高于原始套接字的通用网络工具：地址解析、连接辅助与与平台无关的收发封装。它不包含 Actor 复制，只给需要 TCP/UDP 的运行时代码一个稳定入口。许多非游戏玩法网络功能（发现、探测）会先链接此模块。",
+    "en": "Networking supplies socket-level helpers above raw Sockets: address resolution, connection helpers, and platform-neutral send/recv wrappers. It does not include Actor replication—only a stable entry for runtime code that needs TCP/UDP. Non-gameplay networking (discovery, probes) typically links this module first."
+  },
+  {
+    "slug": "networkpredictiontests",
+    "kind": "module",
+    "cn": "NetworkPredictionTests 针对 NetworkPrediction 插件做无头单元测试，覆盖预测帧、回滚与修正。它不启动完整 PIE，只在 Core/CoreUObject 上驱动预测模型。移动与能力预测的数值回归由该程序在 CI 中锁定。",
+    "en": "NetworkPredictionTests is a headless unit suite for the NetworkPrediction plugin: predicted frames, rollback, and correction. It skips full PIE and drives prediction models on Core/CoreUObject. Movement and ability prediction numeric regressions are locked in CI by this program."
+  },
+  {
+    "slug": "networkreplaystreaming",
+    "kind": "module",
+    "cn": "NetworkReplayStreaming 定义网络回放流的抽象：如何把演示包写入/读出流存储，并上报分析事件。具体后端（本地文件、HTTP 等）作为流工厂实现此接口。观战、Killcam 与 Demo 录制都通过这层选择回放驱动。",
+    "en": "NetworkReplayStreaming defines the network replay stream abstraction: writing and reading demo packets from stream storage, plus analytics hooks. Concrete backends (local file, HTTP) implement this factory interface. Spectating, killcam, and demo recording pick a replay driver through this layer."
+  },
+  {
+    "slug": "newleveldialog",
+    "kind": "module",
+    "cn": "NewLevelDialog 实现编辑器“新建关卡”对话框，让用户选择空白图、默认模板或分区世界设置。它用 Slate 与 ToolWidgets 收集选项，再交给 UnrealEd 创建地图包。关卡设计师从文件菜单开新关卡时看到的就是这个模块。",
+    "en": "NewLevelDialog implements the editor New Level dialog, offering a blank map, default templates, or partitioned-world options. Slate and ToolWidgets collect the choices, then UnrealEd creates the map package. This is the UI level designers see when they create a level from the File menu."
+  },
+  {
+    "slug": "nghttp2",
+    "kind": "module",
+    "cn": "nghttp2 引入 nghttp2 库，为引擎 HTTP 栈提供 HTTP/2 帧、HPACK 与多路复用实现。需要 HTTP/2 客户端或服务器能力的模块链接此第三方目标。它不处理 TLS，加密仍由 OpenSSL/SSL 模块完成。",
+    "en": "nghttp2 vendors the nghttp2 library so the engine HTTP stack can speak HTTP/2 frames, HPACK, and multiplexing. Modules that need HTTP/2 client or server support link this third-party target. It does not terminate TLS; encryption stays in OpenSSL/SSL."
+  },
+  {
+    "slug": "nne",
+    "kind": "module",
+    "cn": "NNE（Neural Network Engine）是引擎内神经网络运行时，负责模型资源、推导会话与 DDC 缓存的编译产物。游戏与工具通过它加载 ONNX 等模型并在 CPU/加速器上推理。它不包含编辑器 UI，只提供运行时 API 与资产类型。",
+    "en": "NNE (Neural Network Engine) is the in-engine neural runtime: model assets, inference sessions, and DDC-cached compile artifacts. Games and tools load ONNX-style models and run them on CPU or accelerators through it. There is no editor UI here—only runtime APIs and asset types."
+  },
+  {
+    "slug": "nneeditor",
+    "kind": "module",
+    "cn": "NNEEditor 为神经网络资产提供编辑器支持：导入、默认设备设置与内容浏览器操作。它依赖 NNE 运行时与 AssetTools，让技术美术在编辑器里检查模型元数据。推理仍由运行时执行，本模块只负责编辑期工作流。",
+    "en": "NNEEditor adds editor support for neural assets: import, default device settings, and Content Browser actions. It depends on the NNE runtime and AssetTools so TAs can inspect model metadata in-editor. Inference still runs in the runtime; this module only owns the edit-time workflow."
+  },
+  {
+    "slug": "nonrealtimeaudiorenderer",
+    "kind": "module",
+    "cn": "NonRealtimeAudioRenderer 在非实时时钟下把音频混合器离线渲染成波形，用于 Sequencer 捕获、烘焙与分析。它走 AudioMixerCore 与信号处理，不依赖声卡回调。需要精确逐样本输出、又不能等实时播放的管线会启用此渲染器。",
+    "en": "NonRealtimeAudioRenderer offline-renders the audio mixer against a non-realtime clock for Sequencer capture, bakes, and analysis. It uses AudioMixerCore and signal processing with no sound-card callback. Pipelines that need sample-accurate output without waiting on live playback enable this renderer."
+  },
+  {
+    "slug": "nulldrv",
+    "kind": "module",
+    "cn": "NullDrv 是空操作 RHI 驱动，接受渲染命令但不提交真实 GPU 工作。无头服务器、自动化与着色器编译工人用它满足 RHI 依赖。命令仍会走资源创建路径，因此可以测试渲染图逻辑而无需显示适配器。",
+    "en": "NullDrv is a no-op RHI driver that accepts render commands without submitting real GPU work. Headless servers, automation, and shader compile workers use it to satisfy the RHI dependency. Resource-create paths still run, so render-graph logic can be tested without a display adapter."
+  },
+  {
+    "slug": "nvaftermath",
+    "kind": "module",
+    "cn": "NVAftermath 接入 NVIDIA Aftermath SDK，在 GPU 崩溃后转储进行中的绘制与着色器信息。D3D12 路径用它生成可交给 Nsight 或厂商工具的崩溃转储。模块只包装 SDK，具体何时启用由渲染调试工具决定。",
+    "en": "NVAftermath vendors the NVIDIA Aftermath SDK so GPU crashes can dump in-flight draws and shader info. The D3D12 path uses it to produce dumps for Nsight or vendor tools. The module only wraps the SDK; render debug tooling decides when it is armed."
+  },
+  {
+    "slug": "nvapi",
+    "kind": "module",
+    "cn": "NVAPI 引入 NVIDIA 驱动控制 API，用于查询 GPU 能力、驱动设置与厂商扩展。引擎在 Windows NVIDIA 目标上用它读取 SLI/ Reflex 等相关状态。该第三方模块不实现渲染，只暴露 nvapi 头文件与库。",
+    "en": "NVAPI vendors NVIDIA’s driver-control API for GPU caps, driver settings, and vendor extensions. On Windows NVIDIA targets the engine reads SLI/Reflex-related state through it. The third-party module does not render; it only exposes nvapi headers and libs."
+  },
+  {
+    "slug": "nvdbggenerator",
+    "kind": "module",
+    "cn": "NvdbgGenerator 是 Windows 程序，结合 D3D12RHI 与 Aftermath 生成 NVIDIA 调试转储或着色器调试辅助文件。它在独立进程里拉起精简 RHI，便于离线产出 GPU 崩溃分析素材。图形工程师用它在编辑器之外复现并打包 Aftermath 数据。",
+    "en": "NvdbgGenerator is a Windows program that combines D3D12RHI and Aftermath to emit NVIDIA debug dumps or shader-debug sidecars. It boots a slim RHI in its own process so GPU-crash artifacts can be produced offline. Graphics engineers reproduce and package Aftermath data without the editor."
+  },
+  {
+    "slug": "nvdecode",
+    "kind": "module",
+    "cn": "nvDecode 包装 NVIDIA Video Codec SDK 的解码接口，把硬件视频解码能力接到引擎构建。媒体管线在支持的 NVIDIA GPU 上用它解码压缩视频，减轻 CPU 软解负担。模块仅提供解码库链接，播放器逻辑在更高层媒体模块。",
+    "en": "nvDecode wraps the NVIDIA Video Codec SDK decode API so hardware video decode can enter the engine build. Media pipelines on capable NVIDIA GPUs decode compressed video here instead of a CPU software path. The module only links the decode library; player logic lives in higher media modules."
+  },
+  {
+    "slug": "nvencode",
+    "kind": "module",
+    "cn": "nvEncode 包装 NVIDIA Video Codec SDK 的编码接口，供硬件加速把帧压成 H.264/HEVC 等码流。游戏内录制、像素流送与离线转码在 NVIDIA 目标上可走这条编码器。它与 nvDecode 分开，以便只编码或只解码的配置不必互相拉取。",
+    "en": "nvEncode wraps the NVIDIA Video Codec SDK encode API for hardware-accelerated H.264/HEVC-style bitstreams. In-game recording, pixel streaming, and offline transcode can use this encoder on NVIDIA targets. It is split from nvDecode so encode-only or decode-only configs do not pull each other."
+  },
+  {
+    "slug": "nvtesslib",
+    "kind": "module",
+    "cn": "nvTessLib 引入 NVIDIA 的细分/镶嵌辅助库，用于把曲面或补丁展开为三角形。需要离线或工具侧镶嵌、又不走引擎运行时曲面细分时会链接它。该第三方目标不接入 RHI，只提供几何算法。",
+    "en": "nvTessLib vendors NVIDIA’s tessellation helper library for expanding surfaces or patches into triangles. Offline or tool-side tessellation that must not go through runtime hardware tessellation links it. The third-party target does not talk to the RHI; it only supplies geometry algorithms."
+  },
+  {
+    "slug": "nvtexturetools",
+    "kind": "module",
+    "cn": "nvTextureTools 打包 NVIDIA Texture Tools，用于离线压缩、生成 mip 与法线等贴图处理。导入管线与命令行贴图工人可调用其 BC 压缩与过滤器。它独立于运行时 RHI，只在构建或导入时参与。",
+    "en": "nvTextureTools vendors NVIDIA Texture Tools for offline compression, mip generation, and normal-map processing. Import pipelines and command-line texture workers call its BC compressors and filters. It stays off the runtime RHI and only participates at build or import time."
+  },
+  {
+    "slug": "nvtristrip",
+    "kind": "module",
+    "cn": "nvTriStrip 接入 NVIDIA 的三角形条带化库，把索引网格重排成更长的 strip 以改善顶点缓存。网格优化工具在导入或简化后可选用此重排。现代 GPU 不一定需要 strip，但旧资源管线与部分离线优化仍保留该依赖。",
+    "en": "nvTriStrip vendors NVIDIA’s triangle-stripifier, reordering indexed meshes into longer strips for vertex-cache locality. Mesh optimizers may apply it after import or simplification. Modern GPUs do not always need strips, but older asset pipelines and some offline passes still keep the dependency."
+  },
+  {
+    "slug": "oneapilevelzero",
+    "kind": "module",
+    "cn": "oneAPILevelZero 引入 Intel oneAPI Level Zero 运行时，作为访问 Intel GPU 的底层设备 API。需要直接提交命令到 Intel 加速器、或与 oneAPI 工具链互操作的模块链接它。该包装不实现引擎 RHI，只暴露 Level Zero 头文件与加载器。",
+    "en": "oneAPILevelZero vendors Intel oneAPI Level Zero, the low-level device API for Intel GPUs. Modules that submit commands to Intel accelerators or interop with the oneAPI toolchain link it. The wrapper is not an engine RHI; it only exposes Level Zero headers and the loader."
+  },
+  {
+    "slug": "onlinetestscore",
+    "kind": "module",
+    "cn": "OnlineTestsCore 是在线服务自动化测试的核心库，对接 EOS SDK、Online Services 接口与旧版 OnlineSubsystem。测试程序用它启动会话、登录与 HTTP/JSON 断言，而不嵌入游戏。Epic 在线栈的契约测试建立在这一套共享夹具上。",
+    "en": "OnlineTestsCore is the shared library for online-service automation, talking to EOS SDK, Online Services interfaces, and legacy OnlineSubsystem. Test programs boot sessions, logins, and HTTP/JSON asserts without embedding a game. Epic online-stack contract tests sit on this fixture set."
+  },
+  {
+    "slug": "oodledatacompression",
+    "kind": "module",
+    "cn": "OodleDataCompression 把 Oodle 数据压缩编解码接到引擎，用于包体、IoStore 与网络载荷的高压缩比压缩。运行时按平台加载对应 Oodle 库，对资源块做压缩与解压。它不处理纹理专用 Kraken 变体之外的媒体编码，专注通用数据流。",
+    "en": "OodleDataCompression wires Oodle data codecs into the engine for packages, IoStore, and network payloads that need high-ratio compression. At runtime it loads the platform Oodle library and compresses or inflates resource blocks. It is not a media encoder; it focuses on general-purpose data streams."
+  },
+  {
+    "slug": "openblas",
+    "kind": "module",
+    "cn": "OpenBLAS 引入优化的 BLAS/LAPACK 实现，为线性代数密集代码提供矩阵乘与分解。机器学习、几何与部分解算器在需要高性能密集线性代数时链接此第三方库。模块负责按平台选择预编译核，不改算法语义。",
+    "en": "OpenBLAS vendors an optimized BLAS/LAPACK for matrix multiply and factorizations in linear-algebra-heavy code. Machine learning, geometry, and some solvers link this third-party library when they need fast dense linear algebra. The module picks per-platform kernels without changing algorithm semantics."
+  },
+  {
+    "slug": "opencoloriolib",
+    "kind": "module",
+    "cn": "OpenColorIOLib 打包 Academy Software Foundation 的 OpenColorIO 库，提供色彩空间变换、LUT 与显示管线。电影级调色与视口 OCIO 配置依赖这份原生库。引擎的 C++ 包装在另一模块，这里只负责第三方编译产物。",
+    "en": "OpenColorIOLib vendors Academy Software Foundation OpenColorIO for color-space transforms, LUTs, and display pipelines. Film-style grading and viewport OCIO configs depend on this native library. The engine C++ wrapper lives elsewhere; this module only owns the third-party build."
+  },
+  {
+    "slug": "opencoloriowrapper",
+    "kind": "module",
+    "cn": "OpenColorIOWrapper 用 Core 与 ImageCore 把 OpenColorIO 接到 Unreal 图像类型，完成像素缓冲上的色彩转换。视口、输出与媒体管线调用包装器而不是直接碰 OCIO C API。这样色彩配置、角色查找与引擎像素格式保持一致。",
+    "en": "OpenColorIOWrapper binds OpenColorIO to Unreal image types via Core and ImageCore, converting pixel buffers in-engine. Viewports, outputs, and media pipelines call the wrapper instead of the OCIO C API. Color configs, role lookups, and engine pixel formats stay aligned."
+  },
+  {
+    "slug": "opengl",
+    "kind": "module",
+    "cn": "OpenGL 第三方模块提供 OpenGL/GLES 头文件与平台加载约定，供 OpenGLDrv 解析函数指针。它不实现驱动，只确保 GL 符号在各桌面与移动目标上可编译。真正的命令提交发生在 OpenGLDrv 的 RHI 后端。",
+    "en": "The OpenGL third-party module supplies OpenGL/GLES headers and platform loader conventions so OpenGLDrv can resolve function pointers. It is not a driver; it only makes GL symbols compile on desktop and mobile targets. Real command submission happens in the OpenGLDrv RHI backend."
+  },
+  {
+    "slug": "opengldrv",
+    "kind": "module",
+    "cn": "OpenGLDrv 是引擎的 OpenGL/GLES RHI 后端，把 RHI 命令翻译成 GL 绘制、纹理与着色器绑定。它集成预加载屏、设备 GPU 信息与部分移动 Game SDK 钩子。在仍使用 GL 的平台上，游戏与 Slate 画面经此驱动呈现。",
+    "en": "OpenGLDrv is the engine’s OpenGL/GLES RHI backend, translating RHI commands into GL draws, textures, and shader binds. It integrates preload screens, device GPU info, and some mobile Game SDK hooks. On platforms that still use GL, game and Slate frames present through this driver."
+  },
+  {
+    "slug": "openssl",
+    "kind": "module",
+    "cn": "OpenSSL 把 OpenSSL 密码学与 TLS 库接入引擎，供 HTTP、SSL 模块与第三方网络栈建立加密连接。证书、摘要与密钥交换都走这份构建。引擎不在此实现协议，只保证各平台链接到一致的 OpenSSL 版本。",
+    "en": "OpenSSL vendors the OpenSSL crypto and TLS libraries so HTTP, SSL, and third-party net stacks can form encrypted connections. Certificates, digests, and key exchange go through this build. The engine does not implement TLS here; it only pins a consistent OpenSSL version per platform."
+  },
+  {
+    "slug": "opensubdiv",
+    "kind": "module",
+    "cn": "OpenSubdiv 引入 Pixar OpenSubdiv，用于 Catmull-Clark 等细分曲面求值。建模、导入与部分运行时曲面在需要与 DCC 一致的细分时调用此库。模块按平台编译 OSD 核，引擎几何代码在其上取极限表面或均匀细分网格。",
+    "en": "OpenSubdiv vendors Pixar OpenSubdiv for Catmull-Clark and related subdivision evaluation. Modeling, import, and some runtime surfaces call it when they must match DCC subdivision. The module builds OSD kernels per platform; engine geometry code samples limit surfaces or uniformly refined meshes from it."
+  },
+  {
+    "slug": "openvdb",
+    "kind": "module",
+    "cn": "OpenVDB 接入 Academy 的稀疏体积数据结构，依赖 Boost 与 Intel TBB 做并行树操作。引擎用它存储与处理雾体、SDF 与稀疏体素，供特效与几何工具使用。该第三方模块提供 VDB 网格 API，不包含 Niagara 或材质节点。",
+    "en": "OpenVDB vendors Academy sparse volumes, using Boost and Intel TBB for parallel tree ops. The engine stores fog, SDFs, and sparse voxels for VFX and geometry tools. This third-party module exposes the VDB grid API; it does not include Niagara or material nodes."
+  },
+  {
+    "slug": "openxr",
+    "kind": "module",
+    "cn": "OpenXR 第三方模块提供 Khronos OpenXR 加载器与头文件，供 XR 插件枚举运行时、会话与动作。SteamVR、Oculus 等符合 OpenXR 的运行时通过此加载器被引擎发现。具体交互与立体渲染在 XR 插件中实现，这里只钉住 SDK。",
+    "en": "The OpenXR third-party module supplies the Khronos OpenXR loader and headers so XR plugins can enumerate runtimes, sessions, and actions. SteamVR, OpenXR-conformant Oculus stacks, and others are discovered through this loader. Interaction and stereo rendering live in XR plugins; this module only pins the SDK."
+  },
+  {
+    "slug": "opusaudiodecoder",
+    "kind": "module",
+    "cn": "OpusAudioDecoder 在运行时把 Opus 压缩音频解码成引擎可混合的 PCM。语音、流媒体与部分音效资产走 Opus 以降低带宽。模块向音频引擎注册解码器工厂，播放时按包解压，而不是在导入时一律展开。",
+    "en": "OpusAudioDecoder decodes Opus-compressed audio to mixable PCM at runtime. Voice, streaming, and some SFX assets stay in Opus to save bandwidth. The module registers a decoder factory with the audio engine and inflates packets on play instead of always expanding at import."
+  },
+  {
+    "slug": "osstestscore",
+    "kind": "module",
+    "cn": "OSSTestsCore 为传统 OnlineSubsystem 提供测试核心，包含 Null 子系统夹具与工程设置引导。相对 OnlineTestsCore，它聚焦旧 OSS 接口而非 EOS Online Services。遗留成就、会话与好友 API 的自动化挂在这个程序库上。",
+    "en": "OSSTestsCore is the test core for legacy OnlineSubsystem, including the Null subsystem fixture and project-settings bootstrap. Versus OnlineTestsCore, it targets old OSS interfaces rather than EOS Online Services. Automation for legacy achievements, sessions, and friends hangs off this program library."
+  },
+  {
+    "slug": "outputlog",
+    "kind": "module",
+    "cn": "OutputLog 实现编辑器输出日志窗口：过滤、分类、状态栏提示与日志落盘。它连接 EngineSettings 与 DesktopPlatform，让开发者搜索 Log 宏打印的实时文本。与 MessageLog 不同，它面向连续控制台流，而不是结构化问题列表。",
+    "en": "OutputLog implements the editor Output Log window: filters, categories, status-bar cues, and log-to-disk. EngineSettings and DesktopPlatform let developers search live text from UE_LOG macros. Unlike MessageLog, it is a continuous console stream rather than a structured issue list."
+  },
+  {
+    "slug": "overlay",
+    "kind": "module",
+    "cn": "Overlay 运行时模块提供字幕、动态文字与 UMG/Slate 叠加层资产，把时间码对齐的文本画到画面上。过场、本地化字幕与简易 HUD 叠加可复用这套数据驱动叠加。它不负责编辑器，只在播放时求值叠加时间轴。",
+    "en": "The Overlay runtime module supplies subtitle, dynamic-text, and UMG/Slate overlay assets, drawing timecode-aligned text on screen. Cinematics, localized captions, and simple HUD overlays reuse this data-driven overlay. There is no editor here; overlay timelines evaluate at play time."
+  },
+  {
+    "slug": "overlayeditor",
+    "kind": "module",
+    "cn": "OverlayEditor 为 Overlay 资产提供编辑器，让用户编辑字幕轨、字体样式与时间对齐。它挂在 UnrealEd 上，从内容浏览器打开叠加资源。运行时 Overlay 模块播放的正是这里制作的数据。",
+    "en": "OverlayEditor is the editor for Overlay assets, editing subtitle tracks, font styles, and timing. It hangs off UnrealEd and opens overlay assets from the Content Browser. The runtime Overlay module plays the data authored here."
+  },
+  {
+    "slug": "packagesdialog",
+    "kind": "module",
+    "cn": "PackagesDialog 实现保存/签入等包操作对话框，列出脏包、源控制状态并让用户勾选要写入的包。它结合 AssetRegistry 与 SourceControl，避免静默丢掉未保存资源。编辑器在关图、退出或提交前弹出的包列表来自本模块。",
+    "en": "PackagesDialog implements save/check-in package dialogs, listing dirty packages and source-control state for the user to tick. AssetRegistry and SourceControl keep unsaved assets from vanishing silently. The package list shown before closing a map, quitting, or submitting comes from this module."
+  },
+  {
+    "slug": "packethandler",
+    "kind": "module",
+    "cn": "PacketHandler 是网络包处理器框架，在套接字与 NetCore 之间插入加密、压缩、统计等处理器链。组件按配置组成管道，对进出包做变换。游戏复制不必知道具体加密插件，只要走这条可扩展的包处理链。",
+    "en": "PacketHandler is the net packet-handler framework, inserting encryption, compression, and stats chains between sockets and NetCore. Components form a configurable pipeline that transforms inbound and outbound packets. Gameplay replication stays unaware of a given crypto plugin as long as it flows through this extensible chain."
+  },
+  {
+    "slug": "pakfile",
+    "kind": "module",
+    "cn": "PakFile 实现 .pak 容器的读写：索引、压缩块、RSA 签名校验与 Trace 事件。打包游戏与编辑器挂载 pak 后通过它按路径打开资源。IoStore 之外的传统 pak 工作流仍以此模块为运行时入口。",
+    "en": "PakFile implements .pak container I/O: index, compressed blocks, RSA signature checks, and Trace events. Packaged games and the editor open assets by path after mounting paks here. Traditional pak workflows outside IoStore still use this module as the runtime entry."
+  },
+  {
+    "slug": "pakfileutilities",
+    "kind": "module",
+    "cn": "PakFileUtilities 提供 pak 与 IoStore 的开发者工具：列举、提取、签名与 JSON 清单处理。UnrealPak 等程序链接它来操作容器而不嵌入游戏。RSA 与工程描述用于校验官方包并解析项目上下文。",
+    "en": "PakFileUtilities supplies developer tools for pak and IoStore: list, extract, sign, and JSON manifest handling. Programs such as UnrealPak link it to manipulate containers without embedding a game. RSA and project descriptors verify official packs and resolve project context."
+  },
+  {
+    "slug": "perfcounters",
+    "kind": "module",
+    "cn": "PerfCounters 把引擎性能计数器通过 HTTP 以 JSON 暴露给监控系统。专用服务器可让运维刮取帧时、内存与自定义计数。它不绘制编辑器图表，只做运行时指标端点。",
+    "en": "PerfCounters exposes engine performance counters over HTTP as JSON for monitoring systems. Dedicated servers let ops scrape frame time, memory, and custom counters. It does not draw editor charts; it is a runtime metrics endpoint."
+  },
+  {
+    "slug": "perforce",
+    "kind": "module",
+    "cn": "Perforce 第三方模块链接 Helix Core（P4）客户端库，并依赖 SSL 做加密传输。编辑器源控制插件通过它执行 checkout、submit 与状态查询。模块本身不是 UI，只提供 P4 API 与证书通道。",
+    "en": "The Perforce third-party module links the Helix Core (P4) client library and uses SSL for encrypted transport. Editor source-control plugins checkout, submit, and query status through it. There is no UI here—only the P4 API and certificate path."
+  },
+  {
+    "slug": "persona",
+    "kind": "module",
+    "cn": "Persona 是骨骼网格与动画蓝图的主编辑器：预览场景、AnimGraph、曲线、服装与动画修改器都汇在此。它把数十个动画编辑器模块组成统一工具包。动画师打开 Skeleton、AnimBP 或蒙太奇时，宿主框架就是 Persona。",
+    "en": "Persona is the primary editor for skeletal meshes and Animation Blueprints: preview scene, AnimGraph, curves, clothing, and animation modifiers. It composes dozens of animation editor modules into one toolkit. When an animator opens a Skeleton, AnimBP, or montage, Persona is the host."
+  },
+  {
+    "slug": "physicsasseteditor",
+    "kind": "module",
+    "cn": "PhysicsAssetEditor 编辑 Physics Asset：刚体、约束、碰撞体与物理预览。它嵌在 Persona 预览场景中，让技术美术调整布娃娃与物理动画刚体。GraphEditor 与交互工具用于摆放胶囊并测试约束极限。",
+    "en": "PhysicsAssetEditor authors Physics Assets: bodies, constraints, collision primitives, and physics preview. It embeds in Persona’s preview scene so TAs can tune ragdolls and physical-animation bodies. GraphEditor and interactive tools place capsules and test constraint limits."
+  },
+  {
+    "slug": "physicscore",
+    "kind": "module",
+    "cn": "PhysicsCore 存放与具体解算器解耦的物理核心类型：物理材质、场景接口与开发者设置。Chaos 等解算器实现这些抽象，游戏代码则依赖稳定的核心 API。把材质与设置放在此模块，避免所有物理用户都链接完整 Chaos。",
+    "en": "PhysicsCore holds solver-agnostic physics types: physical materials, scene interfaces, and developer settings. Chaos and other solvers implement the abstractions; gameplay code depends on the stable core API. Materials and settings live here so not every physics user links full Chaos."
+  },
+  {
+    "slug": "physicsutilities",
+    "kind": "module",
+    "cn": "PhysicsUtilities 提供从网格生成碰撞、简化凸包与在 Chaos 场景中创建体的开发者工具。导入物理资产、自动凸包与编辑器里的碰撞可视化会调用这些例程。它连接 GeometryCore 与 PhysicsCore，填补美术网格到模拟体之间的空隙。",
+    "en": "PhysicsUtilities offers developer tools to build collision from meshes, simplify hulls, and spawn bodies in a Chaos scene. Import of physics assets, auto-convex, and in-editor collision viz call these routines. GeometryCore and PhysicsCore meet here to bridge art meshes to simulated bodies."
+  },
+  {
+    "slug": "piepreviewdeviceprofileselector",
+    "kind": "module",
+    "cn": "PIEPreviewDeviceProfileSelector 让 PIE 按预览设备配置文件切换分辨率、材质质量和 RHI 相关设置。它读取 JSON 设备规格，模拟手机或主机的屏幕与着色器质量。移动开发者可在桌面 PIE 里预览目标机的画面约束。",
+    "en": "PIEPreviewDeviceProfileSelector switches PIE to a preview device profile: resolution, material quality, and RHI-related settings. JSON device specs emulate a phone or console’s screen and shader quality. Mobile developers preview target visual constraints inside desktop PIE."
+  },
+  {
+    "slug": "piepreviewdevicespecification",
+    "kind": "module",
+    "cn": "PIEPreviewDeviceSpecification 定义 PIE 预览设备的数据资产：分辨率、DPI、安全区与质量桶。选择器模块读取这些 UObject，而不把机型表写死在 UI 里。厂商或项目可添加自己的设备规格供 PIE 模拟。",
+    "en": "PIEPreviewDeviceSpecification defines PIE preview-device data assets: resolution, DPI, safe areas, and quality buckets. The selector module reads these UObjects instead of hard-coding a device table in UI. Vendors or projects can add their own specs for PIE emulation."
+  },
+  {
+    "slug": "pinnedcommandlist",
+    "kind": "module",
+    "cn": "PinnedCommandList 提供可钉住的命令列表 UI，让编辑器工具把常用操作固定在面板上。Persona 与物理资产编辑器等用它保存用户钉选的工具栏动作。列表状态基于 Slate，随编辑器布局持久化。",
+    "en": "PinnedCommandList supplies a pin-able command list UI so editor tools can keep favorite actions on a panel. Persona and the Physics Asset Editor store user-pinned toolbar actions here. List state is Slate-based and persists with the editor layout."
+  },
+  {
+    "slug": "pixelinspectormodule",
+    "kind": "module",
+    "cn": "PixelInspectorModule 实现视口像素检查器，点选画面像素后显示材质、缓冲与着色结果。它从 Renderer/RHI 回读，并在属性面板展示 GBuffer 分解。图形调试时用它追查某个像素为何是那个颜色，而不靠外部帧调试器。",
+    "en": "PixelInspectorModule implements the viewport pixel inspector: click a pixel, see material, buffers, and shading. It readbacks from Renderer/RHI and shows GBuffer breakdowns in the details panel. Graphics debugging can ask why a pixel is that color without an external frame debugger."
+  },
+  {
+    "slug": "placementmode",
+    "kind": "module",
+    "cn": "PlacementMode 是关卡编辑器的放置模式：从内容浏览器、收藏与类列表把 Actor 拖进关卡。它对接 TypedElement 选择与工具菜单，支持网格与蓝图类的快速摆放。关卡设计师左侧“放置 Actor”面板由该模块驱动。",
+    "en": "PlacementMode is the Level Editor Place mode: drag Actors into the level from Content Browser, collections, and class lists. TypedElement selection and tool menus support quick drops of meshes and Blueprint classes. The Place Actors panel on the left of the Level Editor is driven by this module."
+  },
+  {
+    "slug": "plainpropstests",
+    "kind": "module",
+    "cn": "PlainPropsTests 是引擎程序目标，专门测试 Plain Props 属性系统的序列化、布局与反射边界。它验证无 UObject 开销的纯属性描述在往返与对齐上的正确性。属性系统改动后，这个无头套件用来锁住二进制兼容与字段遍历行为。",
+    "en": "PlainPropsTests is an engine program that tests the Plain Props property system: serialization, layout, and reflection edges. It checks round-trips and alignment for plain property descriptors without UObject overhead. Property-system changes use this headless suite to lock binary compatibility and field walking."
+  },
+  {
+    "slug": "platformwritedebug",
+    "kind": "module",
+    "cn": "PlatformWriteDebug 在引擎侧可视化或记录平台写监视器捕获的 GPU/资源写入异常。它依赖 PlatformWriteMonitor 与 RenderCore，把非法覆盖或竞态写成可调试信息。图形工程师用它追踪跨平台的意外资源写入。",
+    "en": "PlatformWriteDebug visualizes or logs illegal GPU/resource writes captured by the platform write monitor. It depends on PlatformWriteMonitor and RenderCore to turn overwrites or races into debuggable info. Graphics engineers track unexpected resource writes across platforms with it."
+  },
+  {
+    "slug": "platformwritemonitor",
+    "kind": "module",
+    "cn": "PlatformWriteMonitor 是轻量核心层，挂钩平台相关的内存/GPU 写入监视原语。调试模块在其上订阅事件，而不把平台 #ifdef 散落到各处。仅依赖 Core 使无渲染进程也能编译监视钩子。",
+    "en": "PlatformWriteMonitor is a thin Core-level hook for platform memory/GPU write-watch primitives. Debug modules subscribe to events here instead of scattering platform ifdefs. A Core-only dependency lets non-rendering processes still compile the watch hooks."
+  },
+  {
+    "slug": "playerinputdebuggerlaunch",
+    "kind": "module",
+    "cn": "PlayerInputDebuggerLaunch 启动独立的玩家输入调试器程序：通过消息总线连接目标、显示输入 UI 与输出日志。它用独立渲染器与 UDP 消息与运行中的游戏或设备会话通信。输入工程师可在不打断游戏视口的情况下观察按键、轴与增强输入事件。",
+    "en": "PlayerInputDebuggerLaunch boots the standalone player-input debugger: message-bus attach to a target, input UI, and output log. A standalone renderer and UDP messaging talk to a live game or device session. Input engineers watch keys, axes, and Enhanced Input without interrupting the game viewport."
+  },
+  {
+    "slug": "plcrashreporter",
+    "kind": "module",
+    "cn": "PLCrashReporter 引入 Plausible Labs 的崩溃报告库，主要服务 Apple 平台的崩溃转储与符号化。CrashReport 客户端在 iOS/macOS 上可把本地崩溃写成标准报告。该第三方模块不包含 Epic 的上报 UI，只提供采集 SDK。",
+    "en": "PLCrashReporter vendors Plausible Labs’ crash reporter, mainly for Apple-platform dumps and symbolication. CrashReport clients on iOS/macOS can write local crashes as standard reports. The third-party module has no Epic upload UI—only the capture SDK."
+  },
+  {
+    "slug": "plisteditor",
+    "kind": "module",
+    "cn": "PListEditor 用 Slate 编辑 Apple 属性列表（plist）XML，便于在编辑器内改 Info.plist 类文件。它结合 XmlParser 与桌面文件对话框打开、校验并写回 plist。iOS/macOS 打包相关键值可以在此可视化编辑，而不靠外部文本工具。",
+    "en": "PListEditor edits Apple property-list (plist) XML in Slate so Info.plist-style files can be changed inside the editor. XmlParser and desktop file dialogs open, validate, and write plists back. iOS/macOS packaging keys can be edited visually instead of in an external text tool."
+  },
+  {
+    "slug": "pluginwarden",
+    "kind": "module",
+    "cn": "PluginWarden 在编辑器中守门插件授权与 Marketplace/Launcher 权益，必要时弹出校验 UI。它连接 PortalServices 与分析，记录插件启用是否通过门户许可。商业插件在项目加载时由该模块确认 entitlement，而不是静默加载。",
+    "en": "PluginWarden gates plugin licensing and Marketplace/Launcher entitlements in the editor, showing verification UI when needed. PortalServices and analytics record whether a plugin enablement passed portal checks. Commercial plugins confirm entitlement at project load through this module instead of loading silently."
+  },
+  {
+    "slug": "portalmessages",
+    "kind": "module",
+    "cn": "PortalMessages 定义 Epic 门户（Launcher/账户服务）的消息类型，建立在 MessagingRpc 与 PortalServices 上。编辑器与门户代理用这些消息查询用户、 entitlement 与应用状态。它是门户 IPC 的契约层，不含网络传输实现。",
+    "en": "PortalMessages defines Epic portal (Launcher/account) message types on MessagingRpc and PortalServices. The editor and portal proxies query user, entitlement, and app state with these messages. This is the portal IPC contract layer, not a transport."
+  },
+  {
+    "slug": "portalproxies",
+    "kind": "module",
+    "cn": "PortalProxies 实现门户服务的客户端代理，把 PortalMessages 转成进程内可调用的接口。编辑器功能通过代理访问 Launcher 侧服务，而不直接处理 RPC 细节。消息超时与重连策略集中在这些代理对象上。",
+    "en": "PortalProxies implements client proxies for portal services, turning PortalMessages into in-process callables. Editor features reach Launcher-side services through proxies without handling RPC details. Timeouts and reconnect policy live on these proxy objects."
+  },
+  {
+    "slug": "portalrpc",
+    "kind": "module",
+    "cn": "PortalRpc 把 MessagingRpc 专门化为门户远程调用通道，注册门户服务端点。它负责门户进程与引擎进程之间的 RPC 会话生命周期。上层消息与代理都假定这条 RPC 通道已经建立。",
+    "en": "PortalRpc specializes MessagingRpc into the portal remote-call channel and registers portal service endpoints. It owns RPC session lifetime between the portal process and the engine process. Higher messages and proxies assume this RPC channel is already up."
+  },
+  {
+    "slug": "portalservices",
+    "kind": "module",
+    "cn": "PortalServices 声明门户服务的抽象接口（账户、应用、 entitlement），供编辑器在无具体传输时仍能编译依赖。真正的 RPC 与代理填充这些接口。把契约放在仅依赖 Core/CoreUObject 的模块，避免循环引用门户消息层。",
+    "en": "PortalServices declares abstract portal interfaces (account, app, entitlement) so the editor can compile against them without a transport. Real RPC and proxies fill those interfaces. Keeping the contract on Core/CoreUObject avoids cyclic references into the portal message layer."
+  },
+  {
+    "slug": "portmidi",
+    "kind": "module",
+    "cn": "portmidi 引入跨平台 MIDI I/O 库，让引擎工具读取 MIDI 键盘、控制器与时间码。音频与过场工具可用它接收 MIDI 事件，而不绑死单一操作系统 API。模块只包装 PortMidi，更高层再把事件映射到引擎输入。",
+    "en": "portmidi vendors the cross-platform MIDI I/O library so engine tools can read MIDI keyboards, controllers, and timecode. Audio and cinematic tools receive MIDI events without binding to one OS MIDI API. The module only wraps PortMidi; higher layers map events onto engine input."
+  },
+  {
+    "slug": "posixshim",
+    "kind": "module",
+    "cn": "PosixShim 为非 POSIX 平台提供 POSIX 风格第三方库所需的薄垫片，使同一份 C 代码能在 Windows 等目标编译。它只依赖 Core，补齐文件、套接字或线程相关符号缺口。平台第三方辅助目录用它避免在每个库里复制兼容层。",
+    "en": "PosixShim offers a thin POSIX-style shim on non-POSIX platforms so the same C third-party code can compile on Windows and similar targets. It depends only on Core and fills file, socket, or thread symbol gaps. Platform third-party helpers use it instead of copying compatibility layers per library."
+  },
+  {
+    "slug": "preloadscreen",
+    "kind": "module",
+    "cn": "PreLoadScreen 在引擎完成加载前绘制启动/补丁预加载画面，可结合 BuildPatchServices 显示安装进度。它用 RHI 与 Slate 在极早阶段呈现，并上报分析事件。安装器与游戏启动共用这套屏幕，避免黑屏等待。",
+    "en": "PreLoadScreen draws startup/patch preload UI before the engine finishes loading, optionally showing BuildPatchServices install progress. RHI and Slate present at a very early stage, with analytics events. Installers and game boot share this screen so the wait is not a black window."
+  },
+  {
+    "slug": "profilevisualizer",
+    "kind": "module",
+    "cn": "ProfileVisualizer 在编辑器中可视化 CPU/性能剖析数据，支持从桌面打开剖析捕获并在时间线上检查。它出现在工作区菜单，供程序员对照引擎事件查热点。该模块不采集数据，只负责把已有剖析文件画出来。",
+    "en": "ProfileVisualizer visualizes CPU/perf captures in the editor, opening desktop capture files on a timeline. It appears in the workspace menu so programmers can inspect engine events and hotspots. The module does not collect data; it only draws existing profile files."
+  },
+  {
+    "slug": "projectlauncher",
+    "kind": "module",
+    "cn": "ProjectLauncher 实现项目启动器 UI 与配置：选择配置、平台、cook 与部署目标后一键拉起。编辑器与独立启动工具用它管理自定义 Launch Profile。打包迭代时，启动器把 cook、部署和运行参数收成可复用配置。",
+    "en": "ProjectLauncher implements the Project Launcher UI and profiles: configuration, platform, cook, and deploy targets in one launch. The editor and standalone launcher tools manage custom Launch Profiles here. Cook, deploy, and run arguments become reusable profiles for packaged iteration."
+  },
+  {
+    "slug": "projects",
+    "kind": "module",
+    "cn": "Projects 运行时模块解析 .uproject、插件描述与目标平台列表，是引擎认识“当前工程”的入口。它依赖 DesktopPlatform 读写工程文件路径。编辑器、UHT 与打包工具都通过它定位模块与插件清单。",
+    "en": "The Projects runtime module parses .uproject files, plugin descriptors, and target-platform lists—the engine’s view of the current project. DesktopPlatform reads and writes project file paths. The editor, UHT, and packaging tools locate modules and plugin manifests through it."
+  },
+  {
+    "slug": "projectsettingsviewer",
+    "kind": "module",
+    "cn": "ProjectSettingsViewer 把项目设置面板接到 SettingsEditor，聚合引擎、输入、导航、影片播放器与目标平台等设置页。它让项目配置出现在统一的编辑器窗口，而不是散落的 ini 文件。各子系统通过设置对象注册自己的分类。",
+    "en": "ProjectSettingsViewer wires the Project Settings panel to SettingsEditor, aggregating engine, input, navigation, movie player, and target-platform pages. Project config appears in one editor window instead of scattered ini files. Subsystems register their categories via settings objects."
+  },
+  {
+    "slug": "projecttargetplatformeditor",
+    "kind": "module",
+    "cn": "ProjectTargetPlatformEditor 编辑工程启用哪些目标平台，以及每平台的 SDK/构建相关选项。它读写 Projects 描述并展示在设置 UI 中。打开或关闭 Windows、Android 等目标时，清单更新由该模块完成。",
+    "en": "ProjectTargetPlatformEditor edits which target platforms a project enables and per-platform SDK/build options. It reads and writes the Projects descriptor into settings UI. Turning Windows, Android, and similar targets on or off updates the manifest here."
+  },
+  {
+    "slug": "propertyeditor",
+    "kind": "module",
+    "cn": "PropertyEditor 是细节面板的核心：把 UObject 反射属性绘制成可编辑的 Slate 行、分类与自定义。几乎所有编辑器检视面板都嵌入这套属性树。它处理编辑事务、实例覆盖与复杂结构展开，是编辑器最常用的模块之一。",
+    "en": "PropertyEditor is the Details panel core: reflected UObject properties as editable Slate rows, categories, and customizations. Almost every editor inspect panel embeds this property tree. It owns edit transactions, instance overrides, and expansion of complex structs—one of the editor’s most used modules."
+  },
+  {
+    "slug": "propertyeditortoolkit",
+    "kind": "module",
+    "cn": "PropertyEditorToolkit 提供独立的属性编辑工具包窗口，用 PropertyPath 定位对象上的属性并单独编辑。它适合弹出式属性编辑器，而不是钉在 Actor 细节面板里。编辑器扩展可用它针对一条属性路径打开聚焦 UI。",
+    "en": "PropertyEditorToolkit hosts a standalone property-editing toolkit window, locating properties via PropertyPath for focused edits. It suits pop-out property editors rather than the Actor Details panel. Editor extensions can open a focused UI on one property path through it."
+  },
+  {
+    "slug": "propertypath",
+    "kind": "module",
+    "cn": "PropertyPath 运行时描述从根对象走到嵌套属性的路径，供 Sequencer、UI 绑定与工具链寻址字段。它只依赖 Core 与 CoreUObject，可在游戏与编辑器之间共享。轨道与动画之所以能驱动任意属性，靠的就是这条可序列化路径。",
+    "en": "PropertyPath is the runtime description of a walk from a root object to a nested property, used by Sequencer, UI bindings, and tools to address fields. It depends only on Core and CoreUObject so game and editor share it. Tracks and animations drive arbitrary properties because this path is serializable."
+  },
+  {
+    "slug": "proreslib",
+    "kind": "module",
+    "cn": "ProResLib 引入 Apple ProRes 编解码支持库，供媒体导出与电影级中间编码使用。Sequencer 或媒体管线在需要广播常用的 ProRes 文件时链接此第三方目标。模块提供编解码入口，时间轴与文件封装在更高层媒体代码。",
+    "en": "ProResLib vendors Apple ProRes codec support for media export and film-style intermediate encodes. Sequencer or media pipelines that need broadcast-common ProRes files link this third-party target. The module exposes encode/decode entry points; timelines and containers live in higher media code."
+  },
+  {
+    "slug": "protobuf",
+    "kind": "module",
+    "cn": "Protobuf 打包 Google Protocol Buffers，并依赖 abseil 与 zlib 完成序列化与压缩。引擎与工具用它读写 .proto 定义的二进制消息，常见于遥测、外部服务与部分构建工人。该模块负责 protoc 生成代码的链接，不定义游戏玩法消息。",
+    "en": "Protobuf vendors Google Protocol Buffers, using abseil and zlib for serialization and compression. Engine and tools read and write .proto binary messages for telemetry, external services, and some build workers. The module links protoc-generated code; it does not define gameplay messages."
+  },
+  {
+    "slug": "protolem",
+    "kind": "module",
+    "cn": "ProtoLem 是 Solaris/Verse 工具链中的原型语言环境宿主，集成 uLang 编译器、LSP、VerseAssist 与 Slate 文本缓冲。它监视目录、对接源控制，为 Verse 代码提供 IDE 式编辑体验。实验性 Verse 工作台通过该模块把语言服务嵌进引擎 UI。",
+    "en": "ProtoLem is the prototype language-environment host in the Solaris/Verse toolchain, integrating the uLang compiler, LSP, VerseAssist, and Slate text buffers. It watches directories, talks to source control, and offers an IDE-like Verse editing surface. Experimental Verse workbenches embed language services in engine UI through this module."
+  },
+  {
+    "slug": "psdsdk",
+    "kind": "module",
+    "cn": "PsdSDK 引入 Photoshop PSD 解析 SDK，让导入管线读取图层、通道与合成信息。纹理与 UI 导入可保留图层结构，而不是只扁平化成一张图。该第三方模块不实现编辑器图层 UI，只提供文件格式读写。",
+    "en": "PsdSDK vendors a Photoshop PSD parser so import pipelines can read layers, channels, and compositing. Texture and UI import can keep layer structure instead of flattening to one image. The third-party module has no editor layer UI—only file-format I/O."
+  },
+  {
+    "slug": "pugixml",
+    "kind": "module",
+    "cn": "pugixml 打包轻量 C++ XML 解析与 DOM 库，供工具链快速读写 XML 而不用重量级解析器。配置、中间文件与部分 DCC 交换格式会用到它。模块向 UBT 暴露头文件与静态库，引擎代码按需包含。",
+    "en": "pugixml vendors the lightweight C++ XML parser and DOM for tools that must read and write XML without a heavy parser. Configs, intermediates, and some DCC interchange formats use it. The module exposes headers and a static lib to UBT; engine code includes it on demand."
+  },
+  {
+    "slug": "python3",
+    "kind": "module",
+    "cn": "Python3 把 CPython 3 运行时接入引擎构建，为编辑器 Python 脚本、插件与工具提供解释器与标准库。PythonScriptPlugin 等上层模块依赖这份嵌入式 Python。该目标负责平台库布局与链接，不实现 Unreal 反射绑定。",
+    "en": "Python3 embeds the CPython 3 runtime in the engine build so editor Python scripting, plugins, and tools get an interpreter and stdlib. Modules such as PythonScriptPlugin depend on this embedded Python. The target owns platform lib layout and linking, not Unreal reflection bindings."
+  },
+  {
+    "slug": "quadricmeshreduction",
+    "kind": "module",
+    "cn": "QuadricMeshReduction 用二次误差度量简化静态网格，生成 LOD 并与 Nanite 工具共享简化原语。它操作 MeshDescription，在导入或 LOD 工具中减少三角形。需要可控质量的离线减面时，网格管线调用此简化器而不是运行时丢面。",
+    "en": "QuadricMeshReduction simplifies static meshes with quadric error metrics, building LODs and sharing primitives with Nanite utilities. It operates on MeshDescription to cut triangles at import or in LOD tools. Offline reduction with controllable quality calls this simplifier instead of dropping faces at runtime."
+  }
+]

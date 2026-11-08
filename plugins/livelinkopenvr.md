@@ -3,7 +3,6 @@ layout: default
 title: LiveLinkOpenVR / LiveLinkOpenVR
 ---
 
-
 <h1>LiveLinkOpenVR / LiveLinkOpenVR</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: LiveLinkOpenVR / LiveLinkOpenVR
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">OpenVR 的 Live Link 插件（不支持本机 arm64。）</div><div class="lang-content">Live Link plugin for OpenVR (Not supported for native arm64.)</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">LiveLinkOpenVR</code>（模块 <code class="usage-code">LiveLinkOpenVR</code>）。</li><li>它把 OpenVR/SteamVR 追踪设备作为 Live Link 主体接入。</li><li>在引擎里消费 VR 追踪数据驱动摄像机/骨骼；注意不支持本机 arm64。</li><li>Experimental：接口可能变动；需 OpenVR 运行时与 Live Link。</li></ol><p class="usage-note">OpenVR 追踪接入 Live Link（不支持本机 arm64），实验性。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">LiveLinkOpenVR</code> (module <code class="usage-code">LiveLinkOpenVR</code>).</li><li>It brings OpenVR/SteamVR tracked devices in as Live Link subjects.</li><li>Consume the VR tracking data to drive cameras/skeletons; note native arm64 is not supported.</li><li>Experimental: contract may change; requires the OpenVR runtime and Live Link.</li></ol><p class="usage-note">OpenVR tracking into Live Link (no native arm64), experimental.</p></div></div></div>
+    </div>
+

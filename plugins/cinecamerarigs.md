@@ -3,7 +3,6 @@ layout: default
 title: 电影摄像机装备 / CineCameraRigs
 ---
 
-
 <h1>电影摄像机装备 / CineCameraRigs</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 电影摄像机装备 / CineCameraRigs
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于电影工作流程的扩展摄像机装置</div><div class="lang-content">Extended camera rigs for cinematic workflow</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental <code class="usage-code">CineCameraRigs</code>（<code class="usage-code">CineCameraRigs</code> + <code class="usage-code">CineCameraRigsEditor</code>）。</li><li>在关卡放置 <code class="usage-code">CineCameraRigRail</code>：编辑样条作为轨道，把 <code class="usage-code">CineCameraActor</code> 附加到轨道挂点，用 <code class="usage-code">Absolute Position on Rail</code>（0–1）滑车。</li><li>需要摇臂时放置 <code class="usage-code">CineCameraRigCrane</code>，调臂长、Yaw/Pitch，把同一台电影机挂到 crane mount。</li><li>打开该镜头的 Level Sequence，给 Rail/Crane 加 Transform 或专用轨道关键帧（沿轨位置、摇臂角），不要只关键帧摄像机世界坐标。</li><li>视口切到该 <code class="usage-code">CineCameraActor</code> 看片，核对焦距/胶片门与轨道运动是否一致。</li><li><code class="usage-code">CineCameraRigsEditor</code> 仅编辑器定制；运行时序列播放只依赖 <code class="usage-code">CineCameraRigs</code>。</li></ol><p class="usage-note">电影机轨道/摇臂装置，不是 nDisplay 同步插件。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">CineCameraRigs</code> (<code class="usage-code">CineCameraRigs</code> + <code class="usage-code">CineCameraRigsEditor</code>).</li><li>Place a <code class="usage-code">CineCameraRigRail</code>, edit its spline, attach a <code class="usage-code">CineCameraActor</code> to the rail mount, and drive <code class="usage-code">Absolute Position on Rail</code> (0–1).</li><li>For a jib, place <code class="usage-code">CineCameraRigCrane</code>, set arm length and yaw/pitch, and attach the same cine camera to the crane mount.</li><li>In the shot’s Level Sequence, key the rail/crane tracks (position on rail, crane angles) instead of only the camera’s world transform.</li><li>Look through that <code class="usage-code">CineCameraActor</code> and check focal length / filmback against the rig motion.</li><li><code class="usage-code">CineCameraRigsEditor</code> is editor customization only; sequence playback needs runtime <code class="usage-code">CineCameraRigs</code>.</li></ol><p class="usage-note">Cine-camera rail and crane rigs, not an nDisplay sync plugin.</p></div></div></div>
+    </div>
+

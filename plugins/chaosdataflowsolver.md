@@ -3,7 +3,6 @@ layout: default
 title: 混沌数据流求解器 / ChaosDataflowSolver
 ---
 
-
 <h1>混沌数据流求解器 / ChaosDataflowSolver</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 混沌数据流求解器 / ChaosDataflowSolver
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">ChaosDataflowSolver</code>（模块 <code class="usage-code">ChaosDataflowSolver</code>）并重启。它在 Dataflow 图求值时步进 Chaos，不是关卡里的 <code class="usage-code">AChaosSolverActor</code>。</li><li>打开 Cloth Asset、Outfit、Rigid Asset 或带物理预览节点的 Geometry Collection Dataflow。</li><li>图中加入/启用 Chaos Dataflow Solver 节点，设置子步与迭代，接到刚体/布料粒子输出上。</li><li>在 Dataflow 编辑器里求值或播放预览：求解器在编辑器里推进粒子，用来调约束和碰撞，不必每次 PIE。</li><li>预览稳定后再把资产赋给角色或关卡组件，运行时仍走世界/<code class="usage-code">AChaosSolverActor</code>，不会在 Shipping 里每帧跑这张 Dataflow。</li><li>游戏 <code class="usage-code">Build.cs</code> 不要依赖 <code class="usage-code">ChaosDataflowSolver</code>，除非你在自定义编辑器/离线烘焙里求值同一张图。</li></ol><p class="usage-note">Dataflow 内的 Chaos 预览求解器，服务 Cloth/Rigid 资产作者。官方 .uplugin 无描述，不要当成关卡物理求解器。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">ChaosDataflowSolver</code> (module <code class="usage-code">ChaosDataflowSolver</code>) and restart. It steps Chaos during Dataflow evaluation, and is not level <code class="usage-code">AChaosSolverActor</code>.</li><li>Open a Cloth, Outfit, Rigid Asset, or Geometry Collection Dataflow that has physics-preview nodes.</li><li>Add/enable the Chaos Dataflow Solver node, set substeps/iterations, and wire it to rigid/cloth particle outputs.</li><li>Evaluate or play preview in the Dataflow editor so the solver advances particles while you tune constraints and contacts — no PIE required.</li><li>Once the preview is stable, assign the asset to a character or level component. Runtime still uses the world solver / <code class="usage-code">AChaosSolverActor</code>; Shipping does not tick this graph every frame.</li><li>Do not depend on <code class="usage-code">ChaosDataflowSolver</code> in game <code class="usage-code">Build.cs</code> unless you evaluate the same graph in a custom editor/offline bake.</li></ol><p class="usage-note">In-graph Chaos preview solver for Cloth/Rigid authors. The .uplugin has no description; it is not the level physics solver.</p></div></div></div>
+    </div>
+

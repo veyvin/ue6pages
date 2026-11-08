@@ -3,7 +3,6 @@ layout: default
 title: Windows 设备配置文件选择器 / Windows Device Profile Selector
 ---
 
-
 <h1>Windows 设备配置文件选择器 / Windows Device Profile Selector</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: Windows 设备配置文件选择器 / Windows Device Profile Selector
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Windows 设备配置文件选择器用于确定 Windows 平台的系统设置</div><div class="lang-content">Windows Device Profile Selector used to determine the system settings for windows platforms</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Windows Device Profile Selector</code>（模块 <code class="usage-code">WindowsDeviceProfileSelector</code>），运行时插件。</li><li>它是 Windows 设备配置文件选择器，用于确定 Windows 平台的系统设置。</li><li>在 Windows 目标下按其选择对应的 Device Profile。</li><li>运行时模块；Windows 平台专用。</li></ol><p class="usage-note">Windows 设备配置文件选择器。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Windows Device Profile Selector</code> (module <code class="usage-code">WindowsDeviceProfileSelector</code>), a runtime plugin.</li><li>It is the Windows device-profile selector that determines Windows platform system settings.</li><li>On Windows targets, it selects the matching Device Profile.</li><li>A runtime module; Windows-platform only.</li></ol><p class="usage-note">The Windows device-profile selector.</p></div></div></div>
+    </div>
+

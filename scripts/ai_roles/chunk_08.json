@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "unreal-animation-framework-uaf",
+    "kind": "plugin",
+    "cn": "Unreal Animation Framework（UAF）用功能数据流来组织动画系统：节点、求值与数据在图中流动，而不是把逻辑写死在 AnimGraph 节点里。UAF、UAFEditor、UAFUncookedOnly 分别覆盖运行时求值、编辑器创作和仅编辑器数据。适合需要把姿态生成、混合与约束拆成可组合管线的项目。它仍属实验接口，图结构与节点契约可能随引擎版本调整。",
+    "en": "Unreal Animation Framework (UAF) models animation as a functional data-flow graph: pose generation, blending, and constraints travel as data rather than as hardcoded AnimGraph nodes. Runtime evaluation lives in UAF, authoring in UAFEditor, and cook-time-only assets in UAFUncookedOnly. Use it when you need a composable animation pipeline instead of a single monolithic anim blueprint. The contract is experimental, so graph shape and node APIs can still shift between engine drops."
+  },
+  {
+    "slug": "unreal-mcp",
+    "kind": "plugin",
+    "cn": "Unreal MCP 在引擎内实现 Anthropic 的 Model Context Protocol 服务器，让外部智能体通过标准 MCP 工具读写关卡、资产与编辑器状态。ModelContextProtocol 负责协议与会话，Engine/Editor 模块分别挂运行时对象和编辑器命令，Tests 模块覆盖协议往返。它面向工具链与 AI 助手集成，而不是游戏内玩法。实验通道上的工具名与 schema 可能随夜构建变化。",
+    "en": "Unreal MCP hosts an Anthropic Model Context Protocol server inside the engine so external agents can inspect and mutate levels, assets, and editor state through MCP tools. Protocol and session code sit in ModelContextProtocol; Engine and Editor modules bind runtime objects and editor commands; dedicated Tests modules cover round-trips. This is an integration surface for toolchains and assistants, not a gameplay feature. Tool names and schemas on the experimental track can change on nightly builds."
+  },
+  {
+    "slug": "unrealconsole-runtime",
+    "kind": "plugin",
+    "cn": "UnrealConsole Runtime 提供控制台程序的启动收尾与运行模式分发：同一套代码既被编辑器以 -unrealconsole 动态加载，也静态链进独立 UnrealConsole 可执行文件。它处理参数解析之后的实际执行路径，而不是编辑器界面。在编辑器进程或独立进程里跑控制台作业时都依赖这一层。",
+    "en": "UnrealConsole Runtime owns the shared startup tail and run-mode dispatch for console jobs. The same module is loaded by the editor with -unrealconsole and statically linked into the standalone UnrealConsole binary. It runs after argument parsing with no editor UI, covering console work in either process."
+  },
+  {
+    "slug": "unrealengineexperimental",
+    "kind": "plugin",
+    "cn": "UnrealEngineExperimental 把仍在迭代的引擎级 Verse/UE 实验 API 以独立插件暴露，避免把不稳定符号塞进正式 Engine 模块。它给 Verse 体验提供早期可调用的引擎挂钩，契约会随实验推进而改。传统纯蓝图项目通常不需要它。",
+    "en": "UnrealEngineExperimental exposes in-flight engine APIs for Verse and related UE experiments as a plugin, keeping unstable symbols out of the shipping Engine module. It offers early engine hooks that Verse experiences can call while the contract is still moving. Classic Blueprint-only games generally have no reason to load it."
+  },
+  {
+    "slug": "uobject-example-plugin",
+    "kind": "plugin",
+    "cn": "UObject Example Plugin 演示如何在插件里声明自己的 UObject 类型、模块与反射注册，作为新建插件的最小起点。模块 UObjectPlugin 里是示例类而不是产品功能；复制目录与模块规则后再换成自己的类型即可，默认不会打进发行包。",
+    "en": "UObject Example Plugin shows how a plugin declares its own UObject types, module, and reflection registration—a minimal starting point for a new plugin. UObjectPlugin contains sample classes, not product features; copy the layout and module rules, swap in your types, and keep it out of shipping cooks."
+  },
+  {
+    "slug": "usd-core",
+    "kind": "plugin",
+    "cn": "USD Core 接入 Pixar USD SDK，并提供 UnrealUSDWrapper、USDUtilities、USDClasses 这套 UE 侧包装与转换工具。它不负责 Stage 窗口或导入向导，而是给上层导入器、导出器和运行时 Stage 提供公共类型。任何读写 USD 层、Prim 或值类型的功能都建立在这一层上。",
+    "en": "USD Core brings in the Pixar USD SDK and UE wrappers via UnrealUSDWrapper, USDUtilities, and USDClasses. It does not own the Stage window or import wizard; it supplies shared types for importers, exporters, and runtime stages. Any feature that reads or writes USD layers, prims, or value types sits on this foundation."
+  },
+  {
+    "slug": "usd-importer-mdl-integration",
+    "kind": "plugin",
+    "cn": "USD Importer MDL integration 让 USD 导入路径能解析引用 MDL 材质文件的 Stage。通过 USD Stage Actor 与 USD 导入管线，把 MDL 绑定转成引擎可用的材质表示。没有它时，带 NVIDIA MDL 引用的 USD 资产会丢材质或走占位。它是 USD Importer 的材质侧扩展，而不是独立的通用 MDL 编辑器。",
+    "en": "USD Importer MDL integration lets the USD import path resolve stages that reference MDL material files. Through the USD Stage Actor and import pipeline it maps MDL bindings into engine-side material representations. Without it, USD assets that point at NVIDIA MDL files drop materials or fall back to placeholders. It extends USD Importer on the material side; it is not a general MDL authoring editor."
+  },
+  {
+    "slug": "usd-importer-tests",
+    "kind": "plugin",
+    "cn": "USD Importer Tests 用 Modular Test Framework 覆盖 USD 导入路径：文件解析、Prim 到 Actor/网格的转换以及回归夹具。它不提供导入 UI，只在自动化中验证导入器行为。引擎或导入器改动后应跑这组测试，避免 Stage 映射静默损坏。",
+    "en": "USD Importer Tests exercise the USD import path with Modular Test Framework coverage: file parse, prim-to-actor/mesh conversion, and regression fixtures. It ships no import UI; it only asserts importer behavior in automation. Run the suite after engine or importer changes so Stage mapping does not silently regress."
+  },
+  {
+    "slug": "usd-importer",
+    "kind": "plugin",
+    "cn": "USD Importer 把 USD 文件带进虚幻：USDSchemas 解释 schema，USDStage 维护运行时 Stage，USDStageEditor 提供 Stage 面板，导入导出模块负责与引擎资产互转。GeometryCacheUSD 把时变网格接到 Geometry Cache，因此可以在关卡里打开 USD、编辑 Prim 再写回。",
+    "en": "USD Importer brings USD files into Unreal: schemas, a live Stage, the Stage editor UI, and importer/exporter modules that move data to engine assets. GeometryCacheUSD feeds time-sampled meshes into Geometry Cache so you can open a stage in a level, edit prims, and write it back."
+  },
+  {
+    "slug": "usd-multi-user-synchronization",
+    "kind": "plugin",
+    "cn": "USD Multi-User synchronization 为 USD Importer 增加可选的多人同步：把 Stage 上的 Prim 变更通过多用户会话传播给其他编辑器。默认关闭，需要协同审阅同一 USD 场景时再打开。它不替代源控，只同步实时 Stage 编辑。",
+    "en": "USD Multi-User synchronization adds opt-in multi-user sync on top of USD Importer, propagating prim edits across a shared editor session. It stays off until a team needs to review the same USD stage live. It does not replace source control; it only mirrors live Stage edits."
+  },
+  {
+    "slug": "usdpregen",
+    "kind": "plugin",
+    "cn": "USDPregen 在导入前预生成基于 USD 的内容：核心库、HTTP worker、Python 绑定、Interchange 桥和 UObject 存储把 DCC/CAD/USD 批量转成网格、材质与关卡数据。适合流水线在烹饪或入库前把重量级 USD 摊平。实验接口，worker 协议与存储格式仍可能改。",
+    "en": "USDPregen pre-generates USD-based content before import: core libraries, an HTTP worker, Python bindings, Interchange bridges, and UObject storage turn DCC/CAD/USD batches into meshes, materials, and level data. Use it in pipelines that flatten heavy USD before cook or ingest. The worker protocol and storage format remain experimental."
+  },
+  {
+    "slug": "usertoolboxbasiccommand",
+    "kind": "plugin",
+    "cn": "UserToolBoxBasicCommand 提供一组可填进自定义编辑器选项卡的基础命令，例如常见对象操作与面板动作。它建立在 UserToolBoxCore 上，负责“有哪些命令可点”，而不是工具箱框架本身。用它快速搭出项目专用的命令条，而不用从零写 Slate 菜单。",
+    "en": "UserToolBoxBasicCommand ships a starter set of commands that populate a custom editor tab—common object operations and panel actions. It sits on UserToolBoxCore and answers “which commands can the user click,” not how the toolbox framework is built. Drop it in when you want a project command strip without writing a Slate menu from scratch."
+  },
+  {
+    "slug": "usertoolboxcore",
+    "kind": "plugin",
+    "cn": "UserToolBoxCore 是自定义编辑器工具箱的核心：命令注册、选项卡宿主与扩展点，让项目能拼出自己的工具面板。它不包含具体业务命令，那些由 BasicCommand 等上层插件填充。实验期的注册 API 可能调整，适合作为编辑器效率扩展的底座。",
+    "en": "UserToolBoxCore is the toolbox framework: command registration, tab hosts, and extension points so a project can assemble its own editor panel. It does not ship domain commands; those come from plugins such as BasicCommand. Registration APIs are still experimental. Treat it as the base layer for editor-productivity extensions."
+  },
+  {
+    "slug": "uveditor",
+    "kind": "plugin",
+    "cn": "UVEditor 是独立的网格 UV 资源编辑器：展开、缝合、打包与通道编辑都在专用视口里完成。UVEditorTools 提供交互工具，UVEditorToolsEditorOnly 只在编辑器加载。面向建模与材质准备，不进入运行时游戏包。",
+    "en": "UVEditor is a dedicated asset editor for mesh UV mapping: unwrap, sew, pack, and channel edits happen in its own viewport. UVEditorTools implements the interactive tools; UVEditorToolsEditorOnly stays editor-only. It belongs to modeling and material prep, not to a cooked game."
+  },
+  {
+    "slug": "valve-index-controller-keys",
+    "kind": "plugin",
+    "cn": "Valve Index Controller Keys 只向 InputCore 注册 ValveIndex_* FKey，不拉入 OpenXR 运行时。像素流送或自定义输入映射可以引用这些键名，而无需依赖整套 XR 插件。它不处理姿态追踪或动作绑定，只提供键枚举。",
+    "en": "Valve Index Controller Keys registers ValveIndex_* FKeys with InputCore and nothing else—no OpenXR runtime. Pixel Streaming or custom input mappers can name those keys without pulling the full XR stack. It does not track poses or bind actions; it only publishes the key enum."
+  },
+  {
+    "slug": "variant-manager-content",
+    "kind": "plugin",
+    "cn": "Variant Manager Content 存放变体管理器的数据类与资产：变体集、属性捕获与切换所需的 UObject。运行时模块 VariantManagerContent 可随关卡加载变体数据，Editor 模块负责资产编辑。没有它，Variant Manager UI 没有可序列化的变体定义。",
+    "en": "Variant Manager Content holds the data classes and assets the Variant Manager consumes: variant sets, captured properties, and the UObjects that switch them. VariantManagerContent can load that data with a level; the Editor module authors the assets. Without it the Variant Manager UI has nothing serializable to switch."
+  },
+  {
+    "slug": "variant-manager",
+    "kind": "plugin",
+    "cn": "Variant Manager 管理场景 Actor 的变体：同一套网格、材质、可见性或变换可以在审阅时一键切换。它面向汽车、建筑可视化等需要多配置展示的场景，而不是游戏存档系统。界面操作的是 Content 插件里的变体资产。",
+    "en": "Variant Manager switches scene-actor variants: meshes, materials, visibility, or transforms flip as named configurations during review. It targets automotive and architectural visualization, not game save slots. The UI operates on variant assets defined by the Content plugin."
+  },
+  {
+    "slug": "verse-colors",
+    "kind": "plugin",
+    "cn": "Verse Colors 向 Verse 暴露颜色类型与转换，让脚本能用引擎一致的色彩空间表达 UI、材质或调试绘制。VerseColorsEditor 提供编辑器侧的颜色挑选与元数据。它不实现渲染管线，只是 Verse 与 UE 颜色值之间的桥。",
+    "en": "Verse Colors exposes color types and conversions to Verse so scripts can talk about UI, materials, or debug draws in engine-consistent color spaces. VerseColorsEditor adds editor color picking and metadata. It does not implement a render path; it only bridges Verse values and UE colors."
+  },
+  {
+    "slug": "verse-engine",
+    "kind": "plugin",
+    "cn": "Verse Engine 把引擎对象接到 Verse：VerseAssets 描述可脚本化资产，Editor 与 Toolset 负责创作与工具链。相对核心语言插件，这里提供世界、设备与资产级 API。UEFN / Fortnite 体验依赖它驱动场景里的 Verse 设备。",
+    "en": "Verse Engine binds engine objects into Verse: VerseAssets describe scriptable assets, while Editor and Toolset cover authoring. Relative to the language plugin, this is the world, device, and asset API surface. UEFN / Fortnite experiences use it to drive Verse devices in the scene."
+  },
+  {
+    "slug": "verse-experimental",
+    "kind": "plugin",
+    "cn": "Verse Experimental 存放尚未稳定的 Verse API 与测试辅助（VerseTestingUtilities）。新语法或设备接口会先出现在这里，随后才可能晋升到正式 Verse 插件。不要在要长期兼容的体验里依赖这些符号。",
+    "en": "Verse Experimental holds Verse APIs that are not yet stable, plus VerseTestingUtilities. New language or device surfaces land here before they graduate into the main Verse plugin. Do not pin long-lived experiences on these symbols."
+  },
+  {
+    "slug": "verse-gameplay-debug",
+    "kind": "plugin",
+    "cn": "Verse Gameplay Debug 提供 Verse 侧的玩法调试 API：从脚本里绘制、查询或转储运行中的游戏状态。它面向开发期诊断，而不是玩家可见的 UI。与 C++ Gameplay Debugger 互补，让 Verse 作者不必下到引擎模块才能看状态。",
+    "en": "Verse Gameplay Debug exposes gameplay debug APIs to Verse: draw, query, or dump live game state from script. It is a development diagnostic, not player-facing UI. It complements the C++ Gameplay Debugger so Verse authors do not have to drop into engine modules to inspect state."
+  },
+  {
+    "slug": "verse-json",
+    "kind": "plugin",
+    "cn": "Verse JSON 为 Verse 提供 JSON 解析与序列化，方便配置、网络载荷或工具交换结构化数据。它不处理 HTTP 传输，只负责文本与 Verse 值之间的编解码。在体验里读外部表或写调试快照时用它。",
+    "en": "Verse JSON parses and serializes JSON for Verse so configs, network payloads, or tools can exchange structured data. It does not speak HTTP; it only converts text to and from Verse values. Use it to read external tables or write debug snapshots from an experience."
+  },
+  {
+    "slug": "verse-perception",
+    "kind": "plugin",
+    "cn": "Verse Perception 是场景图驱动的感知系统：AI 或设备通过 Scene Graph 查询可见性、刺激与空间关系，而不是只靠传统 AIPerception 组件。它把感知结果交给 Verse 逻辑去写行为。适合 UEFN 里用场景图组织的 NPC 与装置。",
+    "en": "Verse Perception is a Scene Graph–driven perception system: AI or devices query visibility, stimuli, and spatial relations from the graph rather than only from classic AIPerception components. Results feed Verse logic that authors behavior. It fits UEFN NPCs and devices organized around Scene Graph."
+  },
+  {
+    "slug": "verse-persona-metadata",
+    "kind": "plugin",
+    "cn": "Verse Persona Metadata 保存与 Persona/角色相关的 Verse 元数据，供动画或形象管线在脚本层读取。它不播放动画，只描述角色在 Verse 世界里需要的附加信息。编辑器与运行时共享同一套元数据定义。",
+    "en": "Verse Persona Metadata stores Verse metadata about personas/characters so animation or avatar pipelines can read it from script. It does not play animation; it describes extra facts a character needs in the Verse world. Editor and runtime share the same metadata definitions."
+  },
+  {
+    "slug": "verse-print",
+    "kind": "plugin",
+    "cn": "Verse Print 实现 Verse 的打印/日志输出，把脚本中的 print 送到引擎日志或屏幕。它是开发期观察状态的最小通道，不是完整的调试器。体验作者用它验证设备逻辑，而无需挂 C++ 断点。",
+    "en": "Verse Print implements Verse print/logging, sending script print calls to the engine log or on-screen output. It is the smallest observation channel during development, not a full debugger. Experience authors use it to verify device logic without attaching a C++ debugger."
+  },
+  {
+    "slug": "verse-restricted",
+    "kind": "plugin",
+    "cn": "Verse Restricted 暴露不对公众开放的受限 Verse API，供 Epic 内部或受控环境调用。公共体验不应依赖这些入口，签名与权限都可能随时收回。把它当作内部能力闸门，而不是可文档化的脚本表面。",
+    "en": "Verse Restricted exposes Verse APIs that are not for public use—Epic-internal or controlled environments only. Public experiences must not depend on these entry points; signatures and access can be withdrawn. Treat it as an internal capability gate, not a documented script surface."
+  },
+  {
+    "slug": "verse-simulation-metadata",
+    "kind": "plugin",
+    "cn": "Verse Simulation Metadata 描述模拟侧实体、组件与时钟如何被 Verse 看见，是模拟与脚本之间的元数据层。它不跑物理步进，只声明模拟对象的脚本可见形状。与 Verse Simulation 运行时配对使用。",
+    "en": "Verse Simulation Metadata describes how simulation entities, components, and clocks appear to Verse—a metadata layer between sim and script. It does not step physics; it declares the script-visible shape of simulated objects. Pair it with the Verse Simulation runtime."
+  },
+  {
+    "slug": "verse-simulation",
+    "kind": "plugin",
+    "cn": "Verse Simulation 把模拟循环接到 Verse：脚本可以订阅模拟步进、查询模拟状态并驱动可预测的玩法规则。它面向需要确定性或服务器权威模拟的体验，而不是普通 Tick 事件。具体类型布局由 Simulation Metadata 描述。",
+    "en": "Verse Simulation wires the simulation loop into Verse so scripts can subscribe to sim ticks, query sim state, and drive predictable gameplay rules. It targets experiences that need deterministic or server-authoritative simulation, not ordinary actor Tick. Type layout comes from Simulation Metadata."
+  },
+  {
+    "slug": "verse-social-synergy",
+    "kind": "plugin",
+    "cn": "Verse Social Synergy 为 Verse 提供社交 API：好友、聚会或平台社交图上的查询与邀请类能力。它走在线服务，而不是本地 AI。UEFN 体验用它把社交状态写进装置逻辑。",
+    "en": "Verse Social Synergy gives Verse social APIs: friends, parties, and queries against the platform social graph. It talks to online services, not local AI. UEFN experiences use it to fold social state into device logic."
+  },
+  {
+    "slug": "verse-spatial-math",
+    "kind": "plugin",
+    "cn": "Verse Spatial Math 向 Verse 提供空间数学类型：向量、变换、旋转与几何查询的脚本表示。Editor 模块负责这些类型在编辑器里的展示。场景图位置、感知射线与装置摆放都依赖这套数学，而不是 C++ FVector 直接暴露。",
+    "en": "Verse Spatial Math supplies spatial math types to Verse: vectors, transforms, rotations, and geometric queries as script values. The Editor module presents those types in the editor. Scene-graph placement, perception rays, and device posing rely on this math rather than raw C++ FVector."
+  },
+  {
+    "slug": "verse-tags",
+    "kind": "plugin",
+    "cn": "Verse Tags 实现 Verse 侧标签：给实体打标、按标签查询，并带 Editor 与测试套件。它类似 Gameplay Tags 的脚本对应物，但是 Verse/场景图命名空间。用标签解耦装置之间的查找，避免硬编码引用。",
+    "en": "Verse Tags implements tagging for Verse: mark entities, query by tag, with editor support and a test suite. It is the script-side analogue of Gameplay Tags, namespaced for Verse and Scene Graph. Decouple device lookup with tags instead of hard object references."
+  },
+  {
+    "slug": "verse-testing-support",
+    "kind": "plugin",
+    "cn": "Verse Testing Support（ModularTestVerse）把 Verse 测试创作接到 Modular Test Framework，并提供 VNI 桥。作者可以用 Verse 写用例，由 MTF 收集结果。它是测试基础设施，不会出现在玩家体验里。",
+    "en": "Verse Testing Support (ModularTestVerse) connects Verse test authoring to Modular Test Framework and supplies a VNI bridge. Authors write cases in Verse; MTF collects results. It is test infrastructure and never ships in a player experience."
+  },
+  {
+    "slug": "verse",
+    "kind": "plugin",
+    "cn": "Verse 是语言与运行时本体：编译、模块系统以及脚本在引擎中的宿主，VerseEditor 负责编辑器集成。UEFN / Fortnite 体验的脚本都从这里进入引擎。传统蓝图游戏不需要加载它。",
+    "en": "Verse is the language and runtime itself: compiler, module system, and the host that runs scripts in the engine, with VerseEditor for editor integration. UEFN / Fortnite experience scripts enter the engine through this plugin. Classic Blueprint games do not load it."
+  },
+  {
+    "slug": "verseinput",
+    "kind": "plugin",
+    "cn": "VerseInput 把输入动作、轴与设备状态暴露给 Verse，让装置能读玩家输入而无需 C++ Enhanced Input 胶水。ControlInput_Deprecated 保留旧控制输入路径以便迁移。它是 Verse 玩法输入的入口，不是新的硬件驱动。",
+    "en": "VerseInput exposes input actions, axes, and device state to Verse so devices can read player input without C++ Enhanced Input glue. ControlInput_Deprecated keeps the older control-input path for migration. It is the Verse gameplay input surface, not a new hardware driver."
+  },
+  {
+    "slug": "verseinterface",
+    "kind": "plugin",
+    "cn": "VerseInterface 提供引擎与 Verse 运行时之间的接口层：类型映射、调用约定与宿主回调。其他 Verse 功能插件通过它与 VM 对话，而不是每家自己解析字节码。没有语言前端，只有互操作边界。",
+    "en": "VerseInterface is the boundary between the engine and the Verse runtime: type mapping, calling convention, and host callbacks. Other Verse feature plugins talk to the VM through it instead of parsing bytecode themselves. There is no language frontend here, only the interop edge."
+  },
+  {
+    "slug": "versemodifier",
+    "kind": "plugin",
+    "cn": "VerseModifier 实现 Verse 修饰器：在类型、函数或设备上附加声明式元数据，改变绑定或生成行为。Editor 模块负责修饰器在资产上的展示与校验。用它扩展脚本表面，而不是改语言语法。",
+    "en": "VerseModifier implements Verse modifiers: declarative metadata on types, functions, or devices that change binding or codegen behavior. The Editor module shows and validates modifiers on assets. Extend the script surface with modifiers instead of changing language syntax."
+  },
+  {
+    "slug": "versemoduleindependencea",
+    "kind": "plugin",
+    "cn": "VerseModuleIndependenceA 是模块独立性测试夹具 A：定义继承自 B 插件中 b_class 的 a_class，验证跨插件 Verse 类型依赖能否正确编译与加载。它没有产品功能，只存在于 Tests 目录。不要在游戏里启用。",
+    "en": "VerseModuleIndependenceA is test fixture A for module-independence tests. It defines a_class, which inherits from b_class in plugin B, to prove cross-plugin Verse type dependencies compile and load. It has no product features and lives under Tests. Do not enable it in a game."
+  },
+  {
+    "slug": "versemoduleindependenceb",
+    "kind": "plugin",
+    "cn": "VerseModuleIndependenceB 是同一套测试的夹具 B：导出被 A 导入的 b_class，形成跨插件继承图。与 A 成对出现，单独启用没有意义。用于捕捉 Verse 模块边界回归。",
+    "en": "VerseModuleIndependenceB is fixture B of the same suite: it exports b_class, which plugin A imports, forming a cross-plugin inheritance graph. It is meaningless without A. Use the pair to catch Verse module-boundary regressions."
+  },
+  {
+    "slug": "versevm",
+    "kind": "plugin",
+    "cn": "VerseVM 提供虚拟机侧代码生成（VerseVMCodeGen）与套接字调试器（VerseVMSocketDebugger），把 Verse 字节码落到可执行形态并允许外部调试器连接。它属于 Fortnite/UEFN 内部运行时，而不是面向游戏玩法的插件。经典项目不会直接调用这些模块。",
+    "en": "VerseVM supplies VM-side codegen (VerseVMCodeGen) and a socket debugger (VerseVMSocketDebugger) so Verse bytecode becomes executable and an external debugger can attach. It is Fortnite/UEFN internal runtime machinery, not a gameplay plugin. Classic projects do not call these modules directly."
+  },
+  {
+    "slug": "veuv---volume-encoded-uv-maps",
+    "kind": "plugin",
+    "cn": "VEUV 用体积编码存储 UV 参数化：把表面参数烘焙进体素/体积表示，供几何处理或重拓扑读取。VEUVCore 做编码与查询，VEUVEditor 提供编辑器工具。适合需要在体积域里查询表面 UV 的实验工作流，而不是常规 UV 编辑器替代品。",
+    "en": "VEUV stores UV parameterization as a volume encoding: surface parameters are baked into a volumetric representation that geometry tools can query. VEUVCore encodes and samples; VEUVEditor adds editor tools. Use it for experimental workflows that look up surface UVs in a volume, not as a replacement for the regular UV editor."
+  },
+  {
+    "slug": "viewport-widget-overlay",
+    "kind": "plugin",
+    "cn": "Viewport Widget Overlay 把 UMG/Slate 控件叠到视口上，供虚拟制片或工具在画面上画标记、监视器与控制条。它不管摄像机跟踪，只解决“控件如何对准视口”。常与虚拟摄像机或侦察工具一起用。",
+    "en": "Viewport Widget Overlay composites UMG/Slate widgets onto a viewport so virtual-production or tooling can draw marks, monitors, and control strips on the picture. It does not track cameras; it only answers how widgets line up with the viewport. Pair it with virtual camera or scouting tools."
+  },
+  {
+    "slug": "virtual-heightfield-mesh",
+    "kind": "plugin",
+    "cn": "Virtual Heightfield Mesh 把虚拟纹理高度场画成网格：从 VT 高度采样生成可碰撞、可着色的地形网格。Editor 模块负责放置与预览。它补的是虚拟纹理地形的网格表示，而不是 Landscape 编辑器本身。",
+    "en": "Virtual Heightfield Mesh renders virtual-texture heightfields as meshes: it samples VT height and builds a collidable, shadeable terrain mesh. The Editor module places and previews the actor. It supplies a mesh representation for VT terrain, not the Landscape editor itself."
+  },
+  {
+    "slug": "virtual-production-roles",
+    "kind": "plugin",
+    "cn": "Virtual Production Roles 管理虚拟制片角色分配：谁是灯光、谁是导播、谁控制虚拟摄像机，运行时 VPRoles 保存角色，Editor 负责指派 UI。机位与权限按角色切换，而不是按个人偏好散落在各插件里。实验期角色枚举可能扩展。",
+    "en": "Virtual Production Roles manage VP role assignment: who lights, who directs, who drives the virtual camera. VPRoles stores roles at runtime; VPRolesEditor is the assignment UI. Stations and permissions switch by role instead of living as per-user prefs in every plugin. The role enum can still grow on the experimental track."
+  },
+  {
+    "slug": "virtual-production-settings",
+    "kind": "plugin",
+    "cn": "Virtual Production Settings 集中存放虚拟制片项目设置：默认机位、叠加层与会话级开关。VPSettings 模块让其他 VP 插件读同一份配置，避免各工具各写一份 ini。改这里会影响整个 VP 工具链的默认行为。",
+    "en": "Virtual Production Settings centralizes VP project settings: default cameras, overlays, and session switches. VPSettings lets other VP plugins read one config instead of each writing its own ini. Changes here shift default behavior across the VP toolchain."
+  },
+  {
+    "slug": "virtual-production-utilities",
+    "kind": "plugin",
+    "cn": "Virtual Production Utilities 提供 VP 公用类：VPUtilities 运行时助手、Editor 扩展，以及 VPBookmark 书签（含编辑器）。书签、视口助手和跨工具函数集中在这里，避免 Virtual Camera 与 Scouting 重复实现。它是工具胶水，不是完整的拍片流程。",
+    "en": "Virtual Production Utilities are shared VP helpers: VPUtilities at runtime, editor extensions, and VPBookmark (plus its editor). Bookmarks, viewport helpers, and cross-tool functions live here so Virtual Camera and Scouting do not duplicate them. It is glue, not a full shoot pipeline."
+  },
+  {
+    "slug": "virtual-scouting",
+    "kind": "plugin",
+    "cn": "Virtual Scouting 让电影人在 VR 里勘查数字场景：OpenXR 模块对接头显，VirtualScouting 运行时提供移动与测量，Editor 配置场景。用它在关卡里走位、定机位，而不是在平面视口里猜空间。面向前期勘景，不是最终像素输出。",
+    "en": "Virtual Scouting lets filmmakers walk a digital set in VR: the OpenXR module talks to the HMD, VirtualScouting runtime handles locomotion and measurement, and the Editor module configures the scene. Block shots and camera positions in the level instead of guessing in a flat viewport. It is previz scouting, not final-pixel output."
+  },
+  {
+    "slug": "virtualcamera",
+    "kind": "plugin",
+    "cn": "VirtualCamera 提供 VirtualCameraCore 所需的内容：Actor、组件蓝图与通过实体设备看机、控机的资源。代码逻辑在 Core 插件，这里是可放置的内容与编辑器扩展（VCamExtensions）。没有这套内容，Core 只有 API 没有开箱即用的摄像机。",
+    "en": "VirtualCamera ships the content VirtualCameraCore expects: actors, component blueprints, and assets for viewing and driving cameras from physical devices. Logic lives in Core; this plugin is placeable content plus VCamExtensions. Without it, Core is an API with no out-of-the-box camera."
+  },
+  {
+    "slug": "virtualcameracore",
+    "kind": "plugin",
+    "cn": "VirtualCameraCore 是虚拟摄像机的代码核心：VCamCore 组件与输出提供者、PixelStreamingVCam、蓝图节点和编辑器模块。它通过手机、平板或流送端控制引擎摄像机。内容资产在 VirtualCamera 插件里。把机位实时交给现场操作员时用这一层。",
+    "en": "VirtualCameraCore is the code core of virtual cameras: VCamCore components and output providers, PixelStreamingVCam, Blueprint nodes, and the editor module. It drives engine cameras from phones, tablets, or a streaming client. Content assets live in the VirtualCamera plugin. Use this layer when a live operator must own the camera."
+  },
+  {
+    "slug": "visual-studio-code-integration",
+    "kind": "plugin",
+    "cn": "Visual Studio Code Integration 通过 VisualStudioCodeSourceCodeAccess 把“打开源码”指到 VS Code：双击调用栈、蓝图节点或日志行时用 Code 而不是 Visual Studio。它只做 IDE 访问适配，不编译、不调试引擎。编辑器开发插件，不进游戏包。",
+    "en": "Visual Studio Code Integration routes “open source” through VisualStudioCodeSourceCodeAccess so double-clicking a callstack, Blueprint node, or log line launches VS Code instead of Visual Studio. It is an IDE accessor, not a compiler or engine debugger. Editor-only; it does not cook into the game."
+  },
+  {
+    "slug": "visual-studio-integration",
+    "kind": "plugin",
+    "cn": "Visual Studio Integration 用 VisualStudioSourceCodeAccess 把编辑器的源码跳转接到 Visual Studio。UBT 仍负责生成解决方案，这里只处理从引擎打开源文件；它与 VS Code 插件共用同一套 Source Code Access 接口，二者择一即可。",
+    "en": "Visual Studio Integration uses VisualStudioSourceCodeAccess to jump from the editor into Visual Studio. UBT still generates the solution; this plugin only opens source files and shares the Source Code Access interface with the VS Code plugin, so pick one accessor."
+  },
+  {
+    "slug": "vive-cosmos-controller-keys",
+    "kind": "plugin",
+    "cn": "Vive Cosmos Controller Keys 注册 ViveCosmos_* FKey，仅依赖 InputCore。未加载 OpenXR 时，像素流送或其他输入层仍能引用 Cosmos 控制器键名。它不实现 Cosmos 驱动，只提供键标识。",
+    "en": "Vive Cosmos Controller Keys registers ViveCosmos_* FKeys and depends only on InputCore. Pixel Streaming or other input layers can name Cosmos controller keys without loading OpenXR. It does not drive the hardware; it only publishes key ids."
+  },
+  {
+    "slug": "voice-chat-interface",
+    "kind": "plugin",
+    "cn": "Voice Chat Interface 定义引擎语音聊天的抽象：房间、设备、推流与回放接口，供各在线子系统实现。游戏代码应依赖这层而不是某个厂商 SDK。它本身不连 Vivox 或平台语音，只规定调用契约。",
+    "en": "Voice Chat Interface is the engine’s voice-chat abstraction: rooms, devices, capture, and playback for online-subsystem implementations to fill in. Game code should depend on this layer, not a vendor SDK. It does not talk to Vivox or platform voice by itself; it only defines the contract."
+  },
+  {
+    "slug": "volumetrics",
+    "kind": "plugin",
+    "cn": "Volumetrics 用蓝图工具库创建和渲染体积：雾、密度场与可视化辅助内容。它没有独立运行时模块列表，主要是可放进关卡的蓝图与材质。适合原型体积效果，高性能体积通常还要换成 Niagara 或专用渲染路径。",
+    "en": "Volumetrics is a Blueprint library for creating and rendering volumes: fog, density fields, and visualization helpers. It lists no runtime modules; most of it is placeable Blueprints and materials. Good for prototyping volumetric looks; high-performance volumes usually move to Niagara or a dedicated render path."
+  },
+  {
+    "slug": "vp8-and-vp9-software-decoder-for-electra",
+    "kind": "plugin",
+    "cn": "VPxDecoderElectra 为 Electra 播放器提供 VP8/VP9 软件解码，给没有硬件解码的平台播 WebM 类码流。性能随 CPU 波动，不能当成所有平台的首选解码器。Media Framework 在容器需要 VP8/VP9 且无原生支持时加载它。",
+    "en": "VPxDecoderElectra adds VP8/VP9 software decode to the Electra player so platforms without hardware decode can play those WebM-style bitstreams. Performance follows the CPU; it is not the preferred decoder on every platform. Media Framework loads it when a container needs VP8/VP9 and no native path exists."
+  },
+  {
+    "slug": "vtcodecs",
+    "kind": "plugin",
+    "cn": "VTCodecs 把 Apple Video Toolbox 编解码器接到 AVCodecs：VTCodecs 管会话，VTCodecsRHI 与渲染硬件接口交互。在 Apple 平台上用硬件编解码视频，而不是走纯软件路径。实验插件，编解码器集合随系统 Video Toolbox 版本变化。",
+    "en": "VTCodecs plugs Apple Video Toolbox codecs into AVCodecs: VTCodecs owns sessions, VTCodecsRHI talks to the RHI. On Apple platforms this is hardware encode/decode instead of a pure software path. Experimental; the codec set follows the OS Video Toolbox version."
+  },
+  {
+    "slug": "warp-utils",
+    "kind": "plugin",
+    "cn": "Warp Utils 生成并可视化 PFM/MPCDI 变形数据，供多通道投影与球幕校准。PFMExporter 写出变形网格，WarpUtils 在引擎里预览。虚拟制片或展览投影用它把渲染画面弯到实际屏幕几何上。",
+    "en": "Warp Utils generates and visualizes PFM/MPCDI warp data for multi-channel projection and dome calibration. PFMExporter writes warp meshes; WarpUtils previews them in-engine. Virtual production and exhibit projection use it to bend the render onto real screen geometry."
+  },
+  {
+    "slug": "water-advanced",
+    "kind": "plugin",
+    "cn": "Water Advanced 在 Niagara Fluids 与 Water 之上提供更易用的水体模拟集合：泡沫、交互与预设系统。WaterAdvancedEditor 负责放置与调参。适合要在标准水体上加流体细节的关卡，而不是从零写解算器。",
+    "en": "Water Advanced layers easier water simulations on Niagara Fluids and Water: foam, interaction, and preset systems. WaterAdvancedEditor places and tunes them. Use it when a level needs fluid detail on top of standard water bodies, not when you are writing a solver from scratch."
+  },
+  {
+    "slug": "water-extras",
+    "kind": "plugin",
+    "cn": "Water Extras 提供水体系统的示例图、测试关卡与入门内容，帮助开发者理解 Water 插件怎么摆。这些资产不打算直接打进发行包。把它当学习与回归场景，而不是产品水体。",
+    "en": "Water Extras ships sample maps, test levels, and starter content that show how to place the Water system. Those assets are not meant for a shipping product. Treat them as learning and regression scenes, not production water."
+  },
+  {
+    "slug": "water",
+    "kind": "plugin",
+    "cn": "Water 在 Landscape 上构建可衔接的河、湖、海：样条工作流、统一网格与着色、物理以及脚步涟漪、船航迹等玩法流体。Water 模块跑运行时水体，WaterEditor 编辑水体 Actor。把水体 Actor 放进关卡即可与地形过渡，不必为每种水面单独做网格。",
+    "en": "Water builds rivers, lakes, and oceans that meet Landscape: spline authoring, unified meshing and shading, physics, and gameplay fluids such as footstep ripples or boat wakes. The Water module runs the bodies; WaterEditor authors Water Body actors. Place those actors so water meets terrain without a unique mesh per shore."
+  },
+  {
+    "slug": "wave-function-collapse-experimental",
+    "kind": "plugin",
+    "cn": "Wave Function Collapse 用基于图块的模型合成铺关卡：根据邻接规则从模块库里塌缩出建筑或地块布局。WaveFunctionCollapse 模块包含工具与运行时合成。适合模块化场景的程序化拼装，规则集需要精心设计，仍属实验功能。",
+    "en": "Wave Function Collapse synthesizes tile-based layouts: it collapses a module library under adjacency rules into buildings or terrain patches. The WaveFunctionCollapse module holds the tools and runtime synthesis. It fits modular scene assembly; rule sets take care, and the feature is still experimental."
+  },
+  {
+    "slug": "wave-tables",
+    "kind": "plugin",
+    "cn": "Wave Tables 是虚幻音频引擎里波表的默认实现：把曲线/采样表交给合成与调制使用。WaveTableEditor 编辑波表资产。MetaSounds 或调制系统需要查表波形时走这里，而不是每次都解码完整音频文件。",
+    "en": "Wave Tables is the default WaveTable implementation in the Unreal Audio Engine: curves and sample tables feed synthesis and modulation. WaveTableEditor authors the assets. MetaSounds or modulators that need a lookup waveform go through this plugin instead of decoding a full audio file each time."
+  },
+  {
+    "slug": "waveform-editor",
+    "kind": "plugin",
+    "cn": "Waveform Editor 是声音波形的编辑器：查看、裁剪与变换波形，WaveformEditorWidgets 提供控件，WaveformTransformations 做处理链。它服务音频制作管线，不在游戏运行时播放声音。对 Sound Wave 做可视化编辑时打开这个工具。",
+    "en": "Waveform Editor is the editor for audio waveforms: inspect, trim, and transform them. WaveformEditorWidgets supply the controls; WaveformTransformations run the processing chain. It is an authoring tool, not a runtime player. Open it when you need a visual edit of a Sound Wave."
+  },
+  {
+    "slug": "web-authentication-plugin",
+    "kind": "plugin",
+    "cn": "Web Authentication Plugin（WebAuth）管理 Web 认证会话：浏览器或系统账户登录后把令牌交给在线子系统。它不实现具体 OAuth 提供商 UI 的全部细节，而是会话访问层。需要把网页登录接到游戏账号时使用。",
+    "en": "Web Authentication Plugin (WebAuth) manages web-authenticated sessions: after browser or system-account login it hands tokens to the online subsystem. It is a session-access layer, not a full OAuth-provider UI. Use it when a web login must attach to a game account."
+  },
+  {
+    "slug": "web-browser-to-native-proxying",
+    "kind": "plugin",
+    "cn": "Web Browser to Native Proxying 维护浏览器到原生的代理，并提供注册 UObject 绑定的钩子，让页面脚本调用引擎对象。它是嵌入式浏览器与游戏逻辑之间的桥，而不是可见的浏览器控件。Web Browser 控件要暴露游戏 API 给 JS 时依赖它。",
+    "en": "Web Browser to Native Proxying maintains the browser-to-native proxy and hooks for registering UObject bindings so page scripts can call engine objects. It is the bridge between an embedded browser and game logic, not the visible browser widget. The Web Browser widget uses it when JS must reach game APIs."
+  },
+  {
+    "slug": "web-browser",
+    "kind": "plugin",
+    "cn": "Web Browser 提供可放进 UMG 的 Web Browser 控件，在游戏或编辑器 UI 里显示网页。WebBrowserWidget 模块封装 CEF/平台浏览器后端。用它做商城、公告或内嵌文档，而不是自己嵌原生 HWND。",
+    "en": "Web Browser supplies a UMG Web Browser widget that shows web pages in game or editor UI. WebBrowserWidget wraps the CEF/platform backend. Use it for storefronts, news, or in-engine docs instead of embedding a raw HWND."
+  },
+  {
+    "slug": "web-socket-messaging",
+    "kind": "plugin",
+    "cn": "Web Socket Messaging 给引擎消息子系统加一层 WebSocket 传输，让联网机器之间收发结构化消息。它走 Messaging 总线，不是游戏复制。适合编辑器工具、设备伴侣或跨进程自动化，实验期协议细节可能变。",
+    "en": "Web Socket Messaging adds a WebSocket transport to the messaging subsystem so networked machines can send structured messages. It rides the Messaging bus, not gameplay replication. Fit for editor tools, companion devices, or cross-process automation; the protocol is still experimental."
+  },
+  {
+    "slug": "webapi",
+    "kind": "plugin",
+    "cn": "WebAPI 从 OpenAPI 等描述自动生成引擎侧 Web API：运行时客户端、编辑器、蓝图图、OpenAPI 解析和 LiquidJS 模板。用它可以把 REST 服务变成可调用的 UObject/蓝图节点。面向工具与后端集成，不是通用 HTTP 库的替代。",
+    "en": "WebAPI generates engine-side web APIs from descriptions such as OpenAPI: runtime client, editor, Blueprint graph, OpenAPI parse, and LiquidJS templates. It turns a REST service into callable UObjects and Blueprint nodes. It is for tool and backend integration, not a general HTTP replacement."
+  },
+  {
+    "slug": "webm-video-player",
+    "kind": "plugin",
+    "cn": "WebM Video Player 让 Media Framework 播放 WebM 容器：WebMMedia 解码，Editor/Factory 负责资产导入与工厂注册。它把 .webm 接到 Electra/媒体播放管线。需要在引擎里播 VP8/VP9 WebM 文件时启用，而不是用 WMF 路径硬转。",
+    "en": "WebM Video Player lets Media Framework play WebM containers: WebMMedia decodes, Editor/Factory handle asset import and factory registration. It plugs .webm into the Electra/media playback path. Enable it to play VP8/VP9 WebM files in-engine instead of forcing a WMF conversion."
+  },
+  {
+    "slug": "widget-animation-toolset",
+    "kind": "plugin",
+    "cn": "Widget Animation Toolset 给 AI 助手提供创作 UWidgetAnimation 的工具：在 UMG Widget 蓝图上处理动画生命周期与控件绑定。它不是动画编辑器 UI，而是可编程的读写接口。自动化或助手批量改 Widget 动画时走这套工具。",
+    "en": "Widget Animation Toolset gives an AI assistant tools to author UWidgetAnimation: lifecycle and widget bindings on UMG Widget Blueprints. It is not the animation editor UI; it is a programmable read/write surface. Automation or assistants that batch-edit widget animations go through this toolset."
+  },
+  {
+    "slug": "widget-finder",
+    "kind": "plugin",
+    "cn": "Widget Finder 按查询查找正在运行的 Slate 控件：把控件树镜像到可查询存储（含 SQLite/TEDS 后端），并在浏览器面板里高亮匹配。调试复杂编辑器 UI 时用查询代替在层级里手工翻。WidgetHelper 提供它与 Inspector 共享的工具。",
+    "en": "Widget Finder locates live Slate widgets by query: it mirrors the widget tree into a queryable store (SQLite/TEDS backends) and highlights matches in a browser panel. Debug dense editor UI with queries instead of walking the hierarchy by hand. WidgetHelper holds utilities shared with the Inspector."
+  },
+  {
+    "slug": "widget-helper",
+    "kind": "plugin",
+    "cn": "Widget Helper 是 Widget Finder 与 Slate Inspector 的共享工具库：遍历、命中测试与控件描述等公共代码。单独启用没有面板，只避免两套插件复制同一套反射逻辑。任何扩展这两个工具的代码都应依赖它。",
+    "en": "Widget Helper is the shared utility library for Widget Finder and Slate Inspector: walk, hit-test, and describe widgets. Enabling it alone shows no panel; it exists so the two plugins do not duplicate reflection logic. Extensions of either tool should depend on it."
+  },
+  {
+    "slug": "widget-static-analysis-toolset",
+    "kind": "plugin",
+    "cn": "Widget Static Analysis ToolSet 对 UMG 做静态分析：控件树描述、属性覆盖追踪、绑定/事件/委托连接图，供 AI 助手理解界面结构。它不运行游戏，只读蓝图与控件资产。适合自动审查 UI 绑定是否断裂。",
+    "en": "Widget Static Analysis ToolSet statically analyzes UMG: widget-tree descriptions, property-override traces, and maps of bindings, events, and delegates for an AI assistant. It does not run the game; it reads Blueprint and widget assets. Use it to audit broken UI bindings automatically."
+  },
+  {
+    "slug": "widgetautomationtests",
+    "kind": "plugin",
+    "cn": "WidgetAutomationTests 为 Slate/UMG 控件提供自动化测试模块，验证点击、焦点与布局在编辑器或测试环境中的行为。它不是玩家可见的 UI。改控件框架后应跑这些测试以防回归。",
+    "en": "WidgetAutomationTests is the automation module for Slate/UMG widgets: clicks, focus, and layout under editor or test harnesses. It is not player-facing UI. Run it after widget-framework changes to catch regressions."
+  },
+  {
+    "slug": "windows-device-profile-selector",
+    "kind": "plugin",
+    "cn": "Windows Device Profile Selector 在 Windows 上根据机器能力挑选 Device Profile，从而套用可伸缩性、分辨率与质量设置。WindowsDeviceProfileSelector 在启动时运行，影响后续渲染与音频配置。笔记本到工作站的档位分流靠它，而不是手写 ini 分支。",
+    "en": "Windows Device Profile Selector picks a Device Profile on Windows from machine capability, which then drives scalability, resolution, and quality. WindowsDeviceProfileSelector runs at startup and shapes later render and audio config. Laptops versus workstations branch here instead of through hand-written ini forks."
+  },
+  {
+    "slug": "windows-dualshock",
+    "kind": "plugin",
+    "cn": "Windows DualShock（WinDualShock）在 Windows 上把 PS4 DualShock 作为 InputDevice 接入：按键、摇杆与震动走引擎输入。没有它时 Windows 构建通常只看到 XInput 手柄。需要 DualShock 特性时在 Win64 目标启用。",
+    "en": "Windows DualShock (WinDualShock) is the Windows InputDevice plugin for the PS4 DualShock: buttons, sticks, and rumble enter engine input. Without it, Windows builds typically only see XInput pads. Enable it on Win64 targets that need DualShock features."
+  },
+  {
+    "slug": "windows-mixed-reality-controller-keys",
+    "kind": "plugin",
+    "cn": "Windows Mixed Reality Controller Keys 注册 MixedReality_* FKey，仅依赖 InputCore。未启用 OpenXR 时，流送或自定义绑定仍能引用 WMR 控制器键。它不启动 WMR 运行时。",
+    "en": "Windows Mixed Reality Controller Keys registers MixedReality_* FKeys with InputCore only. Streaming or custom bindings can name WMR controller keys without enabling OpenXR. It does not start the WMR runtime."
+  },
+  {
+    "slug": "windows-movie-player",
+    "kind": "plugin",
+    "cn": "Windows Movie Player 用 Media Foundation 在 Windows 上播开场片和全屏影片，是平台特定的启动影片播放器。它不是通用 Media Framework 播放器，只覆盖启动/过场那条路径。Win64 启动 Logo 或公司影片通常走这里。",
+    "en": "Windows Movie Player uses Media Foundation on Windows to play startup and fullscreen movies—the platform-specific startup movie player. It is not the general Media Framework player; it covers the boot/cutscene path only. Win64 startup logos and company movies typically go through it."
+  },
+  {
+    "slug": "windows-rawinput",
+    "kind": "plugin",
+    "cn": "Windows RawInput 通过 Raw Input API 接收飞行摇杆、方向盘等非 XInput 设备。RawInput 模块把这些 HID 报进来映射成引擎轴与键。模拟器、赛车盘在 Windows 上要越过 XInput 限制时用它。实验接口，设备表可能扩展。",
+    "en": "Windows RawInput receives flight sticks, steering wheels, and other non-XInput devices through the Raw Input API. The RawInput module maps those HID reports into engine axes and keys. Sim rigs and wheels on Windows that outgrow XInput use this path. Experimental; the device table can grow."
+  },
+  {
+    "slug": "windows-virtual-keyboard",
+    "kind": "plugin",
+    "cn": "Windows Virtual Keyboard（WinVirtualKeyboard）在 Windows 11（内部版本 26100.5061 及以上）上调出系统虚拟键盘，供触摸或平板输入文本。它对接引擎的虚拟键盘接口，而不是自绘一套 IME。桌面键鼠玩法通常用不到。",
+    "en": "Windows Virtual Keyboard (WinVirtualKeyboard) shows the system virtual keyboard on Windows 11 (build 26100.5061 or later) for touch or tablet text entry. It implements the engine virtual-keyboard interface rather than drawing a custom IME. Mouse-and-keyboard desktop play rarely needs it."
+  },
+  {
+    "slug": "wizard-for-mobile-packaging-scenarios",
+    "kind": "plugin",
+    "cn": "Mobile Launcher Profile Wizard 用向导引导移动打包场景：选择设备配置、启动参数与打包选项，生成 Launcher Profile。它是编辑器制作工具，不进入手机包体。减少手写 Project Launcher 配置的出错。",
+    "en": "The Mobile Launcher Profile Wizard walks mobile packaging scenarios: device configs, launch args, and cook options become a Launcher Profile. It is an editor authoring tool and does not ship in the mobile package. It cuts errors from hand-writing Project Launcher configs."
+  },
+  {
+    "slug": "wmf-media-player",
+    "kind": "plugin",
+    "cn": "WMF Media Player 用 Windows Media Foundation 实现 Media Framework 播放器：WmfMedia 解码，Factory 注册可播放的容器。Windows 上的 mp4/wmv 等格式常走这条路径。与启动用的 Windows Movie Player 不同，它服务游戏内 Media Player 组件。",
+    "en": "WMF Media Player implements a Media Framework player on Windows Media Foundation: WmfMedia decodes, Factories register playable containers. Windows mp4/wmv-style files often take this path. Unlike Windows Movie Player (startup movies), this serves in-game Media Player components."
+  },
+  {
+    "slug": "wmfcodecs",
+    "kind": "plugin",
+    "cn": "WMFCodecs 把 Windows Media Foundation 编解码器接入 AVCodecs，供统一编解码抽象在 Windows 上调用系统编解码。它不提供播放器 UI。实验层上的 codec 枚举取决于本机 WMF 组件。",
+    "en": "WMFCodecs adds Windows Media Foundation codecs to AVCodecs so the shared codec abstraction can call OS codecs on Windows. It does not provide a player UI. The experimental codec list follows which WMF components are installed."
+  },
+  {
+    "slug": "workspace",
+    "kind": "plugin",
+    "cn": "Workspace 提供统一工作区 UI，让多种资产在同一编辑器框架里并排编辑，而不是每个资产一个孤立窗口。WorkspaceEditor 实现布局、文档与停靠。适合需要同时改关卡、数据表与控件的流程。仍属实验编辑器框架。",
+    "en": "Workspace is an editor framework that edits multiple assets in one unified UI instead of one isolated window per asset. WorkspaceEditor implements layout, documents, and docking. Use it when a flow must change a level, a data table, and a widget at once. The framework is still experimental."
+  },
+  {
+    "slug": "world-conditions",
+    "kind": "plugin",
+    "cn": "World Conditions 提供可缓存的通用世界条件：在 AI、智能对象或玩法规则里查询“世界此刻是否满足某条件”，并缓存结果避免每帧重算。Editor 与 TestSuite 覆盖创作与回归。用声明式条件代替散落的布尔检查。",
+    "en": "World Conditions are general-purpose cached conditions: AI, smart objects, or gameplay rules ask whether the world currently satisfies a condition, and results are cached instead of recomputed every frame. Editor and TestSuite cover authoring and regression. Replace scattered bool checks with declarative conditions."
+  },
+  {
+    "slug": "world-metrics",
+    "kind": "plugin",
+    "cn": "World Metrics 暴露世界指标系统：WorldMetricsCore 采集，CsvMetrics 写出 CSV，Test 模块验证。用它观察流送、Actor 数量或自定义世界健康度，而不是只靠 stat 命令。面向分析与性能，不是玩法存档。",
+    "en": "World Metrics exposes the world metrics system: WorldMetricsCore collects, CsvMetrics writes CSV, and the Test module verifies. Watch streaming, actor counts, or custom world health without relying only on stat commands. It is profiling, not a gameplay save."
+  },
+  {
+    "slug": "world-partition-hlod-utilities",
+    "kind": "plugin",
+    "cn": "World Partition HLOD Utilities 提供世界分区 HLOD 的编辑器工具类与 HLOD Layer 资产类型，用于生成、分层与维护远景代理。它在编辑器里构建 HLOD，运行时由世界分区加载结果。大世界远景网格的烘焙入口在这里。",
+    "en": "World Partition HLOD Utilities supply editor utility classes and HLOD Layer asset types for building, layering, and maintaining distant proxies. HLODs are built in the editor; World Partition loads the results at runtime. This is the bake entry for large-world distant meshes."
+  },
+  {
+    "slug": "world-streaming-insights",
+    "kind": "plugin",
+    "cn": "World Streaming Insights 分析、调试和监视世界流送：单元格加载、HLOD 切换与卡顿来源。它接到 Insights/分析工具，而不是改关卡内容。排查开放世界 hitch 时用这套视图看流送是否跟得上摄像机。",
+    "en": "World Streaming Insights profiles, debugs, and monitors world streaming: cell loads, HLOD swaps, and hitch sources. It plugs into Insights rather than editing level content. Use its views when open-world hitches might be streaming lagging the camera."
+  },
+  {
+    "slug": "worldconditionstoolset",
+    "kind": "plugin",
+    "cn": "WorldConditionsToolset 是检查 World Conditions 的工具集，给编辑器 AI 助手或自动化读写条件图。它不是运行时条件求值器（那是 World Conditions 插件）。实验工具，面向制作期检查。",
+    "en": "WorldConditionsToolset inspects World Conditions for an in-editor AI assistant or automation that reads and writes condition graphs. It is not the runtime evaluator—that is the World Conditions plugin. Experimental tooling for author-time inspection."
+  },
+  {
+    "slug": "xcode-gpu-debugger-plugin",
+    "kind": "plugin",
+    "cn": "Xcode GPU Debugger Plugin 把引擎的 GPU 捕获接到 Xcode GPU 调试器，便于在 Apple 平台上检查 Metal 帧。它是开发期图形调试集成，不改变运行时着色。只在 Mac 编辑器工作流中有意义。",
+    "en": "Xcode GPU Debugger Plugin connects engine GPU captures to Xcode’s GPU debugger so you can inspect Metal frames on Apple platforms. It is a development graphics integration and does not change runtime shading. It only matters in a Mac editor workflow."
+  },
+  {
+    "slug": "xcode-integration",
+    "kind": "plugin",
+    "cn": "XCode Integration 通过 XCodeSourceCodeAccess 从编辑器打开 Xcode 中的源文件。与 VS/VS Code 访问插件同类，只是 IDE 换成 Xcode。UBT 生成的 Xcode 工程仍独立存在；这里只处理跳转。",
+    "en": "Xcode Integration opens source files in Xcode via XCodeSourceCodeAccess. It is the same Source Code Access idea as the Visual Studio plugins, pointed at Xcode. UBT still generates the Xcode project; this plugin only performs the jump."
+  },
+  {
+    "slug": "xge-controller",
+    "kind": "plugin",
+    "cn": "XGE Controller 把着色器编译分发到 IncrediBuild/XGE 网络，缩短本地着色器编译时间。XGEController 与构建机器通信，不参与游戏运行。团队已部署 XGE 时用它加速 shader 构建。",
+    "en": "XGE Controller distributes shader compiles across an IncrediBuild/XGE network to cut local shader compile time. XGEController talks to the build farm and never runs in the game. Enable it when the team already has XGE for faster shader builds."
+  },
+  {
+    "slug": "xinput-device",
+    "kind": "plugin",
+    "cn": "XInput Device 在 Windows 上实现 XInput 游戏手柄：Xbox 兼容手柄的按键、扳机与震动进入引擎。这是 Win64 最常见的手柄路径。飞行摇杆等非 XInput 设备应走 RawInput，而不是这个模块。",
+    "en": "XInput Device implements the XInput gamepad API on Windows: Xbox-compatible buttons, triggers, and rumble enter the engine. It is the usual Win64 gamepad path. Flight sticks and other non-XInput hardware belong on RawInput, not this module."
+  },
+  {
+    "slug": "xr-creative-framework",
+    "kind": "plugin",
+    "cn": "XR Creative Framework 为 XR 创作提供运行时（XRCreative）与编辑器（XRCreativeEditor）框架，用来在头显里做场景布局与工具交互。它是虚拟制片/XR 工具的底座，而不是某个具体头显驱动。实验期的工具 API 仍会变。",
+    "en": "XR Creative Framework is a runtime (XRCreative) plus editor (XRCreativeEditor) for authoring in XR: layout and tool interaction inside an HMD. It is a base for VP/XR tools, not a headset driver. Tool APIs on the experimental track can still move."
+  },
+  {
+    "slug": "xrbase",
+    "kind": "plugin",
+    "cn": "XRBase 实现 XR 基础能力：立体渲染挂钩、跟踪原点与通用 XR 工具，通常被 OpenXR 或其他 XR 插件自动启用。XRBaseEditor 提供编辑器侧设置。不要把它当完整的 OpenXR 运行时，它是共享地基。",
+    "en": "XRBase implements shared XR features: stereo render hooks, tracking origins, and common XR utilities, usually auto-enabled by OpenXR or another XR plugin. XRBaseEditor exposes editor settings. It is not a full OpenXR runtime; it is the shared foundation."
+  },
+  {
+    "slug": "xrscribe",
+    "kind": "plugin",
+    "cn": "XRScribe 捕获并仿真 OpenXR API 调用，便于录下一次 XR 会话再回放调试，而无需一直戴头显。它面向 XR 运行时开发与回归，不是玩家功能。排查 OpenXR 层问题时用捕获文件复现。",
+    "en": "XRScribe captures and emulates OpenXR API calls so you can record an XR session and replay it without wearing a headset. It is for XR runtime development and regression, not players. Reproduce OpenXR-layer bugs from a capture file."
+  },
+  {
+    "slug": "xrvisualization",
+    "kind": "plugin",
+    "cn": "XRVisualization 绘制 XR 头显与控制器的可视化模型，在编辑器或调试视图里显示设备姿态。它不驱动输入，只帮助确认跟踪是否合理。搭配 OpenXR 调试控制器模型是否对齐。",
+    "en": "XRVisualization draws visualization meshes for XR HMDs and controllers so editor or debug views show device pose. It does not drive input; it confirms tracking looks sane. Pair it with OpenXR to see whether controller models line up."
+  },
+  {
+    "slug": "zonegraph-annotations",
+    "kind": "plugin",
+    "cn": "ZoneGraph Annotations 在 Zone Graph 上叠加标注：车道属性、区域语义或 AI 可查询的附加层。Mass/交通 AI 读这些标注决定行为，而不是改底层图几何。先有 ZoneGraph 网格，再铺标注。",
+    "en": "ZoneGraph Annotations overlay annotations on a Zone Graph: lane attributes, region semantics, or extra layers AI can query. Mass/traffic AI reads those annotations instead of changing graph geometry. Author the ZoneGraph mesh first, then stamp annotations."
+  },
+  {
+    "slug": "zonegraph",
+    "kind": "plugin",
+    "cn": "ZoneGraph 是面向交通与人群的分区导航图：用走廊与车道代替传统 Recast 导航网格来约束车辆或行人。ZoneGraph 运行时求路径，Editor 绘制图，Debug/TestSuite 做可视化与测试。开放世界交通 AI 用它沿道路网络移动。",
+    "en": "ZoneGraph is a zonal navigation graph for traffic and crowds: corridors and lanes constrain vehicles or pedestrians instead of a classic Recast navmesh. Runtime pathing lives in ZoneGraph, drawing in the Editor, with Debug and TestSuite for visualization and tests. Open-world traffic AI follows this road network."
+  },
+  {
+    "slug": "abseil",
+    "kind": "module",
+    "cn": "abseil 把 Google Abseil C++ 库引进引擎第三方层，提供字符串、容器与底层工具的实现。它没有声明的引擎模块依赖，由需要 Abseil API 的代码直接链接。游戏玩法模块通常不直接包含它，而是由网络或工具库间接使用。",
+    "en": "abseil brings Google’s Abseil C++ library into the engine third-party layer: strings, containers, and low-level utilities. It declares no engine module dependencies; code that needs Abseil APIs links it directly. Gameplay modules rarely include it; networking or tooling libraries consume it indirectly."
+  },
+  {
+    "slug": "actorpickermode",
+    "kind": "module",
+    "cn": "ActorPickerMode 实现编辑器里“点选 Actor”的交互模式：鼠标拾取、高亮与确认回调，供属性里的 Actor 引用或工具点选场景对象。它依赖 Interactive Tools 与 Typed Element，把拾取接到编辑器视口。任何“点一下关卡里的那个 Actor”的 UI 都走这套模式。",
+    "en": "ActorPickerMode is the editor mode for picking an Actor in the viewport: hit-test, highlight, and a confirm callback for Actor references or tools. It sits on Interactive Tools and Typed Element to talk to the viewport. Any “click that Actor in the level” UI uses this mode."
+  },
+  {
+    "slug": "addcontentdialog",
+    "kind": "module",
+    "cn": "AddContentDialog 实现编辑器“添加内容”对话框：浏览功能包、示例与可下载内容并添加到项目。它监视目录、读 JSON/Pak 清单并用 Slate 轮播展示。从启动或内容浏览器打开的功能包安装流程由它驱动。",
+    "en": "AddContentDialog implements the editor Add Content dialog: browse feature packs, samples, and downloadable content into the project. It watches directories, reads JSON/Pak manifests, and presents a Slate carousel. Feature-pack install from startup or the Content Browser is driven here."
+  },
+  {
+    "slug": "adpcmaudiodecoder",
+    "kind": "module",
+    "cn": "AdpcmAudioDecoder 在运行时解码 ADPCM 音频，把压缩采样转成引擎音频混合器可用的 PCM。它依赖 Core 与 Engine 音频路径，体积小、CPU 开销低，适合内存敏感平台上的音效。波形编辑不在这里，只做播放解码。",
+    "en": "AdpcmAudioDecoder decodes ADPCM at runtime into PCM the audio mixer can play. It depends on Core and the Engine audio path; the format is small and cheap, which suits memory-sensitive platforms. Waveform editing is elsewhere; this module only decodes for playback."
+  },
+  {
+    "slug": "advancedpreviewscene",
+    "kind": "module",
+    "cn": "AdvancedPreviewScene 为资产编辑器提供带环境光、地板与交互工具的高级预览场景，角色、网格或材质预览都用它。它把 UnrealEd 视口与 Interactive Tools 组成可旋转、可调光的预览世界。自定义资产编辑器通常嵌入这个场景而不是自建 PreviewScene。",
+    "en": "AdvancedPreviewScene gives asset editors a preview world with lighting, a floor, and interactive tools—characters, meshes, and materials preview here. It composes an UnrealEd viewport with Interactive Tools into an orbitable, lightable scene. Custom asset editors embed this instead of rolling their own PreviewScene."
+  },
+  {
+    "slug": "advancedwidgets",
+    "kind": "module",
+    "cn": "AdvancedWidgets 提供比基础 UMG 更复杂的运行时/编辑器控件，并与蓝图图、属性编辑器集成。细节面板或工具 UI 里的专用图表、选择器往往来自这里。它同时被游戏 UMG 与编辑器 Slate 使用，取决于调用方。",
+    "en": "AdvancedWidgets supplies widgets richer than basic UMG, wired into Blueprint graphs and the property editor. Specialized charts and pickers in details panels or tool UI often come from here. Game UMG and editor Slate both consume it, depending on the caller."
+  },
+  {
+    "slug": "advertising",
+    "kind": "module",
+    "cn": "Advertising 定义移动广告的引擎抽象：请求、展示与回调接口，供 Android 等平台模块实现。游戏代码应调用这层，以便切换广告供应商时少改玩法。它本身不嵌入某个广告 SDK。",
+    "en": "Advertising is the engine abstraction for mobile ads: request, show, and callback interfaces that platform modules such as Android fill in. Game code should call this layer so swapping ad vendors does not rewrite gameplay. It does not embed a vendor SDK itself."
+  },
+  {
+    "slug": "agilitysdk",
+    "kind": "module",
+    "cn": "AgilitySDK 打包微软 DirectX 12 Agility SDK 重分发，让 Windows 构建带上比操作系统更新的 D3D12 运行时组件。它没有引擎模块依赖，由 D3D12 RHI 在需要时拉取。用来在旧系统上启用较新的 D3D12 特性。",
+    "en": "AgilitySDK redistributes Microsoft’s DirectX 12 Agility SDK so Windows builds can ship a newer D3D12 runtime than the OS. It has no engine module dependencies; D3D12 RHI pulls it when needed. Use it to unlock newer D3D12 features on older systems."
+  },
+  {
+    "slug": "aigraph",
+    "kind": "module",
+    "cn": "AIGraph 是行为树、EQS 等 AI 资产的图表编辑基础设施：节点、连线、GraphEditor 集成与工具菜单。它不执行 AI，只提供画图与编译前的图表示。行为树编辑器建立在这套图上。",
+    "en": "AIGraph is graph-editor infrastructure for AI assets such as Behavior Trees and EQS: nodes, wires, GraphEditor integration, and tool menus. It does not execute AI; it is the on-disk and on-screen graph. The Behavior Tree editor is built on this graph."
+  },
+  {
+    "slug": "aimodule",
+    "kind": "module",
+    "cn": "AIModule 是引擎 AI 运行时核心：行为树、黑板、EQS、感知与 AIController 都在这里，并接到导航、Gameplay Tasks 与 Tags。几乎所有游戏 AI 代码最终依赖它。编辑器里的 AI 图编译后也在这个模块里跑。",
+    "en": "AIModule is the engine AI runtime: Behavior Trees, Blackboards, EQS, perception, and AIController, wired to navigation, Gameplay Tasks, and Tags. Almost all game AI code ends up depending on it. AI graphs authored in the editor execute here after compile."
+  },
+  {
+    "slug": "aitestsuite",
+    "kind": "module",
+    "cn": "AITestSuite 用 CQTest 覆盖 AIModule：行为树节点、任务与感知等回归。它不提供运行时 AI 功能，只在开发者测试目标中链接。改 AI 运行时后应跑这一套。",
+    "en": "AITestSuite covers AIModule with CQTest: Behavior Tree nodes, tasks, and perception regressions. It adds no runtime AI; it links only into developer test targets. Run it after AI runtime changes."
+  },
+  {
+    "slug": "alembiclib",
+    "kind": "module",
+    "cn": "AlembicLib 封装 Alembic 缓存库（依赖 Imath），供几何缓存导入读取 .abc 层级与采样。它是第三方包装，不包含 Unreal 资产编辑器。Geometry Cache / Alembic 导入器在这层之上解析时间采样网格。",
+    "en": "AlembicLib wraps the Alembic cache library (via Imath) so geometry-cache import can read .abc hierarchies and samples. It is a third-party wrapper, not an Unreal asset editor. Geometry Cache / Alembic importers parse time-sampled meshes on top of it."
+  },
+  {
+    "slug": "amd_ags",
+    "kind": "module",
+    "cn": "AMD_AGS 引入 AMD GPU Services 库，用于查询 AMD 显卡特性、驱动版本与厂商扩展。RHI 或平台代码在 Windows 上识别 AMD 硬件时链接它。游戏模块不应直接调用 AGS。",
+    "en": "AMD_AGS brings in AMD GPU Services to query AMD GPU features, driver version, and vendor extensions. RHI or platform code links it on Windows when identifying AMD hardware. Gameplay modules should not call AGS directly."
+  },
+  {
+    "slug": "amf",
+    "kind": "module",
+    "cn": "Amf 包装 AMD Advanced Media Framework，提供 AMD 硬件视频编解码接口给引擎媒体/编解码插件。它是第三方 SDK 入口，不含播放器 UI。在 AMD GPU 上走硬件编码时由上层 codec 插件加载。",
+    "en": "Amf wraps AMD Advanced Media Framework so engine media/codec plugins can call AMD hardware video encode and decode. It is a third-party SDK entry, not a player UI. Upper codec plugins load it when encoding on AMD GPUs."
+  },
+  {
+    "slug": "analytics",
+    "kind": "module",
+    "cn": "Analytics 定义遥测抽象：事件、属性与会话，供 CSV、Epic Telemetry、Horde 等提供者实现。游戏应记录到这个接口，以便更换后端。它不发送网络请求，只规定事件形状。",
+    "en": "Analytics defines the telemetry abstraction: events, attributes, and sessions that providers such as CSV, Epic Telemetry, and Horde implement. Games should record through this interface so the backend can change. It does not send network requests; it only shapes events."
+  },
+  {
+    "slug": "analyticscsv",
+    "kind": "module",
+    "cn": "AnalyticsCSV 把 Analytics 事件写到本地 CSV，便于离线查看或导入表格。没有 HTTP，适合编辑器或无后端的开发期埋点。切换到正式遥测服务前常用它验证事件字段。",
+    "en": "AnalyticsCSV writes Analytics events to local CSV for offline inspection or spreadsheet import. There is no HTTP; it fits editor or backend-less development telemetry. Validate event fields here before switching to a real telemetry service."
+  },
+  {
+    "slug": "analyticset",
+    "kind": "module",
+    "cn": "AnalyticsET 通过 HTTP 与 JSON 把事件发到 Epic Telemetry 后端。它实现 Analytics 提供者接口，是官方在线遥测路径之一。发行构建若走 Epic 数据管道，通常启用这个模块。",
+    "en": "AnalyticsET sends events to the Epic Telemetry backend over HTTP and JSON. It implements the Analytics provider interface and is one of the official online telemetry paths. Shipping builds that feed Epic’s data pipeline typically enable this module."
+  },
+  {
+    "slug": "analyticshorde",
+    "kind": "module",
+    "cn": "AnalyticsHorde 把分析事件接到 Horde：在构建农场与 CI 情境下收集引擎/编辑器遥测。它建立在 Analytics 与 AnalyticsET 之上，面向基础设施而不是玩家分析面板。用 Horde 盯编译器或自动化健康度时走这条提供者。",
+    "en": "AnalyticsHorde routes analytics events into Horde for engine/editor telemetry in build-farm and CI contexts. It builds on Analytics and AnalyticsET and targets infrastructure, not a player analytics dashboard. Use this provider when Horde watches compiler or automation health."
+  },
+  {
+    "slug": "analyticslog",
+    "kind": "module",
+    "cn": "AnalyticsLog 把分析事件打印到引擎日志，方便在 Output Log 里核对埋点是否触发。它不持久化、不上传。调试新事件名称与属性时最轻量。",
+    "en": "AnalyticsLog prints analytics events to the engine log so you can confirm a breadcrumb fired in the Output Log. It neither persists nor uploads. It is the lightest way to debug new event names and attributes."
+  },
+  {
+    "slug": "analyticsswrve",
+    "kind": "module",
+    "cn": "AnalyticsSwrve 把 Analytics 事件通过 HTTP/JSON 发到 Swrve 运营分析服务。它是第三方提供者实现，游戏仍只调用 Analytics 接口。需要 Swrve 活动与漏斗时启用，而不是自己拼 REST。",
+    "en": "AnalyticsSwrve posts Analytics events to the Swrve live-ops service over HTTP/JSON. It is a third-party provider; the game still calls the Analytics interface. Enable it for Swrve campaigns and funnels instead of hand-rolling REST."
+  },
+  {
+    "slug": "analyticsvisualediting",
+    "kind": "module",
+    "cn": "AnalyticsVisualEditing 提供分析相关的可视化编辑与开发者设置，让策划在编辑器里配置事件或查看埋点相关选项。它依赖 DeveloperSettings 与 Engine，服务制作期而不是发送管线。改遥测配置资产时会碰到这个模块。",
+    "en": "AnalyticsVisualEditing adds visual editing and developer settings for analytics so designers can configure events or inspect breadcrumb options in the editor. It depends on DeveloperSettings and Engine and serves authoring, not the send pipeline. Editing telemetry config assets hits this module."
+  },
+  {
+    "slug": "androidadvertising",
+    "kind": "module",
+    "cn": "AndroidAdvertising 在 Android 上实现 Advertising 抽象：对接平台广告 SDK 的请求与展示回调。游戏仍调用 Advertising 接口，由该模块在 JNI/Java 侧落地。只对 Android 目标有意义。",
+    "en": "AndroidAdvertising implements the Advertising abstraction on Android: request and show callbacks against the platform ad SDK. The game still calls Advertising; this module lands those calls on the JNI/Java side. It only matters on Android targets."
+  }
+]

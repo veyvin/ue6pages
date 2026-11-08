@@ -1,0 +1,338 @@
+[
+  {
+    "slug": "custom-details-view",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 的 Virtual Production 分组启用 `Custom Details View`（模块 `CustomDetailsView`）并重启；它是可嵌入的属性树工厂，不是关卡组件。",
+      "在你的编辑器/VP 模块 `Build.cs` 加入 `CustomDetailsView`，`#include \"CustomDetailsViewModule.h\"` 与 `ICustomDetailsView.h`。",
+      "调用 `ICustomDetailsViewModule::Get().CreateCustomDetailsView(FCustomDetailsViewArgs)` 拿到 `TSharedRef<ICustomDetailsView>`；在 `FCustomDetailsViewArgs` 里设 `bAllowSearch`、`bShowKeyable`、要排除的类别。",
+      "对选中的 `UObject`/`AActor` 调用 `SetObjects`，把返回的 Slate（`SCustomDetailsView`）塞进 Remote Control、nDisplay 或自研 VP 面板，而不是打开默认 `Details` 面板。",
+      "用 `FCustomDetailsViewItemId` / `GetRootItem` 只展开需要的属性路径；属性改完后走对象自己的事务，确认关卡里对应 Actor 已脏且可撤销。",
+      "不要把 `CustomDetailsView` 写进 Game Target；Shipping 包没有这套编辑器细节视图。"
+    ],
+    "en_steps": [
+      "Enable `Custom Details View` under `Edit > Plugins` (Virtual Production, module `CustomDetailsView`) and restart. It is an embeddable property-tree factory, not a level component.",
+      "Add `CustomDetailsView` to your editor/VP module `Build.cs` and include `CustomDetailsViewModule.h` plus `ICustomDetailsView.h`.",
+      "Call `ICustomDetailsViewModule::Get().CreateCustomDetailsView(FCustomDetailsViewArgs)` to get a `TSharedRef<ICustomDetailsView>`; set `bAllowSearch`, `bShowKeyable`, and category filters on `FCustomDetailsViewArgs`.",
+      "Pass selected `UObject`/`AActor` instances to `SetObjects` and host the `SCustomDetailsView` widget inside Remote Control, nDisplay, or a custom VP panel instead of the default Details tab.",
+      "Use `FCustomDetailsViewItemId` / `GetRootItem` to expand only the property paths you need; edits go through the object's transaction so the actor dirties and undo works.",
+      "Keep `CustomDetailsView` off Game targets; shipping builds do not host this editor details view."
+    ],
+    "note_cn": "VP 用的嵌入式 Details 控件，不是 Window 菜单里的独立工具。",
+    "note_en": "Embedded VP details widget, not a standalone Window-menu tool."
+  },
+  {
+    "slug": "custom-mesh-component",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Custom Mesh Component`（运行时模块 `CustomMeshComponent`）；游戏模块 `Build.cs` 加上同名依赖。",
+      "给 Actor 添加 `UCustomMeshComponent`（蓝图组件名 `Custom Mesh`），指定材质槽 0 的 `UMaterialInterface`。",
+      "在蓝图或 C++ 填 `TArray<FCustomMeshTriangle>`：每个三角是 `Vertex0`/`Vertex1`/`Vertex2`（`FVector`），再调用 `SetCustomMeshTriangles`。",
+      "运行中增量网格用 `AddCustomMeshTriangles`；整段重建前先 `ClearCustomMeshTriangles`，避免旧三角残留。",
+      "PIE 里从不同角度检查法线朝向（顶点顺序为顺时针/逆时针）；需要碰撞时另挂 `UProceduralMeshComponent` 或静态碰撞，本组件只负责渲染。",
+      "比 `Procedural Mesh Component` 更轻：无 UV/切线/多段碰撞 API，适合调试线框、简单动态面片，不要用它替代完整 PMC/Geometry Script。"
+    ],
+    "en_steps": [
+      "Enable `Custom Mesh Component` (runtime module `CustomMeshComponent`) and add that module to the game `Build.cs`.",
+      "Add a `UCustomMeshComponent` (`Custom Mesh`) to an actor and assign a `UMaterialInterface` on element 0.",
+      "Fill a `TArray<FCustomMeshTriangle>` whose `Vertex0`/`Vertex1`/`Vertex2` are `FVector`s, then call `SetCustomMeshTriangles`.",
+      "Use `AddCustomMeshTriangles` for incremental updates; call `ClearCustomMeshTriangles` before a full rebuild so stale triangles do not remain.",
+      "In PIE, orbit the mesh to check winding/normals. Add a separate `UProceduralMeshComponent` or static collision if you need physics — this component is render-only.",
+      "Lighter than Procedural Mesh Component: no UV/tangent/section-collision API. Use it for debug surfaces and simple dynamic patches, not as a PMC/Geometry Script replacement."
+    ],
+    "note_cn": "可进包装的运行时网格；只有三角列表，没有 PMC 那套分段与碰撞。",
+    "note_en": "Shippable runtime mesh; triangle list only, no PMC sections or collision."
+  },
+  {
+    "slug": "customizable-sequencer-tracks-experimental",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `Customizable Sequencer Tracks (Experimental)`（运行时 `CustomizableSequencerTracks`，编辑器 `CustomizableSequencerTracksEditor`）。",
+      "内容浏览器右键 `Blueprint Class`，父类选 `MovieSceneCustomizableTrack` / `UMovieSceneCustomizableTrack`（以及配套的 Customizable Section）。",
+      "在该蓝图里实现求值逻辑：按时间读取 Section 参数，写到绑定对象的属性或调用自定义函数；编译蓝图。",
+      "打开关卡 `Sequencer`，`+ Track` 添加你的自定义轨道类型，创建 Section，在曲线/关键帧上刷参数。",
+      "把轨道绑定到场景 Actor；播放/PIE 时确认自定义求值在 Tick 里改了目标，而不是普通 Transform/Animation 轨。",
+      "游戏模块只依赖 `CustomizableSequencerTracks`；`CustomizableSequencerTracksEditor` 仅进 Editor Target。",
+      "接口仍是 Experimental，不要把该轨类型写进必须跨引擎版本升级的过场资产。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Customizable Sequencer Tracks (Experimental)` (runtime `CustomizableSequencerTracks`, editor `CustomizableSequencerTracksEditor`).",
+      "Create a Blueprint class parented to `MovieSceneCustomizableTrack` / `UMovieSceneCustomizableTrack` (and the matching Customizable Section).",
+      "Implement evaluation in that Blueprint: read section parameters by time and write bound-object properties or custom functions, then compile.",
+      "In level `Sequencer`, `+ Track` your customizable track type, add a section, and key its parameters.",
+      "Bind the track to a scene actor; play/PIE and confirm custom evaluation mutates the target — it is not a Transform/Animation track.",
+      "Game modules depend on `CustomizableSequencerTracks` only; `CustomizableSequencerTracksEditor` stays on Editor targets.",
+      "The API is Experimental; do not bake this track type into cinematics that must survive engine upgrades."
+    ],
+    "note_cn": "蓝图可扩展的 Sequencer 轨，不是内置 Animation/Audio 轨的替代分类。",
+    "note_en": "Blueprintable Sequencer tracks, not a stand-in for built-in Animation/Audio tracks."
+  },
+  {
+    "slug": "d3d12-hardware-accelerated-video-decoding-plugin-for-the-electra-media-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `Electra Player` 与 `D3D12 Hardware accelerated video decoding plugin for the Electra media player`（模块 `D3D12VideoDecodersElectra`）。",
+      "在 `Project Settings > Engine > Rendering` 把 Default RHI 设为 `DirectX 12`；该解码器走 D3D12 Video，D3D11/Vulkan 不会走这条路径。",
+      "导入或指向 H.264/H.265 等 GPU 可硬解的封装，创建 `File Media Source`（或 Stream Media Source）和 `Media Player`，Player 选 Electra 而非 WMF。",
+      "把 `Media Texture` 接到材质或 `Media Plate`，蓝图调用 `Open Source` → `Play`。",
+      "看 Output Log 是否出现 `D3D12VideoDecodersElectra` 硬件解码成功；若回落到软件解码，检查 GPU 驱动、编解码器配置文件和 DXGI 适配器。",
+      "打包 Windows D3D12 目标时保留该插件；不要把它当独立 Media Component 加到 Actor 上。"
+    ],
+    "en_steps": [
+      "Enable both `Electra Player` and `D3D12 Hardware accelerated video decoding plugin for the Electra media player` (module `D3D12VideoDecodersElectra`).",
+      "Set Default RHI to `DirectX 12` in `Project Settings > Engine > Rendering`; this decoder uses D3D12 Video and will not run on D3D11/Vulkan.",
+      "Point a `File Media Source` (or stream source) at an H.264/H.265 file the GPU can decode, create a `Media Player`, and select Electra rather than WMF.",
+      "Assign the `Media Texture` to a material or `Media Plate` and Blueprint `Open Source` → `Play`.",
+      "Confirm `D3D12VideoDecodersElectra` hardware decode in the Output Log; if it falls back to software, check the GPU driver, codec profile, and DXGI adapter.",
+      "Keep the plugin on Windows D3D12 packaged targets. Do not add it as a Media Component on an actor."
+    ],
+    "note_cn": "Electra 的 D3D12 硬解后端，不是新的播放器 UI。",
+    "note_en": "Electra’s D3D12 hardware-decode backend, not a new player UI."
+  },
+  {
+    "slug": "data-charts",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Data Charts`（运行时 `DataCharts`，编辑器 `DataChartsEditor`）。",
+      "先建一张 `Data Table`：行结构含数值列（float/int）和用作类别轴的名字/枚举列，填入拍摄日志、镜头时长或设备读数。",
+      "内容浏览器新建 Data Chart 资产（`DataCharts`），指定源 `UDataTable`、系列列、图表类型（折线/柱状/散点）和坐标轴。",
+      "双击资产在编辑器图表视口核对系列；改 Data Table 行后刷新图表，确认虚拟制片仪表用的是表数据而不是手绘曲线。",
+      "需要进关卡/UMG 时用运行时 `DataCharts` 模块把同一数据源绑到图表控件；`DataChartsEditor` 只留在 Editor Target。",
+      "这是表驱动可视化，不要把它当成 Sequencer 曲线编辑器或 Control Rig 绘图工具。"
+    ],
+    "en_steps": [
+      "Enable `Data Charts` (runtime `DataCharts`, editor `DataChartsEditor`).",
+      "Create a `Data Table` whose row struct has numeric columns (float/int) plus a name/enum column for the category axis; fill shoot logs, shot durations, or device readings.",
+      "Create a Data Chart asset (`DataCharts`), point it at that `UDataTable`, pick series columns, chart type (line/bar/scatter), and axes.",
+      "Open the asset’s chart viewport; after editing table rows, refresh and confirm the VP dashboard reads table data, not hand-drawn curves.",
+      "For in-level/UMG use, bind the same source through the runtime `DataCharts` module; keep `DataChartsEditor` on Editor targets only.",
+      "This is table-driven visualization, not a Sequencer curve editor or Control Rig drawing tool."
+    ],
+    "note_cn": "从 Data Table 出图，服务 VP 仪表；编辑器模块勿进游戏包。",
+    "note_en": "Charts from Data Tables for VP dashboards; keep the editor module out of the game package."
+  },
+  {
+    "slug": "data-driven-console-variables",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Data-Driven Console Variables`（`DataDrivenConsoleVariables` + `DataDrivenConsoleVariablesEditor`）。",
+      "打开 `Project Settings` 里与 Data Driven CVars 相关的页（`UDataDrivenConsoleVariableSettings`），在数组中新增一项：`Name`（如 `ddc.Weapon.Recoil`）、`Type`（Bool/Int/Float/String）、Default、Tooltip。",
+      "不必重启编辑器：保存设置后按 `` ` `` 打开控制台，输入该名字应能自动完成并改值。",
+      "C++ 用 `IConsoleManager::Get().FindConsoleVariable(TEXT(\"ddc.Weapon.Recoil\"))` 读 `GetFloat`/`GetInt`/`GetBool`；蓝图可用 `Execute Console Command` 做调试，正式逻辑走 CVar 指针。",
+      "PIE 中改控制台值应立刻反映；把资产/设置一起提交，让其他机器启动时 `DataDrivenConsoleVariables` 重新注册同名变量。",
+      "`DataDrivenConsoleVariablesEditor` 和 `DataDrivenConsoleVariablesTests` 不要进 Game Target；自动化可在 Session Frontend 筛 `DataDrivenConsoleVariables`。"
+    ],
+    "en_steps": [
+      "Enable `Data-Driven Console Variables` (`DataDrivenConsoleVariables` + `DataDrivenConsoleVariablesEditor`).",
+      "Open the Data Driven CVars page in `Project Settings` (`UDataDrivenConsoleVariableSettings`) and add a row: `Name` (e.g. `ddc.Weapon.Recoil`), `Type` (Bool/Int/Float/String), default, tooltip.",
+      "No editor restart: after saving, open the console with `` ` `` — the name should autocomplete and accept new values.",
+      "In C++ read `IConsoleManager::Get().FindConsoleVariable(TEXT(\"ddc.Weapon.Recoil\"))` via `GetFloat`/`GetInt`/`GetBool`. Blueprints may `Execute Console Command` for debug; shipping logic should use the CVar pointer.",
+      "Changing the value in PIE should apply immediately. Check in the settings asset so other machines re-register the same names at startup.",
+      "Keep `DataDrivenConsoleVariablesEditor` and `DataDrivenConsoleVariablesTests` off Game targets; run tests from Session Frontend filtered to `DataDrivenConsoleVariables`."
+    ],
+    "note_cn": "用数据资产注册 CVar，免改 C++ 再编译；游戏启动时注册，编辑器可热更新。",
+    "note_en": "Register CVars from data, no C++ rebuild; registered at game start, live-updated in editor."
+  },
+  {
+    "slug": "data-registry",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Data Registry`（运行时 `DataRegistry`，编辑器 `DataRegistryEditor`）。",
+      "内容浏览器创建 `Data Registry` 资产，设 `Registry Type`（`FDataRegistryType`，如 `Inventory.Item`），源类型选 `Data Table` 或 Curve Table，并指定行结构。",
+      "在 `Project Settings > Game > Data Registry` 把该资产加入启动加载列表，保证 `UDataRegistrySubsystem` 在运行时能找到它。",
+      "准备一张匹配行结构的 `Data Table`，行名即 `FDataRegistryId` 的 Item 部分；在源里指向这张表。",
+      "蓝图用 `Get Data Registry Item` / `Acquire Data Registry Item`（异步，源未加载时）；C++ 调 `UDataRegistrySubsystem::Get()->GetCachedItem<FMyRow>(FDataRegistryId)`。",
+      "PIE 中用已知 Id 取值，对照表内行；多源时确认优先级/覆盖规则，不要直接硬引用散落的 Data Table。",
+      "游戏模块只依赖 `DataRegistry`；`DataRegistryEditor` 仅编辑器。"
+    ],
+    "en_steps": [
+      "Enable `Data Registry` (runtime `DataRegistry`, editor `DataRegistryEditor`).",
+      "Create a `Data Registry` asset, set its `Registry Type` (`FDataRegistryType`, e.g. `Inventory.Item`), choose a `Data Table` or Curve Table source, and match the row struct.",
+      "Add the asset to the startup list in `Project Settings > Game > Data Registry` so `UDataRegistrySubsystem` can find it at runtime.",
+      "Author a `Data Table` with that row struct; row names are the Item part of `FDataRegistryId`. Point the registry source at the table.",
+      "In Blueprint use `Get Data Registry Item` or `Acquire Data Registry Item` (async if the source is unloaded). In C++ call `UDataRegistrySubsystem::Get()->GetCachedItem<FMyRow>(FDataRegistryId)`.",
+      "In PIE resolve a known Id and compare it to the table row. With multiple sources, check priority/override rules instead of hard-referencing scattered tables.",
+      "Game modules depend on `DataRegistry` only; `DataRegistryEditor` is editor-only."
+    ],
+    "note_cn": "运行时从多源取结构数据的统一接口，可进包装。",
+    "note_en": "Generic runtime interface to pull struct data from multiple sources; can ship."
+  },
+  {
+    "slug": "data-validation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Data Validation`（模块 `DataValidation`）；它提供校验 UI，默认不进 Shipping。",
+      "内容浏览器选中资产或文件夹，右键 `Asset Actions > Validate Assets`（或 `Tools > Validate Data`）跑一遍当前范围。",
+      "在 `Project Settings > Editor > Data Validation` 打开保存时校验、校验未保存资源、忽略列表等开关。",
+      "C++ 建 `UEditorValidatorBase` 子类，重写 `CanValidateAsset` / `ValidateLoadedAsset`，对非法引用、空软指针、命名规范返回 `EDataValidationResult::Invalid` 并 `AssetFails`。",
+      "Message Log 的 `Asset Check` 页查看错误/警告；修资产后再次 Validate，确认同一条不再出现。",
+      "CI 可用 `UnrealEditor-Cmd` 跑 Data Validation commandlet 扫整个项目；不要把 `DataValidation` 写进游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Data Validation` (module `DataValidation`). It is authoring UI and does not ship by default.",
+      "Select assets or a folder in the Content Browser and run `Asset Actions > Validate Assets` (or `Tools > Validate Data`).",
+      "Configure validate-on-save, unsaved assets, and ignore lists in `Project Settings > Editor > Data Validation`.",
+      "Subclass `UEditorValidatorBase` in C++, override `CanValidateAsset` / `ValidateLoadedAsset`, and return `EDataValidationResult::Invalid` with `AssetFails` for bad refs, null soft ptrs, or naming rules.",
+      "Read errors/warnings in Message Log `Asset Check`; fix the asset and re-validate until the same issue is gone.",
+      "On CI, run the Data Validation commandlet via `UnrealEditor-Cmd` over the project. Do not add `DataValidation` to a game `Build.cs`."
+    ],
+    "note_cn": "编辑器资产校验管线，不是运行时断言系统。",
+    "note_en": "Editor asset-validation pipeline, not a runtime assert system."
+  },
+  {
+    "slug": "database-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Database Support`（模块 `DatabaseSupport`）；这是抽象连接层，本身不带可视化查询窗口。",
+      "游戏或工具模块 `Build.cs` 依赖 `DatabaseSupport`，并同时启用具体后端（通常是 `SQLite` / SQLite Database 插件）以提供真正的 `FDataBaseConnection`。",
+      "`#include` 数据库记录集头文件，通过后端工厂打开连接字符串（本地 `.db` 或配置的 DSN），拿到 `FDataBaseConnection`。",
+      "调用 `Execute` 跑 SQL，用 `FDataBaseRecordSet` 迭代列；把结果填进游戏结构体或编辑器报表，而不是在蓝图里搜同名组件。",
+      "错误路径检查连接失败和 SQL 返回码；只读查询与写库分开事务，避免把玩家存档和调试库混在一个文件。",
+      "包装进游戏时带上所选后端插件；仅启用 `DatabaseSupport` 而不接 SQLite 等实现，运行时没有可用驱动。"
+    ],
+    "en_steps": [
+      "Enable `Database Support` (module `DatabaseSupport`). It is an abstract connection layer and has no visual query window.",
+      "Depend on `DatabaseSupport` in your game/tool `Build.cs` and also enable a concrete backend (typically the SQLite Database plugin) that supplies `FDataBaseConnection`.",
+      "Include the record-set headers, open a connection string (local `.db` or configured DSN) through the backend factory, and obtain `FDataBaseConnection`.",
+      "Run SQL with `Execute`, iterate `FDataBaseRecordSet` columns, and copy rows into gameplay structs or editor reports — there is no same-named actor component.",
+      "Handle connect failures and SQL return codes; keep read queries and writes in separate transactions so player saves never share a debug database file.",
+      "Package the chosen backend with the game. Enabling only `DatabaseSupport` without SQLite (or another driver) leaves you with no runtime engine."
+    ],
+    "note_cn": "抽象 DB API，必须搭配 SQLite 等具体插件才能真正连库。",
+    "note_en": "Abstract DB API; pair it with SQLite or another driver or nothing connects."
+  },
+  {
+    "slug": "dataflow-stroke-field",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `Dataflow Stroke Field`（`DataflowStrokeField` + `DataflowStrokeFieldEditor`），并确保 Dataflow 编辑器已开。",
+      "打开 `UDataflow` / Geometry Collection Dataflow 资产，切到 Construction 视口（不是关卡视口）。",
+      "在图中加入 Stroke Field 相关节点（方向场、权重场、弧长场），把输出接到形变、生长或沿切线分布的后续节点。",
+      "在 Construction 视口对着参考网格用鼠标/数位板涂抹笔划；笔划写入场采样，而不是画材质贴花。",
+      "求值 Dataflow，检查下游网格是否沿笔划方向拉伸/变密；擦除或重画笔划后再次求值。",
+      "`DataflowStrokeFieldEditor` 只进编辑器；运行时若求值场数据，游戏模块最多依赖 `DataflowStrokeField`。",
+      "Experimental 场格式可能变，不要把笔划资产当作长期互换格式。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Dataflow Stroke Field` (`DataflowStrokeField` + `DataflowStrokeFieldEditor`) and make sure the Dataflow editor is on.",
+      "Open a `UDataflow` / Geometry Collection Dataflow asset and switch to the Construction viewport (not the level viewport).",
+      "Add Stroke Field nodes (direction, weight, arc length) and wire them into deform, grow, or tangent-scatter nodes.",
+      "Draw over the reference mesh in the Construction viewport with mouse or stylus; strokes write field samples, they are not material decals.",
+      "Evaluate the graph and check that downstream meshes stretch or densify along the stroke. Erase or redraw, then evaluate again.",
+      "`DataflowStrokeFieldEditor` is editor-only; a game module may depend on `DataflowStrokeField` only if it evaluates stored fields at runtime.",
+      "The Experimental field format can change; do not treat stroke assets as a long-term interchange format."
+    ],
+    "note_cn": "在 Dataflow 构造视口手绘方向/权重/弧长场，不是关卡喷绘工具。",
+    "note_en": "Hand-drawn direction/weight/arc-length fields in the Dataflow construction viewport, not a level spray tool."
+  },
+  {
+    "slug": "dataflowagent",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental Toolset `DataflowAgent`（模块 `DataflowAgent`），并同时打开 Dataflow 编辑器；这是给编辑器 AI 助手的写图工具，不是游戏子系统。",
+      "打开一个 `Dataflow` 资产，让助手处于可调用 Toolset 的会话（Editor AI / Agent 面板）。",
+      "让代理列出当前图节点、按类型添加节点、连接引脚或改字面量参数；核对图上确实出现了新节点而不是只生成了文本说明。",
+      "求值 Dataflow，确认代理改过的节点输出符合你的约束（例如不要删掉终端 Output 节点）。",
+      "用 Undo 回滚一次代理编辑，确认事务落在 Dataflow 资产上。",
+      "不要把 `DataflowAgent` 写进 Game Target 或 Shipping；接口随夜构建可能变。"
+    ],
+    "en_steps": [
+      "Enable Experimental Toolset `DataflowAgent` (module `DataflowAgent`) together with the Dataflow editor. These are write tools for the in-editor AI assistant, not a game subsystem.",
+      "Open a `Dataflow` asset and start an assistant session that can invoke Toolsets (Editor AI / Agent panel).",
+      "Ask the agent to list nodes, add nodes by type, wire pins, or edit literals; confirm new nodes appear on the graph, not just in chat text.",
+      "Evaluate the Dataflow and check that agent edits still satisfy your constraints (for example, terminal Output nodes remain).",
+      "Undo one agent edit and confirm the transaction landed on the Dataflow asset.",
+      "Do not link `DataflowAgent` into a Game target or Shipping build; the contract can change on nightlies."
+    ],
+    "note_cn": "编辑器 AI 改 Dataflow 图的 Toolset，不进游戏包。",
+    "note_en": "Editor-AI Toolset for mutating Dataflow graphs; not a shipping feature."
+  },
+  {
+    "slug": "dataflowvolumetric",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DataflowVolumetric`（描述符 `DataflowVolumetricPlugin.uplugin`，模块 `DataflowVolumeCore` 与 `DataflowVolumeNodes`）。",
+      "打开 Geometry Collection / Dataflow 资产，在节点面板搜 Volume / Voxel / SDF 类节点（来自 `DataflowVolumeNodes`）。",
+      "放入体积源（网格转体素、隐式场或已有 volume 资产），设置体素分辨率、包围盒和对齐方式。",
+      "把体积接到采样、布尔、侵蚀或网格提取节点；求值后在预览里看切面密度，而不是只看表面三角。",
+      "需要运行时求值时，游戏模块依赖 `DataflowVolumeCore`（加必要的 `DataflowVolumeNodes`）；不要把体积节点当普通 Static Mesh 组件拖进关卡。",
+      "分辨率过高会爆内存：先用粗糙体素验证拓扑，再提高格子密度。"
+    ],
+    "en_steps": [
+      "Enable `DataflowVolumetric` (`DataflowVolumetricPlugin.uplugin`, modules `DataflowVolumeCore` and `DataflowVolumeNodes`).",
+      "Open a Geometry Collection / Dataflow asset and search the node palette for Volume / Voxel / SDF nodes from `DataflowVolumeNodes`.",
+      "Add a volume source (mesh-to-voxels, implicit field, or an existing volume asset) and set voxel resolution, bounds, and alignment.",
+      "Wire the volume into sample, boolean, erode, or mesh-extract nodes; after evaluate, inspect slice density in the preview, not only surface triangles.",
+      "If you evaluate at runtime, depend on `DataflowVolumeCore` (and `DataflowVolumeNodes` as needed). Do not drop volume nodes into a level as Static Mesh components.",
+      "High resolution explodes memory: prove topology on a coarse grid before refining the lattice."
+    ],
+    "note_cn": "给 Dataflow 加体积/体素节点，不是后处理雾体积。",
+    "note_en": "Volumetric/voxel nodes for Dataflow, not post-process exponential height fog."
+  },
+  {
+    "slug": "dataprep-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Dataprep Editor`（`DataprepEditor`、`DataprepCore`、`DataprepLibraries`、`DataprepEditorScriptingUtilities`）。",
+      "内容浏览器新建 `Dataprep Asset`，在 Producer 里添加 Datasmith/FBX/USD 等输入，指向 CAD 或场景文件。",
+      "在 Dataprep 图里用 Filter 选出 Actor/静态网格/材质，再串 Operation（重命名、合并、替材质、设碰撞、改移动性），最后接到 Output。",
+      "点 `Execute` 跑管道，检查输出文件夹里生成的 Actor/网格；失败步骤看 Dataprep 日志而不是普通导入对话框。",
+      "参数稳定后可再执行覆盖输出；Python/编辑器脚本走 `DataprepEditorScriptingUtilities` 批处理多文件。",
+      "`DataprepEditor` 与 `DataprepEditorScriptingUtilities` 仅 Editor Target；不要把它们写进 Game `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable `Dataprep Editor` (`DataprepEditor`, `DataprepCore`, `DataprepLibraries`, `DataprepEditorScriptingUtilities`).",
+      "Create a `Dataprep Asset`, add Datasmith/FBX/USD producers, and point them at CAD or scene files.",
+      "In the Dataprep graph, Filter actors/static meshes/materials, chain Operations (rename, merge, replace materials, collision, mobility), and connect Output.",
+      "Click `Execute` and inspect spawned actors/meshes in the output folder; read the Dataprep log on failure, not the generic import dialog.",
+      "Re-execute to overwrite once parameters are stable. Batch extra files with Python via `DataprepEditorScriptingUtilities`.",
+      "`DataprepEditor` and `DataprepEditorScriptingUtilities` belong on Editor targets only — never a game `Build.cs`."
+    ],
+    "note_cn": "编辑器内的数据准备管道（导入→过滤→操作→输出），不是运行时关卡流送。",
+    "note_en": "In-editor data-prep pipeline (import → filter → operate → output), not runtime level streaming."
+  },
+  {
+    "slug": "dataprep-geometry-operations",
+    "kind": "plugin",
+    "cn_steps": [
+      "先启用 `Dataprep Editor`，再启用 Experimental 的 `Dataprep Geometry Operations`（模块 `DataprepGeometryOperations`）。",
+      "打开已有 `Dataprep Asset`，在操作节点列表里找几何处理项（简化、焊接、重网格、布尔、补洞等），它们不会出现在普通 Actor 组件菜单。",
+      "在 Filter 选出高面数 CAD 网格后接入这些 Operation，设目标三角数/容差。",
+      "`Execute` 后对比操作前后顶点数和法线；失败时看几何内核日志，而不是当普通 Import 选项。",
+      "把该插件当作 Dataprep 图扩展，不要在游戏运行时调用 `DataprepGeometryOperations`。",
+      "Experimental 操作签名可能变，管道资产升级引擎后要重新 Execute 验证。"
+    ],
+    "en_steps": [
+      "Enable `Dataprep Editor` first, then Experimental `Dataprep Geometry Operations` (module `DataprepGeometryOperations`).",
+      "Open a `Dataprep Asset` and look in the operation list for geometry processors (simplify, weld, remesh, boolean, fill holes). They do not appear on actor component menus.",
+      "Filter high-poly CAD meshes, then wire those operations with a target triangle count or tolerance.",
+      "`Execute` and compare vertex count and normals before vs after. On failure read the geometry-kernel log, not the generic import options.",
+      "Treat the plugin as a Dataprep graph extension; do not call `DataprepGeometryOperations` from game runtime.",
+      "Experimental operation signatures can change; re-Execute pipeline assets after an engine upgrade."
+    ],
+    "note_cn": "挂在 Dataprep 图上的实验几何算子，离开 Dataprep 编辑器没有独立窗口。",
+    "note_en": "Experimental geometry operators hosted in the Dataprep graph; no standalone window outside that editor."
+  },
+  {
+    "slug": "dataregistrytoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental Toolset `DataRegistryToolset`（模块 `DataRegistryToolset`），并确保 `Data Registry` 插件已启用且项目里有 Registry 资产。",
+      "打开编辑器 AI / Agent 会话，确认 Toolset 能看到已注册的 `FDataRegistryType` 列表。",
+      "让代理按 Type + Item 名查询 `FDataRegistryId`，核对返回的结构字段与 Data Table 行一致。",
+      "再让它列出某 Registry 的源（Data Table / Curve Table）和缓存状态；这是检查工具，不要让代理在会话里改玩法数值当正式管线。",
+      "对照 `UDataRegistrySubsystem` 在 PIE 中的 `GetCachedItem` 结果，确认助手读到的是同一缓存。",
+      "不要把 `DataRegistryToolset` 链进 Game Target；Shipping 游戏应只保留 `DataRegistry`。"
+    ],
+    "en_steps": [
+      "Enable Experimental Toolset `DataRegistryToolset` (module `DataRegistryToolset`) and make sure the `Data Registry` plugin is on with at least one registry asset.",
+      "Open an Editor AI / Agent session and confirm the Toolset can list registered `FDataRegistryType` values.",
+      "Have the agent resolve an `FDataRegistryId` by type + item name and check the struct fields against the Data Table row.",
+      "Ask it to list a registry’s sources (Data Table / Curve Table) and cache state. This is inspection, not a pipeline for changing gameplay numbers in chat.",
+      "Compare with `UDataRegistrySubsystem::GetCachedItem` in PIE so the assistant is reading the same cache.",
+      "Do not link `DataRegistryToolset` into a Game target; shipping games should keep only `DataRegistry`."
+    ],
+    "note_cn": "给编辑器 AI 查询 Data Registry 的 Toolset，不是运行时数据源。",
+    "note_en": "Editor-AI Toolset to query Data Registries, not a runtime data source."
+  }
+]

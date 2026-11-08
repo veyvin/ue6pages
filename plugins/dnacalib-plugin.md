@@ -3,7 +3,6 @@ layout: default
 title: DNACalib 插件 / DNACalib Plugin
 ---
 
-
 <h1>DNACalib 插件 / DNACalib Plugin</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: DNACalib 插件 / DNACalib Plugin
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">DNA 校准工具插件</div><div class="lang-content">DNA Calibration tool plugin</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">DNACalib Plugin</code>（<code class="usage-code">DNACalibModule</code> + 第三方库 <code class="usage-code">DNACalibLib</code>）。它给 MetaHuman / RigLogic 的 <code class="usage-code">.dna</code> 做校准，不是可挂到骨骼网格的动画组件。</li><li>工具或编辑器模块 <code class="usage-code">Build.cs</code> 依赖 <code class="usage-code">DNACalibModule</code>，<code class="usage-code">#include</code> DNACalib 头，加载角色 <code class="usage-code">.dna</code>。</li><li>用校准 API 做关节重映射、LOD 裁剪、无用关节删除或行为缩放，再写出新的 DNA；这是离线/管线步骤，不是 AnimBP 节点。</li><li>把校准后的 DNA 交给 RigLogic / MetaHuman 角色导入链路，在编辑器里打开脸部绑定确认表情仍在。</li><li><code class="usage-code">DNACalibLibTest</code> 仅用于自动化，不要写进游戏 <code class="usage-code">Build.cs</code> 或 Shipping。</li><li>运行时游戏一般只消费已经校准好的 DNA，不必在玩家进程里再跑一遍校准。</li></ol><p class="usage-note">MetaHuman DNA 校准库，给制作管线用，不是关卡里的动画修改器。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">DNACalib Plugin</code> (<code class="usage-code">DNACalibModule</code> plus <code class="usage-code">DNACalibLib</code>). It calibrates MetaHuman / RigLogic <code class="usage-code">.dna</code> files; it is not an Anim component you attach to a mesh.</li><li>Depend on <code class="usage-code">DNACalibModule</code> from a tool/editor <code class="usage-code">Build.cs</code>, include DNACalib headers, and load the character <code class="usage-code">.dna</code>.</li><li>Use the calibration API for joint remaps, LOD pruning, unused-joint removal, or behavior scaling, then write a new DNA. This is an offline pipeline step, not an AnimBP node.</li><li>Feed the calibrated DNA into RigLogic / MetaHuman import and open the face rig to confirm expressions still evaluate.</li><li>Keep <code class="usage-code">DNACalibLibTest</code> out of game <code class="usage-code">Build.cs</code> and shipping.</li><li>Cooked games normally consume already-calibrated DNA; do not run calibration inside the player process.</li></ol><p class="usage-note">MetaHuman DNA calibration library for the authoring pipeline, not a level animation modifier.</p></div></div></div>
+    </div>
+

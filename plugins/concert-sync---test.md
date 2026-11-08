@@ -3,7 +3,6 @@ layout: default
 title: 音乐会同步 - 测试 / Concert Sync - Test
 ---
 
-
 <h1>音乐会同步 - 测试 / Concert Sync - Test</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 音乐会同步 - 测试 / Concert Sync - Test
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">支持多用户测试的插件</div><div class="lang-content">Plugin to enables multi-users tests</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Concert Sync - Test</code>（模块 <code class="usage-code">ConcertSyncTest</code>），并同时开着 <code class="usage-code">ConcertSyncClient</code> / <code class="usage-code">ConcertSyncServer</code> / <code class="usage-code">ConcertSyncCore</code>。</li><li>打开 <code class="usage-code">Tools &gt; Session Frontend</code> 的 <code class="usage-code">Automation</code> 页，筛选 <code class="usage-code">ConcertSync</code> / MultiUser / Concert 用例。</li><li>先跑不启独立服务器的进程内会话测试；需要双端时再按用例拉起 <code class="usage-code">UnrealMultiUserServer</code> 或编辑器命令行客户端。</li><li>失败时看自动化日志里的事务提交/包同步断言，不要只看关卡视口是否“看起来一样”。</li><li>这是测试插件，不要写进游戏模块或包装目标。</li></ol><p class="usage-note">给多人编辑回归用，不是可玩的联机会话工具。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Concert Sync - Test</code> (module <code class="usage-code">ConcertSyncTest</code>) with <code class="usage-code">ConcertSyncClient</code>, <code class="usage-code">ConcertSyncServer</code>, and <code class="usage-code">ConcertSyncCore</code> already on.</li><li>Open <code class="usage-code">Tools &gt; Session Frontend</code> → <code class="usage-code">Automation</code> and filter <code class="usage-code">ConcertSync</code> / MultiUser / Concert cases.</li><li>Run in-process session tests first; only spin <code class="usage-code">UnrealMultiUserServer</code> or a command-line editor client when a case needs two endpoints.</li><li>On failure, read transaction-commit / package-sync asserts in the automation log — do not eyeball the viewport.</li><li>Test harness only; do not add it to a game module or packaged target.</li></ol><p class="usage-note">Regression harness for multi-user editing, not a playable session tool.</p></div></div></div>
+    </div>
+

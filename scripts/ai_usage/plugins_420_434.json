@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "iostore-prioritization",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `IoStore Prioritization`（模块 `IoStorePrioritization`），运行时插件。",
+      "在流式加载期间，用基于表达式的规则动态调整 IoStore I/O 请求的优先级。",
+      "为不同流送状态/玩法场景配置优先级表达式，让关键内容优先加载。",
+      "运行时模块可进游戏包；用于优化大世界的流送 I/O 调度。"
+    ],
+    "en_steps": [
+      "Enable `IoStore Prioritization` (module `IoStorePrioritization`), a runtime plugin.",
+      "During streaming, dynamically prioritize IoStore I/O requests using expression-based rules.",
+      "Author priority expressions per streaming state/gameplay scenario so critical content loads first.",
+      "Runtime modules can ship; it optimizes large-world streaming I/O scheduling."
+    ],
+    "note_cn": "基于表达式动态排序 IoStore I/O 优先级，优化流送。",
+    "note_en": "Expression-based dynamic prioritization of IoStore I/O to optimize streaming."
+  },
+  {
+    "slug": "iris-iad-bridge",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Iris IAD Bridge`（模块 `IrisIADBridge`）。",
+      "它实现 IrisCore 的异步加载扩展点，在 Iris 加载复制包之前安装按需内容（on-demand）。",
+      "把 IoStore/按需知识保留在 IrisCore 之外，由本桥接处理。",
+      "属 Iris 网络的按需内容扩展，需 Iris 启用。"
+    ],
+    "en_steps": [
+      "Enable `Iris IAD Bridge` (module `IrisIADBridge`).",
+      "It implements the IrisCore async-load extension point to install on-demand content before Iris loads a replicated package.",
+      "It keeps IoStore/on-demand knowledge out of IrisCore and handles it in the bridge.",
+      "It is an on-demand content extension for Iris networking; requires Iris enabled."
+    ],
+    "note_cn": "Iris 按需内容加载桥接，把 on-demand 逻辑移出 IrisCore。",
+    "note_en": "An Iris on-demand content bridge that keeps on-demand logic out of IrisCore."
+  },
+  {
+    "slug": "iris",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Iris`（模块 `Iris`）。",
+      "在 `DefaultEngine.ini` 里显式打开 Iris 复制后端（替换或补充旧 Actor 复制）。",
+      "面向大规模 Actor 与更细的复制过滤；联机项目在服务器/客户端都要启用。",
+      "Experimental：接口可能随夜构建变化，先在联机测试环境验证复制行为。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Iris` (module `Iris`).",
+      "Explicitly turn on the Iris replication backend in `DefaultEngine.ini` (replacing or complementing classic Actor replication).",
+      "Aimed at large actor counts and finer replication filtering; enable it on both server and client in net projects.",
+      "Experimental: contract may change on nightlies; validate replication in a net test environment first."
+    ],
+    "note_cn": "新一代复制后端，需在 ini 显式开启，实验性。",
+    "note_en": "The newer replication backend, explicitly enabled in ini, experimental."
+  },
+  {
+    "slug": "joule---joint-optimized-u-v-lattice-embedding",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `JOULE`（模块 `JOULECore`、`JOULEViz`，编辑器 `JOULEEditor`）。",
+      "联合优化 U(V) 晶格嵌入（Joint Optimized U(V) Lattice Embedding），用于几何/网格的晶格嵌入处理。",
+      "在编辑器里用 `JOULEEditor`/`JOULEViz` 调试与可视化嵌入结果。",
+      "Experimental：接口可能变动；`JOULEEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `JOULE` (modules `JOULECore`, `JOULEViz`, editor `JOULEEditor`).",
+      "It performs Joint Optimized U(V) Lattice Embedding for geometry/mesh lattice embedding.",
+      "Debug and visualize embedding results with `JOULEEditor`/`JOULEViz` in the editor.",
+      "Experimental: contract may change; `JOULEEditor` is Editor-target only."
+    ],
+    "note_cn": "U(V) 晶格嵌入的联合优化工具，几何处理向，实验性。",
+    "note_en": "A joint-optimized U(V) lattice embedding tool, geometry-oriented, experimental."
+  },
+  {
+    "slug": "json-blueprint-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Json Blueprint Utilities`（模块 `JsonBlueprintUtilities`、`JsonBlueprintGraph`）。",
+      "在蓝图里用其节点读写 JSON：解析字符串为 JSON 对象、取值、构造 JSON。",
+      "处理网络/配置文件返回的 JSON 数据，无需写 C++。",
+      "运行时模块可进游戏包；底层走 Json/JsonUtilities。"
+    ],
+    "en_steps": [
+      "Enable `Json Blueprint Utilities` (modules `JsonBlueprintUtilities`, `JsonBlueprintGraph`).",
+      "In Blueprint use its nodes to read/write JSON: parse strings into JSON objects, read fields, and build JSON.",
+      "Handle JSON from network/config files without C++.",
+      "Runtime modules can ship; it is backed by Json/JsonUtilities."
+    ],
+    "note_cn": "蓝图的 JSON 读写节点，底层走 JsonUtilities。",
+    "note_en": "Blueprint JSON read/write nodes backed by JsonUtilities."
+  },
+  {
+    "slug": "json-web-token-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `JSON Web Token Plugin`（模块 `JWT`）。",
+      "用其 API 处理 JWT 数据：编码/解码、签名校验（登录鉴权、令牌交换等场景）。",
+      "在 C++ 里调用 JWT API，验证服务器下发的令牌。",
+      "Experimental：接口可能变动；注意密钥/令牌的安全存储。"
+    ],
+    "en_steps": [
+      "Enable Experimental `JSON Web Token Plugin` (module `JWT`).",
+      "Use its API to work with JWT data: encode/decode and verify signatures (login auth, token exchange, etc.).",
+      "Call the JWT API from C++ to validate tokens issued by your server.",
+      "Experimental: contract may change; store keys/tokens securely."
+    ],
+    "note_cn": "处理 JSON Web Token 的 API，用于鉴权，实验性。",
+    "note_en": "An API for JSON Web Tokens used for auth, experimental."
+  },
+  {
+    "slug": "kdevelop-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `KDevelop Integration`（模块 `KDevelopSourceCodeAccess`）并重启。",
+      "在 `Project Settings > Source Code Access`（或首选源码编辑器）里选择 KDevelop。",
+      "从编辑器打开 C++ 文件时由 KDevelop 接管源码访问。",
+      "这是编辑器开发者工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `KDevelop Integration` (module `KDevelopSourceCodeAccess`) and restart.",
+      "In `Project Settings > Source Code Access` (or preferred source editor), pick KDevelop.",
+      "Opening C++ files from the editor hands source access to KDevelop.",
+      "It is an editor developer tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "让编辑器用 KDevelop 打开源码，纯编辑器。",
+    "note_en": "Lets the editor open source in KDevelop, editor-only."
+  },
+  {
+    "slug": "kimodo",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Kimodo`（模块 `Kimodo`），面向 `AnimGenOffline` 框架。",
+      "用 Kimodo 为 AnimGenOffline 离线动画生成流程提供插件能力（动作生成/处理）。",
+      "在离线管线里运行生成任务，产出动画资产再导入引擎。",
+      "这是动画生成管线插件；配合 AnimGenOffline 使用。"
+    ],
+    "en_steps": [
+      "Enable `Kimodo` (module `Kimodo`), part of the `AnimGenOffline` framework.",
+      "Use Kimodo to provide plugin capabilities to the AnimGenOffline offline motion-generation flow (motion generation/processing).",
+      "Run generation tasks in the offline pipeline and import the resulting animation assets.",
+      "It is an animation-generation pipeline plugin; used with AnimGenOffline."
+    ],
+    "note_cn": "AnimGenOffline 框架下的 Kimodo 插件，离线动画生成。",
+    "note_en": "The Kimodo plugin under AnimGenOffline, for offline motion generation."
+  },
+  {
+    "slug": "knowledge-base",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Knowledge Base`（模块 `KnowledgeBase`）。",
+      "它提供知识库查询接口：知识库可来自实时引擎状态，或读取磁盘上的 markdown。",
+      "用于给编辑器/AI 提供可查询的项目知识（文档、引擎状态）。",
+      "Experimental：接口可能变动；属编辑器侧知识查询工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Knowledge Base` (module `KnowledgeBase`).",
+      "It provides a query interface over knowledge bases derived from live engine state or read from markdown on disk.",
+      "Use it to give the editor/AI queryable project knowledge (docs, engine state).",
+      "Experimental: contract may change; it is an editor-side knowledge query tool."
+    ],
+    "note_cn": "知识库查询接口（引擎状态/markdown），偏编辑器与 AI。",
+    "note_en": "A knowledge-base query interface (engine state/markdown), editor and AI oriented."
+  },
+  {
+    "slug": "knowledgebasetoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `KnowledgeBaseToolset`（模块 `KnowledgeBaseToolset`），面向 AI Toolset Registry。",
+      "让 AI 助手通过 Toolset Registry 发现、搜索和编写知识库。",
+      "配合 `Knowledge Base` 使用，对项目知识做检索/录入。",
+      "这是开发期工具集，不是运行时功能；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `KnowledgeBaseToolset` (module `KnowledgeBaseToolset`); it targets the AI Toolset Registry.",
+      "Let AI assistants discover, search, and write knowledge bases through the Toolset Registry.",
+      "Use it with `Knowledge Base` to retrieve or record project knowledge.",
+      "It is a development-time toolset, not a runtime feature; Experimental."
+    ],
+    "note_cn": "给 AI 工具链用的知识库工具集，配合 Knowledge Base。",
+    "note_en": "A knowledge-base toolset for the AI toolchain, used with Knowledge Base."
+  },
+  {
+    "slug": "landmass",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Landmass`（运行时 `Landmass`，编辑器 `LandmassEditor`）。",
+      "用 Landmass 的 Brush/Actor 程序化塑造地形（雕刻、混合、程序化地貌）。",
+      "在关卡放置 Landmass 相关 Actor 编辑地形，与其他地形/景观系统配合。",
+      "Experimental：接口可能变动；`LandmassEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Landmass` (runtime `Landmass`, editor `LandmassEditor`).",
+      "Use Landmass brushes/actors to procedurally shape terrain (sculpting, blending, procedural landforms).",
+      "Place Landmass actors in the level to edit terrain, working with other terrain/landscape systems.",
+      "Experimental: contract may change; `LandmassEditor` is Editor-target only."
+    ],
+    "note_cn": "程序化地形塑造（Landmass/Mass 家族），与 Landscape 配合。",
+    "note_en": "Procedural terrain shaping (Landmass/Mass family), used with Landscape."
+  },
+  {
+    "slug": "landscape-patch",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Landscape Patch`（模块 `LandscapePatch`、`LandscapePatchEditorOnly`）并重启。",
+      "把景观补丁组件附加到网格上，当网格移动/重新定位时影响景观。",
+      "用于让物件（如道路、水坑）随网格贴合并修改地形。",
+      "这是编辑器工具，服务制作流程，默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Landscape Patch` (modules `LandscapePatch`, `LandscapePatchEditorOnly`) and restart.",
+      "Attach landscape patch components to meshes so the landscape is affected as the mesh is repositioned.",
+      "Use it to make objects (roads, puddles, etc.) conform and modify terrain as they move.",
+      "It is an editor tool for the authoring pipeline; it does not ship by default."
+    ],
+    "note_cn": "可附加到网格、随移动修改景观的补丁组件，编辑器向。",
+    "note_en": "Mesh-attachable patch components that modify landscape as they move, editor-oriented."
+  },
+  {
+    "slug": "launcher-chunk-installer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Launcher Chunk Installer`（模块 `LauncherChunkInstaller`）。",
+      "它挂接到 Epic 启动器中的分块安装流程，用于通过启动器按块安装内容。",
+      "面向通过 Launcher 分发/更新构建的场景，配合分块打包使用。",
+      "这是启动器集成用的分块安装模块，不是游戏内 DLC UI。"
+    ],
+    "en_steps": [
+      "Enable `Launcher Chunk Installer` (module `LauncherChunkInstaller`).",
+      "It hooks into the Epic launcher's chunked-install flow to install content in chunks via the launcher.",
+      "Aimed at builds distributed/updated through the Launcher, used with chunked packaging.",
+      "It is a chunk-install module for launcher integration, not an in-game DLC UI."
+    ],
+    "note_cn": "挂到启动器的分块安装模块，用于 Launcher 分发。",
+    "note_en": "A chunk-install module hooked into the launcher, for launcher distribution."
+  },
+  {
+    "slug": "learning-agents",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Learning Agents`（模块 `LearningAgents`、`LearningAgentsTraining`、`LearningAgentsReplay`，编辑器 `LearningAgentsTrainingEditor`）。",
+      "它用于游戏中 AI 角色控制的机器学习（强化学习/模仿学习）。",
+      "定义观察、动作、奖励，训练策略（可在编辑器里跑训练），再把学到的策略用于 NPC。",
+      "Experimental：接口可能变动；训练模块不进 Shipping，运行时用推理模块。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Learning Agents` (modules `LearningAgents`, `LearningAgentsTraining`, `LearningAgentsReplay`, editor `LearningAgentsTrainingEditor`).",
+      "It provides machine learning for AI character control (reinforcement/imitation learning).",
+      "Define observations, actions, and rewards, train a policy (editor training), and use the learned policy on NPCs.",
+      "Experimental: contract may change; training modules do not ship, use the runtime inference modules."
+    ],
+    "note_cn": "面向 AI 角色的机器学习库（RL/模仿学习），实验性。",
+    "note_en": "A machine-learning library for AI character control (RL/imitation), experimental."
+  },
+  {
+    "slug": "learning-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Learning Core`（模块 `Learning`、`LearningTraining`）。",
+      "它是 Learning 系列的最底层运行时底座，供上层 Learning Agents 等使用。",
+      "一般随 Learning Agents 一起启用；直接依赖只在写自定义学习逻辑时。",
+      "Experimental：接口可能变动；属底层库，不是可直接使用的玩法功能。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Learning Core` (modules `Learning`, `LearningTraining`).",
+      "It is the lowest-level runtime base for the Learning family, used by layers like Learning Agents.",
+      "Usually enabled with Learning Agents; depend on it directly only when writing custom learning logic.",
+      "Experimental: contract may change; it is a low-level library, not directly usable gameplay."
+    ],
+    "note_cn": "Learning 系列底层运行时底座，上层是 Learning Agents。",
+    "note_en": "The low-level runtime base for the Learning family; Learning Agents sits above it."
+  }
+]

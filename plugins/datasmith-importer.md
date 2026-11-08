@@ -3,7 +3,6 @@ layout: default
 title: 数据史密斯进口商 / Datasmith Importer
 ---
 
-
 <h1>数据史密斯进口商 / Datasmith Importer</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 数据史密斯进口商 / Datasmith Importer
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Datasmith 文件的导入器。</div><div class="lang-content">Importer for Datasmith files.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">Datasmith Importer</code> 是核心：读取 <code class="usage-code">.udatasmith</code> 并把 <code class="usage-code">DatasmithScene</code> 转成关卡内容，同时提供 Direct Link 实时同步通道。</li><li>启用后把任意受支持 DCC 导出的 <code class="usage-code">.udatasmith</code> 拖进内容浏览器，或走 <code class="usage-code">File → Import</code> 打开。</li><li>在导入选项里选择生成方式（关卡/Actor）、是否合并静态网格、光照与材质处理策略。</li><li>实时联动：在 DCC 端装好 Direct Link 插件，在引擎的 Datasmith Direct Link 面板建立连接，DCC 改动会同步推过来。</li><li>要自定义导入流程时实现 <code class="usage-code">DatasmithTranslator</code> 接口并在 <code class="usage-code">DirectLinkExtension</code> 上注册接收回调。</li></ol><p class="usage-note">Direct Link 与 `.udatasmith` 文件导入是两条路径：做迭代用 Direct Link，做可复现资产用文件导入。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">Datasmith Importer</code> is the core: it reads <code class="usage-code">.udatasmith</code> and converts <code class="usage-code">DatasmithScene</code> into level content, and also carries the Direct Link live-sync channel.</li><li>Enable it, then drag a <code class="usage-code">.udatasmith</code> exported from any supported DCC into the Content Browser, or open it via <code class="usage-code">File → Import</code>.</li><li>In the import options choose the generation mode (level/actors), whether to merge static meshes, and the lighting/material handling.</li><li>For live sync, install the Direct Link plugin on the DCC side and connect from the engine&#x27;s Datasmith Direct Link panel; DCC edits are pushed across.</li><li>To customize the pipeline, implement the <code class="usage-code">DatasmithTranslator</code> interface and register a receive callback on <code class="usage-code">DirectLinkExtension</code>.</li></ol><p class="usage-note">Direct Link and file `.udatasmith` import are two paths: iterate with Direct Link, produce reproducible assets via file import.</p></div></div></div>
+    </div>
+

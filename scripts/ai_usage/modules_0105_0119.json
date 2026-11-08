@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "binkaudiodecoder",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BinkAudioDecoder` 位于 `Runtime`，构建规则 `Runtime/BinkAudioDecoder/Module/BinkAudioDecoder.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BinkAudioDecoder\" });`；对外暴露 `BinkAudioDecoder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BinkAudioDecoder` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `BinkAudioDecoder.h` / `BinkAudioDecoderModule.h`），再用 `FModuleManager::LoadModulePtr<BinkAudioDecoderModule>` 或直接使用导出类型。",
+      "传递依赖：`BinkAudioDecoder` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `BinkAudioDecoder` lives under `Runtime`; build rule `Runtime/BinkAudioDecoder/Module/BinkAudioDecoder.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BinkAudioDecoder\" });`. Use Public when exposing `BinkAudioDecoder` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BinkAudioDecoder` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `BinkAudioDecoder.h` / `BinkAudioDecoderModule.h`), then use `FModuleManager::LoadModulePtr<BinkAudioDecoderModule>` or the exported types directly.",
+      "Transitive deps: `BinkAudioDecoder` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`BinkAudioDecoder` 的构建规则位于 `Runtime/BinkAudioDecoder/Module/BinkAudioDecoder.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`BinkAudioDecoder` build rule is `Runtime/BinkAudioDecoder/Module/BinkAudioDecoder.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "blake3",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BLAKE3` 位于 `ThirdParty`，构建规则 `ThirdParty/BLAKE3/BLAKE3.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BLAKE3\" });`；对外暴露 `BLAKE3` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BLAKE3` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `BLAKE3.h` / `BLAKE3Module.h`），再用 `FModuleManager::LoadModulePtr<BLAKE3Module>` 或直接使用导出类型。",
+      "传递依赖：`BLAKE3` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `BLAKE3` lives under `ThirdParty`; build rule `ThirdParty/BLAKE3/BLAKE3.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BLAKE3\" });`. Use Public when exposing `BLAKE3` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BLAKE3` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `BLAKE3.h` / `BLAKE3Module.h`), then use `FModuleManager::LoadModulePtr<BLAKE3Module>` or the exported types directly.",
+      "Transitive deps: `BLAKE3` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`BLAKE3` 的构建规则位于 `ThirdParty/BLAKE3/BLAKE3.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`BLAKE3` build rule is `ThirdParty/BLAKE3/BLAKE3.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "blankmodule",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BlankModule` 位于 `Developer`，构建规则 `Developer/BlankModule/BlankModule.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BlankModule\" });`；对外暴露 `BlankModule` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BlankModule` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `BlankModule.h` / `BlankModuleModule.h`），再用 `FModuleManager::LoadModulePtr<BlankModuleModule>` 或直接使用导出类型。",
+      "传递依赖：`BlankModule` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `BlankModule` lives under `Developer`; build rule `Developer/BlankModule/BlankModule.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BlankModule\" });`. Use Public when exposing `BlankModule` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BlankModule` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `BlankModule.h` / `BlankModuleModule.h`), then use `FModuleManager::LoadModulePtr<BlankModuleModule>` or the exported types directly.",
+      "Transitive deps: `BlankModule` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`BlankModule` 的构建规则位于 `Developer/BlankModule/BlankModule.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`BlankModule` build rule is `Developer/BlankModule/BlankModule.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "blankprogram",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BlankProgram` 位于 `Programs`，构建规则 `Programs/BlankProgram/BlankProgram.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BlankProgram\" });`；对外暴露 `BlankProgram` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BlankProgram` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `BlankProgram.h` / `BlankProgramModule.h`），再用 `FModuleManager::LoadModulePtr<BlankProgramModule>` 或直接使用导出类型。",
+      "传递依赖：`BlankProgram` 还依赖 `Core`, `CoreUObject`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `BlankProgram` lives under `Programs`; build rule `Programs/BlankProgram/BlankProgram.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BlankProgram\" });`. Use Public when exposing `BlankProgram` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BlankProgram` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `BlankProgram.h` / `BlankProgramModule.h`), then use `FModuleManager::LoadModulePtr<BlankProgramModule>` or the exported types directly.",
+      "Transitive deps: `BlankProgram` also needs `Core`, `CoreUObject`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`BlankProgram` 的构建规则位于 `Programs/BlankProgram/BlankProgram.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`BlankProgram` build rule is `Programs/BlankProgram/BlankProgram.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "blosc",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Blosc` 位于 `ThirdParty`，构建规则 `ThirdParty/Blosc/Blosc.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Blosc\" });`；对外暴露 `Blosc` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Blosc` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Blosc.h` / `BloscModule.h`），再用 `FModuleManager::LoadModulePtr<BloscModule>` 或直接使用导出类型。",
+      "传递依赖：`Blosc` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Blosc` lives under `ThirdParty`; build rule `ThirdParty/Blosc/Blosc.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Blosc\" });`. Use Public when exposing `Blosc` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Blosc` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Blosc.h` / `BloscModule.h`), then use `FModuleManager::LoadModulePtr<BloscModule>` or the exported types directly.",
+      "Transitive deps: `Blosc` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Blosc` 的构建规则位于 `ThirdParty/Blosc/Blosc.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Blosc` build rule is `ThirdParty/Blosc/Blosc.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "blueprinteditorlibrary",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BlueprintEditorLibrary` 位于 `Editor`，构建规则 `Editor/BlueprintEditorLibrary/BlueprintEditorLibrary.Build.cs`。它直接依赖 8 个模块：`AnimGraph`, `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `InputCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BlueprintEditorLibrary\" });`；对外暴露 `BlueprintEditorLibrary` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BlueprintEditorLibrary` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `BlueprintEditorLibrary.h` / `BlueprintEditorLibraryModule.h`），再用 `FModuleManager::LoadModulePtr<BlueprintEditorLibraryModule>` 或直接使用导出类型。",
+      "传递依赖：`BlueprintEditorLibrary` 还依赖 `AnimGraph`, `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `BlueprintEditorLibrary` lives under `Editor`; build rule `Editor/BlueprintEditorLibrary/BlueprintEditorLibrary.Build.cs`.It directly depends on 8 modules: `AnimGraph`, `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `InputCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BlueprintEditorLibrary\" });`. Use Public when exposing `BlueprintEditorLibrary` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BlueprintEditorLibrary` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `BlueprintEditorLibrary.h` / `BlueprintEditorLibraryModule.h`), then use `FModuleManager::LoadModulePtr<BlueprintEditorLibraryModule>` or the exported types directly.",
+      "Transitive deps: `BlueprintEditorLibrary` also needs `AnimGraph`, `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorSubsystem`, `Engine`, `InputCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`BlueprintEditorLibrary` 的构建规则位于 `Editor/BlueprintEditorLibrary/BlueprintEditorLibrary.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`BlueprintEditorLibrary` build rule is `Editor/BlueprintEditorLibrary/BlueprintEditorLibrary.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "blueprintgraph",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BlueprintGraph` 位于 `Editor`，构建规则 `Editor/BlueprintGraph/BlueprintGraph.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`, `EditorFramework`, `EditorStyle`, `EditorSubsystem`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BlueprintGraph\" });`；对外暴露 `BlueprintGraph` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BlueprintGraph` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `BlueprintGraph.h` / `BlueprintGraphModule.h`），再用 `FModuleManager::LoadModulePtr<BlueprintGraphModule>` 或直接使用导出类型。",
+      "传递依赖：`BlueprintGraph` 还依赖 `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`, `EditorFramework`, `EditorStyle`, `EditorSubsystem`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `BlueprintGraph` lives under `Editor`; build rule `Editor/BlueprintGraph/BlueprintGraph.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`, `EditorFramework`, `EditorStyle`, `EditorSubsystem`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BlueprintGraph\" });`. Use Public when exposing `BlueprintGraph` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BlueprintGraph` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `BlueprintGraph.h` / `BlueprintGraphModule.h`), then use `FModuleManager::LoadModulePtr<BlueprintGraphModule>` or the exported types directly.",
+      "Transitive deps: `BlueprintGraph` also needs `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`, `EditorFramework`, `EditorStyle`, `EditorSubsystem`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`BlueprintGraph` 的构建规则位于 `Editor/BlueprintGraph/BlueprintGraph.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`BlueprintGraph` build rule is `Editor/BlueprintGraph/BlueprintGraph.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "blueprintruntime",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BlueprintRuntime` 位于 `Runtime`，构建规则 `Runtime/BlueprintRuntime/BlueprintRuntime.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BlueprintRuntime\" });`；对外暴露 `BlueprintRuntime` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BlueprintRuntime` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `BlueprintRuntime.h` / `BlueprintRuntimeModule.h`），再用 `FModuleManager::LoadModulePtr<BlueprintRuntimeModule>` 或直接使用导出类型。",
+      "传递依赖：`BlueprintRuntime` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `BlueprintRuntime` lives under `Runtime`; build rule `Runtime/BlueprintRuntime/BlueprintRuntime.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BlueprintRuntime\" });`. Use Public when exposing `BlueprintRuntime` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BlueprintRuntime` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `BlueprintRuntime.h` / `BlueprintRuntimeModule.h`), then use `FModuleManager::LoadModulePtr<BlueprintRuntimeModule>` or the exported types directly.",
+      "Transitive deps: `BlueprintRuntime` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`BlueprintRuntime` 的构建规则位于 `Runtime/BlueprintRuntime/BlueprintRuntime.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`BlueprintRuntime` build rule is `Runtime/BlueprintRuntime/BlueprintRuntime.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "blutility",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Blutility` 位于 `Editor`，构建规则 `Editor/Blutility/Blutility.Build.cs`。它直接依赖 8 个模块：`AssetDefinition`, `AssetRegistry`, `AssetTools`, `AutomationController`, `BlueprintGraph`, `ClassViewer`, `CollectionManager`, `ContentBrowser`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Blutility\" });`；对外暴露 `Blutility` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Blutility` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `Blutility.h` / `BlutilityModule.h`），再用 `FModuleManager::LoadModulePtr<BlutilityModule>` 或直接使用导出类型。",
+      "传递依赖：`Blutility` 还依赖 `AssetDefinition`, `AssetRegistry`, `AssetTools`, `AutomationController`, `BlueprintGraph`, `ClassViewer`, `CollectionManager`, `ContentBrowser`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Blutility` lives under `Editor`; build rule `Editor/Blutility/Blutility.Build.cs`.It directly depends on 8 modules: `AssetDefinition`, `AssetRegistry`, `AssetTools`, `AutomationController`, `BlueprintGraph`, `ClassViewer`, `CollectionManager`, `ContentBrowser`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Blutility\" });`. Use Public when exposing `Blutility` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Blutility` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `Blutility.h` / `BlutilityModule.h`), then use `FModuleManager::LoadModulePtr<BlutilityModule>` or the exported types directly.",
+      "Transitive deps: `Blutility` also needs `AssetDefinition`, `AssetRegistry`, `AssetTools`, `AutomationController`, `BlueprintGraph`, `ClassViewer`, `CollectionManager`, `ContentBrowser`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Blutility` 的构建规则位于 `Editor/Blutility/Blutility.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`Blutility` build rule is `Editor/Blutility/Blutility.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "bolts",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Bolts` 位于 `ThirdParty`，构建规则 `ThirdParty/IOS/Bolts/Bolts.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Bolts\" });`；对外暴露 `Bolts` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Bolts` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Bolts.h` / `BoltsModule.h`），再用 `FModuleManager::LoadModulePtr<BoltsModule>` 或直接使用导出类型。",
+      "传递依赖：`Bolts` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Bolts` lives under `ThirdParty`; build rule `ThirdParty/IOS/Bolts/Bolts.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Bolts\" });`. Use Public when exposing `Bolts` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Bolts` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Bolts.h` / `BoltsModule.h`), then use `FModuleManager::LoadModulePtr<BoltsModule>` or the exported types directly.",
+      "Transitive deps: `Bolts` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Bolts` 的构建规则位于 `ThirdParty/IOS/Bolts/Bolts.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Bolts` build rule is `ThirdParty/IOS/Bolts/Bolts.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "boost",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Boost` 位于 `ThirdParty`，构建规则 `ThirdParty/Boost/Boost.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Boost\" });`；对外暴露 `Boost` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Boost` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Boost.h` / `BoostModule.h`），再用 `FModuleManager::LoadModulePtr<BoostModule>` 或直接使用导出类型。",
+      "传递依赖：`Boost` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Boost` lives under `ThirdParty`; build rule `ThirdParty/Boost/Boost.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Boost\" });`. Use Public when exposing `Boost` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Boost` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Boost.h` / `BoostModule.h`), then use `FModuleManager::LoadModulePtr<BoostModule>` or the exported types directly.",
+      "Transitive deps: `Boost` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Boost` 的构建规则位于 `ThirdParty/Boost/Boost.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Boost` build rule is `ThirdParty/Boost/Boost.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "bootstrappackagedgame",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BootstrapPackagedGame` 位于 `Programs`，构建规则 `Programs/Windows/BootstrapPackagedGame/BootstrapPackagedGame.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BootstrapPackagedGame\" });`；对外暴露 `BootstrapPackagedGame` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BootstrapPackagedGame` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `BootstrapPackagedGame.h` / `BootstrapPackagedGameModule.h`），再用 `FModuleManager::LoadModulePtr<BootstrapPackagedGameModule>` 或直接使用导出类型。",
+      "传递依赖：`BootstrapPackagedGame` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `BootstrapPackagedGame` lives under `Programs`; build rule `Programs/Windows/BootstrapPackagedGame/BootstrapPackagedGame.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BootstrapPackagedGame\" });`. Use Public when exposing `BootstrapPackagedGame` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BootstrapPackagedGame` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `BootstrapPackagedGame.h` / `BootstrapPackagedGameModule.h`), then use `FModuleManager::LoadModulePtr<BootstrapPackagedGameModule>` or the exported types directly.",
+      "Transitive deps: `BootstrapPackagedGame` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`BootstrapPackagedGame` 的构建规则位于 `Programs/Windows/BootstrapPackagedGame/BootstrapPackagedGame.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`BootstrapPackagedGame` build rule is `Programs/Windows/BootstrapPackagedGame/BootstrapPackagedGame.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "breakpadsymbolencoder",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BreakpadSymbolEncoder` 位于 `Programs`，构建规则 `Programs/BreakpadSymbolEncoder/BreakpadSymbolEncoder.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BreakpadSymbolEncoder\" });`；对外暴露 `BreakpadSymbolEncoder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BreakpadSymbolEncoder` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `BreakpadSymbolEncoder.h` / `BreakpadSymbolEncoderModule.h`），再用 `FModuleManager::LoadModulePtr<BreakpadSymbolEncoderModule>` 或直接使用导出类型。",
+      "传递依赖：`BreakpadSymbolEncoder` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `BreakpadSymbolEncoder` lives under `Programs`; build rule `Programs/BreakpadSymbolEncoder/BreakpadSymbolEncoder.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BreakpadSymbolEncoder\" });`. Use Public when exposing `BreakpadSymbolEncoder` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BreakpadSymbolEncoder` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `BreakpadSymbolEncoder.h` / `BreakpadSymbolEncoderModule.h`), then use `FModuleManager::LoadModulePtr<BreakpadSymbolEncoderModule>` or the exported types directly.",
+      "Transitive deps: `BreakpadSymbolEncoder` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`BreakpadSymbolEncoder` 的构建规则位于 `Programs/BreakpadSymbolEncoder/BreakpadSymbolEncoder.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`BreakpadSymbolEncoder` build rule is `Programs/BreakpadSymbolEncoder/BreakpadSymbolEncoder.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "bsputils",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BSPUtils` 位于 `Developer`，构建规则 `Developer/BSPUtils/BSPUtils.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BSPUtils\" });`；对外暴露 `BSPUtils` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BSPUtils` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `BSPUtils.h` / `BSPUtilsModule.h`），再用 `FModuleManager::LoadModulePtr<BSPUtilsModule>` 或直接使用导出类型。",
+      "传递依赖：`BSPUtils` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `BSPUtils` lives under `Developer`; build rule `Developer/BSPUtils/BSPUtils.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BSPUtils\" });`. Use Public when exposing `BSPUtils` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BSPUtils` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `BSPUtils.h` / `BSPUtilsModule.h`), then use `FModuleManager::LoadModulePtr<BSPUtilsModule>` or the exported types directly.",
+      "Transitive deps: `BSPUtils` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`BSPUtils` 的构建规则位于 `Developer/BSPUtils/BSPUtils.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`BSPUtils` build rule is `Developer/BSPUtils/BSPUtils.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "buildpatchservices",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`BuildPatchServices` 位于 `Runtime`，构建规则 `Runtime/Online/BuildPatchServices/BuildPatchServices.Build.cs`。它直接依赖 6 个模块：`Analytics`, `AnalyticsET`, `Core`, `CoreUObject`, `HTTP`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"BuildPatchServices\" });`；对外暴露 `BuildPatchServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`BuildPatchServices` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `BuildPatchServices.h` / `BuildPatchServicesModule.h`），再用 `FModuleManager::LoadModulePtr<BuildPatchServicesModule>` 或直接使用导出类型。",
+      "传递依赖：`BuildPatchServices` 还依赖 `Analytics`, `AnalyticsET`, `Core`, `CoreUObject`, `HTTP`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `BuildPatchServices` lives under `Runtime`; build rule `Runtime/Online/BuildPatchServices/BuildPatchServices.Build.cs`.It directly depends on 6 modules: `Analytics`, `AnalyticsET`, `Core`, `CoreUObject`, `HTTP`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"BuildPatchServices\" });`. Use Public when exposing `BuildPatchServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `BuildPatchServices` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `BuildPatchServices.h` / `BuildPatchServicesModule.h`), then use `FModuleManager::LoadModulePtr<BuildPatchServicesModule>` or the exported types directly.",
+      "Transitive deps: `BuildPatchServices` also needs `Analytics`, `AnalyticsET`, `Core`, `CoreUObject`, `HTTP`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`BuildPatchServices` 的构建规则位于 `Runtime/Online/BuildPatchServices/BuildPatchServices.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`BuildPatchServices` build rule is `Runtime/Online/BuildPatchServices/BuildPatchServices.Build.cs`; depends on 6 modules; category Module."
+  }
+]

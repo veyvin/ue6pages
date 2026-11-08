@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "online-subsystem-tencent",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem Tencent`（模块 `OnlineSubsystemTencent`）。",
+      "它接入腾讯平台的在线子系统（登录/会话等）。",
+      "在 OSS 设置里为腾讯目标配置提供方与凭据。",
+      "属平台 OSS 实现；仅腾讯目标使用。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem Tencent` (module `OnlineSubsystemTencent`).",
+      "It integrates the Tencent platform online subsystem (login/sessions, etc.).",
+      "Configure the provider and credentials for Tencent targets in OSS settings.",
+      "It is a platform OSS implementation; used on Tencent targets only."
+    ],
+    "note_cn": "腾讯平台的在线子系统(OSSv1)。",
+    "note_en": "The Tencent platform online subsystem (OSSv1)."
+  },
+  {
+    "slug": "online-subsystem-utils",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem Utils`（模块 `OnlineSubsystemUtils`、`OnlineBlueprintSupport`）。",
+      "它提供与在线服务和在线子系统实现交互的共享工具（含蓝图支持）。",
+      "常用作上层在线功能（会话/大厅）的依赖，含蓝图节点。",
+      "Game 模块可依赖；广泛用于联机项目。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem Utils` (modules `OnlineSubsystemUtils`, `OnlineBlueprintSupport`).",
+      "It provides shared utilities to interact with online services and OSS implementations (incl. Blueprint support).",
+      "Commonly a dependency for upper online features (sessions/lobby), with Blueprint nodes.",
+      "Game modules can depend on it; widely used in net projects."
+    ],
+    "note_cn": "在线服务/子系统的共享工具（含蓝图支持）。",
+    "note_en": "Shared utilities for online services/subsystems (incl. Blueprint support)."
+  },
+  {
+    "slug": "online-subsystem",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Subsystem`（模块 `OnlineSubsystem`）。",
+      "它提供与在线子系统实现交互的共享代码（OSSv1 接口本身）。",
+      "通常作为底层依赖；具体平台能力由 `Online Subsystem <Platform>` 提供。",
+      "编写跨平台 OSSv1 逻辑时依赖它。"
+    ],
+    "en_steps": [
+      "Enable `Online Subsystem` (module `OnlineSubsystem`).",
+      "It provides shared code to interact with OSS implementations (the OSSv1 interface itself).",
+      "Usually a low-level dependency; concrete platform capabilities come from `Online Subsystem <Platform>`.",
+      "Depend on it when writing cross-platform OSSv1 logic."
+    ],
+    "note_cn": "在线子系统(OSSv1)的共享接口/底层。",
+    "note_en": "The shared OSSv1 interface/base."
+  },
+  {
+    "slug": "oodle-network",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Oodle Network`（模块 `OodleNetworkHandlerComponent`）。",
+      "它为网络数据包提供 Oodle 压缩（降低带宽）。",
+      "在网络的包处理器（PacketHandler）里启用 OodleNetwork 处理器。",
+      "属网络压缩扩展；需 Oodle 库随引擎提供。"
+    ],
+    "en_steps": [
+      "Enable `Oodle Network` (module `OodleNetworkHandlerComponent`).",
+      "It provides Oodle compression for network packets (lower bandwidth).",
+      "Enable the OodleNetwork handler in the network PacketHandler chain.",
+      "It is a network-compression extension; uses the Oodle library shipped with the engine."
+    ],
+    "note_cn": "用 Oodle 压缩网络数据包（降带宽）。",
+    "note_en": "Oodle packet compression for networking (lower bandwidth)."
+  },
+  {
+    "slug": "oodle-texture",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Oodle Texture` 是已弃用（Deprecated）插件，现已内置到引擎中。",
+      "不要依赖该独立插件；纹理压缩由引擎内置提供。",
+      "新项目移除对该插件的依赖。",
+      "迁移/清理后禁用本插件。"
+    ],
+    "en_steps": [
+      "`Oodle Texture` is a deprecated plugin, now built into the engine.",
+      "Do not depend on this separate plugin; texture compression is provided by the engine built-in.",
+      "New projects should drop the dependency on this plugin.",
+      "Disable this plugin after migration/cleanup."
+    ],
+    "note_cn": "已弃用，Oodle 纹理压缩已内置引擎。",
+    "note_en": "Deprecated; Oodle texture compression is now built into the engine."
+  },
+  {
+    "slug": "opencolorio-ocio",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenColorIO (OCIO)`（运行时 `OpenColorIO`，编辑器 `OpenColorIOEditor`）。",
+      "它提供 OpenColorIO 色彩管理支持（ACES/显示变换）。",
+      "在项目色彩配置里指定 OCIO 配置与变换。",
+      "Game 模块依赖 `OpenColorIO`；`OpenColorIOEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `OpenColorIO (OCIO)` (runtime `OpenColorIO`, editor `OpenColorIOEditor`).",
+      "It provides OpenColorIO color-management support (ACES/display transforms).",
+      "Specify OCIO configs and transforms in project color settings.",
+      "Game modules depend on `OpenColorIO`; `OpenColorIOEditor` is Editor-target only."
+    ],
+    "note_cn": "OpenColorIO 色彩管理（ACES/显示变换）。",
+    "note_en": "OpenColorIO color management (ACES/display transforms)."
+  },
+  {
+    "slug": "opencv-lens-distortion",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenCV Lens Distortion`（模块 `OpenCVLensCalibration`、`OpenCVLensDistortion`）。",
+      "它用 OpenCV 做相机校准，并生成镜头畸变/不畸变的位移图。",
+      "在校准流程里用其工具处理镜头畸变（替代旧的 LensDistortion 插件）。",
+      "属合成/相机校准工具；需 OpenCV 插件。"
+    ],
+    "en_steps": [
+      "Enable `OpenCV Lens Distortion` (modules `OpenCVLensCalibration`, `OpenCVLensDistortion`).",
+      "It uses OpenCV for camera calibration and to generate lens distortion/undistortion displacement maps.",
+      "Use its tools in the calibration flow to handle lens distortion (replacing the old LensDistortion plugin).",
+      "It is a compositing/camera-calibration tool; requires the OpenCV plugin."
+    ],
+    "note_cn": "用 OpenCV 做相机校准与镜头畸变位移图。",
+    "note_en": "Camera calibration and lens distortion maps via OpenCV."
+  },
+  {
+    "slug": "opencv",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenCV`（模块 `OpenCVHelper`）。",
+      "它在引擎里初始化并提供可用的 OpenCV 库（计算机视觉能力）。",
+      "作为底层依赖供其它 OpenCV 相关插件（如镜头畸变）使用。",
+      "属计算机视觉基础库封装；写 CV 逻辑时依赖它。"
+    ],
+    "en_steps": [
+      "Enable `OpenCV` (module `OpenCVHelper`).",
+      "It initializes and provides the OpenCV library for use in the engine (computer vision).",
+      "A low-level dependency for other OpenCV-related plugins (e.g. lens distortion).",
+      "It is a computer-vision base library wrapper; depend on it when writing CV logic."
+    ],
+    "note_cn": "引擎里 OpenCV 库的初始化封装。",
+    "note_en": "Initialization wrapper for the OpenCV library in the engine."
+  },
+  {
+    "slug": "openimagedenoise",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenImageDenoise`（模块 `OpenImageDenoise`）。",
+      "它是基于 Intel OpenImageDenoise 的 Path Tracer 去噪引擎。",
+      "在 Path Tracer/离线渲染里启用 OIDN 去噪，降低采样保画质。",
+      "属降噪工具；常用于电影渲染。"
+    ],
+    "en_steps": [
+      "Enable `OpenImageDenoise` (module `OpenImageDenoise`).",
+      "It is a Path Tracer denoising engine based on Intel's OpenImageDenoise library.",
+      "Enable OIDN denoising in Path Tracer/offline renders to cut samples while keeping quality.",
+      "It is a denoise tool; common in cinematic rendering."
+    ],
+    "note_cn": "基于 Intel OpenImageDenoise 的 Path Tracer 去噪。",
+    "note_en": "Path Tracer denoising based on Intel OpenImageDenoise."
+  },
+  {
+    "slug": "openxr-generic-controller-keys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR Generic Controller Keys`（模块 `OpenXRGenericControllerKeys`）。",
+      "它定义 Khronos 通用控制器的输入键（`OpenXRGenericController_*` FKey），只依赖 InputCore。",
+      "无需 OpenXR 映射即可引用这些键（如 Pixel Streaming 场景）。",
+      "轻量按键定义插件；供需要这些键的模块引用。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR Generic Controller Keys` (module `OpenXRGenericControllerKeys`).",
+      "It defines the Khronos generic controller input keys (`OpenXRGenericController_*` FKeys), depending only on InputCore.",
+      "These keys can be referenced without OpenXR mapping (e.g. Pixel Streaming scenarios).",
+      "A lightweight key-definition plugin; referenced by modules that need these keys."
+    ],
+    "note_cn": "Khronos 通用控制器输入键定义（仅依赖 InputCore）。",
+    "note_en": "Khronos generic controller input-key definitions (InputCore-only)."
+  },
+  {
+    "slug": "openxr-generic-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR Generic Controller`（模块 `OpenXRGenericController`）。",
+      "它启用 `XR_KHR_generic_controller` 扩展并注册 `/interaction_profiles/khr/generic_controller`。",
+      "在 OpenXR 项目里支持通用控制器输入与手势。",
+      "属 OpenXR 输入扩展；需 OpenXR 运行时。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR Generic Controller` (module `OpenXRGenericController`).",
+      "It enables the `XR_KHR_generic_controller` extension and registers the `/interaction_profiles/khr/generic_controller` profile.",
+      "Supports generic controller input/gestures in OpenXR projects.",
+      "It is an OpenXR input extension; requires an OpenXR runtime."
+    ],
+    "note_cn": "OpenXR 的 Khronos 通用控制器支持（XR_KHR_generic_controller）。",
+    "note_en": "OpenXR Khronos generic controller support (XR_KHR_generic_controller)."
+  },
+  {
+    "slug": "openxr-mixed-reality-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR Mixed Reality Controller`（模块 `OpenXRMixedRealityController`）。",
+      "它为 Windows 混合现实运动控制器提供 OpenXR 支持（`/interaction_profiles/microsoft/motion_controller` 及控制器网格）。",
+      "在 WMR 头显/手柄的 OpenXR 项目里使用。",
+      "属 OpenXR 输入扩展；需 OpenXR 运行时与 WMR。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR Mixed Reality Controller` (module `OpenXRMixedRealityController`).",
+      "It provides OpenXR support for Windows Mixed Reality motion controllers (`/interaction_profiles/microsoft/motion_controller` plus controller meshes).",
+      "Use it in OpenXR projects with WMR headsets/controllers.",
+      "It is an OpenXR input extension; requires an OpenXR runtime and WMR."
+    ],
+    "note_cn": "OpenXR 的 Windows 混合现实运动控制器支持。",
+    "note_en": "OpenXR support for Windows Mixed Reality motion controllers."
+  },
+  {
+    "slug": "openxr-oculus-touch-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR Oculus Touch Controller`（模块 `OpenXROculusTouchController`）。",
+      "它为 Oculus Touch / Oculus Go 控制器提供 OpenXR 支持（`oculus/touch_controller`、`oculus/go_controller` 及控制器网格）。",
+      "在 Rift/Quest 等 OpenXR 项目里使用对应交互配置。",
+      "属 OpenXR 输入扩展；需 OpenXR 运行时。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR Oculus Touch Controller` (module `OpenXROculusTouchController`).",
+      "It provides OpenXR support for Oculus Touch / Oculus Go controllers (`oculus/touch_controller`, `oculus/go_controller`, plus controller meshes).",
+      "Use the matching interaction profiles in Rift/Quest etc. OpenXR projects.",
+      "It is an OpenXR input extension; requires an OpenXR runtime."
+    ],
+    "note_cn": "OpenXR 的 Oculus Touch/Go 控制器支持。",
+    "note_en": "OpenXR support for Oculus Touch/Go controllers."
+  },
+  {
+    "slug": "openxr-render-model",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR Render Model`（模块 `OpenXRRenderModel`）。",
+      "当活动运行时支持时，它让 `XRDeviceVisualizationComponent` 从 OpenXR `XR_EXT_render_model`/`XR_EXT_interaction_render_model` 加载控制器渲染模型。",
+      "在 VR 里显示与控制设备对应的真实手柄模型。",
+      "属 OpenXR 渲染扩展；需运行时支持相应扩展。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR Render Model` (module `OpenXRRenderModel`).",
+      "When the active runtime supports it, it lets `XRDeviceVisualizationComponent` load controller render models from OpenXR `XR_EXT_render_model`/`XR_EXT_interaction_render_model`.",
+      "Show the actual controller models matching the device in VR.",
+      "It is an OpenXR render extension; requires runtime support for those extensions."
+    ],
+    "note_cn": "从 OpenXR 加载控制器渲染模型（XR_EXT_render_model）。",
+    "note_en": "Load controller render models from OpenXR (XR_EXT_render_model)."
+  },
+  {
+    "slug": "openxr-spatial-entities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `OpenXR Spatial Entities`（运行时 `OpenXRSpatialEntities`，编辑器 `OpenXRSpatialEntitiesEditor`）。",
+      "它实现 OpenXR `XR_EXT_spatial_entity` 系列（基础、锚点、持久性、持久性操作），用于跨厂商持久空间锚点。",
+      "在 AR/VR 里创建/持久化空间锚点，跨会话保持位置。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target；需运行时支持。"
+    ],
+    "en_steps": [
+      "Enable `OpenXR Spatial Entities` (runtime `OpenXRSpatialEntities`, editor `OpenXRSpatialEntitiesEditor`).",
+      "It implements the OpenXR `XR_EXT_spatial_entity` family (base, anchors, persistence, persistence ops) for cross-vendor persistent spatial anchors.",
+      "In AR/VR, create/persist spatial anchors that hold positions across sessions.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only; requires runtime support."
+    ],
+    "note_cn": "OpenXR 跨厂商持久空间锚点（XR_EXT_spatial_entity 系列）。",
+    "note_en": "OpenXR cross-vendor persistent spatial anchors (XR_EXT_spatial_entity family)."
+  }
+]

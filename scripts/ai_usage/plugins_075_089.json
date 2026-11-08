@@ -1,0 +1,320 @@
+[
+  {
+    "slug": "audio-modulation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Audio Modulation`（运行时 `AudioModulation`，编辑器 `AudioModulationEditor`）并重启。",
+      "在内容浏览器 `Sounds > Modulation` 下创建 `Sound Control Bus`、`Sound Control Bus Mix`，以及 `Modulation Parameter`（Volume / Pitch / Lowpass 等）。",
+      "需要周期或包络驱动时，再创建 `Modulation Generator` 资产（`LFO`、`Envelope Follower`），并接到对应 Control Bus。",
+      "打开 Sound Wave / Sound Cue / MetaSound / `Audio Component`，在 Modulation Destinations 里把上述 Bus 绑到音量、音调或滤波。",
+      "运行时用 `UAudioModulationStatics` 的 `Activate Bus Mix` / `Deactivate Bus Mix` / `Update Mix` 启用混音；全局值用 `Set Global Bus Mix Value`。",
+      "C++ 游戏模块只依赖 `AudioModulation`；`AudioModulationEditor` 仅进 Editor Target。",
+      "PIE 中改 Mix 权重，听目标声音是否跟随 Bus，而不是去 Audio 项目设置里找一个叫 Audio Modulation 的子混合。"
+    ],
+    "en_steps": [
+      "Enable `Audio Modulation` (runtime `AudioModulation`, editor `AudioModulationEditor`) and restart.",
+      "In Content Browser under `Sounds > Modulation`, create a `Sound Control Bus`, a `Sound Control Bus Mix`, and a `Modulation Parameter` (Volume / Pitch / Lowpass, etc.).",
+      "For periodic or envelope drive, add a `Modulation Generator` asset (`LFO`, `Envelope Follower`) and wire it to the bus.",
+      "On a Sound Wave / Sound Cue / MetaSound / `Audio Component`, bind that bus in Modulation Destinations (volume, pitch, or filter).",
+      "At runtime call `UAudioModulationStatics` `Activate Bus Mix` / `Deactivate Bus Mix` / `Update Mix`; use `Set Global Bus Mix Value` for a global bus.",
+      "Game modules depend on `AudioModulation` only; keep `AudioModulationEditor` on an Editor target.",
+      "In PIE, change mix weights and confirm the destination sound follows the bus — this is not a Project Settings submix named Audio Modulation."
+    ],
+    "note_cn": "默认调制实现靠 Control Bus / Mix 资产驱动声音目的地，不是新的 Sound Class。",
+    "note_en": "The default modulator drives sound destinations through Control Bus / Mix assets, not a new Sound Class."
+  },
+  {
+    "slug": "audio-motor-sim",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Audio Motor Sim`（`AudioMotorSim`、`AudioMotorSimStandardComponents`、`AudioMotorSimDebug`）。",
+      "在载具 Pawn 上添加 `UAudioMotorSimComponent`，作为发动机音频状态的合成器（不是普通 `Audio Component`）。",
+      "再从 `AudioMotorSimStandardComponents` 挂标准件：`UThrottleStateMotorSimComponent`、`UMotorPhysicsSimComponent`、`UResistanceMotorSimComponent`、`URevLimiterMotorSimComponent`、`UBoostMotorSimComponent`、`UVelocitySyncMotorSimComponent`。",
+      "每帧把油门、转速、挡位、速度写入这些 Sim 组件；`UAudioMotorSimComponent` 按组合结果输出 RPM/Load 等参数。",
+      "用这些参数驱动载具 MetaSound（或 Sound Cue 参数），不要把 Sim 组件当成可播放的 Sound Wave。",
+      "调试时打开 `AudioMotorSimDebug` 的绘制/日志核对 Sim 输出；Shipping 可关 Debug 模块。",
+      "C++ 游戏模块依赖 `AudioMotorSim` 与 `AudioMotorSimStandardComponents`，自定义 Sim 实现 `IAudioMotorSim`。"
+    ],
+    "en_steps": [
+      "Enable `Audio Motor Sim` (`AudioMotorSim`, `AudioMotorSimStandardComponents`, `AudioMotorSimDebug`).",
+      "Add `UAudioMotorSimComponent` to the vehicle pawn as the composer of engine-audio state (not a generic `Audio Component`).",
+      "Attach stock pieces from `AudioMotorSimStandardComponents`: `UThrottleStateMotorSimComponent`, `UMotorPhysicsSimComponent`, `UResistanceMotorSimComponent`, `URevLimiterMotorSimComponent`, `UBoostMotorSimComponent`, `UVelocitySyncMotorSimComponent`.",
+      "Feed throttle, RPM, gear, and speed into those sim components each frame; `UAudioMotorSimComponent` composes RPM/Load outputs.",
+      "Drive the vehicle MetaSound (or Sound Cue parameters) from those outputs; the sim components are not playable Sound Waves.",
+      "Use `AudioMotorSimDebug` draw/logs while tuning; omit the debug module from shipping if you do not need it.",
+      "Game modules depend on `AudioMotorSim` and `AudioMotorSimStandardComponents`; custom pieces implement `IAudioMotorSim`."
+    ],
+    "note_cn": "这是载具发动机音频的组合仿真，不是混响或 Control Bus。",
+    "note_en": "This is compositional vehicle-engine audio simulation, not reverb or Control Buses."
+  },
+  {
+    "slug": "audio-properties",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `Audio Properties`（`AudioProperties`、`AudioPropertiesEditor`）并重启。",
+      "在内容浏览器创建可派生的 Audio Property Set / Sheet 资产，定义要注入声音的命名属性（而不是 Sound Class 或 Modulation Parameter）。",
+      "用 `AudioPropertiesEditor` 的细节定制把该属性集挂到目标 `Sound Wave` / MetaSound / 其它音频资产上，子资产可覆盖父集。",
+      "播放时由 `AudioProperties` 把派生后的属性注入该资产实例，供 MetaSound 输入或运行时读取。",
+      "C++ 只依赖 `AudioProperties`；不要把 `AudioPropertiesEditor` 写进 Game Target。",
+      "接口仍可能随夜构建变化，先在独立声音资产上验证注入结果再铺开。"
+    ],
+    "en_steps": [
+      "Enable the Experimental plugin `Audio Properties` (`AudioProperties`, `AudioPropertiesEditor`) and restart.",
+      "Create a derivable Audio Property Set / Sheet asset and define named properties to inject into sounds (not Sound Classes or Modulation Parameters).",
+      "Using `AudioPropertiesEditor` details, attach that set to a `Sound Wave` / MetaSound / other audio asset; children can override the parent set.",
+      "At playback, `AudioProperties` injects the derived values into that asset instance for MetaSound inputs or runtime reads.",
+      "Depend on `AudioProperties` in game code; keep `AudioPropertiesEditor` off Game targets.",
+      "The contract can change on nightlies — prove injection on a single sound before rolling it out."
+    ],
+    "note_cn": "Experimental：任意可派生属性集注入音频资产，不是子混合也不是 Control Bus。",
+    "note_en": "Experimental: derivable property sets injected into audio assets, not a submix and not Control Buses."
+  },
+  {
+    "slug": "audio-synesthesia",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Audio Synesthesia`（`AudioSynesthesiaCore`、`AudioSynesthesia`、`AudioSynesthesiaEditor`）。",
+      "先创建 NRT Settings 资产，例如 `Loudness NRT Settings`、`ConstantQNRT Settings`、`Onset NRT Settings`，再创建对应分析器 `ULoudnessNRT`、`UConstantQNRT`、`UOnsetNRT`。",
+      "把分析器的 Sound 指到目标 `Sound Wave`，在资产编辑器里 Analyze，生成离线响度 / Constant-Q / onset 曲线（不是实时子混合）。",
+      "蓝图用 `Get Normalized Loudness At Time`、`Get Constant Q At Time`、`Get Channel Onsets Between Times` 按时间取样，驱动材质、灯光或游戏逻辑。",
+      "需要实时频谱时改用同插件的 Analyzer 组件（Loudness / ConstantQ / Meter），与 NRT 资产分开。",
+      "游戏模块依赖 `AudioSynesthesia` / `AudioSynesthesiaCore`；`AudioSynesthesiaEditor` 仅 Editor。"
+    ],
+    "en_steps": [
+      "Enable `Audio Synesthesia` (`AudioSynesthesiaCore`, `AudioSynesthesia`, `AudioSynesthesiaEditor`).",
+      "Create NRT Settings assets (`Loudness NRT Settings`, `ConstantQNRT Settings`, `Onset NRT Settings`) and matching analyzers `ULoudnessNRT`, `UConstantQNRT`, `UOnsetNRT`.",
+      "Point the analyzer at a `Sound Wave` and Analyze in the asset editor to bake loudness / Constant-Q / onset curves (not a live submix).",
+      "From Blueprint sample with `Get Normalized Loudness At Time`, `Get Constant Q At Time`, `Get Channel Onsets Between Times` to drive materials, lights, or gameplay.",
+      "For live analysis use the plugin’s Analyzer components (Loudness / ConstantQ / Meter), separate from NRT assets.",
+      "Game modules depend on `AudioSynesthesia` / `AudioSynesthesiaCore`; `AudioSynesthesiaEditor` is Editor-only."
+    ],
+    "note_cn": "NRT 分析器离线提取元数据给蓝图，不是播放插件也不是 Modulation。",
+    "note_en": "NRT analyzers bake audio metadata for Blueprint; they do not play sound and are not Modulation."
+  },
+  {
+    "slug": "audio-test-helper",
+    "kind": "plugin",
+    "cn_steps": [
+      "仅在测试工程启用 `Audio Test Helper`（模块 `AudioTestHelper`，路径 `Plugins/Tests/AudioTestHelper`）。",
+      "在音频自动化/单元测试模块的 `Build.cs` 里把 `AudioTestHelper` 加为 Private 依赖，不要加进游戏运行时模块。",
+      "测试里用它生成参考信号（正弦/噪声等），再对 DSP 输出做缓冲区比较，而不是放到关卡里播 Sound。",
+      "写 A/B 性能回归时，用同一组 helper 测量处理前后耗时，断言退化。",
+      "通过 `Tools > Session Frontend > Automation` 跑依赖该模块的音频用例；不要在 Shipping 目标链接它。"
+    ],
+    "en_steps": [
+      "Enable `Audio Test Helper` only on test projects (module `AudioTestHelper`, `Plugins/Tests/AudioTestHelper`).",
+      "Add `AudioTestHelper` as a Private dependency in audio automation/unit-test `Build.cs` files, not in game runtime modules.",
+      "Use it to generate reference signals (sine/noise, etc.) and compare DSP output buffers — do not place it as a level Sound.",
+      "For A/B perf regressions, time processing with the same helpers and assert against the baseline.",
+      "Run dependent audio cases from `Tools > Session Frontend > Automation`; do not link it into Shipping."
+    ],
+    "note_cn": "测试基础设施：信号生成、缓冲对比、A/B 性能回归，不是游戏内音频功能。",
+    "note_en": "Test infrastructure for signal generation, buffer compare, and A/B perf regression — not in-game audio."
+  },
+  {
+    "slug": "audiogameplay",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `AudioGameplay`（运行时 `AudioGameplay`；`AudioGameplayTests` 只给自动化）。",
+      "在需要按游戏条件发声的 Actor 上添加 `UAudioGameplayComponent`，作为音频游戏逻辑的宿主（不是 `UAudioComponent` 播放器）。",
+      "配置组件上的条件 / Requirement，用 Gameplay Tag 或谓词决定何时允许播放、衰减或切换。",
+      "关卡空间效果请另启用 `AudioGameplayVolume`；本插件只提供组件与条件框架。",
+      "C++ 游戏模块依赖 `AudioGameplay`。验证时在 PIE 切换条件，确认声音启用/禁用跟随组件，而不是 Sound Cue 时间轴。",
+      "不要把 `AudioGameplayTests` 写进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `AudioGameplay` (runtime `AudioGameplay`; `AudioGameplayTests` is automation-only).",
+      "Add `UAudioGameplayComponent` to actors that should emit sound based on gameplay conditions — it is not a `UAudioComponent` player.",
+      "Author requirements/predicates on the component (Gameplay Tags or similar) that gate play, attenuation, or switching.",
+      "For spatial volume effects enable `AudioGameplayVolume` separately; this plugin is the component/condition core.",
+      "Game modules depend on `AudioGameplay`. In PIE, toggle conditions and confirm sound follows the component, not a Sound Cue timeline.",
+      "Do not ship `AudioGameplayTests`."
+    ],
+    "note_cn": "音频玩法核心组件/条件层，Volume 变体在独立的 AudioGameplayVolume 插件。",
+    "note_en": "Core audio-gameplay components and conditions; volume actors live in AudioGameplayVolume."
+  },
+  {
+    "slug": "audiogameplayvolume",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `AudioGameplay` 与 `AudioGameplayVolume`（`AudioGameplayVolume`、`AudioGameplayVolumeEditor`）。",
+      "在关卡放置 `AAudioGameplayVolume`，用笔刷/碰撞体划定听者进入区域（不是 `AAudioVolume` 的 Ambient Zone）。",
+      "在该 Actor 上添加 Mutator 组件：Filter、Reverb、Submix Send / Override、Attenuation 等，由 `UAudioGameplayVolumeMutator` 在进出时应用。",
+      "重叠多个 Volume 时靠优先级与代理解析；用 `AudioGameplayVolumeEditor` 在视口里看体积线框。",
+      "PIE 把听者走进走出，确认滤波/混响/发送变化；不要在 Project Settings > Audio 里找同名子混合。",
+      "游戏模块只依赖 `AudioGameplayVolume`；Editor 模块勿进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable both `AudioGameplay` and `AudioGameplayVolume` (`AudioGameplayVolume`, `AudioGameplayVolumeEditor`).",
+      "Place `AAudioGameplayVolume` and shape its collision so the listener enters a region (not `AAudioVolume` ambient zones).",
+      "Add mutator components on that actor: Filter, Reverb, Submix Send / Override, Attenuation; `UAudioGameplayVolumeMutator` applies them on enter/exit.",
+      "Overlapping volumes resolve by priority/proxy; `AudioGameplayVolumeEditor` draws the volume in the viewport.",
+      "In PIE walk the listener in and out and confirm filter/reverb/send changes; there is no Project Settings submix named AudioGameplayVolume.",
+      "Game modules depend on `AudioGameplayVolume` only; keep the editor module off Game targets."
+    ],
+    "note_cn": "听者进出时应用滤波/混响/Submix 的玩法体积，依赖 AudioGameplay 核心。",
+    "note_en": "Listener-enter gameplay volumes for filter/reverb/submix; requires the AudioGameplay core plugin."
+  },
+  {
+    "slug": "audiowidgets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `AudioWidgets`（`AudioWidgetsCore`、`AudioWidgets`、`AudioWidgetsEditor`）。",
+      "打开或新建 UMG `Widget Blueprint`，在 Palette 的 Audio 分组拖入 `Audio Slider`、`Audio Radial Slider`、`Audio Meter`（`UAudioSlider` / `UAudioRadialSlider` / `UAudioMeter`）。",
+      "把滑条单位设为 dB 或 Hz，绑定到 MetaSound / `Audio Component` 参数或 Modulation Bus，而不是当普通 `Progress Bar`。",
+      "需要编辑器里的旋钮/电平条时，`AudioWidgetsEditor` 会用于 MetaSound 等音频编辑器；游戏 HUD 只用运行时模块。",
+      "C++ 依赖 `AudioWidgets` 与 `AudioWidgetsCore`；不要把 `AudioWidgetsEditor` 链进 Game Target。",
+      "PIE 拖动滑条，确认音频参数与 Meter 电平同步变化。"
+    ],
+    "en_steps": [
+      "Enable `AudioWidgets` (`AudioWidgetsCore`, `AudioWidgets`, `AudioWidgetsEditor`).",
+      "Open a UMG `Widget Blueprint` and from the Audio palette drop `Audio Slider`, `Audio Radial Slider`, and `Audio Meter` (`UAudioSlider` / `UAudioRadialSlider` / `UAudioMeter`).",
+      "Set units to dB or Hz and bind them to MetaSound / `Audio Component` parameters or a Modulation bus — not a generic `Progress Bar`.",
+      "`AudioWidgetsEditor` supplies knobs/meters inside audio editors such as MetaSound; game HUDs use the runtime modules only.",
+      "C++ depends on `AudioWidgets` and `AudioWidgetsCore`; keep `AudioWidgetsEditor` off Game targets.",
+      "In PIE, drag the slider and confirm the audio parameter and meter level move together."
+    ],
+    "note_cn": "面向音频数据的 UMG/Slate 控件（滑条、旋钮、电平表），不是声音播放器。",
+    "note_en": "UMG/Slate controls for audio data (sliders, knobs, meters), not a sound player."
+  },
+  {
+    "slug": "audiowidgettoolkit",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `AudioWidgetToolkit`（`AudioWidgetToolkitCore`、`AudioWidgetToolkit`）；测试模块 `AudioWidgetToolkitTests` 可选。",
+      "在自定义音频 UI 模块的 `Build.cs` 中依赖 `AudioWidgetToolkitCore` / `AudioWidgetToolkit`，用工具包组装可与音频系统绑定的复合控件（在 `AudioWidgets` 单控件之上）。",
+      "把工具包控件嵌进编辑器工具或 UMG，绑定到同一套音频参数/总线，而不是再拖一套普通 Slider。",
+      "用 `Tools > Session Frontend > Automation` 跑 `AudioWidgetToolkitTests` 验证控件行为。",
+      "Experimental，不要当 Shipping HUD 的稳定 API；游戏内简单电平条优先用 `AudioWidgets`。"
+    ],
+    "en_steps": [
+      "Enable Experimental `AudioWidgetToolkit` (`AudioWidgetToolkitCore`, `AudioWidgetToolkit`); `AudioWidgetToolkitTests` is optional.",
+      "Depend on `AudioWidgetToolkitCore` / `AudioWidgetToolkit` in your audio-UI `Build.cs` and compose compound controls that bind to audio systems (a layer above `AudioWidgets`).",
+      "Embed those toolkit widgets in an editor tool or UMG and bind the same audio parameters/buses; do not fall back to a plain Slider.",
+      "Run `AudioWidgetToolkitTests` from `Tools > Session Frontend > Automation`.",
+      "Experimental — not a stable shipping HUD API; prefer `AudioWidgets` for simple in-game meters."
+    ],
+    "note_cn": "Experimental 工具包，用来搭建与音频系统交互的复合控件，不是现成的混音台窗口。",
+    "note_en": "Experimental toolkit for building composite audio-bound widgets, not a ready-made mixer window."
+  },
+  {
+    "slug": "automatedperftesting",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `AutomatedPerfTesting`（模块同名，路径 `Plugins/Performance/AutomatedPerfTesting`）。",
+      "准备性能测试关卡或 Sequencer，在项目配置 / DefaultDeviceProfiles 中指定 Gauntlet 要用的地图与控制器（插件提供的 Gauntlet Test Controller，不是 Enhanced Input）。",
+      "用 `RunUAT` / Gauntlet 拉起带该控制器的客户端（可加 Insights 跟踪），让控制器自动跑相机扫描、静帧或序列。",
+      "收集 CSV / Unreal Insights 轨迹与 FPS 图表，对比基线；不要在 `Session Frontend` 里当普通功能测试点一下就当完成。",
+      "C++ 若扩展控制器，只依赖 `AutomatedPerfTesting`；此插件服务 CI 性能，不要打进玩家包。"
+    ],
+    "en_steps": [
+      "Enable `AutomatedPerfTesting` (same-named module under `Plugins/Performance/AutomatedPerfTesting`).",
+      "Author a perf map or Sequencer and point Gauntlet at the map plus this plugin’s Gauntlet Test Controllers in project/device config (not Enhanced Input).",
+      "Launch via `RunUAT` / Gauntlet with those controllers (optionally with Insights tracing) so the client runs camera sweeps, static views, or sequences unattended.",
+      "Collect CSV / Unreal Insights traces and FPS charts against a baseline; clicking a functional test in `Session Frontend` is not the same workflow.",
+      "If you subclass a controller, depend on `AutomatedPerfTesting` only; keep this out of player shipping builds."
+    ],
+    "note_cn": "Gauntlet 性能测试控制器，用于无人值守扫图/序列并出 Insights，不是输入映射插件。",
+    "note_en": "Gauntlet perf-test controllers for unattended map/sequence runs and Insights, not an input-mapping plugin."
+  },
+  {
+    "slug": "automatedperftesttools",
+    "kind": "plugin",
+    "cn_steps": [
+      "先启用 `AutomatedPerfTesting`，再启用配套的 `AutomatedPerfTestTools`（模块 `AutomatedPerfTestLaunchExtension`）。",
+      "打开 `Project Launcher` 或编辑器启动扩展，使用该模块注册的 Perf Test 启动项/参数，而不是手动拼一套 PIE 命令行。",
+      "从扩展里选目标地图、设备档和 Gauntlet 控制器，一键拉起与 CI 相同的性能测试。",
+      "跑完对照 `AutomatedPerfTesting` 产出的 Insights/CSV；本插件只提供启动/工具层。",
+      "`AutomatedPerfTestLaunchExtension` 是编辑器启动扩展，不要写进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `AutomatedPerfTesting` first, then `AutomatedPerfTestTools` (module `AutomatedPerfTestLaunchExtension`).",
+      "Open `Project Launcher` or the editor launch extension this module registers, instead of hand-writing PIE command lines.",
+      "Pick the map, device profile, and Gauntlet controller from that extension so local runs match CI.",
+      "Judge results from the Insights/CSV produced by `AutomatedPerfTesting`; this plugin is the launch/tooling layer only.",
+      "`AutomatedPerfTestLaunchExtension` is an editor launch extension — do not add it to a Game target."
+    ],
+    "note_cn": "为 AutomatedPerfTesting 提供编辑器启动扩展，本身不含 Gauntlet 控制器。",
+    "note_en": "Editor launch tooling for AutomatedPerfTesting; it does not contain the Gauntlet controllers themselves."
+  },
+  {
+    "slug": "automation-controller-rpc-component",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Automation Controller RPC Component`（模块 `AutomationControllerRpc`）。",
+      "在要远程跑测试的编辑器或游戏实例上加载该模块，使 `AutomationController` 能通过 RPC 接收“运行已注册测试”的请求。",
+      "用 `Tools > Session Frontend` 连到该实例（或你的 RPC 客户端），列出并启动已注册的 Automation 用例。",
+      "确认请求走 RPC/消息通道到达 Controller，而不是在本地进程内直接点 Run；设备/从进程上应看到同样的测试开始。",
+      "这是测试编排通道，不要当 Enhanced Input 或 OpenXR 组件。游戏 Shipping 包不要依赖 `AutomationControllerRpc`。"
+    ],
+    "en_steps": [
+      "Enable `Automation Controller RPC Component` (module `AutomationControllerRpc`).",
+      "Load it on the editor or game instance that should run tests remotely so `AutomationController` can accept RPCs to execute registered tests.",
+      "Connect `Tools > Session Frontend` (or your RPC client) to that instance, list registered automation cases, and start them.",
+      "Confirm the request reaches the controller over RPC/messaging, not a local in-process Run; the device/worker should start the same tests.",
+      "This is a test-orchestration channel, not Enhanced Input or OpenXR. Do not depend on `AutomationControllerRpc` in shipping games."
+    ],
+    "note_cn": "让 Automation Controller 经 RPC 远程跑已注册测试，不是输入或 XR 插件。",
+    "note_en": "Lets Automation Controller run registered tests over RPC; not an input or XR plugin."
+  },
+  {
+    "slug": "automation-driver-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "在编辑器测试环境启用 `Automation Driver Tests`（模块 `AutomationDriverTests`，`Plugins/Tests/AutomationDriverTests`）。",
+      "确保引擎模块 `AutomationDriver` 可用：它用 Slate 注入指针/按键，本插件是它的自动化用例包。",
+      "打开 `Tools > Session Frontend > Automation`，筛选 `AutomationDriver` 相关测试并全部运行。",
+      "失败时看用例是否在模拟点击/输入后断言控件状态，不要到关卡里找可放置 Actor。",
+      "不要把 `AutomationDriverTests` 加入游戏 `Build.cs` 或 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Automation Driver Tests` in an editor test environment (module `AutomationDriverTests`, `Plugins/Tests/AutomationDriverTests`).",
+      "Ensure the engine `AutomationDriver` module is available: it injects Slate pointer/key input; this plugin is its test suite.",
+      "Open `Tools > Session Frontend > Automation`, filter `AutomationDriver` tests, and run the set.",
+      "On failure, inspect whether simulated clicks/keys left the widget in the expected state; there is no placeable actor.",
+      "Do not add `AutomationDriverTests` to a game `Build.cs` or Shipping."
+    ],
+    "note_cn": "AutomationDriver 的 Slate UI 自动化测试集，不是游戏功能。",
+    "note_en": "Test suite for AutomationDriver Slate UI automation, not a game feature."
+  },
+  {
+    "slug": "automation-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `Automation Utilities`（`AutomationUtils`、`AutomationUtilsEditor`）。",
+      "在功能测试 Actor / 测试蓝图中调用 `AutomationUtils` 暴露的工具（截图、等待、加载地图等），而不是手写一套 PIE 控制台命令。",
+      "编辑器侧用例依赖 `AutomationUtilsEditor`；需要蓝图库时把该 Editor 模块加进 *Editor.Build.cs。",
+      "从 `Tools > Session Frontend > Automation` 跑引用这些工具的 Functional / Screenshot 测试，核对截图对比输出。",
+      "`AutomationUtilsEditor` 禁止进 Game Target；Experimental，正式流水线要钉引擎版本。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Automation Utilities` (`AutomationUtils`, `AutomationUtilsEditor`).",
+      "From functional-test actors / test Blueprints call the helpers `AutomationUtils` exposes (screenshots, waits, map loads) instead of ad-hoc PIE console commands.",
+      "Editor cases depend on `AutomationUtilsEditor`; add that module only in *Editor.Build.cs if you need the Blueprint library.",
+      "Run the Functional / Screenshot tests that use these helpers from `Tools > Session Frontend > Automation` and check screenshot-compare output.",
+      "Never link `AutomationUtilsEditor` into a Game target; Experimental — pin the engine version in production pipelines."
+    ],
+    "note_cn": "给自动化用的截图/等待/加载工具，Experimental，不是 Gauntlet 性能测试控制器。",
+    "note_en": "Screenshot/wait/load helpers for automation. Experimental; not Gauntlet perf controllers."
+  },
+  {
+    "slug": "automationtesttoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental Toolset 插件 `AutomationTestToolset`（`AutomationTestToolset`、`AutomationTestToolsetTests`）。",
+      "在编辑器 AI 助手 / Toolset 面板中加载该工具集，用它发现已注册的 `FAutomationTestBase` 用例并请求执行。",
+      "执行结果应出现在 Automation 日志 / `Session Frontend`，与手动点测试列表一致。",
+      "用 `AutomationTestToolsetTests` 自测发现/执行路径；不要把工具集当关卡里的测试 Actor。",
+      "Toolset 只服务编辑器助手与自动化，不要打进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the Experimental Toolset plugin `AutomationTestToolset` (`AutomationTestToolset`, `AutomationTestToolsetTests`).",
+      "Load it in the editor AI assistant / Toolset panel to discover registered `FAutomationTestBase` cases and request runs.",
+      "Results should show in the Automation log / `Session Frontend`, matching a manual run from the test list.",
+      "Use `AutomationTestToolsetTests` to verify discovery/execution; this is not a placeable test actor.",
+      "Toolsets serve the in-editor assistant and automation only — do not ship them."
+    ],
+    "note_cn": "给编辑器 AI/自动化用的测试发现与执行工具集，Experimental，非游戏功能。",
+    "note_en": "Experimental toolset for discovering and running automation tests from the editor assistant, not a game feature."
+  }
+]

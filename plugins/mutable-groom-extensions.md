@@ -3,7 +3,6 @@ layout: default
 title: 可变新郎扩展 / Mutable Groom Extensions
 ---
 
-
 <h1>可变新郎扩展 / Mutable Groom Extensions</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 可变新郎扩展 / Mutable Groom Extensions
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">添加可变功能以与 HairStrands 插件中的 Grooms 配合使用</div><div class="lang-content">Adds Mutable functionality to work with Grooms from the HairStrands plugin</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">Mutable Groom Extensions</code>（运行时 <code class="usage-code">HairStrandsMutable</code>，编辑器 <code class="usage-code">HairStrandsMutableEditor</code>）。</li><li>它为 Mutable 增加与 HairStrands 插件中 Grooms 协作的能力。</li><li>在 Mutable 角色自定义里让发型（Groom）也可随自定义变化。</li><li>Experimental：接口可能变动；需 Mutable 与 HairStrands。</li></ol><p class="usage-note">Mutable 与 HairStrands Grooms 协作（可自定义发型），实验性。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Mutable Groom Extensions</code> (runtime <code class="usage-code">HairStrandsMutable</code>, editor <code class="usage-code">HairStrandsMutableEditor</code>).</li><li>It adds Mutable functionality to work with Grooms from the HairStrands plugin.</li><li>In Mutable character customization, make hair (Groom) customizable too.</li><li>Experimental: contract may change; requires Mutable and HairStrands.</li></ol><p class="usage-note">Mutable working with HairStrands Grooms (customizable hair), experimental.</p></div></div></div>
+    </div>
+

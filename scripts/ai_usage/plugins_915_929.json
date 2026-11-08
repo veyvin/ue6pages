@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "teds-editor-data-storage",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `TEDS: Editor Data Storage`（模块 `TedsCore`、`TedsUI`）。",
+      "它是面向编辑器及其数据的中央可扩展数据存储，支持通过小部件集合查看与编辑。",
+      "在其数据存储上构建数据驱动的编辑器 UI（大纲/属性等）。",
+      "Experimental：接口可能变动；编辑器向，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable Experimental `TEDS: Editor Data Storage` (modules `TedsCore`, `TedsUI`).",
+      "It is a central, extensible data store for the editor and its data, viewable/editable via widget collections.",
+      "Build data-driven editor UI (outliner/property, etc.) on its data store.",
+      "Experimental: contract may change; editor-oriented, does not ship."
+    ],
+    "note_cn": "编辑器中央可扩展数据存储（TEDS）。",
+    "note_en": "A central extensible data store for the editor (TEDS)."
+  },
+  {
+    "slug": "template-sequence",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Template Sequence`（运行时 `TemplateSequence`，编辑器 `TemplateSequenceEditor`，脚本 `TemplateSequenceScripting`）。",
+      "它提供模板序列的运行时（可复用的 Sequencer 片段模板）。",
+      "在 Sequencer 里用模板序列复用镜头/片段结构。",
+      "Game 模块依赖运行时模块；编辑器/脚本模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Template Sequence` (runtime `TemplateSequence`, editor `TemplateSequenceEditor`, scripting `TemplateSequenceScripting`).",
+      "It provides the runtime for template sequences (reusable Sequencer section templates).",
+      "In Sequencer, use template sequences to reuse shot/section structure.",
+      "Game modules depend on runtime modules; editor/scripting modules go to Editor targets only."
+    ],
+    "note_cn": "模板序列的运行时（可复用 Sequencer 片段）。",
+    "note_en": "The runtime for template sequences (reusable Sequencer sections)."
+  },
+  {
+    "slug": "tensorboard",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Tensorboard` 插件（无独立模块列表）。",
+      "它提供可选的 tensorboard Python 包及其依赖，用于训练可视化。",
+      "配合 ML/Python 训练流程记录并查看训练曲线。",
+      "这是可选 Python 依赖包，不是运行时功能。"
+    ],
+    "en_steps": [
+      "Enable the `Tensorboard` plugin (no standalone module list).",
+      "It provides the optional tensorboard Python package and dependencies for training visualization.",
+      "Use it with ML/Python training flows to log and view training curves.",
+      "It is an optional Python dependency pack, not a runtime feature."
+    ],
+    "note_cn": "可选的 tensorboard Python 包/依赖（训练可视化）。",
+    "note_en": "An optional tensorboard Python package/deps (training visualization)."
+  },
+  {
+    "slug": "terminal",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Terminal`（模块 `Terminal`，测试 `TerminalTests`）。",
+      "它是本机 Slate 终端模拟器（在编辑器里显示/交互终端）。",
+      "在编辑器里打开终端面板执行命令。",
+      "Experimental：接口可能变动；测试模块不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Terminal` (module `Terminal`, tests `TerminalTests`).",
+      "It is a native Slate terminal emulator (displays/interacts with a terminal in the editor).",
+      "Open the terminal panel in the editor to run commands.",
+      "Experimental: contract may change; keep the test module out of production."
+    ],
+    "note_cn": "本机 Slate 终端模拟器。",
+    "note_en": "A native Slate terminal emulator."
+  },
+  {
+    "slug": "testframework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `TestFramework`（模块 `TestFramework`）。",
+      "它提供测试框架能力（自动化测试基础设施）。",
+      "在 CI/自动化里基于该框架编写/运行测试。",
+      "这是测试框架插件，不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable `TestFramework` (module `TestFramework`).",
+      "It provides test-framework capability (automation test infrastructure).",
+      "Write/run tests on this framework in CI/automation.",
+      "It is a test-framework plugin, not for production."
+    ],
+    "note_cn": "测试框架/自动化测试基础设施。",
+    "note_en": "Test-framework/automation-test infrastructure."
+  },
+  {
+    "slug": "testsamples",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `TestSamples`（模块 `TestSamples`）。",
+      "它提供测试样例内容（演示/验证用法）。",
+      "在自动化里用这些样例做参考/验证框架能力。",
+      "这是测试样例插件，不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable `TestSamples` (module `TestSamples`).",
+      "It provides test sample content (demo/validation usage).",
+      "Use these samples as reference/validation in automation.",
+      "It is a test-samples plugin, not for production."
+    ],
+    "note_cn": "测试样例内容。",
+    "note_en": "Test sample content."
+  },
+  {
+    "slug": "tet-meshing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Tet Meshing`（模块 `TetMeshing`）。",
+      "它添加用于生成与细化四面体网格的模块（物理仿真用体积网格）。",
+      "在物理/柔性体仿真里用其工具生成四面体网格。",
+      "Experimental：接口可能变动；属物理体积网格工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Tet Meshing` (module `TetMeshing`).",
+      "It adds modules to generate and refine tetrahedral meshes (volumetric meshes for physics simulation).",
+      "Use its tools to generate tetrahedral meshes in physics/soft-body simulation.",
+      "Experimental: contract may change; it is a physics volumetric-meshing tool."
+    ],
+    "note_cn": "生成/细化四面体网格的模块（物理体积网格）。",
+    "note_en": "Modules to generate/refine tetrahedral meshes (physics volumetric meshing)."
+  },
+  {
+    "slug": "text-3d",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Text 3D`（运行时 `Text3D`，编辑器 `Text3DEditor`）。",
+      "它是使用高级选项创建 3D 文本的工具（立体字/动效）。",
+      "在关卡里用 Text 3D 组件生成可渲染的 3D 文字。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Text 3D` (runtime `Text3D`, editor `Text3DEditor`).",
+      "It is a tool to create 3D text with advanced options (extruded text/motion).",
+      "Use the Text 3D component in levels to generate renderable 3D text.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "创建 3D 文本的工具（高级选项）。",
+    "note_en": "A tool to create 3D text (advanced options)."
+  },
+  {
+    "slug": "texttospeech",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `TextToSpeech`（模块 `TextToSpeech`）。",
+      "它是文本转语音系统：给定输入字符串生成可闻的语音。",
+      "在无障碍/播报场景里把文本转成语音播放。",
+      "运行时模块；用于无障碍与语音播报。"
+    ],
+    "en_steps": [
+      "Enable `TextToSpeech` (module `TextToSpeech`).",
+      "It is a text-to-speech system: generates audible speech from an input string.",
+      "In accessibility/announcement scenarios, convert text to spoken audio.",
+      "A runtime module; for accessibility and voice announcements."
+    ],
+    "note_cn": "文本转语音系统（输入字符串生成语音）。",
+    "note_en": "A text-to-speech system (generates speech from input text)."
+  },
+  {
+    "slug": "texture-share",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Texture Share`（运行时 `TextureShareCore`、`TextureShare`、`TextureShareDisplayCluster`），属 Virtual Production。",
+      "它在进程之间共享纹理与数据（如引擎与外部渲染器/合成工具）。",
+      "配置 Texture Share 端点，在引擎与外部进程间交换纹理。",
+      "Game 模块依赖运行时模块；属虚拟制片进程间共享。"
+    ],
+    "en_steps": [
+      "Enable `Texture Share` (modules `TextureShareCore`, `TextureShare`, `TextureShareDisplayCluster`), part of Virtual Production.",
+      "It shares textures and data between processes (e.g. engine with an external renderer/compositor).",
+      "Configure Texture Share endpoints to exchange textures between the engine and external processes.",
+      "Game modules depend on runtime modules; it is virtual-production inter-process sharing."
+    ],
+    "note_cn": "进程间共享纹理与数据（虚拟制片）。",
+    "note_en": "Shares textures and data between processes (virtual production)."
+  },
+  {
+    "slug": "texturegraph",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `TextureGraph`（运行时 `TextureGraphEngine`，编辑器 `TextureGraph`、`TextureGraphEditor`、`TextureGraphInsight` 等）。",
+      "它是用图表创建纹理的工具（节点式程序化纹理生成）。",
+      "在 Texture Graph 里搭建节点生成纹理并输出。",
+      "Game 模块依赖运行时模块；编辑器/Insight 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `TextureGraph` (runtime `TextureGraphEngine`, editor `TextureGraph`, `TextureGraphEditor`, `TextureGraphInsight`, etc.).",
+      "It is a texture-creation tool using graphs (node-based procedural texture generation).",
+      "Build nodes in Texture Graph to generate and output textures.",
+      "Game modules depend on runtime modules; editor/Insight modules go to Editor targets only."
+    ],
+    "note_cn": "用图表创建纹理的工具（节点式程序化）。",
+    "note_en": "A graph-based texture creation tool (node procedural)."
+  },
+  {
+    "slug": "texturegraphtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `TextureGraphToolset`（模块 `TextureGraphToolset`）。",
+      "它提供用于创建与检查 TextureGraph 资源的工具集（供 AI 助手/自动化）。",
+      "用其工具批量生成/检查纹理图。",
+      "属 AI 工具链/编辑器自动化；非运行时功能。"
+    ],
+    "en_steps": [
+      "Enable `TextureGraphToolset` (module `TextureGraphToolset`).",
+      "It provides a toolset to create and inspect TextureGraph assets (for AI assistants/automation).",
+      "Use its tools to batch-generate/inspect texture graphs.",
+      "It is AI-toolchain/editor automation, not a runtime feature."
+    ],
+    "note_cn": "创建/检查 TextureGraph 资源的工具集。",
+    "note_en": "A toolset to create/inspect TextureGraph assets."
+  },
+  {
+    "slug": "tiled-mipmap-video-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Tiled Mipmap Video Player`（模块 `TmvMedia`、`TmvMediaShaders`、`ApvMedia`、`TmvMediaMp4Utils`，编辑器 `TmvMediaEditor`）。",
+      "它是平铺 mipmap 视频(TMV)播放框架，含转码工具，并使用 APV 编解码器实现。",
+      "把支持 TMV/APV 的视频播放到材质/Media Plate（适合大分辨率流式）。",
+      "属 Media Framework 播放扩展；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Tiled Mipmap Video Player` (modules `TmvMedia`, `TmvMediaShaders`, `ApvMedia`, `TmvMediaMp4Utils`, editor `TmvMediaEditor`).",
+      "It is a Tiled Mipmap Video (TMV) playback framework including transcode tools, implemented with the APV codec.",
+      "Play TMV/APV video onto materials/Media Plate (good for large-resolution streaming).",
+      "It is a Media Framework playback extension; editor modules go to Editor targets only."
+    ],
+    "note_cn": "平铺 mipmap 视频(TMV)播放框架（含转码，基于 APV）。",
+    "note_en": "A Tiled Mipmap Video (TMV) playback framework (transcode, APV-based)."
+  },
+  {
+    "slug": "tiled-mipmap-video-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Tiled Mipmap Video Utilities`（模块 `MovieRenderPipelineTmvEncoder`）。",
+      "它是平铺 mipmap 视频(TMV)框架的附加工具，实现电影渲染图(MRG)集成。",
+      "在 MRG 渲染里输出 TMV 编码视频。",
+      "属 Movie Render Pipeline 扩展；渲染/出片用。"
+    ],
+    "en_steps": [
+      "Enable `Tiled Mipmap Video Utilities` (module `MovieRenderPipelineTmvEncoder`).",
+      "It is additional tooling for the Tiled Mipmap Video (TMV) framework, implementing Movie Render Graph (MRG) integration.",
+      "Output TMV-encoded video from MRG renders.",
+      "It is a Movie Render Pipeline extension; used in rendering/output."
+    ],
+    "note_cn": "TMV 框架的附加工具（MRG 集成/编码）。",
+    "note_en": "Additional TMV tooling (MRG integration/encoding)."
+  },
+  {
+    "slug": "timecode-synchronizer-deprecated",
+    "kind": "plugin",
+    "cn_steps": [
+      "`Timecode Synchronizer (Deprecated)` 已弃用，将在未来引擎版本删除。",
+      "改用 `Timed Data Monitor` 插件的功能；输入同步到时间码后该资产成为 TimecodeProvider。",
+      "新项目迁移到 Timed Data Monitor。",
+      "迁移完成后禁用本插件。"
+    ],
+    "en_steps": [
+      "`Timecode Synchronizer (Deprecated)` is deprecated and will be removed in a future engine version.",
+      "Use the `Timed Data Monitor` plugin instead; once inputs sync to timecode, the asset becomes a TimecodeProvider.",
+      "New projects should migrate to Timed Data Monitor.",
+      "Disable this plugin after migration."
+    ],
+    "note_cn": "已弃用，改用 Timed Data Monitor。",
+    "note_en": "Deprecated; use Timed Data Monitor instead."
+  }
+]

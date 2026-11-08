@@ -1,0 +1,344 @@
+[
+  {
+    "slug": "blueprint-c-header-preview",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 `Blueprint C++ Header Preview`（模块 `BlueprintHeaderView`）并重启；该工具只服务把蓝图类迁到原生 C++，不要写进 Shipping 依赖。",
+      "打开要迁移的 `Blueprint Class` 或用户结构体；在内容浏览器右键该资产，选 `Preview Equivalent C++ Header`。",
+      "也可从 `Window > Developer Tools > C++ Header Preview` 打开面板，再点选同一蓝图，预览生成的 `.h`。",
+      "对照面板里的 `UCLASS` / `UPROPERTY` / `UFUNCTION` 声明，把变量、函数、组件和事件分发器抄进自己的 C++ 头文件。",
+      "在 `Project Settings` 或编辑器设置里查看 `UBlueprintHeaderViewSettings`（排序、语法高亮颜色），按团队命名习惯调整预览。",
+      "在游戏模块里手写对应 `.cpp` 实现；预览不会把图表逻辑编译成可发布 C++。",
+      "用 Core Redirects 把旧蓝图类引用指到新 native 类，编译并在编辑器里核对引用不再指向原蓝图。"
+    ],
+    "en_steps": [
+      "Enable `Blueprint C++ Header Preview` in `Edit > Plugins` (module `BlueprintHeaderView`) and restart. It is an editor conversion aid, not a Shipping dependency.",
+      "Select the `Blueprint Class` or user struct to migrate; in the Content Browser right-click it and choose `Preview Equivalent C++ Header`.",
+      "Alternatively open `Window > Developer Tools > C++ Header Preview` and pick the same Blueprint to show the generated `.h`.",
+      "Copy the previewed `UCLASS` / `UPROPERTY` / `UFUNCTION` declarations (variables, functions, components, event dispatchers) into your own C++ header.",
+      "Tune preview sorting and syntax colors via `UBlueprintHeaderViewSettings` in editor/project settings.",
+      "Implement the matching `.cpp` by hand; the preview does not convert graph bodies into shipping C++.",
+      "Remap old Blueprint class references with Core Redirects, rebuild, and confirm assets now parent to the native class."
+    ],
+    "note_cn": "只生成声明预览，不生成图表实现；编辑器插件，勿加入游戏运行时 `Build.cs`。",
+    "note_en": "Header preview only — no graph-to-C++ body. Editor plugin; do not add `BlueprintHeaderView` to game runtime `Build.cs`."
+  },
+  {
+    "slug": "blueprint-file-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 `Blueprint File Utilities`（模块 `BlueprintFileUtils`）并重启。",
+      "在编辑器工具蓝图或开发用关卡蓝图里搜索 `FileUtils` 分类，目标类是 `UBlueprintFileUtilsBPLibrary`。",
+      "用 `File Exists` / `Directory Exists` 校验绝对路径，再用 `Make Directory`（可勾选 Create Tree）创建目录树。",
+      "用 `Copy File` 或 `Move File`（参数：Dest Filename、Src Filename、Replace、Even If Read Only）搬运文件；Dest 在上、Src 在下。",
+      "用 `Find Files`（Directory + 可选 File Extension）列出单层目录，或 `Find Recursive`（Wildcard、bFindFiles、bFindDirectories）扫子目录。",
+      "删除时调用库里的 Delete File / Delete Directory；先 `File Exists` 再删，避免误伤只读或正在写入的文件。",
+      "C++ 侧在模块 `Build.cs` 加入 `BlueprintFileUtils`，`#include \"BlueprintFileUtilsBPLibrary.h\"`，调用同名静态函数；打包游戏请限制在开发/工具路径，不要对玩家机任意写盘。"
+    ],
+    "en_steps": [
+      "Enable `Blueprint File Utilities` in `Edit > Plugins` (module `BlueprintFileUtils`) and restart.",
+      "In an editor utility or development Level Blueprint, search the `FileUtils` category; the target is `UBlueprintFileUtilsBPLibrary`.",
+      "Guard with `File Exists` / `Directory Exists` on absolute paths, then `Make Directory` (Create Tree) if needed.",
+      "Use `Copy File` or `Move File` (Dest Filename, Src Filename, Replace, Even If Read Only). Dest is the top pin, Src the bottom.",
+      "List a folder with `Find Files` (Directory + optional File Extension) or walk trees with `Find Recursive` (Wildcard, bFindFiles, bFindDirectories).",
+      "Delete via the library’s Delete File / Delete Directory after an existence check so you do not clobber read-only or in-use files.",
+      "In C++, add `BlueprintFileUtils` to `Build.cs`, `#include \"BlueprintFileUtilsBPLibrary.h\"`, and call the same statics. Restrict packaged use to tool paths; do not write arbitrary player disks."
+    ],
+    "note_cn": "路径必须是绝对路径；`Copy File` 对正在被写入的文件可能失败。这是低级文件系统 API，不是内容浏览器资产复制。",
+    "note_en": "Paths must be absolute; `Copy File` can fail on files that are still being written. This is OS file I/O, not Content Browser asset duplication."
+  },
+  {
+    "slug": "blueprint-graph-formatter",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用实验性 `Blueprint Graph Formatter`（模块 `BlueprintGraphFormatter`、`BlueprintGraphFormatterToolset`）并重启。",
+      "打开任意蓝图的 Event Graph 或函数图，确认图中已有执行链、输入参数节点和注释框。",
+      "在图表内按 `G`：插件会把执行排成从左到右、拉直连线、摆放输入、收缩注释框并堆叠事件块。",
+      "若快捷键冲突，到 `Edit > Editor Preferences > Keyboard Shortcuts` 搜索 Graph Formatter / Format Blueprint Graph，改绑后再格式化。",
+      "先框选一小段乱线图验证规则，再对整张图按 `G`；逻辑不变，只改节点坐标与线型。",
+      "编辑器 AI 助手若已接 Toolset，可通过 `BlueprintGraphFormatterToolset` 对同一套排版规则做自动格式化；不要把这两个模块加进游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable experimental `Blueprint Graph Formatter` in `Edit > Plugins` (modules `BlueprintGraphFormatter`, `BlueprintGraphFormatterToolset`) and restart.",
+      "Open a Blueprint Event Graph or function graph that already has execution wires, input nodes, and comment boxes.",
+      "Press `G` in the graph: execution is laid out left-to-right, wires straightened, inputs placed, comment boxes fitted, and event blocks stacked.",
+      "If `G` conflicts, rebind under `Edit > Editor Preferences > Keyboard Shortcuts` (Graph Formatter / Format Blueprint Graph) and format again.",
+      "Prove the rules on a small selection before formatting the whole graph; node logic is untouched, only layout.",
+      "Editor AI assistants can reuse the same rules through `BlueprintGraphFormatterToolset`. Do not add either module to a game `Build.cs`."
+    ],
+    "note_cn": "Experimental：只整理布局，不改编译结果。快捷键默认 `G`，可在 Keyboard Shortcuts 重绑。",
+    "note_en": "Experimental: layout only, no compile-behavior change. Default hotkey is `G`; rebind in Keyboard Shortcuts."
+  },
+  {
+    "slug": "blueprint-material-and-texture-nodes",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 `Blueprint Material and Texture Nodes`（模块 `BlueprintMaterialTextureNodes`）并重启；节点全部是 Editor Only。",
+      "在编辑器工具蓝图（Blutility）里搜 `Create MIC Editor Only`，对已有 `UMaterialInterface` 生成 `UMaterialInstanceConstant` 资产。",
+      "接着用 `Set MIC Scalar Param Editor Only` / `Set MIC Vector Param Editor Only` / `Set MIC Texture Param Editor Only` 写参数；需要时再调 `Set MIC Blend Mode Editor Only`、`Set MIC Shading Model Editor Only`、`Set MIC Two Sided Editor Only`。",
+      "采样贴图用 `Texture2D Sample UV Editor Only`；采样 `TextureRenderTarget2D` 用 `Render Target Sample UV Editor Only`（单点）或 `Render Target Sample Rectangle Editor Only`（矩形，仅四通道格式）。",
+      "这些节点会同步读 GPU，只能在编辑器脚本/工具里跑，不要放进游戏 BeginPlay。",
+      "C++ 对应 `UBlueprintMaterialTextureNodesBPLibrary`（`BlueprintMaterialTextureNodesBPLibrary.h`）；游戏运行时模块不要依赖它。"
+    ],
+    "en_steps": [
+      "Enable `Blueprint Material and Texture Nodes` in `Edit > Plugins` (module `BlueprintMaterialTextureNodes`) and restart. Every node is Editor Only.",
+      "In an Editor Utility Blueprint, call `Create MIC Editor Only` on a `UMaterialInterface` to spawn a `UMaterialInstanceConstant` asset.",
+      "Write parameters with `Set MIC Scalar Param Editor Only` / `Set MIC Vector Param Editor Only` / `Set MIC Texture Param Editor Only`; optionally `Set MIC Blend Mode Editor Only`, `Set MIC Shading Model Editor Only`, `Set MIC Two Sided Editor Only`.",
+      "Sample a `Texture2D` with `Texture2D Sample UV Editor Only`. Sample a `TextureRenderTarget2D` with `Render Target Sample UV Editor Only` (one UV) or `Render Target Sample Rectangle Editor Only` (rect; four-channel formats only).",
+      "These calls stall on a GPU readback — editor scripts only, never gameplay `BeginPlay`.",
+      "C++ entry is `UBlueprintMaterialTextureNodesBPLibrary` (`BlueprintMaterialTextureNodesBPLibrary.h`). Do not depend on it from a cooked game module."
+    ],
+    "note_cn": "全部带 Editor Only：会 GPU readback。运行时请用 `UKismetRenderingLibrary` 的异步/延迟读回，而不是这些节点。",
+    "note_en": "All nodes are Editor Only and GPU-sync. For runtime, use `UKismetRenderingLibrary` async/deferred readback instead."
+  },
+  {
+    "slug": "blueprint-snap-nodes-prototype",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用实验性 `Blueprint Snap Nodes Prototype`（模块 `BlueprintSnapNodes`）并重启。",
+      "打开蓝图图表，在节点搜索里找 `Snap` / Snap Container，放入一张空容器节点。",
+      "按容器提示把已有节点拖进框内（目前主要靠拖放，不能在容器内直接搜节点添加）。",
+      "带参数的节点会收成类似函数调用的紧凑行；参数名被省略，悬停引脚查看含义，把连线拖到参数槽绑定。",
+      "容器内部本质是折叠图 + Sequence；要改内部逻辑需双击进入，删除节点往往要进容器内部手动拆。",
+      "只在实验图表上试用紧凑布局，确认编译与调试断点仍可用后再考虑团队规范；不要把 `BlueprintSnapNodes` 加入游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable experimental `Blueprint Snap Nodes Prototype` in `Edit > Plugins` (module `BlueprintSnapNodes`) and restart.",
+      "In a Blueprint graph, search for `Snap` / Snap Container and place an empty container.",
+      "Drag existing nodes into the box (drag-and-drop is the supported add path; you cannot search-add inside the container).",
+      "Parameterized nodes collapse into compact call-like rows; argument names are hidden — hover pins, and drag wires onto argument slots to bind.",
+      "Internally the container is a collapsed graph plus Sequence; edit or delete nodes by opening the container, not from the outer graph alone.",
+      "Prototype on a throwaway graph and confirm compile/debug still work before adopting it. Do not add `BlueprintSnapNodes` to a game `Build.cs`."
+    ],
+    "note_cn": "Experimental 原型：添加依赖拖放，删除/self 引脚仍有已知限制，勿用于正式资产流水线。",
+    "note_en": "Experimental prototype: add-by-drag only; delete/self-pin handling is incomplete. Keep it off production assets."
+  },
+  {
+    "slug": "blueprint-stats",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 `Blueprint Stats`（模块 `BlueprintStats`）并重启；这是编辑器统计命令，不是运行时计数器。",
+      "打开 `Window > Output Log`，确保日志过滤器包含 `LogBlueprintStats`。",
+      "在控制台执行 `DumpBlueprintStats`。",
+      "阅读输出：先是各 `K2Node_*` / AnimGraph 节点类型的出现次数，再是 `FunctionPath,ClassName,FunctionName,NumInstances` 函数调用排行。",
+      "用这份清单找项目里滥用最多的节点（例如海量 `Add_IntInt` 或特定 `K2Node_Event`），决定哪些图该下沉到 C++。",
+      "不要把 `BlueprintStats` 写进游戏 `Build.cs`；命令只扫描当前编辑器已加载的蓝图。"
+    ],
+    "en_steps": [
+      "Enable `Blueprint Stats` in `Edit > Plugins` (module `BlueprintStats`) and restart. It is an editor dump command, not a runtime counter.",
+      "Open `Window > Output Log` and keep `LogBlueprintStats` visible in the filter.",
+      "Run the console command `DumpBlueprintStats`.",
+      "Read the dump: counts per `K2Node_*` / AnimGraph node class, then the `FunctionPath,ClassName,FunctionName,NumInstances` table.",
+      "Use the hot list (heavy `Add_IntInt`, `K2Node_Event`, etc.) to decide which graphs should move to C++.",
+      "Do not add `BlueprintStats` to a game `Build.cs`; the command only scans Blueprints loaded in this editor session."
+    ],
+    "note_cn": "唯一正式入口是控制台 `DumpBlueprintStats`；没有独立 Window 面板，也没有游戏内 Stat 组。",
+    "note_en": "The real entry is the `DumpBlueprintStats` console command. There is no dedicated window and no in-game Stat group."
+  },
+  {
+    "slug": "blueprint-toolsets",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用实验性 `Blueprint Toolsets`（模块 `BlueprintToolsets`），并同时启用编辑器 AI / Toolset Registry 相关插件后重启。",
+      "确认助手能看到蓝图工具集：它提供针对蓝图资产的只读/只写工具，核心是 `Blueprint Graph DSL`。",
+      "在编辑器 AI 会话里指定一张蓝图资产，让助手用 DSL 描述 Event Graph / 函数图上的节点与连线，而不是让它猜截图。",
+      "需要改图时，走工具集的写接口应用 DSL 补丁（添加节点、接线、设引脚），再在蓝图编辑器里打开该资产核对编译。",
+      "把 `Blueprint Graph Formatter` 的 toolset 模块当作排版补充，而不是替代本插件的 DSL 读写。",
+      "此插件只服务编辑器自动化/AI，切勿加入 Shipping 游戏模块。"
+    ],
+    "en_steps": [
+      "Enable experimental `Blueprint Toolsets` in `Edit > Plugins` (module `BlueprintToolsets`), plus the editor AI / Toolset Registry plugins, then restart.",
+      "Confirm the assistant lists Blueprint tools: read/write helpers for Blueprint assets, including the `Blueprint Graph DSL`.",
+      "In an editor AI session, point at one Blueprint asset and have the assistant describe Event/function graphs via the DSL instead of guessing from screenshots.",
+      "To mutate a graph, apply DSL patches through the write tools (add nodes, wires, pin values), then open the asset in the Blueprint editor and compile.",
+      "Treat `BlueprintGraphFormatterToolset` as layout-only; this plugin owns structural DSL read/write.",
+      "Editor automation/AI only — never add `BlueprintToolsets` to a Shipping game module."
+    ],
+    "note_cn": "Experimental Toolset：给编辑器 AI 用的 Blueprint Graph DSL，不是运行时蓝图 API。",
+    "note_en": "Experimental toolset: Blueprint Graph DSL for the in-editor AI, not a runtime Blueprint API."
+  },
+  {
+    "slug": "bridge",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 `Bridge`（模块 `Bridge`、`MegascansPlugin`）并重启。",
+      "打开 `Window > Quixel Bridge`（部分版本在模式工具栏的 Bridge 按钮）。",
+      "用 Epic Games 账号登录 Megascans，在 Bridge 里按 3D Asset / Surface / 3D Plant 浏览并选 LOD/分辨率。",
+      "下载后由 `MegascansPlugin` 导入工程，内容浏览器会出现 `Megascans` 目录下的静态网格、贴图和材质实例。",
+      "把导入的网格拖进关卡，检查自动生成的 MIC 是否接到正确贴图槽；需要时在材质实例里改材质质量或置换。",
+      "这是编辑器导入链路，不要把 `Bridge` / `MegascansPlugin` 加进游戏运行时 `Build.cs`；Shipping 只保留已导入的 uasset。"
+    ],
+    "en_steps": [
+      "Enable `Bridge` in `Edit > Plugins` (modules `Bridge`, `MegascansPlugin`) and restart.",
+      "Open `Window > Quixel Bridge` (some builds also expose a Bridge button on the mode toolbar).",
+      "Sign in with an Epic account, browse 3D Assets / Surfaces / 3D Plants, and pick LOD and texture resolution.",
+      "`MegascansPlugin` imports the download into the project under a `Megascans` folder (meshes, textures, material instances).",
+      "Drop meshes in the level and verify the generated MICs wire the expected texture slots; tweak quality or displacement on the instance as needed.",
+      "Editor import pipeline only — do not add `Bridge` or `MegascansPlugin` to a game `Build.cs`. Shipping should contain the imported uassets, not Bridge."
+    ],
+    "note_cn": "Quixel/Megascans 导入器，与 Gameplay Ability System 无关。导入结果是普通静态网格与材质实例。",
+    "note_en": "Quixel Megascans importer — unrelated to Gameplay Ability System. You ship the imported meshes/MICs, not the Bridge UI."
+  },
+  {
+    "slug": "buoyancy",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `Water` 与实验性 `Buoyancy`（模块 `Buoyancy`），重启编辑器。",
+      "在关卡放置 `Water Body Ocean` / `Lake` / `River`，确保水体已生成可采样的水面。",
+      "做一个带 `Static Mesh` 的 Actor，开启 Simulate Physics，碰撞简单（盒/凸包），质量不要为 0。",
+      "在组件面板添加 `UBuoyancyComponent`，在 `Buoyancy Data > Pontoons` 里加若干 `FSphericalPontoon`（Relative Location + Radius），至少四点才能让船体稳住。",
+      "需要河流推力时配置 `Buoyancy Data` 里的 Water Velocity Strength、River Pontoon Index、Shore Push 等；进水/出水可绑 `On Pontoon Entered Water` / `On Pontoon Exited Water`。",
+      "Play 或 Simulate，物体应落到水面并随波；Water 内容示例 `BP_BuoyancyExample` 可直接拖到水面上对照。",
+      "C++：`Build.cs` 依赖 `Buoyancy`（及 `Water`），`#include \"BuoyancyComponent.h\"`，在 `BeginPlay` 里 `AddCustomPontoon`；不要在构造函数里注册该组件。"
+    ],
+    "en_steps": [
+      "Enable both `Water` and experimental `Buoyancy` (module `Buoyancy`), then restart.",
+      "Place a `Water Body Ocean` / `Lake` / `River` so there is a sampleable water surface.",
+      "Create an Actor with a `Static Mesh`, Simulate Physics on, simple collision, non-zero mass.",
+      "Add `UBuoyancyComponent`. Under `Buoyancy Data > Pontoons` add `FSphericalPontoon` entries (Relative Location + Radius); four corners stabilize a hull.",
+      "For rivers, tune Water Velocity Strength, River Pontoon Index, and shore push on `Buoyancy Data`. Bind `On Pontoon Entered Water` / `On Pontoon Exited Water` for FX.",
+      "Play or Simulate: the body should settle on the surface. Compare with Water content `BP_BuoyancyExample`.",
+      "C++: depend on `Buoyancy` (and `Water`) in `Build.cs`, `#include \"BuoyancyComponent.h\"`, call `AddCustomPontoon` in `BeginPlay` — not in the constructor."
+    ],
+    "note_cn": "必须配合 Water 水体；浮筒没有视口可视化，用 Scene 组件坐标抄到 Relative Location。Experimental。",
+    "note_en": "Requires Water bodies. Pontoons have no viewport gizmo — copy Scene component locations into Relative Location. Experimental."
+  },
+  {
+    "slug": "cable-component",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 `Cable Component`（模块 `CableComponent`）并重启。",
+      "从放置 Actor 面板拖 `Cable Actor`（`ACableActor`），或给已有 Actor 添加 `UCableComponent`。",
+      "起点默认绑在组件变换上（`Attach Start`）。在 Details 的 Cable 里指定 `Attach End To` 目标 Actor/组件，可选 `Attach End To Socket Name`，并用 `End Location` 微调。",
+      "关掉 `Attach End` 可让末端自由摆动；保持两端附着则变成固定悬索。用 `Set Attach End To` / `Set Attach End To Component` 可在运行时改挂点。",
+      "调节 `Cable Length`、`Num Segments`、`Solver Iterations`、`Cable Gravity Scale`、`Enable Stiffness`；碰撞用实验性 `Enable Collision`（成本高）。",
+      "渲染：`Cable Width`、`Num Sides`、`Tile Material`，给组件指定一条沿 U 方向平铺的材质。",
+      "C++：`PublicDependencyModuleNames` 加 `CableComponent`，`#include \"CableComponent.h\"`；`Num Segments` 是 `BlueprintReadOnly`，分段数在编辑器或构造时设好。"
+    ],
+    "en_steps": [
+      "Enable `Cable Component` in `Edit > Plugins` (module `CableComponent`) and restart.",
+      "Place a `Cable Actor` (`ACableActor`) or add `UCableComponent` to an existing Actor.",
+      "Start is the component transform (`Attach Start`). In Details > Cable set `Attach End To` (Actor/component), optional `Attach End To Socket Name`, and `End Location`.",
+      "Clear `Attach End` to let the tip swing; keep both ends attached for a catenary. At runtime use `Set Attach End To` / `Set Attach End To Component`.",
+      "Tune `Cable Length`, `Num Segments`, `Solver Iterations`, `Cable Gravity Scale`, `Enable Stiffness`. `Enable Collision` is experimental and expensive.",
+      "Render with `Cable Width`, `Num Sides`, `Tile Material`, and a material that tiles along U.",
+      "C++: add `CableComponent` to `PublicDependencyModuleNames`, `#include \"CableComponent.h\"`. `Num Segments` is `BlueprintReadOnly` — set it in the editor or at construction."
+    ],
+    "note_cn": "运行时可进包装。`Get Cable Particle Locations` 可取世界空间粒子点；不要在运行时改 `Num Segments`。",
+    "note_en": "Ships at runtime. `Get Cable Particle Locations` returns world-space particles. Do not change `Num Segments` at runtime."
+  },
+  {
+    "slug": "cadence-input-system",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `Cadence` 与 `Cadence Input System`（模块 `CadenceInput`），并保持 `Enhanced Input` 开启，然后重启。",
+      "按 Enhanced Input 常规流程创建 `UInputAction` 和 `UInputMappingContext`，通过 `UEnhancedInputLocalPlayerSubsystem` 加到本地玩家。",
+      "把会改变模拟状态的玩法（移动、开火、跳跃）绑在 Input Action 的 `Triggered` / `Started` / `Completed` 委托上，而不是每帧轮询按键。",
+      "`CadenceInput` 会按固定子 tick 记录这些已执行的 action 委托；网络回滚时按同一帧顺序重放，从而参加 Cadence 的 resimulation。",
+      "不要在普通 `Tick` 里直接读原始按键来改 Chaos/位置，否则回放对不上记录的输入。",
+      "需要扩展时在模块 `Build.cs` 加入 `CadenceInput`（通常还要 `Cadence`、`EnhancedInput`），以引擎该模块 Public 头文件为准。",
+      "用 Cadence 校正/resim 报告或 `Cadence Tests` 夹具验证：同一输入序列在客户端预测与服务器重放后状态一致。"
+    ],
+    "en_steps": [
+      "Enable `Cadence` and `Cadence Input System` (module `CadenceInput`) together with `Enhanced Input`, then restart.",
+      "Author `UInputAction` and `UInputMappingContext` as usual and add the context via `UEnhancedInputLocalPlayerSubsystem`.",
+      "Drive sim-changing gameplay (move, fire, jump) from Input Action `Triggered` / `Started` / `Completed` delegates, not from raw key polling.",
+      "`CadenceInput` records those executed action delegates per Cadence sub-tick and replays them in order on rollback so input joins resimulation.",
+      "Do not mutate Chaos/transform from a generic `Tick` that reads hardware keys — that path is invisible to recorded replay.",
+      "To extend in C++, add `CadenceInput` (typically with `Cadence` and `EnhancedInput`) in `Build.cs` and follow that module’s Public headers.",
+      "Verify with Cadence correction/resim reports or the `Cadence Tests` fixture that a recorded input sequence matches after client predict and server replay."
+    ],
+    "note_cn": "它扩展 Enhanced Input 的委托记录/重放，并不替换 Mapping Context。玩法必须走 action 委托才能进 Cadence 回滚。",
+    "note_en": "Records and replays Enhanced Input action delegates; it does not replace Mapping Contexts. Gameplay must sit on those delegates to join Cadence rollback."
+  },
+  {
+    "slug": "cadence-modular-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "在源码版引擎启用 `Cadence`、`Cadence Input System` 与 `Cadence Modular Tests`（模块 `CadenceModularTests`）。",
+      "打开 `Window > Developer Tools > Session Frontend`，切到 `Automation` 页。",
+      "过滤器输入 `Cadence` / Modular，勾选 Cadence 的 Modular Test Framework 用例（独立进程里拉起 server + clients）。",
+      "运行后不要只看 Pass/Fail：打开 Cadence 的 correction 与 resim report，确认客户端预测偏差被重模拟纠正。",
+      "也可从命令行跑对应 Modular Test / Gauntlet 目标，便于 CI；失败时保留多进程日志而不是只看编辑器 Output Log。",
+      "这是引擎测试插件，不要写进游戏 `Build.cs` 或 Shipping。"
+    ],
+    "en_steps": [
+      "On a source engine, enable `Cadence`, `Cadence Input System`, and `Cadence Modular Tests` (module `CadenceModularTests`).",
+      "Open `Window > Developer Tools > Session Frontend` → `Automation`.",
+      "Filter `Cadence` / Modular and run the Modular Test Framework cases (server + clients in separate processes).",
+      "Inspect Cadence correction and resim reports, not only Pass/Fail, to confirm prediction error is fixed by resimulation.",
+      "From CI, launch the matching Modular Test / Gauntlet target and keep per-process logs.",
+      "Engine test plugin only — do not add `CadenceModularTests` to a game `Build.cs` or Shipping build."
+    ],
+    "note_cn": "与同目录下的 `Cadence Tests` 不同：这里是多进程 Modular Test Framework，靠 correction/resim 报告验收。",
+    "note_en": "Unlike in-process `Cadence Tests`, this is multi-process Modular Test Framework gated on correction/resim reports."
+  },
+  {
+    "slug": "cadence-scenegraph-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Cadence`、`Cadence SceneGraph`、Scene Graph / Verse 支持以及 `Cadence SceneGraph Tests`（模块 `CadenceSceneGraphTests`）。",
+      "在 `Session Frontend > Automation` 中筛选 `CadenceSceneGraph` 规范（specs）。",
+      "这些用例走 Cadence 的 client/server fixture：带 `<predicts>` 的 `TickEvents` 处理程序在客户端跑，再被 resimulation 重放。",
+      "Verse 探针会断言 Scene Graph 实体在预测帧与重放帧上的变换/输入一致；失败时对照 fixture 的帧时间与数据包设定。",
+      "改 Scene Graph 或 Verse 输入后重新编译 Verse，再跑同一组 specs，不要靠手工 PIE 代替。",
+      "测试模块不进游戏包；不要把 `CadenceSceneGraphTests` 加入运行时 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable `Cadence`, `Cadence SceneGraph`, Scene Graph / Verse support, and `Cadence SceneGraph Tests` (module `CadenceSceneGraphTests`).",
+      "In `Session Frontend > Automation`, filter the `CadenceSceneGraph` specs.",
+      "Cases use the Cadence client/server fixture: `<predicts>` `TickEvents` handlers run on clients and are replayed by resimulation.",
+      "Verse probes assert Scene Graph transforms/input match between predicted and replayed frames; on failure compare fixture frame time and packet settings.",
+      "After Scene Graph or Verse input changes, compile Verse and rerun the same specs — do not substitute a manual PIE session.",
+      "Test-only; do not add `CadenceSceneGraphTests` to a runtime `Build.cs`."
+    ],
+    "note_cn": "专门覆盖 Cadence 下 Scene Graph 的 `<predicts>` TickEvents 与 Verse 探针，不是通用物理自动化。",
+    "note_en": "Covers Scene Graph `<predicts>` TickEvents and Verse probes under Cadence, not generic physics automation."
+  },
+  {
+    "slug": "cadence-scenegraph",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Cadence`、`Cadence Input System` 与 `Cadence SceneGraph`（模块 `CadenceSceneGraph`），并打开项目的 Scene Graph / Verse。",
+      "用 Scene Graph 实体作为玩家拥有物（possess），而不是只依赖传统 Pawn 复制。",
+      "在实体上使用 `possessed_input_component`（文档也称 own_input_component）：客户端输入经 Cadence 复制后，服务器侧喂给 Verse input，各端组件都能读到同一份输入。",
+      "Cadence 状态缓存会记下这些被拥有实体；每帧把复制过来的变换与客户端对该帧的预测比较，偏差则触发 resimulation 纠正。",
+      "玩法移动/朝向应写在可预测的 Scene Graph / Verse 路径上，避免在不可回放的 Actor Tick 里改同一变换。",
+      "C++ 游戏代码若要挂钩，仅对需要扩展的模块依赖 `CadenceSceneGraph`，并以该模块 Public 头文件为准。",
+      "用 `Cadence SceneGraph Tests` 的 specs 回归 possess 变换纠正与输入转发。"
+    ],
+    "en_steps": [
+      "Enable `Cadence`, `Cadence Input System`, and `Cadence SceneGraph` (module `CadenceSceneGraph`), with Scene Graph / Verse on in the project.",
+      "Possess Scene Graph entities as the player-owned objects rather than relying only on classic Pawn replication.",
+      "Put `possessed_input_component` (also called own_input_component in the plugin text) on those entities: Cadence-replicated input is fed to Verse input on the server and to the component everywhere.",
+      "Cadence’s state cache tracks possessed entities, compares replicated transforms to the client prediction for the same frame, and corrects with resimulation.",
+      "Keep movement/aim on the predict-able Scene Graph / Verse path; do not also write the same transform from an unreplayable Actor `Tick`.",
+      "If you extend in C++, depend on `CadenceSceneGraph` only where needed and follow that module’s Public headers.",
+      "Regress possess-transform correction and input forwarding with `Cadence SceneGraph Tests` specs."
+    ],
+    "note_cn": "职责是 possess 的 Scene Graph 实体进 Cadence 状态缓存，并转发复制输入到 Verse / `possessed_input_component`。",
+    "note_en": "Tracks possessed Scene Graph entities in the Cadence state cache and forwards replicated input to Verse and `possessed_input_component`."
+  },
+  {
+    "slug": "cadence-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Cadence` 与 `Cadence Tests`（模块 `CadenceTests`）；这是进程内 client/server 测试夹具，不是游戏功能。",
+      "打开 `Window > Developer Tools > Session Frontend > Automation`，筛选 `Cadence` 自动化 specs。",
+      "夹具会在 Cadence 下同时构造 server world 与 client world，按种子化的帧时间逐帧 `Tick`。",
+      "带数据包延迟或丢包的用例用来验证固定子 tick、输入复制和 resim 在劣网下仍收敛。",
+      "失败时对照夹具的 seeded frame time 与 delay/loss 参数复现，而不是只开 PIE 肉眼看。",
+      "需要自己加 spec 时依赖 `CadenceTests` 模块并沿用其 client/server fixture；不要把该模块打进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Cadence` and `Cadence Tests` (module `CadenceTests`). This is an in-process client/server fixture, not gameplay.",
+      "Open `Window > Developer Tools > Session Frontend > Automation` and filter `Cadence` specs.",
+      "The fixture builds server and client worlds under Cadence and `Tick`s them frame-by-frame with seeded frame times.",
+      "Cases that inject packet delay or loss check that fixed sub-ticks, input replication, and resim still converge.",
+      "On failure, replay with the fixture’s seeded frame time and delay/loss knobs rather than a manual PIE session.",
+      "New specs should depend on `CadenceTests` and reuse its fixture. Do not ship the module."
+    ],
+    "note_cn": "进程内、可种子化帧时间和丢包的 Cadence 夹具；多进程场景请用 `Cadence Modular Tests`。",
+    "note_en": "In-process Cadence fixture with seeded frame times and packet delay/loss. Use `Cadence Modular Tests` for separate processes."
+  }
+]

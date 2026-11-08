@@ -3,7 +3,6 @@ layout: default
 title: 像素捕捉 / Pixel Capture
 ---
 
-
 <h1>像素捕捉 / Pixel Capture</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 像素捕捉 / Pixel Capture
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于捕获其他格式的像素缓冲区，同时允许断开连接的生产/消耗率的框架。</div><div class="lang-content">Framework for capturing pixel buffers in other formats while allowing for disconnected produce/consume rates.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Pixel Capture</code>（模块 <code class="usage-code">PixelCapture</code>、<code class="usage-code">PixelCaptureShaders</code>）。</li><li>它提供把像素缓冲区捕获成其它格式的框架，并允许生产/消费速率解耦。</li><li>常作为 Pixel Streaming 等推流管线的底层捕获层。</li><li>属媒体/推流基础库；一般随 Pixel Streaming 一起启用。</li></ol><p class="usage-note">像素缓冲区捕获框架（生产/消费可解耦）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Pixel Capture</code> (modules <code class="usage-code">PixelCapture</code>, <code class="usage-code">PixelCaptureShaders</code>).</li><li>It is a framework for capturing pixel buffers into other formats while allowing disconnected produce/consume rates.</li><li>Commonly the capture layer under Pixel Streaming and similar streaming pipelines.</li><li>It is a media/streaming foundation library; usually enabled with Pixel Streaming.</li></ol><p class="usage-note">Pixel-buffer capture framework (decoupled produce/consume).</p></div></div></div>
+    </div>
+

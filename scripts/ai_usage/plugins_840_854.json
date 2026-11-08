@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "scribble",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Scribble`（运行时 `Scribble`，编辑器 `ScribbleEditor`）。",
+      "它提供涂鸦功能的用户界面（在视口/面板里手绘批注）。",
+      "在审阅或协作时打开涂鸦层，在画面上画标记。",
+      "属实验性 UI 工具；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Scribble` (runtime `Scribble`, editor `ScribbleEditor`).",
+      "It provides a scribble UI (hand-drawn annotations in a viewport/panel).",
+      "Open the scribble layer during review/collab and mark up the frame.",
+      "It is an experimental UI tool; editor modules are Editor-target only."
+    ],
+    "note_cn": "在视口/面板里手绘批注的涂鸦 UI。",
+    "note_en": "Scribble UI for hand-drawn viewport/panel annotations."
+  },
+  {
+    "slug": "script-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Script Plugin`（模块 `ScriptPlugin`、`ScriptEditorPlugin`）。",
+      "它是脚本插件的示例，可作为创建自己的脚本插件的起点。",
+      "对照其模块划分和编辑器挂钩去搭自己的脚本宿主，而不是当生产脚本方案。",
+      "属示例插件；不要当 Shipping 脚本运行时。"
+    ],
+    "en_steps": [
+      "Enable `Script Plugin` (modules `ScriptPlugin`, `ScriptEditorPlugin`).",
+      "It is a sample script plugin, a starting point when creating your own.",
+      "Copy its module split and editor hooks to host your own scripting; not a production script runtime.",
+      "It is a sample plugin; do not ship it as the script runtime."
+    ],
+    "note_cn": "脚本插件示例，可作自研脚本插件起点。",
+    "note_en": "Sample script plugin; a starting point for your own."
+  },
+  {
+    "slug": "scriptable-tools-editor-mode",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Scriptable Tools Editor Mode`（模块 `ScriptableToolsEditorMode`）。",
+      "它是可脚本工具（Scriptable Tools）的编辑器模式。",
+      "在 Modes 里打开该模式，运行用蓝图编写的交互工具。",
+      "属编辑器模式；需 Scriptable Tools Framework，默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Scriptable Tools Editor Mode` (module `ScriptableToolsEditorMode`).",
+      "It is the editor mode for Scriptable Tools.",
+      "Open this mode in Modes to run interactive tools authored in Blueprint.",
+      "It is an editor mode; requires Scriptable Tools Framework; does not ship by default."
+    ],
+    "note_cn": "运行蓝图可脚本工具的编辑器模式。",
+    "note_en": "Editor mode for running Blueprint Scriptable Tools."
+  },
+  {
+    "slug": "scriptable-tools-framework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Scriptable Tools Framework`（模块 `ScriptableToolsFramework`、`EditorScriptableToolsFramework`）。",
+      "它是 Interactive Tools Framework 的蓝图可脚本扩展。",
+      "用蓝图编写交互工具，再在 Scriptable Tools 编辑器模式里运行。",
+      "运行时框架可进工具；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Scriptable Tools Framework` (modules `ScriptableToolsFramework`, `EditorScriptableToolsFramework`).",
+      "It is a Blueprint-scriptable extension of the Interactive Tools Framework.",
+      "Author interactive tools in Blueprint, then run them in Scriptable Tools editor mode.",
+      "The runtime framework can ship with tools; editor modules are Editor-target only."
+    ],
+    "note_cn": "Interactive Tools Framework 的蓝图可脚本扩展。",
+    "note_en": "Blueprint-scriptable extension of the Interactive Tools Framework."
+  },
+  {
+    "slug": "security-sandbox",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Security Sandbox`（模块 `SecuritySandbox`）。",
+      "它帮助降低游戏客户端运行时的操作系统权限，从而减小被漏洞控制后对玩家的影响。",
+      "在 Windows 等目标上启用沙箱，按平台文档配置受限令牌/作业对象。",
+      "属客户端安全加固；按目标平台验证兼容性。"
+    ],
+    "en_steps": [
+      "Enable `Security Sandbox` (module `SecuritySandbox`).",
+      "It helps reduce OS permissions the game client runs with, limiting impact if an attacker takes control via a vulnerability.",
+      "Enable the sandbox on Windows (and similar) targets and configure restricted tokens/job objects per platform docs.",
+      "It is client security hardening; validate compatibility per target platform."
+    ],
+    "note_cn": "降低游戏客户端 OS 权限的安全沙箱。",
+    "note_en": "Security sandbox to reduce the game client's OS permissions."
+  },
+  {
+    "slug": "semantic-search",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Semantic Search`（模块 `SemanticSearch`、`SemanticSearchEditorIntegrations`）。",
+      "它是资产语义搜索的早期实现，目前需要自定义远程 Embedding 提供方才能使用。",
+      "配置远程嵌入服务后，用自然语言在内容浏览器里搜资产。",
+      "属早期实验；接口和提供方要求可能变化。"
+    ],
+    "en_steps": [
+      "Enable `Semantic Search` (modules `SemanticSearch`, `SemanticSearchEditorIntegrations`).",
+      "It is very early work on semantic search for assets; currently needs a custom remote embedding provider.",
+      "Configure the remote embedding service, then search assets in the Content Browser with natural language.",
+      "It is early experimental work; the API and provider requirements may change."
+    ],
+    "note_cn": "资产语义搜索（需自定义远程 Embedding）。",
+    "note_en": "Semantic asset search (needs a custom remote embedding provider)."
+  },
+  {
+    "slug": "sequence-navigator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sequence Navigator`（模块 `SequenceNavigator`）。",
+      "它是带编辑能力的高级序列面包屑工具（在嵌套序列之间导航）。",
+      "在 Sequencer 里用面包屑跳进/跳出子镜头，并就地编辑。",
+      "属 Sequencer 编辑器工具。"
+    ],
+    "en_steps": [
+      "Enable `Sequence Navigator` (module `SequenceNavigator`).",
+      "It is an advanced sequence breadcrumb tool with editing (navigate nested sequences).",
+      "Use breadcrumbs in Sequencer to jump into/out of shots and edit in place.",
+      "It is a Sequencer editor tool."
+    ],
+    "note_cn": "带编辑能力的序列面包屑导航。",
+    "note_en": "Advanced sequence breadcrumbs with editing."
+  },
+  {
+    "slug": "sequence-validator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sequence Validator`（模块 `SequenceValidator`）。",
+      "它提供验证规则，用于检测序列中的常见错误。",
+      "在提交/出片前跑校验，抓住缺失绑定、空镜头等 Sequencer 问题。",
+      "属 Sequencer 质检工具。"
+    ],
+    "en_steps": [
+      "Enable `Sequence Validator` (module `SequenceValidator`).",
+      "It provides validation rules for detecting common errors in sequences.",
+      "Run validation before submit/delivery to catch missing bindings, empty shots, and similar Sequencer issues.",
+      "It is a Sequencer QC tool."
+    ],
+    "note_cn": "检测 Sequencer 常见错误的校验规则。",
+    "note_en": "Validation rules for common Sequencer errors."
+  },
+  {
+    "slug": "sequencer-anim-mixer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sequencer Anim Mixer`（模块 `MovieSceneAnimMixer`、`MovieSceneAnimMixerEditor`、`MovieSceneAnimMixerScripting`）。",
+      "它是在序列里混合分层动画的系统。",
+      "在 Sequencer 里加 Anim Mixer，把多层动画按权重叠在角色上。",
+      "属实验性 Sequencer 动画扩展；脚本模块可给 Python 用。"
+    ],
+    "en_steps": [
+      "Enable `Sequencer Anim Mixer` (modules `MovieSceneAnimMixer`, `MovieSceneAnimMixerEditor`, `MovieSceneAnimMixerScripting`).",
+      "It is a system for mixing layered animation in sequences.",
+      "Add an Anim Mixer in Sequencer and blend multiple animation layers onto a character by weight.",
+      "It is an experimental Sequencer animation extension; the scripting module is for Python."
+    ],
+    "note_cn": "在 Sequencer 里混合分层动画。",
+    "note_en": "Mix layered animation inside Sequencer."
+  },
+  {
+    "slug": "sequencer-anim-tools",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sequencer Anim Tools`（模块 `SequencerAnimTools`）。",
+      "它提供面向 Sequencer 和 Control Rig 的动画工具。",
+      "在动画制作流程里用这些工具辅助关键帧/绑定操作。",
+      "属编辑器动画工具；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Sequencer Anim Tools` (module `SequencerAnimTools`).",
+      "It provides animation tools for Sequencer and Control Rig.",
+      "Use these tools in the animation authoring flow to assist keyframing/rigging.",
+      "It is an editor animation tool; it does not ship by default."
+    ],
+    "note_cn": "面向 Sequencer 与 Control Rig 的动画工具。",
+    "note_en": "Animation tools for Sequencer and Control Rig."
+  },
+  {
+    "slug": "sequencer-mixed-control-rig",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sequencer Mixed Control Rig`（运行时 `MovieSceneMixedControlRig`，编辑器 `MovieSceneMixedControlRigEditor`）。",
+      "它在 Sequencer 里支持混合 Control Rig（多层/混合绑定驱动）。",
+      "在镜头里叠多套 Control Rig 贡献，而不是单一绑定轨。",
+      "属实验性 Sequencer/Control Rig 扩展。"
+    ],
+    "en_steps": [
+      "Enable `Sequencer Mixed Control Rig` (runtime `MovieSceneMixedControlRig`, editor `MovieSceneMixedControlRigEditor`).",
+      "It supports mixed Control Rig in Sequencer (layered/blended rig drives).",
+      "Stack multiple Control Rig contributions on a shot instead of a single rig track.",
+      "It is an experimental Sequencer/Control Rig extension."
+    ],
+    "note_cn": "在 Sequencer 里混合多层 Control Rig。",
+    "note_en": "Mix layered Control Rigs in Sequencer."
+  },
+  {
+    "slug": "sequencer-scripting",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sequencer Scripting`（模块 `SequencerScripting`、`SequencerScriptingEditor`）。",
+      "它为 Sequencer 和 Movie Scene 提供 Python 与编辑器实用程序脚本扩展。",
+      "用 Python 创建/修改 Level Sequence、轨道与绑定，做批处理。",
+      "属编辑器脚本扩展；需 Python 脚本插件。"
+    ],
+    "en_steps": [
+      "Enable `Sequencer Scripting` (modules `SequencerScripting`, `SequencerScriptingEditor`).",
+      "It adds Python and editor-utility scripting extensions for Sequencer and Movie Scene.",
+      "Create/modify Level Sequences, tracks, and bindings from Python for batch work.",
+      "It is an editor scripting extension; requires the Python script plugin."
+    ],
+    "note_cn": "Sequencer / Movie Scene 的 Python 脚本扩展。",
+    "note_en": "Python scripting extensions for Sequencer and Movie Scene."
+  },
+  {
+    "slug": "sequenceranimmixertoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SequencerAnimMixerToolset`（EDA 工具集内容，无独立运行时模块列表）。",
+      "它是 Sequencer 动画混合器的 EDA 工具集。",
+      "通过 AI/EDA 工具集注册表操作 Anim Mixer，而不是当 Shipping 功能。",
+      "属 Toolset；需 Sequencer Anim Mixer。"
+    ],
+    "en_steps": [
+      "Enable `SequencerAnimMixerToolset` (EDA toolset content; no separate runtime module list).",
+      "It is an EDA toolset for the Sequencer Animation Mixer.",
+      "Drive the Anim Mixer via the AI/EDA Toolset Registry; not a shipping gameplay feature.",
+      "It is a Toolset; requires Sequencer Anim Mixer."
+    ],
+    "note_cn": "操作 Sequencer 动画混合器的 EDA 工具集。",
+    "note_en": "EDA toolset for the Sequencer Animation Mixer."
+  },
+  {
+    "slug": "serialization-utils",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Serialization Utils`（模块 `JsonSerialization`、`XmlSerialization`）。",
+      "它提供带扩展功能的 JSON/XML 等序列化实用程序。",
+      "读写自定义 JSON/XML 配置或中间数据时依赖这些模块。",
+      "属通用序列化工具；按格式选用对应模块。"
+    ],
+    "en_steps": [
+      "Enable `Serialization Utils` (modules `JsonSerialization`, `XmlSerialization`).",
+      "It provides serialization utilities (JSON, XML, etc.) with extended functionality.",
+      "Depend on these modules when reading/writing custom JSON/XML config or interchange data.",
+      "It is a general serialization toolkit; pick the module for the format you need."
+    ],
+    "note_cn": "带扩展功能的 JSON/XML 序列化工具。",
+    "note_en": "JSON/XML serialization utilities with extended features."
+  },
+  {
+    "slug": "shader-toolkit",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Shader Toolkit`（模块 `ShaderAuditCore`、`ShaderAudit`）。",
+      "它分析项目构建与着色器，帮助减少着色器和材质排列。",
+      "跑 Shader Audit，找出多余排列并收敛材质/质量开关。",
+      "属编辑器着色器审计工具；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Shader Toolkit` (modules `ShaderAuditCore`, `ShaderAudit`).",
+      "It analyzes the project build and shaders to help reduce shader and material permutations.",
+      "Run Shader Audit, find extra permutations, and tighten material/quality switches.",
+      "It is an editor shader-audit tool; it does not ship by default."
+    ],
+    "note_cn": "分析并减少着色器/材质排列的审计工具。",
+    "note_en": "Audit tools to analyze and reduce shader/material permutations."
+  }
+]

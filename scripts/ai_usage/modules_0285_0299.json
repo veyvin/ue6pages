@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "fmt",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`fmt` 位于 `ThirdParty`，构建规则 `ThirdParty/fmt/fmt.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"fmt\" });`；对外暴露 `fmt` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`fmt` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `fmt.h` / `fmtModule.h`），再用 `FModuleManager::LoadModulePtr<fmtModule>` 或直接使用导出类型。",
+      "传递依赖：`fmt` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `fmt` lives under `ThirdParty`; build rule `ThirdParty/fmt/fmt.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"fmt\" });`. Use Public when exposing `fmt` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `fmt` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `fmt.h` / `fmtModule.h`), then use `FModuleManager::LoadModulePtr<fmtModule>` or the exported types directly.",
+      "Transitive deps: `fmt` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`fmt` 的构建规则位于 `ThirdParty/fmt/fmt.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`fmt` build rule is `ThirdParty/fmt/fmt.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "foliage",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Foliage` 位于 `Runtime`，构建规则 `Runtime/Foliage/Foliage.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Foliage\" });`；对外暴露 `Foliage` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Foliage` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Foliage.h` / `FoliageModule.h`），再用 `FModuleManager::LoadModulePtr<FoliageModule>` 或直接使用导出类型。",
+      "传递依赖：`Foliage` 还依赖 `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Foliage` lives under `Runtime`; build rule `Runtime/Foliage/Foliage.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Foliage\" });`. Use Public when exposing `Foliage` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Foliage` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Foliage.h` / `FoliageModule.h`), then use `FModuleManager::LoadModulePtr<FoliageModule>` or the exported types directly.",
+      "Transitive deps: `Foliage` also needs `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Foliage` 的构建规则位于 `Runtime/Foliage/Foliage.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`Foliage` build rule is `Runtime/Foliage/Foliage.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "fontconfig",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`FontConfig` 位于 `ThirdParty`，构建规则 `ThirdParty/FontConfig/FontConfig.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FontConfig\" });`；对外暴露 `FontConfig` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`FontConfig` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `FontConfig.h` / `FontConfigModule.h`），再用 `FModuleManager::LoadModulePtr<FontConfigModule>` 或直接使用导出类型。",
+      "传递依赖：`FontConfig` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `FontConfig` lives under `ThirdParty`; build rule `ThirdParty/FontConfig/FontConfig.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FontConfig\" });`. Use Public when exposing `FontConfig` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `FontConfig` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `FontConfig.h` / `FontConfigModule.h`), then use `FModuleManager::LoadModulePtr<FontConfigModule>` or the exported types directly.",
+      "Transitive deps: `FontConfig` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`FontConfig` 的构建规则位于 `ThirdParty/FontConfig/FontConfig.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`FontConfig` build rule is `ThirdParty/FontConfig/FontConfig.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "fonteditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`FontEditor` 位于 `Editor`，构建规则 `Editor/FontEditor/FontEditor.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `AssetRegistry`, `ContentBrowser`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `EditorFramework`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FontEditor\" });`；对外暴露 `FontEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`FontEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `FontEditor.h` / `FontEditorModule.h`），再用 `FModuleManager::LoadModulePtr<FontEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`FontEditor` 还依赖 `AppFramework`, `AssetRegistry`, `ContentBrowser`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `EditorFramework`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `FontEditor` lives under `Editor`; build rule `Editor/FontEditor/FontEditor.Build.cs`.It directly depends on 8 modules: `AppFramework`, `AssetRegistry`, `ContentBrowser`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `EditorFramework`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FontEditor\" });`. Use Public when exposing `FontEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `FontEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `FontEditor.h` / `FontEditorModule.h`), then use `FModuleManager::LoadModulePtr<FontEditorModule>` or the exported types directly.",
+      "Transitive deps: `FontEditor` also needs `AppFramework`, `AssetRegistry`, `ContentBrowser`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `EditorFramework`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`FontEditor` 的构建规则位于 `Editor/FontEditor/FontEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`FontEditor` build rule is `Editor/FontEditor/FontEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "for-12a9f3",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`for` 位于 `Programs`，构建规则 `Programs/TextureBuildWorker/TextureBuildWorker.Build.cs`。它直接依赖 1 个模块：`DerivedDataBuildWorker`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"for\" });`；对外暴露 `for` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`for` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `for.h` / `forModule.h`），再用 `FModuleManager::LoadModulePtr<forModule>` 或直接使用导出类型。",
+      "传递依赖：`for` 还依赖 `DerivedDataBuildWorker`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `for` lives under `Programs`; build rule `Programs/TextureBuildWorker/TextureBuildWorker.Build.cs`.It directly depends on 1 modules: `DerivedDataBuildWorker`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"for\" });`. Use Public when exposing `for` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `for` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `for.h` / `forModule.h`), then use `FModuleManager::LoadModulePtr<forModule>` or the exported types directly.",
+      "Transitive deps: `for` also needs `DerivedDataBuildWorker`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`for` 的构建规则位于 `Programs/TextureBuildWorker/TextureBuildWorker.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`for` build rule is `Programs/TextureBuildWorker/TextureBuildWorker.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "for-2d3c88",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`for` 位于 `Programs`，构建规则 `Programs/DerivedDataBuildWorker/DerivedDataBuildWorker.Build.cs`。它直接依赖 4 个模块：`ApplicationCore`, `Core`, `DerivedDataCache`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"for\" });`；对外暴露 `for` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`for` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `for.h` / `forModule.h`），再用 `FModuleManager::LoadModulePtr<forModule>` 或直接使用导出类型。",
+      "传递依赖：`for` 还依赖 `ApplicationCore`, `Core`, `DerivedDataCache`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `for` lives under `Programs`; build rule `Programs/DerivedDataBuildWorker/DerivedDataBuildWorker.Build.cs`.It directly depends on 4 modules: `ApplicationCore`, `Core`, `DerivedDataCache`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"for\" });`. Use Public when exposing `for` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `for` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `for.h` / `forModule.h`), then use `FModuleManager::LoadModulePtr<forModule>` or the exported types directly.",
+      "Transitive deps: `for` also needs `ApplicationCore`, `Core`, `DerivedDataCache`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`for` 的构建规则位于 `Programs/DerivedDataBuildWorker/DerivedDataBuildWorker.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`for` build rule is `Programs/DerivedDataBuildWorker/DerivedDataBuildWorker.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "for",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`for` 位于 `Programs`，构建规则 `Programs/TextureBuildWorker/TextureBuildWorker.Build.cs`。它直接依赖 1 个模块：`DerivedDataBuildWorker`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"for\" });`；对外暴露 `for` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`for` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `for.h` / `forModule.h`），再用 `FModuleManager::LoadModulePtr<forModule>` 或直接使用导出类型。",
+      "传递依赖：`for` 还依赖 `DerivedDataBuildWorker`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `for` lives under `Programs`; build rule `Programs/TextureBuildWorker/TextureBuildWorker.Build.cs`.It directly depends on 1 modules: `DerivedDataBuildWorker`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"for\" });`. Use Public when exposing `for` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `for` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `for.h` / `forModule.h`), then use `FModuleManager::LoadModulePtr<forModule>` or the exported types directly.",
+      "Transitive deps: `for` also needs `DerivedDataBuildWorker`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`for` 的构建规则位于 `Programs/TextureBuildWorker/TextureBuildWorker.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`for` build rule is `Programs/TextureBuildWorker/TextureBuildWorker.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "forsythtrioptimizer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ForsythTriOptimizer` 位于 `ThirdParty`，构建规则 `ThirdParty/ForsythTriOO/ForsythTriOptimizer.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ForsythTriOptimizer\" });`；对外暴露 `ForsythTriOptimizer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ForsythTriOptimizer` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `ForsythTriOptimizer.h` / `ForsythTriOptimizerModule.h`），再用 `FModuleManager::LoadModulePtr<ForsythTriOptimizerModule>` 或直接使用导出类型。",
+      "传递依赖：`ForsythTriOptimizer` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `ForsythTriOptimizer` lives under `ThirdParty`; build rule `ThirdParty/ForsythTriOO/ForsythTriOptimizer.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ForsythTriOptimizer\" });`. Use Public when exposing `ForsythTriOptimizer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ForsythTriOptimizer` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `ForsythTriOptimizer.h` / `ForsythTriOptimizerModule.h`), then use `FModuleManager::LoadModulePtr<ForsythTriOptimizerModule>` or the exported types directly.",
+      "Transitive deps: `ForsythTriOptimizer` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`ForsythTriOptimizer` 的构建规则位于 `ThirdParty/ForsythTriOO/ForsythTriOptimizer.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`ForsythTriOptimizer` build rule is `ThirdParty/ForsythTriOO/ForsythTriOptimizer.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "foundationtests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`FoundationTests` 位于 `Programs`，构建规则 `Programs/LowLevelTests/FoundationTests/FoundationTests.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `Cbor`, `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `NetworkCacheStores`, `Serialization`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FoundationTests\" });`；对外暴露 `FoundationTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`FoundationTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `FoundationTests.h` / `FoundationTestsModule.h`），再用 `FModuleManager::LoadModulePtr<FoundationTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`FoundationTests` 还依赖 `AssetRegistry`, `Cbor`, `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `NetworkCacheStores`, `Serialization`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `FoundationTests` lives under `Programs`; build rule `Programs/LowLevelTests/FoundationTests/FoundationTests.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `Cbor`, `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `NetworkCacheStores`, `Serialization`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FoundationTests\" });`. Use Public when exposing `FoundationTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `FoundationTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `FoundationTests.h` / `FoundationTestsModule.h`), then use `FModuleManager::LoadModulePtr<FoundationTestsModule>` or the exported types directly.",
+      "Transitive deps: `FoundationTests` also needs `AssetRegistry`, `Cbor`, `Core`, `CoreUObject`, `DerivedDataCache`, `DesktopPlatform`, `NetworkCacheStores`, `Serialization`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`FoundationTests` 的构建规则位于 `Programs/LowLevelTests/FoundationTests/FoundationTests.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`FoundationTests` build rule is `Programs/LowLevelTests/FoundationTests/FoundationTests.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "freeimage",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`FreeImage` 位于 `ThirdParty`，构建规则 `ThirdParty/FreeImage/FreeImage.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FreeImage\" });`；对外暴露 `FreeImage` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`FreeImage` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `FreeImage.h` / `FreeImageModule.h`），再用 `FModuleManager::LoadModulePtr<FreeImageModule>` 或直接使用导出类型。",
+      "传递依赖：`FreeImage` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `FreeImage` lives under `ThirdParty`; build rule `ThirdParty/FreeImage/FreeImage.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FreeImage\" });`. Use Public when exposing `FreeImage` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `FreeImage` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `FreeImage.h` / `FreeImageModule.h`), then use `FModuleManager::LoadModulePtr<FreeImageModule>` or the exported types directly.",
+      "Transitive deps: `FreeImage` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`FreeImage` 的构建规则位于 `ThirdParty/FreeImage/FreeImage.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`FreeImage` build rule is `ThirdParty/FreeImage/FreeImage.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "freetype2",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`FreeType2` 位于 `ThirdParty`，构建规则 `ThirdParty/FreeType2/FreeType2.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FreeType2\" });`；对外暴露 `FreeType2` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`FreeType2` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `FreeType2.h` / `FreeType2Module.h`），再用 `FModuleManager::LoadModulePtr<FreeType2Module>` 或直接使用导出类型。",
+      "传递依赖：`FreeType2` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `FreeType2` lives under `ThirdParty`; build rule `ThirdParty/FreeType2/FreeType2.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FreeType2\" });`. Use Public when exposing `FreeType2` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `FreeType2` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `FreeType2.h` / `FreeType2Module.h`), then use `FModuleManager::LoadModulePtr<FreeType2Module>` or the exported types directly.",
+      "Transitive deps: `FreeType2` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`FreeType2` 的构建规则位于 `ThirdParty/FreeType2/FreeType2.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`FreeType2` build rule is `ThirdParty/FreeType2/FreeType2.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "friendsandchat",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`FriendsAndChat` 位于 `Runtime`，构建规则 `Runtime/FriendsAndChat/FriendsAndChat.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FriendsAndChat\" });`；对外暴露 `FriendsAndChat` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`FriendsAndChat` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `FriendsAndChat.h` / `FriendsAndChatModule.h`），再用 `FModuleManager::LoadModulePtr<FriendsAndChatModule>` 或直接使用导出类型。",
+      "传递依赖：`FriendsAndChat` 还依赖 `Core`, `CoreUObject`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `FriendsAndChat` lives under `Runtime`; build rule `Runtime/FriendsAndChat/FriendsAndChat.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FriendsAndChat\" });`. Use Public when exposing `FriendsAndChat` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `FriendsAndChat` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `FriendsAndChat.h` / `FriendsAndChatModule.h`), then use `FModuleManager::LoadModulePtr<FriendsAndChatModule>` or the exported types directly.",
+      "Transitive deps: `FriendsAndChat` also needs `Core`, `CoreUObject`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`FriendsAndChat` 的构建规则位于 `Runtime/FriendsAndChat/FriendsAndChat.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`FriendsAndChat` build rule is `Runtime/FriendsAndChat/FriendsAndChat.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "functionaltesting",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`FunctionalTesting` 位于 `Developer`，构建规则 `Developer/FunctionalTesting/FunctionalTesting.Build.cs`。它直接依赖 8 个模块：`AIModule`, `AssetRegistry`, `AutomationController`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `ImageWrapper`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"FunctionalTesting\" });`；对外暴露 `FunctionalTesting` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`FunctionalTesting` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `FunctionalTesting.h` / `FunctionalTestingModule.h`），再用 `FModuleManager::LoadModulePtr<FunctionalTestingModule>` 或直接使用导出类型。",
+      "传递依赖：`FunctionalTesting` 还依赖 `AIModule`, `AssetRegistry`, `AutomationController`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `ImageWrapper`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `FunctionalTesting` lives under `Developer`; build rule `Developer/FunctionalTesting/FunctionalTesting.Build.cs`.It directly depends on 8 modules: `AIModule`, `AssetRegistry`, `AutomationController`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `ImageWrapper`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"FunctionalTesting\" });`. Use Public when exposing `FunctionalTesting` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `FunctionalTesting` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `FunctionalTesting.h` / `FunctionalTestingModule.h`), then use `FModuleManager::LoadModulePtr<FunctionalTestingModule>` or the exported types directly.",
+      "Transitive deps: `FunctionalTesting` also needs `AIModule`, `AssetRegistry`, `AutomationController`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `ImageWrapper`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`FunctionalTesting` 的构建规则位于 `Developer/FunctionalTesting/FunctionalTesting.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`FunctionalTesting` build rule is `Developer/FunctionalTesting/FunctionalTesting.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "gamemenubuilder",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`GameMenuBuilder` 位于 `Runtime`，构建规则 `Runtime/GameMenuBuilder/GameMenuBuilder.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GameMenuBuilder\" });`；对外暴露 `GameMenuBuilder` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`GameMenuBuilder` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `GameMenuBuilder.h` / `GameMenuBuilderModule.h`），再用 `FModuleManager::LoadModulePtr<GameMenuBuilderModule>` 或直接使用导出类型。",
+      "传递依赖：`GameMenuBuilder` 还依赖 `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `GameMenuBuilder` lives under `Runtime`; build rule `Runtime/GameMenuBuilder/GameMenuBuilder.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GameMenuBuilder\" });`. Use Public when exposing `GameMenuBuilder` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `GameMenuBuilder` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `GameMenuBuilder.h` / `GameMenuBuilderModule.h`), then use `FModuleManager::LoadModulePtr<GameMenuBuilderModule>` or the exported types directly.",
+      "Transitive deps: `GameMenuBuilder` also needs `Core`, `CoreUObject`, `Engine`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`GameMenuBuilder` 的构建规则位于 `Runtime/GameMenuBuilder/GameMenuBuilder.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`GameMenuBuilder` build rule is `Runtime/GameMenuBuilder/GameMenuBuilder.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "gameplaydebugger",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`GameplayDebugger` 位于 `Runtime`，构建规则 `Runtime/GameplayDebugger/GameplayDebugger.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `Engine`, `InputCore`, `LevelEditor`, `RenderCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayDebugger\" });`；对外暴露 `GameplayDebugger` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`GameplayDebugger` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `GameplayDebugger.h` / `GameplayDebuggerModule.h`），再用 `FModuleManager::LoadModulePtr<GameplayDebuggerModule>` 或直接使用导出类型。",
+      "传递依赖：`GameplayDebugger` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `Engine`, `InputCore`, `LevelEditor`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `GameplayDebugger` lives under `Runtime`; build rule `Runtime/GameplayDebugger/GameplayDebugger.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `Engine`, `InputCore`, `LevelEditor`, `RenderCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"GameplayDebugger\" });`. Use Public when exposing `GameplayDebugger` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `GameplayDebugger` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `GameplayDebugger.h` / `GameplayDebuggerModule.h`), then use `FModuleManager::LoadModulePtr<GameplayDebuggerModule>` or the exported types directly.",
+      "Transitive deps: `GameplayDebugger` also needs `Core`, `CoreUObject`, `DeveloperSettings`, `DrawPrimitiveDebugger`, `Engine`, `InputCore`, `LevelEditor`, `RenderCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`GameplayDebugger` 的构建规则位于 `Runtime/GameplayDebugger/GameplayDebugger.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`GameplayDebugger` build rule is `Runtime/GameplayDebugger/GameplayDebugger.Build.cs`; depends on 8 modules; category Module."
+  }
+]

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "verse-tags",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Tags`（运行时 `VerseTags`，编辑器 `VerseTagsEditor`，测试 `VerseTagsTestSuite`）。",
+      "它为 Verse 提供标签（tag）系统（给实体/对象打标签并按标签查询）。",
+      "在 Verse 项目里用标签组织/筛选对象。",
+      "属 Verse 生态模块；测试模块不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable `Verse Tags` (runtime `VerseTags`, editor `VerseTagsEditor`, tests `VerseTagsTestSuite`).",
+      "It provides a tag system for Verse (tag entities/objects and query by tag).",
+      "Use tags to organize/filter objects in Verse projects.",
+      "It is a Verse-ecosystem module; keep the test module out of production."
+    ],
+    "note_cn": "Verse 的标签(tag)系统。",
+    "note_en": "A tag system for Verse."
+  },
+  {
+    "slug": "verse-testing-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse Testing Support`（模块 `ModularTestVerse`）。",
+      "它是 ModularTestFramework 的测试支持与 VNI 桥，启用 Verse 测试创作。",
+      "在 CI/自动化里用 Modular Test Framework 编写/运行 Verse 测试。",
+      "属测试支撑模块；配合 Modular Test Framework。"
+    ],
+    "en_steps": [
+      "Enable `Verse Testing Support` (module `ModularTestVerse`).",
+      "It is the ModularTestFramework test support and VNI bridge, enabling Verse test authoring.",
+      "Write/run Verse tests with the Modular Test Framework in CI/automation.",
+      "It is a test-support module; used with the Modular Test Framework."
+    ],
+    "note_cn": "ModularTestFramework 的 Verse 测试支持与 VNI 桥。",
+    "note_en": "Verse test support and VNI bridge for ModularTestFramework."
+  },
+  {
+    "slug": "verse",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Verse`（运行时 `Verse`，编辑器 `VerseEditor`）。",
+      "它是 Verse 脚本语言与运行时（面向 UEFN/Fortnite 体验，提供编译/VM/设备 API 与编辑器集成）。",
+      "在 Verse 项目里编写脚本并编译运行；非传统蓝图游戏必需。",
+      "Game 模块依赖运行时模块；`VerseEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Verse` (runtime `Verse`, editor `VerseEditor`).",
+      "It is the Verse scripting language and runtime (for UEFN/Fortnite experiences; provides compile/VM/device APIs and editor integration).",
+      "Write and compile/run scripts in Verse projects; not required for traditional Blueprint games.",
+      "Game modules depend on runtime modules; `VerseEditor` is Editor-target only."
+    ],
+    "note_cn": "Verse 脚本语言与运行时。",
+    "note_en": "The Verse scripting language and runtime."
+  },
+  {
+    "slug": "verseinput",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `VerseInput`（模块 `VerseInput`、`ControlInput_Deprecated`）。",
+      "它为 Verse 提供输入相关能力（在 Verse 里读取/处理输入）。",
+      "在 Verse 项目里用其输入 API。",
+      "属 Verse 生态输入模块。"
+    ],
+    "en_steps": [
+      "Enable `VerseInput` (modules `VerseInput`, `ControlInput_Deprecated`).",
+      "It provides input-related capability for Verse (reading/processing input in Verse).",
+      "Use its input API in Verse projects.",
+      "It is a Verse-ecosystem input module."
+    ],
+    "note_cn": "Verse 的输入能力。",
+    "note_en": "Input capability for Verse."
+  },
+  {
+    "slug": "verseinterface",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `VerseInterface`（模块 `VerseInterface`），类别 Scripting。",
+      "它是 Verse 界面插件（Verse 与引擎/脚本层的接口桥）。",
+      "在 Verse 集成里用其接口与引擎交互。",
+      "属 Verse 生态接口模块。"
+    ],
+    "en_steps": [
+      "Enable `VerseInterface` (module `VerseInterface`), category Scripting.",
+      "It is the Verse interface plugin (bridge between Verse and the engine/scripting layer).",
+      "Use its interface to interact with the engine in Verse integrations.",
+      "It is a Verse-ecosystem interface module."
+    ],
+    "note_cn": "Verse 界面/接口插件。",
+    "note_en": "The Verse interface plugin."
+  },
+  {
+    "slug": "versemodifier",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `VerseModifier`（运行时 `VerseModifier`，编辑器 `VerseModifierEditor`）。",
+      "它为 Verse 提供修饰器（modifier）能力（按源码/用途使用）。",
+      "在 Verse 代码里应用修饰器逻辑。",
+      "属 Verse 生态模块。"
+    ],
+    "en_steps": [
+      "Enable `VerseModifier` (runtime `VerseModifier`, editor `VerseModifierEditor`).",
+      "It provides modifier capability for Verse (follow source/usage).",
+      "Apply modifier logic in Verse code.",
+      "It is a Verse-ecosystem module."
+    ],
+    "note_cn": "Verse 的修饰器(modifier)能力。",
+    "note_en": "Modifier capability for Verse."
+  },
+  {
+    "slug": "versemoduleindependencea",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `VerseModuleIndependenceA` 插件（无独立模块列表）。",
+      "它是 Verse 模块独立性测试的测试夹具插件 A：在 B 中定义继承自 `b_class` 的 `a_class`。",
+      "仅用于模块独立性测试，不要用于功能开发。",
+      "这是测试夹具插件，不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable the `VerseModuleIndependenceA` plugin (no standalone module list).",
+      "It is test-fixture plugin A for Verse module-independence testing: defines `a_class` inheriting from `b_class` defined in B.",
+      "Used only for module-independence tests; do not use for feature development.",
+      "It is a test-fixture plugin, not for production."
+    ],
+    "note_cn": "Verse 模块独立性测试夹具 A。",
+    "note_en": "Verse module-independence test fixture A."
+  },
+  {
+    "slug": "versemoduleindependenceb",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `VerseModuleIndependenceB` 插件（无独立模块列表）。",
+      "它是 Verse 模块独立性测试的测试夹具插件 B：定义被 A 导入的 `b_class`。",
+      "仅用于模块独立性测试，不要用于功能开发。",
+      "这是测试夹具插件，不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable the `VerseModuleIndependenceB` plugin (no standalone module list).",
+      "It is test-fixture plugin B for Verse module-independence testing: defines `b_class` imported by A.",
+      "Used only for module-independence tests; do not use for feature development.",
+      "It is a test-fixture plugin, not for production."
+    ],
+    "note_cn": "Verse 模块独立性测试夹具 B。",
+    "note_en": "Verse module-independence test fixture B."
+  },
+  {
+    "slug": "versevm",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `VerseVM`（模块 `VerseVMCodeGen`、`VerseVMSocketDebugger`），类别 Epic Internal.Fortnite。",
+      "它提供 Verse 虚拟机代码生成与 socket 调试器（Verse 运行时底层）。",
+      "属 Verse 底层运行时/调试；一般随 Verse 生态使用。",
+      "内部/Fortnite 方向；非传统蓝图游戏必需。"
+    ],
+    "en_steps": [
+      "Enable `VerseVM` (modules `VerseVMCodeGen`, `VerseVMSocketDebugger`), category Epic Internal.Fortnite.",
+      "It provides Verse VM code generation and a socket debugger (Verse runtime internals).",
+      "It is Verse low-level runtime/debugging; generally used with the Verse ecosystem.",
+      "Internal/Fortnite-leaning; not required for traditional Blueprint games."
+    ],
+    "note_cn": "Verse 虚拟机的代码生成与 socket 调试器。",
+    "note_en": "Verse VM code generation and socket debugger."
+  },
+  {
+    "slug": "veuv---volume-encoded-uv-maps",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `VEUV - Volume Encoded UV Maps`（运行时 `VEUVCore`，编辑器 `VEUVEditor`）。",
+      "它提供体积编码 UV 参数化（把 UV 编码进体积/顶点数据，便于高密度网格采样）。",
+      "在高模/体积网格流程里用 VEUV 做参数化与贴图采样。",
+      "Experimental：接口可能变动；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `VEUV - Volume Encoded UV Maps` (runtime `VEUVCore`, editor `VEUVEditor`).",
+      "It provides volume-encoded UV parameterization (encodes UVs into volume/vertex data for dense-mesh sampling).",
+      "In high-poly/volumetric mesh flows, use VEUV for parameterization and texture sampling.",
+      "Experimental: contract may change; editor modules go to Editor targets only."
+    ],
+    "note_cn": "体积编码 UV 参数化（VEUV），实验性。",
+    "note_en": "Volume-encoded UV parameterization (VEUV), experimental."
+  },
+  {
+    "slug": "viewport-widget-overlay",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Viewport Widget Overlay`（模块 `ViewportWidgetOverlay`）。",
+      "它添加在视口中覆盖小部件(widget)的实用程序。",
+      "在游戏视口上叠加 UI 小部件（HUD/调试面板）。",
+      "运行时模块；用于视口叠加 UI。"
+    ],
+    "en_steps": [
+      "Enable `Viewport Widget Overlay` (module `ViewportWidgetOverlay`).",
+      "It adds utilities to overlay widgets on the viewport.",
+      "Overlay UI widgets on the game viewport (HUD/debug panels).",
+      "A runtime module; for viewport-overlay UI."
+    ],
+    "note_cn": "在视口中覆盖小部件的实用程序。",
+    "note_en": "Utilities to overlay widgets on the viewport."
+  },
+  {
+    "slug": "virtual-heightfield-mesh",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Virtual Heightfield Mesh`（运行时 `VirtualHeightfieldMesh`，编辑器 `VirtualHeightfieldMeshEditor`）。",
+      "它是虚拟纹理高度场的网格渲染器（用 VT 高度场渲染大地形）。",
+      "在大型地形渲染里用其组件渲染虚拟高度场。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Virtual Heightfield Mesh` (runtime `VirtualHeightfieldMesh`, editor `VirtualHeightfieldMeshEditor`).",
+      "It is a mesh renderer for virtual-texture heightfields (render large terrain from a VT heightfield).",
+      "Use its component to render a virtual heightfield for large terrain.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "虚拟纹理高度场的网格渲染器。",
+    "note_en": "A mesh renderer for virtual-texture heightfields."
+  },
+  {
+    "slug": "virtual-production-roles",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Virtual Production Roles`（运行时 `VPRoles`，编辑器 `VPRolesEditor`）。",
+      "它允许用户管理虚拟制作角色分配（给操作者分配 VP 角色/职责）。",
+      "在虚拟制片团队里配置各操作者的角色。",
+      "Experimental：接口可能变动；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Virtual Production Roles` (runtime `VPRoles`, editor `VPRolesEditor`).",
+      "It lets users manage virtual production role assignments (assign VP roles/duties to operators).",
+      "Configure each operator's role in a virtual production team.",
+      "Experimental: contract may change; editor modules go to Editor targets only."
+    ],
+    "note_cn": "管理虚拟制作角色分配，实验性。",
+    "note_en": "Manage virtual production role assignments, experimental."
+  },
+  {
+    "slug": "virtual-production-settings",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Virtual Production Settings`（模块 `VPSettings`）。",
+      "它允许用户管理虚拟制作设置（项目级 VP 配置）。",
+      "在项目设置里配置虚拟制片相关选项。",
+      "运行时模块；用于 VP 配置管理。"
+    ],
+    "en_steps": [
+      "Enable `Virtual Production Settings` (module `VPSettings`).",
+      "It lets users manage virtual production settings (project-level VP config).",
+      "Configure virtual-production options in project settings.",
+      "A runtime module; for VP config management."
+    ],
+    "note_cn": "管理虚拟制作设置。",
+    "note_en": "Manage virtual production settings."
+  },
+  {
+    "slug": "virtual-production-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Virtual Production Utilities`（运行时 `VPUtilities`、`VPBookmark`，编辑器 `VPUtilitiesEditor`、`VPBookmarkEditor`）。",
+      "它提供虚拟制作的实用程序类与函数（含 VP Bookmark 书签）。",
+      "在虚拟制片工作流里用其工具/书签提升效率。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Virtual Production Utilities` (runtime `VPUtilities`, `VPBookmark`, editor `VPUtilitiesEditor`, `VPBookmarkEditor`).",
+      "It provides virtual production utility classes and functions (including VP Bookmarks).",
+      "Use its tools/bookmarks to improve efficiency in virtual production workflows.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "虚拟制作的实用程序类/函数（含 VP 书签）。",
+    "note_en": "Virtual production utility classes/functions (incl. VP Bookmarks)."
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "serialization",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Serialization` 位于 `Runtime`，构建规则 `Runtime/Serialization/Serialization.Build.cs`。它直接依赖 4 个模块：`Cbor`, `Core`, `CoreUObject`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Serialization\" });`；对外暴露 `Serialization` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Serialization` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Serialization.h` / `SerializationModule.h`），再用 `FModuleManager::LoadModulePtr<SerializationModule>` 或直接使用导出类型。",
+      "传递依赖：`Serialization` 还依赖 `Cbor`, `Core`, `CoreUObject`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Serialization` lives under `Runtime`; build rule `Runtime/Serialization/Serialization.Build.cs`.It directly depends on 4 modules: `Cbor`, `Core`, `CoreUObject`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Serialization\" });`. Use Public when exposing `Serialization` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Serialization` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Serialization.h` / `SerializationModule.h`), then use `FModuleManager::LoadModulePtr<SerializationModule>` or the exported types directly.",
+      "Transitive deps: `Serialization` also needs `Cbor`, `Core`, `CoreUObject`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Serialization` 的构建规则位于 `Runtime/Serialization/Serialization.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`Serialization` build rule is `Runtime/Serialization/Serialization.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "serializedrecorderinterface",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SerializedRecorderInterface` 位于 `Runtime`，构建规则 `Runtime/SerializedRecorderInterface/SerializedRecorderInterface.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `LiveLinkInterface`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SerializedRecorderInterface\" });`；对外暴露 `SerializedRecorderInterface` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SerializedRecorderInterface` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `SerializedRecorderInterface.h` / `SerializedRecorderInterfaceModule.h`），再用 `FModuleManager::LoadModulePtr<SerializedRecorderInterfaceModule>` 或直接使用导出类型。",
+      "传递依赖：`SerializedRecorderInterface` 还依赖 `Core`, `CoreUObject`, `LiveLinkInterface`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SerializedRecorderInterface` lives under `Runtime`; build rule `Runtime/SerializedRecorderInterface/SerializedRecorderInterface.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `LiveLinkInterface`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SerializedRecorderInterface\" });`. Use Public when exposing `SerializedRecorderInterface` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SerializedRecorderInterface` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `SerializedRecorderInterface.h` / `SerializedRecorderInterfaceModule.h`), then use `FModuleManager::LoadModulePtr<SerializedRecorderInterfaceModule>` or the exported types directly.",
+      "Transitive deps: `SerializedRecorderInterface` also needs `Core`, `CoreUObject`, `LiveLinkInterface`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SerializedRecorderInterface` 的构建规则位于 `Runtime/SerializedRecorderInterface/SerializedRecorderInterface.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`SerializedRecorderInterface` build rule is `Runtime/SerializedRecorderInterface/SerializedRecorderInterface.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "sessionfrontend",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SessionFrontend` 位于 `Developer`，构建规则 `Developer/SessionFrontend/SessionFrontend.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AutomationWindow`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Json`, `ScreenShotComparison`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SessionFrontend\" });`；对外暴露 `SessionFrontend` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SessionFrontend` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `SessionFrontend.h` / `SessionFrontendModule.h`），再用 `FModuleManager::LoadModulePtr<SessionFrontendModule>` 或直接使用导出类型。",
+      "传递依赖：`SessionFrontend` 还依赖 `ApplicationCore`, `AutomationWindow`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Json`, `ScreenShotComparison`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SessionFrontend` lives under `Developer`; build rule `Developer/SessionFrontend/SessionFrontend.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AutomationWindow`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Json`, `ScreenShotComparison`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SessionFrontend\" });`. Use Public when exposing `SessionFrontend` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SessionFrontend` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `SessionFrontend.h` / `SessionFrontendModule.h`), then use `FModuleManager::LoadModulePtr<SessionFrontendModule>` or the exported types directly.",
+      "Transitive deps: `SessionFrontend` also needs `ApplicationCore`, `AutomationWindow`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Json`, `ScreenShotComparison`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SessionFrontend` 的构建规则位于 `Developer/SessionFrontend/SessionFrontend.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SessionFrontend` build rule is `Developer/SessionFrontend/SessionFrontend.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "sessionmessages",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SessionMessages` 位于 `Runtime`，构建规则 `Runtime/SessionMessages/SessionMessages.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SessionMessages\" });`；对外暴露 `SessionMessages` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SessionMessages` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `SessionMessages.h` / `SessionMessagesModule.h`），再用 `FModuleManager::LoadModulePtr<SessionMessagesModule>` 或直接使用导出类型。",
+      "传递依赖：`SessionMessages` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SessionMessages` lives under `Runtime`; build rule `Runtime/SessionMessages/SessionMessages.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SessionMessages\" });`. Use Public when exposing `SessionMessages` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SessionMessages` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `SessionMessages.h` / `SessionMessagesModule.h`), then use `FModuleManager::LoadModulePtr<SessionMessagesModule>` or the exported types directly.",
+      "Transitive deps: `SessionMessages` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SessionMessages` 的构建规则位于 `Runtime/SessionMessages/SessionMessages.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`SessionMessages` build rule is `Runtime/SessionMessages/SessionMessages.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "sessionservices",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SessionServices` 位于 `Runtime`，构建规则 `Runtime/SessionServices/SessionServices.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `EngineMessages`, `SessionMessages`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SessionServices\" });`；对外暴露 `SessionServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SessionServices` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `SessionServices.h` / `SessionServicesModule.h`），再用 `FModuleManager::LoadModulePtr<SessionServicesModule>` 或直接使用导出类型。",
+      "传递依赖：`SessionServices` 还依赖 `Core`, `CoreUObject`, `EngineMessages`, `SessionMessages`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SessionServices` lives under `Runtime`; build rule `Runtime/SessionServices/SessionServices.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `EngineMessages`, `SessionMessages`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SessionServices\" });`. Use Public when exposing `SessionServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SessionServices` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `SessionServices.h` / `SessionServicesModule.h`), then use `FModuleManager::LoadModulePtr<SessionServicesModule>` or the exported types directly.",
+      "Transitive deps: `SessionServices` also needs `Core`, `CoreUObject`, `EngineMessages`, `SessionMessages`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SessionServices` 的构建规则位于 `Runtime/SessionServices/SessionServices.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`SessionServices` build rule is `Runtime/SessionServices/SessionServices.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "settings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Settings` 位于 `Developer`，构建规则 `Developer/Settings/Settings.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `PropertyEditor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Settings\" });`；对外暴露 `Settings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Settings` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `Settings.h` / `SettingsModule.h`），再用 `FModuleManager::LoadModulePtr<SettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`Settings` 还依赖 `Core`, `CoreUObject`, `PropertyEditor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Settings` lives under `Developer`; build rule `Developer/Settings/Settings.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `PropertyEditor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Settings\" });`. Use Public when exposing `Settings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Settings` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `Settings.h` / `SettingsModule.h`), then use `FModuleManager::LoadModulePtr<SettingsModule>` or the exported types directly.",
+      "Transitive deps: `Settings` also needs `Core`, `CoreUObject`, `PropertyEditor`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Settings` 的构建规则位于 `Developer/Settings/Settings.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`Settings` build rule is `Developer/Settings/Settings.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "settingseditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SettingsEditor` 位于 `Developer`，构建规则 `Developer/SettingsEditor/SettingsEditor.Build.cs`。它直接依赖 8 个模块：`Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorWidgets`, `Engine`, `InputCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SettingsEditor\" });`；对外暴露 `SettingsEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SettingsEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `SettingsEditor.h` / `SettingsEditorModule.h`），再用 `FModuleManager::LoadModulePtr<SettingsEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`SettingsEditor` 还依赖 `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorWidgets`, `Engine`, `InputCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SettingsEditor` lives under `Developer`; build rule `Developer/SettingsEditor/SettingsEditor.Build.cs`.It directly depends on 8 modules: `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorWidgets`, `Engine`, `InputCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SettingsEditor\" });`. Use Public when exposing `SettingsEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SettingsEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `SettingsEditor.h` / `SettingsEditorModule.h`), then use `FModuleManager::LoadModulePtr<SettingsEditorModule>` or the exported types directly.",
+      "Transitive deps: `SettingsEditor` also needs `Analytics`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `EditorWidgets`, `Engine`, `InputCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SettingsEditor` 的构建规则位于 `Developer/SettingsEditor/SettingsEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SettingsEditor` build rule is `Developer/SettingsEditor/SettingsEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "shaderauditviewer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ShaderAuditViewer` 位于 `Programs`，构建规则 `Programs/ShaderAuditViewer/ShaderAuditViewer.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Projects`, `RenderCore`, `ShaderAuditCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderAuditViewer\" });`；对外暴露 `ShaderAuditViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ShaderAuditViewer` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ShaderAuditViewer.h` / `ShaderAuditViewerModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderAuditViewerModule>` 或直接使用导出类型。",
+      "传递依赖：`ShaderAuditViewer` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Projects`, `RenderCore`, `ShaderAuditCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ShaderAuditViewer` lives under `Programs`; build rule `Programs/ShaderAuditViewer/ShaderAuditViewer.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Projects`, `RenderCore`, `ShaderAuditCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderAuditViewer\" });`. Use Public when exposing `ShaderAuditViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ShaderAuditViewer` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ShaderAuditViewer.h` / `ShaderAuditViewerModule.h`), then use `FModuleManager::LoadModulePtr<ShaderAuditViewerModule>` or the exported types directly.",
+      "Transitive deps: `ShaderAuditViewer` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Projects`, `RenderCore`, `ShaderAuditCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ShaderAuditViewer` 的构建规则位于 `Programs/ShaderAuditViewer/ShaderAuditViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ShaderAuditViewer` build rule is `Programs/ShaderAuditViewer/ShaderAuditViewer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "shaderbuild",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ShaderBuild` 位于 `Developer`，构建规则 `Developer/ShaderBuild/ShaderBuild.Build.cs`。它直接依赖 3 个模块：`Core`, `DerivedDataCache`, `RenderCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderBuild\" });`；对外暴露 `ShaderBuild` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ShaderBuild` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `ShaderBuild.h` / `ShaderBuildModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderBuildModule>` 或直接使用导出类型。",
+      "传递依赖：`ShaderBuild` 还依赖 `Core`, `DerivedDataCache`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ShaderBuild` lives under `Developer`; build rule `Developer/ShaderBuild/ShaderBuild.Build.cs`.It directly depends on 3 modules: `Core`, `DerivedDataCache`, `RenderCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderBuild\" });`. Use Public when exposing `ShaderBuild` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ShaderBuild` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `ShaderBuild.h` / `ShaderBuildModule.h`), then use `FModuleManager::LoadModulePtr<ShaderBuildModule>` or the exported types directly.",
+      "Transitive deps: `ShaderBuild` also needs `Core`, `DerivedDataCache`, `RenderCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ShaderBuild` 的构建规则位于 `Developer/ShaderBuild/ShaderBuild.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ShaderBuild` build rule is `Developer/ShaderBuild/ShaderBuild.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "shaderbuildworker",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ShaderBuildWorker` 位于 `Engine`，构建规则 `Engine/Source/Programs/ShaderBuildWorker/ShaderBuildWorker.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderBuildWorker\" });`；对外暴露 `ShaderBuildWorker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ShaderBuildWorker` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ShaderBuildWorker.h` / `ShaderBuildWorkerModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderBuildWorkerModule>` 或直接使用导出类型。",
+      "传递依赖：`ShaderBuildWorker` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `ShaderBuildWorker` lives under `Engine`; build rule `Engine/Source/Programs/ShaderBuildWorker/ShaderBuildWorker.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderBuildWorker\" });`. Use Public when exposing `ShaderBuildWorker` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ShaderBuildWorker` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ShaderBuildWorker.h` / `ShaderBuildWorkerModule.h`), then use `FModuleManager::LoadModulePtr<ShaderBuildWorkerModule>` or the exported types directly.",
+      "Transitive deps: `ShaderBuildWorker` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`ShaderBuildWorker` 的构建规则位于 `Engine/Source/Programs/ShaderBuildWorker/ShaderBuildWorker.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`ShaderBuildWorker` build rule is `Engine/Source/Programs/ShaderBuildWorker/ShaderBuildWorker.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "shaderbuildworkertargetbase",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ShaderBuildWorkerTargetBase` 位于 `Programs`，构建规则 `Programs/ShaderBuildWorker/ShaderBuildWorker.Build.cs`。它直接依赖 2 个模块：`Core`, `DerivedDataBuildWorker`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderBuildWorkerTargetBase\" });`；对外暴露 `ShaderBuildWorkerTargetBase` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ShaderBuildWorkerTargetBase` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ShaderBuildWorkerTargetBase.h` / `ShaderBuildWorkerTargetBaseModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderBuildWorkerTargetBaseModule>` 或直接使用导出类型。",
+      "传递依赖：`ShaderBuildWorkerTargetBase` 还依赖 `Core`, `DerivedDataBuildWorker`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ShaderBuildWorkerTargetBase` lives under `Programs`; build rule `Programs/ShaderBuildWorker/ShaderBuildWorker.Build.cs`.It directly depends on 2 modules: `Core`, `DerivedDataBuildWorker`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderBuildWorkerTargetBase\" });`. Use Public when exposing `ShaderBuildWorkerTargetBase` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ShaderBuildWorkerTargetBase` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ShaderBuildWorkerTargetBase.h` / `ShaderBuildWorkerTargetBaseModule.h`), then use `FModuleManager::LoadModulePtr<ShaderBuildWorkerTargetBaseModule>` or the exported types directly.",
+      "Transitive deps: `ShaderBuildWorkerTargetBase` also needs `Core`, `DerivedDataBuildWorker`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ShaderBuildWorkerTargetBase` 的构建规则位于 `Programs/ShaderBuildWorker/ShaderBuildWorker.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`ShaderBuildWorkerTargetBase` build rule is `Programs/ShaderBuildWorker/ShaderBuildWorker.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "shadercompilercommon",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ShaderCompilerCommon` 位于 `Developer`，构建规则 `Developer/ShaderCompilerCommon/ShaderCompilerCommon.Build.cs`。它直接依赖 6 个模块：`Core`, `FileUtilities`, `HlslParser`, `Json`, `RenderCore`, `ShaderPreprocessor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderCompilerCommon\" });`；对外暴露 `ShaderCompilerCommon` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ShaderCompilerCommon` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `ShaderCompilerCommon.h` / `ShaderCompilerCommonModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderCompilerCommonModule>` 或直接使用导出类型。",
+      "传递依赖：`ShaderCompilerCommon` 还依赖 `Core`, `FileUtilities`, `HlslParser`, `Json`, `RenderCore`, `ShaderPreprocessor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ShaderCompilerCommon` lives under `Developer`; build rule `Developer/ShaderCompilerCommon/ShaderCompilerCommon.Build.cs`.It directly depends on 6 modules: `Core`, `FileUtilities`, `HlslParser`, `Json`, `RenderCore`, `ShaderPreprocessor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderCompilerCommon\" });`. Use Public when exposing `ShaderCompilerCommon` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ShaderCompilerCommon` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `ShaderCompilerCommon.h` / `ShaderCompilerCommonModule.h`), then use `FModuleManager::LoadModulePtr<ShaderCompilerCommonModule>` or the exported types directly.",
+      "Transitive deps: `ShaderCompilerCommon` also needs `Core`, `FileUtilities`, `HlslParser`, `Json`, `RenderCore`, `ShaderPreprocessor`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ShaderCompilerCommon` 的构建规则位于 `Developer/ShaderCompilerCommon/ShaderCompilerCommon.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`ShaderCompilerCommon` build rule is `Developer/ShaderCompilerCommon/ShaderCompilerCommon.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "shadercompileworker",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ShaderCompileWorker` 位于 `Programs`，构建规则 `Programs/ShaderCompileWorker/ShaderCompileWorker.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `Projects`, `RHI`, `RenderCore`, `SandboxFile`, `ShaderCompilerCommon`, `Sockets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderCompileWorker\" });`；对外暴露 `ShaderCompileWorker` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ShaderCompileWorker` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ShaderCompileWorker.h` / `ShaderCompileWorkerModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderCompileWorkerModule>` 或直接使用导出类型。",
+      "传递依赖：`ShaderCompileWorker` 还依赖 `ApplicationCore`, `Core`, `Projects`, `RHI`, `RenderCore`, `SandboxFile`, `ShaderCompilerCommon`, `Sockets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ShaderCompileWorker` lives under `Programs`; build rule `Programs/ShaderCompileWorker/ShaderCompileWorker.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `Projects`, `RHI`, `RenderCore`, `SandboxFile`, `ShaderCompilerCommon`, `Sockets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderCompileWorker\" });`. Use Public when exposing `ShaderCompileWorker` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ShaderCompileWorker` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ShaderCompileWorker.h` / `ShaderCompileWorkerModule.h`), then use `FModuleManager::LoadModulePtr<ShaderCompileWorkerModule>` or the exported types directly.",
+      "Transitive deps: `ShaderCompileWorker` also needs `ApplicationCore`, `Core`, `Projects`, `RHI`, `RenderCore`, `SandboxFile`, `ShaderCompilerCommon`, `Sockets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ShaderCompileWorker` 的构建规则位于 `Programs/ShaderCompileWorker/ShaderCompileWorker.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ShaderCompileWorker` build rule is `Programs/ShaderCompileWorker/ShaderCompileWorker.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "shaderconductor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ShaderConductor` 位于 `ThirdParty`，构建规则 `ThirdParty/ShaderConductor/ShaderConductor.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderConductor\" });`；对外暴露 `ShaderConductor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ShaderConductor` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `ShaderConductor.h` / `ShaderConductorModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderConductorModule>` 或直接使用导出类型。",
+      "传递依赖：`ShaderConductor` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `ShaderConductor` lives under `ThirdParty`; build rule `ThirdParty/ShaderConductor/ShaderConductor.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderConductor\" });`. Use Public when exposing `ShaderConductor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ShaderConductor` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `ShaderConductor.h` / `ShaderConductorModule.h`), then use `FModuleManager::LoadModulePtr<ShaderConductorModule>` or the exported types directly.",
+      "Transitive deps: `ShaderConductor` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`ShaderConductor` 的构建规则位于 `ThirdParty/ShaderConductor/ShaderConductor.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`ShaderConductor` build rule is `ThirdParty/ShaderConductor/ShaderConductor.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "shaderformatd3d",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ShaderFormatD3D` 位于 `Developer`，构建规则 `Developer/Windows/ShaderFormatD3D/ShaderFormatD3D.Build.cs`。它直接依赖 6 个模块：`Core`, `HlslParser`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatD3D\" });`；对外暴露 `ShaderFormatD3D` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ShaderFormatD3D` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `ShaderFormatD3D.h` / `ShaderFormatD3DModule.h`），再用 `FModuleManager::LoadModulePtr<ShaderFormatD3DModule>` 或直接使用导出类型。",
+      "传递依赖：`ShaderFormatD3D` 还依赖 `Core`, `HlslParser`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ShaderFormatD3D` lives under `Developer`; build rule `Developer/Windows/ShaderFormatD3D/ShaderFormatD3D.Build.cs`.It directly depends on 6 modules: `Core`, `HlslParser`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ShaderFormatD3D\" });`. Use Public when exposing `ShaderFormatD3D` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ShaderFormatD3D` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `ShaderFormatD3D.h` / `ShaderFormatD3DModule.h`), then use `FModuleManager::LoadModulePtr<ShaderFormatD3DModule>` or the exported types directly.",
+      "Transitive deps: `ShaderFormatD3D` also needs `Core`, `HlslParser`, `RenderCore`, `ShaderBuild`, `ShaderCompilerCommon`, `ShaderPreprocessor`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ShaderFormatD3D` 的构建规则位于 `Developer/Windows/ShaderFormatD3D/ShaderFormatD3D.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`ShaderFormatD3D` build rule is `Developer/Windows/ShaderFormatD3D/ShaderFormatD3D.Build.cs`; depends on 6 modules; category Module."
+  }
+]

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "subsonic",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Subsonic`（运行时 `SubsonicCore`、`SubsonicEngine`，编辑器 `SubsonicEditor`，测试 `SubsonicEngineTest`）。",
+      "它是高级音频创作与播放系统（实验性，不保证向后兼容）。",
+      "用 Subsonic 搭建高级音频合成/播放逻辑。",
+      "属实验性音频系统；测试模块不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable `Subsonic` (runtime `SubsonicCore`, `SubsonicEngine`, editor `SubsonicEditor`, tests `SubsonicEngineTest`).",
+      "It is an advanced audio authoring and playback system (experimental; backward compatibility not guaranteed).",
+      "Use Subsonic to build advanced audio synthesis/playback logic.",
+      "It is an experimental audio system; keep the test module out of production."
+    ],
+    "note_cn": "高级音频创作/播放系统（实验性）。",
+    "note_en": "An advanced audio authoring/playback system (experimental)."
+  },
+  {
+    "slug": "subtitles-and-closed-captions",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Subtitles and Closed Captions`（运行时 `SubtitlesAndClosedCaptions`，编辑器 `SubtitlesAndClosedCaptionsEditor`）。",
+      "它是用于显示字幕与隐藏式字幕的独立插件。",
+      "配置字幕/CC 轨道并在 UI 中显示（多语言/无障碍）。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Subtitles and Closed Captions` (runtime `SubtitlesAndClosedCaptions`, editor `SubtitlesAndClosedCaptionsEditor`).",
+      "It is a standalone plugin to display subtitles and closed captions.",
+      "Configure subtitle/CC tracks and display them in the UI (multilingual/accessibility).",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "显示字幕与隐藏式字幕的独立插件。",
+    "note_en": "A standalone plugin to show subtitles and closed captions."
+  },
+  {
+    "slug": "subversion",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Subversion`（模块 `SubversionSourceControl`）并重启。",
+      "它提供 Subversion(SVN) 源码控制集成。",
+      "在 `Project Settings > Source Control` 选 Subversion 提供方，配置仓库。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Subversion` (module `SubversionSourceControl`) and restart.",
+      "It provides Subversion (SVN) source-control integration.",
+      "In `Project Settings > Source Control`, pick the Subversion provider and configure the repo.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "Subversion(SVN) 源码控制集成。",
+    "note_en": "Subversion (SVN) source-control integration."
+  },
+  {
+    "slug": "sun-position-calculator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sun Position Calculator`（模块 `SunPosition`）。",
+      "它根据纬度/经度与日期/时间计算太阳位置（方向光/天光）。",
+      "在关卡放 Sun Position 组件，设经纬度与时间，驱动太阳/月亮光照。",
+      "运行时模块；常用于室外光照与时间系统。"
+    ],
+    "en_steps": [
+      "Enable `Sun Position Calculator` (module `SunPosition`).",
+      "It computes sun position from latitude/longitude and date/time (directional/sky light).",
+      "Place a Sun Position component in the level, set lat/long and time to drive sun/moon lighting.",
+      "A runtime module; common for outdoor lighting and time-of-day systems."
+    ],
+    "note_cn": "按经纬度/日期时间计算太阳位置。",
+    "note_en": "Computes sun position from latitude/longitude and date/time."
+  },
+  {
+    "slug": "surfaceeffects",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SurfaceEffects`（模块 `SurfaceEffects`）。",
+      "它提供灵活的、上下文驱动的表面效果系统（按表面/上下文触发效果）。",
+      "在关卡/材质里配置表面效果，按命中/环境上下文触发反馈（如脚步/碰撞）。",
+      "运行时模块；用于上下文相关的表面反馈。"
+    ],
+    "en_steps": [
+      "Enable `SurfaceEffects` (module `SurfaceEffects`).",
+      "It provides a flexible, context-driven surface-effects system (trigger effects by surface/context).",
+      "Configure surface effects in levels/materials to trigger feedback by hit/environment context (e.g. footsteps/collisions).",
+      "A runtime module; for context-sensitive surface feedback."
+    ],
+    "note_cn": "灵活、上下文驱动的表面效果系统。",
+    "note_en": "A flexible, context-driven surface-effects system."
+  },
+  {
+    "slug": "svg-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SVG Importer`（运行时 `SVGImporter`，编辑器 `SVGImporterEditor`），属虚拟制片工具链。",
+      "它导入并处理 SVG 矢量文件（用于 UI/图形/动态图形）。",
+      "导入 .svg 生成可用资产，在 UI/Motion Design 里使用。",
+      "Game 模块依赖 `SVGImporter`；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `SVG Importer` (runtime `SVGImporter`, editor `SVGImporterEditor`), part of the virtual production toolchain.",
+      "It imports and processes SVG vector files (for UI/graphics/motion graphics).",
+      "Import .svg to generate usable assets, used in UI/Motion Design.",
+      "Game modules depend on `SVGImporter`; editor modules go to Editor targets only."
+    ],
+    "note_cn": "导入/处理 SVG 矢量文件的插件。",
+    "note_en": "Imports/processes SVG vector files."
+  },
+  {
+    "slug": "switchboard",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Switchboard`（模块 `SwitchboardCommon`，编辑器 `SwitchboardEditor`），属 Virtual Production。",
+      "它是总机（Switchboard）应用的启动器/安装程序（管理多机渲染设备）。",
+      "用 Switchboard 配置/启动/监听多机 nDisplay 渲染设备。",
+      "Game 模块依赖运行时模块；`SwitchboardEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Switchboard` (modules `SwitchboardCommon`, editor `SwitchboardEditor`), part of Virtual Production.",
+      "It is the launcher/installer for the Switchboard application (manages multi-machine render devices).",
+      "Use Switchboard to configure/launch/monitor multi-machine nDisplay render devices.",
+      "Game modules depend on runtime modules; `SwitchboardEditor` is Editor-target only."
+    ],
+    "note_cn": "总机（Switchboard）应用的启动器/安装程序。",
+    "note_en": "A launcher/installer for the Switchboard application."
+  },
+  {
+    "slug": "synthesis-and-dsp-effects",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Synthesis and DSP Effects`（运行时 `Synthesis`，编辑器 `SynthesisEditor`）。",
+      "它提供各种实时合成器、DSP 源与子混音效果。",
+      "在音频里用其合成器/DSP 节点做声音合成与效果处理。",
+      "Game 模块依赖 `Synthesis`；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Synthesis and DSP Effects` (runtime `Synthesis`, editor `SynthesisEditor`).",
+      "It provides various real-time synthesizers, DSP sources, and submix effects.",
+      "Use its synths/DSP nodes for sound synthesis and effect processing.",
+      "Game modules depend on `Synthesis`; editor modules go to Editor targets only."
+    ],
+    "note_cn": "实时合成器/DSP 源/子混音效果。",
+    "note_en": "Real-time synths/DSP sources/submix effects."
+  },
+  {
+    "slug": "take-recorder-multi-user-synchronization",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Take Recorder Multi-User synchronization`（模块 `ConcertTakeRecorder`），属 Virtual Production。",
+      "它启用 Take Recorder 的可选加入式多用户同步（Concert 多端录制同步）。",
+      "在多用户会话里同步各端录制，保持时间一致。",
+      "运行时模块；配合 Take Recorder 与 Concert 使用。"
+    ],
+    "en_steps": [
+      "Enable `Take Recorder Multi-User synchronization` (module `ConcertTakeRecorder`), part of Virtual Production.",
+      "It enables opt-in multi-user synchronization for Take Recorder (Concert multi-end recording sync).",
+      "In a multi-user session, sync recording across endpoints with consistent time.",
+      "A runtime module; used with Take Recorder and Concert."
+    ],
+    "note_cn": "Take Recorder 的多用户(Concert)录制同步。",
+    "note_en": "Multi-user (Concert) recording sync for Take Recorder."
+  },
+  {
+    "slug": "take-recorder",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Take Recorder`（模块 `TakesCore`、`TakeRecorder`、`TakeRecorderSources`、`TakeTrackRecorders`、`TakeMovieScene`、`CacheTrackRecorder`，编辑器 `TakeRecorderEditor` 等）。",
+      "它是为虚拟制片设计的录制、审查与回放工具集与界面。",
+      "用 Take Recorder 录制镜头/表演（多源），再回放审查。",
+      "Game 模块依赖运行时模块；`TakeRecorderEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Take Recorder` (modules `TakesCore`, `TakeRecorder`, `TakeRecorderSources`, `TakeTrackRecorders`, `TakeMovieScene`, `CacheTrackRecorder`, editor `TakeRecorderEditor`, etc.).",
+      "It is a tools/UI set designed for recording, reviewing, and playing back takes in virtual production.",
+      "Use Take Recorder to record shots/performances (multi-source) and play back for review.",
+      "Game modules depend on runtime modules; `TakeRecorderEditor` is Editor-target only."
+    ],
+    "note_cn": "虚拟制片用的录制/审查/回放工具集（Take Recorder）。",
+    "note_en": "A recording/reviewing/playback toolset for virtual production (Take Recorder)."
+  },
+  {
+    "slug": "targetdeviceservices-scripting-library",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `TargetDeviceServices scripting library`（模块 `TargetDeviceServicesScripting`）。",
+      "它是一组蓝图函数，可通过脚本使用 `TargetDeviceServices` 模块。",
+      "在蓝图/脚本里调用这些函数管理目标设备服务。",
+      "属脚本/蓝图工具；编辑器或工具向。"
+    ],
+    "en_steps": [
+      "Enable `TargetDeviceServices scripting library` (module `TargetDeviceServicesScripting`).",
+      "It is a set of Blueprint functions to use the `TargetDeviceServices` module from scripts.",
+      "Call these functions from Blueprint/scripts to manage target device services.",
+      "It is a script/Blueprint utility; editor/tool-oriented."
+    ],
+    "note_cn": "脚本化使用 TargetDeviceServices 的蓝图函数库。",
+    "note_en": "A Blueprint library to use TargetDeviceServices from scripts."
+  },
+  {
+    "slug": "targeting-system",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Targeting System`（模块 `TargetingSystem`）。",
+      "它是通用瞄准系统，用于游戏能力、瞄准辅助等（与 GAS 相关）。",
+      "用其组件/接口做目标选择、锁定与瞄准辅助。",
+      "Experimental：接口可能变动；常与 Gameplay Ability System 配合。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Targeting System` (module `TargetingSystem`).",
+      "It is a generic targeting system for gameplay abilities, aim assist, etc. (GAS-related).",
+      "Use its components/interfaces for target selection, lock-on, and aim assist.",
+      "Experimental: contract may change; often used with the Gameplay Ability System."
+    ],
+    "note_cn": "通用瞄准系统（瞄准辅助/目标选择，GAS 相关）。",
+    "note_en": "A generic targeting system (aim assist/target selection, GAS-related)."
+  },
+  {
+    "slug": "tcp-messaging",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `TCP Messaging`（模块 `TcpMessaging`）。",
+      "它为消息子系统添加基于 TCP 连接的传输层，用于联网计算机/设备间收发消息。",
+      "配置 TCP 消息端点，跨进程/跨机通信。",
+      "运行时模块；属消息总线传输层。"
+    ],
+    "en_steps": [
+      "Enable `TCP Messaging` (module `TcpMessaging`).",
+      "It adds a TCP-based transport to the message subsystem for sending/receiving messages between networked computers/devices.",
+      "Configure TCP messaging endpoints for cross-process/cross-machine communication.",
+      "A runtime module; a message-bus transport."
+    ],
+    "note_cn": "消息子系统的 TCP 传输层（跨机收发消息）。",
+    "note_en": "A TCP transport for the message subsystem (cross-machine messaging)."
+  },
+  {
+    "slug": "techaudiotools",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `TechAudioTools`（运行时 `TechAudioTools`、`TechAudioToolsMetaSound`，编辑器 `TechAudioToolsMetaSoundEditor`）。",
+      "它是音频相关工具与实用程序的集合（含 MetaSound 工具）。",
+      "在音频设计/调试里用其工具辅助制作。",
+      "Experimental：接口可能变动；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `TechAudioTools` (runtime `TechAudioTools`, `TechAudioToolsMetaSound`, editor `TechAudioToolsMetaSoundEditor`).",
+      "It is a collection of audio-related tools and utilities (including MetaSound tools).",
+      "Use its tools to assist audio design/debugging.",
+      "Experimental: contract may change; editor modules go to Editor targets only."
+    ],
+    "note_cn": "音频相关工具/实用程序集合（含 MetaSound 工具）。",
+    "note_en": "A collection of audio tools/utilities (incl. MetaSound tools)."
+  },
+  {
+    "slug": "teds-editor-data-storage-features",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `TEDS: Editor Data Storage Features`（模块 `TedsActorCompatibility`、`TedsOutliner`、`TedsPropertyEditor`、`TedsContentBrowser`、`TedsQueryStack` 等）。",
+      "它基于 TEDS（编辑器数据存储）构建实验性编辑器 UI 功能（大纲/属性/内容浏览器等）。",
+      "在编辑器里体验新的数据存储驱动的 UI 功能。",
+      "Experimental：接口可能变动；编辑器向，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable Experimental `TEDS: Editor Data Storage Features` (modules `TedsActorCompatibility`, `TedsOutliner`, `TedsPropertyEditor`, `TedsContentBrowser`, `TedsQueryStack`, etc.).",
+      "It builds experimental editor UI features on TEDS (Editor Data Storage) — outliner/property/content browser, etc.",
+      "Try the new data-storage-driven UI features in the editor.",
+      "Experimental: contract may change; editor-oriented, does not ship."
+    ],
+    "note_cn": "基于 TEDS 数据存储的实验性编辑器 UI 功能。",
+    "note_en": "Experimental editor UI features built on TEDS data storage."
+  }
+]

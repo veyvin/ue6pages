@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "niagara-nanite",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Niagara Nanite`（运行时 `NiagaraNanite`，着色器 `NiagaraNaniteShader`，编辑器 `NiagaraNaniteEditor`）。",
+      "它让 Niagara 用 Nanite 渲染粒子/网格（大量高模粒子特效）。",
+      "在 Niagara 发射器里用 Nanite 网格渲染，享受 Nanite 的自动 LOD。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Niagara Nanite` (runtime `NiagaraNanite`, shader `NiagaraNaniteShader`, editor `NiagaraNaniteEditor`).",
+      "It lets Niagara render particles/meshes with Nanite (mass high-poly particle VFX).",
+      "Use Nanite mesh rendering in a Niagara emitter to get Nanite's automatic LOD.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "Niagara 用 Nanite 渲染粒子/网格。",
+    "note_en": "Niagara rendering particles/meshes with Nanite."
+  },
+  {
+    "slug": "niagara-toolsets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Niagara Toolsets`（模块 `NiagaraToolsets`），面向 AI Toolset Registry。",
+      "它提供一系列工具调用，使 AI 助手能与 Niagara 交互（读写系统/发射器/模块）。",
+      "在 Niagara 编辑流程里用 AI 助手批量创建/调整系统。",
+      "属 AI 工具链/编辑器自动化，非运行时功能。"
+    ],
+    "en_steps": [
+      "Enable `Niagara Toolsets` (module `NiagaraToolsets`); it targets the AI Toolset Registry.",
+      "It provides a set of tool calls so AI assistants can interact with Niagara (read/write systems/emitters/modules).",
+      "In the Niagara editing flow, use the AI assistant to batch-create/adjust systems.",
+      "It is AI-toolchain/editor automation, not a runtime feature."
+    ],
+    "note_cn": "让 AI 助手与 Niagara 交互的工具集。",
+    "note_en": "Toolsets letting AI assistants interact with Niagara."
+  },
+  {
+    "slug": "niagara-ui-renderer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Niagara UI Renderer`（运行时 `NiagaraUIRenderer`，编辑器 `NiagaraUIRendererEditor`）。",
+      "它用专用 UI 精灵渲染器在 Slate/UMG 小部件内渲染 Niagara CPU 粒子系统。",
+      "在 UMG 控件里放 Niagara UI Renderer，指定 CPU 粒子系统做界面特效。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Niagara UI Renderer` (runtime `NiagaraUIRenderer`, editor `NiagaraUIRendererEditor`).",
+      "It renders Niagara CPU particle systems inside Slate/UMG widgets via a dedicated UI sprite renderer.",
+      "Drop a Niagara UI Renderer into a UMG widget and assign a CPU particle system for UI VFX.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "在 Slate/UMG 里渲染 Niagara CPU 粒子的 UI 渲染器。",
+    "note_en": "A renderer for Niagara CPU particles inside Slate/UMG."
+  },
+  {
+    "slug": "niagara",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Niagara`（模块 `NiagaraCore`、`Niagara`、`NiagaraShader`、`NiagaraVertexFactories`、`NiagaraBlueprintNodes`，编辑器 `NiagaraEditor` 等）。",
+      "它是引擎的下一代实时特效系统：火焰、烟雾、粒子、流体；可在模块栈里扩展行为。",
+      "创建 Niagara 系统/发射器，在模块栈里组合行为，按 Sprite/Ribbon/Mesh 渲染。",
+      "Game 模块依赖运行时模块；`NiagaraEditor`/`NiagaraEditorWidgets` 等只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Niagara` (modules `NiagaraCore`, `Niagara`, `NiagaraShader`, `NiagaraVertexFactories`, `NiagaraBlueprintNodes`, editor `NiagaraEditor`, etc.).",
+      "It is the engine's next-gen VFX system: fire, smoke, particles, fluids; behaviors extend in the module stack.",
+      "Create Niagara systems/emitters, compose behaviors in the module stack, and render as Sprite/Ribbon/Mesh.",
+      "Game modules depend on runtime modules; `NiagaraEditor`/`NiagaraEditorWidgets` etc. go to Editor targets only."
+    ],
+    "note_cn": "Niagara 实时特效系统本体（火焰/烟/粒子/流体）。",
+    "note_en": "The core Niagara real-time VFX system (fire/smoke/particles/fluids)."
+  },
+  {
+    "slug": "niagarafluids",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NiagaraFluids`（模块 `NiagaraFluids`）。",
+      "它为 Niagara 提供流体模拟内容（烟、火、气体等基于网格/粒子的流体）。",
+      "用 NiagaraFluids 模板搭建流体特效，并调参数。",
+      "属 Niagara 工具链的流体扩展；需 Niagara 启用。"
+    ],
+    "en_steps": [
+      "Enable `NiagaraFluids` (module `NiagaraFluids`).",
+      "It provides fluid simulation content for Niagara (smoke, fire, gas — grid/particle based fluids).",
+      "Build fluid VFX from NiagaraFluids templates and tune parameters.",
+      "It is a fluid extension of the Niagara toolchain; requires Niagara enabled."
+    ],
+    "note_cn": "Niagara 的流体模拟内容（烟/火/气体）。",
+    "note_en": "Fluid simulation content for Niagara (smoke/fire/gas)."
+  },
+  {
+    "slug": "niagarapreviewcontent",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NiagaraPreviewContent`（模块 `NiagaraPreviewContent`）。",
+      "它包含 Niagara 预览/编辑器使用到的电影文件（预览内容）。",
+      "无需写代码依赖；随 Niagara 编辑预览一起用。",
+      "属内容包，服务 Niagara 预览。"
+    ],
+    "en_steps": [
+      "Enable `NiagaraPreviewContent` (module `NiagaraPreviewContent`).",
+      "It contains movie files used by Niagara preview/editor (preview content).",
+      "No code dependency; used with Niagara editing previews.",
+      "It is a content pack serving Niagara previews."
+    ],
+    "note_cn": "Niagara 预览用的电影文件内容包。",
+    "note_en": "A content pack of movie files used by Niagara previews."
+  },
+  {
+    "slug": "niagarasimcaching",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NiagaraSimCaching`（运行时 `NiagaraSimCaching`，编辑器 `NiagaraSimCachingEditor`）。",
+      "它为 Niagara 提供模拟缓存：把模拟结果烘成缓存再回放，省算力/可确定性。",
+      "对复杂效果先录制 Sim Cache，运行时播放缓存（Sequencer/玩法可用）。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `NiagaraSimCaching` (runtime `NiagaraSimCaching`, editor `NiagaraSimCachingEditor`).",
+      "It provides simulation caching for Niagara: bake the simulation to a cache, then play it back for perf/determinism.",
+      "Record a Sim Cache for a complex effect and play it back at runtime (usable in Sequencer/gameplay).",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "Niagara 模拟缓存（烘缓存再回放，省算力/确定性）。",
+    "note_en": "Niagara simulation caching (bake then replay for perf/determinism)."
+  },
+  {
+    "slug": "nnedenoiser",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NNEDenoiser`（模块 `NNEDenoiser`、`NNEDenoiserShaders`）。",
+      "它是基于神经网络引擎（NNE）的 Path Tracer 神经降噪器。",
+      "在 Path Tracer/离线渲染里启用 NNE 降噪，降低采样保画质。",
+      "属降噪/离线渲染工具；需 NNE 运行时配合。"
+    ],
+    "en_steps": [
+      "Enable `NNEDenoiser` (modules `NNEDenoiser`, `NNEDenoiserShaders`).",
+      "It is a neural denoiser for the Path Tracer based on the Neural Network Engine (NNE).",
+      "Enable NNE denoising in Path Tracer/offline renders to cut samples while keeping quality.",
+      "It is a denoise/offline-render tool; requires an NNE runtime."
+    ],
+    "note_cn": "基于 NNE 的 Path Tracer 神经降噪器。",
+    "note_en": "An NNE-based neural denoiser for the Path Tracer."
+  },
+  {
+    "slug": "nnemodeltests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NNEModelTests`（模块 `NNEModelTests`，编辑器 `NNEModelTestsEditor`）。",
+      "它提供基础设施：导入神经网络模型测试并加到不同 NNE 运行时的自动化测试里。",
+      "在 CI 里用它对各 NNE 运行时做模型一致性测试。",
+      "Experimental：接口可能变动；测试用途，不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NNEModelTests` (modules `NNEModelTests`, editor `NNEModelTestsEditor`).",
+      "It provides infrastructure to import neural-network model tests and add them to automation running on different NNE runtimes.",
+      "In CI, use it to run model-consistency tests across NNE runtimes.",
+      "Experimental: contract may change; test-only, not for production."
+    ],
+    "note_cn": "跨 NNE 运行时的神经网络模型测试基础设施，实验性。",
+    "note_en": "Infrastructure for NN model tests across NNE runtimes, experimental."
+  },
+  {
+    "slug": "nneruntimebasiccpu",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NNERuntimeBasicCpu`（模块 `NNERuntimeBasicCpu`）。",
+      "它是支持基本模型的高性能、跨平台 CPU 运行时（NNE 的一个后端）。",
+      "在需要 CPU 推理的场景里选它作为 NNE 运行时。",
+      "Experimental：接口可能变动；仅支持基本模型。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NNERuntimeBasicCpu` (module `NNERuntimeBasicCpu`).",
+      "It is a high-performance, cross-platform CPU runtime for basic models (an NNE backend).",
+      "Pick it as the NNE runtime where CPU inference is needed.",
+      "Experimental: contract may change; supports basic models only."
+    ],
+    "note_cn": "NNE 的高性能跨平台 CPU 运行时（基本模型），实验性。",
+    "note_en": "A high-perf cross-platform CPU NNE runtime (basic models), experimental."
+  },
+  {
+    "slug": "nneruntimecoreml",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NNERuntimeCoreML`（运行时 `NNERuntimeCoreML`、`NNERuntimeCoreMLUtils`，编辑器 `NNERuntimeCoreMLEditor`）。",
+      "它是基于 Apple CoreML 的 NNE 运行时（在 Apple 平台用 CoreML 推理）。",
+      "在 macOS/iOS 上选它作为 NNE 运行时跑神经网络。",
+      "Experimental：接口可能变动；仅 Apple 平台。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NNERuntimeCoreML` (runtime `NNERuntimeCoreML`, `NNERuntimeCoreMLUtils`, editor `NNERuntimeCoreMLEditor`).",
+      "It is a CoreML-based NNE runtime (uses CoreML for inference on Apple platforms).",
+      "On macOS/iOS, pick it as the NNE runtime to run neural networks.",
+      "Experimental: contract may change; Apple platforms only."
+    ],
+    "note_cn": "基于 Apple CoreML 的 NNE 运行时，实验性。",
+    "note_en": "A CoreML-based NNE runtime, experimental."
+  },
+  {
+    "slug": "nneruntimeiree",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NNERuntimeIREE`（模块 `NNERuntimeIREE`、`IREETracing`、`IREEUtils`、`IREEDriverRDG`、`NNERuntimeIREEShader`，编辑器 `NNERuntimeIREEEditor`）。",
+      "它实现基于 IREE/MLIR/LLVM 的 NNE 运行时，把神经网络直接编译成游戏代码。",
+      "在需要 AOT 编译式推理/GPU 加速时选它作为 NNE 运行时。",
+      "Experimental：接口可能变动；依赖 IREE 生态。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NNERuntimeIREE` (modules `NNERuntimeIREE`, `IREETracing`, `IREEUtils`, `IREEDriverRDG`, `NNERuntimeIREEShader`, editor `NNERuntimeIREEEditor`).",
+      "It implements an NNE runtime on IREE/MLIR/LLVM, compiling neural networks directly into game code.",
+      "Pick it as the NNE runtime when you need AOT-compiled inference/GPU acceleration.",
+      "Experimental: contract may change; depends on the IREE ecosystem."
+    ],
+    "note_cn": "基于 IREE/MLIR/LLVM 的 NNE 运行时（AOT 编译推理），实验性。",
+    "note_en": "An IREE/MLIR/LLVM-based NNE runtime (AOT-compiled inference), experimental."
+  },
+  {
+    "slug": "nneruntimelitert",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NNERuntimeLiteRT`（运行时 `NNERuntimeLiteRT`，编辑器 `NNERuntimeLiteRTEditor`）。",
+      "它是由 Google LiteRT 支持的 NNE 运行时。",
+      "在需要 LiteRT 推理的场景里选它作为 NNE 运行时。",
+      "Experimental：接口可能变动；依赖 LiteRT。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NNERuntimeLiteRT` (runtime `NNERuntimeLiteRT`, editor `NNERuntimeLiteRTEditor`).",
+      "It is an NNE runtime backed by Google LiteRT.",
+      "Pick it as the NNE runtime where LiteRT inference is wanted.",
+      "Experimental: contract may change; depends on LiteRT."
+    ],
+    "note_cn": "由 Google LiteRT 支持的 NNE 运行时，实验性。",
+    "note_en": "A Google LiteRT-backed NNE runtime, experimental."
+  },
+  {
+    "slug": "nneruntimeort",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NNERuntimeORT`（模块 `NNERuntimeORT`）。",
+      "它是 ONNX Runtime 支持的 NNE 运行时，由 CPU 与 DirectML 执行提供程序加速。",
+      "在 Windows 上用 DirectML/CPU 跑 ONNX 模型时选它作为 NNE 运行时。",
+      "属 NNE 后端；实际能力取决于平台执行提供程序。"
+    ],
+    "en_steps": [
+      "Enable `NNERuntimeORT` (module `NNERuntimeORT`).",
+      "It is an ONNX Runtime-backed NNE runtime accelerated by CPU and DirectML execution providers.",
+      "On Windows, pick it as the NNE runtime to run ONNX models via DirectML/CPU.",
+      "It is an NNE backend; actual capability depends on platform execution providers."
+    ],
+    "note_cn": "ONNX Runtime 的 NNE 运行时（CPU + DirectML）。",
+    "note_en": "An ONNX Runtime NNE runtime (CPU + DirectML)."
+  },
+  {
+    "slug": "nneruntimerdg",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NNERuntimeRDG`（模块 `NNERuntimeRDG`、`NNEHlslShaders`、`NNERuntimeRDGData`、`NNERuntimeRDGUtils`）。",
+      "它用渲染依赖图（RDG）实现 NNE API，在 GPU 上跑神经网络推理。",
+      "在需要 GPU 推理且走渲染管线的场景里选它作为 NNE 运行时。",
+      "Experimental：接口可能变动；依赖 RDG/HLSL 着色器。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NNERuntimeRDG` (modules `NNERuntimeRDG`, `NNEHlslShaders`, `NNERuntimeRDGData`, `NNERuntimeRDGUtils`).",
+      "It implements the NNE API using the Render Dependency Graph (RDG) to run neural-network inference on the GPU.",
+      "Pick it as the NNE runtime for GPU inference through the render pipeline.",
+      "Experimental: contract may change; relies on RDG/HLSL shaders."
+    ],
+    "note_cn": "基于 RDG 的 NNE GPU 运行时，实验性。",
+    "note_en": "An RDG-based NNE GPU runtime, experimental."
+  }
+]

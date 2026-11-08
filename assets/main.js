@@ -1,25 +1,25 @@
 
 // ===== Theme toggle (persists in localStorage) =====
 (function() {
-  var body = document.body;
+  var root = document.documentElement;
   var stored = localStorage.getItem('ue-theme');
   var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   var initial = stored || (prefersDark ? 'dark' : 'light');
-  body.setAttribute('data-theme', initial);
+  root.setAttribute('data-theme', initial);
 
   function syncThemeIcons() {
     var suns = document.querySelectorAll('#theme-sun, #ft-sun');
     var moons = document.querySelectorAll('#theme-moon, #ft-moon');
-    var isDark = body.getAttribute('data-theme') === 'dark';
+    var isDark = root.getAttribute('data-theme') === 'dark';
     suns.forEach(function(el) { if (el) el.style.display = isDark ? 'none' : 'block'; });
     moons.forEach(function(el) { if (el) el.style.display = isDark ? 'block' : 'none'; });
   }
   syncThemeIcons();
 
   window.toggleTheme = function() {
-    var isDark = body.getAttribute('data-theme') === 'dark';
+    var isDark = root.getAttribute('data-theme') === 'dark';
     var next = isDark ? 'light' : 'dark';
-    body.setAttribute('data-theme', next);
+    root.setAttribute('data-theme', next);
     localStorage.setItem('ue-theme', next);
     syncThemeIcons();
   };
@@ -72,15 +72,36 @@ function filterItems() {
 (function() {
   var btn = document.getElementById('sidebarToggle');
   var sb = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebarOverlay');
+  function setOpen(open) {
+    if (!sb) return;
+    sb.classList.toggle('open', open);
+    if (overlay) {
+      overlay.classList.toggle('show', open);
+      overlay.hidden = !open;
+    }
+    if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
   if (btn && sb) {
-    btn.addEventListener('click', function() { sb.classList.toggle('open'); });
+    btn.addEventListener('click', function() { setOpen(!sb.classList.contains('open')); });
+    if (overlay) overlay.addEventListener('click', function() { setOpen(false); });
     document.addEventListener('click', function(e) {
-      if (sb.classList.contains('open') && !sb.contains(e.target) && e.target !== btn) {
-        sb.classList.remove('open');
+      if (sb.classList.contains('open') && !sb.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+        setOpen(false);
       }
     });
   }
 })();
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === '/' && document.activeElement && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+    var input = document.getElementById('searchInput');
+    if (input) {
+      e.preventDefault();
+      input.focus();
+    }
+  }
+});
 
 // ===== Nav highlight (simple: match path) =====
 (function() {

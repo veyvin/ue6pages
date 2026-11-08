@@ -3,7 +3,6 @@ layout: default
 title: 编辑器脚本实用程序 / Editor Scripting Utilities
 ---
 
-
 <h1>编辑器脚本实用程序 / Editor Scripting Utilities</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 编辑器脚本实用程序 / Editor Scripting Utilities
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Helper 的功能是使用蓝图或其他脚本工具编写您自己的 UE 编辑器功能。</div><div class="lang-content">Helper functions to script your own UE editor functionalities with Blueprint or other scripting tools.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Editor Scripting Utilities</code> 插件并重启。</li><li>新建一个 Editor Utility Blueprint，在事件图里右键搜索 <code class="usage-code">Editor Asset Library</code>、<code class="usage-code">Editor Level Library</code> 节点。</li><li>用 <code class="usage-code">Get All Assets</code>、<code class="usage-code">Rename Asset</code>、<code class="usage-code">Set Metadata Tag</code> 编写批量资产整理逻辑。</li><li>用 <code class="usage-code">Editor Level Library</code> 批量选中或替换当前关卡里的 Actor。</li><li>也可在 Output Log 切到 Python，<code class="usage-code">import unreal</code> 后调用 <code class="usage-code">unreal.EditorAssetLibrary</code> 做同样脚本化操作。</li><li>把脚本做成 Editor Utility Widget 按钮，让团队一键执行。</li></ol><p class="usage-note">它是编辑器脚本库（蓝图 / Python 的 EditorAssetLibrary、EditorLevelLibrary 等），只用于编辑器自动化，不要作为游戏运行时依赖。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Editor Scripting Utilities</code> and restart.</li><li>Create an Editor Utility Blueprint and, in the event graph, right-click to search nodes like <code class="usage-code">Editor Asset Library</code> and <code class="usage-code">Editor Level Library</code>.</li><li>Use <code class="usage-code">Get All Assets</code>, <code class="usage-code">Rename Asset</code>, and <code class="usage-code">Set Metadata Tag</code> to script bulk asset cleanup.</li><li>Use <code class="usage-code">Editor Level Library</code> to select or replace Actors in the current level in bulk.</li><li>Alternatively, switch Output Log to Python, <code class="usage-code">import unreal</code>, and call <code class="usage-code">unreal.EditorAssetLibrary</code> for the same scripting tasks.</li><li>Wrap the script in an Editor Utility Widget button so the team can run it in one click.</li></ol><p class="usage-note">It is an editor scripting library (Blueprint / Python `EditorAssetLibrary`, `EditorLevelLibrary`, etc.) for editor automation only — not a game runtime dependency.</p></div></div></div>
+    </div>
+

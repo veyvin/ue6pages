@@ -3,7 +3,6 @@ layout: default
 title: 移动器集成 / Mover Integrations
 ---
 
-
 <h1>移动器集成 / Mover Integrations</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 移动器集成 / Mover Integrations
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Mover Integrations 是一个虚幻引擎插件，充当保护伞，涵盖支持 Mover 与其他插件（例如动画、AI 和其他游戏系统）集成的各种模块。</div><div class="lang-content">Mover Integrations is a Unreal Engine plugin acting as an umbrella to cover a variety of modules supporting Mover's integration with other plugins, such as animation, AI, and other gameplay systems.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">Mover Integrations</code>（模块 <code class="usage-code">MoverIntegrations</code>、<code class="usage-code">MoverMassIntegration</code>）。</li><li>它是保护伞插件，汇集支持 Mover 与其它插件（动画、AI、其它游戏系统）集成的模块。</li><li>在 Mover 基础上需要与动画/AI/Mass 等联动时启用对应集成。</li><li>Experimental：接口可能变动；依赖 <code class="usage-code">Mover</code> 主插件。</li></ol><p class="usage-note">Mover 与动画/AI/其它系统集成的保护伞插件，实验性。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">Mover Integrations</code> (modules <code class="usage-code">MoverIntegrations</code>, <code class="usage-code">MoverMassIntegration</code>).</li><li>It is an umbrella plugin covering modules that integrate Mover with other plugins (animation, AI, other game systems).</li><li>Enable the relevant integrations when you need Mover to work with animation/AI/Mass, etc.</li><li>Experimental: contract may change; depends on the main <code class="usage-code">Mover</code> plugin.</li></ol><p class="usage-note">An umbrella plugin integrating Mover with animation/AI/other systems, experimental.</p></div></div></div>
+    </div>
+

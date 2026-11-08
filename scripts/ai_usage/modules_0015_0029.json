@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "analyticscsv",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnalyticsCSV` 位于 `Runtime`，构建规则 `Runtime/Analytics/AnalyticsCSV/AnalyticsCSV.Build.cs`。它直接依赖 2 个模块：`Analytics`, `Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsCSV\" });`；对外暴露 `AnalyticsCSV` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnalyticsCSV` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AnalyticsCSV.h` / `AnalyticsCSVModule.h`），再用 `FModuleManager::LoadModulePtr<AnalyticsCSVModule>` 或直接使用导出类型。",
+      "传递依赖：`AnalyticsCSV` 还依赖 `Analytics`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnalyticsCSV` lives under `Runtime`; build rule `Runtime/Analytics/AnalyticsCSV/AnalyticsCSV.Build.cs`.It directly depends on 2 modules: `Analytics`, `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsCSV\" });`. Use Public when exposing `AnalyticsCSV` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnalyticsCSV` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AnalyticsCSV.h` / `AnalyticsCSVModule.h`), then use `FModuleManager::LoadModulePtr<AnalyticsCSVModule>` or the exported types directly.",
+      "Transitive deps: `AnalyticsCSV` also needs `Analytics`, `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnalyticsCSV` 的构建规则位于 `Runtime/Analytics/AnalyticsCSV/AnalyticsCSV.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`AnalyticsCSV` build rule is `Runtime/Analytics/AnalyticsCSV/AnalyticsCSV.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "analyticset",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnalyticsET` 位于 `Runtime`，构建规则 `Runtime/Analytics/AnalyticsET/AnalyticsET.Build.cs`。它直接依赖 4 个模块：`Analytics`, `Core`, `HTTP`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsET\" });`；对外暴露 `AnalyticsET` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnalyticsET` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AnalyticsET.h` / `AnalyticsETModule.h`），再用 `FModuleManager::LoadModulePtr<AnalyticsETModule>` 或直接使用导出类型。",
+      "传递依赖：`AnalyticsET` 还依赖 `Analytics`, `Core`, `HTTP`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnalyticsET` lives under `Runtime`; build rule `Runtime/Analytics/AnalyticsET/AnalyticsET.Build.cs`.It directly depends on 4 modules: `Analytics`, `Core`, `HTTP`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsET\" });`. Use Public when exposing `AnalyticsET` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnalyticsET` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AnalyticsET.h` / `AnalyticsETModule.h`), then use `FModuleManager::LoadModulePtr<AnalyticsETModule>` or the exported types directly.",
+      "Transitive deps: `AnalyticsET` also needs `Analytics`, `Core`, `HTTP`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnalyticsET` 的构建规则位于 `Runtime/Analytics/AnalyticsET/AnalyticsET.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`AnalyticsET` build rule is `Runtime/Analytics/AnalyticsET/AnalyticsET.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "analyticshorde",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnalyticsHorde` 位于 `Runtime`，构建规则 `Runtime/Analytics/AnalyticsHorde/AnalyticsHorde.Build.cs`。它直接依赖 3 个模块：`Analytics`, `AnalyticsET`, `Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsHorde\" });`；对外暴露 `AnalyticsHorde` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnalyticsHorde` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AnalyticsHorde.h` / `AnalyticsHordeModule.h`），再用 `FModuleManager::LoadModulePtr<AnalyticsHordeModule>` 或直接使用导出类型。",
+      "传递依赖：`AnalyticsHorde` 还依赖 `Analytics`, `AnalyticsET`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnalyticsHorde` lives under `Runtime`; build rule `Runtime/Analytics/AnalyticsHorde/AnalyticsHorde.Build.cs`.It directly depends on 3 modules: `Analytics`, `AnalyticsET`, `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsHorde\" });`. Use Public when exposing `AnalyticsHorde` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnalyticsHorde` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AnalyticsHorde.h` / `AnalyticsHordeModule.h`), then use `FModuleManager::LoadModulePtr<AnalyticsHordeModule>` or the exported types directly.",
+      "Transitive deps: `AnalyticsHorde` also needs `Analytics`, `AnalyticsET`, `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnalyticsHorde` 的构建规则位于 `Runtime/Analytics/AnalyticsHorde/AnalyticsHorde.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`AnalyticsHorde` build rule is `Runtime/Analytics/AnalyticsHorde/AnalyticsHorde.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "analyticslog",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnalyticsLog` 位于 `Runtime`，构建规则 `Runtime/Analytics/AnalyticsLog/AnalyticsLog.Build.cs`。它直接依赖 2 个模块：`Analytics`, `Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsLog\" });`；对外暴露 `AnalyticsLog` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnalyticsLog` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AnalyticsLog.h` / `AnalyticsLogModule.h`），再用 `FModuleManager::LoadModulePtr<AnalyticsLogModule>` 或直接使用导出类型。",
+      "传递依赖：`AnalyticsLog` 还依赖 `Analytics`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnalyticsLog` lives under `Runtime`; build rule `Runtime/Analytics/AnalyticsLog/AnalyticsLog.Build.cs`.It directly depends on 2 modules: `Analytics`, `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsLog\" });`. Use Public when exposing `AnalyticsLog` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnalyticsLog` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AnalyticsLog.h` / `AnalyticsLogModule.h`), then use `FModuleManager::LoadModulePtr<AnalyticsLogModule>` or the exported types directly.",
+      "Transitive deps: `AnalyticsLog` also needs `Analytics`, `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnalyticsLog` 的构建规则位于 `Runtime/Analytics/AnalyticsLog/AnalyticsLog.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`AnalyticsLog` build rule is `Runtime/Analytics/AnalyticsLog/AnalyticsLog.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "analyticsswrve",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnalyticsSwrve` 位于 `Runtime`，构建规则 `Runtime/Analytics/AnalyticsSwrve/AnalyticsSwrve.Build.cs`。它直接依赖 4 个模块：`Analytics`, `Core`, `HTTP`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsSwrve\" });`；对外暴露 `AnalyticsSwrve` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnalyticsSwrve` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AnalyticsSwrve.h` / `AnalyticsSwrveModule.h`），再用 `FModuleManager::LoadModulePtr<AnalyticsSwrveModule>` 或直接使用导出类型。",
+      "传递依赖：`AnalyticsSwrve` 还依赖 `Analytics`, `Core`, `HTTP`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnalyticsSwrve` lives under `Runtime`; build rule `Runtime/Analytics/AnalyticsSwrve/AnalyticsSwrve.Build.cs`.It directly depends on 4 modules: `Analytics`, `Core`, `HTTP`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsSwrve\" });`. Use Public when exposing `AnalyticsSwrve` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnalyticsSwrve` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AnalyticsSwrve.h` / `AnalyticsSwrveModule.h`), then use `FModuleManager::LoadModulePtr<AnalyticsSwrveModule>` or the exported types directly.",
+      "Transitive deps: `AnalyticsSwrve` also needs `Analytics`, `Core`, `HTTP`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnalyticsSwrve` 的构建规则位于 `Runtime/Analytics/AnalyticsSwrve/AnalyticsSwrve.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`AnalyticsSwrve` build rule is `Runtime/Analytics/AnalyticsSwrve/AnalyticsSwrve.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "analyticsvisualediting",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnalyticsVisualEditing` 位于 `Runtime`，构建规则 `Runtime/Analytics/AnalyticsVisualEditing/AnalyticsVisualEditing.Build.cs`。它直接依赖 5 个模块：`Analytics`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsVisualEditing\" });`；对外暴露 `AnalyticsVisualEditing` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnalyticsVisualEditing` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AnalyticsVisualEditing.h` / `AnalyticsVisualEditingModule.h`），再用 `FModuleManager::LoadModulePtr<AnalyticsVisualEditingModule>` 或直接使用导出类型。",
+      "传递依赖：`AnalyticsVisualEditing` 还依赖 `Analytics`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnalyticsVisualEditing` lives under `Runtime`; build rule `Runtime/Analytics/AnalyticsVisualEditing/AnalyticsVisualEditing.Build.cs`.It directly depends on 5 modules: `Analytics`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnalyticsVisualEditing\" });`. Use Public when exposing `AnalyticsVisualEditing` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnalyticsVisualEditing` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AnalyticsVisualEditing.h` / `AnalyticsVisualEditingModule.h`), then use `FModuleManager::LoadModulePtr<AnalyticsVisualEditingModule>` or the exported types directly.",
+      "Transitive deps: `AnalyticsVisualEditing` also needs `Analytics`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnalyticsVisualEditing` 的构建规则位于 `Runtime/Analytics/AnalyticsVisualEditing/AnalyticsVisualEditing.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`AnalyticsVisualEditing` build rule is `Runtime/Analytics/AnalyticsVisualEditing/AnalyticsVisualEditing.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "androidadvertising",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AndroidAdvertising` 位于 `Runtime`，构建规则 `Runtime/Advertising/Android/AndroidAdvertising/AndroidAdvertising.Build.cs`。它直接依赖 2 个模块：`Advertising`, `Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidAdvertising\" });`；对外暴露 `AndroidAdvertising` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AndroidAdvertising` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AndroidAdvertising.h` / `AndroidAdvertisingModule.h`），再用 `FModuleManager::LoadModulePtr<AndroidAdvertisingModule>` 或直接使用导出类型。",
+      "传递依赖：`AndroidAdvertising` 还依赖 `Advertising`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AndroidAdvertising` lives under `Runtime`; build rule `Runtime/Advertising/Android/AndroidAdvertising/AndroidAdvertising.Build.cs`.It directly depends on 2 modules: `Advertising`, `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidAdvertising\" });`. Use Public when exposing `AndroidAdvertising` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AndroidAdvertising` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AndroidAdvertising.h` / `AndroidAdvertisingModule.h`), then use `FModuleManager::LoadModulePtr<AndroidAdvertisingModule>` or the exported types directly.",
+      "Transitive deps: `AndroidAdvertising` also needs `Advertising`, `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AndroidAdvertising` 的构建规则位于 `Runtime/Advertising/Android/AndroidAdvertising/AndroidAdvertising.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`AndroidAdvertising` build rule is `Runtime/Advertising/Android/AndroidAdvertising/AndroidAdvertising.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "androiddevicedetection",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AndroidDeviceDetection` 位于 `Developer`，构建规则 `Developer/Android/AndroidDeviceDetection/AndroidDeviceDetection.Build.cs`。它直接依赖 8 个模块：`Core`, `DesktopPlatform`, `Engine`, `Json`, `JsonUtilities`, `PIEPreviewDeviceSpecification`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidDeviceDetection\" });`；对外暴露 `AndroidDeviceDetection` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AndroidDeviceDetection` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `AndroidDeviceDetection.h` / `AndroidDeviceDetectionModule.h`），再用 `FModuleManager::LoadModulePtr<AndroidDeviceDetectionModule>` 或直接使用导出类型。",
+      "传递依赖：`AndroidDeviceDetection` 还依赖 `Core`, `DesktopPlatform`, `Engine`, `Json`, `JsonUtilities`, `PIEPreviewDeviceSpecification`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AndroidDeviceDetection` lives under `Developer`; build rule `Developer/Android/AndroidDeviceDetection/AndroidDeviceDetection.Build.cs`.It directly depends on 8 modules: `Core`, `DesktopPlatform`, `Engine`, `Json`, `JsonUtilities`, `PIEPreviewDeviceSpecification`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidDeviceDetection\" });`. Use Public when exposing `AndroidDeviceDetection` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AndroidDeviceDetection` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `AndroidDeviceDetection.h` / `AndroidDeviceDetectionModule.h`), then use `FModuleManager::LoadModulePtr<AndroidDeviceDetectionModule>` or the exported types directly.",
+      "Transitive deps: `AndroidDeviceDetection` also needs `Core`, `DesktopPlatform`, `Engine`, `Json`, `JsonUtilities`, `PIEPreviewDeviceSpecification`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AndroidDeviceDetection` 的构建规则位于 `Developer/Android/AndroidDeviceDetection/AndroidDeviceDetection.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`AndroidDeviceDetection` build rule is `Developer/Android/AndroidDeviceDetection/AndroidDeviceDetection.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "androidlocalnotification",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AndroidLocalNotification` 位于 `Runtime`，构建规则 `Runtime/Android/AndroidLocalNotification/AndroidLocalNotification.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Engine`, `Launch`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidLocalNotification\" });`；对外暴露 `AndroidLocalNotification` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AndroidLocalNotification` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AndroidLocalNotification.h` / `AndroidLocalNotificationModule.h`），再用 `FModuleManager::LoadModulePtr<AndroidLocalNotificationModule>` 或直接使用导出类型。",
+      "传递依赖：`AndroidLocalNotification` 还依赖 `Core`, `CoreUObject`, `Engine`, `Launch`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AndroidLocalNotification` lives under `Runtime`; build rule `Runtime/Android/AndroidLocalNotification/AndroidLocalNotification.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Engine`, `Launch`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidLocalNotification\" });`. Use Public when exposing `AndroidLocalNotification` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AndroidLocalNotification` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AndroidLocalNotification.h` / `AndroidLocalNotificationModule.h`), then use `FModuleManager::LoadModulePtr<AndroidLocalNotificationModule>` or the exported types directly.",
+      "Transitive deps: `AndroidLocalNotification` also needs `Core`, `CoreUObject`, `Engine`, `Launch`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AndroidLocalNotification` 的构建规则位于 `Runtime/Android/AndroidLocalNotification/AndroidLocalNotification.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`AndroidLocalNotification` build rule is `Runtime/Android/AndroidLocalNotification/AndroidLocalNotification.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "androidplatformeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AndroidPlatformEditor` 位于 `Developer`，构建规则 `Developer/Android/AndroidPlatformEditor/AndroidPlatformEditor.Build.cs`。它直接依赖 8 个模块：`AndroidDeviceDetection`, `AndroidRuntimeSettings`, `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `EditorWidgets`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidPlatformEditor\" });`；对外暴露 `AndroidPlatformEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AndroidPlatformEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `AndroidPlatformEditor.h` / `AndroidPlatformEditorModule.h`），再用 `FModuleManager::LoadModulePtr<AndroidPlatformEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`AndroidPlatformEditor` 还依赖 `AndroidDeviceDetection`, `AndroidRuntimeSettings`, `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `EditorWidgets`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AndroidPlatformEditor` lives under `Developer`; build rule `Developer/Android/AndroidPlatformEditor/AndroidPlatformEditor.Build.cs`.It directly depends on 8 modules: `AndroidDeviceDetection`, `AndroidRuntimeSettings`, `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `EditorWidgets`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidPlatformEditor\" });`. Use Public when exposing `AndroidPlatformEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AndroidPlatformEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `AndroidPlatformEditor.h` / `AndroidPlatformEditorModule.h`), then use `FModuleManager::LoadModulePtr<AndroidPlatformEditorModule>` or the exported types directly.",
+      "Transitive deps: `AndroidPlatformEditor` also needs `AndroidDeviceDetection`, `AndroidRuntimeSettings`, `AudioSettingsEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `DesktopWidgets`, `EditorWidgets`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AndroidPlatformEditor` 的构建规则位于 `Developer/Android/AndroidPlatformEditor/AndroidPlatformEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`AndroidPlatformEditor` build rule is `Developer/Android/AndroidPlatformEditor/AndroidPlatformEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "androidruntimesettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AndroidRuntimeSettings` 位于 `Runtime`，构建规则 `Runtime/Android/AndroidRuntimeSettings/AndroidRuntimeSettings.Build.cs`。它直接依赖 5 个模块：`AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidRuntimeSettings\" });`；对外暴露 `AndroidRuntimeSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AndroidRuntimeSettings` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AndroidRuntimeSettings.h` / `AndroidRuntimeSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<AndroidRuntimeSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`AndroidRuntimeSettings` 还依赖 `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AndroidRuntimeSettings` lives under `Runtime`; build rule `Runtime/Android/AndroidRuntimeSettings/AndroidRuntimeSettings.Build.cs`.It directly depends on 5 modules: `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidRuntimeSettings\" });`. Use Public when exposing `AndroidRuntimeSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AndroidRuntimeSettings` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AndroidRuntimeSettings.h` / `AndroidRuntimeSettingsModule.h`), then use `FModuleManager::LoadModulePtr<AndroidRuntimeSettingsModule>` or the exported types directly.",
+      "Transitive deps: `AndroidRuntimeSettings` also needs `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `Engine`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AndroidRuntimeSettings` 的构建规则位于 `Runtime/Android/AndroidRuntimeSettings/AndroidRuntimeSettings.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`AndroidRuntimeSettings` build rule is `Runtime/Android/AndroidRuntimeSettings/AndroidRuntimeSettings.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "androidtargetplatform",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AndroidTargetPlatform` 位于 `Developer`，构建规则 `Developer/Android/AndroidTargetPlatform/AndroidTargetPlatform.Build.cs`。它直接依赖 7 个模块：`AndroidDeviceDetection`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidTargetPlatform\" });`；对外暴露 `AndroidTargetPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AndroidTargetPlatform` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `AndroidTargetPlatform.h` / `AndroidTargetPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<AndroidTargetPlatformModule>` 或直接使用导出类型。",
+      "传递依赖：`AndroidTargetPlatform` 还依赖 `AndroidDeviceDetection`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AndroidTargetPlatform` lives under `Developer`; build rule `Developer/Android/AndroidTargetPlatform/AndroidTargetPlatform.Build.cs`.It directly depends on 7 modules: `AndroidDeviceDetection`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidTargetPlatform\" });`. Use Public when exposing `AndroidTargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AndroidTargetPlatform` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `AndroidTargetPlatform.h` / `AndroidTargetPlatformModule.h`), then use `FModuleManager::LoadModulePtr<AndroidTargetPlatformModule>` or the exported types directly.",
+      "Transitive deps: `AndroidTargetPlatform` also needs `AndroidDeviceDetection`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AndroidTargetPlatform` 的构建规则位于 `Developer/Android/AndroidTargetPlatform/AndroidTargetPlatform.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`AndroidTargetPlatform` build rule is `Developer/Android/AndroidTargetPlatform/AndroidTargetPlatform.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "androidtargetplatformcontrols",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AndroidTargetPlatformControls` 位于 `Developer`，构建规则 `Developer/Android/AndroidTargetPlatformControls/AndroidTargetPlatformControls.Build.cs`。它直接依赖 8 个模块：`AndroidDeviceDetection`, `AndroidTargetPlatformSettings`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidTargetPlatformControls\" });`；对外暴露 `AndroidTargetPlatformControls` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AndroidTargetPlatformControls` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `AndroidTargetPlatformControls.h` / `AndroidTargetPlatformControlsModule.h`），再用 `FModuleManager::LoadModulePtr<AndroidTargetPlatformControlsModule>` 或直接使用导出类型。",
+      "传递依赖：`AndroidTargetPlatformControls` 还依赖 `AndroidDeviceDetection`, `AndroidTargetPlatformSettings`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AndroidTargetPlatformControls` lives under `Developer`; build rule `Developer/Android/AndroidTargetPlatformControls/AndroidTargetPlatformControls.Build.cs`.It directly depends on 8 modules: `AndroidDeviceDetection`, `AndroidTargetPlatformSettings`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidTargetPlatformControls\" });`. Use Public when exposing `AndroidTargetPlatformControls` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AndroidTargetPlatformControls` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `AndroidTargetPlatformControls.h` / `AndroidTargetPlatformControlsModule.h`), then use `FModuleManager::LoadModulePtr<AndroidTargetPlatformControlsModule>` or the exported types directly.",
+      "Transitive deps: `AndroidTargetPlatformControls` also needs `AndroidDeviceDetection`, `AndroidTargetPlatformSettings`, `AudioPlatformConfiguration`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AndroidTargetPlatformControls` 的构建规则位于 `Developer/Android/AndroidTargetPlatformControls/AndroidTargetPlatformControls.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`AndroidTargetPlatformControls` build rule is `Developer/Android/AndroidTargetPlatformControls/AndroidTargetPlatformControls.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "androidtargetplatformsettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AndroidTargetPlatformSettings` 位于 `Developer`，构建规则 `Developer/Android/AndroidTargetPlatformSettings/AndroidTargetPlatformSettings.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidTargetPlatformSettings\" });`；对外暴露 `AndroidTargetPlatformSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AndroidTargetPlatformSettings` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `AndroidTargetPlatformSettings.h` / `AndroidTargetPlatformSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<AndroidTargetPlatformSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`AndroidTargetPlatformSettings` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AndroidTargetPlatformSettings` lives under `Developer`; build rule `Developer/Android/AndroidTargetPlatformSettings/AndroidTargetPlatformSettings.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AndroidTargetPlatformSettings\" });`. Use Public when exposing `AndroidTargetPlatformSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AndroidTargetPlatformSettings` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `AndroidTargetPlatformSettings.h` / `AndroidTargetPlatformSettingsModule.h`), then use `FModuleManager::LoadModulePtr<AndroidTargetPlatformSettingsModule>` or the exported types directly.",
+      "Transitive deps: `AndroidTargetPlatformSettings` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AndroidTargetPlatformSettings` 的构建规则位于 `Developer/Android/AndroidTargetPlatformSettings/AndroidTargetPlatformSettings.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`AndroidTargetPlatformSettings` build rule is `Developer/Android/AndroidTargetPlatformSettings/AndroidTargetPlatformSettings.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "angle",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ANGLE` 位于 `ThirdParty`，构建规则 `ThirdParty/ANGLE/ANGLE.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ANGLE\" });`；对外暴露 `ANGLE` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ANGLE` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `ANGLE.h` / `ANGLEModule.h`），再用 `FModuleManager::LoadModulePtr<ANGLEModule>` 或直接使用导出类型。",
+      "传递依赖：`ANGLE` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `ANGLE` lives under `ThirdParty`; build rule `ThirdParty/ANGLE/ANGLE.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ANGLE\" });`. Use Public when exposing `ANGLE` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ANGLE` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `ANGLE.h` / `ANGLEModule.h`), then use `FModuleManager::LoadModulePtr<ANGLEModule>` or the exported types directly.",
+      "Transitive deps: `ANGLE` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`ANGLE` 的构建规则位于 `ThirdParty/ANGLE/ANGLE.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`ANGLE` build rule is `ThirdParty/ANGLE/ANGLE.Build.cs`; depends on 0 modules; category External."
+  }
+]

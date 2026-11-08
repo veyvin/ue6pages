@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "unrealeditorservices",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealEditorServices` 位于 `Programs`，构建规则 `Programs/Mac/UnrealEditorServices/UnrealEditorServices.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `Core`, `DesktopPlatform`, `Json`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealEditorServices\" });`；对外暴露 `UnrealEditorServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealEditorServices` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealEditorServices.h` / `UnrealEditorServicesModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealEditorServicesModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealEditorServices` 还依赖 `ApplicationCore`, `Core`, `DesktopPlatform`, `Json`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealEditorServices` lives under `Programs`; build rule `Programs/Mac/UnrealEditorServices/UnrealEditorServices.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `Core`, `DesktopPlatform`, `Json`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealEditorServices\" });`. Use Public when exposing `UnrealEditorServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealEditorServices` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealEditorServices.h` / `UnrealEditorServicesModule.h`), then use `FModuleManager::LoadModulePtr<UnrealEditorServicesModule>` or the exported types directly.",
+      "Transitive deps: `UnrealEditorServices` also needs `ApplicationCore`, `Core`, `DesktopPlatform`, `Json`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealEditorServices` 的构建规则位于 `Programs/Mac/UnrealEditorServices/UnrealEditorServices.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`UnrealEditorServices` build rule is `Programs/Mac/UnrealEditorServices/UnrealEditorServices.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "unrealedmessages",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealEdMessages` 位于 `Editor`，构建规则 `Editor/UnrealEdMessages/UnrealEdMessages.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealEdMessages\" });`；对外暴露 `UnrealEdMessages` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealEdMessages` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `UnrealEdMessages.h` / `UnrealEdMessagesModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealEdMessagesModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealEdMessages` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealEdMessages` lives under `Editor`; build rule `Editor/UnrealEdMessages/UnrealEdMessages.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealEdMessages\" });`. Use Public when exposing `UnrealEdMessages` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealEdMessages` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `UnrealEdMessages.h` / `UnrealEdMessagesModule.h`), then use `FModuleManager::LoadModulePtr<UnrealEdMessagesModule>` or the exported types directly.",
+      "Transitive deps: `UnrealEdMessages` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealEdMessages` 的构建规则位于 `Editor/UnrealEdMessages/UnrealEdMessages.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`UnrealEdMessages` build rule is `Editor/UnrealEdMessages/UnrealEdMessages.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "unrealfrontend",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealFrontend` 位于 `Programs`，构建规则 `Programs/UnrealFrontend/UnrealFrontend.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AutomationController`, `Core`, `CoreUObject`, `DeviceManager`, `DirectoryWatcher`, `LauncherServices`, `Messaging`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealFrontend\" });`；对外暴露 `UnrealFrontend` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealFrontend` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealFrontend.h` / `UnrealFrontendModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealFrontendModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealFrontend` 还依赖 `ApplicationCore`, `AutomationController`, `Core`, `CoreUObject`, `DeviceManager`, `DirectoryWatcher`, `LauncherServices`, `Messaging`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealFrontend` lives under `Programs`; build rule `Programs/UnrealFrontend/UnrealFrontend.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AutomationController`, `Core`, `CoreUObject`, `DeviceManager`, `DirectoryWatcher`, `LauncherServices`, `Messaging`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealFrontend\" });`. Use Public when exposing `UnrealFrontend` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealFrontend` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealFrontend.h` / `UnrealFrontendModule.h`), then use `FModuleManager::LoadModulePtr<UnrealFrontendModule>` or the exported types directly.",
+      "Transitive deps: `UnrealFrontend` also needs `ApplicationCore`, `AutomationController`, `Core`, `CoreUObject`, `DeviceManager`, `DirectoryWatcher`, `LauncherServices`, `Messaging`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealFrontend` 的构建规则位于 `Programs/UnrealFrontend/UnrealFrontend.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealFrontend` build rule is `Programs/UnrealFrontend/UnrealFrontend.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "unrealgame",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealGame` 位于 `Runtime`，构建规则 `Runtime/UnrealGame/UnrealGame.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealGame\" });`；对外暴露 `UnrealGame` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealGame` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `UnrealGame.h` / `UnrealGameModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealGameModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealGame` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealGame` lives under `Runtime`; build rule `Runtime/UnrealGame/UnrealGame.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealGame\" });`. Use Public when exposing `UnrealGame` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealGame` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `UnrealGame.h` / `UnrealGameModule.h`), then use `FModuleManager::LoadModulePtr<UnrealGameModule>` or the exported types directly.",
+      "Transitive deps: `UnrealGame` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealGame` 的构建规则位于 `Runtime/UnrealGame/UnrealGame.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`UnrealGame` build rule is `Runtime/UnrealGame/UnrealGame.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "unrealinsights",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealInsights` 位于 `Programs`，构建规则 `Programs/UnrealInsights/UnrealInsights.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `LiveCoding`, `OutputLog`, `Projects`, `SessionFrontend`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealInsights\" });`；对外暴露 `UnrealInsights` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealInsights` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealInsights.h` / `UnrealInsightsModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealInsightsModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealInsights` 还依赖 `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `LiveCoding`, `OutputLog`, `Projects`, `SessionFrontend`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealInsights` lives under `Programs`; build rule `Programs/UnrealInsights/UnrealInsights.Build.cs`.It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `LiveCoding`, `OutputLog`, `Projects`, `SessionFrontend`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealInsights\" });`. Use Public when exposing `UnrealInsights` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealInsights` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealInsights.h` / `UnrealInsightsModule.h`), then use `FModuleManager::LoadModulePtr<UnrealInsightsModule>` or the exported types directly.",
+      "Transitive deps: `UnrealInsights` also needs `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `LiveCoding`, `OutputLog`, `Projects`, `SessionFrontend`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealInsights` 的构建规则位于 `Programs/UnrealInsights/UnrealInsights.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealInsights` build rule is `Programs/UnrealInsights/UnrealInsights.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "unreallaunchdaemon",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealLaunchDaemon` 位于 `Programs`，构建规则 `Programs/IOS/UnrealLaunchDaemon/UnrealLaunchDaemon.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `LaunchDaemonMessages`, `Messaging`, `NetworkFile`, `Projects`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealLaunchDaemon\" });`；对外暴露 `UnrealLaunchDaemon` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealLaunchDaemon` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealLaunchDaemon.h` / `UnrealLaunchDaemonModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealLaunchDaemonModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealLaunchDaemon` 还依赖 `ApplicationCore`, `Core`, `LaunchDaemonMessages`, `Messaging`, `NetworkFile`, `Projects`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealLaunchDaemon` lives under `Programs`; build rule `Programs/IOS/UnrealLaunchDaemon/UnrealLaunchDaemon.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `LaunchDaemonMessages`, `Messaging`, `NetworkFile`, `Projects`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealLaunchDaemon\" });`. Use Public when exposing `UnrealLaunchDaemon` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealLaunchDaemon` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealLaunchDaemon.h` / `UnrealLaunchDaemonModule.h`), then use `FModuleManager::LoadModulePtr<UnrealLaunchDaemonModule>` or the exported types directly.",
+      "Transitive deps: `UnrealLaunchDaemon` also needs `ApplicationCore`, `Core`, `LaunchDaemonMessages`, `Messaging`, `NetworkFile`, `Projects`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealLaunchDaemon` 的构建规则位于 `Programs/IOS/UnrealLaunchDaemon/UnrealLaunchDaemon.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealLaunchDaemon` build rule is `Programs/IOS/UnrealLaunchDaemon/UnrealLaunchDaemon.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "unreallightmass",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealLightmass` 位于 `Programs`，构建规则 `Programs/UnrealLightmass/UnrealLightmass.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Embree`, `IntelTBB`, `Messaging`, `Networking`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealLightmass\" });`；对外暴露 `UnrealLightmass` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealLightmass` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealLightmass.h` / `UnrealLightmassModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealLightmassModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealLightmass` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Embree`, `IntelTBB`, `Messaging`, `Networking`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealLightmass` lives under `Programs`; build rule `Programs/UnrealLightmass/UnrealLightmass.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Embree`, `IntelTBB`, `Messaging`, `Networking`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealLightmass\" });`. Use Public when exposing `UnrealLightmass` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealLightmass` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealLightmass.h` / `UnrealLightmassModule.h`), then use `FModuleManager::LoadModulePtr<UnrealLightmassModule>` or the exported types directly.",
+      "Transitive deps: `UnrealLightmass` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Embree`, `IntelTBB`, `Messaging`, `Networking`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealLightmass` 的构建规则位于 `Programs/UnrealLightmass/UnrealLightmass.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealLightmass` build rule is `Programs/UnrealLightmass/UnrealLightmass.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "unrealmultiuserserver",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealMultiUserServer` 位于 `Programs`，构建规则 `Programs/UnrealMultiUserServer/UnrealMultiUserServer.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `Concert`, `ConcertServer`, `Core`, `CoreUObject`, `Projects`, `TraceInsights`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealMultiUserServer\" });`；对外暴露 `UnrealMultiUserServer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealMultiUserServer` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealMultiUserServer.h` / `UnrealMultiUserServerModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealMultiUserServerModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealMultiUserServer` 还依赖 `ApplicationCore`, `Concert`, `ConcertServer`, `Core`, `CoreUObject`, `Projects`, `TraceInsights`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealMultiUserServer` lives under `Programs`; build rule `Programs/UnrealMultiUserServer/UnrealMultiUserServer.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `Concert`, `ConcertServer`, `Core`, `CoreUObject`, `Projects`, `TraceInsights`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealMultiUserServer\" });`. Use Public when exposing `UnrealMultiUserServer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealMultiUserServer` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealMultiUserServer.h` / `UnrealMultiUserServerModule.h`), then use `FModuleManager::LoadModulePtr<UnrealMultiUserServerModule>` or the exported types directly.",
+      "Transitive deps: `UnrealMultiUserServer` also needs `ApplicationCore`, `Concert`, `ConcertServer`, `Core`, `CoreUObject`, `Projects`, `TraceInsights`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealMultiUserServer` 的构建规则位于 `Programs/UnrealMultiUserServer/UnrealMultiUserServer.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`UnrealMultiUserServer` build rule is `Programs/UnrealMultiUserServer/UnrealMultiUserServer.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "unrealmultiuserslateserver",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealMultiUserSlateServer` 位于 `Programs`，构建规则 `Programs/UnrealMultiUserSlateServer/UnrealMultiUserSlateServer.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Concert`, `ConcertServer`, `Core`, `CoreUObject`, `Projects`, `TraceInsights`, `UnixCommonStartup`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealMultiUserSlateServer\" });`；对外暴露 `UnrealMultiUserSlateServer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealMultiUserSlateServer` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealMultiUserSlateServer.h` / `UnrealMultiUserSlateServerModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealMultiUserSlateServerModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealMultiUserSlateServer` 还依赖 `ApplicationCore`, `Concert`, `ConcertServer`, `Core`, `CoreUObject`, `Projects`, `TraceInsights`, `UnixCommonStartup`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealMultiUserSlateServer` lives under `Programs`; build rule `Programs/UnrealMultiUserSlateServer/UnrealMultiUserSlateServer.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Concert`, `ConcertServer`, `Core`, `CoreUObject`, `Projects`, `TraceInsights`, `UnixCommonStartup`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealMultiUserSlateServer\" });`. Use Public when exposing `UnrealMultiUserSlateServer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealMultiUserSlateServer` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealMultiUserSlateServer.h` / `UnrealMultiUserSlateServerModule.h`), then use `FModuleManager::LoadModulePtr<UnrealMultiUserSlateServerModule>` or the exported types directly.",
+      "Transitive deps: `UnrealMultiUserSlateServer` also needs `ApplicationCore`, `Concert`, `ConcertServer`, `Core`, `CoreUObject`, `Projects`, `TraceInsights`, `UnixCommonStartup`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealMultiUserSlateServer` 的构建规则位于 `Programs/UnrealMultiUserSlateServer/UnrealMultiUserSlateServer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealMultiUserSlateServer` build rule is `Programs/UnrealMultiUserSlateServer/UnrealMultiUserSlateServer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "unrealobjectptrtool",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealObjectPtrTool` 位于 `Programs`，构建规则 `Programs/UnrealObjectPtrTool/UnrealObjectPtrTool.Build.cs`。它直接依赖 2 个模块：`Core`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealObjectPtrTool\" });`；对外暴露 `UnrealObjectPtrTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealObjectPtrTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealObjectPtrTool.h` / `UnrealObjectPtrToolModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealObjectPtrToolModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealObjectPtrTool` 还依赖 `Core`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealObjectPtrTool` lives under `Programs`; build rule `Programs/UnrealObjectPtrTool/UnrealObjectPtrTool.Build.cs`.It directly depends on 2 modules: `Core`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealObjectPtrTool\" });`. Use Public when exposing `UnrealObjectPtrTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealObjectPtrTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealObjectPtrTool.h` / `UnrealObjectPtrToolModule.h`), then use `FModuleManager::LoadModulePtr<UnrealObjectPtrToolModule>` or the exported types directly.",
+      "Transitive deps: `UnrealObjectPtrTool` also needs `Core`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealObjectPtrTool` 的构建规则位于 `Programs/UnrealObjectPtrTool/UnrealObjectPtrTool.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`UnrealObjectPtrTool` build rule is `Programs/UnrealObjectPtrTool/UnrealObjectPtrTool.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "unrealpackagetool",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealPackageTool` 位于 `Programs`，构建规则 `Programs/UnrealPackageTool/UnrealPackageTool.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetRegistry`, `CLI11`, `CookMetadata`, `Core`, `CoreUObject`, `Json`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealPackageTool\" });`；对外暴露 `UnrealPackageTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealPackageTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealPackageTool.h` / `UnrealPackageToolModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealPackageToolModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealPackageTool` 还依赖 `ApplicationCore`, `AssetRegistry`, `CLI11`, `CookMetadata`, `Core`, `CoreUObject`, `Json`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealPackageTool` lives under `Programs`; build rule `Programs/UnrealPackageTool/UnrealPackageTool.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `CLI11`, `CookMetadata`, `Core`, `CoreUObject`, `Json`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealPackageTool\" });`. Use Public when exposing `UnrealPackageTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealPackageTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealPackageTool.h` / `UnrealPackageToolModule.h`), then use `FModuleManager::LoadModulePtr<UnrealPackageToolModule>` or the exported types directly.",
+      "Transitive deps: `UnrealPackageTool` also needs `ApplicationCore`, `AssetRegistry`, `CLI11`, `CookMetadata`, `Core`, `CoreUObject`, `Json`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealPackageTool` 的构建规则位于 `Programs/UnrealPackageTool/UnrealPackageTool.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealPackageTool` build rule is `Programs/UnrealPackageTool/UnrealPackageTool.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "unrealpak",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealPak` 位于 `Programs`，构建规则 `Programs/UnrealPak/UnrealPak.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `Json`, `PakFile`, `PakFileUtilities`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealPak\" });`；对外暴露 `UnrealPak` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealPak` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealPak.h` / `UnrealPakModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealPakModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealPak` 还依赖 `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `Json`, `PakFile`, `PakFileUtilities`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealPak` lives under `Programs`; build rule `Programs/UnrealPak/UnrealPak.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `Json`, `PakFile`, `PakFileUtilities`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealPak\" });`. Use Public when exposing `UnrealPak` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealPak` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealPak.h` / `UnrealPakModule.h`), then use `FModuleManager::LoadModulePtr<UnrealPakModule>` or the exported types directly.",
+      "Transitive deps: `UnrealPak` also needs `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `Json`, `PakFile`, `PakFileUtilities`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealPak` 的构建规则位于 `Programs/UnrealPak/UnrealPak.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealPak` build rule is `Programs/UnrealPak/UnrealPak.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "unrealrecoverysvc",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealRecoverySvc` 位于 `Programs`，构建规则 `Programs/UnrealRecoverySvc/UnrealRecoverySvc.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `Concert`, `ConcertServer`, `ConcertSyncCore`, `Core`, `CoreUObject`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealRecoverySvc\" });`；对外暴露 `UnrealRecoverySvc` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealRecoverySvc` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealRecoverySvc.h` / `UnrealRecoverySvcModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealRecoverySvcModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealRecoverySvc` 还依赖 `ApplicationCore`, `Concert`, `ConcertServer`, `ConcertSyncCore`, `Core`, `CoreUObject`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealRecoverySvc` lives under `Programs`; build rule `Programs/UnrealRecoverySvc/UnrealRecoverySvc.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `Concert`, `ConcertServer`, `ConcertSyncCore`, `Core`, `CoreUObject`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealRecoverySvc\" });`. Use Public when exposing `UnrealRecoverySvc` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealRecoverySvc` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealRecoverySvc.h` / `UnrealRecoverySvcModule.h`), then use `FModuleManager::LoadModulePtr<UnrealRecoverySvcModule>` or the exported types directly.",
+      "Transitive deps: `UnrealRecoverySvc` also needs `ApplicationCore`, `Concert`, `ConcertServer`, `ConcertSyncCore`, `Core`, `CoreUObject`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealRecoverySvc` 的构建规则位于 `Programs/UnrealRecoverySvc/UnrealRecoverySvc.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`UnrealRecoverySvc` build rule is `Programs/UnrealRecoverySvc/UnrealRecoverySvc.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "unrealversionselector",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealVersionSelector` 位于 `Programs`，构建规则 `Programs/UnrealVersionSelector/UnrealVersionSelector.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `Projects`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealVersionSelector\" });`；对外暴露 `UnrealVersionSelector` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealVersionSelector` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealVersionSelector.h` / `UnrealVersionSelectorModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealVersionSelectorModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealVersionSelector` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `Projects`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealVersionSelector` lives under `Programs`; build rule `Programs/UnrealVersionSelector/UnrealVersionSelector.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `Projects`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealVersionSelector\" });`. Use Public when exposing `UnrealVersionSelector` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealVersionSelector` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealVersionSelector.h` / `UnrealVersionSelectorModule.h`), then use `FModuleManager::LoadModulePtr<UnrealVersionSelectorModule>` or the exported types directly.",
+      "Transitive deps: `UnrealVersionSelector` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `Projects`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealVersionSelector` 的构建规则位于 `Programs/UnrealVersionSelector/UnrealVersionSelector.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealVersionSelector` build rule is `Programs/UnrealVersionSelector/UnrealVersionSelector.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "unrealvirtualizationtool",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealVirtualizationTool` 位于 `Programs`，构建规则 `Programs/UnrealVirtualizationTool/UnrealVirtualizationTool.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `PerforceSourceControl`, `Projects`, `SourceControl`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealVirtualizationTool\" });`；对外暴露 `UnrealVirtualizationTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealVirtualizationTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealVirtualizationTool.h` / `UnrealVirtualizationToolModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealVirtualizationToolModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealVirtualizationTool` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `PerforceSourceControl`, `Projects`, `SourceControl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealVirtualizationTool` lives under `Programs`; build rule `Programs/UnrealVirtualizationTool/UnrealVirtualizationTool.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `PerforceSourceControl`, `Projects`, `SourceControl`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealVirtualizationTool\" });`. Use Public when exposing `UnrealVirtualizationTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealVirtualizationTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealVirtualizationTool.h` / `UnrealVirtualizationToolModule.h`), then use `FModuleManager::LoadModulePtr<UnrealVirtualizationToolModule>` or the exported types directly.",
+      "Transitive deps: `UnrealVirtualizationTool` also needs `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `PerforceSourceControl`, `Projects`, `SourceControl`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealVirtualizationTool` 的构建规则位于 `Programs/UnrealVirtualizationTool/UnrealVirtualizationTool.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealVirtualizationTool` build rule is `Programs/UnrealVirtualizationTool/UnrealVirtualizationTool.Build.cs`; depends on 8 modules; category Module."
+  }
+]

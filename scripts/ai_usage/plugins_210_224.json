@@ -1,0 +1,310 @@
+[
+  {
+    "slug": "content-browser---asset-data-source",
+    "kind": "plugin",
+    "cn_steps": [
+      "保持 `Content Browser - Asset Data Source`（模块 `ContentBrowserAssetDataSource`）启用：它把 `Asset Registry` 里的 `uasset` 喂给内容浏览器的 `/All/Game`、`/Engine` 等虚拟树，关掉后浏览器里资产格子会空掉。",
+      "打开内容浏览器，确认 `/Game` 下列出网格、材质、蓝图；缩略图、过滤器、右键 `Asset Actions` 都走这条数据源，不是独立面板。",
+      "写自定义浏览器视图时，在 Editor 模块依赖 `ContentBrowserAssetDataSource` / `ContentBrowserData`，用 `UContentBrowserAssetDataSource` 解析 `FContentBrowserItem` 上的 `UObject` 包路径，不要自己扫磁盘 `.uasset`。",
+      "资产重命名、移到新文件夹、Save 后应立刻出现在对应虚拟路径；若只改了源码未热载，先 `Asset Registry` 刷新再看浏览器。",
+      "这是编辑器基础设施，禁止写进游戏 `Build.cs`；Shipping 包不通过内容浏览器加载资产。"
+    ],
+    "en_steps": [
+      "Keep `Content Browser - Asset Data Source` (module `ContentBrowserAssetDataSource`) on: it feeds `Asset Registry` `uasset`s into Content Browser virtual trees (`/All/Game`, `/Engine`). Disable it and the asset grid goes empty.",
+      "Open the Content Browser and confirm meshes/materials/Blueprints under `/Game`. Thumbnails, filters, and right-click `Asset Actions` all go through this source — it is not a separate panel.",
+      "For a custom browser view, depend on `ContentBrowserAssetDataSource` / `ContentBrowserData` in an Editor module and resolve the `UObject` package path from `FContentBrowserItem` via `UContentBrowserAssetDataSource`; do not scan `.uasset` files yourself.",
+      "Rename/move/Save an asset and it should appear under the new virtual path immediately. If you only changed code, refresh the `Asset Registry` before blaming the browser.",
+      "Editor infrastructure only — never add it to a game `Build.cs`. Shipping builds do not load via the Content Browser."
+    ],
+    "note_cn": "负责 `uasset` 列表，不是 Class 视图，也不是松散文件。",
+    "note_en": "Serves the `uasset` list, not the Classes view and not loose files."
+  },
+  {
+    "slug": "content-browser---class-data-source",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Content Browser - Class Data Source`（模块 `ContentBrowserClassDataSource`）。它把 `UCLASS` / 蓝图生成类挂到内容浏览器的 Classes 虚拟树，不是资产网格。",
+      "在内容浏览器过滤器打开 `Classes`（或切到 Classes 视图），展开 `/All/Classes`：应看到 `Actor`、`Pawn`、项目模块里的 native 类以及生成的 Blueprint 类。",
+      "从该类项拖到关卡或 `Place Actors`：放置的是该类的实例，磁盘上不会多出一个 `.uasset` 副本。",
+      "新增 C++ `UCLASS` 后编译并热载，Classes 树应出现新节点；只改蓝图父类则刷新浏览器即可。",
+      "自定义拾取器可依赖 `ContentBrowserClassDataSource`，从 `FContentBrowserItem` 取出 `UClass*`；不要加进游戏运行时。"
+    ],
+    "en_steps": [
+      "Enable `Content Browser - Class Data Source` (module `ContentBrowserClassDataSource`). It mounts `UCLASS` / Blueprint-generated classes into the Content Browser Classes virtual tree — not the asset grid.",
+      "Turn on the `Classes` filter (or Classes view) and expand `/All/Classes`: you should see `Actor`, `Pawn`, project native classes, and generated Blueprint classes.",
+      "Drag a class item into a level or `Place Actors`: you spawn an instance of that class; nothing new is written as a `.uasset` copy.",
+      "After adding a C++ `UCLASS`, compile/hot-reload so the Classes tree grows a node. Parent-class changes on Blueprints only need a browser refresh.",
+      "Custom pickers may depend on `ContentBrowserClassDataSource` and pull `UClass*` from `FContentBrowserItem`. Do not add it to game runtime."
+    ],
+    "note_cn": "浏览/放置类，不替代 Class Viewer 的完整反射细节面板。",
+    "note_en": "Browse/place classes; it does not replace Class Viewer’s full reflection details."
+  },
+  {
+    "slug": "content-browser---file-data-source",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Content Browser - File Data Source`（模块 `ContentBrowserFileDataSource`）。它把磁盘上的松散文件（非 `uasset`）映射进内容浏览器虚拟目录。",
+      "Python 编辑器脚本、部分工具插件会通过 `UContentBrowserFileDataSource` 注册扩展名（如 `.py`）和根目录；启用后在浏览器里能看到这些脚本文件。",
+      "双击松散文件会走注册的打开动作（外部编辑器或内置查看器），不会走 `Asset Registry` 加载。",
+      "自己挂目录时，在 Editor 模块里配置 `FContentBrowserFileDataConfig`（物理路径、虚拟路径、扩展名白名单），再向 `UContentBrowserFileDataSource` 注册；不要把整个磁盘根目录挂上去。",
+      "删除/重命名磁盘文件后刷新浏览器，对应项应消失或改名；这与 Duplicate Asset 无关。",
+      "编辑器数据源，禁止加入游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable `Content Browser - File Data Source` (module `ContentBrowserFileDataSource`). It maps loose on-disk files (not `uasset`s) into Content Browser virtual folders.",
+      "Python Editor Script and some tool plugins register extensions (e.g. `.py`) and roots on `UContentBrowserFileDataSource`; with it on, those scripts appear in the browser.",
+      "Double-clicking a loose file uses the registered open action (external editor or built-in viewer) — it does not load through the `Asset Registry`.",
+      "To mount your own folder, set `FContentBrowserFileDataConfig` (physical path, virtual path, extension whitelist) in an Editor module and register it with `UContentBrowserFileDataSource`. Do not mount a whole disk root.",
+      "After deleting/renaming a disk file, refresh: the item should vanish or rename. This is not Duplicate Asset.",
+      "Editor data source only — never a game `Build.cs` dependency."
+    ],
+    "note_cn": "松散文件视图；`.uasset` 仍由 Asset Data Source 负责。",
+    "note_en": "Loose-file view; `.uasset`s still come from Asset Data Source."
+  },
+  {
+    "slug": "contextualanimation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ContextualAnimation`（运行时 `ContextualAnimation`，编辑器 `ContextualAnimationEditor`）并重启。",
+      "内容浏览器右键 `Animation > Contextual Anim Scene Asset`，打开场景资产：添加 Role（例如 `Interactor` / `Interactable`），为每个 Role 指定骨架网格与动画片段。",
+      "在编辑器预览里摆好两个 Actor 的相对位置，标记 Warp 目标与 IK 对齐点，编译场景资产。",
+      "把 `UContextualAnimSceneActorComponent` 加到可交互物（门、椅子、攀爬点），指定刚才的 `UContextualAnimSceneAsset`。",
+      "运行时由角色查询：`UContextualAnimManager` 或组件上的 Start Scene，传入发起者、选择条件与 Warp 变换；对齐失败时先查 Role 名称是否与资产一致。",
+      "游戏 `Build.cs` 只依赖 `ContextualAnimation`；`ContextualAnimationEditor` 仅进 `*Editor.Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable experimental `ContextualAnimation` (runtime `ContextualAnimation`, editor `ContextualAnimationEditor`) and restart.",
+      "Create `Animation > Contextual Anim Scene Asset`. Add roles (e.g. `Interactor` / `Interactable`) and assign a skeletal mesh plus anim clips per role.",
+      "In the preview, pose the two actors, mark warp targets and IK align points, then compile the scene asset.",
+      "Add `UContextualAnimSceneActorComponent` to the interactable (door, chair, mantle) and point it at that `UContextualAnimSceneAsset`.",
+      "At runtime start the scene via `UContextualAnimManager` or the component, passing the instigator, selection criteria, and warp transform. If alignment fails, check role names match the asset.",
+      "Game `Build.cs` depends on `ContextualAnimation` only; `ContextualAnimationEditor` belongs in `*Editor.Build.cs`."
+    ],
+    "note_cn": "Experimental：多角色对齐交互动画，不是普通 AnimMontage 单人播放。",
+    "note_en": "Experimental: multi-actor aligned interaction anims, not a solo `AnimMontage` play."
+  },
+  {
+    "slug": "control-rig-knowledge-base",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Control Rig Knowledge Base`（模块 `ControlRigKnowledgeBase`），并同时保持 `Control Rig` 与编辑器 AI 助手可用。",
+      "打开任意 `Control Rig` 资产的 Rig Graph，确认能手动放置 `RigVM` 节点（FK、IK、Set Transform 等）——知识库描述的就是这份节点目录。",
+      "在编辑器 AI / Toolset 会话里请求「列出可放置的 Control Rig 节点」或「插入某条 Rig Unit」：助手通过本插件的 provider 读目录，而不是猜节点名。",
+      "目录变更随引擎 `RigVM` 单元走；不要在游戏模块引用 `ControlRigKnowledgeBase`，它只服务编辑器知识检索。"
+    ],
+    "en_steps": [
+      "Enable experimental `Control Rig Knowledge Base` (module `ControlRigKnowledgeBase`) and keep `Control Rig` plus the in-editor AI assistant available.",
+      "Open any `Control Rig` asset’s Rig Graph and confirm you can place `RigVM` nodes (FK, IK, Set Transform). That catalogue is what this plugin describes.",
+      "In an editor AI / Toolset session, ask to list placeable Control Rig nodes or insert a Rig Unit: the assistant reads this provider instead of guessing names.",
+      "The catalogue tracks engine `RigVM` units. Do not reference `ControlRigKnowledgeBase` from game modules — editor knowledge lookup only."
+    ],
+    "note_cn": "给 AI 的节点目录，不是 Modular Control Rig 模块资源包。",
+    "note_en": "AI node catalogue, not the Modular Control Rig content pack."
+  },
+  {
+    "slug": "control-rig-modules",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Control Rig Modules`（内容插件，无独立运行时模块）以及 `Control Rig`，重启后才能在绑定图里看到官方模块库。",
+      "新建或打开 `Control Rig` 资产，切到 `Modules` 面板（模块化绑定，不是 Rig Graph 右键菜单里的单个 Rig Unit）。",
+      "从库中拖入 `Spine`、`Limb`、`Foot` 等模块，在 Construction Event 里把模块插槽接到骨骼/控件层级，Compile。",
+      "在 Viewport 拖控件验证 Forward Solve；需要运行时驱动时，把该 Control Rig 挂到 `UControlRigComponent` 或 AnimBP 的 Control Rig 节点。",
+      "团队自定义模块做成同类型模块资产放进项目，仍走 Modules 面板添加，不要把本插件写进游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable `Control Rig Modules` (content plugin, no separate runtime module) plus `Control Rig`, then restart so the stock module library appears.",
+      "Open a `Control Rig` asset and switch to the `Modules` panel (modular rigging — not a single Rig Unit from the graph context menu).",
+      "Drop `Spine`, `Limb`, `Foot` (etc.) modules, wire module sockets to the bone/control hierarchy on Construction Event, and Compile.",
+      "Drag controls in the viewport to prove Forward Solve. For runtime, attach the rig via `UControlRigComponent` or the AnimBP Control Rig node.",
+      "Ship custom modules as the same asset type in your project and add them from Modules. Do not add this plugin to a game `Build.cs`."
+    ],
+    "note_cn": "官方模块化绑定内容包；样条/动力学节点不在这里。",
+    "note_en": "Stock modular-rig content; spline/dynamics units live in other plugins."
+  },
+  {
+    "slug": "control-rig-spline",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Control Rig Spline`（模块 `ControlRigSpline`），确保 `Control Rig` 已开。",
+      "打开 Control Rig 图，搜索 `Spline`：用 `Spline From Points` / `Spline From Transforms` 从一串控件或骨骼生成 `FControlRigSpline`（Hermite / BSpline 等）。",
+      "用 `Fit Chain To Spline Curve` 把尾巴、触手、脊椎链贴到样条；`Get Location at Spline Length` / `Get Transform at Spline Length` 沿弧长取样。",
+      "需要预览时接 `Draw Spline`；在 Sequencer 里给控制点打关键帧，运行时同一套 Rig Unit 会跟着 `UControlRig` 求解。",
+      "游戏模块若要在 C++ 里碰到样条类型，`Build.cs` 加 `ControlRigSpline` 并 `#include` 对应 `RigUnit_*.h`；仅用蓝图/Rig 图则不必。"
+    ],
+    "en_steps": [
+      "Enable `Control Rig Spline` (module `ControlRigSpline`) with `Control Rig` already on.",
+      "In the Control Rig graph search `Spline`: build an `FControlRigSpline` from controls/bones via `Spline From Points` / `Spline From Transforms` (Hermite / BSpline, …).",
+      "Use `Fit Chain To Spline Curve` to stick a tail/tentacle/spine chain to the spline; sample with `Get Location at Spline Length` / `Get Transform at Spline Length`.",
+      "Preview with `Draw Spline`. Key the control points in Sequencer; the same Rig Units solve at runtime on `UControlRig`.",
+      "If C++ must touch spline types, add `ControlRigSpline` to `Build.cs` and include the `RigUnit_*.h` headers. Graph-only users can skip that."
+    ],
+    "note_cn": "Rig 内样条拟合，不是关卡里的 `USplineComponent`。",
+    "note_en": "In-rig spline fitting, not level `USplineComponent`."
+  },
+  {
+    "slug": "control-rig",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Control Rig`（`ControlRig` 运行时、`ControlRigDeveloper`、`ControlRigEditor`）并重启。",
+      "内容浏览器右键 `Animation > Control Rig`，指定骨架，打开 Rig 编辑器：在 `Construction Event` 创建控件，在 `Forward Solve` 写 FK/IK/空间切换，Compile。",
+      "预览窗口拖动控件应驱动骨骼；需要逆向编辑动画时再编 `Backward Solve`。",
+      "Sequencer：给骨架网格加 `Control Rig` 轨道，选择该资产，对控件打关键帧（或导入动画再空间切换）。",
+      "运行时：Actor 上加 `UControlRigComponent` 指定同一资产，或在动画蓝图放 Control Rig 节点；游戏 `Build.cs` 只加 `ControlRig`。",
+      "`ControlRigEditor` / `ControlRigDeveloper` 仅编辑器目标；模块化肢体库、样条、动力学分别是另外的插件。"
+    ],
+    "en_steps": [
+      "Enable `Control Rig` (`ControlRig` runtime, `ControlRigDeveloper`, `ControlRigEditor`) and restart.",
+      "Create `Animation > Control Rig`, pick a skeleton, and open the Rig editor: spawn controls on `Construction Event`, author FK/IK/space switching on `Forward Solve`, Compile.",
+      "Dragging controls in the preview should drive bones. Author `Backward Solve` only if you need to edit animation in control space.",
+      "In Sequencer add a `Control Rig` track on the skeletal mesh, pick this asset, and key controls (or import animation then space-switch).",
+      "At runtime add `UControlRigComponent` with the same asset, or a Control Rig node in the AnimBP. Game `Build.cs` gets `ControlRig` only.",
+      "`ControlRigEditor` / `ControlRigDeveloper` are editor-only. Modular limbs, splines, and dynamics are separate plugins."
+    ],
+    "note_cn": "绑定与程序化动画核心；IK Rig 重定向是另一套资产。",
+    "note_en": "Core rigging/procedural animation; IK Rig retargeting is a separate asset family."
+  },
+  {
+    "slug": "controlflows",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ControlFlows`（模块 `ControlFlows`）。这是 C++ 异步步骤图，没有内容浏览器资产，也没有关卡组件。",
+      "在需要串行/分支异步流程的模块 `Build.cs` 加入 `ControlFlows`，`#include \"ControlFlow.h\"`。",
+      "创建 `TSharedRef<FControlFlow>`，用 `QueueStep` / `QueueWait` / `QueueLoop` / 子流程把回调链起来（登录、前端 UI 切换、分步加载常用这种写法）。",
+      "调用 `ExecuteFlow()`；每步结束必须 `Continue` / `Cancel`，否则后续步骤挂起。用 `FControlFlowNode` 的绑定对象生命周期盯住 `this`。",
+      "在 PIE 或自动化里跑一条最短三步流（立即完成 + 等待委托 + 分支）确认不会卡死；Experimental，接口可能改名。",
+      "不要把它当蓝图 Delay 或 Gameplay Task 的替代品暴露给策划。"
+    ],
+    "en_steps": [
+      "Enable experimental `ControlFlows` (module `ControlFlows`). It is a C++ async step graph — no Content Browser asset and no level component.",
+      "Add `ControlFlows` to the module `Build.cs` that owns the flow and `#include \"ControlFlow.h\"`.",
+      "Create a `TSharedRef<FControlFlow>` and chain `QueueStep` / `QueueWait` / `QueueLoop` / subflows (typical for login, frontend UI, staged loads).",
+      "Call `ExecuteFlow()`. Every step must `Continue` or `Cancel` or later steps hang. Bind node lifetimes to `this` via `FControlFlowNode`.",
+      "Prove a three-step PIE/automation flow (immediate + wait-on-delegate + branch) so it cannot stall. Experimental — names may move.",
+      "Do not expose this to designers as a Blueprint Delay or Gameplay Task replacement."
+    ],
+    "note_cn": "C++ `FControlFlow` 编排，不是 Control Rig，也不是行为树。",
+    "note_en": "C++ `FControlFlow` orchestration — not Control Rig and not Behavior Trees."
+  },
+  {
+    "slug": "controlrigdynamics",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ControlRigDynamics`（`ControlRigDynamics` + `ControlRigDynamicsEditor`），并确保 `Control Rig` 已启用。",
+      "打开 Control Rig 的 Forward Solve，搜索 Dynamics / Spring：给发丝、饰品、轻飘布料控件加弹簧插值或简易刚体链，而不是 Chaos 碰撞。",
+      "调 stiffness、damping、质量，在预览里快速甩动父控件，确认二次运动在几帧内收敛且不穿模到需要物理求解的程度。",
+      "Sequencer 里播放同一条 Control Rig 轨道，确认烘焙/运行时求解都带着这层外观动力学。",
+      "游戏 `Build.cs` 可加 `ControlRigDynamics`；编辑器模块只给 `ControlRigDynamicsEditor`。完整碰撞与重力请改用 `ControlRigPhysics`。"
+    ],
+    "en_steps": [
+      "Enable experimental `ControlRigDynamics` (`ControlRigDynamics` + `ControlRigDynamicsEditor`) with `Control Rig` already on.",
+      "In Forward Solve search Dynamics / Spring: add spring interpolation or a light rigid chain on hair/accessory/cloth controls — not Chaos collision.",
+      "Tune stiffness, damping, and mass; whip the parent control in preview and confirm secondary motion settles in a few frames without needing a physics solve.",
+      "Play the same Control Rig Sequencer track so bake/runtime both carry this cosmetic layer.",
+      "Game `Build.cs` may add `ControlRigDynamics`; `ControlRigDynamicsEditor` stays editor-only. Use `ControlRigPhysics` for real collision and gravity."
+    ],
+    "note_cn": "外观级弹簧/链，不是 Chaos 物理求解。",
+    "note_en": "Cosmetic springs/chains, not a Chaos physics solve."
+  },
+  {
+    "slug": "controlrigphysics",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ControlRigPhysics`（`ControlRigPhysics` + `ControlRigPhysicsEditor`），先开 `Control Rig`。",
+      "在 Rig 图加入物理相关 Rig Unit（刚体、约束、求解器），给需要碰撞的控件/骨骼指定碰撞形状与质量，而不是只加 Spring 节点。",
+      "预览中打开物理模拟：角色甩动手臂应碰到环境或自身碰撞体并受重力；Solver 步长过大时先降再看抖动。",
+      "与动画混合：用权重在运动学目标与物理结果之间混合，避免整条链完全失稳。",
+      "运行时同一 Rig 随 `UControlRig` 求解；游戏依赖 `ControlRigPhysics`，编辑器依赖 `ControlRigPhysicsEditor`。",
+      "Experimental：不要当游戏角色的正式布娃娃系统（那是 Physics Asset / Chaos Cloth）。"
+    ],
+    "en_steps": [
+      "Enable experimental `ControlRigPhysics` (`ControlRigPhysics` + `ControlRigPhysicsEditor`) with `Control Rig` on first.",
+      "Add physics Rig Units (bodies, constraints, solver) and assign collision shapes/mass on controls/bones that must collide — not Spring-only nodes.",
+      "Enable sim in preview: a flung arm should hit world/self colliders and take gravity. If the chain jitters, lower solver step size.",
+      "Blend kinematic targets versus physics results with a weight so the whole chain does not go unstable.",
+      "Runtime uses the same rig through `UControlRig`. Game depends on `ControlRigPhysics`; editor on `ControlRigPhysicsEditor`.",
+      "Experimental: not a shipping ragdoll (that is Physics Asset / Chaos Cloth)."
+    ],
+    "note_cn": "Control Rig 内 Chaos 物理；轻量二次运动用 `ControlRigDynamics`。",
+    "note_en": "Chaos physics inside Control Rig; use `ControlRigDynamics` for light secondary motion."
+  },
+  {
+    "slug": "conversationtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ConversationToolset`（模块 `ConversationToolset`），并同时启用项目里的 Conversation / Common Conversation 对话插件与编辑器 AI 助手。",
+      "先手建或打开一份 `UConversationDatabase`（对话图：入口、NPC 节点、客户端/服务端 Task），确认对话插件本身能编译图。",
+      "在 AI 助手里让它列出数据库、添加说话节点、改 speaker、挂 Task：这些读写走 Toolset，不会在关卡里生成 Actor。",
+      "改完后打开对话编辑器核对节点与连线，PIE 用对话组件/`UConversationInstance` 跑一条最短分支。",
+      "不要把 `ConversationToolset` 加进游戏 `Build.cs`；Shipping 只需要对话运行时，不需要 AI 写图工具。"
+    ],
+    "en_steps": [
+      "Enable experimental `ConversationToolset` (module `ConversationToolset`) plus your Conversation / Common Conversation plugin and the in-editor AI assistant.",
+      "Create or open a `UConversationDatabase` (entry, NPC nodes, client/server tasks) and confirm the conversation plugin itself compiles the graph.",
+      "Ask the assistant to list databases, add speaker nodes, change speaker, or attach tasks: those reads/writes go through this Toolset and spawn no level Actors.",
+      "Reopen the conversation editor to verify nodes/wires, then PIE a shortest branch via the conversation component / `UConversationInstance`.",
+      "Do not add `ConversationToolset` to a game `Build.cs`. Shipping needs the conversation runtime, not the AI authoring tools."
+    ],
+    "note_cn": "给编辑器 AI 改对话图，不是运行时对话系统本身。",
+    "note_en": "AI authoring of conversation graphs, not the runtime dialogue system."
+  },
+  {
+    "slug": "crashdiagnosticstoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `CrashDiagnosticsToolset`（模块 `CrashDiagnosticsToolset`），并确保引擎 `CrashDiagnostics` 正在记录编辑器崩溃会话。",
+      "复现一次可捕获的编辑器崩溃或读已有崩溃记录目录；没有记录时助手查无可查。",
+      "打开编辑器 AI 助手，询问「解释最近一次 CrashDiagnostics 记录」：Toolset 提供读记录、列调用栈/上下文的工具，而不是新的 Crash Reporter 窗口。",
+      "对照助手给出的模块与调用栈，回到自己的 C++/插件改代码；需要原始转储仍用 Crash Reporter / 本机 dump。",
+      "仅编辑器自动化依赖本模块，禁止打进 Shipping 游戏。"
+    ],
+    "en_steps": [
+      "Enable experimental `CrashDiagnosticsToolset` (module `CrashDiagnosticsToolset`) and confirm engine `CrashDiagnostics` is recording editor crash sessions.",
+      "Reproduce a capturable editor crash or point at an existing session folder; with no recordings the assistant has nothing to read.",
+      "Ask the in-editor AI to explain the latest CrashDiagnostics recording. The Toolset exposes read/list stack/context tools — it is not a new Crash Reporter window.",
+      "Use the named module/stack to fix your C++/plugin. Raw dumps still go through Crash Reporter / local dump files.",
+      "Editor automation only — never ship in a game build."
+    ],
+    "note_cn": "让 AI 读 CrashDiagnostics 会话，不是替代 Crash Reporter。",
+    "note_en": "Lets AI read CrashDiagnostics sessions; it does not replace Crash Reporter."
+  },
+  {
+    "slug": "cryptokeys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `CryptoKeys`（`CryptoKeys`、`CryptoKeysOpenSSL`）。",
+      "打开 `Project Settings > Crypto`（加密密钥设置）：生成 AES 加密密钥以及 RSA 签名公私钥；保存后写入项目的 crypto 配置（常见为 `Crypto.json` / ini，勿提交到公开仓库）。",
+      "在 `Project Settings > Packaging` 勾选 pak、Encrypt Pak Ini / Index / Assets（按需要），使打包读取刚才的密钥。",
+      "用 `UnrealPak` 或项目打包出加密 pak，在未持有密钥的环境打开应失败；安装/补丁流程要分发同一套密钥。",
+      "只在编辑器生成密钥；游戏运行时解密由 pak 加载器处理，不要把 `CryptoKeysOpenSSL` 链进 Shipping 模块去「当场造钥」。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `CryptoKeys` (`CryptoKeys`, `CryptoKeysOpenSSL`).",
+      "Open `Project Settings > Crypto` and generate the AES encryption key plus RSA signing key pair. Saving writes the project crypto config (`Crypto.json` / ini — do not commit it to a public repo).",
+      "Under `Project Settings > Packaging`, enable pak and Encrypt Pak Ini / Index / Assets as needed so the cook reads those keys.",
+      "Cook an encrypted pak (`UnrealPak` or project package). Opening it without the key should fail. Installers/patches must ship the same keys.",
+      "Generate keys in the editor only. Runtime decryption is the pak loader; do not link `CryptoKeysOpenSSL` into Shipping just to mint keys on device."
+    ],
+    "note_cn": "Pak 加密/签名密钥生成器，不是通用 OpenSSL 蓝图库。",
+    "note_en": "Pak encryption/signing key generator, not a general OpenSSL Blueprint library."
+  },
+  {
+    "slug": "curve-editor-tools",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Curve Editor Tools`（模块 `CurveEditorTools`）。它给 Sequencer / 动画曲线编辑器注册默认工具，不会出现独立 Window 面板。",
+      "打开 Sequencer 或动画曲线窗口，选中若干关键帧，用工具栏的 Transform 工具做时间/数值平移缩放（绝对或相对模式）。",
+      "对抖动曲线跑内置 Filter（例如 key reduce、bake、Butterworth 一类滤波），确认帧数下降但姿态仍可接受。",
+      "需要自定义滤镜时，在 Editor 模块继承曲线编辑器 Filter/Tool 并依赖 `CurveEditorTools`；不要把该模块加进游戏 `Build.cs`。",
+      "改的是曲线关键帧，不影响 Control Rig 节点图，也不改静态 `CurveFloat` 资产的默认编辑器外观（除非你从该资产打开同一套曲线视图）。"
+    ],
+    "en_steps": [
+      "Enable `Curve Editor Tools` (module `CurveEditorTools`). It registers the default Sequencer / Animation Curve Editor tools — no standalone Window panel.",
+      "Open Sequencer or the animation curve window, select keys, and use the Transform tool to translate/scale in time or value (absolute or relative).",
+      "Run a built-in Filter on a noisy curve (key reduce, bake, Butterworth-style, …) and confirm fewer keys still look acceptable.",
+      "Custom filters/tools subclass the curve-editor Filter/Tool types in an Editor module that depends on `CurveEditorTools`. Do not add it to a game `Build.cs`.",
+      "This edits curve keys. It does not change a Control Rig graph, and it does not restyle the default `CurveFloat` asset editor unless you open that asset in the same curve view."
+    ],
+    "note_cn": "曲线视图像素级编辑工具，不是新建 Curve 资产的向导。",
+    "note_en": "Pixel-level curve view tools, not a wizard for creating Curve assets."
+  }
+]

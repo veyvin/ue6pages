@@ -3,8 +3,6 @@ layout: default
 title: Android 获取后台下载 / Android Fetch Background Download
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,83 @@ title: Android 获取后台下载 / Android Fetch Background Download
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">一个 Android 插件，用于在应用程序通过使用 Fetch API 处于后台时启用后台 HTTP 请求。</div><div class="lang-content">An Android plugin for enabling BackgroundHTTP requests to work while the app is backgrounded through use of the Fetch API.</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：一个 Android 插件，用于在应用程序通过使用 Fetch API 处于后台时启用后台 HTTP 请求。</p><p>属于在线子系统 / 平台服务。</p><p>它打包的模块包括：AndroidFetchBackgroundDownload。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: An Android plugin for enabling BackgroundHTTP requests to work while the app is backgrounded through use of the Fetch API.</p><p>Part of Online Subsystem / platform services.</p><p>It ships these modules: AndroidFetchBackgroundDownload. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>同时启用 <code class="usage-code">BackgroundHTTP</code> 与 <code class="usage-code">Android Fetch Background Download</code>（模块 <code class="usage-code">AndroidFetchBackgroundDownload</code>）。</li><li>游戏侧用 BackgroundHTTP 请求接口发起下载；在 Android 上本插件改走系统 Fetch/DownloadManager，App 进后台仍继续。</li><li>在 <code class="usage-code">Project Settings &gt; Platforms &gt; Android</code> 保留网络权限；按目标 API 处理后台下载/前台服务限制。</li><li>包装真机：开始下载后按 Home，再回前台核对文件写到指定目录，并用 Logcat 看 Fetch 状态。</li><li>不要在蓝图里找本插件的 Actor 组件；C++ 依赖 <code class="usage-code">AndroidFetchBackgroundDownload</code> 仅当需要平台实现细节，一般只调 BackgroundHTTP。</li></ol><p class="usage-note">BackgroundHTTP 的 Android Fetch 后端，不是通用 HTTP 蓝图库。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">BackgroundHTTP</code> and <code class="usage-code">Android Fetch Background Download</code> (module <code class="usage-code">AndroidFetchBackgroundDownload</code>).</li><li>Issue downloads through the BackgroundHTTP request API; on Android this plugin uses Fetch/DownloadManager so work continues when backgrounded.</li><li>Keep network permission in <code class="usage-code">Project Settings &gt; Platforms &gt; Android</code> and respect background-download / foreground-service limits for your API level.</li><li>On device: start a download, press Home, return, confirm the file, and watch Fetch in Logcat.</li><li>There is no actor component; depend on <code class="usage-code">AndroidFetchBackgroundDownload</code> only for platform details — most game code stays on BackgroundHTTP.</li></ol><p class="usage-note">Android Fetch backend for BackgroundHTTP, not a general HTTP Blueprint library.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">AndroidFetchBackgroundDownload</span><span class="tag runtime">Runtime</span></div></div>

@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "embree",
+    "kind": "module",
+    "cn": "Embree 把 Intel 的高质量光线求交库接到 Unreal 的构建图里，供 CPU 光线追踪、烘焙与离线遮挡查询使用。它依赖 IntelTBB 做任务并行，把 BVH 遍历和三角形求交从引擎自己的循环里拆出去。游戏代码几乎不会直接 include Embree，而是由灯光构建、硬件光线追踪回退或几何查询路径在 cook/editor 侧调用。",
+    "en": "Embree wires Intel’s high-quality ray-intersection library into Unreal’s build graph for CPU ray tracing, baking, and offline occlusion queries. It leans on IntelTBB for task parallelism so BVH traversal and triangle hits stay off the engine’s own inner loops. Game code almost never includes Embree directly; lighting builds, hardware-RT fallbacks, and geometry queries call it on the cook or editor side."
+  },
+  {
+    "slug": "engine",
+    "kind": "module",
+    "cn": "Engine 是运行时游戏框架的主干：World、Actor、组件、关卡流送、材质实例、物理接口与 Tick 都从这里长出来。几乎所有游戏模块都会直接或间接依赖它，而不是另起一套场景图。它还把 ApplicationCore、布料接口、按需 IoStore 和性能计数器等子系统拴在同一份运行时上。",
+    "en": "Engine is the runtime gameplay spine: World, Actor, components, streaming, material instances, physics hooks, and Tick all grow from here. Almost every game module depends on it instead of inventing a second scene graph. It also pins ApplicationCore, clothing interfaces, on-demand IoStore, and performance counters onto that same runtime."
+  },
+  {
+    "slug": "enginemessages",
+    "kind": "module",
+    "cn": "EngineMessages 定义引擎进程之间传递的 UStruct 消息，例如会话、地图加载和引擎状态广播。它只依赖 Core 与 CoreUObject，好让消息类型能在编辑器、会话前端和自动化 worker 之间序列化。这不是玩法 RPC，而是编辑器/会话层的结构化信封。",
+    "en": "EngineMessages defines the UStruct payloads that engine processes exchange for sessions, map loads, and engine-state broadcasts. It depends only on Core and CoreUObject so those types serialize between the editor, session frontend, and automation workers. This is not gameplay RPC; it is the structured envelope for editor and session traffic."
+  },
+  {
+    "slug": "enginesettings",
+    "kind": "module",
+    "cn": "EngineSettings 存放通用引擎配置对象：常规工程选项、用户设置以及启动时读入的 ini 映射。它把这些 UObject 从庞大的 Engine 模块里拆出来，让工具和运行时都能引用同一套设置类型。改项目默认渲染、音频或网络开关时，最终会落到这里定义的类上。",
+    "en": "EngineSettings holds the shared engine configuration objects: general project options, user settings, and the ini mappings loaded at startup. Splitting those UObjects out of the giant Engine module lets tools and runtime share one settings type set. Changing default rendering, audio, or network switches lands on classes defined here."
+  },
+  {
+    "slug": "enhancedinputtests",
+    "kind": "module",
+    "cn": "EnhancedInputTests 是独立程序目标，用来跑增强输入插件的自动化用例。它把 Engine、EnhancedInput 和测试套件拉进同一进程，验证映射上下文、触发器和修饰器在无编辑器 UI 时仍按契约工作。失败会以测试程序退出码暴露，而不是关卡里的可视化调试。",
+    "en": "EnhancedInputTests is a standalone program target that runs the Enhanced Input automation suite. It loads Engine, EnhancedInput, and the test harness in one process to prove mapping contexts, triggers, and modifiers still honor their contracts without editor UI. Failures surface as a test-program exit code, not as on-level visual debug."
+  },
+  {
+    "slug": "environmentlightingviewer",
+    "kind": "module",
+    "cn": "EnvironmentLightingViewer 是编辑器面板，用来检视天空光、大气、指数高度雾和环境立方体贴图如何一起构成场景照明。它挂在 UnrealEd 与 Settings 上，让美术在一个地方对照环境光贡献，而不必在世界大纲里四处翻 Actor。调整户外关卡氛围时，这个查看器把各环境光源的影响摊开看。",
+    "en": "EnvironmentLightingViewer is an editor panel that inspects how sky light, atmosphere, exponential height fog, and environment cubemaps compose scene lighting. It sits on UnrealEd and Settings so artists can compare those contributions in one place instead of hunting actors in the World Outliner. When dressing an outdoor level, the viewer lays out each environment light’s influence."
+  },
+  {
+    "slug": "eossdk",
+    "kind": "module",
+    "cn": "EOSSDK 是 Epic Online Services 原生 SDK 的 UBT 封装，负责把头文件、库搜索路径和平台二进制交给上层 Online 子系统。它本身不实现成就或会话逻辑，只保证链接器能找到 EOS 的 C API。登录、大厅和反作弊等功能由消费该 SDK 的引擎模块完成。",
+    "en": "EOSSDK is the UBT wrapper around the Epic Online Services native SDK, handing headers, lib paths, and platform binaries to Online subsystems above it. It does not implement achievements or sessions; it only makes the EOS C API linkable. Login, lobbies, and anti-cheat live in the engine modules that consume this SDK."
+  },
+  {
+    "slug": "epicwebhelper",
+    "kind": "module",
+    "cn": "EpicWebHelper 是独立的 CEF 辅助进程，替编辑器承载嵌入式 Chromium 页面，避免浏览器崩溃拖垮主编辑器。它依赖 CEF3Utils 与 ApplicationCore，专门跑沙箱化的网页渲染与 IPC。市场、登录页和文档浏览器都把真正的 HTML 工作卸到这个 helper。",
+    "en": "EpicWebHelper is a standalone CEF helper process that hosts embedded Chromium for the editor so a browser crash does not take down UnrealEd. It depends on CEF3Utils and ApplicationCore and exists only to run sandboxed web rendering plus IPC. Marketplace, login, and documentation views offload the actual HTML work to this helper."
+  },
+  {
+    "slug": "etc2comp",
+    "kind": "module",
+    "cn": "etc2comp 接入 Google 的 ETC2/EAC 纹理压缩器，供移动和 Vulkan 平台在 cook 时生成块压缩贴图。引擎的纹理构建管线调用它，而不是在运行时解压原始 RGBA。没有这块第三方封装，Android/Vulkan 目标就缺少官方 ETC2 编码器。",
+    "en": "etc2comp brings in Google’s ETC2/EAC texture compressor so mobile and Vulkan cooks can emit block-compressed maps. The texture build pipeline calls it; runtime does not decompress raw RGBA through this module. Without the third-party wrapper, Android and Vulkan targets would lack the official ETC2 encoder."
+  },
+  {
+    "slug": "eventloop",
+    "kind": "module",
+    "cn": "EventLoop 为在线子系统提供跨平台事件循环，把套接字就绪、定时器和回调排到同一条调度带上。它坐在 Runtime/Online 下，依赖 NetCommon，让 HTTP、WebSocket 和平台 SDK 不必各自写 select 循环。在线服务的异步完成通知最终会汇入这里。",
+    "en": "EventLoop supplies a cross-platform event loop for Online code, folding socket readiness, timers, and callbacks onto one dispatch belt. It lives under Runtime/Online, depends on NetCommon, and stops HTTP, WebSockets, and platform SDKs from each writing their own select loop. Async completion from online services eventually lands here."
+  },
+  {
+    "slug": "eventloopunittests",
+    "kind": "module",
+    "cn": "EventLoopUnitTests 针对 EventLoop 做套接字与定时器调度的单元测试，不拉起完整游戏。它依赖 EventLoop 和 Sockets，用来证明回调顺序、取消和线程亲和在无引擎世界时仍然正确。回归在线层的饿死或重入 bug 时，应先跑这一组。",
+    "en": "EventLoopUnitTests unit-tests EventLoop’s socket and timer dispatch without booting a full game. It depends on EventLoop and Sockets to prove callback order, cancellation, and thread affinity still hold with no engine world. When chasing starvation or re-entrancy in the online layer, start with this suite."
+  },
+  {
+    "slug": "expat",
+    "kind": "module",
+    "cn": "Expat 封装流式 XML 解析器，供清单、平台配置和部分导入路径在不加载完整 DOM 的情况下读标签。引擎把第三方源码/库经 UBT 暴露给需要 XML 的模块。它不处理 JSON 或二进制序列化，只负责 XML 令牌化。",
+    "en": "Expat wraps the streaming XML parser used when manifests, platform configs, and some import paths need tags without a full DOM. The engine exposes the third-party sources or libs through UBT to modules that must read XML. It does not handle JSON or binary serialization—only XML tokenization."
+  },
+  {
+    "slug": "externalimagepicker",
+    "kind": "module",
+    "cn": "ExternalImagePicker 是开发者工具控件，让属性面板从磁盘挑选外部图片（图标、启动图、商店图），而不是内容浏览器里的 UTexture。它结合 DesktopPlatform、ImageWrapper 和 PropertyEditor，做预览、缩放和格式校验。平台启动设置和项目品牌资源会用到这个选择器。",
+    "en": "ExternalImagePicker is a developer widget that lets a details panel pick an on-disk image (icons, splash art, store shots) rather than a Content Browser UTexture. It combines DesktopPlatform, ImageWrapper, and PropertyEditor for preview, scaling, and format checks. Platform splash settings and project branding assets use this picker."
+  },
+  {
+    "slug": "externalrpcregistry",
+    "kind": "module",
+    "cn": "ExternalRpcRegistry 把引擎内部 RPC 经 HTTP/JSON 暴露给外部工具，便于自动化、远程调试器和配套程序调用。它依赖 HTTPServer 与 Json，按名称登记可调用端点。这不是游戏多人复制，而是进程外控制面。",
+    "en": "ExternalRpcRegistry exposes engine-side RPCs over HTTP/JSON so automation, remote debuggers, and companion apps can call in. It depends on HTTPServer and Json and registers callable endpoints by name. This is not gameplay replication; it is an out-of-process control plane."
+  },
+  {
+    "slug": "eyetracker",
+    "kind": "module",
+    "cn": "EyeTracker 提供眼动与注视的运行时抽象，把各厂商 SDK 统一成引擎可查询的注视射线和置信度。它连到 InputCore、RHI 和 Renderer，以便在视口中可视化或驱动注视点渲染。XR 与无障碍功能通过这套接口读取注视，而不是直接链特定头显 SDK。",
+    "en": "EyeTracker is the runtime abstraction for eye tracking and gaze, folding vendor SDKs into a gaze ray and confidence the engine can query. It talks to InputCore, RHI, and the Renderer so gaze can be visualized in a viewport or drive foveated work. XR and accessibility features read gaze through this interface instead of linking a headset SDK directly."
+  },
+  {
+    "slug": "facebook",
+    "kind": "module",
+    "cn": "Facebook 模块封装移动端 Facebook SDK（含 Swift 依赖），供登录、分享和广告标识等原生调用链接。它是 ThirdParty 胶水，不实现社交玩法。iOS/Android 上的 Facebook 插件会消费这些库搜索路径和二进制。",
+    "en": "The Facebook module wraps the mobile Facebook SDK (including its Swift dependency) so login, sharing, and advertising IDs can link natively. It is ThirdParty glue, not social gameplay. iOS and Android Facebook plugins consume these library paths and binaries."
+  },
+  {
+    "slug": "faiss",
+    "kind": "module",
+    "cn": "FAISS 接入 Facebook 的近似最近邻检索库，供引擎侧向量搜索、嵌入检索和实验性 ML 功能使用。UBT 模块只负责编译与链接选项，不训练模型。需要在高维空间里快速找近邻的工具会链到这里，而不是手写暴力距离循环。",
+    "en": "FAISS brings Facebook’s approximate nearest-neighbor library into the engine for vector search, embedding lookup, and experimental ML features. The UBT module only owns compile and link flags; it does not train models. Tools that must find neighbors in high-dimensional space link here instead of writing brute-force distance loops."
+  },
+  {
+    "slug": "fakeit",
+    "kind": "module",
+    "cn": "FakeIt 是面向单元测试的 C++ mocking 头文件库封装，让低层测试能伪造接口而不启动整个引擎。它没有运行时依赖，只在测试目标里出现。写隔离的模块测试时，用它替代手工打桩。",
+    "en": "FakeIt packages the header-only C++ mocking library so low-level tests can fake interfaces without booting the engine. It has no runtime dependencies and should appear only on test targets. Isolated module tests use it instead of hand-rolled stubs."
+  },
+  {
+    "slug": "fbx",
+    "kind": "module",
+    "cn": "FBX 模块接入 Autodesk FBX SDK，让导入/导出路径能读场景、骨架、动画曲线和材质绑定。Interchange 与旧版 FbxFactory 都依赖这套第三方头文件和库。它不实现编辑器 UI，只提供 SDK 的链接面。",
+    "en": "The FBX module pulls in the Autodesk FBX SDK so import and export paths can read scenes, skeletons, animation curves, and material bindings. Interchange and legacy FbxFactory both depend on these third-party headers and libs. It does not implement editor UI; it only supplies the SDK’s link surface."
+  },
+  {
+    "slug": "fieldnotification",
+    "kind": "module",
+    "cn": "FieldNotification 实现 UObject 字段级变更通知，让 UI 和视图模型在单个属性变化时更新，而不必刷新整个对象。它是 ViewModel / MVVM 绑定的运行时核心，只依赖 Core 与 CoreUObject。UMG 绑定和字段观察者走这套广播，而不是轮询。",
+    "en": "FieldNotification implements per-field UObject change notifies so UI and view-models can refresh one property without dirtying the whole object. It is the runtime heart of ViewModel/MVVM bindings and depends only on Core and CoreUObject. UMG bindings and field observers ride this broadcast instead of polling."
+  },
+  {
+    "slug": "fieldsystemengine",
+    "kind": "module",
+    "cn": "FieldSystemEngine 把 Chaos 场（力、应变、禁用、锚定）接到可放进关卡的 Actor 与组件上。它依赖 ChaosSolverEngine 和 PhysicsCore，让破坏与布料能被体积场驱动，而不是逐粒子蓝图。几何集合和骨骼模拟通过这些场对象接收世界空间影响。",
+    "en": "FieldSystemEngine connects Chaos fields (force, strain, disable, anchor) to actors and components you can place in a level. It depends on ChaosSolverEngine and PhysicsCore so destruction and cloth can be driven by volumetric fields instead of per-particle Blueprint. Geometry collections and skeletal sims receive world-space influence through these field objects."
+  },
+  {
+    "slug": "fileutilities",
+    "kind": "module",
+    "cn": "FileUtilities 提供开发期文件助手，包括经 libzip 处理的压缩包读写，供工具解包或打包资源。它不是游戏存档 API，而是编辑器与程序用来处理 zip 和路径的薄层。资源管道和诊断工具在需要归档格式时依赖它。",
+    "en": "FileUtilities offers developer-side file helpers, including zip read/write via libzip, so tools can unpack or pack archives. It is not the game save API; it is a thin layer for editor and program code that must handle zips and paths. Asset pipelines and diagnostic tools depend on it when they need archive formats."
+  },
+  {
+    "slug": "flatbuffers",
+    "kind": "module",
+    "cn": "Flatbuffers 封装 Google FlatBuffers，让引擎能做零拷贝二进制序列化，尤其是需要稳定 schema 的工具与遥测。模块只提供生成代码与运行时库的编译入口。需要随机访问序列化缓冲区、又不想付 JSON 解析成本的子系统会链接它。",
+    "en": "Flatbuffers wraps Google FlatBuffers so the engine can do zero-copy binary serialization, especially for tools and telemetry that need a stable schema. The module only provides the compile entry for generated code and the runtime library. Subsystems that want random access into a serialized buffer without JSON parse cost link it."
+  },
+  {
+    "slug": "fmt",
+    "kind": "module",
+    "cn": "{fmt} 库为引擎日志和字符串格式化提供 type-safe 的格式化后端，替代易出错的 printf 风格拼接。UBT 封装让 Core 及上层模块能统一使用同一套格式化实现。它不负责本地化或 FText，只处理窄/宽字符串格式化。",
+    "en": "The {fmt} library gives engine logging and string formatting a type-safe backend instead of fragile printf-style concatenation. The UBT wrapper lets Core and layers above share one formatter implementation. It does not own localization or FText—only narrow/wide string formatting."
+  },
+  {
+    "slug": "foliage",
+    "kind": "module",
+    "cn": "Foliage 运行时管理实例化植被：Hierarchical Instanced Static Mesh、剔除、密度缩放以及放置工具写下的实例数据。它依赖 RHI/RenderCore 以便把实例缓冲区提交给渲染器。关卡里成片的草、树和碎石在运行时由该模块驱动，而不是成千上万个独立 Actor。",
+    "en": "Foliage runtime owns instanced vegetation: hierarchical instanced static meshes, culling, density scaling, and the instance payloads painted by placement tools. It depends on RHI and RenderCore so instance buffers can be submitted to the renderer. Grass, trees, and clutter in a level are driven here at runtime rather than as thousands of actors."
+  },
+  {
+    "slug": "fontconfig",
+    "kind": "module",
+    "cn": "FontConfig 接入 Linux/类 Unix 的字体配置库，用于按族名、样式和语言解析系统字体。编辑器与 Slate 在这些平台上靠它找到合适的字体文件，而不是写死路径。Windows 构建通常不会走这条解析路径。",
+    "en": "FontConfig brings in the Linux/Unix font-configuration library used to resolve system fonts by family, style, and language. Editor and Slate rely on it on those platforms to find the right font files instead of hard-coded paths. Windows builds typically do not take this resolution path."
+  },
+  {
+    "slug": "fonteditor",
+    "kind": "module",
+    "cn": "FontEditor 是编辑 UFont 与复合字体资源的专用编辑器：预览字形、导入 TrueType/OpenType、配置回退与材质。它挂在 ContentBrowser、PropertyEditor 和 UnrealEd 上，给字体资源一个完整资源编辑器，而不是通用详情面板。本地化排版工作流在这里调整页距、字距和子字体。",
+    "en": "FontEditor is the dedicated asset editor for UFont and composite fonts: glyph preview, TrueType/OpenType import, fallbacks, and font materials. It hooks ContentBrowser, PropertyEditor, and UnrealEd so a font asset gets a real editor instead of a generic details panel. Localization typography work happens here—margins, kerning, and sub-font setup."
+  },
+  {
+    "slug": "for-12a9f3",
+    "kind": "module",
+    "cn": "该目标对应 TextureBuildWorker 可执行文件：独立进程里把纹理构建任务从编辑器卸下来，走 DerivedDataBuildWorker 协议。它专门压缩、转码和缓存纹理派生数据，避免把编辑器卡在 GPU 格式转换上。和通用 DDC worker 不同，这个程序的工作负载是贴图像素。",
+    "en": "This target is the TextureBuildWorker executable: a separate process that takes texture build jobs off the editor via the DerivedDataBuildWorker protocol. It exists to compress, transcode, and cache derived texture data so the editor is not stalled on GPU format conversion. Unlike the generic DDC worker, this program’s workload is texel pixels."
+  },
+  {
+    "slug": "for-2d3c88",
+    "kind": "module",
+    "cn": "该目标是通用 DerivedDataBuildWorker 宿主进程，加载 ApplicationCore、Core 和 DerivedDataCache 来执行任意派生数据构建器。编辑器把着色器、几何或其它 cook 工作投递给它，以隔离崩溃并并行化缓存填充。它不绑定单一资源类型，而是 DDC 的进程外执行器。",
+    "en": "This target is the generic DerivedDataBuildWorker host process, loading ApplicationCore, Core, and DerivedDataCache to run arbitrary derived-data builders. The editor farms shader, geometry, or other cook work here to isolate crashes and parallelize cache fills. It is not bound to one asset type; it is the out-of-process executor for DDC."
+  },
+  {
+    "slug": "for",
+    "kind": "module",
+    "cn": "这个 Build.cs 同样描述 TextureBuildWorker：面向纹理的派生数据工人，只依赖 DerivedDataBuildWorker 框架。它在独立地址空间里跑纹理压缩器，这样编解码器崩溃不会带走编辑器会话。把它理解成贴图 cook 的后台工人，而不是游戏模块。",
+    "en": "This Build.cs also describes TextureBuildWorker: the texture-oriented derived-data worker that only depends on the DerivedDataBuildWorker framework. It runs texture compressors in a separate address space so a codec crash cannot take the editor session with it. Treat it as a background worker for texture cooks, not a game module."
+  },
+  {
+    "slug": "forsythtrioptimizer",
+    "kind": "module",
+    "cn": "ForsythTriOptimizer 封装 Tom Forsyth 的顶点缓存优化算法，在导入或 cook 网格时重排三角形索引。目的是提高 GPU 变换后顶点缓存命中，而不是改变网格外形。静态网格与骨骼网格构建管线在写出索引缓冲前会调用它。",
+    "en": "ForsythTriOptimizer wraps Tom Forsyth’s vertex-cache optimization so triangle indices can be reordered at mesh import or cook. The goal is better GPU post-transform cache hits, not a different mesh shape. Static and skeletal mesh build paths call it before writing index buffers."
+  },
+  {
+    "slug": "foundationtests",
+    "kind": "module",
+    "cn": "FoundationTests 是低层测试程序，覆盖派生数据、着色器构建、序列化、资源注册表和 Zen/网络缓存存储。它把这些基础库拉进无游戏的进程，验证 cook 基础设施在隔离环境下仍能工作。CI 用它在启动编辑器之前抓住缓存与着色器管线回归。",
+    "en": "FoundationTests is a low-level test program covering derived data, shader build, serialization, asset registry, and Zen/network cache stores. It pulls those foundation libraries into a game-free process to prove cook infrastructure still works in isolation. CI uses it to catch cache and shader-pipeline regressions before the editor boots."
+  },
+  {
+    "slug": "freeimage",
+    "kind": "module",
+    "cn": "FreeImage 接入多格式图像编解码库，供编辑器与平台工具读写 BMP、TIFF、HDR 等桌面格式。部分 iOS/平台编辑器路径用它做启动图和截图转换。运行时游戏贴图通常走 ImageWrapper；FreeImage 更偏向工具侧的宽格式支持。",
+    "en": "FreeImage brings in the multi-format image codec library so editor and platform tools can read and write BMP, TIFF, HDR, and other desktop formats. Some iOS and platform-editor paths use it for splash and screenshot conversion. Runtime game textures usually go through ImageWrapper; FreeImage is the wider tool-side format net."
+  },
+  {
+    "slug": "freetype2",
+    "kind": "module",
+    "cn": "FreeType2 封装字体光栅化库，把 TrueType/OpenType 轮廓变成字形位图或距离场。Slate、UFont 导入和运行时字体渲染都依赖这套第三方光栅器。它不负责双向文本整形；那是 HarfBuzz 的工作。",
+    "en": "FreeType2 wraps the font rasterizer that turns TrueType/OpenType outlines into glyph bitmaps or distance fields. Slate, UFont import, and runtime font rendering all depend on this third-party rasterizer. It does not own bidirectional text shaping; that is HarfBuzz’s job."
+  },
+  {
+    "slug": "friendsandchat",
+    "kind": "module",
+    "cn": "FriendsAndChat 提供好友列表与聊天 UI 的运行时 Slate 构建块，供在线社交叠加层使用。它依赖 Slate/SlateCore，把会话展示从具体 Online 子系统实现里分开。游戏社交菜单组合这些控件，而不是从零画好友行。",
+    "en": "FriendsAndChat supplies runtime Slate building blocks for friends lists and chat UI used by online social overlays. It depends on Slate/SlateCore and keeps presence display separate from a specific Online subsystem implementation. Game social menus compose these widgets instead of drawing friend rows from scratch."
+  },
+  {
+    "slug": "functionaltesting",
+    "kind": "module",
+    "cn": "FunctionalTesting 实现关卡内功能测试：AFunctionalTest Actor、截图对比、AI/导航断言，以及与自动化控制器的衔接。它深度挂入编辑器、UMG 和会话前端，以便在 PIE 或构建中脚本化玩法检查。与纯单元测试不同，这些用例在真实 World 里跑。",
+    "en": "FunctionalTesting implements in-level functional tests: AFunctionalTest actors, screenshot compare, AI/navigation asserts, and hooks into the automation controller. It reaches into the editor, UMG, and session frontend so gameplay checks can be scripted in PIE or a build. Unlike unit tests, these cases run against a real World."
+  },
+  {
+    "slug": "gamemenubuilder",
+    "kind": "module",
+    "cn": "GameMenuBuilder 用 Slate 在运行时组装游戏菜单：暂停、选项和简易列表，不必先上完整 UMG 工程。它依赖 Engine 与 InputCore，把焦点和菜单栈交给游戏代码。适合样板工程和需要代码驱动菜单的项目。",
+    "en": "GameMenuBuilder assembles in-game menus with Slate at runtime—pause, options, and simple lists—without requiring a full UMG project. It depends on Engine and InputCore so focus and menu stacks are owned by game code. Sample games and projects that want a code-driven menu use it."
+  },
+  {
+    "slug": "gameplaydebugger",
+    "kind": "module",
+    "cn": "GameplayDebugger 是可扩展的运行时调试叠加层，按类别绘制 AI、导航、复制和自定义玩法状态。它能在开发构建中通过输入切换，并把原始绘制交给 DrawPrimitiveDebugger。设计师和程序员用它在世界中检查为何行为树或感知会失败。",
+    "en": "GameplayDebugger is the extensible runtime debug overlay that draws AI, navigation, replication, and custom gameplay state by category. It can be toggled with input in development builds and talks to DrawPrimitiveDebugger for raw primitives. Designers and programmers use it in-world to see why a behavior tree or perception query failed."
+  },
+  {
+    "slug": "gameplaydebuggereditor",
+    "kind": "module",
+    "cn": "GameplayDebuggerEditor 为运行时调试器提供编辑器外壳：分类可见性、属性自定义，以及关卡编辑器里的开关。它依赖 GameplayDebugger 与 PropertyEditor，让调试类别能在编辑时配置，而不仅仅在 PIE 控制台里。扩展调试器的团队在这里注册编辑器专用 UI。",
+    "en": "GameplayDebuggerEditor is the editor shell around the runtime debugger: category visibility, property customization, and level-editor toggles. It depends on GameplayDebugger and PropertyEditor so debug categories can be configured at edit time, not only from a PIE console. Teams that extend the debugger register editor-only UI here."
+  },
+  {
+    "slug": "gameplaymediaencoder",
+    "kind": "module",
+    "cn": "GameplayMediaEncoder 从游戏视口捕获帧和音频，经 AVEncoder 推成直播或录像流。它结合 RHI、HTTP 和 Json，对接云游戏或远程播放端点。这是运行时捕获路径，不是 Sequencer 的离线电影渲染。",
+    "en": "GameplayMediaEncoder captures frames and audio from a gameplay viewport and pushes them through AVEncoder into a live or recorded stream. It combines RHI, HTTP, and Json to talk to cloud-play or remote-playback endpoints. This is a runtime capture path, not Sequencer’s offline movie render."
+  },
+  {
+    "slug": "gameplaytags",
+    "kind": "module",
+    "cn": "GameplayTags 实现分层标签系统：FGameplayTag、标签容器以及从 ini/资源加载的项目标签字典。能力、AI、UI 和复制状态都用标签做 identifer，而不用脆弱的字符串比较。模块刻意保持轻量，便于在引擎各处引用。",
+    "en": "GameplayTags implements the hierarchical tag system: FGameplayTag, tag containers, and the project tag dictionary loaded from ini and assets. Abilities, AI, UI, and replicated state use tags as identifiers instead of fragile string compares. The module stays intentionally light so it can be referenced across the engine."
+  },
+  {
+    "slug": "gameplaytasks",
+    "kind": "module",
+    "cn": "GameplayTasks 提供可复制的异步任务对象，供 AI 与 Gameplay Ability 系统等待移动、计时器或自定义目标。它与 GameplayTags 和网络核心协作，让任务能在服务器上结束并复制给客户端。行为不应阻塞 GameThread 时，应排队一个 GameplayTask。",
+    "en": "GameplayTasks provides replicable async task objects that AI and Gameplay Ability systems use to wait on movement, timers, or custom goals. It cooperates with GameplayTags and net core so a task can finish on the server and replicate to clients. When a behavior should not block the game thread, queue a GameplayTask."
+  },
+  {
+    "slug": "gameplaytaskseditor",
+    "kind": "module",
+    "cn": "GameplayTasksEditor 为 GameplayTask 蓝图节点和资源提供编辑器集成，挂在 BlueprintGraph 与 UnrealEd 上。它让设计师在图表里生成任务子节点，而不手写 C++ 工厂。没有它，任务类型就只剩代码注册。",
+    "en": "GameplayTasksEditor adds editor integration for GameplayTask Blueprint nodes and assets, hanging off BlueprintGraph and UnrealEd. It lets designers spawn task sub-nodes in graphs instead of writing C++ factories. Without it, task types would remain code-only registrations."
+  },
+  {
+    "slug": "gameprojectgeneration",
+    "kind": "module",
+    "cn": "GameProjectGeneration 驱动新建项目向导：模板、目标硬件、内容包，以及生成的 .uproject、模块和目标文件。它把 ClassViewer、HardwareTargeting、AddContentDialog 和工程系统拉到一起，从空白模板做出可编译游戏。启动编辑器时的“新建项目”流程由该模块编排。",
+    "en": "GameProjectGeneration drives the new-project wizard: templates, target hardware, content packs, and the generated .uproject, modules, and targets. It pulls ClassViewer, HardwareTargeting, AddContentDialog, and the project system together so a blank template becomes a buildable game. The editor’s “New Project” flow is orchestrated here."
+  },
+  {
+    "slug": "gdkpackagemanifest",
+    "kind": "module",
+    "cn": "GDKPackageManifest 读写 Xbox GDK 包清单（JSON），描述要提交到 Microsoft 商店的块、区块和包身份。它依赖 GRDK 与 Json，属于运行时/工具交界，而不是编辑器 UI。打包 Xbox 目标时，清单生成会经过这些类型。",
+    "en": "GDKPackageManifest reads and writes Xbox GDK package manifests (JSON) that describe chunks, chunks of chunks, and package identity for Microsoft Store submission. It depends on GRDK and Json and sits at the runtime/tooling boundary, not in editor UI. Packaging an Xbox target goes through these types when emitting the manifest."
+  },
+  {
+    "slug": "gdkplatformeditor",
+    "kind": "module",
+    "cn": "GDKPlatformEditor 在编辑器中暴露 Xbox GDK 平台设置：包标识、能力、加密和共享设置控件。它把 PropertyEditor、SourceControl 和 XmlParser 接到 GDK 配置上，让烹饪 Xbox 构建不必手改 XML。平台相关的 ini 与清单旋钮都集中在这些细节自定义里。",
+    "en": "GDKPlatformEditor exposes Xbox GDK platform settings inside the editor: package identity, capabilities, encryption, and shared settings widgets. It wires PropertyEditor, SourceControl, and XmlParser to GDK configuration so cooking an Xbox build does not require hand-editing XML. Platform-specific ini and manifest knobs live in these detail customizations."
+  },
+  {
+    "slug": "gdkruntime",
+    "kind": "module",
+    "cn": "GDKRuntime 是 Xbox GDK 的薄运行时适配层，把 Microsoft 游戏运行时入口接到 Engine。它依赖 GRDK，提供生命周期、商店和平台服务所需的启动钩子。游戏模块通过它询问 GDK 是否可用，而不是直接包含 XGameRuntime。",
+    "en": "GDKRuntime is the thin runtime adapter for Xbox GDK, connecting Microsoft Game Runtime entry points to Engine. It depends on GRDK and provides the startup hooks needed for lifecycle, store, and platform services. Game modules ask this layer whether GDK is available instead of including XGameRuntime directly."
+  },
+  {
+    "slug": "gdksavegamesystem",
+    "kind": "module",
+    "cn": "GDKSaveGameSystem 把 Unreal 存档 API 接到 GDK 已连接存储，处理用户容器、配额和异步读写。它建立在 GDKRuntime 与 ApplicationCore 之上，使 SaveGame 在 Xbox 上遵守平台存储规则。忽略它会导致存档只写本地磁盘，无法通过认证。",
+    "en": "GDKSaveGameSystem maps Unreal save-game APIs onto GDK connected storage, handling user containers, quotas, and async read/write. It builds on GDKRuntime and ApplicationCore so SaveGame respects platform storage rules on Xbox. Skipping it would leave saves on a local disk that certification will reject."
+  },
+  {
+    "slug": "geforcenow",
+    "kind": "module",
+    "cn": "GeForceNOW 封装 NVIDIA 云游戏 SDK，让构建能检测是否运行在 GeForce NOW 会话中并调用其平台服务。它是 ThirdParty 链接模块，不实现串流编码器。针对云主机的输入、覆盖层或会话查询会链到这些库。",
+    "en": "GeForceNOW wraps NVIDIA’s cloud-game SDK so a build can detect that it is running inside a GeForce NOW session and call platform services. It is a ThirdParty link module, not the streaming encoder itself. Input, overlay, or session queries targeted at the cloud host link these libraries."
+  },
+  {
+    "slug": "geometrycollectionengine",
+    "kind": "module",
+    "cn": "GeometryCollectionEngine 是 Chaos 破坏的运行时：几何集合组件、簇、场驱动断裂，以及与骨骼/静态网格描述的互操作。它依赖 ChaosSolverEngine、FieldSystemEngine 和 Dataflow，把破碎网格推进物理与渲染。关卡里可破坏道具在运行时由该模块模拟，而不是编辑器 grooms。",
+    "en": "GeometryCollectionEngine is the Chaos destruction runtime: geometry collection components, clustering, field-driven fracture, and interop with skeletal/static mesh descriptions. It depends on ChaosSolverEngine, FieldSystemEngine, and Dataflow to push broken meshes through physics and rendering. Destructible props in a level are simulated here at runtime, not in editor grooms."
+  },
+  {
+    "slug": "geometrycore",
+    "kind": "module",
+    "cn": "GeometryCore 提供与引擎 Actor 脱钩的低层几何内核：动态网格、空间查询、网格属性和算法原语。Geometry Script、建模工具和几何处理程序都以它为无 UObject 的数学核心。需要编辑三角形拓扑的功能应依赖这里，而不是直接改 UStaticMesh。",
+    "en": "GeometryCore is the low-level geometry kernel detached from engine actors: dynamic meshes, spatial queries, mesh attributes, and algorithm primitives. Geometry Script, modeling tools, and geometry-processing programs treat it as the UObject-free math core. Features that need to edit triangle topology depend on this instead of mutating UStaticMesh directly."
+  },
+  {
+    "slug": "geometryframework",
+    "kind": "module",
+    "cn": "GeometryFramework 把 GeometryCore 接到 Engine 对象：UDynamicMeshComponent、工具目标，以及与 Interactive Tools 的网格转换。它让运行时建模和几何脚本把动态网格当作能渲染、能碰撞的 Actor。没有这层，几何内核就无法出现在关卡里。",
+    "en": "GeometryFramework binds GeometryCore to Engine objects: UDynamicMeshComponent, tool targets, and mesh conversion for Interactive Tools. It is how runtime modeling and geometry script expose a dynamic mesh as something that can render and collide. Without this layer, the geometry kernel would never appear in a level."
+  },
+  {
+    "slug": "geometryprocessing",
+    "kind": "module",
+    "cn": "GeometryProcessing 是独立命令行程序，对网格跑 GeometryCore/DynamicMesh 算法，例如修复、重网格或批处理转换。它不打开编辑器，适合管线机器上的离线几何作业。把大型网格操作从交互式 UnrealEd 会话中卸下来时使用它。",
+    "en": "GeometryProcessing is a standalone command-line program that runs GeometryCore/DynamicMesh algorithms on meshes—repair, remesh, or batch conversion—without opening the editor. It exists for offline geometry jobs on pipeline machines. Use it when a large mesh operation should not live inside an interactive UnrealEd session."
+  },
+  {
+    "slug": "geometryprocessinginterfaces",
+    "kind": "module",
+    "cn": "GeometryProcessingInterfaces 声明引擎与几何处理后端之间的开发者接口，避免每个工具都硬链具体算法模块。它依赖 Engine 与 GeometryCore，作为简化、布尔或重网格实现的稳定门面。编辑器工具针对这些接口编程，以便后端可替换。",
+    "en": "GeometryProcessingInterfaces declares the developer-facing interfaces between engine code and geometry-processing backends, so tools do not hard-link a specific algorithm module. It depends on Engine and GeometryCore and is the stable façade for simplify, boolean, or remesh implementations. Editor tools program against these interfaces so the backend can be swapped."
+  },
+  {
+    "slug": "gklib",
+    "kind": "module",
+    "cn": "GKlib 是 METIS 图划分所用的 Karypis 工具库，提供分配器、优先级队列和 IO 辅助。引擎通过该 ThirdParty 模块链接它，以支持网格分区和相关算法。游戏代码不应直接调用 GKlib API。",
+    "en": "GKlib is George Karypis’s utility library used by METIS graph partitioning—allocators, priority queues, and IO helpers. The engine links it through this ThirdParty module so mesh partitioning and related algorithms can build. Game code should not call GKlib APIs directly."
+  },
+  {
+    "slug": "gltftoolkit",
+    "kind": "module",
+    "cn": "gltfToolkit 封装 Windows 上的 glTF-Toolkit，用于在引擎工具链中处理 glTF 资源：打包、优化和 Windows Mixed Reality 相关转换。它是第三方命令行/库封装，而不是运行时 glTF 播放器。针对 WMR 或 glTF 管线的导入/cook 步骤会消费这些工具。",
+    "en": "gltfToolkit wraps the Windows glTF-Toolkit used to process glTF assets in the engine toolchain: packing, optimization, and Windows Mixed Reality-oriented conversion. It is a third-party command-line/library wrapper, not a runtime glTF player. Import or cook steps that target WMR or glTF pipelines consume these tools."
+  },
+  {
+    "slug": "googlegamesdk",
+    "kind": "module",
+    "cn": "GoogleGameSDK 接入 Android 上的 Google Play 游戏开发库（帧节奏、内存提示、性能提示等）。UBT 模块只负责头文件与 .so/.aar 布局。Android 运行时插件通过它调用 Play 系统助手，而不是自己再拷一份 SDK。",
+    "en": "GoogleGameSDK pulls in Google’s Android Game Development libraries (frame pacing, memory advice, performance hints, and related Play APIs). The UBT module only owns headers and .so/.aar layout. Android runtime plugins call Play system helpers through it instead of vendoring another copy."
+  },
+  {
+    "slug": "googleoboe",
+    "kind": "module",
+    "cn": "GoogleOboe 封装 Android 高性能音频库 Oboe，在 AAudio 与 OpenSL ES 之上提供低延迟输出。AudioMixer 的 Android 后端链接 Core 与该模块，以打开设备流。没有 Oboe，Android 混音器就得直接对接更旧、更高延迟的 API。",
+    "en": "GoogleOboe wraps Google’s Oboe audio library so Android can use low-latency output on top of AAudio and OpenSL ES. The Android audio mixer backend links Core plus this module to open device streams. Without Oboe, the Android mixer would talk to older, higher-latency APIs directly."
+  },
+  {
+    "slug": "googletest",
+    "kind": "module",
+    "cn": "GoogleTest 把 gtest/gmock 带进引擎测试目标，供 HeadlessChaos、FoundationTests 等程序使用标准 TEST 宏。它不进入游戏包，只存在于测试与程序模块。引擎低层测试套件以它为事实标准的 C++ 测试框架。",
+    "en": "GoogleTest vendors gtest/gmock for engine test targets so programs like HeadlessChaos and FoundationTests can use standard TEST macros. It does not ship in a game package; it exists only for test and program modules. Low-level engine suites treat it as the canonical C++ test framework."
+  },
+  {
+    "slug": "gpudirect",
+    "kind": "module",
+    "cn": "GPUDirect 封装 NVIDIA GPUDirect，使 GPU 与网卡/存储之间能做点对点传输，减少回读到系统内存。影视与仿真管线用它给高带宽捕获或集群渲染让路。普通游戏通常不会链接该路径。",
+    "en": "GPUDirect wraps NVIDIA GPUDirect so GPU memory can move peer-to-peer with NICs or storage without bouncing through sysmem. Film and simulation pipelines use it when a capture or cluster render path needs that bandwidth. Typical games do not link this path."
+  },
+  {
+    "slug": "gpureshapebootstrapper",
+    "kind": "module",
+    "cn": "GPUReshapeBootstrapper 是 GPUReshape 工具的启动模块，加载 Core/Projects 并拉起着色器插桩/重放宿主。它负责找到工程并初始化独立程序，而不是实现 GPU 补丁算法本身。从编辑器或命令行启动 GPUReshape 时，首先进入这个 bootstrapper。",
+    "en": "GPUReshapeBootstrapper is the startup module for the GPUReshape tool, loading Core/Projects and launching the shader instrumentation/replay host. It exists to find the project and initialize the standalone program, not to implement GPU patch algorithms. When you launch GPUReshape from the editor or command line, this bootstrapper runs first."
+  },
+  {
+    "slug": "gpureshapenative",
+    "kind": "module",
+    "cn": "GPUReshapeNative 是 GPUReshape 的原生第三方实现：着色器二进制插桩和 GPU 侧 reshape 逻辑，与 Unreal 类型无关。引擎通过独立的 UE 绑定模块消费它。调试或改写 GPU 工作负载的工具链链到这个原生内核。",
+    "en": "GPUReshapeNative is the native third-party implementation of GPUReshape: shader binary instrumentation and GPU-side reshape logic independent of Unreal types. The engine consumes it through a separate UE binding module. Tooling that debugs or rewrites GPU work links this native core."
+  },
+  {
+    "slug": "gpureshapeue",
+    "kind": "module",
+    "cn": "GPUReshapeUE 把 GPUReshape 原生库接到 Unreal 的 Core 类型、路径和模块加载器。它是 C++ 绑定层，让引擎工具能调用 reshape 而不直接包含第三方头。编辑器侧 GPU 调试功能经过这层到达原生实现。",
+    "en": "GPUReshapeUE binds the GPUReshape native library to Unreal’s Core types, paths, and module loader. It is the C++ binding layer so engine tools can call reshape without including third-party headers directly. Editor-facing GPU debug features reach the native implementation through this layer."
+  },
+  {
+    "slug": "graphcolor",
+    "kind": "module",
+    "cn": "GraphColor 实现图着色算法，供需要互斥分组的系统使用，例如骨骼、约束或着色器资源绑定。它只依赖 Core，保持为纯算法开发者库。需要把冲突图分配到最少桶数的管线会调用这里。",
+    "en": "GraphColor implements graph-coloring algorithms used by systems that must assign mutually exclusive groups—bones, constraints, or shader resource bindings, for example. It depends only on Core and stays a pure-algorithm developer library. Pipelines that need to pack a conflict graph into a small number of buckets call here."
+  },
+  {
+    "slug": "grapheditor",
+    "kind": "module",
+    "cn": "GraphEditor 是蓝图、材质、声音和其它节点图共用的 Slate 图表视图：引脚连接、框选、对齐与注释气泡。几乎所有基于节点的编辑器都寄宿在这套框架上，而不是自绘画布。Kismet、材质编辑器和同类工具都嵌入它的 SGraphEditor。",
+    "en": "GraphEditor is the shared Slate graph view for Blueprints, materials, sounds, and other node graphs: pin wiring, marquee select, alignment, and comment bubbles. Almost every node-based editor hosts this framework instead of drawing its own canvas. Kismet, Material Editor, and similar tools embed SGraphEditor from here."
+  },
+  {
+    "slug": "grdk",
+    "kind": "module",
+    "cn": "GRDK 封装 Microsoft Game Development Kit 头文件与库，供 Xbox/PC Game Core 目标链接。GDKRuntime 和清单代码依赖该 ThirdParty 模块来解析 XGameRuntime。它不包含编辑器 UI，只提供 SDK 发现与链接。",
+    "en": "GRDK wraps the Microsoft Game Development Kit headers and libraries so Xbox and PC Game Core targets can link. GDKRuntime and manifest code depend on this ThirdParty module to resolve XGameRuntime. It contains no editor UI, only SDK discovery and linkage."
+  },
+  {
+    "slug": "guidelinessupportlibrary",
+    "kind": "module",
+    "cn": "GuidelinesSupportLibrary 接入 Microsoft GSL（span、not_null 及其它静态分析友好的视图类型），供遵循 C++ 核心指南的引擎代码使用。它是头文件为主的 ThirdParty 模块，不引入运行时子系统。目标是更安全的视图/所有权标注，而不是新的玩法 API。",
+    "en": "GuidelinesSupportLibrary vendors Microsoft’s GSL (span, not_null, and other static-analysis-friendly view types) for engine code that follows the C++ Core Guidelines. It is a header-centric ThirdParty module with no runtime subsystem. The point is safer views and ownership annotations, not a new gameplay API."
+  },
+  {
+    "slug": "haplib",
+    "kind": "module",
+    "cn": "HAPLib 封装 HAP 编解码库，这种 GPU 友好的视频编码常用于实时媒体与虚拟制作回放。媒体管线用它在支持的平台上解码 HAP 轨道。它不是通用电影播放器，而是 HAP 容器的编解码后端。",
+    "en": "HAPLib wraps the HAP codec library used for GPU-friendly video—common in live media and virtual-production playback. Media pipelines use it to decode HAP tracks on supported platforms. It is not a general movie player; it is the codec backend for HAP containers."
+  },
+  {
+    "slug": "hardwaresurvey",
+    "kind": "module",
+    "cn": "HardwareSurvey 在运行时采集 GPU、CPU、驱动和显示器信息，供分析、自动设置和遥测使用。它依赖 ApplicationCore 以在初始化早期查询设备。首次运行的可扩展性基准和崩溃报告会附带这份调查数据。",
+    "en": "HardwareSurvey collects GPU, CPU, driver, and display facts at runtime for analytics, auto-settings, and telemetry. It depends on ApplicationCore so it can query devices early in initialization. First-run scalability benchmarks and crash reports attach this survey."
+  },
+  {
+    "slug": "hardwaretargeting",
+    "kind": "module",
+    "cn": "HardwareTargeting 是编辑器里的目标硬件选择器：最高端、可扩展或移动，并据此应用引擎默认值。它写入 EngineSettings，并在项目向导中展示 Slate UI。新建项目时选的“目标平台档位”由该模块落到配置上。",
+    "en": "HardwareTargeting is the editor-side target-hardware picker: maximum, scalable, or mobile, and the engine defaults that follow. It writes EngineSettings and presents Slate UI in the project wizard. Choosing a target class when creating a project is this module applying those defaults."
+  },
+  {
+    "slug": "harfbuzz",
+    "kind": "module",
+    "cn": "HarfBuzz 提供复杂文本整形：阿拉伯文、天城文、连字以及需要 OpenType 特性的脚本。FreeType 负责光栅化字形；HarfBuzz 决定用哪些字形以及如何放置。正确的双向与连字排版依赖这条第三方路径。",
+    "en": "HarfBuzz supplies complex text shaping: Arabic, Devanagari, ligatures, and scripts that need OpenType features. FreeType rasterizes glyphs; HarfBuzz decides which glyphs and where they sit. Correct bidirectional and ligature layout depends on this third-party path."
+  },
+  {
+    "slug": "headlesschaos",
+    "kind": "module",
+    "cn": "HeadlessChaos 是无渲染器的 Chaos 物理测试程序，用 GoogleTest 在无 GPU 的情况下跑求解器、车辆核心和几何查询。它用于 CI 回归接触、破碎和车辆，而不启动 UnrealEd。物理内核的崩溃应在这个无头二进制里复现。",
+    "en": "HeadlessChaos is a renderer-free Chaos physics test program that uses GoogleTest to exercise solvers, vehicle core, and geometry queries without a GPU. It exists so CI can regress contacts, destruction, and vehicles without booting UnrealEd. Physics kernel crashes should be reproducible in this headless binary."
+  },
+  {
+    "slug": "headlesschaosperf",
+    "kind": "module",
+    "cn": "HeadlessChaosPerf 与 HeadlessChaos 同源，但面向性能：测量无编辑器开销时的求解器吞吐和微基准。用它比较 Chaos 改动的帧预算，而不是功能正确性。物理优化的前后对比数字来自这个程序。",
+    "en": "HeadlessChaosPerf is the sibling of HeadlessChaos aimed at performance: measuring solver throughput and microbenchmarks without editor overhead. Use it to compare frame-budget impact of Chaos changes, not functional correctness. Physics optimization A/B numbers come from this program."
+  },
+  {
+    "slug": "headmounteddisplay",
+    "kind": "module",
+    "cn": "HeadMountedDisplay 是 XR 运行时门面：HMD 位姿、立体渲染钩子、延迟输入采样，以及各头显插件实现的接口。它依赖 Renderer 与 InputCore，把 VR/AR 设备接到引擎视口。OpenXR 及其它 HMD 插件都填这套抽象，而不是分叉 Engine。",
+    "en": "HeadMountedDisplay is the XR runtime façade: HMD pose, stereo rendering hooks, late input sampling, and the interface every headset plugin implements. It depends on the Renderer and InputCore to plug a VR/AR device into an engine viewport. OpenXR and other HMD plugins fill this abstraction instead of forking Engine."
+  },
+  {
+    "slug": "heapprofd",
+    "kind": "module",
+    "cn": "heapprofd 封装 Android Perfetto 堆分析器客户端，让引擎构建能把分配记录到系统跟踪。它是 ThirdParty 接入层，供内存分析会话使用，而不是通用分配器。在 Android 上追泄漏或碎片时，这条路径把 Unreal 分配导出给 Perfetto。",
+    "en": "heapprofd wraps Android’s Perfetto heap profiler client so an engine build can record allocations into system traces. It is ThirdParty plumbing for memory-profiling sessions, not a general allocator. When chasing leaks or fragmentation on Android, this path exports Unreal allocations to Perfetto."
+  },
+  {
+    "slug": "hierarchicallodoutliner",
+    "kind": "module",
+    "cn": "HierarchicalLODOutliner 是编辑器大纲，用于检视与编辑世界的 HLOD 层、簇和代理网格。它建立在 HierarchicalLODUtilities 与 UnrealEd 上，让关卡设计师能看到哪些 Actor 被合并进代理。生成或调试分层 LOD 时，在这个面板里导航簇关系。",
+    "en": "HierarchicalLODOutliner is the editor outliner for inspecting and editing a world’s HLOD layers, clusters, and proxy meshes. It builds on HierarchicalLODUtilities and UnrealEd so a level designer can see which actors were merged into a proxy. When generating or debugging hierarchical LODs, this panel is where you navigate cluster membership."
+  },
+  {
+    "slug": "hierarchicallodutilities",
+    "kind": "module",
+    "cn": "HierarchicalLODUtilities 实现构建 HLOD 代理的开发者算法：合并网格、烘焙材质、使用网格描述与 BSP 辅助。Outliner 和构建管线调用这些工具函数，而不是复制简化逻辑。HLOD 生成的正确性由该模块的合并与材质工具决定。",
+    "en": "HierarchicalLODUtilities implements the developer algorithms that build HLOD proxies: merging meshes, baking materials, and using mesh descriptions plus BSP helpers. The outliner and build pipeline call these utilities instead of duplicating simplification logic. Correctness of an HLOD generate pass is determined here."
+  },
+  {
+    "slug": "hlslcc",
+    "kind": "module",
+    "cn": "HLSLCC 是 HLSL 交叉编译器前端/库封装，历史上把 HLSL 转成 GLSL 及其它着色器方言。着色器编译管线在需要跨 API 翻译时链接它。新路径可能用 DXC；该模块仍覆盖依赖 hlslcc 的平台与遗留编译器。",
+    "en": "HLSLCC is the HLSL cross-compiler frontend/library wrapper historically used to translate HLSL into GLSL and other shading dialects. Shader compilation pipelines link it when they must emit a different API’s shading language. Newer paths may use DXC; this module still covers platforms and legacy compilers that depend on hlslcc."
+  },
+  {
+    "slug": "hlslparser",
+    "kind": "module",
+    "cn": "HlslParser 是引擎自有的 HLSL 解析器，供需要着色器 AST 的工具使用：验证、重写或预览，而不调用完整平台编译器。它只依赖 Core，保持在开发者工具层。材质和着色器工具在做结构化检查时用它，而不是正则扫源码。",
+    "en": "HlslParser is the engine’s own HLSL parser for tools that need a shader AST: validation, rewrite, or preview without invoking a full platform compiler. It depends only on Core and stays in the developer-tool layer. Material and shader utilities use it when they must inspect shader text structurally rather than with regex."
+  },
+  {
+    "slug": "horde",
+    "kind": "module",
+    "cn": "Horde 模块是 Epic Horde CI/远程执行服务的客户端：HTTP 与 JSON 用于作业、制品和代理通信。开发者工具用它把构建工作提交到 Horde 集群。它不是构建执行器本身，而是引擎侧 SDK。",
+    "en": "The Horde module is the client for Epic’s Horde CI and remote-execution service: HTTP and JSON for jobs, artifacts, and agent talk. Developer tools use it to submit build work to a Horde farm. It is not the build executor itself; it is the engine-side SDK."
+  },
+  {
+    "slug": "hordetest",
+    "kind": "module",
+    "cn": "HordeTest 是 Horde 树中的示例/测试程序，用于练习作业提交或代理行为，而不必启动完整编辑器。用它验证 Horde 集成是否在隔离环境下还能工作。把它当作最小 Horde 客户端样本，而不是产品功能。",
+    "en": "HordeTest is a sample/test program in the Horde tree used to exercise job submission or agent behavior without booting the full editor. It exists to verify Horde integration still works in isolation. Treat it as a minimal Horde client sample, not a product feature."
+  },
+  {
+    "slug": "hotreload",
+    "kind": "module",
+    "cn": "HotReload 实现编辑器热重载：监视模块二进制、卸载/重新加载游戏 DLL，并修补 UObject 类。它依赖 DirectoryWatcher、Projects 和 UnrealEd，让 C++ 迭代不必重启编辑器。失败的热重载分析与模块加载遥测也经过这里。",
+    "en": "HotReload implements editor hot reload: watching module binaries, unloading/reloading game DLLs, and patching UObject classes. It depends on DirectoryWatcher, Projects, and UnrealEd so C++ iteration does not require an editor restart. Failed hot-reload diagnostics and module-load telemetry go through here too."
+  },
+  {
+    "slug": "http",
+    "kind": "module",
+    "cn": "HTTP 模块是引擎的 HTTP 客户端实现，建立在套接字、SSL、EventLoop 以及平台后端（XCurl、iOS 后台传输）之上。分析、在线服务、下载器和许多插件都通过它发请求。把它当作跨平台 HTTP 栈，而不是单一 curl 绑定。",
+    "en": "The HTTP module is the engine’s HTTP client implementation, built on sockets, SSL, EventLoop, and platform backends (XCurl, iOS background transfers). Analytics, online services, downloaders, and many plugins issue requests through it. Treat it as the cross-platform HTTP stack, not a single curl binding."
+  },
+  {
+    "slug": "http_parser",
+    "kind": "module",
+    "cn": "http_parser 封装 Node/llhttp 风格的 HTTP 解析器，用于在字节到达时拆分请求/响应头。HTTP 服务器与客户端路径用它做增量解析，而不是一次性正则。它不执行 TLS 或 DNS，只做报文解析。",
+    "en": "http_parser wraps the Node/llhttp-style HTTP parser used to split request and response headers as bytes arrive. HTTP server and client paths use it for incremental parse instead of regexing a whole message. It does not perform TLS or DNS; it only tokenizes HTTP."
+  },
+  {
+    "slug": "httpnetworkreplaystreaming",
+    "kind": "module",
+    "cn": "HttpNetworkReplayStreaming 通过 HTTP 上传/下载回放块，实现 NetworkReplayStreaming 接口。它让演示和即时回放把流存到远程服务，而不是仅本地 Demo 文件。在线回放浏览器依赖这套 JSON/HTTP 分块传输。",
+    "en": "HttpNetworkReplayStreaming implements the NetworkReplayStreaming interface over HTTP so replay chunks can be uploaded and downloaded. It lets demos and instant replay persist streams on a remote service instead of only a local demo file. Online replay browsers depend on this HTTP/JSON chunk transport."
+  },
+  {
+    "slug": "httpserver",
+    "kind": "module",
+    "cn": "HTTPServer 在引擎进程内提供小型 HTTP 服务器，供本地控制、WebRPC 和工具回调使用。它建立在 Sockets 与 HTTP 模块之上，监听端口并分发行。ExternalRpcRegistry 和类似服务把端点挂在这个服务器上。",
+    "en": "HTTPServer is a small HTTP server that can run inside an engine process for local control, WebRPC, and tool callbacks. It builds on Sockets and the HTTP module to listen and dispatch requests. ExternalRpcRegistry and similar services mount endpoints on this server."
+  },
+  {
+    "slug": "iastool",
+    "kind": "module",
+    "cn": "IasTool 是 IoStore On Demand（IAS）命令行工具，用于检查、打包或维护按需安装块。它依赖 IoStoreOnDemandUtilities，在编辑器外操作容器。运维安装包和按需内容时应使用该程序，而不是手工改二进制。",
+    "en": "IasTool is the IoStore On Demand (IAS) command-line tool for inspecting, packing, or maintaining on-demand install chunks. It depends on IoStoreOnDemandUtilities and runs outside the editor against those containers. Operators use this program when preparing install bundles and on-demand content rather than hand-editing binaries."
+  },
+  {
+    "slug": "icmp",
+    "kind": "module",
+    "cn": "Icmp 模块发送 ICMP echo（ping）并报告往返时间，供网络诊断和质量探测使用。它依赖 Sockets，让在线代码能测量主机可达性，而不开完整 UDP 握手。会话搜索或 QoS 在连接前常用它探路。",
+    "en": "The Icmp module sends ICMP echo (ping) and reports round-trip times for network diagnostics and quality probes. It depends on Sockets so online code can measure host reachability without opening a full UDP handshake. Session search or QoS often pings through this module before connecting."
+  },
+  {
+    "slug": "icu",
+    "kind": "module",
+    "cn": "ICU 接入 International Components for Unicode：排序、边界分析、转换以及引擎国际化所用的 locale 数据。文本、日期和数字格式化在需要完整 Unicode 数据库时依赖它。没有 ICU，许多 locale 敏感操作会退回不完整的 CRT 行为。",
+    "en": "ICU vendors International Components for Unicode: collation, boundary analysis, conversions, and locale data the engine’s internationalization layer uses. Text, date, and number formatting depend on it when they need a full Unicode database. Without ICU, many locale-sensitive operations would fall back to incomplete CRT behavior."
+  },
+  {
+    "slug": "iesfile",
+    "kind": "module",
+    "cn": "IESFile 解析 IES 光度学配置文件，描述真实灯具如何把光打进空间。点光源可以引用这些剖面，在编辑器和运行时得到基于实测的光形状。建筑可视化与电影照明用它代替圆形点光近似。",
+    "en": "IESFile parses IES photometric profiles that describe how a real luminaire throws light. Point lights can reference these profiles so editor and runtime lighting match measured fixture shapes. Architectural vis and cinematic lighting use it instead of a spherical point-light guess."
+  },
+  {
+    "slug": "imagecore",
+    "kind": "module",
+    "cn": "ImageCore 保存引擎的 CPU 侧图像缓冲区、色彩空间转换，以及经 stb_image_resize2 的高质量缩放。ImageWrapper、写入队列和许多编辑器工具都共享这套像素容器。它不打开文件格式；那是 wrapper 的工作——它拥有内存中的图像。",
+    "en": "ImageCore owns the engine’s CPU-side image buffers, color-space conversion, and high-quality resize via stb_image_resize2. ImageWrapper, write queues, and many editor tools share this pixel container. It does not open file formats; wrappers do that—this module owns the in-memory image."
+  },
+  {
+    "slug": "imagedownload",
+    "kind": "module",
+    "cn": "ImageDownload 通过 HTTP 获取远程图像，解码后交给 Slate/ImageCore 使用，例如头像和商店图。它把下载与 ImageWrapper 编解码接在同一条管线上。UI 应走这条辅助路径，而不是自行 curl 再手动解码。",
+    "en": "ImageDownload fetches remote images over HTTP and decodes them into ImageCore/Slate-usable pixels for avatars, store art, and similar. It sits on HTTP plus ImageWrapper so download and decode share one pipeline. UI that needs a URL image should use this helper instead of curling and decoding by hand."
+  },
+  {
+    "slug": "imagewrapper",
+    "kind": "module",
+    "cn": "ImageWrapper 对 PNG、JPEG、TIFF（经 LibTiff）及其它封装格式做编解码，并与 ImageCore 缓冲区对话。导入、缩略图、截图和运行时解码大多经过这些 wrapper。新增一种磁盘图像格式时，通常在此注册。",
+    "en": "ImageWrapper encodes and decodes PNG, JPEG, TIFF (via LibTiff), and other container formats into ImageCore buffers. Import, thumbnails, screenshots, and runtime decode go through these wrappers. Adding a new on-disk image format usually means registering it here."
+  },
+  {
+    "slug": "imagewritequeue",
+    "kind": "module",
+    "cn": "ImageWriteQueue 把截图和高分辨率帧写出排到后台队列，从 GPU 读回后经 ImageWrapper 编码，以免卡住游戏线程。电影、自动化截图和调试捕获都走这条异步路径。突发写盘时，队列会合并并限速 IO。",
+    "en": "ImageWriteQueue queues screenshot and high-res frame writes on a background queue so GPU readback and ImageWrapper encode do not stall the game thread. Cinematics, automation screenshots, and debug captures share this async path. When many frames dump at once, the queue coalesces and rate-limits disk IO."
+  },
+  {
+    "slug": "imath",
+    "kind": "module",
+    "cn": "Imath 封装 OpenEXR 的半精度/矩阵数学库，供 HDR 图像与电影 IO 路径使用。Alembic、OpenEXR 和相关导入器需要这些类型来解释盒子、矩阵和 half 像素。它不是引擎的 FVector 数学；它是 VFX 行业的数学层。",
+    "en": "Imath wraps the OpenEXR half/matrix math library used by HDR image and film IO paths. Alembic, OpenEXR, and related importers need these types to interpret boxes, matrices, and half pixels. It is not the engine’s FVector math; it is the VFX-industry math layer."
+  },
+  {
+    "slug": "indexedcachestorage",
+    "kind": "module",
+    "cn": "IndexedCacheStorage 是实验性键值缓存后端，用索引记录做派生数据或类似 blob 的查找。它只依赖 Core，作为可替换存储，尝试比朴素目录树更快的命中。实验性缓存商店可以把它插入 DDC 层次。",
+    "en": "IndexedCacheStorage is an experimental key/value cache backend that stores derived-data-style blobs with an index for lookup. It depends only on Core and exists as a replaceable store when a faster hit path than a naive directory tree is wanted. Experimental cache stores can plug this into the DDC hierarchy."
+  },
+  {
+    "slug": "inputbindingeditor",
+    "kind": "module",
+    "cn": "InputBindingEditor 是编辑器 UI，用于重绑定输入动作、轴和手势，并写入输入设置。它结合 InputCore、SettingsEditor 和 PropertyEditor，提供可搜索的绑定网格。项目的键位界面由该模块而不是手工 ini 编辑来驱动。",
+    "en": "InputBindingEditor is the editor UI for rebinding input actions, axes, and chords, writing into input settings. It combines InputCore, SettingsEditor, and PropertyEditor to present a searchable binding grid. The project’s key-binding screen is this module, not a hand-edited ini."
+  },
+  {
+    "slug": "inputbindingsettingsviewer",
+    "kind": "module",
+    "cn": "InputBindingSettingsViewer 在设置查看器中只读展示当前输入绑定，便于审计默认键位而不打开完整绑定编辑器。它挂在 SettingsEditor 上，面向查阅而非重映射。文档和 QA 用它确认哪些手势已占用。",
+    "en": "InputBindingSettingsViewer shows the current input bindings in a settings viewer, aimed at auditing defaults rather than editing every chord. It hangs off SettingsEditor and is the read-oriented companion to the binding editor. Documentation and QA use it to confirm which chords are taken."
+  },
+  {
+    "slug": "inputcore",
+    "kind": "module",
+    "cn": "InputCore 定义键、轴、触摸和手势的核心类型：FKey、EKeys 以及与平台无关的键码。Enhanced Input、Slate 和 PlayerController 都建立在这套词汇上。没有 InputCore，设备按钮就无法在模块间用同一枚举说话。",
+    "en": "InputCore defines the core types for keys, axes, touch, and gestures: FKey, EKeys, and the platform-agnostic key codes. Enhanced Input, Slate, and PlayerController all speak this vocabulary. Without InputCore, a device button could not be named the same way across modules."
+  },
+  {
+    "slug": "inputdevice",
+    "kind": "module",
+    "cn": "InputDevice 定义插件式输入设备接口，让第三方控制器、方向盘或平台外设能向 Engine 注入事件。它把硬件制造商与 InputCore 键空间隔开。写自定义手柄插件时实现这里的接口。",
+    "en": "InputDevice defines the plug-in input device interface so third-party controllers, wheels, or platform peripherals can inject events into Engine. It is the seam between a hardware vendor and the InputCore key space. Implementing a custom gamepad plugin means implementing this interface."
+  },
+  {
+    "slug": "installbundlemanager",
+    "kind": "module",
+    "cn": "InstallBundleManager 编排按需安装包：清单、IoStore on-demand 块，以及下载/挂载内容包的进度。它用 JSON 描述包，并用 ApplicationCore 做平台路径。大型游戏用它在首次启动后流送可选区块。",
+    "en": "InstallBundleManager orchestrates on-demand install bundles: manifests, IoStore on-demand chunks, and progress for downloading/mounting content packs. It uses JSON for bundle descriptions and ApplicationCore for platform paths. Large games use it to stream optional chunks after first boot."
+  },
+  {
+    "slug": "instrumentation",
+    "kind": "module",
+    "cn": "Instrumentation 提供运行时插桩钩子，用于跟踪、探针或编译器辅助的覆盖，而不拉入完整分析 SDK。其它模块可以可选依赖它，在开发构建中插入计数器。它保持无依赖，以便能编进最小目标。",
+    "en": "Instrumentation provides runtime instrumentation hooks for tracing, probes, or compiler-assisted coverage without pulling a full analytics SDK. Other modules can optionally depend on it to insert counters in development builds. It stays dependency-free so it can be compiled into minimal targets."
+  },
+  {
+    "slug": "intelextensionsframework",
+    "kind": "module",
+    "cn": "IntelExtensionsFramework 封装 Intel GPU 驱动扩展框架，使引擎能查询或启用特定于 Intel 的设备功能。RHI 后端在硬件支持时通过它访问扩展。没有 Intel GPU 的游戏不必直接依赖该模块。",
+    "en": "IntelExtensionsFramework wraps Intel’s GPU driver extensions framework so the engine can query or enable Intel-specific device features. RHI backends use it when the running GPU supports those extensions. Games that never target Intel GPUs do not need to depend on this module directly."
+  },
+  {
+    "slug": "intelispc",
+    "kind": "module",
+    "cn": "IntelISPC 接入 Intel SPMD 编译器，让热循环能编成 SIMD 变体（几何、纹理、破坏）。依赖 ISPC 的模块通过该 ThirdParty 规则获得编译器与运行时。编写 *.ispc 内核时，构建系统经这里调用编译器。",
+    "en": "IntelISPC brings in Intel’s SPMD compiler so hot loops can be compiled to SIMD variants (geometry, textures, destruction). Modules that author ISPC kernels depend on this ThirdParty rule for the compiler and runtime. When you write a *.ispc kernel, the build invokes the compiler through here."
+  },
+  {
+    "slug": "intelispctexcomp",
+    "kind": "module",
+    "cn": "IntelISPCTexComp 封装 ISPC 纹理压缩器，在 cook 时用 SIMD 生成块压缩格式。纹理构建工人可以调用它，作为其它压缩器的快速 CPU 路径。它针对吞吐，而不是运行时采样。",
+    "en": "IntelISPCTexComp wraps the ISPC texture compressor used at cook time to emit block-compressed formats with SIMD. Texture build workers can call it as a fast CPU path alongside other compressors. It is a cook-time encoder, not a runtime sampler."
+  },
+  {
+    "slug": "inteloidn",
+    "kind": "module",
+    "cn": "IntelOIDN 接入 Intel Open Image Denoise，用训练好的滤波器给光线追踪/烘焙结果去噪，并经 TBB 并行。灯光构建和 CPU 路径用它清理噪声更少的 GI。它不替代硬件光线追踪；它清理采样图像。",
+    "en": "IntelOIDN vendors Intel Open Image Denoise so ray-traced or baked results can be denoised with trained filters, using TBB for parallelism. Lighting builds and CPU paths use it to clean noisy GI. It does not replace hardware RT; it cleans a sampled image."
+  },
+  {
+    "slug": "inteltbb",
+    "kind": "module",
+    "cn": "IntelTBB 封装 Threading Building Blocks，供 Embree、OIDN 和其它 Intel 库做任务图并行。引擎把它作为这些第三方依赖的共享运行时来链接。除非在写同样需要 TBB 调度器的原生代码，否则不要直接依赖它。",
+    "en": "IntelTBB wraps Threading Building Blocks for Embree, OIDN, and other Intel libraries that expect TBB task graphs. The engine links it as the shared runtime those third parties need. Do not depend on it from game code unless you are writing native code that also requires TBB’s scheduler."
+  },
+  {
+    "slug": "intelvtune",
+    "kind": "module",
+    "cn": "IntelVTune 接入 VTune 分析器的 ITT 标注 API，让引擎作用域出现在 VTune 时间线上。开发构建可以在 Tick 或 GPU 等待周围插入这些标注。它不影响发售包，除非显式启用分析。",
+    "en": "IntelVTune vendors the ITT annotation API for VTune so engine scopes show up in a VTune timeline. Development builds can emit these annotations around ticks or GPU waits. It does not affect a shipping game unless profiling is explicitly enabled."
+  },
+  {
+    "slug": "interactivetoolsframework",
+    "kind": "module",
+    "cn": "InteractiveToolsFramework 是运行时建模/视口工具框架：工具、小控件、选中目标和输入路由，不绑死 UnrealEd。Geometry Script、运行时建模和编辑器工具都构建在这些基类上。要写可在游戏与编辑器间复用的笔刷或小控件，从这里起步。",
+    "en": "InteractiveToolsFramework is the runtime modeling/viewport tool framework: tools, gizmos, selection targets, and input routing without requiring UnrealEd. Geometry Script, runtime modeling, and editor tools all build on these base classes. If you write a gizmo that should work in-game and in-editor, start here."
+  },
+  {
+    "slug": "interactivevisualizers",
+    "kind": "module",
+    "cn": "InteractiveVisualizers 为交互式工具提供实验性编辑器可视化：视口叠加、工具控件，以及与 EditorInteractiveToolsFramework 的集成。它帮助预览工具状态（笔刷半径、吸附、选择包络），而不仅在细节面板里改数字。实验性建模 UX 在此迭代，再升格到稳定编辑器模块。",
+    "en": "InteractiveVisualizers adds experimental editor visualizations for interactive tools: viewport overlays, tool widgets, and integration with EditorInteractiveToolsFramework. It exists so a tool’s state (brush radius, snap, selection hull) can be previewed rather than only typed in details. Experimental modeling UX lands here before graduating to a stable editor module."
+  },
+  {
+    "slug": "interchangecore",
+    "kind": "module",
+    "cn": "InterchangeCore 是 Interchange 导入框架的无引擎核心：节点图、转换器契约、JSON 管线描述和分析钩子。解析器与工厂针对这些类型对话，这样 FBX、glTF 和自定义翻译器能共享流水线。它刻意避开厚重的 Engine 依赖，以便工人进程也能加载。",
+    "en": "InterchangeCore is the engine-light core of the Interchange import framework: node graphs, translator contracts, JSON pipeline descriptions, and analytics hooks. Parsers and factories speak these types so FBX, glTF, and custom translators share one pipeline. It deliberately avoids heavy Engine dependencies so a worker process can load it."
+  },
+  {
+    "slug": "interchangeengine",
+    "kind": "module",
+    "cn": "InterchangeEngine 把 Interchange 核心接到 Engine 资源：静态/骨骼网格、材质，以及资源注册表写入。编辑器导入会话在这里把翻译器节点变成 UObject。运行时或 cook 侧的 Interchange 工厂依赖该模块完成资源创建。",
+    "en": "InterchangeEngine binds Interchange core to Engine assets: static/skeletal meshes, materials, and asset-registry writes. Editor import sessions use it to turn translator nodes into UObjects. Runtime or cook-side Interchange factories depend on this module to finish asset creation."
+  },
+  {
+    "slug": "interchangeworker",
+    "kind": "module",
+    "cn": "InterchangeWorker 是进程外导入工人，解析 FBX 及其它格式，这样重型 SDK 崩溃不会带走编辑器。它通过套接字与 JSON 和调度器对话，并加载 InterchangeFbxParser。大型场景导入被投递到这个程序以隔离内存和稳定性。",
+    "en": "InterchangeWorker is the out-of-process import worker that parses FBX and other formats so a heavy SDK crash cannot take the editor with it. It talks to the dispatcher over sockets and JSON and loads InterchangeFbxParser. Large scene imports are farmed to this program for isolation and memory hygiene."
+  },
+  {
+    "slug": "internationalizationsettings",
+    "kind": "module",
+    "cn": "Internationalizationsettings 是编辑器设置面板，用于语言、区域、预览文化以及本地化包选项。它结合 Localization 模块与 PropertyEditor，让团队能切换预览语言而不重新 cook 整个游戏。翻译工作流从这里选择活动文化。",
+    "en": "InternationalizationSettings is the editor settings panel for language, region, preview culture, and localization pack options. It combines the Localization module with PropertyEditor so a team can switch preview language without recooking the whole game. Translation workflows pick the active culture here."
+  },
+  {
+    "slug": "interpose",
+    "kind": "module",
+    "cn": "Interpose 封装 iOS 方法拦截/挂钩库，供需要在运行时 swizzle 或探测 Objective-C 调用的平台代码使用。它是 ThirdParty 支持库，不是游戏功能。仅调试或平台适配层应链接它。",
+    "en": "Interpose wraps an iOS method-interposing library used when platform code must swizzle or intercept Objective-C calls at runtime. It is ThirdParty support, not a game feature. Only debug or platform-adapter layers should link it."
+  },
+  {
+    "slug": "iosadvertising",
+    "kind": "module",
+    "cn": "IOSAdvertising 实现 Advertising 模块在 iOS 上的后端，接到系统广告标识与跟踪 API。游戏通过通用 Advertising 接口请求 ID，此模块提供 UIKit/App Tracking 实现。Android 构建不会加载它。",
+    "en": "IOSAdvertising implements the Advertising module’s iOS backend, talking to the system advertising identifier and tracking APIs. Games request an ID through the generic Advertising interface; this module supplies the UIKit/App Tracking implementation. Android builds do not load it."
+  },
+  {
+    "slug": "iosaudio",
+    "kind": "module",
+    "cn": "IOSAudio 是 iOS 上的旧版/平台音频运行时模块，把引擎混音器接到 AudioUnit/Core Audio 设备。它随游戏包发布，处理会话类别、中断和硬件回调。较新的混音器路径可能用 AudioMixerAudioUnit；该模块覆盖 iOS 特定音频主存。",
+    "en": "IOSAudio is the legacy/platform audio runtime module for iOS, connecting the engine mixer to AudioUnit/Core Audio devices. It ships with the game and handles session categories, interruptions, and hardware callbacks. Newer mixer paths may use AudioMixerAudioUnit; this module covers iOS-specific audio hosting."
+  },
+  {
+    "slug": "ioslocalnotification",
+    "kind": "module",
+    "cn": "IOSLocalNotification 调度 iOS 本地通知：徽章、提示和基于时间的提醒，不经过远程推送服务器。游戏代码用引擎通知 API 排队；该模块调用 UserNotifications。它只处理设备本地提醒，不管 APNs。",
+    "en": "IOSLocalNotification schedules iOS local notifications: badges, alerts, and time-based reminders that do not go through a remote push server. Game code queues notifications through the engine API; this module calls UserNotifications. It is local-only; it does not own APNs."
+  },
+  {
+    "slug": "iosplatformeditor",
+    "kind": "module",
+    "cn": "IOSPlatformEditor 提供 iOS 打包与项目设置 UI：证书、配置文件、图标/启动图（含 FreeImage）、音频和质量旋钮。它把大量编辑器模块接到 IOSRuntimeSettings，使烹饪 IPA 不必手改 plist。移动发行检查清单上的大多数开关都画在这里。",
+    "en": "IOSPlatformEditor provides the iOS packaging and project-settings UI: signing, provisioning, icons/splashes (via FreeImage), audio, and quality knobs. It ties many editor modules to IOSRuntimeSettings so cooking an IPA does not require hand-editing plists. Most of the mobile shipping checklist is drawn here."
+  },
+  {
+    "slug": "iosplatformfeatures",
+    "kind": "module",
+    "cn": "IOSPlatformFeatures 在运行时暴露 iOS 特有功能钩子（系统服务、平台特性开关），供 Engine 查询。它保持对 Core/Engine 的薄依赖，避免把 UIKit 细节泄漏进通用游戏代码。需要在 iOS 上分支行为的功能应问该模块，而不是到处写 ifdef。",
+    "en": "IOSPlatformFeatures exposes iOS-specific feature hooks at runtime (system services, platform capability flags) that Engine can query. It keeps a thin Core/Engine dependency so game code does not sprinkle UIKit details everywhere. Features that must branch on iOS ask this module instead of ifdeffing call sites."
+  }
+]

@@ -3,7 +3,6 @@ layout: default
 title: 情境动画 / ContextualAnimation
 ---
 
-
 <h1>情境动画 / ContextualAnimation</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 情境动画 / ContextualAnimation
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用实验性 <code class="usage-code">ContextualAnimation</code>（运行时 <code class="usage-code">ContextualAnimation</code>，编辑器 <code class="usage-code">ContextualAnimationEditor</code>）并重启。</li><li>内容浏览器右键 <code class="usage-code">Animation &gt; Contextual Anim Scene Asset</code>，打开场景资产：添加 Role（例如 <code class="usage-code">Interactor</code> / <code class="usage-code">Interactable</code>），为每个 Role 指定骨架网格与动画片段。</li><li>在编辑器预览里摆好两个 Actor 的相对位置，标记 Warp 目标与 IK 对齐点，编译场景资产。</li><li>把 <code class="usage-code">UContextualAnimSceneActorComponent</code> 加到可交互物（门、椅子、攀爬点），指定刚才的 <code class="usage-code">UContextualAnimSceneAsset</code>。</li><li>运行时由角色查询：<code class="usage-code">UContextualAnimManager</code> 或组件上的 Start Scene，传入发起者、选择条件与 Warp 变换；对齐失败时先查 Role 名称是否与资产一致。</li><li>游戏 <code class="usage-code">Build.cs</code> 只依赖 <code class="usage-code">ContextualAnimation</code>；<code class="usage-code">ContextualAnimationEditor</code> 仅进 <code class="usage-code">*Editor.Build.cs</code>。</li></ol><p class="usage-note">Experimental：多角色对齐交互动画，不是普通 AnimMontage 单人播放。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable experimental <code class="usage-code">ContextualAnimation</code> (runtime <code class="usage-code">ContextualAnimation</code>, editor <code class="usage-code">ContextualAnimationEditor</code>) and restart.</li><li>Create <code class="usage-code">Animation &gt; Contextual Anim Scene Asset</code>. Add roles (e.g. <code class="usage-code">Interactor</code> / <code class="usage-code">Interactable</code>) and assign a skeletal mesh plus anim clips per role.</li><li>In the preview, pose the two actors, mark warp targets and IK align points, then compile the scene asset.</li><li>Add <code class="usage-code">UContextualAnimSceneActorComponent</code> to the interactable (door, chair, mantle) and point it at that <code class="usage-code">UContextualAnimSceneAsset</code>.</li><li>At runtime start the scene via <code class="usage-code">UContextualAnimManager</code> or the component, passing the instigator, selection criteria, and warp transform. If alignment fails, check role names match the asset.</li><li>Game <code class="usage-code">Build.cs</code> depends on <code class="usage-code">ContextualAnimation</code> only; <code class="usage-code">ContextualAnimationEditor</code> belongs in <code class="usage-code">*Editor.Build.cs</code>.</li></ol><p class="usage-note">Experimental: multi-actor aligned interaction anims, not a solo `AnimMontage` play.</p></div></div></div>
+    </div>
+

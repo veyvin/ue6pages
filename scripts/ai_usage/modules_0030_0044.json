@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "animationblueprinteditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimationBlueprintEditor` 位于 `Editor`，构建规则 `Editor/AnimationBlueprintEditor/AnimationBlueprintEditor.Build.cs`。它直接依赖 8 个模块：`AnimGraph`, `AnimGraphRuntime`, `AppFramework`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationBlueprintEditor\" });`；对外暴露 `AnimationBlueprintEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimationBlueprintEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `AnimationBlueprintEditor.h` / `AnimationBlueprintEditorModule.h`），再用 `FModuleManager::LoadModulePtr<AnimationBlueprintEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimationBlueprintEditor` 还依赖 `AnimGraph`, `AnimGraphRuntime`, `AppFramework`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimationBlueprintEditor` lives under `Editor`; build rule `Editor/AnimationBlueprintEditor/AnimationBlueprintEditor.Build.cs`.It directly depends on 8 modules: `AnimGraph`, `AnimGraphRuntime`, `AppFramework`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationBlueprintEditor\" });`. Use Public when exposing `AnimationBlueprintEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimationBlueprintEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `AnimationBlueprintEditor.h` / `AnimationBlueprintEditorModule.h`), then use `FModuleManager::LoadModulePtr<AnimationBlueprintEditorModule>` or the exported types directly.",
+      "Transitive deps: `AnimationBlueprintEditor` also needs `AnimGraph`, `AnimGraphRuntime`, `AppFramework`, `BlueprintGraph`, `Core`, `CoreUObject`, `EditorFramework`, `EditorStyle`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnimationBlueprintEditor` 的构建规则位于 `Editor/AnimationBlueprintEditor/AnimationBlueprintEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`AnimationBlueprintEditor` build rule is `Editor/AnimationBlueprintEditor/AnimationBlueprintEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "animationcore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimationCore` 位于 `Runtime`，构建规则 `Runtime/AnimationCore/AnimationCore.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationCore\" });`；对外暴露 `AnimationCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimationCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AnimationCore.h` / `AnimationCoreModule.h`），再用 `FModuleManager::LoadModulePtr<AnimationCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimationCore` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimationCore` lives under `Runtime`; build rule `Runtime/AnimationCore/AnimationCore.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationCore\" });`. Use Public when exposing `AnimationCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimationCore` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AnimationCore.h` / `AnimationCoreModule.h`), then use `FModuleManager::LoadModulePtr<AnimationCoreModule>` or the exported types directly.",
+      "Transitive deps: `AnimationCore` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnimationCore` 的构建规则位于 `Runtime/AnimationCore/AnimationCore.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`AnimationCore` build rule is `Runtime/AnimationCore/AnimationCore.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "animationeditmode",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimationEditMode` 位于 `Editor`，构建规则 `Editor/AnimationEditMode/AnimationEditMode.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `EditorInteractiveToolsFramework`, `Engine`, `InteractiveToolsFramework`, `UnrealEd`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationEditMode\" });`；对外暴露 `AnimationEditMode` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimationEditMode` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `AnimationEditMode.h` / `AnimationEditModeModule.h`），再用 `FModuleManager::LoadModulePtr<AnimationEditModeModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimationEditMode` 还依赖 `Core`, `CoreUObject`, `EditorInteractiveToolsFramework`, `Engine`, `InteractiveToolsFramework`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimationEditMode` lives under `Editor`; build rule `Editor/AnimationEditMode/AnimationEditMode.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `EditorInteractiveToolsFramework`, `Engine`, `InteractiveToolsFramework`, `UnrealEd`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationEditMode\" });`. Use Public when exposing `AnimationEditMode` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimationEditMode` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `AnimationEditMode.h` / `AnimationEditModeModule.h`), then use `FModuleManager::LoadModulePtr<AnimationEditModeModule>` or the exported types directly.",
+      "Transitive deps: `AnimationEditMode` also needs `Core`, `CoreUObject`, `EditorInteractiveToolsFramework`, `Engine`, `InteractiveToolsFramework`, `UnrealEd`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnimationEditMode` 的构建规则位于 `Editor/AnimationEditMode/AnimationEditMode.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`AnimationEditMode` build rule is `Editor/AnimationEditMode/AnimationEditMode.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "animationeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimationEditor` 位于 `Editor`，构建规则 `Editor/AnimationEditor/AnimationEditor.Build.cs`。它直接依赖 8 个模块：`AnimGraph`, `AnimGraphRuntime`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Kismet`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationEditor\" });`；对外暴露 `AnimationEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimationEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `AnimationEditor.h` / `AnimationEditorModule.h`），再用 `FModuleManager::LoadModulePtr<AnimationEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimationEditor` 还依赖 `AnimGraph`, `AnimGraphRuntime`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Kismet`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimationEditor` lives under `Editor`; build rule `Editor/AnimationEditor/AnimationEditor.Build.cs`.It directly depends on 8 modules: `AnimGraph`, `AnimGraphRuntime`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Kismet`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationEditor\" });`. Use Public when exposing `AnimationEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimationEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `AnimationEditor.h` / `AnimationEditorModule.h`), then use `FModuleManager::LoadModulePtr<AnimationEditorModule>` or the exported types directly.",
+      "Transitive deps: `AnimationEditor` also needs `AnimGraph`, `AnimGraphRuntime`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Kismet`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnimationEditor` 的构建规则位于 `Editor/AnimationEditor/AnimationEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`AnimationEditor` build rule is `Editor/AnimationEditor/AnimationEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "animationeditorwidgets",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimationEditorWidgets` 位于 `Editor`，构建规则 `Editor/AnimationEditorWidgets/AnimationEditorWidgets.Build.cs`。它直接依赖 8 个模块：`AnimationCore`, `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `GraphEditor`, `InputCore`, `PropertyEditor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationEditorWidgets\" });`；对外暴露 `AnimationEditorWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimationEditorWidgets` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `AnimationEditorWidgets.h` / `AnimationEditorWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<AnimationEditorWidgetsModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimationEditorWidgets` 还依赖 `AnimationCore`, `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `GraphEditor`, `InputCore`, `PropertyEditor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimationEditorWidgets` lives under `Editor`; build rule `Editor/AnimationEditorWidgets/AnimationEditorWidgets.Build.cs`.It directly depends on 8 modules: `AnimationCore`, `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `GraphEditor`, `InputCore`, `PropertyEditor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationEditorWidgets\" });`. Use Public when exposing `AnimationEditorWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimationEditorWidgets` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `AnimationEditorWidgets.h` / `AnimationEditorWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<AnimationEditorWidgetsModule>` or the exported types directly.",
+      "Transitive deps: `AnimationEditorWidgets` also needs `AnimationCore`, `ApplicationCore`, `Core`, `CoreUObject`, `Engine`, `GraphEditor`, `InputCore`, `PropertyEditor`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnimationEditorWidgets` 的构建规则位于 `Editor/AnimationEditorWidgets/AnimationEditorWidgets.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`AnimationEditorWidgets` build rule is `Editor/AnimationEditorWidgets/AnimationEditorWidgets.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "animationmodifiers",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimationModifiers` 位于 `Editor`，构建规则 `Editor/AnimationModifiers/AnimationModifiers.Build.cs`。它直接依赖 8 个模块：`AnimationBlueprintLibrary`, `AssetRegistry`, `AssetTools`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationModifiers\" });`；对外暴露 `AnimationModifiers` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimationModifiers` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `AnimationModifiers.h` / `AnimationModifiersModule.h`），再用 `FModuleManager::LoadModulePtr<AnimationModifiersModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimationModifiers` 还依赖 `AnimationBlueprintLibrary`, `AssetRegistry`, `AssetTools`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimationModifiers` lives under `Editor`; build rule `Editor/AnimationModifiers/AnimationModifiers.Build.cs`.It directly depends on 8 modules: `AnimationBlueprintLibrary`, `AssetRegistry`, `AssetTools`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationModifiers\" });`. Use Public when exposing `AnimationModifiers` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimationModifiers` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `AnimationModifiers.h` / `AnimationModifiersModule.h`), then use `FModuleManager::LoadModulePtr<AnimationModifiersModule>` or the exported types directly.",
+      "Transitive deps: `AnimationModifiers` also needs `AnimationBlueprintLibrary`, `AssetRegistry`, `AssetTools`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnimationModifiers` 的构建规则位于 `Editor/AnimationModifiers/AnimationModifiers.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`AnimationModifiers` build rule is `Editor/AnimationModifiers/AnimationModifiers.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "animationsettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimationSettings` 位于 `Editor`，构建规则 `Editor/AnimationSettings/AnimationSettings.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationSettings\" });`；对外暴露 `AnimationSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimationSettings` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `AnimationSettings.h` / `AnimationSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<AnimationSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimationSettings` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimationSettings` lives under `Editor`; build rule `Editor/AnimationSettings/AnimationSettings.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationSettings\" });`. Use Public when exposing `AnimationSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimationSettings` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `AnimationSettings.h` / `AnimationSettingsModule.h`), then use `FModuleManager::LoadModulePtr<AnimationSettingsModule>` or the exported types directly.",
+      "Transitive deps: `AnimationSettings` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`AnimationSettings` 的构建规则位于 `Editor/AnimationSettings/AnimationSettings.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`AnimationSettings` build rule is `Editor/AnimationSettings/AnimationSettings.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "animationwidgets",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimationWidgets` 位于 `Developer`，构建规则 `Developer/AnimationWidgets/AnimationWidgets.Build.cs`。它直接依赖 8 个模块：`AnimationCore`, `Core`, `CoreUObject`, `Engine`, `GraphEditor`, `InputCore`, `PropertyEditor`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationWidgets\" });`；对外暴露 `AnimationWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimationWidgets` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `AnimationWidgets.h` / `AnimationWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<AnimationWidgetsModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimationWidgets` 还依赖 `AnimationCore`, `Core`, `CoreUObject`, `Engine`, `GraphEditor`, `InputCore`, `PropertyEditor`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimationWidgets` lives under `Developer`; build rule `Developer/AnimationWidgets/AnimationWidgets.Build.cs`.It directly depends on 8 modules: `AnimationCore`, `Core`, `CoreUObject`, `Engine`, `GraphEditor`, `InputCore`, `PropertyEditor`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimationWidgets\" });`. Use Public when exposing `AnimationWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimationWidgets` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `AnimationWidgets.h` / `AnimationWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<AnimationWidgetsModule>` or the exported types directly.",
+      "Transitive deps: `AnimationWidgets` also needs `AnimationCore`, `Core`, `CoreUObject`, `Engine`, `GraphEditor`, `InputCore`, `PropertyEditor`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnimationWidgets` 的构建规则位于 `Developer/AnimationWidgets/AnimationWidgets.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`AnimationWidgets` build rule is `Developer/AnimationWidgets/AnimationWidgets.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "animgraph",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimGraph` 位于 `Editor`，构建规则 `Editor/AnimGraph/AnimGraph.Build.cs`。它直接依赖 8 个模块：`AnimGraphRuntime`, `AnimationEditMode`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimGraph\" });`；对外暴露 `AnimGraph` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimGraph` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `AnimGraph.h` / `AnimGraphModule.h`），再用 `FModuleManager::LoadModulePtr<AnimGraphModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimGraph` 还依赖 `AnimGraphRuntime`, `AnimationEditMode`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimGraph` lives under `Editor`; build rule `Editor/AnimGraph/AnimGraph.Build.cs`.It directly depends on 8 modules: `AnimGraphRuntime`, `AnimationEditMode`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimGraph\" });`. Use Public when exposing `AnimGraph` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimGraph` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `AnimGraph.h` / `AnimGraphModule.h`), then use `FModuleManager::LoadModulePtr<AnimGraphModule>` or the exported types directly.",
+      "Transitive deps: `AnimGraph` also needs `AnimGraphRuntime`, `AnimationEditMode`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnimGraph` 的构建规则位于 `Editor/AnimGraph/AnimGraph.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`AnimGraph` build rule is `Editor/AnimGraph/AnimGraph.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "animgraphruntime",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AnimGraphRuntime` 位于 `Runtime`，构建规则 `Runtime/AnimGraphRuntime/AnimGraphRuntime.Build.cs`。它直接依赖 7 个模块：`AnimationCore`, `Core`, `CoreUObject`, `Engine`, `GeometryCollectionEngine`, `TimeManagement`, `TraceLog`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AnimGraphRuntime\" });`；对外暴露 `AnimGraphRuntime` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AnimGraphRuntime` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AnimGraphRuntime.h` / `AnimGraphRuntimeModule.h`），再用 `FModuleManager::LoadModulePtr<AnimGraphRuntimeModule>` 或直接使用导出类型。",
+      "传递依赖：`AnimGraphRuntime` 还依赖 `AnimationCore`, `Core`, `CoreUObject`, `Engine`, `GeometryCollectionEngine`, `TimeManagement`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AnimGraphRuntime` lives under `Runtime`; build rule `Runtime/AnimGraphRuntime/AnimGraphRuntime.Build.cs`.It directly depends on 7 modules: `AnimationCore`, `Core`, `CoreUObject`, `Engine`, `GeometryCollectionEngine`, `TimeManagement`, `TraceLog`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AnimGraphRuntime\" });`. Use Public when exposing `AnimGraphRuntime` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AnimGraphRuntime` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AnimGraphRuntime.h` / `AnimGraphRuntimeModule.h`), then use `FModuleManager::LoadModulePtr<AnimGraphRuntimeModule>` or the exported types directly.",
+      "Transitive deps: `AnimGraphRuntime` also needs `AnimationCore`, `Core`, `CoreUObject`, `Engine`, `GeometryCollectionEngine`, `TimeManagement`, `TraceLog`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AnimGraphRuntime` 的构建规则位于 `Runtime/AnimGraphRuntime/AnimGraphRuntime.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`AnimGraphRuntime` build rule is `Runtime/AnimGraphRuntime/AnimGraphRuntime.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "appframework",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AppFramework` 位于 `Runtime`，构建规则 `Runtime/AppFramework/AppFramework.Build.cs`。它直接依赖 6 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AppFramework\" });`；对外暴露 `AppFramework` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AppFramework` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AppFramework.h` / `AppFrameworkModule.h`），再用 `FModuleManager::LoadModulePtr<AppFrameworkModule>` 或直接使用导出类型。",
+      "传递依赖：`AppFramework` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AppFramework` lives under `Runtime`; build rule `Runtime/AppFramework/AppFramework.Build.cs`.It directly depends on 6 modules: `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AppFramework\" });`. Use Public when exposing `AppFramework` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AppFramework` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AppFramework.h` / `AppFrameworkModule.h`), then use `FModuleManager::LoadModulePtr<AppFrameworkModule>` or the exported types directly.",
+      "Transitive deps: `AppFramework` also needs `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AppFramework` 的构建规则位于 `Runtime/AppFramework/AppFramework.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`AppFramework` build rule is `Runtime/AppFramework/AppFramework.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "applecryptokit",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`AppleCryptoKit` 位于 `Runtime`，构建规则 `Runtime/Apple/AppleCryptoKit/AppleCryptoKit.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"AppleCryptoKit\" });`；对外暴露 `AppleCryptoKit` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`AppleCryptoKit` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `AppleCryptoKit.h` / `AppleCryptoKitModule.h`），再用 `FModuleManager::LoadModulePtr<AppleCryptoKitModule>` 或直接使用导出类型。",
+      "传递依赖：`AppleCryptoKit` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `AppleCryptoKit` lives under `Runtime`; build rule `Runtime/Apple/AppleCryptoKit/AppleCryptoKit.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"AppleCryptoKit\" });`. Use Public when exposing `AppleCryptoKit` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `AppleCryptoKit` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `AppleCryptoKit.h` / `AppleCryptoKitModule.h`), then use `FModuleManager::LoadModulePtr<AppleCryptoKitModule>` or the exported types directly.",
+      "Transitive deps: `AppleCryptoKit` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`AppleCryptoKit` 的构建规则位于 `Runtime/Apple/AppleCryptoKit/AppleCryptoKit.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`AppleCryptoKit` build rule is `Runtime/Apple/AppleCryptoKit/AppleCryptoKit.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "applicationcore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ApplicationCore` 位于 `Runtime`，构建规则 `Runtime/ApplicationCore/ApplicationCore.Build.cs`。它直接依赖 6 个模块：`BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `BuildSettings`, `Core`, `CoreUObject`, `WindowsD3D`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ApplicationCore\" });`；对外暴露 `ApplicationCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ApplicationCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ApplicationCore.h` / `ApplicationCoreModule.h`），再用 `FModuleManager::LoadModulePtr<ApplicationCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`ApplicationCore` 还依赖 `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `BuildSettings`, `Core`, `CoreUObject`, `WindowsD3D`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ApplicationCore` lives under `Runtime`; build rule `Runtime/ApplicationCore/ApplicationCore.Build.cs`.It directly depends on 6 modules: `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `BuildSettings`, `Core`, `CoreUObject`, `WindowsD3D`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ApplicationCore\" });`. Use Public when exposing `ApplicationCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ApplicationCore` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ApplicationCore.h` / `ApplicationCoreModule.h`), then use `FModuleManager::LoadModulePtr<ApplicationCoreModule>` or the exported types directly.",
+      "Transitive deps: `ApplicationCore` also needs `BackgroundHTTPFileHash`, `BackgroundHttpIOS`, `BuildSettings`, `Core`, `CoreUObject`, `WindowsD3D`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ApplicationCore` 的构建规则位于 `Runtime/ApplicationCore/ApplicationCore.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`ApplicationCore` build rule is `Runtime/ApplicationCore/ApplicationCore.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "applicationcoreinputtests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ApplicationCoreInputTests` 位于 `Programs`，构建规则 `Programs/ApplicationCoreInputTests/ApplicationCoreInputTests.Build.cs`。它直接依赖 3 个模块：`ApplicationCore`, `Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ApplicationCoreInputTests\" });`；对外暴露 `ApplicationCoreInputTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ApplicationCoreInputTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ApplicationCoreInputTests.h` / `ApplicationCoreInputTestsModule.h`），再用 `FModuleManager::LoadModulePtr<ApplicationCoreInputTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`ApplicationCoreInputTests` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ApplicationCoreInputTests` lives under `Programs`; build rule `Programs/ApplicationCoreInputTests/ApplicationCoreInputTests.Build.cs`.It directly depends on 3 modules: `ApplicationCore`, `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ApplicationCoreInputTests\" });`. Use Public when exposing `ApplicationCoreInputTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ApplicationCoreInputTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ApplicationCoreInputTests.h` / `ApplicationCoreInputTestsModule.h`), then use `FModuleManager::LoadModulePtr<ApplicationCoreInputTestsModule>` or the exported types directly.",
+      "Transitive deps: `ApplicationCoreInputTests` also needs `ApplicationCore`, `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ApplicationCoreInputTests` 的构建规则位于 `Programs/ApplicationCoreInputTests/ApplicationCoreInputTests.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ApplicationCoreInputTests` build rule is `Programs/ApplicationCoreInputTests/ApplicationCoreInputTests.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "armlibgpuinfo",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ArmlibGPUInfo` 位于 `ThirdParty`，构建规则 `ThirdParty/ARM/ArmlibGPUInfo/ArmlibGPUInfo.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ArmlibGPUInfo\" });`；对外暴露 `ArmlibGPUInfo` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ArmlibGPUInfo` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `ArmlibGPUInfo.h` / `ArmlibGPUInfoModule.h`），再用 `FModuleManager::LoadModulePtr<ArmlibGPUInfoModule>` 或直接使用导出类型。",
+      "传递依赖：`ArmlibGPUInfo` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `ArmlibGPUInfo` lives under `ThirdParty`; build rule `ThirdParty/ARM/ArmlibGPUInfo/ArmlibGPUInfo.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ArmlibGPUInfo\" });`. Use Public when exposing `ArmlibGPUInfo` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ArmlibGPUInfo` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `ArmlibGPUInfo.h` / `ArmlibGPUInfoModule.h`), then use `FModuleManager::LoadModulePtr<ArmlibGPUInfoModule>` or the exported types directly.",
+      "Transitive deps: `ArmlibGPUInfo` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`ArmlibGPUInfo` 的构建规则位于 `ThirdParty/ARM/ArmlibGPUInfo/ArmlibGPUInfo.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`ArmlibGPUInfo` build rule is `ThirdParty/ARM/ArmlibGPUInfo/ArmlibGPUInfo.Build.cs`; depends on 0 modules; category Module."
+  }
+]

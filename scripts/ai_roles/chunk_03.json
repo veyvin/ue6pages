@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "georeferencing",
+    "kind": "plugin",
+    "cn": "GeoReferencing 把虚幻世界坐标接到真实地理参考系上，支持椭球、投影坐标系以及 ECEF 与关卡原点之间的换算。行星级关卡、GIS 叠图和数字孪生场景用它把 Actor 位置对齐到经纬度或地方投影。运行时模块负责坐标变换，GeoReferencingEditor 提供原点、CRS 与可视化辅助。",
+    "en": "GeoReferencing maps Unreal world space onto real geographic reference systems, converting among ellipsoidal, projected, and ECEF frames relative to the level origin. Planet-scale levels, GIS overlays, and digital twins use it so actor positions line up with latitude/longitude or a local projection. The runtime module performs the transforms; GeoReferencingEditor exposes origin, CRS, and visualization helpers."
+  },
+  {
+    "slug": "git",
+    "kind": "plugin",
+    "cn": "Git 插件通过 GitSourceControl 把引擎的源代码控制接口接到 Git 仓库。提交、检出、历史和锁定状态出现在内容浏览器与提交窗口里，面向编辑器制作流程，不会打进 Shipping 游戏包。适合用 Git 管理资源与代码的项目，而不是 Perforce 工作流。",
+    "en": "The Git plugin implements Unreal's source-control provider against a Git repository via GitSourceControl. Submit, checkout, history, and lock status show up in the Content Browser and submit UI. It is an editor/developer integration and does not ship in a cooked game, intended for teams that version assets and code in Git rather than Perforce."
+  },
+  {
+    "slug": "global-configuration-data",
+    "kind": "plugin",
+    "cn": "Global Configuration Data 提供统一查询入口，调用方不必知道某条配置来自 ini、远程服务还是其他后端。GlobalConfigurationDataCore 管数据模型与解析，上层模块再做引擎侧查询。它标为 Experimental，接口可能随夜构建变化。",
+    "en": "Global Configuration Data is a query façade for configuration that may come from ini files, remote services, or other backends without the caller naming the source. GlobalConfigurationDataCore holds the data model and resolution; the outer module exposes engine-side queries. It is Experimental, so the contract can still change."
+  },
+  {
+    "slug": "gltf-exporter",
+    "kind": "plugin",
+    "cn": "glTF Exporter 把关卡、静态网格、材质和动画打成 Khronos glTF 2.0，供 Web、DCC 或其他运行时消费。它走企业导入导出路径，由 GLTFExporter 模块完成序列化，而不是 Interchange 的导入管线。适合把虚幻内容交给外部查看器或轻量运行时。",
+    "en": "glTF Exporter writes levels, static meshes, materials, and animation to Khronos glTF 2.0 for web, DCC, or other runtimes. It lives on the enterprise export path and serializes through the GLTFExporter module, separate from Interchange import. Use it when Unreal content must leave the editor as a portable glTF package."
+  },
+  {
+    "slug": "google-arcore-services",
+    "kind": "plugin",
+    "cn": "Google ARCore Services 接入 Google 跨平台 ARCore 云服务，例如云锚点与会话共享，而不是设备上的平面跟踪本身。它与 Google ARCore 插件配合，把本地跟踪世界钉到可持久、可多设备共享的坐标系。模块 GoogleARCoreServices 只负责这些服务 API。",
+    "en": "Google ARCore Services talks to Google's cross-platform ARCore cloud features such as Cloud Anchors and shared sessions, not the on-device tracking stack. Paired with the Google ARCore plugin, it pins a local tracked world to a persistent, multi-device coordinate frame. The GoogleARCoreServices module is the service-API layer only."
+  },
+  {
+    "slug": "google-arcore",
+    "kind": "plugin",
+    "cn": "Google ARCore 把 Google 的 Android AR 平台接到虚幻：运动跟踪、平面检测、光照估计以及把虚拟物体画进相机画面。GoogleARCoreBase 管会话与命中测试，GoogleARCoreRendering 负责相机背景与合成。这是移动 AR 游戏与体验的设备端基础，不是云锚点服务。",
+    "en": "Google ARCore wires Google's Android AR platform into Unreal: motion tracking, plane detection, light estimation, and compositing virtual meshes over the camera feed. GoogleARCoreBase owns the session and hit tests; GoogleARCoreRendering draws the camera background. It is the on-device AR game foundation, not the cloud-anchor service layer."
+  },
+  {
+    "slug": "google-cloud-messaging",
+    "kind": "plugin",
+    "cn": "Google Cloud Messaging 为 Android 包提供远程推送通道，对应历史上的 GCM/FCM 通知路径。运行时模块在设备上注册令牌并接收服务端下发的消息，供在线游戏做召回或活动提醒。它属于 Online Platform，而不是通用 HTTP 客户端。",
+    "en": "Google Cloud Messaging supplies the Android remote-notification path historically associated with GCM/FCM. The runtime module registers a device token and receives server-pushed messages for re-engagement or live-ops alerts. It is an Online Platform plugin, not a generic HTTP client."
+  },
+  {
+    "slug": "googlepad",
+    "kind": "plugin",
+    "cn": "GooglePAD 实现 Android 上的 Google Play Asset Delivery，把较大的游戏资源按资源包从 Play 商店按需拉取。GooglePAD 运行时向 PAD API 请求包体，GooglePADEditor 在打包时配置交付分组。适合超过商店基础包体限制、又要把内容留在 Play 生态内的项目。",
+    "en": "GooglePAD implements Google Play Asset Delivery on Android so large game content can be fetched on demand as Play asset packs. The GooglePAD runtime talks to the PAD APIs; GooglePADEditor configures delivery grouping at cook/package time. Use it when the install exceeds the base APK/AAB budget but content should stay inside Play."
+  },
+  {
+    "slug": "gpu-lightmass",
+    "kind": "plugin",
+    "cn": "GPU Lightmass 用 DXR 在 GPU 上做静态光照构建与预览，替代传统 CPU Lightmass 烘焙光照贴图。GPULightmass 跑路径追踪与光照贴图写出，GPULightmassEditor 接到构建光照与预览视口。它服务预计算全局光照，不是动态 GI，也不是 Mass 实体系统。",
+    "en": "GPU Lightmass builds and previews static lighting on the GPU with DXR, replacing CPU Lightmass for lightmap bakes. GPULightmass runs the path trace and writes lightmaps; GPULightmassEditor hooks Build Lighting and the preview viewport. It is a precomputed GI baker, not dynamic GI and not the Mass entity system."
+  },
+  {
+    "slug": "gpu-reshape-plugin",
+    "kind": "plugin",
+    "cn": "GPU Reshape Plugin 把 GPU Reshape 接到编辑器，用 GPU 侧网格重塑与分析工具处理高精度模型。GPUReshapeEditor 只服务制作管线，默认不进 Shipping。适合在编辑器里对扫描网格或影视级资产做交互式重拓扑/变形检查。",
+    "en": "GPU Reshape Plugin integrates GPU Reshape into the editor so high-resolution meshes can be reshaped and inspected with GPU-side tools. GPUReshapeEditor is authoring-only and does not ship in a cooked game. It is for interactive remesh/deform inspection of scans or cinematic assets inside the editor."
+  },
+  {
+    "slug": "graphdsl",
+    "kind": "plugin",
+    "cn": "GraphDsl 用 S-表达式语言描述并编辑虚幻图资产，把节点图写成可编程文本而不是纯点击连线。运行时解析该语言并回写到引擎图对象，方便脚本化生成 Blueprint、材质或自定义图。它是 Experimental 创作层，不是游戏玩法模块。",
+    "en": "GraphDsl is an S-expression runtime for authoring Unreal graph assets as programmable text instead of only click-wiring nodes. It parses the language and writes back into engine graph objects so Blueprints, materials, or custom graphs can be generated from scripts. It is an Experimental authoring layer, not a gameplay module."
+  },
+  {
+    "slug": "grid-sample-grass",
+    "kind": "plugin",
+    "cn": "Grid Sample Grass 用距离环采样绘制程序化草丛：近处完整叶片、中距廉价/合并草丛、远处面向相机的 impostor 卡片。覆盖可用样条塑形，并支持排除区与变形，地形可以是平面或 Landscape。它是实验性草地渲染技术，不是植被绘制工具 Foliage 的替代编辑器。",
+    "en": "Grid Sample Grass renders procedural grass in distance rings: full blades nearby, cheap or merged clumps mid-range, and camera-facing impostor cards far away. Splines shape coverage, with exclusions and deformation, on flat planes or Landscape. It is an experimental grass renderer, not a replacement for the Foliage paint editor."
+  },
+  {
+    "slug": "groom",
+    "kind": "plugin",
+    "cn": "Groom（HairStrands）负责发丝资产的渲染与模拟：发束几何、卡片、解算、变形器以及编辑器导入。HairStrandsCore/Runtime/Solver 驱动运行时，HairStrandsEditor 与 Dataflow、发卡框架服务制作。用于角色头发、毛皮和须发，而不是普通静态网格 LOD。",
+    "en": "Groom (HairStrands) renders and simulates groom assets: strand geometry, cards, solvers, deformers, and editor import. HairStrandsCore/Runtime/Solver drive playback; HairStrandsEditor, Dataflow, and the hair-card framework cover authoring. Use it for character hair, fur, and facial hair rather than ordinary static-mesh LODs."
+  },
+  {
+    "slug": "guided-tutorials",
+    "kind": "plugin",
+    "cn": "Guided Tutorials 通过 IntroTutorials 在编辑器 UI 里跑分步引导教程，高亮面板并推进学习流程。它只存在于编辑器制作环境，不会打进游戏包。适合引擎入门内容或项目自定义教学，而不是运行时帮助系统。",
+    "en": "Guided Tutorials runs step-by-step editor tours through IntroTutorials, highlighting UI and advancing a lesson. It exists only in the authoring editor and does not ship in a game. Use it for engine onboarding or project-specific teaching, not an in-game help system."
+  },
+  {
+    "slug": "hair-card-generator",
+    "kind": "plugin",
+    "cn": "Hair Card Generator 从发丝 Groom 按程序烘焙出发卡网格与纹理，供移动端或远距 LOD 使用。HairCardGeneratorEditor 提供交互工具，HairCardGeneratorDataflow 把生成接到 Dataflow 图。它是 Experimental 几何管线，产出的是卡片网格而不是运行时发丝解算。",
+    "en": "Hair Card Generator procedurally bakes hair-card meshes and textures from strand grooms for mobile or distant LODs. HairCardGeneratorEditor is the interactive tool; HairCardGeneratorDataflow wires generation into Dataflow graphs. It is an Experimental geometry pipeline that emits cards, not a runtime strand solver."
+  },
+  {
+    "slug": "hair-modeling-toolset",
+    "kind": "plugin",
+    "cn": "Hair Modeling Toolset 把一组 Groom/头发建模工具挂进 Modeling Tools 模式，用于在编辑器里梳理、修剪和整形发束。HairModelingToolset 面向制作与自动化，不是 Shipping 游戏功能。它补齐几何工具模式对头发资产的操作，而不是替换 HairStrands 运行时。",
+    "en": "Hair Modeling Toolset adds groom/hair modeling operators to Modeling Mode for combing, cutting, and shaping strands in the editor. HairModelingToolset is an authoring/automation toolset, not a shipping game feature. It extends geometry tools for hair assets rather than replacing HairStrands runtime simulation."
+  },
+  {
+    "slug": "hap-decoder-for-electra",
+    "kind": "plugin",
+    "cn": "HAP Decoder for Electra 让 Electra 播放器解码 HAP 视频。HAP 在 GPU 上解压，适合高分辨率、低延迟的虚拟制片回放。HAPDecoderElectra 只为 Electra/Media Framework 提供该编解码器，不负责通用媒体播放 UI。",
+    "en": "HAP Decoder for Electra teaches the Electra player to decode HAP video. HAP decompresses on the GPU, which suits high-resolution, low-latency virtual-production playback. HAPDecoderElectra is the codec plugin for Electra/Media Framework, not a general media-player UI."
+  },
+  {
+    "slug": "hap-media",
+    "kind": "plugin",
+    "cn": "HAP Media 在 Media Framework 里实现 HAP 编解码器的视频播放，面向 GPU 侧高性能、高分辨率素材。HAPMedia 作为媒体播放器插件注册容器与解码路径，可与非 Electra 的媒体玩家栈配合。它和 HAP Decoder for Electra 解决同一编码，但挂接的是另一套播放后端。",
+    "en": "HAP Media implements HAP codec playback inside Media Framework for GPU-side high-performance, high-resolution plates. HAPMedia registers the container and decode path with the media-player stack, including non-Electra players. It covers the same codec as HAP Decoder for Electra but plugs a different playback backend."
+  },
+  {
+    "slug": "hardwareencoders",
+    "kind": "plugin",
+    "cn": "HardwareEncoders 为 AVEncoder 接上 GPU 硬件编码：AMD AMF 与 NVIDIA NVENC。像素流送、录制和转码可以走显卡编码器而不是纯软件 x264。EncoderAMF 与 EncoderNVENC 按厂商分流，属于编码插件而不是播放器。",
+    "en": "HardwareEncoders adds GPU hardware encode to AVEncoder through AMD AMF and NVIDIA NVENC. Pixel Streaming, recording, and transcode can use the GPU encoder instead of software x264. EncoderAMF and EncoderNVENC split by vendor; this is an encoder plugin, not a media player."
+  },
+  {
+    "slug": "harmonix",
+    "kind": "plugin",
+    "cn": "Harmonix 提供音乐向音频功能：MIDI 解析、DSP、音轨同步以及编辑器侧创作工具，源自 Harmonix 的节奏游戏技术。HarmonixMidi 与 HarmonixDsp 驱动运行时，对应 Editor 与 Tests 模块覆盖制作和回归。适合节奏关卡、音游判定和与 MIDI 时钟对齐的玩法，而不是普通 Sound Cue 播放。",
+    "en": "Harmonix packages music-game audio: MIDI, DSP, clock sync, and editor authoring, descended from Harmonix rhythm-game tech. HarmonixMidi and HarmonixDsp run at runtime; Editor and Tests modules cover authoring and regression. Use it for beat-synced gameplay and MIDI clocks, not ordinary Sound Cue playback."
+  },
+  {
+    "slug": "hdribackdrop",
+    "kind": "plugin",
+    "cn": "HDRIBackdrop 在关卡里放一个 HDRI 穹顶/背景 Actor，用高动态范围图像同时提供环境光照与背景。它常用于产品可视化、角色 lookdev 和快速搭摄影棚，而不必手工拼 Sky Atmosphere 与反射捕获。HDRIBackdrop 模块包含该 Actor 与相关渲染设置。",
+    "en": "HDRIBackdrop places an HDRI dome/backdrop actor so a high-dynamic-range image supplies both environment lighting and a visible background. Product viz, character lookdev, and quick studio setups use it instead of hand-wiring Sky Atmosphere plus capture actors. The HDRIBackdrop module owns the actor and its rendering settings."
+  },
+  {
+    "slug": "hierarchy-table-animation",
+    "kind": "plugin",
+    "cn": "Hierarchy Table Animation 为层次表定义动画专用类型，让骨骼层级、曲线和姿态数据能按表结构编辑与求值。Runtime 在运行时求值，Editor 与 UncookedOnly 负责编辑器资产。它建立在 Hierarchy Table 之上，本身不是通用电子表格控件。",
+    "en": "Hierarchy Table Animation defines animation-specific types for hierarchy tables so skeletal hierarchies, curves, and poses can be edited and evaluated as tabular data. Runtime evaluates at play; Editor and UncookedOnly cover the asset pipeline. It extends Hierarchy Table and is not a generic spreadsheet widget."
+  },
+  {
+    "slug": "hierarchy-table",
+    "kind": "plugin",
+    "cn": "Hierarchy Table 提供可编辑的层级表运行时与编辑器，用来表达带父子关系的结构化数据。HierarchyTableRuntime 持有表模型，HierarchyTableEditor 提供编辑 UI。动画等上层插件在此之上挂领域类型；核心表本身不绑定某一种玩法。",
+    "en": "Hierarchy Table is an editable hierarchical-table runtime and editor for structured parent/child data. HierarchyTableRuntime owns the table model; HierarchyTableEditor supplies the UI. Domain plugins such as animation hang typed columns on this core; the table itself is not a gameplay feature."
+  },
+  {
+    "slug": "holdoutcomposite",
+    "kind": "plugin",
+    "cn": "HoldoutComposite 是已弃用的合成插件，官方已把它重定向到 CompositeCore。旧工程若仍引用该 .uplugin，应迁移到当前合成核心，而不是继续依赖空壳。它不再附带功能模块。",
+    "en": "HoldoutComposite is a deprecated compositing plugin that now redirects to CompositeCore. Existing projects that still reference this .uplugin should migrate to the current compositing core rather than keep the stub. It no longer ships feature modules of its own."
+  },
+  {
+    "slug": "hp-mixed-reality-controller-keys",
+    "kind": "plugin",
+    "cn": "HP Mixed Reality Controller Keys 只注册 HPMixedRealityController_* 这类 FKey，依赖 InputCore，不拉 OpenXR。像素推流或其他不跑 XR 运行时的模块因此仍能绑定这些手柄键。它不提供控制器驱动，只提供键名。",
+    "en": "HP Mixed Reality Controller Keys registers HPMixedRealityController_* FKeys against InputCore only, without pulling OpenXR. Pixel Streaming and other non-XR modules can still bind those controller buttons. It does not drive the hardware; it only publishes key names."
+  },
+  {
+    "slug": "hp-motion-controller",
+    "kind": "plugin",
+    "cn": "HP Motion Controller 为 HP Reverb G2 运动控制器提供 OpenXR 与 SteamVR 下的按键和姿态映射。HPMotionController 把厂商手柄接到 XR 输入，使运动控制器能作为标准虚幻控制器使用。它与仅注册 FKey 的 Keys 插件不同，这里包含实际设备映射。",
+    "en": "HP Motion Controller maps the HP Reverb G2 motion controller under OpenXR and SteamVR, including buttons and pose. HPMotionController wires the vendor device into XR input so it behaves as a standard Unreal motion controller. Unlike the keys-only plugin, this one contains the actual device mapping."
+  },
+  {
+    "slug": "htc-vive-controller-keys",
+    "kind": "plugin",
+    "cn": "HTC Vive Controller Keys 注册 Vive_* FKey，只依赖 InputCore，无需 OpenXR。像素推流或桌面端输入绑定可以引用这些键，即使当前进程没有加载 Vive 运行时。它不实现追踪，只提供键常量。",
+    "en": "HTC Vive Controller Keys registers Vive_* FKeys on InputCore without requiring OpenXR. Pixel Streaming or desktop input bindings can name those buttons even when no Vive runtime is loaded. It does not implement tracking; it only exposes key constants."
+  },
+  {
+    "slug": "htn-planner",
+    "kind": "plugin",
+    "cn": "HTN planner 把分层任务网络规划接到 AI 模块：把高层目标分解成可执行原语任务。HTNPlanner 是规划运行时，HTNTestSuite 覆盖回归。它是实验性规划器，和 Behavior Tree 或 StateTree 并列，而不是导航网格本身。",
+    "en": "HTN planner adds Hierarchical Task Network planning to the AI module, decomposing high-level goals into primitive tasks. HTNPlanner is the planner runtime; HTNTestSuite covers regression. It is an experimental planner alongside Behavior Trees and StateTree, not the navmesh itself."
+  },
+  {
+    "slug": "http-chunk-installer",
+    "kind": "plugin",
+    "cn": "HTTP Chunk Installer 实现按 HTTP 拉取 pak/IoStore 分块的流式安装客户端。游戏可先启动基础包，再按优先级下载后续 Chunk。HTTPChunkInstaller 属于在线分发，而不是编辑器内容浏览器。",
+    "en": "HTTP Chunk Installer is a streaming-install client that fetches pak/IoStore chunks over HTTP. A build can launch on a base pack and download later chunks by priority. HTTPChunkInstaller is an online-delivery runtime, not a Content Browser tool."
+  },
+  {
+    "slug": "http-insights",
+    "kind": "plugin",
+    "cn": "HTTP Insights 把 HTTP 请求流量采集进 Unreal Insights/Trace，便于查看延迟、状态码与吞吐。HttpInsights 属于性能分析插件，标为 Experimental。它观察网络 HTTP，不发送游戏玩法请求。",
+    "en": "HTTP Insights captures HTTP traffic into Unreal Insights/Trace so latency, status codes, and throughput can be inspected. HttpInsights is an Experimental profiling plugin. It observes HTTP; it does not issue gameplay requests."
+  },
+  {
+    "slug": "httpblueprint",
+    "kind": "plugin",
+    "cn": "HttpBlueprint 把 HTTP 请求与响应暴露给蓝图节点，HttpBlueprintGraph 提供图表集成。设计师可以在不写 C++ 的情况下调用 REST API、下载数据或打 Webhook。它面向 Web 集成，不是引擎内部的 HttpInsights 追踪。",
+    "en": "HttpBlueprint exposes HTTP request/response nodes to Blueprint, with HttpBlueprintGraph for graph integration. Designers can call REST APIs, download payloads, or fire webhooks without C++. It is a Web integration plugin, not the HttpInsights tracer."
+  },
+  {
+    "slug": "icvfx",
+    "kind": "plugin",
+    "cn": "ICVFX 是相机内视效（In-Camera VFX）相关插件的集合入口，把 LED 墙、nDisplay、镜头与同步工具收拢到虚拟制片工作流。它本身不实现新的渲染器，而是方便一次性启用 ICVFX 依赖。适合影棚 LED 虚拟制作，而不是游戏内后处理。",
+    "en": "ICVFX is a convenience bundle of In-Camera VFX plugins, grouping LED-wall, nDisplay, lens, and sync tools for virtual production. It does not add a new renderer; it turns on the ICVFX dependency set together. Use it for LED-stage filmmaking, not in-game post-process."
+  },
+  {
+    "slug": "icvfxtesting",
+    "kind": "plugin",
+    "cn": "ICVFXTesting 为相机内视效项目提供测试实用程序，用来校验 LED 墙、色彩与同步管线是否按预期工作。ICVFXTesting 模块服务自动化与回归，而不是拍摄现场的实时合成。它伴随 ICVFX 集合，单独用于质量保障。",
+    "en": "ICVFXTesting supplies test utilities for In-Camera VFX projects, checking LED-wall, color, and sync pipelines. The ICVFXTesting module is for automation and regression, not live on-set compositing. It accompanies the ICVFX bundle as a QA layer."
+  },
+  {
+    "slug": "ik-rig",
+    "kind": "plugin",
+    "cn": "IK Rig 定义角色的 IK 目标、骨骼链与重定向映射，并在运行时与编辑器中求值。IKRig 与 IKRigUAF 服务运行时，IKRigEditor/Developer 编辑 Rig 与 IK Retargeter 资产。它是骨骼重定向和程序 IK 的核心，常与 Control Rig、Live Link 一起用。",
+    "en": "IK Rig defines IK goals, bone chains, and retarget mappings, evaluated at runtime and in the editor. IKRig and IKRigUAF run the solver; IKRigEditor/Developer author IK Rig and IK Retargeter assets. It is the skeletal retarget/IK core, often paired with Control Rig and Live Link."
+  },
+  {
+    "slug": "image-plate",
+    "kind": "plugin",
+    "cn": "Image Plate 提供对准摄像机的图像板 Actor/组件，用来在视口里挂完整像素的素材板或卡片。影视预览、虚拟摄像机取景和简单合成常用它替代 3D 场景里的广告牌。ImagePlate 是运行时，ImagePlateEditor 编辑资产与放置。",
+    "en": "Image Plate provides camera-aligned image-plate actors and components for full-pixel plates or cards in the viewport. Previz, virtual-camera framing, and simple composites use it instead of a world-space billboard. ImagePlate is runtime; ImagePlateEditor authors the assets and placement."
+  },
+  {
+    "slug": "image-sequence-media-player",
+    "kind": "plugin",
+    "cn": "Image Sequence Media Player（ImgMedia）播放 EXR 等图像序列，供虚拟制片回放高动态范围素材。OpenExrWrapper 与 ExrReaderGpu 在 GPU 侧读 EXR，ImgMediaFactory/Engine 接到 Media Framework。它播的是逐帧图像序列，不是编码视频容器。",
+    "en": "Image Sequence Media Player (ImgMedia) plays EXR and other image sequences for high-dynamic-range virtual-production plates. OpenExrWrapper and ExrReaderGpu read EXR on the GPU; ImgMediaFactory/Engine register with Media Framework. It plays frame sequences, not an encoded video container."
+  },
+  {
+    "slug": "imagewidgets",
+    "kind": "plugin",
+    "cn": "ImageWidgets 提供通用 Slate 控件，用来显示图像、图像类内容以及与图像相关的元数据。编辑器工具、检视器和自定义面板可以复用这些控件，而不必各自实现纹理查看器。它是编辑器 UI 库，默认不进 Shipping 游戏。",
+    "en": "ImageWidgets are generic Slate widgets for showing images, image-like content, and image-related metadata. Editor tools, inspectors, and custom panels reuse them instead of each writing a texture viewer. It is an editor UI library and does not ship in a cooked game by default."
+  },
+  {
+    "slug": "impostorbaker",
+    "kind": "plugin",
+    "cn": "ImpostorBaker 把网格从多视角烘焙成 impostor（广告牌/八面体等），用作远距离 LOD。它减少远处物体的三角形，同时尽量保持剪影。该插件标为 Experimental，服务于网格 LOD 管线而非植被绘制。",
+    "en": "ImpostorBaker bakes meshes from multiple views into impostors (billboards, octahedral cards, and similar) for distant mesh LODs. It cuts triangle cost far from camera while keeping silhouette. The plugin is Experimental and targets mesh LOD, not foliage painting."
+  },
+  {
+    "slug": "in-editor-documentation",
+    "kind": "plugin",
+    "cn": "In-Editor Documentation 让你在浏览项目时，于编辑器内打开已配置的教程或文档页。InEditorDocumentation 把学习内容嵌进当前资产/关卡上下文，而不是外链浏览器。它是 Experimental 学习插件，只存在于编辑器。",
+    "en": "In-Editor Documentation opens configured tutorials or doc pages inside the Unreal Editor as you explore a project. InEditorDocumentation embeds learning content in the current asset/level context instead of bouncing to a browser. It is an Experimental learning plugin and editor-only."
+  },
+  {
+    "slug": "inline-material-instance",
+    "kind": "plugin",
+    "cn": "Inline Material Instance 允许在细节面板里直接创建和改材质实例参数，而不必先到内容浏览器新建资产。InlineMaterialInstanceEditor 面向虚拟制片现场的快速调色与材质替换。它是 Experimental 编辑器扩展，不新增运行时着色模型。",
+    "en": "Inline Material Instance lets you create and edit material-instance parameters in the Details panel without first making an asset in the Content Browser. InlineMaterialInstanceEditor targets fast on-set look tweaks in virtual production. It is an Experimental editor extension and does not add a new shading model."
+  },
+  {
+    "slug": "input-debugging",
+    "kind": "plugin",
+    "cn": "Input Debugging 可视化当前输入：轴、按键、Enhanced Input 动作以及设备状态。InputDebugging 在运行时采集，InputDebuggingEditor 提供编辑器调试视图。用来排查绑定冲突和手柄映射，而不是定义新的输入资产。",
+    "en": "Input Debugging visualizes live input: axes, keys, Enhanced Input actions, and device state. InputDebugging captures at runtime; InputDebuggingEditor adds the editor debug view. Use it to hunt binding conflicts and controller maps, not to author new Input Actions."
+  },
+  {
+    "slug": "inputtoolset",
+    "kind": "plugin",
+    "cn": "InputToolset 通过 AI Toolset Registry 把 Enhanced Input 动作和旧版按键注入正在运行的 PIE 或独立进程。自动化、编辑器内助手可以模拟玩家输入而不用物理设备。它是实验性工具集，不是玩家面对的输入系统本身。",
+    "en": "InputToolset injects Enhanced Input actions and legacy keys into a live PIE or standalone session through the AI Toolset Registry. Automation or an in-editor assistant can simulate player input without hardware. It is an experimental toolset, not the player-facing input stack."
+  },
+  {
+    "slug": "insights-data-source-filters",
+    "kind": "plugin",
+    "cn": "Insights Data Source Filters（TraceSourceFiltering）在采集端过滤 Unreal Insights 的 Trace 源，减少无关通道的数据量。SourceFilteringCore/Trace 在运行时生效，SourceFilteringEditor 配置过滤器。它决定记什么，而不是替代 Insights 的时间轴 UI。",
+    "en": "Insights Data Source Filters (TraceSourceFiltering) filters Unreal Insights trace sources at capture time so unused channels do not bloat the recording. SourceFilteringCore/Trace apply at runtime; SourceFilteringEditor configures the filters. It chooses what is recorded, rather than replacing the Insights timeline UI."
+  },
+  {
+    "slug": "instancedactors",
+    "kind": "plugin",
+    "cn": "InstancedActors 用实例化网格的成本提供接近 Actor 的交互：大量重复物体可碰撞、可脚本，而不为每个实例分配完整 Actor。InstancedActors 是运行时，Editor 与 TestSuite 覆盖放置和回归。它接替已弃用的 Light Weight Instances。",
+    "en": "InstancedActors give Actor-like interaction at instanced-mesh cost: many repeated objects can collide and script without a full Actor per instance. InstancedActors is the runtime; Editor and TestSuite cover placement and tests. It is the successor to deprecated Light Weight Instances."
+  },
+  {
+    "slug": "instancedataobject-fixup-tool",
+    "kind": "plugin",
+    "cn": "InstanceDataObject Fixup Tool 在反射或属性重命名后，把松散的 InstanceDataObject 属性重定向到新路径。InstanceDataObjectFixupTool 是 Experimental 编辑器修复工具，避免实例数据丢失。它处理序列化修复，不是运行时游戏功能。",
+    "en": "InstanceDataObject Fixup Tool redirects loose InstanceDataObject properties after reflection or rename changes. InstanceDataObjectFixupTool is an Experimental editor repair so instance data is not dropped. It is a serialization fix-up, not a runtime gameplay feature."
+  },
+  {
+    "slug": "interactioninterface",
+    "kind": "plugin",
+    "cn": "InteractionInterface 提供可交互物接口 InteractableInterface，用来统一“看向/使用/拾取”这类交互，而不绑定某一套具体 UI。玩法对象实现该接口后，交互系统可以用同一调用约定驱动。它是 Experimental 的薄玩法接口，不是完整的交互框架。",
+    "en": "InteractionInterface ships InteractableInterface, a common contract for look-at/use/pickup style interactions without mandating a specific UI. Gameplay objects implement it so an interaction system can call one convention. It is an Experimental thin gameplay interface, not a full interaction framework."
+  },
+  {
+    "slug": "interchange-axf-assets",
+    "kind": "plugin",
+    "cn": "Interchange AxF Assets 公开 Interchange AxF 导入器所依赖的引擎资产（材质模板、工厂资源等）。InterchangeAxFAssets 本身不做文件解析，只提供 AxF 转到 Substrate 时要用的内容。它与运行时的 Interchange AxF 插件成对出现。",
+    "en": "Interchange AxF Assets exposes the engine assets (material templates, factories) that the Interchange AxF importer needs. InterchangeAxFAssets does not parse AxF files; it supplies content used when AxF becomes Substrate. It pairs with the Interchange AxF runtime plugin."
+  },
+  {
+    "slug": "interchange-axf",
+    "kind": "plugin",
+    "cn": "Interchange AxF 通过 Interchange 把 X-Rite Pantora 的 AxF2UE 外观文件导入为 Substrate 材质。InterchangeAxF 解析实测材质数据并接到可编辑的虚幻材质图。它服务外观捕获工作流，而不是网格或关卡导入。",
+    "en": "Interchange AxF imports X-Rite Pantora AxF2UE appearance files as Substrate materials through Interchange. InterchangeAxF translates measured material data into editable Unreal material graphs. It is an appearance-capture pipeline, not a mesh or level importer."
+  },
+  {
+    "slug": "interchange-chaos-cloth-asset",
+    "kind": "plugin",
+    "cn": "Interchange Chaos Cloth Asset 让 Interchange 导入 Chaos 布料资产，把外部布料数据接到 Chaos 布料求解。InterchangeChaosClothAssetImport 是该格式的导入扩展，不是布料求解器本身。它把 DCC/中间格式里的布料定义变成引擎可模拟的 Cloth Asset。",
+    "en": "Interchange Chaos Cloth Asset lets Interchange import Chaos cloth assets, wiring external cloth data into the Chaos cloth solver. InterchangeChaosClothAssetImport is the format extension, not the solver. It turns cloth definitions from DCC/interchange files into simulatable Cloth Assets."
+  },
+  {
+    "slug": "interchange-datasmith",
+    "kind": "plugin",
+    "cn": "Interchange Datasmith 用 Interchange 管线导入 Datasmith 场景，把 CAD/DCC 的网格、材质与层次转成引擎资产。DatasmithInterchange 是实验性导入器，与传统 Datasmith 导入器并行。适合走统一 Interchange 流水线的企业场景转换。",
+    "en": "Interchange Datasmith imports Datasmith scenes through Interchange, turning CAD/DCC meshes, materials, and hierarchies into engine assets. DatasmithInterchange is an experimental importer alongside the classic Datasmith path. Use it when Datasmith content should flow through the unified Interchange pipeline."
+  },
+  {
+    "slug": "interchange-editor",
+    "kind": "plugin",
+    "cn": "Interchange Editor 把 Interchange 导入框架和管线暴露给编辑器：导入对话框、管线资产编辑与实用工具。InterchangeEditorPipelines 编辑管线，InterchangeEditorUtilities 提供辅助。没有它，运行时框架缺少编辑器 UI。",
+    "en": "Interchange Editor exposes the Interchange import framework and pipelines to Unreal Editor: import dialogs, pipeline assets, and utilities. InterchangeEditorPipelines edits pipelines; InterchangeEditorUtilities helpers sit beside them. Without it, the runtime framework has no editor UI."
+  },
+  {
+    "slug": "interchange-framework-assets",
+    "kind": "plugin",
+    "cn": "Interchange Framework Assets 公开 Interchange 导入框架使用的默认资产，例如管线预设与工厂内容。InterchangeAssets 不解析源文件，只提供框架运行所需的内容包。它与 Runtime 的 Interchange Framework 配套。",
+    "en": "Interchange Framework Assets exposes default assets the Interchange import framework uses, such as pipeline presets and factory content. InterchangeAssets does not parse source files; it is the content pack the framework expects. It ships beside the runtime Interchange Framework."
+  },
+  {
+    "slug": "interchange-framework",
+    "kind": "plugin",
+    "cn": "Interchange Framework 是可扩展的导入导出核心：节点图、工厂节点、管线、调度器以及 glTF 等常见格式处理。InterchangeImport/Export/Pipelines 把外部文件变成网格、材质与关卡。其他 Interchange* 插件都是挂在这套框架上的格式扩展。",
+    "en": "Interchange Framework is the extensible import/export core: nodes, factory nodes, pipelines, a dispatcher, and handlers for common types including glTF. InterchangeImport/Export/Pipelines turn external files into meshes, materials, and levels. Other Interchange* plugins are format extensions on this framework."
+  },
+  {
+    "slug": "interchange-openusd-chaos-cloth-asset",
+    "kind": "plugin",
+    "cn": "Interchange OpenUSD Chaos Cloth Asset 在 OpenUSD 导入时识别 Chaos Cloth Asset schema，把 USD 里的布料定义译成 Chaos 布料资产。InterchangeOpenUSDChaosClothAssetImport 是 OpenUSD 扩展上的布料特化。没有它，USD 中的布料模式会被忽略或降级。",
+    "en": "Interchange OpenUSD Chaos Cloth Asset translates OpenUSD files that carry Chaos Cloth Asset schemas into Chaos cloth assets. InterchangeOpenUSDChaosClothAssetImport specializes the OpenUSD extension for cloth. Without it, those USD schemas would be ignored or flattened away."
+  },
+  {
+    "slug": "interchange-openusd",
+    "kind": "plugin",
+    "cn": "Interchange OpenUSD 通过 Interchange 翻译 OpenUSD 文件，导入网格、材质、层次与舞台数据。InterchangeOpenUSDImport 做转换，InterchangeOpenUSDEditor 提供编辑器侧选项。它是 USD 进入引擎的 Interchange 路径，区别于旧的 USD 导入器。",
+    "en": "Interchange OpenUSD translates OpenUSD files through Interchange into meshes, materials, hierarchies, and stage data. InterchangeOpenUSDImport performs the translation; InterchangeOpenUSDEditor exposes editor options. It is the Interchange path for USD, distinct from older USD importers."
+  },
+  {
+    "slug": "interchange-openvdb",
+    "kind": "plugin",
+    "cn": "Interchange OpenVDB 把 OpenVDB 体积文件经 Interchange 译成引擎可用的体积/雾资产。InterchangeOpenVDBImport 解析 VDB 栅格并接入导入管线。它服务体积特效与扫描体积，而不是多边形网格。",
+    "en": "Interchange OpenVDB translates OpenVDB volume files through Interchange into engine volume/fog assets. InterchangeOpenVDBImport reads VDB grids into the import pipeline. It targets volumetric FX and scanned volumes, not polygon meshes."
+  },
+  {
+    "slug": "interchange-tests",
+    "kind": "plugin",
+    "cn": "Interchange Tests 为 Interchange 导入导出提供自动化测试与编辑器测试辅助。InterchangeTests 跑回归，InterchangeTestEditor 服务测试资产。它验证管线正确性，不参与最终用户导入 UI。",
+    "en": "Interchange Tests hosts automation tests for the Interchange import/export stack, plus editor test helpers. InterchangeTests runs regression; InterchangeTestEditor supports test assets. It validates pipelines and is not part of the end-user import UI."
+  },
+  {
+    "slug": "ios-device-profile-selector",
+    "kind": "plugin",
+    "cn": "IOS Device Profile Selector 根据真实 iOS/iPadOS 硬件选择 Device Profile，从而套用对应的可伸缩性、分辨率与功能开关。IOSDeviceProfileSelector 在真机上匹配，IOSPreviewDeviceProfileSelector 服务编辑器预览设备。没有正确选择器，移动包可能套用错误的质量档。",
+    "en": "IOS Device Profile Selector picks a Device Profile from real iOS/iPadOS hardware so scalability, resolution, and feature flags match the device. IOSDeviceProfileSelector runs on device; IOSPreviewDeviceProfileSelector covers editor preview devices. A wrong selector would apply the wrong quality tier."
+  },
+  {
+    "slug": "ios-tapjoy-advertising-provider",
+    "kind": "plugin",
+    "cn": "IOS TapJoy Advertising Provider 在 iOS 上接入 TapJoy 广告网络，作为引擎 Advertising 接口的平台实现。IOSTapJoy 处理展示、奖励视频与回调，可打进 Shipping 包。它是移动变现适配器，不是通用分析。",
+    "en": "IOS TapJoy Advertising Provider implements the TapJoy ad network on iOS behind Unreal's Advertising interface. IOSTapJoy handles impressions, rewarded video, and callbacks and can ship in a cooked build. It is a mobile monetization adapter, not generic analytics."
+  },
+  {
+    "slug": "iostore-insights",
+    "kind": "plugin",
+    "cn": "IoStore Insights 把 IoStore 容器的读写活动记入 Unreal Insights，用来分析包体流送、批量加载与 IO 卡顿。IoStoreInsights 是 Trace 可视化，而不是改 IO 优先级的运行时。适合排查安装包与按需加载的磁盘行为。",
+    "en": "IoStore Insights records IoStore container activity into Unreal Insights for streaming, batch loads, and IO stalls. IoStoreInsights is a trace visualizer, not the runtime that changes IO priority. Use it to inspect packaged and on-demand disk behavior."
+  },
+  {
+    "slug": "iostore-prioritization",
+    "kind": "plugin",
+    "cn": "IoStore Prioritization 在流送过程中用表达式动态调整 IoStore I/O 请求优先级，让关键资源更早读完。IoStorePrioritization 可随游戏包发布。它改变加载调度，而不采集 Insights 轨迹。",
+    "en": "IoStore Prioritization dynamically ranks IoStore I/O requests during streaming using expressions so critical assets complete first. IoStorePrioritization can ship in a cooked game. It changes load scheduling; it does not record Insights traces."
+  },
+  {
+    "slug": "iris-iad-bridge",
+    "kind": "plugin",
+    "cn": "Iris IAD Bridge 实现 IrisCore 的异步加载扩展点：在 Iris 加载复制包之前先安装按需内容。所有 IoStore/IAD 知识留在该桥接插件里，避免污染 IrisCore。联网项目若用 Iris 复制又走安装包按需分发，需要这层隔离。",
+    "en": "Iris IAD Bridge implements IrisCore's async-load extension so on-demand content is installed before Iris loads a replicated package. IoStore/IAD knowledge stays in this bridge instead of IrisCore. Net projects that replicate with Iris and deliver via install-time on-demand need this isolation."
+  },
+  {
+    "slug": "iris",
+    "kind": "plugin",
+    "cn": "Iris 是新的复制后端，用来替代或并列传统 Actor 复制，面向大量 Actor 与更细的过滤/优先级。联网项目在 DefaultEngine.ini 中显式启用。Iris 模块是复制运行时本身，按需内容安装则交给 IAD Bridge。",
+    "en": "Iris is the newer replication backend meant to replace or sit beside classic Actor replication, targeting large actor counts and finer filtering. Net projects enable it in DefaultEngine.ini. The Iris module is the replication runtime; on-demand install is handled by the IAD Bridge."
+  },
+  {
+    "slug": "joule---joint-optimized-u-v-lattice-embedding",
+    "kind": "plugin",
+    "cn": "JOULE（Joint Optimized U(V) Lattice Embedding）用联合优化的晶格嵌入计算 UV，改善展开质量与失真。JOULECore 做求解，JOULEViz 可视化，JOULEEditor 接到建模工作流。它是 Experimental 几何/UV 工具，不是材质编辑器。",
+    "en": "JOULE (Joint Optimized U(V) Lattice Embedding) computes UVs via jointly optimized lattice embedding to reduce distortion. JOULECore solves, JOULEViz visualizes, and JOULEEditor hooks modeling workflows. It is an Experimental geometry/UV tool, not a material editor."
+  },
+  {
+    "slug": "json-blueprint-utilities",
+    "kind": "plugin",
+    "cn": "Json Blueprint Utilities 把 JSON 解析、生成和字段访问做成蓝图节点，JsonBlueprintGraph 提供图表支持。玩法可以使用 JSON 配置、存档片段或 Web 载荷，而不写 C++。它处理文本 JSON，不是 JWT 签名。",
+    "en": "Json Blueprint Utilities expose JSON parse/generate/field access as Blueprint nodes, with JsonBlueprintGraph for graph support. Gameplay can consume JSON configs, save fragments, or web payloads without C++. It handles textual JSON, not JWT signing."
+  },
+  {
+    "slug": "json-web-token-plugin",
+    "kind": "plugin",
+    "cn": "JSON Web Token Plugin 提供处理 JWT 的 API：编解码载荷、校验签名与声明。JWT 模块面向在线身份与服务间鉴权，标为 Experimental。它不是通用 JSON 蓝图工具。",
+    "en": "JSON Web Token Plugin is an API for JWT data: encode/decode payloads and verify signatures and claims. The JWT module targets online identity and service auth and is Experimental. It is not the generic JSON Blueprint utility."
+  },
+  {
+    "slug": "kdevelop-integration",
+    "kind": "plugin",
+    "cn": "KDevelop Integration 通过 KDevelopSourceCodeAccess 把“打开源代码”接到 Linux 上的 KDevelop IDE。双击调用栈或蓝图节点可跳进 KDevelop，而不是 Visual Studio。它是编辑器开发者插件，不进游戏包。",
+    "en": "KDevelop Integration routes Open Source Code to the KDevelop IDE on Linux via KDevelopSourceCodeAccess. Double-clicking a callstack or Blueprint node can jump into KDevelop instead of Visual Studio. It is an editor/developer plugin and does not ship in a game."
+  },
+  {
+    "slug": "kimodo",
+    "kind": "plugin",
+    "cn": "Kimodo 为 AnimGenOffline 离线动画生成框架提供具体实现/后端。Kimodo 模块参与从数据生成动画的离线管线，而不是运行时 AnimBP 求值。它属于 Experimental 动画工具链。",
+    "en": "Kimodo is a backend plugin for the AnimGenOffline offline animation-generation framework. The Kimodo module participates in generating animation from data offline, not in runtime AnimBP evaluation. It belongs to the Experimental animation toolchain."
+  },
+  {
+    "slug": "knowledge-base",
+    "kind": "plugin",
+    "cn": "Knowledge Base 提供知识库查询接口，数据可以来自当前引擎状态，也可以来自磁盘上的 Markdown。编辑器助手或工具用它检索项目约定与运行时事实。KnowledgeBase 是查询层，写入与发现由配套 Toolset 负责。",
+    "en": "Knowledge Base is a query interface over knowledge derived from live engine state or Markdown on disk. Editor assistants and tools retrieve project conventions and runtime facts through it. KnowledgeBase is the query layer; discovery and writes live in the companion toolset."
+  },
+  {
+    "slug": "knowledgebasetoolset",
+    "kind": "plugin",
+    "cn": "KnowledgeBaseToolset 通过 AI Toolset Registry 发现、搜索和写入知识库。自动化代理可以列出条目、检索文档并把新知识写回。它是编辑器 AI 工具集，不是知识库存储本身。",
+    "en": "KnowledgeBaseToolset discovers, searches, and writes knowledge bases through the AI Toolset Registry. An automation agent can list entries, retrieve documents, and write new knowledge back. It is an editor AI toolset, not the knowledge-base store itself."
+  },
+  {
+    "slug": "landmass",
+    "kind": "plugin",
+    "cn": "Landmass 用笔刷、样条和材质驱动的工作流塑造 Landscape 地形，而不是 Mass 实体系统。Landmass 运行时求值地形生成，LandmassEditor 提供编辑器工具。适合程序化岛屿、河流与地形图层混合。",
+    "en": "Landmass sculpts Landscape terrain with brush, spline, and material-driven workflows; it is not the Mass entity system. The Landmass runtime evaluates terrain generation; LandmassEditor hosts the tools. Use it for procedural islands, rivers, and layered landscape blend."
+  },
+  {
+    "slug": "landscape-patch",
+    "kind": "plugin",
+    "cn": "Landscape Patch 把补丁组件挂到网格上，网格移动时局部抬升、雕刻或混合 Landscape。LandscapePatch 是运行时组件，LandscapePatchEditorOnly 服务编辑器制作。适合可移动建筑底座、道路预制件对地形的贴合。",
+    "en": "Landscape Patch attaches patch components to meshes so moving the mesh locally raises, sculpts, or blends Landscape. LandscapePatch is the runtime component; LandscapePatchEditorOnly covers editor authoring. Use it so movable building pads or road prefabs conform to terrain."
+  },
+  {
+    "slug": "launcher-chunk-installer",
+    "kind": "plugin",
+    "cn": "Launcher Chunk Installer 把分块安装接到 Epic Games 启动器，按启动器清单拉取后续 Chunk。LauncherChunkInstaller 走 Portal/启动器通道，不同于直接 HTTP 的 HTTP Chunk Installer。发行走启动器的游戏用它完成流式安装。",
+    "en": "Launcher Chunk Installer hooks chunk install into the Epic Games Launcher so later chunks follow the launcher manifest. LauncherChunkInstaller uses the Portal/launcher channel, unlike HTTP Chunk Installer. Titles distributed through the launcher use it for streaming install."
+  },
+  {
+    "slug": "learning-agents",
+    "kind": "plugin",
+    "cn": "Learning Agents 是面向游戏 AI 角色控制的机器学习库，简化强化学习和模仿学习。LearningAgents 运行推理，Training/TrainingEditor 做训练，Replay 回放轨迹。它让角色从经验中学策略，而不是手写行为树。",
+    "en": "Learning Agents is a machine-learning library for in-game AI character control, simplifying reinforcement and imitation learning. LearningAgents runs inference; Training/TrainingEditor train; Replay plays back trajectories. Characters learn policies from experience instead of hand-authored trees."
+  },
+  {
+    "slug": "learning-core",
+    "kind": "plugin",
+    "cn": "Learning Core 提供 Learning Agents 之下的训练与推理原语（Learning、LearningTraining），不是引擎的 Core 模块。它封装张量、优化器和训练循环，供上层 Agents 调用。标为 Experimental，随 ML 工具链演进。",
+    "en": "Learning Core supplies training and inference primitives (Learning, LearningTraining) under Learning Agents; it is not Engine Core. It wraps tensors, optimizers, and training loops for the Agents layer. It is Experimental and evolves with the ML toolchain."
+  },
+  {
+    "slug": "led-wall-calibration",
+    "kind": "plugin",
+    "cn": "Led Wall Calibration 为 LED 墙虚拟制片提供几何与色彩校准工具，把摄像机视锥与墙体像素对齐。LedWallCalibration 运行时应用校准，Editor 模块做采集与求解。没有校准，内视效会出现视差和接缝。",
+    "en": "Led Wall Calibration provides geometry and color calibration for LED-wall virtual production, aligning the camera frustum to wall pixels. LedWallCalibration applies the calibration at runtime; the Editor module captures and solves. Without it, in-camera VFX shows parallax and seams."
+  },
+  {
+    "slug": "legacy---linear-timecode-reader",
+    "kind": "plugin",
+    "cn": "Legacy Linear Timecode Reader 从媒体源读取纵向时间码（LTC），不走现代同步机制。LinearTimecode 组件把时间码提供给关卡，便于旧工作流对拍。新项目应改用同步与 Timecode 提供器，而不是这条遗留路径。",
+    "en": "Legacy Linear Timecode Reader reads linear timecode (LTC) from a media source without the modern sync path. The LinearTimecode component exposes timecode to the level for older lockup workflows. New work should use current sync/timecode providers instead of this legacy path."
+  },
+  {
+    "slug": "legacy-composure",
+    "kind": "plugin",
+    "cn": "Legacy Composure 是早期实时合成系统（Composure/ComposureEditor/Layers），官方已停止开发。旧项目仍可用它做镜头内合成与图层，新项目应迁到现行 Composure/合成栈。名称里的 Legacy 表示不要作为新管线的基础。",
+    "en": "Legacy Composure is the earlier real-time compositing system (Composure/ComposureEditor/Layers) and is no longer developed. Existing projects can still composite shots and layers with it; new work should move to the current Composure/compositing stack. The Legacy label means do not build new pipelines on it."
+  },
+  {
+    "slug": "lens-component",
+    "kind": "plugin",
+    "cn": "Lens Component 给电影摄像机加上镜头畸变、节点与光学参数，使 CG 摄像机匹配真实镜头。LensComponent 在运行时应用模型，LensComponentEditor 编辑校准数据。它是虚拟制片里把跟踪摄像机“看起来像那支镜头”的组件层。",
+    "en": "Lens Component adds distortion, nodal offset, and optical parameters to a cinematic camera so CG matches a physical lens. LensComponent applies the model at runtime; LensComponentEditor authors calibration. In virtual production it is the component that makes a tracked camera look like that glass."
+  },
+  {
+    "slug": "lens-distortion-deprecated",
+    "kind": "plugin",
+    "cn": "Lens Distortion（已弃用）曾在 GPU 上根据标准相机模型生成畸变/去畸变 UV 位移。官方要求改用 Camera Calibration 插件，本插件将在后续引擎版本移除。LensDistortion 模块仅供旧项目过渡。",
+    "en": "Lens Distortion (Deprecated) generated GPU UV displacement for lens distortion/undistortion from a standard camera model. Projects should move to Camera Calibration; this plugin will be removed in a later engine. The LensDistortion module remains only for transitional projects."
+  },
+  {
+    "slug": "level-sequence-editor",
+    "kind": "plugin",
+    "cn": "Level Sequence Editor 是 Level Sequence 资产的内容编辑器，也就是 Sequencer 对关卡序列的编辑界面。LevelSequenceEditor 负责轨道、关键帧、摄像机切换与绑定。没有它就无法在编辑器里制作过场与虚拟摄像机镜头。",
+    "en": "Level Sequence Editor is the content editor for Level Sequence assets—the Sequencer UI for cinematic level sequences. LevelSequenceEditor owns tracks, keys, camera cuts, and bindings. Without it you cannot author cinematics or virtual-camera shots in the editor."
+  },
+  {
+    "slug": "level-sequence-navigator-bridge",
+    "kind": "plugin",
+    "cn": "Level Sequence Navigator Bridge 把 Sequence Navigator 接到关卡序列，便于在复杂镜头结构里跳转与浏览。LevelSequenceNavigatorBridge 是 Experimental 桥接，而不是 Sequencer 本体。它改善导航，不改变序列求值。",
+    "en": "Level Sequence Navigator Bridge connects Sequence Navigator to level sequences so complex shot structures can be jumped and browsed. LevelSequenceNavigatorBridge is an Experimental bridge, not Sequencer itself. It improves navigation without changing sequence evaluation."
+  },
+  {
+    "slug": "level-streaming-persistence",
+    "kind": "plugin",
+    "cn": "Level Streaming Persistence 把世界状态按流送关卡持久化：Actor 与子对象属性、销毁标记以及重生。状态可挂到流送关卡，也可可选地挂到 Persistent Level。适合开放世界里玩家改动在卸载/加载后仍在。",
+    "en": "Level Streaming Persistence persists world state per streaming level: actor and subobject properties, destroyed flags, and respawns. State attaches to streaming levels and optionally the persistent level. Open-world player mutations survive unload/reload of those sublevels."
+  },
+  {
+    "slug": "levelsnapshots",
+    "kind": "plugin",
+    "cn": "Level Snapshots 捕获关卡中 Actor 属性的快照，之后可对比、过滤并还原，供虚拟制片在镜头之间回退场景。LevelSnapshotFilters、FoliageSupport 与 nDisplaySupport 处理过滤和特定系统。它记录可还原的世界差异，不是源码版本控制。",
+    "en": "Level Snapshots capture actor-property snapshots of a level so virtual-production teams can diff, filter, and restore between takes. LevelSnapshotFilters, FoliageSupport, and nDisplaySupport handle filtering and special systems. It records restorable world diffs, not source control."
+  },
+  {
+    "slug": "libvpxcodecs",
+    "kind": "plugin",
+    "cn": "LibVpxCodecs 把 libvpx 的 VP8/VP9 编解码器接到 AVCodecs，用于软件编解码 WebM 一类视频。LibVpxCodecs 标为 Experimental，补充硬件编码器未覆盖的格式。它是编解码插件，不是完整播放器。",
+    "en": "LibVpxCodecs adds libvpx VP8/VP9 codecs to AVCodecs for software encode/decode of WebM-style video. LibVpxCodecs is Experimental and covers formats hardware encoders may not. It is a codec plugin, not a full media player."
+  },
+  {
+    "slug": "lidar-point-cloud-support",
+    "kind": "plugin",
+    "cn": "LiDAR Point Cloud Support 导入、处理并渲染激光雷达点云，用于数字孪生、测绘和影视扫描场景。LidarPointCloudRuntime 绘制与查询点，LidarPointCloudEditor 处理导入与编辑。点云不是三角网格，走专用渲染路径。",
+    "en": "LiDAR Point Cloud Support imports, processes, and renders lidar point clouds for digital twins, survey, and scanned film environments. LidarPointCloudRuntime draws and queries points; LidarPointCloudEditor handles import and editing. Point clouds are not triangle meshes and use a dedicated path."
+  },
+  {
+    "slug": "light-mixer",
+    "kind": "plugin",
+    "cn": "Light Mixer 以电子表格形式批量编辑场景灯光属性，是 Object Mixer 家族里针对灯光的编辑器。灯光师可以同时改多盏灯的强度、色温与通道，而不逐个点选。LightMixer 只存在于编辑器制作流程。",
+    "en": "Light Mixer edits scene-light properties in a spreadsheet, the Object Mixer specialization for lights. Lighting artists change intensity, temperature, and channels on many lights at once instead of selecting each actor. LightMixer is editor-authoring only."
+  },
+  {
+    "slug": "lightweightinstanceseditor-deprecated",
+    "kind": "plugin",
+    "cn": "LightWeightInstancesEditor 曾让轻量实例兼具 Actor 交互与实例化网格性能，现已弃用。官方建议改用 InstancedActors 获得同类能力。本插件仅作旧资产迁移提示，不应再作为新项目基础。",
+    "en": "LightWeightInstancesEditor once offered Actor-like interaction at instanced-mesh cost and is now deprecated. Use InstancedActors for the same class of feature. Keep this plugin only while migrating old assets, not as a foundation for new work."
+  },
+  {
+    "slug": "linux-compiler-only-integration",
+    "kind": "plugin",
+    "cn": "Linux Compiler-only Integration（NullSourceCodeAccess）在没有完整 IDE 集成时，仍允许访问 C++ 工程并仅查找 clang++。它作为空的源代码访问提供者，满足编译/打开文件需求但不绑定 KDevelop 或 VS。适合无 GUI IDE 的 Linux 构建环境。",
+    "en": "Linux Compiler-only Integration (NullSourceCodeAccess) still lets you open C++ projects while only looking for clang++, without a full IDE integration. It is a null source-code access provider for compile/open-file needs unbound to KDevelop or Visual Studio. Use it on Linux build boxes without a GUI IDE."
+  },
+  {
+    "slug": "linux-device-profile-selector",
+    "kind": "plugin",
+    "cn": "Linux Device Profile Selector 根据 Linux 硬件选择 Device Profile，套用可伸缩性与渲染设置。LinuxDeviceProfileSelector 在运行时匹配设备档。它保证不同 Linux 发行与 GPU 组合落到正确的质量配置。",
+    "en": "Linux Device Profile Selector chooses a Device Profile from Linux hardware so scalability and rendering settings match the machine. LinuxDeviceProfileSelector performs the match at runtime. It keeps disparate Linux distro/GPU combinations on the right quality profile."
+  },
+  {
+    "slug": "live-link-control-rig",
+    "kind": "plugin",
+    "cn": "Live Link Control Rig 把 Live Link 主体接到 Control Rig，用实时动捕或设备数据驱动绑定图。LiveLinkControlRig 在运行时把 Live Link 曲线/姿态写入 Rig。它是 Live Link 与程序化绑定之间的桥梁，不是 Control Rig 编辑器本身。",
+    "en": "Live Link Control Rig feeds Live Link subjects into Control Rig so mocap or device data drives the rig graph. LiveLinkControlRig writes Live Link curves/poses into the rig at runtime. It is the bridge between Live Link and procedural rigging, not the Control Rig editor."
+  },
+  {
+    "slug": "live-link-curve-debug-ui",
+    "kind": "plugin",
+    "cn": "Live Link Curve Debug UI 可视化 Live Link 曲线与数值，便于检查面捕混合形状、设备轴是否在跳。LiveLinkCurveDebugUI 是调试面板，不产生新的 Live Link 源。虚拟制片现场用它确认主体数据是否进引擎。",
+    "en": "Live Link Curve Debug UI visualizes Live Link curves and values so facial blendshapes or device axes can be checked for dropouts. LiveLinkCurveDebugUI is a debug panel and does not create a new Live Link source. On-set teams use it to confirm a subject is actually arriving."
+  },
+  {
+    "slug": "live-link-device-framework",
+    "kind": "plugin",
+    "cn": "Live Link Device Framework（LiveLinkDevice）定义 Live Link Hub 设备的通用框架：连接、录制、主体发布的基类。具体厂商设备插件在此之上实现。它是设备插件的 SDK 层，不是某个硬件协议。",
+    "en": "Live Link Device Framework (LiveLinkDevice) defines the common Live Link Hub device framework: connection, recording, and subject publishing base types. Vendor device plugins implement on top of it. It is the SDK layer for devices, not a hardware protocol itself."
+  },
+  {
+    "slug": "live-link-hub-example-device",
+    "kind": "plugin",
+    "cn": "Live Link Hub Example Device 提供示例设备实现 LiveLinkExampleDevice，演示如何为 Hub 编写自定义设备。它用于学习和模板，而不是生产现场的真实硬件。开发新 Hub 设备时应对照此示例，而不是改核心 Hub。",
+    "en": "Live Link Hub Example Device ships LiveLinkExampleDevice as a sample of how to write a custom Hub device. It is a learning/template plugin, not production hardware. New Hub devices should follow this example rather than forking Hub core."
+  },
+  {
+    "slug": "live-link-hub-obs-device",
+    "kind": "plugin",
+    "cn": "Live Link Hub OBS Device 通过 OBS WebSocket v5 控制 OBS Studio 录制，并把录下的视频作为单路 take 摄入。LiveLinkOBSDevice 把导播软件接到 Hub 的录制时间线。它服务虚拟制片的外部录像机，而不是引擎内 Sequencer 录制。",
+    "en": "Live Link Hub OBS Device controls OBS Studio recording over OBS WebSocket v5 and ingests recorded video as mono takes. LiveLinkOBSDevice attaches the switcher/recorder to the Hub take timeline. It is an external recorder integration, not Sequencer's in-engine recorder."
+  },
+  {
+    "slug": "live-link-hub-unreal-device",
+    "kind": "plugin",
+    "cn": "Live Link Hub Unreal Device 把另一台虚幻实例登记为 Hub 设备，转发该引擎产生的 Live Link 主体。LiveLinkUnrealDevice 用于多机虚拟制片：一台跑 Hub，另一台跑关卡。它连接的是 UE 会话，不是光学动捕硬件。",
+    "en": "Live Link Hub Unreal Device registers another Unreal instance as a Hub device and forwards Live Link subjects from that engine. LiveLinkUnrealDevice is for multi-machine virtual production: Hub on one box, level on another. It connects UE sessions, not optical mocap hardware."
+  },
+  {
+    "slug": "live-link-hub",
+    "kind": "plugin",
+    "cn": "Live Link Hub 是独立/半独立的 Live Link 路由应用：集中连接设备、录制 take，再把主体分发给多台编辑器。LiveLinkHub 与 Messaging 负责运行时分发，LiveLinkHubEditor 提供编辑器集成。它把现场设备从单个编辑器进程中解耦出来。",
+    "en": "Live Link Hub is a standalone/semi-standalone Live Link router: connect devices, record takes, and fan subjects out to many editors. LiveLinkHub and Messaging distribute at runtime; LiveLinkHubEditor integrates with the editor. It decouples on-set devices from a single editor process."
+  },
+  {
+    "slug": "live-link-kipro-device",
+    "kind": "plugin",
+    "cn": "Live Link KiPro Device 把 AJA KiPro 录像机接到 Live Link Hub，控制录制并同步 take。LiveLinkKiProDevice 属于虚拟制片录像机设备，而不是摄像机跟踪协议。现场用它让引擎时间线与 KiPro 磁带/文件录制对齐。",
+    "en": "Live Link KiPro Device attaches an AJA KiPro recorder to Live Link Hub for record control and take sync. LiveLinkKiProDevice is a virtual-production recorder device, not a camera-tracking protocol. Stages use it so the engine timeline lines up with KiPro tape/file capture."
+  },
+  {
+    "slug": "live-link-over-ndisplay",
+    "kind": "plugin",
+    "cn": "Live Link Over nDisplay 在 nDisplay 集群里同步 Live Link 主体，保证各节点看到同一份实时数据。LiveLinkOverNDisplay 避免集群里每台机器各自连设备导致时钟漂移。它是 LED 墙/多 GPU 集群的同步层，不是 Live Link 源。",
+    "en": "Live Link Over nDisplay synchronizes Live Link subjects across an nDisplay cluster so every node sees the same live data. LiveLinkOverNDisplay prevents each machine from connecting devices independently and drifting. It is a cluster sync layer for LED walls, not a Live Link source."
+  },
+  {
+    "slug": "live-link-sound-device",
+    "kind": "plugin",
+    "cn": "Live Link Sound Device 为 Live Link Hub 接入 Sound Devices 录音机，提供连接与录音控制。LiveLinkSoundDevice 让现场音频 take 与动作/画面时间线对齐。它针对 Sound Devices 硬件，而不是引擎内音频混音器。",
+    "en": "Live Link Sound Device adds Sound Devices recorder support to Live Link Hub, including connection and record control. LiveLinkSoundDevice aligns on-set audio takes with the action/picture timeline. It targets Sound Devices hardware, not the in-engine audio mixer."
+  },
+  {
+    "slug": "live-link",
+    "kind": "plugin",
+    "cn": "Live Link 是实时数据主干：把动捕、摄像机、灯光和面捕流进编辑器或运行时，驱动骨骼、摄像机与 Control Rig。LiveLinkComponents、GraphNode、MovieScene/Sequencer 与 MultiUser 覆盖组件、蓝图、过场与协同。虚拟制片和 MetaHuman 面捕都建立在这套主体/角色模型上。",
+    "en": "Live Link is the live-data backbone: mocap, cameras, lights, and facial capture stream into editor or runtime to drive skeletons, cameras, and Control Rig. LiveLinkComponents, GraphNode, MovieScene/Sequencer, and MultiUser cover components, Blueprint, cinematics, and collaboration. Virtual production and MetaHuman face capture sit on this subject/role model."
+  },
+  {
+    "slug": "live-update-for-slate",
+    "kind": "plugin",
+    "cn": "Live Update for Slate 在编辑器运行时热更新 Slate UI，改控件代码或 UMG 后不必重启整个编辑器。LiveUpdateForSlate 服务 UI 迭代，默认不进 Shipping。它加速编辑器/工具界面开发，不是游戏 UMG 运行时热重载的完整方案。",
+    "en": "Live Update for Slate hot-reloads Slate UI while the editor is running so widget code or UMG can change without a full editor restart. LiveUpdateForSlate is for UI iteration and does not ship by default. It speeds editor/tool UI work; it is not a complete runtime UMG hot-reload for games."
+  },
+  {
+    "slug": "livecodingtoolset",
+    "kind": "plugin",
+    "cn": "LiveCodingToolset 通过 AI Toolset Registry 暴露 Live Coding 编译：触发补丁编译并查询结果。LiveCodingToolsetTests 覆盖该工具。它让自动化或助手调用 Live Coding，而不是替代编辑器里的 Live Coding 按钮。",
+    "en": "LiveCodingToolset exposes Live Coding compiles through the AI Toolset Registry: trigger a patch compile and query results. LiveCodingToolsetTests cover the tool. Automation or an assistant can invoke Live Coding; it does not replace the editor's Live Coding button."
+  },
+  {
+    "slug": "livelinkcamera",
+    "kind": "plugin",
+    "cn": "LiveLinkCamera 为摄像机跟踪增加 Live Link 角色、组件与录制支持，把焦距、光圈、畸变等镜头数据流进电影摄像机。LiveLinkCameraEditor 与 Recording 覆盖编辑和 take 记录。它是虚拟摄像机的摄像机专用层，建立在核心 Live Link 之上。",
+    "en": "LiveLinkCamera adds Live Link roles, components, and recording for camera tracking, streaming focal length, iris, and distortion into cinematic cameras. LiveLinkCameraEditor and Recording cover authoring and takes. It is the camera-specific layer on core Live Link for virtual cinematography."
+  },
+  {
+    "slug": "livelinkfaceimporter",
+    "kind": "plugin",
+    "cn": "LiveLinkFaceImporter 导入 Live Link Face 手机应用录下的 CSV 面捕，变成可在引擎里重放的曲线/主体。它把移动面捕会话带进后期，而不是实时蓝牙/网络会话。模块为 Experimental 导入器。",
+    "en": "LiveLinkFaceImporter imports CSV recordings from the Live Link Face mobile app as curves/subjects you can replay in-engine. It brings a mobile face session into post, rather than a live Bluetooth/network session. The module is an Experimental importer."
+  },
+  {
+    "slug": "livelinkfreed",
+    "kind": "plugin",
+    "cn": "LiveLinkFreeD 实现广播级 FreeD 协议，把云台摄像机的位置、旋转和镜头数据变成 Live Link 摄像机主体。演播室头部与吊臂常用 FreeD 输出跟踪。LiveLinkFreeD 是协议适配器，不负责镜头畸变校准求解。",
+    "en": "LiveLinkFreeD implements the broadcast FreeD protocol, turning pedestal camera position, rotation, and lens data into a Live Link camera subject. Studio heads and cranes often output tracking as FreeD. LiveLinkFreeD is the protocol adapter; it does not solve lens distortion calibration."
+  },
+  {
+    "slug": "livelinkgenericrecordingdevice",
+    "kind": "plugin",
+    "cn": "LiveLinkGenericRecordingDevice 提供给 Live Link Hub 的 Python 脚本使用的通用录制设备基类，默认隐藏，因为类是抽象的。自定义录像机工作流在脚本里继承这些类。它不是开箱即用的硬件驱动。",
+    "en": "LiveLinkGenericRecordingDevice is a generic recording-device base for Live Link Hub Python scripts, hidden by default because the classes are abstract. Custom recorder workflows subclass it from script. It is not a turnkey hardware driver."
+  },
+  {
+    "slug": "livelinkinputdevice",
+    "kind": "plugin",
+    "cn": "LiveLinkInputDevice 把虚幻 Input Device（游戏手柄等）的状态通过 Live Link 共享。它用 InputDevice 系统查询轴和按钮，再发布为主体，供另一台机器或录制使用。适合把现场控制器输入送进 Hub 或从机。",
+    "en": "LiveLinkInputDevice shares Unreal Input Device state (gamepads and similar) over Live Link. It queries axes and buttons via the InputDevice system and publishes them as a subject for another machine or a recording. Use it to send on-set controller input into Hub or a client."
+  },
+  {
+    "slug": "livelinklens",
+    "kind": "plugin",
+    "cn": "LiveLinkLens 增加 LiveLink LensRole 与 LensController，用于流送已校准的镜头数据（畸变、焦距、对焦距离）。电影摄像机组件可以实时套用这些光学参数。它补充 LiveLinkCamera，专注镜头模型而不是云台跟踪。",
+    "en": "LiveLinkLens adds a LiveLink LensRole and LensController to stream pre-calibrated lens data (distortion, focal length, focus distance). A cinematic camera can apply those optics live. It complements LiveLinkCamera by focusing on the lens model rather than head tracking."
+  },
+  {
+    "slug": "livelinkmasterlockit",
+    "kind": "plugin",
+    "cn": "LiveLinkMasterLockit 连接 Ambient MasterLockit 元数据服务器，把时间码、镜头元数据送进 Live Link。LiveLinkMasterLockitEditor 配置现场锁相设备。它服务片场元数据，而不是光学运动跟踪。",
+    "en": "LiveLinkMasterLockit talks to an Ambient MasterLockit metadata server, bringing timecode and lens metadata into Live Link. LiveLinkMasterLockitEditor configures the on-set lockit box. It is set metadata, not optical motion tracking."
+  },
+  {
+    "slug": "livelinkopentrackio",
+    "kind": "plugin",
+    "cn": "LiveLinkOpenTrackIO 支持 OpenTrackIO 标准设备，在引擎或 Live Link Hub 中把开放跟踪协议变成摄像机/跟踪主体。它面向跨厂商的虚拟制片跟踪互操作。LiveLinkOpenTrackIO 是协议插件，不是某一品牌云台驱动。",
+    "en": "LiveLinkOpenTrackIO supports OpenTrackIO devices in Unreal or Live Link Hub, turning that open tracking protocol into camera/tracking subjects. It targets cross-vendor virtual-production tracking interoperability. LiveLinkOpenTrackIO is a protocol plugin, not a single-brand head driver."
+  },
+  {
+    "slug": "livelinkopenvr",
+    "kind": "plugin",
+    "cn": "LiveLinkOpenVR 把 OpenVR 追踪设备发布为 Live Link 主体，供虚拟摄像机或物体跟踪使用。官方标明不支持本机 arm64。它是 Experimental 的 OpenVR 桥，与 OpenXR 路径的 LiveLinkXR 不同。",
+    "en": "LiveLinkOpenVR publishes OpenVR tracked devices as Live Link subjects for virtual cameras or object tracking. Native arm64 is not supported. It is an Experimental OpenVR bridge, distinct from the OpenXR LiveLinkXR path."
+  },
+  {
+    "slug": "livelinkprestonmdr",
+    "kind": "plugin",
+    "cn": "LiveLinkPrestonMDR 连接 Preston MDR-3 电机驱动器，把跟焦/变焦/光圈马达数据流进 Live Link。LiveLinkPrestonMDREditor 配置串口/网络与镜头映射。它是经典电影跟焦设备适配器。",
+    "en": "LiveLinkPrestonMDR connects a Preston MDR-3 motor driver, streaming focus/zoom/iris motor data into Live Link. LiveLinkPrestonMDREditor configures serial/network and lens mapping. It is the adapter for that classic cinema FIZ unit."
+  },
+  {
+    "slug": "livelinkvrpn",
+    "kind": "plugin",
+    "cn": "LiveLinkVRPN 实现 VRPN 协议，把学术/工业跟踪系统（光学、磁力、惯性）变成 Live Link 主体。实验室和老旧跟踪装置常用 VRPN 输出。LiveLinkVRPN 是通用协议桥，不是某一消费级头显驱动。",
+    "en": "LiveLinkVRPN implements the VRPN protocol, turning academic/industrial trackers (optical, magnetic, inertial) into Live Link subjects. Labs and legacy tracking often speak VRPN. LiveLinkVRPN is a generic protocol bridge, not a consumer HMD driver."
+  },
+  {
+    "slug": "livelinkxr",
+    "kind": "plugin",
+    "cn": "LiveLinkXR 把 XR 追踪设备（头显、手柄、定位器）发布为 Live Link 主体，LiveLinkXROpenXRExt 走 OpenXR 扩展。虚拟制片可用 VR 控制器当简易虚拟摄像机，而不必用光学动捕棚。它连接 XR 运行时与 Live Link，而不是完整的 VR 游戏框架。",
+    "en": "LiveLinkXR publishes XR tracked devices (HMDs, controllers, locators) as Live Link subjects, with LiveLinkXROpenXRExt for OpenXR. Stages can use a VR controller as a simple virtual camera without an optical volume. It bridges the XR runtime to Live Link, not a full VR game framework."
+  },
+  {
+    "slug": "localizable-message",
+    "kind": "plugin",
+    "cn": "Localizable Message 提供可复制的本地化文本消息，并在客户端解析参数。服务器发送消息键和参数，客户端用自己的语言表拼出最终字符串。LocalizableMessageBlueprint 把该流程暴露给蓝图。",
+    "en": "Localizable Message is a replicable localized text utility with client-side parameter resolution. The server sends a message key and arguments; the client formats the final string from its language table. LocalizableMessageBlueprint exposes the flow to Blueprint."
+  },
+  {
+    "slug": "locomotor",
+    "kind": "plugin",
+    "cn": "Locomotor 为 Control Rig 提供程序化位移/步态动画，用 Rig 图生成走路等运动，而不是播放固定动画序列。Locomotor 模块标为 Experimental。它补齐绑定层的运动生成，不是 Character Movement 组件。",
+    "en": "Locomotor provides procedural locomotion animation for Control Rig, generating walk-style motion in the rig graph instead of a fixed sequence. The Locomotor module is Experimental. It is rig-level motion generation, not the Character Movement Component."
+  },
+  {
+    "slug": "lore",
+    "kind": "plugin",
+    "cn": "Lore 通过 LoreSourceControl 把引擎源代码控制接口接到 Lore 版本管理系统，LoreSourceControlSlate 提供提交/历史 UI。它面向使用 Lore 的内部或特定工作流，与 Git/Perforce 提供器并列。属于 Experimental 源码管理插件。",
+    "en": "Lore implements Unreal's source-control provider against the Lore version-control system via LoreSourceControl, with LoreSourceControlSlate for submit/history UI. It sits beside Git/Perforce providers for Lore-based workflows. The plugin is Experimental source control."
+  },
+  {
+    "slug": "lorecore",
+    "kind": "plugin",
+    "cn": "LoreCore 统一加载和初始化 Lore 原生库，供 Lore 源码控制等上层插件调用。它不实现提交语义，只保证库在引擎进程里正确启动。没有 LoreCore，Lore 提供器无法可靠加载底层依赖。",
+    "en": "LoreCore loads and initializes the Lore native library in one place for higher plugins such as Lore source control. It does not implement submit semantics; it only bootstraps the library in the engine process. Without LoreCore, the Lore provider cannot reliably load its native dependency."
+  },
+  {
+    "slug": "low-level-network-trace-plugin",
+    "kind": "plugin",
+    "cn": "Low-level network trace 主动监测并报告系统网络吞吐，把底层收发数据记入 Insights/Trace。LowLevelNetTrace 用于剖析套接字级流量，而不是 HTTP 应用层或 Iris 复制图。标为 Experimental 性能分析插件。",
+    "en": "Low-level network trace actively monitors and reports system network throughput, recording socket-level send/receive into Insights/Trace. LowLevelNetTrace profiles the transport, not HTTP application traffic or the Iris replication graph. It is an Experimental profiling plugin."
+  }
+]

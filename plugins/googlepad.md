@@ -3,7 +3,6 @@ layout: default
 title: 谷歌PAD / GooglePAD
 ---
 
-
 <h1>谷歌PAD / GooglePAD</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 谷歌PAD / GooglePAD
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Android 版 Google Play 资产交付。</div><div class="lang-content">Google Play Asset Delivery for Android.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">GooglePAD</code>（运行时 <code class="usage-code">GooglePAD</code>，编辑器 <code class="usage-code">GooglePADEditor</code>），面向 Android。</li><li>打包时把内容分配成 Play Asset Delivery 的 install-time/fast-follow/on-demand 包。</li><li>运行时用 GooglePAD API 查询并请求下载 asset pack，处理进度。</li><li>Game 模块依赖 <code class="usage-code">GooglePAD</code>；<code class="usage-code">GooglePADEditor</code> 只进 Editor Target。</li></ol><p class="usage-note">Android 的 Google Play Asset Delivery，和 GDK 的 Chunk Installer 不同平台。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">GooglePAD</code> (runtime <code class="usage-code">GooglePAD</code>, editor <code class="usage-code">GooglePADEditor</code>) for Android.</li><li>At packaging, split content into Play Asset Delivery packs (install-time / fast-follow / on-demand).</li><li>At runtime use the GooglePAD API to query and request asset-pack downloads and handle progress.</li><li>Game modules depend on <code class="usage-code">GooglePAD</code>; <code class="usage-code">GooglePADEditor</code> is Editor-target only.</li></ol><p class="usage-note">Android&#x27;s Google Play Asset Delivery; a different platform than GDK&#x27;s Chunk Installer.</p></div></div></div>
+    </div>
+

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "httpblueprint",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `HttpBlueprint`（模块 `HttpBlueprint`、`HttpBlueprintGraph`）。",
+      "在蓝图里用插件提供的 HTTP 节点发送请求、接收响应（GET/POST 等）。",
+      "处理异步回调与 JSON 解析；注意在后台线程完成的回调线程安全。",
+      "运行时模块可进游戏包；无需写 C++ 即可做简单 HTTP 交互。"
+    ],
+    "en_steps": [
+      "Enable `HttpBlueprint` (modules `HttpBlueprint`, `HttpBlueprintGraph`).",
+      "In Blueprint, use the provided HTTP nodes to send requests and receive responses (GET/POST, etc.).",
+      "Handle async callbacks and JSON parsing; be mindful of thread safety for callbacks completed on background threads.",
+      "Runtime modules can ship; do simple HTTP from Blueprint without writing C++."
+    ],
+    "note_cn": "蓝图里的 HTTP 请求节点，底层走 Http 模块。",
+    "note_en": "Blueprint HTTP request nodes backed by the Http module."
+  },
+  {
+    "slug": "icvfx",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ICVFX` 插件，它本身不打包模块，只是便捷地集合 In-Camera VFX 相关插件。",
+      "在虚拟制片项目中借此一键带出 nDisplay、Live Link、Composure 等相关依赖。",
+      "配合舞台/摄像机/追踪使用；具体功能看被集合的各个子插件。",
+      "这是聚合型插件，真正的能力来自其收集的子插件。"
+    ],
+    "en_steps": [
+      "Enable the `ICVFX` plugin; it ships no modules itself and simply collects In-Camera VFX plugins for convenience.",
+      "In a virtual production project, use it to pull in related dependencies like nDisplay, Live Link, and Composure.",
+      "Use it alongside stage/camera/tracking; actual features come from the collected sub-plugins.",
+      "It is an aggregator plugin; real capability comes from the sub-plugins it gathers."
+    ],
+    "note_cn": "ICVFX 聚合插件（无自身模块），方便一次性启用相关插件。",
+    "note_en": "An ICVFX aggregator (no own modules) to enable related plugins together."
+  },
+  {
+    "slug": "icvfxtesting",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ICVFXTesting`（模块 `ICVFXTesting`）。",
+      "它为 ICVFX 项目提供测试实用程序，用于验证相机内 VFX 流程。",
+      "在自动化/测试会话里跑这些用例，检查 nDisplay/追踪/合成是否正常。",
+      "这是测试工具，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `ICVFXTesting` (module `ICVFXTesting`).",
+      "It provides testing utilities for ICVFX projects to validate the in-camera VFX pipeline.",
+      "Run these cases in automation/test sessions to check nDisplay/tracking/compositing health.",
+      "It is a test tool; do not ship it in release builds."
+    ],
+    "note_cn": "ICVFX 项目的测试工具集。",
+    "note_en": "Testing utilities for ICVFX projects."
+  },
+  {
+    "slug": "ik-rig",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `IK Rig`（运行时 `IKRig`，编辑器 `IKRigEditor`、`IKRigDeveloper`，另有 `IKRigUAF`）。",
+      "创建 IK Rig 资产，定义骨骼链、IK Goal 与 Retarget 设置。",
+      "用 IK Retargeter 在角色间重定向动画，或运行时通过 IK Rig 节点求解（如 Full Body IK）。",
+      "Game 模块依赖 `IKRig`；`IKRigEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `IK Rig` (runtime `IKRig`, editor `IKRigEditor`, `IKRigDeveloper`, plus `IKRigUAF`).",
+      "Create an IK Rig asset defining bone chains, IK goals, and retarget settings.",
+      "Use an IK Retargeter to retarget animation across characters, or solve at runtime via IK Rig nodes (e.g. Full Body IK).",
+      "Game modules depend on `IKRig`; `IKRigEditor` is Editor-target only."
+    ],
+    "note_cn": "IK Rig 与动画重定向的基础资产与求解，常与 Control Rig/Full Body IK 搭配。",
+    "note_en": "The IK Rig and retargeting base assets/solver, often used with Control Rig / Full Body IK."
+  },
+  {
+    "slug": "image-plate",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Image Plate`（运行时 `ImagePlate`，编辑器 `ImagePlateEditor`）。",
+      "在关卡放置 Image Plate Actor，指定图像，使其与相机对齐（虚拟制片的图像板）。",
+      "调整距离/朝向让图像板贴在场景正确深度，用于背景板、合成参考。",
+      "Experimental：接口可能变动；`ImagePlateEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Image Plate` (runtime `ImagePlate`, editor `ImagePlateEditor`).",
+      "Place an Image Plate actor in the level, assign an image, and align it to the camera (a virtual production image plate).",
+      "Adjust distance/orientation so the plate sits at the correct scene depth for backdrops and compositing.",
+      "Experimental: contract may change; `ImagePlateEditor` is Editor-target only."
+    ],
+    "note_cn": "相机对齐的图像板 Actor/组件（虚拟制片背景）。",
+    "note_en": "Camera-aligned image-plate actor/component (virtual production backdrop)."
+  },
+  {
+    "slug": "image-sequence-media-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Image Sequence Media Player`（模块 `ImgMedia`、`ImgMediaEngine`、`ImgMediaEditor`、`ImgMediaFactory` 等）。",
+      "用 Media Player + ImgMediaSource 指向 EXR/PNG 等图像序列（目录或 `.exr` 序列）。",
+      "把 Media Texture 接到材质/Media Plate 播放，注意读取性能与预缓存。",
+      "Game 模块依赖 `ImgMedia` / `ImgMediaEngine`；Factory/Editor 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Image Sequence Media Player` (modules `ImgMedia`, `ImgMediaEngine`, `ImgMediaEditor`, `ImgMediaFactory`, etc.).",
+      "Use a Media Player + ImgMediaSource pointing at an EXR/PNG image sequence (a folder or `.exr` sequence).",
+      "Feed the Media Texture to a material/Media Plate; watch read performance and pre-caching.",
+      "Game modules depend on `ImgMedia` / `ImgMediaEngine`; factory/editor modules go to Editor targets only."
+    ],
+    "note_cn": "图像序列（EXR 等）媒体播放，非压缩视频文件。",
+    "note_en": "Image-sequence (EXR etc.) media playback, not compressed video files."
+  },
+  {
+    "slug": "imagewidgets",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `ImageWidgets`（模块 `ImageWidgets`）并重启。",
+      "在 Slate/编辑器 UI 里使用这些通用的图像显示小部件。",
+      "用于编辑器工具里显示图像或类图像内容，服务制作流程。",
+      "这是编辑器开发者工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `ImageWidgets` (module `ImageWidgets`) and restart.",
+      "Use these generic image-display Slate widgets in editor UI.",
+      "They render images or image-like content in editor tools for the authoring pipeline.",
+      "It is an editor developer tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "编辑器用的通用图像 Slate 小部件，纯编辑器。",
+    "note_en": "Generic image Slate widgets for the editor, editor-only."
+  },
+  {
+    "slug": "impostorbaker",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `ImpostorBaker` 插件（无独立运行时模块）。",
+      "选中网格，用 ImpostorBaker 生成各种 Impostor，作为远距离网格 LOD。",
+      "在 LOD 设置里把远景替换为生成的 Impostor，减少远处绘制开销。",
+      "这是制作期烘焙工具（实验性），输出资产给运行时 LOD 使用。"
+    ],
+    "en_steps": [
+      "Enable Experimental `ImpostorBaker` (no standalone runtime module).",
+      "Select a mesh and use ImpostorBaker to generate impostors for use as distant mesh LODs.",
+      "Swap distant LODs to the generated impostor to cut far-field draw cost.",
+      "It is an authoring-time bake tool (experimental) whose assets feed runtime LODs."
+    ],
+    "note_cn": "生成远景 Impostor LOD 的烘焙工具，编辑器期使用。",
+    "note_en": "A bake tool that generates distant impostor LODs, used at authoring time."
+  },
+  {
+    "slug": "in-editor-documentation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `In-Editor Documentation`（模块 `InEditorDocumentation`）。",
+      "在探索项目时，通过编辑器内面板浏览已配置的教程/文档。",
+      "为项目配置自定义文档内容以便团队查阅。",
+      "Experimental：接口可能变动；这是编辑器内文档/教程工具。"
+    ],
+    "en_steps": [
+      "Enable Experimental `In-Editor Documentation` (module `InEditorDocumentation`).",
+      "While exploring a project, browse configured tutorials/docs through the in-editor panel.",
+      "Configure custom documentation content for the team.",
+      "Experimental: contract may change; it is an in-editor docs/tutorial tool."
+    ],
+    "note_cn": "编辑器内浏览配置好的教程/文档。",
+    "note_en": "Browse configured tutorials/docs inside the editor."
+  },
+  {
+    "slug": "inline-material-instance",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Inline Material Instance`（模块 `InlineMaterialInstanceEditor`）。",
+      "在属性编辑器（Details）里直接创建和修改材质，而不用切到材质编辑器。",
+      "用于虚拟制片/快速迭代场景下的内联材质调整。",
+      "这是编辑器工具（Virtual Production），只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Inline Material Instance` (module `InlineMaterialInstanceEditor`).",
+      "Create and modify materials directly in the property (Details) editor without switching to the material editor.",
+      "Use it for inline material tweaks in virtual production / fast iteration.",
+      "It is an editor tool (Virtual Production) for Editor targets only."
+    ],
+    "note_cn": "在 Details 面板内联创建/改材质（虚拟制片），纯编辑器。",
+    "note_en": "Create/edit materials inline in the Details panel (virtual production), editor-only."
+  },
+  {
+    "slug": "input-debugging",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Input Debugging`（运行时 `InputDebugging`，编辑器 `InputDebuggingEditor`）。",
+      "在 PIE 中使用其调试/可视化功能查看输入事件与状态。",
+      "用于排查 Enhanced Input / 设备输入问题，观察触发的动作与按键。",
+      "Game 模块依赖 `InputDebugging`；`InputDebuggingEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Input Debugging` (runtime `InputDebugging`, editor `InputDebuggingEditor`).",
+      "In PIE use its debugging/visualization to inspect input events and state.",
+      "Use it to debug Enhanced Input / device input issues and see which actions and keys fire.",
+      "Game modules depend on `InputDebugging`; `InputDebuggingEditor` is Editor-target only."
+    ],
+    "note_cn": "输入调试与可视化，排查输入问题用。",
+    "note_en": "Input debugging and visualization for troubleshooting input."
+  },
+  {
+    "slug": "inputtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `InputToolset`（模块 `InputToolset`），面向 AI Toolset Registry。",
+      "让 AI 助手通过 Toolset Registry 向实时 PIE 或独立游戏会话注入 Enhanced Input 动作与旧式按键。",
+      "在已启用 Enhanced Input 的项目里使用，用来自动化/测试输入。",
+      "这是开发期工具集，不是运行时输入系统；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `InputToolset` (module `InputToolset`); it targets the AI Toolset Registry.",
+      "Let AI assistants inject Enhanced Input actions and legacy keys into a live PIE or standalone game session via the Toolset Registry.",
+      "Use it in projects with Enhanced Input enabled for input automation/testing.",
+      "It is a development-time toolset, not the runtime input system; Experimental."
+    ],
+    "note_cn": "给 AI 工具链注入输入的工具集，用于自动化/测试。",
+    "note_en": "A toolset that injects input via the AI toolchain for automation/testing."
+  },
+  {
+    "slug": "insights-data-source-filters",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Insights Data Source Filters`（模块 `SourceFilteringTrace`、`SourceFilteringCore`、`SourceFilteringEditor`）。",
+      "在 Unreal Insights 的 trace 里按源数据过滤（如按 CPU 线程/对象/系统），聚焦关注的性能数据。",
+      "启动 trace 时启用源过滤，打开 Insights 应用过滤器分析。",
+      "这是编辑器/开发者分析工具，默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Insights Data Source Filters` (modules `SourceFilteringTrace`, `SourceFilteringCore`, `SourceFilteringEditor`).",
+      "In Unreal Insights traces, filter by source data (e.g. CPU thread/object/system) to focus on the perf data you care about.",
+      "Enable source filtering when starting a trace and apply the filters in Insights to analyze.",
+      "It is an editor/developer analysis tool that does not ship by default."
+    ],
+    "note_cn": "Unreal Insights 的源数据过滤，减少 trace 噪音。",
+    "note_en": "Source data filtering for Unreal Insights to reduce trace noise."
+  },
+  {
+    "slug": "instancedactors",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `InstancedActors`（运行时 `InstancedActors`，编辑器 `InstancedActorsEditor`，测试 `InstancedActorsTestSuite`）。",
+      "用于大规模实例化 Actor 的管理（大量相似 Actor 的高效运行与渲染）。",
+      "在关卡或系统中把重复 Actor 交给 InstancedActors 统一管理，降低开销。",
+      "Game 模块依赖 `InstancedActors`；编辑器/测试模块不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `InstancedActors` (runtime `InstancedActors`, editor `InstancedActorsEditor`, tests `InstancedActorsTestSuite`).",
+      "Use it to manage large numbers of similar actors efficiently at runtime and render time.",
+      "Hand repetitive actors to InstancedActors for unified management to cut overhead.",
+      "Game modules depend on `InstancedActors`; editor/test modules do not ship."
+    ],
+    "note_cn": "大规模实例化 Actor 管理框架，面向大量相似对象。",
+    "note_en": "A large-scale instanced-actor management framework for many similar objects."
+  },
+  {
+    "slug": "instancedataobject-fixup-tool",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `InstanceDataObject Fixup Tool`（模块 `InstanceDataObjectFixupTool`）。",
+      "在编辑器里用该工具重定向松散的 InstanceDataObject 属性（修复引用/重定向问题）。",
+      "针对出现引用丢失或需要重定向的资产运行修复，然后校验结果。",
+      "这是编辑器修复工具，只进 Editor Target；Experimental。"
+    ],
+    "en_steps": [
+      "Enable Experimental `InstanceDataObject Fixup Tool` (module `InstanceDataObjectFixupTool`).",
+      "Use it in the editor to redirect loose InstanceDataObject properties (fix references/redirect issues).",
+      "Run the fixup on assets with lost or redirected references, then validate the result.",
+      "It is an editor fixup tool for Editor targets only; Experimental."
+    ],
+    "note_cn": "重定向松散 InstanceDataObject 属性的编辑器修复工具。",
+    "note_en": "An editor tool to redirect loose InstanceDataObject properties."
+  }
+]

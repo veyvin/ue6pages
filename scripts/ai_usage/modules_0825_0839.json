@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "ulangue",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`uLangUE` 位于 `Runtime`，构建规则 `Runtime/Solaris/uLangUE/uLangUE.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `VerseCompiler`, `uLangCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"uLangUE\" });`；对外暴露 `uLangUE` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`uLangUE` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `uLangUE.h` / `uLangUEModule.h`），再用 `FModuleManager::LoadModulePtr<uLangUEModule>` 或直接使用导出类型。",
+      "传递依赖：`uLangUE` 还依赖 `Core`, `CoreUObject`, `VerseCompiler`, `uLangCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `uLangUE` lives under `Runtime`; build rule `Runtime/Solaris/uLangUE/uLangUE.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `VerseCompiler`, `uLangCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"uLangUE\" });`. Use Public when exposing `uLangUE` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `uLangUE` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `uLangUE.h` / `uLangUEModule.h`), then use `FModuleManager::LoadModulePtr<uLangUEModule>` or the exported types directly.",
+      "Transitive deps: `uLangUE` also needs `Core`, `CoreUObject`, `VerseCompiler`, `uLangCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`uLangUE` 的构建规则位于 `Runtime/Solaris/uLangUE/uLangUE.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`uLangUE` build rule is `Runtime/Solaris/uLangUE/uLangUE.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "umg",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UMG` 位于 `Runtime`，构建规则 `Runtime/UMG/UMG.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `FieldNotification`, `HTTP`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UMG\" });`；对外暴露 `UMG` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UMG` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `UMG.h` / `UMGModule.h`），再用 `FModuleManager::LoadModulePtr<UMGModule>` 或直接使用导出类型。",
+      "传递依赖：`UMG` 还依赖 `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `FieldNotification`, `HTTP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UMG` lives under `Runtime`; build rule `Runtime/UMG/UMG.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `FieldNotification`, `HTTP`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UMG\" });`. Use Public when exposing `UMG` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UMG` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `UMG.h` / `UMGModule.h`), then use `FModuleManager::LoadModulePtr<UMGModule>` or the exported types directly.",
+      "Transitive deps: `UMG` also needs `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `FieldNotification`, `HTTP`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UMG` 的构建规则位于 `Runtime/UMG/UMG.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UMG` build rule is `Runtime/UMG/UMG.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "umgeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UMGEditor` 位于 `Editor`，构建规则 `Editor/UMGEditor/UMGEditor.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `ContentBrowserData`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UMGEditor\" });`；对外暴露 `UMGEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UMGEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `UMGEditor.h` / `UMGEditorModule.h`），再用 `FModuleManager::LoadModulePtr<UMGEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`UMGEditor` 还依赖 `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `ContentBrowserData`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UMGEditor` lives under `Editor`; build rule `Editor/UMGEditor/UMGEditor.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `ContentBrowserData`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UMGEditor\" });`. Use Public when exposing `UMGEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UMGEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `UMGEditor.h` / `UMGEditorModule.h`), then use `FModuleManager::LoadModulePtr<UMGEditorModule>` or the exported types directly.",
+      "Transitive deps: `UMGEditor` also needs `ApplicationCore`, `AssetDefinition`, `AssetRegistry`, `AssetTools`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `ContentBrowserData`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UMGEditor` 的构建规则位于 `Editor/UMGEditor/UMGEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UMGEditor` build rule is `Editor/UMGEditor/UMGEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "uncontrolledchangelists",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UncontrolledChangelists` 位于 `Developer`，构建规则 `Developer/UncontrolledChangelists/UncontrolledChangelists.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UncontrolledChangelists\" });`；对外暴露 `UncontrolledChangelists` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UncontrolledChangelists` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `UncontrolledChangelists.h` / `UncontrolledChangelistsModule.h`），再用 `FModuleManager::LoadModulePtr<UncontrolledChangelistsModule>` 或直接使用导出类型。",
+      "传递依赖：`UncontrolledChangelists` 还依赖 `AssetRegistry`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UncontrolledChangelists` lives under `Developer`; build rule `Developer/UncontrolledChangelists/UncontrolledChangelists.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UncontrolledChangelists\" });`. Use Public when exposing `UncontrolledChangelists` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UncontrolledChangelists` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `UncontrolledChangelists.h` / `UncontrolledChangelistsModule.h`), then use `FModuleManager::LoadModulePtr<UncontrolledChangelistsModule>` or the exported types directly.",
+      "Transitive deps: `UncontrolledChangelists` also needs `AssetRegistry`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `Json`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UncontrolledChangelists` 的构建规则位于 `Developer/UncontrolledChangelists/UncontrolledChangelists.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UncontrolledChangelists` build rule is `Developer/UncontrolledChangelists/UncontrolledChangelists.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "undohistory",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UndoHistory` 位于 `Developer`，构建规则 `Developer/UndoHistory/UndoHistory.Build.cs`。它直接依赖 6 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UndoHistory\" });`；对外暴露 `UndoHistory` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UndoHistory` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `UndoHistory.h` / `UndoHistoryModule.h`），再用 `FModuleManager::LoadModulePtr<UndoHistoryModule>` 或直接使用导出类型。",
+      "传递依赖：`UndoHistory` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UndoHistory` lives under `Developer`; build rule `Developer/UndoHistory/UndoHistory.Build.cs`.It directly depends on 6 modules: `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UndoHistory\" });`. Use Public when exposing `UndoHistory` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UndoHistory` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `UndoHistory.h` / `UndoHistoryModule.h`), then use `FModuleManager::LoadModulePtr<UndoHistoryModule>` or the exported types directly.",
+      "Transitive deps: `UndoHistory` also needs `ApplicationCore`, `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UndoHistory` 的构建规则位于 `Developer/UndoHistory/UndoHistory.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`UndoHistory` build rule is `Developer/UndoHistory/UndoHistory.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "undohistoryeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UndoHistoryEditor` 位于 `Editor`，构建规则 `Editor/UndoHistoryEditor/UndoHistoryEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `ToolWidgets`, `UndoHistory`, `UnrealEd`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UndoHistoryEditor\" });`；对外暴露 `UndoHistoryEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UndoHistoryEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `UndoHistoryEditor.h` / `UndoHistoryEditorModule.h`），再用 `FModuleManager::LoadModulePtr<UndoHistoryEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`UndoHistoryEditor` 还依赖 `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `ToolWidgets`, `UndoHistory`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UndoHistoryEditor` lives under `Editor`; build rule `Editor/UndoHistoryEditor/UndoHistoryEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `ToolWidgets`, `UndoHistory`, `UnrealEd`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UndoHistoryEditor\" });`. Use Public when exposing `UndoHistoryEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UndoHistoryEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `UndoHistoryEditor.h` / `UndoHistoryEditorModule.h`), then use `FModuleManager::LoadModulePtr<UndoHistoryEditorModule>` or the exported types directly.",
+      "Transitive deps: `UndoHistoryEditor` also needs `Core`, `CoreUObject`, `InputCore`, `Slate`, `SlateCore`, `ToolWidgets`, `UndoHistory`, `UnrealEd`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UndoHistoryEditor` 的构建规则位于 `Editor/UndoHistoryEditor/UndoHistoryEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UndoHistoryEditor` build rule is `Editor/UndoHistoryEditor/UndoHistoryEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "uninstallhelper",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UninstallHelper` 位于 `Programs`，构建规则 `Programs/UninstallHelper/UninstallHelper.Build.cs`。它直接依赖 3 个模块：`BuildSettings`, `Core`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UninstallHelper\" });`；对外暴露 `UninstallHelper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UninstallHelper` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UninstallHelper.h` / `UninstallHelperModule.h`），再用 `FModuleManager::LoadModulePtr<UninstallHelperModule>` 或直接使用导出类型。",
+      "传递依赖：`UninstallHelper` 还依赖 `BuildSettings`, `Core`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UninstallHelper` lives under `Programs`; build rule `Programs/UninstallHelper/UninstallHelper.Build.cs`.It directly depends on 3 modules: `BuildSettings`, `Core`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UninstallHelper\" });`. Use Public when exposing `UninstallHelper` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UninstallHelper` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UninstallHelper.h` / `UninstallHelperModule.h`), then use `FModuleManager::LoadModulePtr<UninstallHelperModule>` or the exported types directly.",
+      "Transitive deps: `UninstallHelper` also needs `BuildSettings`, `Core`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UninstallHelper` 的构建规则位于 `Programs/UninstallHelper/UninstallHelper.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`UninstallHelper` build rule is `Programs/UninstallHelper/UninstallHelper.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "universalobjectlocator",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UniversalObjectLocator` 位于 `Runtime`，构建规则 `Runtime/UniversalObjectLocator/UniversalObjectLocator.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `HTTP`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UniversalObjectLocator\" });`；对外暴露 `UniversalObjectLocator` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UniversalObjectLocator` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `UniversalObjectLocator.h` / `UniversalObjectLocatorModule.h`），再用 `FModuleManager::LoadModulePtr<UniversalObjectLocatorModule>` 或直接使用导出类型。",
+      "传递依赖：`UniversalObjectLocator` 还依赖 `Core`, `CoreUObject`, `HTTP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UniversalObjectLocator` lives under `Runtime`; build rule `Runtime/UniversalObjectLocator/UniversalObjectLocator.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `HTTP`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UniversalObjectLocator\" });`. Use Public when exposing `UniversalObjectLocator` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UniversalObjectLocator` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `UniversalObjectLocator.h` / `UniversalObjectLocatorModule.h`), then use `FModuleManager::LoadModulePtr<UniversalObjectLocatorModule>` or the exported types directly.",
+      "Transitive deps: `UniversalObjectLocator` also needs `Core`, `CoreUObject`, `HTTP`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UniversalObjectLocator` 的构建规则位于 `Runtime/UniversalObjectLocator/UniversalObjectLocator.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`UniversalObjectLocator` build rule is `Runtime/UniversalObjectLocator/UniversalObjectLocator.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "universalobjectlocatoreditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UniversalObjectLocatorEditor` 位于 `Editor`，构建规则 `Editor/UniversalObjectLocatorEditor/UniversalObjectLocatorEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `MessageLog`, `PropertyEditor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UniversalObjectLocatorEditor\" });`；对外暴露 `UniversalObjectLocatorEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UniversalObjectLocatorEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `UniversalObjectLocatorEditor.h` / `UniversalObjectLocatorEditorModule.h`），再用 `FModuleManager::LoadModulePtr<UniversalObjectLocatorEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`UniversalObjectLocatorEditor` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `MessageLog`, `PropertyEditor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UniversalObjectLocatorEditor` lives under `Editor`; build rule `Editor/UniversalObjectLocatorEditor/UniversalObjectLocatorEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `MessageLog`, `PropertyEditor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UniversalObjectLocatorEditor\" });`. Use Public when exposing `UniversalObjectLocatorEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UniversalObjectLocatorEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `UniversalObjectLocatorEditor.h` / `UniversalObjectLocatorEditorModule.h`), then use `FModuleManager::LoadModulePtr<UniversalObjectLocatorEditorModule>` or the exported types directly.",
+      "Transitive deps: `UniversalObjectLocatorEditor` also needs `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`, `InputCore`, `MessageLog`, `PropertyEditor`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UniversalObjectLocatorEditor` 的构建规则位于 `Editor/UniversalObjectLocatorEditor/UniversalObjectLocatorEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UniversalObjectLocatorEditor` build rule is `Editor/UniversalObjectLocatorEditor/UniversalObjectLocatorEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "unixcommonstartup",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnixCommonStartup` 位于 `Runtime`，构建规则 `Runtime/Unix/UnixCommonStartup/UnixCommonStartup.Build.cs`。它直接依赖 6 个模块：`ApplicationCore`, `Core`, `Engine`, `Projects`, `Slate`, `SourceControl`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnixCommonStartup\" });`；对外暴露 `UnixCommonStartup` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnixCommonStartup` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `UnixCommonStartup.h` / `UnixCommonStartupModule.h`），再用 `FModuleManager::LoadModulePtr<UnixCommonStartupModule>` 或直接使用导出类型。",
+      "传递依赖：`UnixCommonStartup` 还依赖 `ApplicationCore`, `Core`, `Engine`, `Projects`, `Slate`, `SourceControl`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnixCommonStartup` lives under `Runtime`; build rule `Runtime/Unix/UnixCommonStartup/UnixCommonStartup.Build.cs`.It directly depends on 6 modules: `ApplicationCore`, `Core`, `Engine`, `Projects`, `Slate`, `SourceControl`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnixCommonStartup\" });`. Use Public when exposing `UnixCommonStartup` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnixCommonStartup` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `UnixCommonStartup.h` / `UnixCommonStartupModule.h`), then use `FModuleManager::LoadModulePtr<UnixCommonStartupModule>` or the exported types directly.",
+      "Transitive deps: `UnixCommonStartup` also needs `ApplicationCore`, `Core`, `Engine`, `Projects`, `Slate`, `SourceControl`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnixCommonStartup` 的构建规则位于 `Runtime/Unix/UnixCommonStartup/UnixCommonStartup.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`UnixCommonStartup` build rule is `Runtime/Unix/UnixCommonStartup/UnixCommonStartup.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "unrealassetstringify",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealAssetStringify` 位于 `Programs`，构建规则 `Programs/UnrealAssetStringify/UnrealAssetStringify.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `JsonObjectGraph`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealAssetStringify\" });`；对外暴露 `UnrealAssetStringify` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealAssetStringify` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealAssetStringify.h` / `UnrealAssetStringifyModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealAssetStringifyModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealAssetStringify` 还依赖 `Core`, `CoreUObject`, `JsonObjectGraph`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealAssetStringify` lives under `Programs`; build rule `Programs/UnrealAssetStringify/UnrealAssetStringify.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `JsonObjectGraph`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealAssetStringify\" });`. Use Public when exposing `UnrealAssetStringify` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealAssetStringify` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealAssetStringify.h` / `UnrealAssetStringifyModule.h`), then use `FModuleManager::LoadModulePtr<UnrealAssetStringifyModule>` or the exported types directly.",
+      "Transitive deps: `UnrealAssetStringify` also needs `Core`, `CoreUObject`, `JsonObjectGraph`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealAssetStringify` 的构建规则位于 `Programs/UnrealAssetStringify/UnrealAssetStringify.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`UnrealAssetStringify` build rule is `Programs/UnrealAssetStringify/UnrealAssetStringify.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "unrealatos",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealAtoS` 位于 `Programs`，构建规则 `Programs/Mac/UnrealAtoS/UnrealAtoS.Build.cs`。它直接依赖 3 个模块：`ApplicationCore`, `Core`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealAtoS\" });`；对外暴露 `UnrealAtoS` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealAtoS` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealAtoS.h` / `UnrealAtoSModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealAtoSModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealAtoS` 还依赖 `ApplicationCore`, `Core`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealAtoS` lives under `Programs`; build rule `Programs/Mac/UnrealAtoS/UnrealAtoS.Build.cs`.It directly depends on 3 modules: `ApplicationCore`, `Core`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealAtoS\" });`. Use Public when exposing `UnrealAtoS` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealAtoS` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealAtoS.h` / `UnrealAtoSModule.h`), then use `FModuleManager::LoadModulePtr<UnrealAtoSModule>` or the exported types directly.",
+      "Transitive deps: `UnrealAtoS` also needs `ApplicationCore`, `Core`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealAtoS` 的构建规则位于 `Programs/Mac/UnrealAtoS/UnrealAtoS.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`UnrealAtoS` build rule is `Programs/Mac/UnrealAtoS/UnrealAtoS.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "unrealconsole",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealConsole` 位于 `Programs`，构建规则 `Programs/UnrealConsole/UnrealConsole.Build.cs`。它直接依赖 2 个模块：`Core`, `UnrealConsoleRuntimeAPI`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealConsole\" });`；对外暴露 `UnrealConsole` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealConsole` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UnrealConsole.h` / `UnrealConsoleModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealConsoleModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealConsole` 还依赖 `Core`, `UnrealConsoleRuntimeAPI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealConsole` lives under `Programs`; build rule `Programs/UnrealConsole/UnrealConsole.Build.cs`.It directly depends on 2 modules: `Core`, `UnrealConsoleRuntimeAPI`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealConsole\" });`. Use Public when exposing `UnrealConsole` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealConsole` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UnrealConsole.h` / `UnrealConsoleModule.h`), then use `FModuleManager::LoadModulePtr<UnrealConsoleModule>` or the exported types directly.",
+      "Transitive deps: `UnrealConsole` also needs `Core`, `UnrealConsoleRuntimeAPI`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealConsole` 的构建规则位于 `Programs/UnrealConsole/UnrealConsole.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`UnrealConsole` build rule is `Programs/UnrealConsole/UnrealConsole.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "unrealconsoleruntimeapi",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealConsoleRuntimeAPI` 位于 `Runtime`，构建规则 `Runtime/UnrealConsoleRuntimeAPI/UnrealConsoleRuntimeAPI.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealConsoleRuntimeAPI\" });`；对外暴露 `UnrealConsoleRuntimeAPI` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealConsoleRuntimeAPI` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `UnrealConsoleRuntimeAPI.h` / `UnrealConsoleRuntimeAPIModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealConsoleRuntimeAPIModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealConsoleRuntimeAPI` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealConsoleRuntimeAPI` lives under `Runtime`; build rule `Runtime/UnrealConsoleRuntimeAPI/UnrealConsoleRuntimeAPI.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealConsoleRuntimeAPI\" });`. Use Public when exposing `UnrealConsoleRuntimeAPI` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealConsoleRuntimeAPI` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `UnrealConsoleRuntimeAPI.h` / `UnrealConsoleRuntimeAPIModule.h`), then use `FModuleManager::LoadModulePtr<UnrealConsoleRuntimeAPIModule>` or the exported types directly.",
+      "Transitive deps: `UnrealConsoleRuntimeAPI` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealConsoleRuntimeAPI` 的构建规则位于 `Runtime/UnrealConsoleRuntimeAPI/UnrealConsoleRuntimeAPI.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`UnrealConsoleRuntimeAPI` build rule is `Runtime/UnrealConsoleRuntimeAPI/UnrealConsoleRuntimeAPI.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "unrealed",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UnrealEd` 位于 `Editor`，构建规则 `Editor/UnrealEd/UnrealEd.Build.cs`。它直接依赖 8 个模块：`ASDCore`, `AddContentDialog`, `Analytics`, `AnalyticsET`, `AnimGraphRuntime`, `AppFramework`, `ApplicationCore`, `AssetDefinition`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealEd\" });`；对外暴露 `UnrealEd` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UnrealEd` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `UnrealEd.h` / `UnrealEdModule.h`），再用 `FModuleManager::LoadModulePtr<UnrealEdModule>` 或直接使用导出类型。",
+      "传递依赖：`UnrealEd` 还依赖 `ASDCore`, `AddContentDialog`, `Analytics`, `AnalyticsET`, `AnimGraphRuntime`, `AppFramework`, `ApplicationCore`, `AssetDefinition`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UnrealEd` lives under `Editor`; build rule `Editor/UnrealEd/UnrealEd.Build.cs`.It directly depends on 8 modules: `ASDCore`, `AddContentDialog`, `Analytics`, `AnalyticsET`, `AnimGraphRuntime`, `AppFramework`, `ApplicationCore`, `AssetDefinition`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UnrealEd\" });`. Use Public when exposing `UnrealEd` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UnrealEd` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `UnrealEd.h` / `UnrealEdModule.h`), then use `FModuleManager::LoadModulePtr<UnrealEdModule>` or the exported types directly.",
+      "Transitive deps: `UnrealEd` also needs `ASDCore`, `AddContentDialog`, `Analytics`, `AnalyticsET`, `AnimGraphRuntime`, `AppFramework`, `ApplicationCore`, `AssetDefinition`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UnrealEd` 的构建规则位于 `Editor/UnrealEd/UnrealEd.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UnrealEd` build rule is `Editor/UnrealEd/UnrealEd.Build.cs`; depends on 8 modules; category Module."
+  }
+]

@@ -1,0 +1,332 @@
+[
+  {
+    "slug": "chaos-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "用 `-trace=cpu,frame,chaoslocks` 启动编辑器或打包游戏（也可在会话中执行 `Trace.Start cpu,frame,chaoslocks`）。`ChaosLocks` 通道记录 Chaos 求解器读写锁的 begin / acquired / end 周期时间戳。",
+      "复现卡顿：让关卡里出现大量刚体碰撞、Geometry Collection 破碎或求解器迭代尖峰，使物理线程与游戏线程争锁。",
+      "打开 `UnrealInsights.exe`，加载这次生成的 `.utrace`。分析器模块 `ChaosInsightsAnalysis` 会解析锁事件；`ChaosInsightsUI` 在 Insights 里画出 Chaos 锁时间线。",
+      "对照 Timing Insights 的 Physics / Chaos 计时器，找出长时间持锁或反复失败获取的区间，再回头减碰撞对数、求解器迭代或错开 GT 对物理场景的写入。",
+      "不要把 `ChaosInsightsUI` 写进游戏 `Build.cs`；Shipping 包只在需要时带 Analysis 依赖，平时用命令行 Trace，不要为洞察功能加运行时 Actor。"
+    ],
+    "en_steps": [
+      "Launch the editor or a cooked build with `-trace=cpu,frame,chaoslocks` (or `Trace.Start cpu,frame,chaoslocks` mid-session). The `ChaosLocks` channel records Chaos solver read/write lock begin / acquired / end cycle timestamps.",
+      "Reproduce the hitch: heavy rigid contacts, Geometry Collection breaks, or solver-iteration spikes so the physics thread contends with the game thread.",
+      "Open `UnrealInsights.exe` and load the `.utrace`. `ChaosInsightsAnalysis` parses lock events; `ChaosInsightsUI` draws the Chaos lock timeline inside Insights.",
+      "Align those spans with Physics / Chaos timers in Timing Insights, then cut contact pairs, solver iterations, or game-thread writes into the physics scene.",
+      "Do not add `ChaosInsightsUI` to a game `Build.cs`. Ship Analysis only if you must; drive capture from the command line, not a runtime Actor."
+    ],
+    "note_cn": "这是 Unreal Insights 的 Chaos 锁分析扩展，不是关卡组件。关注 `ChaosLocks` 通道，不要和 Chaos Visual Debugger 的 `.utrace` 物理录像混用。",
+    "note_en": "Unreal Insights extension for Chaos lock contention, not a level component. Use the `ChaosLocks` channel; do not confuse it with Chaos Visual Debugger physics recordings."
+  },
+  {
+    "slug": "chaos-modular-vehicle-examples",
+    "kind": "plugin",
+    "cn_steps": [
+      "先启用 `Chaos Modular Vehicle`，再启用内容插件 `Chaos Modular Vehicle Examples`（无运行时模块，只带示例资产）并重启。",
+      "在内容浏览器打开插件内容（Show Plugin Content），进入 `ChaosModularVehicleExamples` 目录，打开自带示例关卡而非空地图。",
+      "选中示例 `ModularVehicleClusterPawn` 蓝图，对照组件树：根上是 Cluster Union 车辆组件，子级是车身/车轮 `Geometry Collection`，再挂 `VehicleSimEngine` / `VehicleSimClutch` / `VehicleSimTransmission` / `VehicleSimSuspension` / `VehicleSimWheel`。",
+      "Play 后用项目默认输入开车；故意撞碎可分离零件，确认碎块不再跟着底盘走（示例已开 `Force Update Active Transforms`）。",
+      "把需要的 Geometry Collection 零件和蓝图 Duplicate 到项目内容，再改网格与质量；不要直接改引擎插件目录里的示例包。",
+      "这不是 Chaos Vehicles（骨骼网格载具）示例；两边插件不要当成同一套资产。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Modular Vehicle` first, then the content plugin `Chaos Modular Vehicle Examples` (no runtime modules, sample assets only) and restart.",
+      "Turn on Show Plugin Content, browse `ChaosModularVehicleExamples`, and open the shipped sample map instead of an empty level.",
+      "Inspect a sample `ModularVehicleClusterPawn`: Cluster Union vehicle component at the root, chassis/wheel `Geometry Collection` children, then `VehicleSimEngine` / `VehicleSimClutch` / `VehicleSimTransmission` / `VehicleSimSuspension` / `VehicleSimWheel`.",
+      "PIE with default project input. Break off detachable parts and confirm debris does not hitch a ride on the chassis (`Force Update Active Transforms` is on in the samples).",
+      "Duplicate needed Geometry Collections and Blueprints into project content before changing meshes or masses; do not edit the engine plugin packages in place.",
+      "These are not Chaos Vehicles (skeletal-mesh) samples; do not mix the two plugins’ assets."
+    ],
+    "note_cn": "纯示例内容包，描述符不列出运行时模块。真正开车靠 `Chaos Modular Vehicle`；本插件只提供可拆的 Geometry Collection 载具样例。",
+    "note_en": "Content-only pack with no runtime modules. Driving comes from `Chaos Modular Vehicle`; this plugin only ships breakable Geometry Collection vehicle samples."
+  },
+  {
+    "slug": "chaos-modular-vehicle",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用实验性 `Chaos Modular Vehicle`（`ChaosModularVehicle`、`ChaosModularVehicleEngine`）并重启；它与 `Chaos Vehicles` 骨骼网格载具是两套系统，不必同时开。",
+      "用 Fracture 把车身、轮毂等静态网格生成 `Geometry Collection`；每个零件一块 GC，不要合成一张骨骼网格。",
+      "新建蓝图，父类选 `ModularVehicleClusterPawn`。根上已有 Cluster Union 车辆组件和 Network Physics 组件。",
+      "把各 GC 拖进组件树、挂到 Cluster Union 下，按 X 前 Y 右 Z 上对齐。每个当车轮的 GC 下加 `VehicleSimSuspension`，其下再加 `VehicleSimWheel`；底盘 GC 下按扭矩流向串 `VehicleSimEngine` → `VehicleSimClutch` → `VehicleSimTransmission`。",
+      "在 Clustering 里勾选 `Force Update Active Transforms`，否则掉落零件静止后会跟着 Actor 平移。配置输入到车辆模拟组件，必要时加 `VehicleSimThruster` / `VehicleSimAerofoil`。",
+      "联网时走 Chaos 网络物理重模拟，不要用 CMC/旧载具的 Network Prediction。运行时用 Cluster Union 的 `AddComponentToCluster` 动态加零件。",
+      "`ChaosModularVehicleEditor` 只进 `*Editor.Build.cs`；游戏模块只依赖 `ChaosModularVehicle` / `ChaosModularVehicleEngine`。"
+    ],
+    "en_steps": [
+      "Enable experimental `Chaos Modular Vehicle` (`ChaosModularVehicle`, `ChaosModularVehicleEngine`) and restart. It is separate from skeletal-mesh `Chaos Vehicles`; you do not need both.",
+      "Fracture chassis, wheels, and other static meshes into per-part `Geometry Collection` assets — do not build one skeletal mesh.",
+      "Create a Blueprint parented to `ModularVehicleClusterPawn`. The Cluster Union vehicle component and Network Physics component are already on the root.",
+      "Drop each GC under the Cluster Union (X forward, Y right, Z up). Under each wheel GC add `VehicleSimSuspension` then `VehicleSimWheel`. Under the chassis GC chain torque as `VehicleSimEngine` → `VehicleSimClutch` → `VehicleSimTransmission`.",
+      "Enable `Force Update Active Transforms` under Clustering so sleeping debris does not follow the pawn. Wire input into the vehicle simulation component; add `VehicleSimThruster` / `VehicleSimAerofoil` if needed.",
+      "Replicate with Chaos networked physics resimulation, not CMC/legacy-vehicle Network Prediction. At runtime, attach extra parts with Cluster Union `AddComponentToCluster`.",
+      "Put `ChaosModularVehicleEditor` only in `*Editor.Build.cs`; game modules depend on `ChaosModularVehicle` / `ChaosModularVehicleEngine`."
+    ],
+    "note_cn": "载具是 Cluster Union + 多块 Geometry Collection，不是 Physics Asset 骨骼车。仿真组件的父子关系就是扭矩/悬架力的流向。",
+    "note_en": "The vehicle is a Cluster Union of Geometry Collections, not a Physics Asset skeletal car. Simulation-component parenting is the torque and suspension force graph."
+  },
+  {
+    "slug": "chaos-mover",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `Mover` 与实验性 `Chaos Mover`（模块 `ChaosMover`）并重启。这是在物理线程上跑的 Mover 后端，不能把普通 `UWalkingMode` 原样丢进去。",
+      "在 `Project Settings > Physics` 打开 `Tick Physics Async`；联机再开 `Enable Physics Prediction`。Chaos Mover 强制异步固定步长，关异步物理无法正确步进。",
+      "Pawn 上用 `UChaosCharacterMoverComponent`（不要用 CMC）。地面模式需要角色地面约束；模式列表放 `UChaosWalkingMode`、`UChaosFallingMode`，需要时再加 `UChaosSwimmingMode` / `UChaosFlyingMode` 或带弹簧平滑的 `UChaosSmoothWalkingMode`。",
+      "自定义模式必须只碰已封送的 `FMoverTickStartData` / `FProposedMove`，禁止在 PT 回调里碰 `UObject` 或游戏线程状态。输入经 `UChaosMoverBackendComponent` 封送到物理线程。",
+      "场景里可互动物体也要做物理复制，否则客户端重模拟会和角色脱步。Chaos Mover 角色不能与走 Network Prediction 的普通 Mover Actor 对齐。",
+      "游戏 `Build.cs` 加 `ChaosMover`（通常还要 `Mover`）；参考 Mover Examples 里的 `PhysicsMannyPawn` / `L_PhysicsSimulatedCharacter`，不要抄 CMC 角色。"
+    ],
+    "en_steps": [
+      "Enable both `Mover` and experimental `Chaos Mover` (module `ChaosMover`) and restart. This is the physics-thread Mover backend; stock `UWalkingMode` is not drop-in.",
+      "Turn on `Tick Physics Async` under `Project Settings > Physics`; for net play also enable `Enable Physics Prediction`. Chaos Mover requires an async fixed timestep.",
+      "Put `UChaosCharacterMoverComponent` on the pawn (not CMC). Ground motion needs a character ground constraint. Register `UChaosWalkingMode` and `UChaosFallingMode`, plus `UChaosSwimmingMode` / `UChaosFlyingMode` or spring-smoothed `UChaosSmoothWalkingMode` as needed.",
+      "Custom modes may touch only marshalled `FMoverTickStartData` / `FProposedMove` — no `UObject` or game-thread state on the physics thread. Inputs go through `UChaosMoverBackendComponent`.",
+      "Replicate other interactive physics actors or clients will desync on resim. Chaos Mover pawns are not synced with Network Prediction Mover actors.",
+      "Add `ChaosMover` (and usually `Mover`) to game `Build.cs`. Start from Mover Examples `PhysicsMannyPawn` / `L_PhysicsSimulatedCharacter`, not a CMC character."
+    ],
+    "note_cn": "和 CMC / 标准 Mover 不兼容：模拟在物理线程。输入到动作会有插值延迟；Experimental，接口会变。",
+    "note_en": "Incompatible with CMC and stock Mover modes: simulation runs on the physics thread. Expect input-to-motion interpolation delay. Experimental APIs."
+  },
+  {
+    "slug": "chaos-niagara",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Niagara`（模块 `ChaosNiagara`）并重启；同时保证 Niagara 与 Geometry Collection 破坏流程可用。",
+      "在 `Project Settings` 搜索 `Generate Data`，打开 Collision / Breaking / Trailing 数据生成，否则求解器不会把事件送给 Niagara。",
+      "选中关卡里的 `Geometry Collection`，在 ChaosPhysics > Events 按特效需要勾选 `Notify Collisions`、`Notify Breaks` 或 `Notify Trailing`（拖尾还常要 `Store Velocities`）。",
+      "新建 Niagara System。在 Niagara 参数里加 Chaos Destruction 数据接口，Data Type 只能三选一：`Collision`、`Breaking` 或 `Trailing`。同一 System 不能同时吃两类事件，要第二类就复制一份 System。",
+      "Emitter Update 用 `Spawn from Chaos`，Particle Spawn 用 `Apply Chaos Data`，按尺寸/速度/物理材质过滤，避免每步把整场破碎灌进粒子。",
+      "把 Niagara 放到同一 Chaos Solver 作用范围（世界求解器或 `AChaosSolverActor`）。Breaking 做出碎瞬间的尘土爆炸，Collision 做落地火花，Trailing 做飞片烟迹。",
+      "游戏模块按需依赖 `ChaosNiagara`；Shipping 里关掉不需要的 Notify，否则事件列表会打满。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Niagara` (module `ChaosNiagara`) and restart; keep Niagara and Geometry Collection destruction available.",
+      "In `Project Settings` search `Generate Data` and enable Collision / Breaking / Trailing generation, or the solver never feeds Niagara.",
+      "On each `Geometry Collection`, under ChaosPhysics > Events, enable `Notify Collisions`, `Notify Breaks`, and/or `Notify Trailing` (Trailing often also needs `Store Velocities`).",
+      "Create a Niagara System and add the Chaos Destruction data interface. Data Type is exactly one of `Collision`, `Breaking`, or `Trailing`. Duplicate the System if you need a second event class.",
+      "Use `Spawn from Chaos` in Emitter Update and `Apply Chaos Data` in Particle Spawn. Filter by size, speed, and physical material so every solver tick does not flood the emitter.",
+      "Place the system in the same Chaos Solver domain (world solver or `AChaosSolverActor`). Breaking → burst on fracture, Collision → impact dust/sparks, Trailing → debris smoke.",
+      "Depend on `ChaosNiagara` in game modules only if you talk to it in C++. Disable unused Notify flags in Shipping or event lists explode."
+    ],
+    "note_cn": "二次特效插件：读 Chaos 碰撞/破碎/拖尾，不求解物理。一个 Niagara System 只绑定一种 Chaos 事件类型。",
+    "note_en": "Secondary VFX only: it consumes Chaos collision/break/trailing data, it does not solve physics. One Niagara System binds one Chaos event type."
+  },
+  {
+    "slug": "chaos-outfit-asset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Outfit Asset`（`ChaosOutfitAssetEngine`、`ChaosOutfitAssetDataflowNodes`、`ChaosOutfitAssetEditor`）并确保 `Chaos Cloth Asset` 已开，然后重启。",
+      "内容浏览器右键 `Physics / Cloth` 新建 `Chaos Outfit Asset`（`UChaosOutfitAsset`）。组装基础套装时选 Resizable Outfit 模板，不要用会剥掉仿真网格的 MetaHuman Creator 导出图。",
+      "打开资产上的 Dataflow：把已有 `Chaos Cloth Asset` 零件（上衣、裤、裙）接进图，指定绑定用的骨架网格，求值生成组合后的渲染/仿真网格与材质槽。",
+      "角色蓝图上加 Chaos Cloth 组件，把 Outfit 赋给组件（槽位类型是 `ChaosClothAssetBase`，Cloth 与 Outfit 都能塞）。Play 看布料，不要只看静态预览。",
+      "要适配另一种身材：再新建 Outfit，选 Resizing Graph 模板，Details 里 `Resizable Outfit` 指基础套装，`Target Body` 指目标骨架，`Strip Sim Mesh` 设为 false，Generate 后再赋给该角色。",
+      "缩放只能在编辑器求值/Cook，不能运行时 Resize。`ChaosOutfitAssetEditor` 只进 Editor 模块；运行时依赖 `ChaosOutfitAssetEngine`。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Outfit Asset` (`ChaosOutfitAssetEngine`, `ChaosOutfitAssetDataflowNodes`, `ChaosOutfitAssetEditor`) with `Chaos Cloth Asset` already on, then restart.",
+      "Content Browser: `Physics / Cloth` → `Chaos Outfit Asset` (`UChaosOutfitAsset`). For a sim-ready wardrobe use the Resizable Outfit template, not a MetaHuman Creator graph that strips the sim mesh.",
+      "Open the asset Dataflow, wire existing `Chaos Cloth Asset` pieces (shirt, pants, skirt), set the bind skeletal mesh, and evaluate to build combined render/sim meshes and material slots.",
+      "On the character, add a Chaos Cloth component and assign the Outfit (`ChaosClothAssetBase` accepts Cloth or Outfit). PIE the cloth; a static thumbnail is not a sim.",
+      "For another body: create a second Outfit with the Resizing Graph template, set `Resizable Outfit` to the base outfit, `Target Body` to the target skeleton, `Strip Sim Mesh` = false, Generate, then assign that asset.",
+      "Resize is editor evaluate/cook only — not runtime. `ChaosOutfitAssetEditor` is editor-only; runtime depends on `ChaosOutfitAssetEngine`."
+    ],
+    "note_cn": "Outfit 是多件 Cloth Asset 的 Dataflow 组装/缩放容器，不是独立求解器。保留仿真必须 `Strip Sim Mesh = false`。",
+    "note_en": "An Outfit is a Dataflow assembly/resize of Cloth Assets, not its own solver. Keep simulation with `Strip Sim Mesh = false`."
+  },
+  {
+    "slug": "chaos-rigid-asset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Chaos Rigid Asset`（`ChaosRigidAssetEngine`、`ChaosRigidAssetNodes`、`ChaosRigidAssetEditor`）并重启。它制作刚体集合，不是 Geometry Collection 破碎图。",
+      "内容浏览器新建 `Chaos Rigid Asset`，打开绑定的 Dataflow。用 `ChaosRigidAssetNodes` 把静态网格/碰撞体导入为刚体粒子，设置质量、惯性、碰撞形状与约束。",
+      "求值 Dataflow，在资产视口里检查刚体集合是否按约束连接。需要预览步进时打开能跑 Chaos 的 Dataflow 求解（见 `ChaosDataflowSolver`）。",
+      "把生成的刚体集合放到关卡 Actor/组件上，或作为 Outfit/布料管线的碰撞刚体输入，而不是拖进 Fracture 模式再切一次。",
+      "运行时模块用 `ChaosRigidAssetEngine`；图节点用 `ChaosRigidAssetNodes`。`ChaosRigidAssetEditor` 只进 `*Editor.Build.cs`。",
+      "Experimental：资产格式与节点名会变。不要用它替代 Fracture 的可破碎 Geometry Collection。"
+    ],
+    "en_steps": [
+      "Enable experimental `Chaos Rigid Asset` (`ChaosRigidAssetEngine`, `ChaosRigidAssetNodes`, `ChaosRigidAssetEditor`) and restart. It authors rigid-body collections, not Geometry Collection fracture graphs.",
+      "Create a `Chaos Rigid Asset` and open its Dataflow. Use `ChaosRigidAssetNodes` to ingest static meshes/colliders as rigid particles and set mass, inertia, collision shapes, and constraints.",
+      "Evaluate the graph and inspect the collection in the asset viewport. For stepped preview, enable a Dataflow Chaos solver (`ChaosDataflowSolver`).",
+      "Place the collection on a level actor/component, or feed it as rigid colliders into Outfit/cloth pipelines — do not send it through Fracture Mode.",
+      "Runtime: `ChaosRigidAssetEngine`. Graph nodes: `ChaosRigidAssetNodes`. `ChaosRigidAssetEditor` belongs only in `*Editor.Build.cs`.",
+      "Experimental: asset format and node names can change. This does not replace fracture Geometry Collections."
+    ],
+    "note_cn": "Dataflow 刚体集合资产，面向成组刚体与约束，不是破坏切片工具。",
+    "note_en": "Dataflow rigid-body collection asset for grouped bodies and constraints, not a fracture/slice tool."
+  },
+  {
+    "slug": "chaos-rigid-physics-async",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Chaos Rigid Physics Async`（模块 `ChaosRigidPhysicsAsync`）并重启。它提供 Chaos 刚体引擎的异步实现，不是新的关卡 Actor 类型。",
+      "在 `Project Settings > Physics` 打开 `Tick Physics Async`（固定物理步长）。联机再开 Physics Prediction，让 GT 插值追物理线程。",
+      "用普通 Chaos 刚体、Geometry Collection 或 Chaos Mover 角色做场景；异步后端在独立物理线程推进刚体，不需要换组件类。",
+      "用 `stat chaos` / Unreal Insights 看物理线程与游戏线程是否脱步。交互物必须复制物理状态，否则预测回滚会抖。",
+      "游戏 `Build.cs` 仅在直接调用该后端 API 时加 `ChaosRigidPhysicsAsync`；多数项目启用插件即可，求解器由引擎物理模块拉起。",
+      "不要和同步求解混在同一套「必须同帧读写刚体变换」的玩法里；异步有一到数帧延迟。"
+    ],
+    "en_steps": [
+      "Enable experimental `Chaos Rigid Physics Async` (module `ChaosRigidPhysicsAsync`) and restart. It is the async Chaos rigid-body engine, not a new actor type.",
+      "Enable `Tick Physics Async` under `Project Settings > Physics` (fixed physics dt). For net play also enable Physics Prediction so the game thread interpolates toward the physics thread.",
+      "Author the scene with normal Chaos rigid bodies, Geometry Collections, or Chaos Mover characters. The backend steps bodies on the physics thread; you do not swap component classes.",
+      "Watch `stat chaos` / Unreal Insights for GT vs PT drift. Replicate interactive physics or prediction rollbacks will hitch.",
+      "Add `ChaosRigidPhysicsAsync` to game `Build.cs` only if you call its API. Most projects just enable the plugin and let the engine physics module load it.",
+      "Do not mix it with gameplay that must read/write rigid transforms on the same game frame; async implies one or more frames of delay."
+    ],
+    "note_cn": "异步刚体求解后端，无编辑器面板工作流。给 Chaos Mover、网络预测刚体提供 PT 固定步长。",
+    "note_en": "Async rigid solver backend with no editor-panel workflow. Supplies the PT fixed timestep used by Chaos Mover and predicted rigid bodies."
+  },
+  {
+    "slug": "chaos-solver",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Chaos Solver`（编辑器模块 `ChaosSolverEditor`，运行时求解 Actor 在引擎 `ChaosSolverEngine`）并重启。",
+      "在关卡里放置 `AChaosSolverActor`（Place Actors 搜 Chaos Solver）。默认世界只有一个隐式求解器；独立 Actor 用来隔离一堆破坏物体。",
+      "选中 `Geometry Collection` 组件，把 Chaos Solver Actor / Override Solver 指到该 Actor。未指定则走世界默认求解器。",
+      "在 Solver Actor 上调时间步、碰撞/推开迭代、休眠阈值，使这一组破碎与角色控制器、载具不抢同一个求解预算。",
+      "需要二次特效时，把 Niagara Chaos DI 也指到同一 Solver，否则 Breaking 事件对不上这组物体。",
+      "不要把 `ChaosSolverEditor` 加进 Game Target。运行时生成求解器用 `ChaosSolverEngine` 的 `AChaosSolverActor`，蓝图可 `SetSolverActor`。"
+    ],
+    "en_steps": [
+      "Enable experimental `Chaos Solver` (editor module `ChaosSolverEditor`; the runtime actor lives in engine `ChaosSolverEngine`) and restart.",
+      "Place an `AChaosSolverActor` (Place Actors → Chaos Solver). The world already has an implicit solver; a dedicated actor isolates a destruction set.",
+      "On each `Geometry Collection` component, set Chaos Solver Actor / Override Solver to that actor. Unset components use the world solver.",
+      "Tune the actor’s time step, collision/push-out iterations, and sleep thresholds so this break pile does not share solver budget with characters or vehicles.",
+      "Point Niagara Chaos DIs at the same solver if you want secondary FX, or Breaking events will not match this group.",
+      "Never link `ChaosSolverEditor` into a Game Target. Spawn `AChaosSolverActor` via `ChaosSolverEngine` and call `SetSolverActor` from Blueprint if needed."
+    ],
+    "note_cn": "插件主体是求解器 Actor 的编辑器支持。隔离破坏模拟用 `AChaosSolverActor`，不是再画一遍世界物理。",
+    "note_en": "Editor support for physics-solver actors. Isolate destruction with `AChaosSolverActor`; it does not replace world physics."
+  },
+  {
+    "slug": "chaos-visual-debugger",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Chaos Visual Debugger`（`ChaosVD`、`ChaosVDBlueprint`、`ChaosVDBuiltInExtensions`）并重启。从编辑器菜单打开 CVD，或运行独立程序 `ChaosVisualDebugger`。",
+      "在 CVD 的 Data Channels 里勾选要录的通道（如 `SceneQueries`、`PostIntegrate`）。命令行等价：`p.Chaos.VD.SetCVDDataChannelEnabled true SceneQueries,PostIntegrate`。",
+      "Play 后在 CVD 工具栏对 Local Editor 点 Record to File，结束时 Stop。会写出 `.utrace`（不是旧的 `.cvd`）。也可在目标进程执行 `p.Chaos.StartVDRecording` / `p.Chaos.StopVDRecording`。",
+      "加载录像后逐帧看刚体变换、约束、碰撞与场景查询；联网可一次加载多路客户端/服务器录像做对比。",
+      "打包游戏用 `CVDDataChannelsOverride=SceneQueries,PostIntegrate` 预开通道。蓝图侧用 `ChaosVDBlueprint` 启停录制。",
+      "CVD 是调试录像，不要打进 Shipping 玩法。录制开销大，只开需要的通道。"
+    ],
+    "en_steps": [
+      "Enable `Chaos Visual Debugger` (`ChaosVD`, `ChaosVDBlueprint`, `ChaosVDBuiltInExtensions`) and restart. Open CVD from the editor menu or run standalone `ChaosVisualDebugger`.",
+      "In CVD Data Channels, enable what you need (e.g. `SceneQueries`, `PostIntegrate`). CLI: `p.Chaos.VD.SetCVDDataChannelEnabled true SceneQueries,PostIntegrate`.",
+      "PIE, then Record to File on the Local Editor target in CVD and Stop. Output is `.utrace` (not legacy `.cvd`). Alternatively `p.Chaos.StartVDRecording` / `p.Chaos.StopVDRecording` on the target.",
+      "Load the recording and step rigid transforms, constraints, contacts, and scene queries. For net play, load several client/server captures at once.",
+      "For cooked builds, preload channels with `CVDDataChannelsOverride=SceneQueries,PostIntegrate`. Blueprint start/stop lives in `ChaosVDBlueprint`.",
+      "CVD is a debug recorder, not Shipping gameplay. Recording is expensive — enable only required channels."
+    ],
+    "note_cn": "Chaos 物理可视化调试器，录的是物理状态 `.utrace`，不是 Insights 的 `ChaosLocks` 性能通道。",
+    "note_en": "Visual debugger for Chaos physics state. It records physics `.utrace` files, not the Insights `ChaosLocks` performance channel."
+  },
+  {
+    "slug": "chaoscaching",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ChaosCaching`（`ChaosCaching`、`ChaosCachingEditor`）并重启。",
+      "关卡放置 `AChaosCacheManager`。在 Details 新建 `Chaos Cache Collection` 资产，作为录像容器。",
+      "在 `Observed Components` 里添加要录的 `Geometry Collection`（或支持缓存的刚体组件），每条必须填 `Cache Name`，否则不会写入 Collection。",
+      "`Cache Mode` 设为 `Record`，`Start Mode` 用 Timed（BeginPlay 计时）或 Triggered（调用 `TriggerObservedComponent`）。Simulate/PIE 把破碎跑完后停止。",
+      "把 Mode 改成 `Play`。Manager 会按缓存驱动观察对象，不再实时求解。拖进 Sequencer，加 Chaos Cache 轨道或关键帧 `Start Time`，即可倒带、变速、对齐镜头。",
+      "运行时依赖 `ChaosCaching`；编辑器定制在 `ChaosCachingEditor`。缓存是确定回放，改了 GC 拓扑要重录。"
+    ],
+    "en_steps": [
+      "Enable experimental `ChaosCaching` (`ChaosCaching`, `ChaosCachingEditor`) and restart.",
+      "Place `AChaosCacheManager`. In Details, create a `Chaos Cache Collection` asset as the recording container.",
+      "Add each `Geometry Collection` (or cacheable rigid component) under `Observed Components` and set a `Cache Name` per entry or nothing is stored.",
+      "Set `Cache Mode` to `Record`. `Start Mode` Timed counts from BeginPlay; Triggered waits for `TriggerObservedComponent`. Simulate/PIE the break, then stop.",
+      "Switch Mode to `Play` so the manager drives observers from the cache instead of live solving. Add the manager to Sequencer (Chaos Cache track or keyed `Start Time`) to scrub, retimed, and sync to cameras.",
+      "Runtime module is `ChaosCaching`; editor UI is `ChaosCachingEditor`. Playback is deterministic — re-record after GC topology changes."
+    ],
+    "note_cn": "把 Chaos 模拟烤成可 Sequencer 倒带的 Cache Collection。`Cache Name` 为空等于没录。",
+    "note_en": "Bakes a Chaos sim into a Sequencer-scrubbable Cache Collection. An empty `Cache Name` means nothing is recorded."
+  },
+  {
+    "slug": "chaosclothasset-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ChaosClothAsset Toolset`（模块 `ChaosClothAssetToolset`）并重启。它是给编辑器 AI 代理调用的工具，不是运行时布料求解器。",
+      "同时打开 `Chaos Cloth Asset`（以及要用套装时的 `Chaos Outfit Asset`），否则代理创建的资产无法求值。",
+      "在编辑器 AI / Agent 会话里让它「用指定骨架网格创建 ChaosClothAsset 并分配到角色」。工具集会走创建 Cloth 资产、绑骨骼、赋 Chaos Cloth 组件的流程。",
+      "生成后打开 Cloth 资产的 Dataflow 检查仿真网格、权重图和碰撞体，再 PIE 角色；不要把工具集输出直接当 Shipping 服装。",
+      "不要把 `ChaosClothAssetToolset` 写进游戏 `Build.cs` 或 Shipping 插件列表；只留在编辑器 Toolsets 目录。"
+    ],
+    "en_steps": [
+      "Enable experimental `ChaosClothAsset Toolset` (module `ChaosClothAssetToolset`) and restart. It is an editor AI-agent toolbox, not a runtime cloth solver.",
+      "Also enable `Chaos Cloth Asset` (and `Chaos Outfit Asset` if assembling outfits) or assets the agent creates cannot evaluate.",
+      "In an editor AI / Agent session, ask it to create a `ChaosClothAsset` for a given skeletal mesh and assign it on the character. The toolset runs create / bind / assign through a Chaos Cloth component.",
+      "Open the new Cloth asset Dataflow and verify sim mesh, weight maps, and colliders, then PIE the character. Do not treat toolset output as Shipping wardrobe.",
+      "Do not add `ChaosClothAssetToolset` to game `Build.cs` or Shipping plugin lists; it stays under editor Toolsets."
+    ],
+    "note_cn": "编辑器 AI 工具集：创建并分配 ChaosClothAsset。不含求解器，不要当布料运行时插件。",
+    "note_en": "Editor AI toolset for creating and assigning ChaosClothAsset. No solver; not a runtime cloth plugin."
+  },
+  {
+    "slug": "chaosdataflowsolver",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ChaosDataflowSolver`（模块 `ChaosDataflowSolver`）并重启。它在 Dataflow 图求值时步进 Chaos，不是关卡里的 `AChaosSolverActor`。",
+      "打开 Cloth Asset、Outfit、Rigid Asset 或带物理预览节点的 Geometry Collection Dataflow。",
+      "图中加入/启用 Chaos Dataflow Solver 节点，设置子步与迭代，接到刚体/布料粒子输出上。",
+      "在 Dataflow 编辑器里求值或播放预览：求解器在编辑器里推进粒子，用来调约束和碰撞，不必每次 PIE。",
+      "预览稳定后再把资产赋给角色或关卡组件，运行时仍走世界/`AChaosSolverActor`，不会在 Shipping 里每帧跑这张 Dataflow。",
+      "游戏 `Build.cs` 不要依赖 `ChaosDataflowSolver`，除非你在自定义编辑器/离线烘焙里求值同一张图。"
+    ],
+    "en_steps": [
+      "Enable experimental `ChaosDataflowSolver` (module `ChaosDataflowSolver`) and restart. It steps Chaos during Dataflow evaluation, and is not level `AChaosSolverActor`.",
+      "Open a Cloth, Outfit, Rigid Asset, or Geometry Collection Dataflow that has physics-preview nodes.",
+      "Add/enable the Chaos Dataflow Solver node, set substeps/iterations, and wire it to rigid/cloth particle outputs.",
+      "Evaluate or play preview in the Dataflow editor so the solver advances particles while you tune constraints and contacts — no PIE required.",
+      "Once the preview is stable, assign the asset to a character or level component. Runtime still uses the world solver / `AChaosSolverActor`; Shipping does not tick this graph every frame.",
+      "Do not depend on `ChaosDataflowSolver` in game `Build.cs` unless you evaluate the same graph in a custom editor/offline bake."
+    ],
+    "note_cn": "Dataflow 内的 Chaos 预览求解器，服务 Cloth/Rigid 资产作者。官方 .uplugin 无描述，不要当成关卡物理求解器。",
+    "note_en": "In-graph Chaos preview solver for Cloth/Rigid authors. The .uplugin has no description; it is not the level physics solver."
+  },
+  {
+    "slug": "chaoseditor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ChaosEditor`（模块 `FractureEditor`，菜单名常为 Fracture）并重启。这是 Geometry Collection 的破坏编辑器，不是运行时求解器。",
+      "选中静态网格 Actor，切到工具栏 `Fracture` 模式，用 Generate / New 创建 `Geometry Collection` 资产并替换关卡里的网格。",
+      "用 Uniform Voronoi、Cluster、Radial、Plane、Slice、Brick 或 Mesh 等切片工具切块；调噪声与随机种子。",
+      "再用 Clustering 把小块合成层级、Embed 把内部网格嵌进去、AutoUV 和材质槽整理断面。保存 GC 资产。",
+      "回到选择模式，在 GC 上设 Damage Threshold、碰撞与 `Notify Breaks` 等，PIE 用力场或碰撞打坏。切片本身不模拟。",
+      "`FractureEditor` 只进 Editor Target。运行时破碎由 Geometry Collection 组件 + Chaos 求解器执行。"
+    ],
+    "en_steps": [
+      "Enable `ChaosEditor` (module `FractureEditor`, usually the Fracture mode) and restart. This is the Geometry Collection destruction editor, not the runtime solver.",
+      "Select a static mesh actor, switch the toolbar to `Fracture` mode, and Generate / New a `Geometry Collection` asset that replaces the mesh in the level.",
+      "Slice with Uniform Voronoi, Cluster, Radial, Plane, Slice, Brick, or Mesh tools; tune noise and seed.",
+      "Use Clustering to build a break hierarchy, Embed for interior meshes, AutoUV and material slots for faces. Save the GC asset.",
+      "Leave Fracture mode, set Damage Threshold, collision, and `Notify Breaks` on the GC, then PIE with a field or impact. Slicing does not simulate.",
+      "`FractureEditor` is editor-target only. Runtime breaking is the Geometry Collection component plus the Chaos solver."
+    ],
+    "note_cn": "官方描述是 Destruction Tools：Fracture 模式作者工具。不要把 `FractureEditor` 链进游戏。",
+    "note_en": "Ships as Destruction Tools: the Fracture-mode authoring UI. Do not link `FractureEditor` into the game."
+  },
+  {
+    "slug": "chaosuserdatapt",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `ChaosUserDataPT`（模块 `ChaosUserDataPT`）并重启。它提供「游戏线程只写、物理线程只读」的每粒子自定义数据，没有窗口面板。",
+      "游戏 `Build.cs` 加入 `ChaosUserDataPT`，`#include` 插件 Public 头，在 GT 上按粒子句柄写入伤害类型、队伍、忽略碰撞掩码等用户数据。",
+      "在物理线程回调（碰撞修饰、接触过滤、求解器中间件）里只读这份数据，不要在 PT 回写，也不要在 GT 读同一槽做同步假设。",
+      "粒子被销毁或 GC 簇释放时清掉对应 userdata，避免句柄复用读到脏标签。",
+      "用引擎 `ChaosUserDataPTTests` 程序验证封送；联机时 userdata 不会自动复制，复制的是你在 GT 写入前的玩法状态。",
+      "不要用它在物理线程碰 `UObject`。它只是粒子侧 POD/句柄载荷，用来避免 GT/PT 竞态。"
+    ],
+    "en_steps": [
+      "Enable experimental `ChaosUserDataPT` (module `ChaosUserDataPT`) and restart. It is per-particle userdata that is write-only on the game thread and read-only on the physics thread — no editor panel.",
+      "Add `ChaosUserDataPT` to game `Build.cs`, include the plugin Public headers, and from the GT write damage type, team, ignore masks, etc. keyed by particle handle.",
+      "In PT callbacks (collision modifiers, contact filters, solver middleware) only read that payload. Do not write it on the PT, and do not treat a GT read of the same slot as synchronized.",
+      "Clear userdata when particles die or GC clusters release, or handle reuse will see stale tags.",
+      "Use the engine `ChaosUserDataPTTests` program to verify marshalling. Userdata is not replicated; replicate the gameplay state you write from on the GT.",
+      "Do not touch `UObject`s on the physics thread. This is POD/handle payload on particles to avoid GT/PT races."
+    ],
+    "note_cn": "C++ 粒子用户数据通道：GT 写、PT 读。不是编辑器工具，尽管分类写的是 Editor。",
+    "note_en": "C++ per-particle userdata channel: GT write, PT read. Not an editor tool, despite the Editor category."
+  }
+]

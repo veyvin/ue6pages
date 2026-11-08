@@ -1,0 +1,332 @@
+[
+  {
+    "slug": "dlc-support-for-gdk",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `DLC Support for GDK`（模块 `GDKPlatformDLC`），并同时启用正式的 Microsoft GDK 平台插件；本插件不是通用 `ChunkDownloader`。",
+      "在 `Project Settings > Platforms > GDK / Windows GDK` 填 Partner Center 产品 ID、沙盒、以及要作为附加内容的 package/chunk 标识。",
+      "用 GDK 打包流程把主包与 DLC 打成独立 `.xvc` / Microsoft Store 附加包，不要只靠 `Pak` 分块当商店 DLC。",
+      "游戏模块 `Build.cs` 依赖 `GDKPlatformDLC`，在运行时查询/挂载已安装的 GDK DLC（枚举已拥有内容、安装状态），而不是去蓝图组件列表里加一个 DLC 组件。",
+      "在 GDK 开发套件或 Retail 沙盒上验证：未购买时内容不可用，安装完成后资源可加载。",
+      "接口仍是 Experimental，不要把它当跨 Steam/EOS 的通用 DLC 层。"
+    ],
+    "en_steps": [
+      "Enable Experimental `DLC Support for GDK` (module `GDKPlatformDLC`) together with the shipping Microsoft GDK platform plugin; this is not generic `ChunkDownloader`.",
+      "Fill Partner Center product IDs, sandbox, and add-on package/chunk IDs under `Project Settings > Platforms > GDK / Windows GDK`.",
+      "Package the base game and DLC as separate `.xvc` / Microsoft Store add-ons through the GDK pipeline, not as Pak chunks pretending to be store DLC.",
+      "Depend on `GDKPlatformDLC` in the game `Build.cs` and query/mount installed GDK add-ons at runtime (ownership, install state). Do not add a DLC component from the Blueprint component list.",
+      "Verify on a GDK dev kit or retail sandbox: content stays unavailable until the add-on is owned and installed.",
+      "The API is Experimental; do not use it as a cross-Steam/EOS DLC layer."
+    ],
+    "note_cn": "只服务 Microsoft GDK 商店附加内容；实验接口，且必须配 GDK 打包与 Partner Center 产品。",
+    "note_en": "GDK store add-ons only; experimental, and it requires GDK packaging plus Partner Center product IDs."
+  },
+  {
+    "slug": "dmx-control-console",
+    "kind": "plugin",
+    "cn_steps": [
+      "先启用 `DMX Engine` 与 `DMX Protocol`，再启用 `DMX Control Console`（`DMXControlConsole` + `DMXControlConsoleEditor`）并重启。",
+      "内容浏览器新建 `DMX Control Console` 资产，或打开 `Window > DMX > DMX Control Console`。",
+      "从已有 `DMX Library` 的 Fixture Patch 把通道拖进控制台，生成推子/编码器（Patch，不是把控制台当灯具 Actor 放进关卡）。",
+      "确认输出端口已在 DMX Protocol 里配好，按 Play/推子把通道值送到 Art-Net 或 sACN，用灯台或网口抓包核对。",
+      "可保存多个 Console 布局资产在演播间切换；现场操作走这套推子，不要用 Sequencer 关键帧代替灯台。",
+      "`DMXControlConsoleEditor` 只进 Editor Target；Shipping 里不要链编辑器模块。"
+    ],
+    "en_steps": [
+      "Enable `DMX Engine` and `DMX Protocol` first, then `DMX Control Console` (`DMXControlConsole` + `DMXControlConsoleEditor`) and restart.",
+      "Create a `DMX Control Console` asset, or open `Window > DMX > DMX Control Console`.",
+      "Patch faders/encoders from Fixture Patches in an existing `DMX Library` — do not place the console as a fixture actor in the level.",
+      "With output ports configured in DMX Protocol, Play or move faders so channel values leave on Art-Net or sACN; confirm with a desk or a packet capture.",
+      "Save multiple console layout assets for stage presets. This is a live desk, not Sequencer lighting keys.",
+      "Keep `DMXControlConsoleEditor` on Editor targets only."
+    ],
+    "note_cn": "这是从 DMX Library 修补并往输出端口发 DMX 的虚拟灯台，不是灯具蓝图。",
+    "note_en": "A virtual lighting desk that patches a DMX Library onto output ports, not a fixture Blueprint."
+  },
+  {
+    "slug": "dmx-displaycluster",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `nDisplay` / Display Cluster、`DMX Engine` 和 `DMX DisplayCluster`（`DMXDisplayCluster`、`DMXDisplayClusterLightCard`）。",
+      "打开 nDisplay 配置资产，确保场景里有 Light Card（或 nDisplay 的 Light Card Actor）。",
+      "把 Light Card 绑到 `DMX Library` 的 Fixture Patch：由 `DMXDisplayClusterLightCard` 把 DMX 通道映射到卡片颜色、强度、变换。",
+      "用真实灯台或 Control Console 改通道，在 nDisplay 集群视口看 Light Card 是否同步，而不是只在编辑器主视口看普通灯。",
+      "集群节点都要加载同一套 DMX 端口与 Library；只在主编辑器改 DMX、从节点未同步端口会导致墙体灯卡不亮。",
+      "这是 DMX↔nDisplay 桥，不要把它当独立像素映射编辑器（那是 `DMX Pixel Mapping`）。"
+    ],
+    "en_steps": [
+      "Enable `nDisplay` / Display Cluster, `DMX Engine`, and `DMX DisplayCluster` (`DMXDisplayCluster`, `DMXDisplayClusterLightCard`).",
+      "Open the nDisplay config and confirm Light Cards exist in the cluster scene.",
+      "Bind those cards to `DMX Library` Fixture Patches so `DMXDisplayClusterLightCard` maps DMX channels onto card color, intensity, and transform.",
+      "Drive channels from a desk or Control Console and watch Light Cards on the nDisplay cluster view, not only a regular editor light.",
+      "Every cluster node needs the same DMX ports and Library; editing ports only on the primary leaves wall cards dark on inner nodes.",
+      "This is the DMX↔nDisplay bridge, not the pixel-mapping editor (`DMX Pixel Mapping`)."
+    ],
+    "note_cn": "用来让灯台 DMX 驱动 nDisplay Light Card，离开集群配置没有独立面板可玩。",
+    "note_en": "Drives nDisplay Light Cards from DMX; there is no useful standalone panel without a cluster config."
+  },
+  {
+    "slug": "dmx-engine",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DMX Engine`（`DMXRuntime`、`DMXEditor`、`DMXBlueprintGraph`）；协议进出还要启用 `DMX Protocol`。",
+      "内容浏览器右键新建 `DMX Library`，在其中创建 Fixture Type、Fixture Patch 和 Controller（Universe/地址）。",
+      "从 `Window > DMX` 打开 Library 编辑器核对 Patch 表；关卡里放置灯具 Actor 后，在 Details 指定 Library + Patch。",
+      "蓝图用 `DMXRuntime` 节点读写属性（如 `Get DMX Fixture Attributes` / `Set DMX Attribute`），走 `DMXBlueprintGraph`，不要手写原始 512 通道除非必要。",
+      "PIE 或 On-Air 时看灯具 Actor 的光束/颜色是否跟输入端口或控制台一致。",
+      "游戏模块只依赖 `DMXRuntime`；`DMXEditor` 与图节点模块不要写进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `DMX Engine` (`DMXRuntime`, `DMXEditor`, `DMXBlueprintGraph`); also enable `DMX Protocol` if you need wire I/O.",
+      "Create a `DMX Library` asset and author Fixture Types, Fixture Patches, and Controllers (universe/address).",
+      "Open the Library editor from `Window > DMX`, then place fixture actors and assign Library + Patch in Details.",
+      "Read/write attributes from Blueprint via `DMXRuntime` nodes (`Get DMX Fixture Attributes` / `Set DMX Attribute`) from `DMXBlueprintGraph`; avoid raw 512-slot buffers unless you must.",
+      "In PIE or on-air, confirm fixture beams/color match the input port or console.",
+      "Game modules depend on `DMXRuntime` only; keep `DMXEditor` off Game targets."
+    ],
+    "note_cn": "DMX 资产与运行时核心：Library/Patch/属性；端口协议在 `DMX Protocol`，灯具网格在 `DMX Fixtures`。",
+    "note_en": "Core Library/Patch/attribute runtime; wire ports live in `DMX Protocol`, fixture meshes in `DMX Fixtures`."
+  },
+  {
+    "slug": "dmx-fixtures",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DMX Engine` 后再启用 `DMX Fixtures`（模块 `DMXFixtures`），并在内容浏览器打开该插件的 Content。",
+      "把插件自带的灯具蓝图（如 Moving Head、Point Light、Par 等 `DMXFixtureActor` 子类）拖进舞台关卡。",
+      "在 Actor Details 指定 `DMX Library` 与 Fixture Patch，让属性（Pan/Tilt/Dimmer/Color）驱动组件灯光与骨骼。",
+      "用 Control Console 或外部灯台改通道，视口里确认头灯转动和亮度，而不是只看通道监视器。",
+      "自定义灯具应继承这些蓝图或实现灯具接口，不要从零复制一份不接 Patch 的静态网格。",
+      "可进包装；没有 Library Patch 时灯具只是普通网格，不会响应 DMX。"
+    ],
+    "en_steps": [
+      "Enable `DMX Engine`, then `DMX Fixtures` (module `DMXFixtures`), and show the plugin Content folder.",
+      "Drop stock fixture Blueprints (Moving Head, Point Light, Par, and other `DMXFixtureActor` subclasses) into the stage level.",
+      "In Details, assign a `DMX Library` Fixture Patch so attributes (Pan/Tilt/Dimmer/Color) drive lights and bones.",
+      "Move channels from the Control Console or an external desk and confirm head motion and intensity in the viewport, not only a channel monitor.",
+      "Subclass these Blueprints or the fixture interface for custom units; do not duplicate a static mesh that never binds a Patch.",
+      "Shippable; without a Library Patch the actor is just a mesh and will not respond to DMX."
+    ],
+    "note_cn": "提供可放置的灯具蓝图；通道语义仍由 DMX Library 的 Fixture Type 定义。",
+    "note_en": "Placeable fixture Blueprints; channel meaning still comes from the DMX Library Fixture Type."
+  },
+  {
+    "slug": "dmx-gdtf",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DMX Engine` 与 `DMX GDTF`（`DMXGDTF`、`DMXZip`；测试模块 `DMXGDTFTests` 不要进游戏）。",
+      "准备厂商 `.gdtf`（本质是 zip：模型、DMX 模式、几何），在 `DMX Library` 里用 GDTF 导入而不是手填几百个通道。",
+      "`DMXZip` 负责解开 GDTF 容器；导入后检查 Fixture Type 的模式、几何和通道集是否齐全。",
+      "把导入的 Type 做成 Fixture Patch，挂到 `DMX Fixtures` Actor 或 Pixel Mapping 单元格。",
+      "需要回归时在 `Session Frontend > Automation` 跑 `DMXGDTFTests`，不要把测试模块写进 `Build.cs`。",
+      "这是 GDTF 类型实现，不是灯台，也不是 Art-Net 端口配置。"
+    ],
+    "en_steps": [
+      "Enable `DMX Engine` and `DMX GDTF` (`DMXGDTF`, `DMXZip`; leave `DMXGDTFTests` out of the game).",
+      "Take a vendor `.gdtf` (a zip of models, DMX modes, geometry) and import it into a `DMX Library` instead of hand-authoring hundreds of channels.",
+      "`DMXZip` unpacks the GDTF container; after import, check modes, geometry, and channel sets on the Fixture Type.",
+      "Create a Fixture Patch from that type and bind it to a `DMX Fixtures` actor or Pixel Mapping cells.",
+      "Run `DMXGDTFTests` from `Session Frontend > Automation` when you need a regression; do not add the test module to `Build.cs`.",
+      "This is the GDTF type implementation, not a lighting desk or Art-Net port UI."
+    ],
+    "note_cn": "把 GDTF 标准解成 UE 的 Fixture Type；zip 解包走 `DMXZip`。",
+    "note_en": "Maps the GDTF standard onto UE Fixture Types; `DMXZip` unpacks the container."
+  },
+  {
+    "slug": "dmx-modular-features",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DMX Modular Features`（唯一模块 `DMXFixtureActorInterface`）。它只提供灯具 Actor 接口，没有灯具网格或控制台 UI。",
+      "在自定义游戏/功能模块的 `Build.cs` 依赖 `DMXFixtureActorInterface`，让灯具类实现 `IDMXFixtureActorInterface`（或引擎暴露的同名 Fixture Actor 接口）。",
+      "把该 Actor 注册为 Modular Feature，使 `DMX Engine` / Pixel Mapping 能按接口枚举场景灯具，而不必依赖 `DMXFixtures` 插件内容。",
+      "实现接口要求的 Patch 绑定与属性应用函数；PIE 里用 Library 改通道，确认自定义 Actor 有响应。",
+      "不要在 `Window > DMX` 里找本插件的独立面板——没有。",
+      "可与 `DMX Fixtures` 并存：商店灯具走官方蓝图，项目自研灯具走此接口。"
+    ],
+    "en_steps": [
+      "Enable `DMX Modular Features` (module `DMXFixtureActorInterface`). It is the fixture-actor interface only — no meshes or console UI.",
+      "Depend on `DMXFixtureActorInterface` in your game/feature `Build.cs` and implement `IDMXFixtureActorInterface` (the fixture actor interface) on your class.",
+      "Register the actor as a Modular Feature so `DMX Engine` / Pixel Mapping can enumerate fixtures without depending on `DMXFixtures` content.",
+      "Implement patch binding and attribute application; change Library channels in PIE and confirm the custom actor responds.",
+      "Do not look for a `Window > DMX` panel owned by this plugin — there is none.",
+      "Can coexist with `DMX Fixtures`: stock Blueprints vs. project-owned fixtures on this interface."
+    ],
+    "note_cn": "给自研灯具用的 Modular Feature 接口，不是又一套灯具资产包。",
+    "note_en": "A Modular Feature interface for custom fixtures, not another fixture content pack."
+  },
+  {
+    "slug": "dmx-pixel-mapping",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DMX Engine`、`DMX Protocol` 和 `DMX Pixel Mapping`（`DMXPixelMappingRuntime` / `DMXPixelMappingRenderer`；编辑器为 `DMXPixelMappingEditor`）。",
+      "新建 `DMX Pixel Mapping` 资产，双击打开像素映射编辑器（不是普通材质编辑器）。",
+      "添加 Renderer（场景捕获、纹理或材质输出），再添加对应 Fixture Patch 的像素组，把单元格铺在预览图上对齐 LED 条/矩阵的物理形状。",
+      "Play 资产：`DMXPixelMappingRenderer` 采样颜色经 Runtime 写到 DMX 通道，输出端口送到真实灯带。",
+      "蓝图可用 `DMXPixelMappingBlueprintGraph` 启停映射；游戏模块只依赖 `DMXPixelMappingCore`/`Runtime`/`Renderer`。",
+      "`DMXPixelMappingEditor` 与 `DMXPixelMappingEditorWidgets` 仅 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `DMX Engine`, `DMX Protocol`, and `DMX Pixel Mapping` (`DMXPixelMappingRuntime` / `DMXPixelMappingRenderer`; editor `DMXPixelMappingEditor`).",
+      "Create a `DMX Pixel Mapping` asset and open its pixel-mapping editor (not the Material Editor).",
+      "Add a Renderer (scene capture, texture, or material output), then fixture groups bound to Patches, and lay cells over the preview to match the physical LED strip or matrix.",
+      "Play the asset so `DMXPixelMappingRenderer` samples color and Runtime writes DMX channels out the protocol ports to real pixels.",
+      "Start/stop mapping from Blueprint via `DMXPixelMappingBlueprintGraph`; game modules take `DMXPixelMappingCore`/`Runtime`/`Renderer` only.",
+      "Keep `DMXPixelMappingEditor` and `DMXPixelMappingEditorWidgets` on Editor targets."
+    ],
+    "note_cn": "把引擎画面采样成任意形状的 LED/灯具阵列 DMX，不是 nDisplay Light Card 桥。",
+    "note_en": "Samples engine pixels onto arbitrary LED/fixture arrays as DMX, not the nDisplay Light Card bridge."
+  },
+  {
+    "slug": "dmx-protocol",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DMX Protocol`（`DMXProtocol`、`DMXProtocolArtNet`、`DMXProtocolSACN`；编辑器 `DMXProtocolEditor`）。",
+      "打开 `Project Settings > Plugins > DMX`，添加 Input/Output Port：选 Art-Net 或 sACN，填网卡、Universe、单播/广播地址。",
+      "同一台机器上用 Wireshark 或灯光软件看 `DMXProtocolArtNet` / `DMXProtocolSACN` 是否在发 512 通道；防火墙要放行 UDP 6454（Art-Net）或 5568（sACN）。",
+      "蓝图通过 `DMXProtocolBlueprintGraph` 监听端口字节（原始 Universe），一般业务仍应走 `DMX Engine` 的属性层。",
+      "多网卡演播环境务必绑对 NIC，否则 DMX 会打到错误网段。",
+      "`DMXProtocolEditor` 只进 Editor；游戏包保留 Art-Net/sACN 运行时模块即可。"
+    ],
+    "en_steps": [
+      "Enable `DMX Protocol` (`DMXProtocol`, `DMXProtocolArtNet`, `DMXProtocolSACN`; editor `DMXProtocolEditor`).",
+      "Under `Project Settings > Plugins > DMX`, add Input/Output Ports: Art-Net or sACN, NIC, universe, unicast/broadcast.",
+      "Confirm `DMXProtocolArtNet` / `DMXProtocolSACN` emit 512-slot universes with Wireshark or a lighting app; allow UDP 6454 (Art-Net) or 5568 (sACN).",
+      "Blueprint can watch raw universe bytes via `DMXProtocolBlueprintGraph`; most shows should still use `DMX Engine` attributes.",
+      "Bind the correct NIC on multi-homed stages or DMX lands on the wrong subnet.",
+      "Keep `DMXProtocolEditor` on Editor targets; shipping needs the Art-Net/sACN runtime modules."
+    ],
+    "note_cn": "只实现 Art-Net/sACN 端口，不包含 Library 或灯具网格。",
+    "note_en": "Art-Net/sACN ports only; no Library and no fixture meshes."
+  },
+  {
+    "slug": "dnacalib-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DNACalib Plugin`（`DNACalibModule` + 第三方库 `DNACalibLib`）。它给 MetaHuman / RigLogic 的 `.dna` 做校准，不是可挂到骨骼网格的动画组件。",
+      "工具或编辑器模块 `Build.cs` 依赖 `DNACalibModule`，`#include` DNACalib 头，加载角色 `.dna`。",
+      "用校准 API 做关节重映射、LOD 裁剪、无用关节删除或行为缩放，再写出新的 DNA；这是离线/管线步骤，不是 AnimBP 节点。",
+      "把校准后的 DNA 交给 RigLogic / MetaHuman 角色导入链路，在编辑器里打开脸部绑定确认表情仍在。",
+      "`DNACalibLibTest` 仅用于自动化，不要写进游戏 `Build.cs` 或 Shipping。",
+      "运行时游戏一般只消费已经校准好的 DNA，不必在玩家进程里再跑一遍校准。"
+    ],
+    "en_steps": [
+      "Enable `DNACalib Plugin` (`DNACalibModule` plus `DNACalibLib`). It calibrates MetaHuman / RigLogic `.dna` files; it is not an Anim component you attach to a mesh.",
+      "Depend on `DNACalibModule` from a tool/editor `Build.cs`, include DNACalib headers, and load the character `.dna`.",
+      "Use the calibration API for joint remaps, LOD pruning, unused-joint removal, or behavior scaling, then write a new DNA. This is an offline pipeline step, not an AnimBP node.",
+      "Feed the calibrated DNA into RigLogic / MetaHuman import and open the face rig to confirm expressions still evaluate.",
+      "Keep `DNACalibLibTest` out of game `Build.cs` and shipping.",
+      "Cooked games normally consume already-calibrated DNA; do not run calibration inside the player process."
+    ],
+    "note_cn": "MetaHuman DNA 校准库，给制作管线用，不是关卡里的动画修改器。",
+    "note_en": "MetaHuman DNA calibration library for the authoring pipeline, not a level animation modifier."
+  },
+  {
+    "slug": "doodle",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `Doodle`（`Doodle`、`DoodleSlate`、`DoodleEditor`、`DoodleMovieScene`、`DoodleSequencer`）并重启。",
+      "打开关卡 `Sequencer`，用 `DoodleSequencer` 提供的 Doodle 轨/工具在视口用 `DoodleSlate` 画笔做镜头批注（箭头、圈字），不是材质涂鸦，也不是 Control Rig。",
+      "笔画由 `DoodleMovieScene` 写成 Movie Scene section，随序列 scrub 显示/隐藏，可给导演或现场做画面指示。",
+      "播放序列确认批注跟镜头对齐；需要导出发片时把它当叠加层，不要指望它进游戏 HUD。",
+      "`DoodleEditor` / `DoodleTests` 不要进 Game Target；现场工具链可保留 Runtime + MovieScene 模块。",
+      "接口无官方描述且 Experimental，不要当镜头完成稿的永久资产格式。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Doodle` (`Doodle`, `DoodleSlate`, `DoodleEditor`, `DoodleMovieScene`, `DoodleSequencer`) and restart.",
+      "Open level `Sequencer` and use the Doodle track/tools from `DoodleSequencer` to draw shot notes (arrows, circles) in the viewport via `DoodleSlate` — not a paintable material and not Control Rig.",
+      "`DoodleMovieScene` stores strokes as Movie Scene sections that appear/hide while you scrub, for director or set callouts.",
+      "Play the sequence to confirm notes stay locked to the shot. Treat them as overlays for review, not as in-game HUD.",
+      "Keep `DoodleEditor` / `DoodleTests` off Game targets; the stage toolchain can keep Runtime + MovieScene.",
+      "Undocumented and Experimental; do not freeze it as the archival format for finished shots."
+    ],
+    "note_cn": "Sequencer 视口批注/涂鸦轨，服务虚拟制片看片，不是运行时绘画玩法。",
+    "note_en": "Sequencer viewport annotation tracks for VP reviews, not a gameplay painting system."
+  },
+  {
+    "slug": "draw-debug-library",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `Draw Debug Library`（模块 `DrawDebugLibrary`），游戏模块 `Build.cs` 加上同名依赖。",
+      "C++ `#include` 该模块公共头，或在蓝图搜索 Draw Debug Library 函数（线、盒、球、胶囊、字符串），代替到处散落的 `DrawDebugHelpers`。",
+      "在 Actor `Tick` 或一次性事件里传入 World、位置、颜色、`Duration`；`Duration=0` 表示单帧。",
+      "PIE 打开 `Show > Developer > Debug Shapes`（或确保 `r.DebugSafeZone` / 调试绘制未被关），从摄像机看到形状。",
+      "Shipping 通常应编译剥离或用 `ENABLE_DRAW_DEBUG` 保护；不要把它当成运行时特效网格。",
+      "这不是 `Custom Mesh Component`，也不会生成可保存的静态网格。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Draw Debug Library` (module `DrawDebugLibrary`) and add it to the game `Build.cs`.",
+      "Include the module’s public headers, or call Draw Debug Library Blueprint nodes (line, box, sphere, capsule, string) instead of ad-hoc `DrawDebugHelpers`.",
+      "From `Tick` or a one-shot event, pass World, location, color, and `Duration` (`0` = one frame).",
+      "In PIE, enable `Show > Developer > Debug Shapes` (and do not disable debug drawing CVars) so the camera actually sees the shapes.",
+      "Strip or guard with `ENABLE_DRAW_DEBUG` for Shipping; this is not a gameplay VFX mesh.",
+      "Not `Custom Mesh Component`, and it does not author a savable static mesh."
+    ],
+    "note_cn": "实验性调试绘制函数库，只用于开发可视化，不是可渲染的游戏网格。",
+    "note_en": "Experimental debug-draw helpers for development visualization, not a renderable game mesh."
+  },
+  {
+    "slug": "dtls-network-packet-handler",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `DTLS network packet handler`（模块 `DTLSHandlerComponent`）。它是 `PacketHandler` 管道组件，不能当 `UActorComponent` 加到 Actor。",
+      "在客户端与服务器的 `DefaultEngine.ini` 写 `[PacketHandlerComponents]`，`Components=DTLSHandlerComponent`（名称不要写成 AES 那两个 Handler）。",
+      "配置 DTLS 证书/密钥（引擎 DTLS 设置或部署时下发的 cert），保证 DS 与客户端是同一套身份材料。",
+      "用 dedicated server 联机进关，确认握手完成后复制包走 DTLS 加解密（比预共享 AES 更接近证书握手）。",
+      "两端 PacketHandler 列表必须一致，否则加密通道建不起来。",
+      "可进 Shipping；若只需要对称预共享密钥，应改用 `AESGCMHandlerComponent` 而不是误配 DTLS。"
+    ],
+    "en_steps": [
+      "Enable `DTLS network packet handler` (module `DTLSHandlerComponent`). It is a `PacketHandler` pipeline component, not a `UActorComponent`.",
+      "On both client and server `DefaultEngine.ini`, set `[PacketHandlerComponents]` `Components=DTLSHandlerComponent` (not the AES handler names).",
+      "Provision DTLS certificates/keys (engine DTLS settings or deployed certs) so DS and clients share the same identity material.",
+      "Join a dedicated server and confirm replication is DTLS-encrypted after handshake (certificate-style, unlike pre-shared AES).",
+      "PacketHandler lists must match on both ends or the encrypted channel will not come up.",
+      "Shippable; if you only want a pre-shared symmetric key, use `AESGCMHandlerComponent` instead of misconfiguring DTLS."
+    ],
+    "note_cn": "基于 DTLS 的包加密 Handler，需要证书材料；与 AES/AES-GCM Handler 互不替换名字。",
+    "note_en": "DTLS packet encryption that needs certificates; not interchangeable with the AES/AES-GCM handler names."
+  },
+  {
+    "slug": "dump-gpu-services",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用开发者插件 `Dump GPU Services`（模块 `DumpGPUServices`）。它给控制台命令 `DumpGPU` 提供自动上传，不是后期处理效果。",
+      "在 `DefaultEngine.ini` 或项目的 DumpGPU 服务配置里填写上传端点/令牌（插件注册的 upload service）。",
+      "复现渲染问题后，在控制台执行 `DumpGPU`（可带帧数/路径参数），本地会写出 GPU 转储。",
+      "确认 `DumpGPUServices` 把转储自动传到配置的服务，而不是只停在工程 Saved 目录。",
+      "这是制作/调试管线，不要写进 Game Target，也不要在 Shipping 包保留上传令牌。",
+      "不要在 Post Process Volume 或 Show Flag 里找它——没有画面开关。"
+    ],
+    "en_steps": [
+      "Enable the developer plugin `Dump GPU Services` (module `DumpGPUServices`). It auto-uploads `DumpGPU` captures; it is not a post-process effect.",
+      "Set the upload endpoint/token in `DefaultEngine.ini` or the plugin’s DumpGPU service config.",
+      "After reproducing a rendering bug, run `DumpGPU` in the console (optional frame/path args) to write a local GPU dump.",
+      "Confirm `DumpGPUServices` uploads that dump to the configured service instead of leaving it only under Saved.",
+      "Authoring/debug only: keep it off Game targets and never ship upload tokens.",
+      "There is no Post Process Volume or Show Flag for this plugin."
+    ],
+    "note_cn": "DumpGPU 的自动上传服务，编辑器/开发机使用，不进游戏运行时画面。",
+    "note_en": "Automatic upload service for DumpGPU; editor/dev machines only, not a runtime picture setting."
+  },
+  {
+    "slug": "dynamic-wind",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental `Dynamic Wind`（`DynamicWind` + `DynamicWindEditor`）。它只作用于 **Nanite 植被**，普通 Foliage 顶点风或 `WindDirectionalSource` 不是同一条路。",
+      "关卡里的树木/草必须开 Nanite；在 Foliage Type 或静态网格上确认 Nanite 已启用。",
+      "放置/配置 Dynamic Wind 源（插件提供的风场 Actor/设置），用 `DynamicWindEditor` 在视口看风场，调节方向、强度、阵风。",
+      "PIE 绕着 Nanite 树冠检查叶片位移；关闭 Nanite 后风效应应消失，以此确认没有走旧的顶点动画风。",
+      "游戏模块只依赖 `DynamicWind`；`DynamicWindEditor` 仅 Editor Target。",
+      "标记为 extremely experimental，不要作为 Shipping 植被方案的唯一依赖。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Dynamic Wind` (`DynamicWind` + `DynamicWindEditor`). It targets **Nanite foliage** only, not classic foliage vertex wind or `WindDirectionalSource`.",
+      "Enable Nanite on the trees/grass (Foliage Type or static mesh).",
+      "Place/configure the Dynamic Wind source (wind-field actor/settings) and use `DynamicWindEditor` in the viewport to tune direction, strength, and gusts.",
+      "In PIE, orbit Nanite canopies to see leaf motion; disable Nanite and the effect should vanish, proving you are not on the old vertex-wind path.",
+      "Game modules depend on `DynamicWind` only; `DynamicWindEditor` stays on Editor targets.",
+      "Marked extremely experimental; do not make it the sole shipping foliage-wind solution."
+    ],
+    "note_cn": "Nanite 树叶的实验动态风，和传统 WindDirectionalSource 不是同一套系统。",
+    "note_en": "Experimental Nanite-foliage wind; not the same system as WindDirectionalSource."
+  }
+]

@@ -3,7 +3,6 @@ layout: default
 title: 控制台变量编辑器 / Console Variables Editor
 ---
 
-
 <h1>控制台变量编辑器 / Console Variables Editor</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 控制台变量编辑器 / Console Variables Editor
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">使用 Slate 从此面板保存、加载和控制控制台变量 (cvar)。</div><div class="lang-content">Save, load and control Console Variables (cvars) from this panel using Slate.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Console Variables Editor</code>（<code class="usage-code">ConsoleVariablesEditor</code> + <code class="usage-code">ConsoleVariablesEditorRuntime</code>）。</li><li>打开 <code class="usage-code">Window &gt; Console Variables</code>，按名搜索并添加 CVar（如 <code class="usage-code">r.ScreenPercentage</code>、<code class="usage-code">r.VSync</code>），在面板里改值，视口应立即变化。</li><li>内容浏览器右键 <code class="usage-code">Miscellaneous</code> / Virtual Production，创建 <code class="usage-code">Console Variables</code> 资产，把当前列表 Save 进该资产。</li><li>换机或换关卡后对该资产 Load，确认同一组 CVar 被写回，而不用手敲 <code class="usage-code">~</code> 控制台。</li><li>nDisplay / 虚拟制作配置可引用这份预设；运行时由 <code class="usage-code">ConsoleVariablesEditorRuntime</code> 应用，面板模块不要进 Game Target。</li></ol><p class="usage-note">给人用的 CVar 预设面板；AI 控制台工具集是另一个插件 `ConsoleToolset`。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Console Variables Editor</code> (<code class="usage-code">ConsoleVariablesEditor</code> + <code class="usage-code">ConsoleVariablesEditorRuntime</code>).</li><li>Open <code class="usage-code">Window &gt; Console Variables</code>, search-add CVars (for example <code class="usage-code">r.ScreenPercentage</code>, <code class="usage-code">r.VSync</code>), edit values, and watch the viewport update.</li><li>In the Content Browser, create a <code class="usage-code">Console Variables</code> asset (Miscellaneous / Virtual Production) and Save the current list into it.</li><li>On another machine or map, Load that asset so the same CVar set is restored instead of typing in the <code class="usage-code">~</code> console.</li><li>nDisplay / VP configs can reference the preset; <code class="usage-code">ConsoleVariablesEditorRuntime</code> applies it. Keep the panel module off Game targets.</li></ol><p class="usage-note">Human-facing CVar preset panel; the AI console toolset is the separate `ConsoleToolset` plugin.</p></div></div></div>
+    </div>
+

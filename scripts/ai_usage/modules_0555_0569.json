@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "nvdbggenerator",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`NvdbgGenerator` 位于 `Programs`，构建规则 `Programs/Windows/NvdbgGenerator/NvdbgGenerator.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `D3D12RHI`, `NVAftermath`, `Projects`, `RHI`, `RHICore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"NvdbgGenerator\" });`；对外暴露 `NvdbgGenerator` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`NvdbgGenerator` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `NvdbgGenerator.h` / `NvdbgGeneratorModule.h`），再用 `FModuleManager::LoadModulePtr<NvdbgGeneratorModule>` 或直接使用导出类型。",
+      "传递依赖：`NvdbgGenerator` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `D3D12RHI`, `NVAftermath`, `Projects`, `RHI`, `RHICore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `NvdbgGenerator` lives under `Programs`; build rule `Programs/Windows/NvdbgGenerator/NvdbgGenerator.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `D3D12RHI`, `NVAftermath`, `Projects`, `RHI`, `RHICore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"NvdbgGenerator\" });`. Use Public when exposing `NvdbgGenerator` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `NvdbgGenerator` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `NvdbgGenerator.h` / `NvdbgGeneratorModule.h`), then use `FModuleManager::LoadModulePtr<NvdbgGeneratorModule>` or the exported types directly.",
+      "Transitive deps: `NvdbgGenerator` also needs `ApplicationCore`, `Core`, `CoreUObject`, `D3D12RHI`, `NVAftermath`, `Projects`, `RHI`, `RHICore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`NvdbgGenerator` 的构建规则位于 `Programs/Windows/NvdbgGenerator/NvdbgGenerator.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`NvdbgGenerator` build rule is `Programs/Windows/NvdbgGenerator/NvdbgGenerator.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "nvdecode",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`nvDecode` 位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/nvDecode/nvDecode.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"nvDecode\" });`；对外暴露 `nvDecode` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`nvDecode` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `nvDecode.h` / `nvDecodeModule.h`），再用 `FModuleManager::LoadModulePtr<nvDecodeModule>` 或直接使用导出类型。",
+      "传递依赖：`nvDecode` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `nvDecode` lives under `ThirdParty`; build rule `ThirdParty/NVIDIA/nvDecode/nvDecode.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"nvDecode\" });`. Use Public when exposing `nvDecode` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `nvDecode` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `nvDecode.h` / `nvDecodeModule.h`), then use `FModuleManager::LoadModulePtr<nvDecodeModule>` or the exported types directly.",
+      "Transitive deps: `nvDecode` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`nvDecode` 的构建规则位于 `ThirdParty/NVIDIA/nvDecode/nvDecode.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`nvDecode` build rule is `ThirdParty/NVIDIA/nvDecode/nvDecode.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "nvencode",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`nvEncode` 位于 `ThirdParty`，构建规则 `ThirdParty/NVIDIA/nvEncode/nvEncode.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"nvEncode\" });`；对外暴露 `nvEncode` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`nvEncode` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `nvEncode.h` / `nvEncodeModule.h`），再用 `FModuleManager::LoadModulePtr<nvEncodeModule>` 或直接使用导出类型。",
+      "传递依赖：`nvEncode` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `nvEncode` lives under `ThirdParty`; build rule `ThirdParty/NVIDIA/nvEncode/nvEncode.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"nvEncode\" });`. Use Public when exposing `nvEncode` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `nvEncode` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `nvEncode.h` / `nvEncodeModule.h`), then use `FModuleManager::LoadModulePtr<nvEncodeModule>` or the exported types directly.",
+      "Transitive deps: `nvEncode` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`nvEncode` 的构建规则位于 `ThirdParty/NVIDIA/nvEncode/nvEncode.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`nvEncode` build rule is `ThirdParty/NVIDIA/nvEncode/nvEncode.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "nvtesslib",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`nvTessLib` 位于 `ThirdParty`，构建规则 `ThirdParty/nvtesslib/nvTessLib.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"nvTessLib\" });`；对外暴露 `nvTessLib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`nvTessLib` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `nvTessLib.h` / `nvTessLibModule.h`），再用 `FModuleManager::LoadModulePtr<nvTessLibModule>` 或直接使用导出类型。",
+      "传递依赖：`nvTessLib` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `nvTessLib` lives under `ThirdParty`; build rule `ThirdParty/nvtesslib/nvTessLib.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"nvTessLib\" });`. Use Public when exposing `nvTessLib` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `nvTessLib` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `nvTessLib.h` / `nvTessLibModule.h`), then use `FModuleManager::LoadModulePtr<nvTessLibModule>` or the exported types directly.",
+      "Transitive deps: `nvTessLib` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`nvTessLib` 的构建规则位于 `ThirdParty/nvtesslib/nvTessLib.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`nvTessLib` build rule is `ThirdParty/nvtesslib/nvTessLib.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "nvtexturetools",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`nvTextureTools` 位于 `ThirdParty`，构建规则 `ThirdParty/nvTextureTools/nvTextureTools.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"nvTextureTools\" });`；对外暴露 `nvTextureTools` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`nvTextureTools` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `nvTextureTools.h` / `nvTextureToolsModule.h`），再用 `FModuleManager::LoadModulePtr<nvTextureToolsModule>` 或直接使用导出类型。",
+      "传递依赖：`nvTextureTools` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `nvTextureTools` lives under `ThirdParty`; build rule `ThirdParty/nvTextureTools/nvTextureTools.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"nvTextureTools\" });`. Use Public when exposing `nvTextureTools` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `nvTextureTools` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `nvTextureTools.h` / `nvTextureToolsModule.h`), then use `FModuleManager::LoadModulePtr<nvTextureToolsModule>` or the exported types directly.",
+      "Transitive deps: `nvTextureTools` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`nvTextureTools` 的构建规则位于 `ThirdParty/nvTextureTools/nvTextureTools.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`nvTextureTools` build rule is `ThirdParty/nvTextureTools/nvTextureTools.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "nvtristrip",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`nvTriStrip` 位于 `ThirdParty`，构建规则 `ThirdParty/nvTriStrip/nvTriStrip.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"nvTriStrip\" });`；对外暴露 `nvTriStrip` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`nvTriStrip` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `nvTriStrip.h` / `nvTriStripModule.h`），再用 `FModuleManager::LoadModulePtr<nvTriStripModule>` 或直接使用导出类型。",
+      "传递依赖：`nvTriStrip` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `nvTriStrip` lives under `ThirdParty`; build rule `ThirdParty/nvTriStrip/nvTriStrip.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"nvTriStrip\" });`. Use Public when exposing `nvTriStrip` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `nvTriStrip` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `nvTriStrip.h` / `nvTriStripModule.h`), then use `FModuleManager::LoadModulePtr<nvTriStripModule>` or the exported types directly.",
+      "Transitive deps: `nvTriStrip` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`nvTriStrip` 的构建规则位于 `ThirdParty/nvTriStrip/nvTriStrip.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`nvTriStrip` build rule is `ThirdParty/nvTriStrip/nvTriStrip.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "oneapilevelzero",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`oneAPILevelZero` 位于 `ThirdParty`，构建规则 `ThirdParty/Intel/oneAPILevelZero/oneAPILevelZero.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"oneAPILevelZero\" });`；对外暴露 `oneAPILevelZero` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`oneAPILevelZero` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `oneAPILevelZero.h` / `oneAPILevelZeroModule.h`），再用 `FModuleManager::LoadModulePtr<oneAPILevelZeroModule>` 或直接使用导出类型。",
+      "传递依赖：`oneAPILevelZero` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `oneAPILevelZero` lives under `ThirdParty`; build rule `ThirdParty/Intel/oneAPILevelZero/oneAPILevelZero.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"oneAPILevelZero\" });`. Use Public when exposing `oneAPILevelZero` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `oneAPILevelZero` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `oneAPILevelZero.h` / `oneAPILevelZeroModule.h`), then use `FModuleManager::LoadModulePtr<oneAPILevelZeroModule>` or the exported types directly.",
+      "Transitive deps: `oneAPILevelZero` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`oneAPILevelZero` 的构建规则位于 `ThirdParty/Intel/oneAPILevelZero/oneAPILevelZero.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`oneAPILevelZero` build rule is `ThirdParty/Intel/oneAPILevelZero/oneAPILevelZero.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "onlinetestscore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`OnlineTestsCore` 位于 `Programs`，构建规则 `Programs/Online/OnlineTestsCore/Source/OnlineTestsCore.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `EOSSDK`, `EOSShared`, `EngineSettings`, `HTTP`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OnlineTestsCore\" });`；对外暴露 `OnlineTestsCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`OnlineTestsCore` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `OnlineTestsCore.h` / `OnlineTestsCoreModule.h`），再用 `FModuleManager::LoadModulePtr<OnlineTestsCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`OnlineTestsCore` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `EOSSDK`, `EOSShared`, `EngineSettings`, `HTTP`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `OnlineTestsCore` lives under `Programs`; build rule `Programs/Online/OnlineTestsCore/Source/OnlineTestsCore.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EOSSDK`, `EOSShared`, `EngineSettings`, `HTTP`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OnlineTestsCore\" });`. Use Public when exposing `OnlineTestsCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `OnlineTestsCore` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `OnlineTestsCore.h` / `OnlineTestsCoreModule.h`), then use `FModuleManager::LoadModulePtr<OnlineTestsCoreModule>` or the exported types directly.",
+      "Transitive deps: `OnlineTestsCore` also needs `ApplicationCore`, `Core`, `CoreUObject`, `EOSSDK`, `EOSShared`, `EngineSettings`, `HTTP`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`OnlineTestsCore` 的构建规则位于 `Programs/Online/OnlineTestsCore/Source/OnlineTestsCore.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`OnlineTestsCore` build rule is `Programs/Online/OnlineTestsCore/Source/OnlineTestsCore.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "oodledatacompression",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`OodleDataCompression` 位于 `Runtime`，构建规则 `Runtime/OodleDataCompression/OodleDataCompression.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OodleDataCompression\" });`；对外暴露 `OodleDataCompression` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`OodleDataCompression` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `OodleDataCompression.h` / `OodleDataCompressionModule.h`），再用 `FModuleManager::LoadModulePtr<OodleDataCompressionModule>` 或直接使用导出类型。",
+      "传递依赖：`OodleDataCompression` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `OodleDataCompression` lives under `Runtime`; build rule `Runtime/OodleDataCompression/OodleDataCompression.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OodleDataCompression\" });`. Use Public when exposing `OodleDataCompression` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `OodleDataCompression` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `OodleDataCompression.h` / `OodleDataCompressionModule.h`), then use `FModuleManager::LoadModulePtr<OodleDataCompressionModule>` or the exported types directly.",
+      "Transitive deps: `OodleDataCompression` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`OodleDataCompression` 的构建规则位于 `Runtime/OodleDataCompression/OodleDataCompression.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`OodleDataCompression` build rule is `Runtime/OodleDataCompression/OodleDataCompression.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "openblas",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`OpenBLAS` 位于 `ThirdParty`，构建规则 `ThirdParty/OpenBLAS/OpenBLAS.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenBLAS\" });`；对外暴露 `OpenBLAS` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`OpenBLAS` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `OpenBLAS.h` / `OpenBLASModule.h`），再用 `FModuleManager::LoadModulePtr<OpenBLASModule>` 或直接使用导出类型。",
+      "传递依赖：`OpenBLAS` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `OpenBLAS` lives under `ThirdParty`; build rule `ThirdParty/OpenBLAS/OpenBLAS.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenBLAS\" });`. Use Public when exposing `OpenBLAS` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `OpenBLAS` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `OpenBLAS.h` / `OpenBLASModule.h`), then use `FModuleManager::LoadModulePtr<OpenBLASModule>` or the exported types directly.",
+      "Transitive deps: `OpenBLAS` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`OpenBLAS` 的构建规则位于 `ThirdParty/OpenBLAS/OpenBLAS.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`OpenBLAS` build rule is `ThirdParty/OpenBLAS/OpenBLAS.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "opencoloriolib",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`OpenColorIOLib` 位于 `ThirdParty`，构建规则 `ThirdParty/OpenColorIO/OpenColorIOLib.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenColorIOLib\" });`；对外暴露 `OpenColorIOLib` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`OpenColorIOLib` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `OpenColorIOLib.h` / `OpenColorIOLibModule.h`），再用 `FModuleManager::LoadModulePtr<OpenColorIOLibModule>` 或直接使用导出类型。",
+      "传递依赖：`OpenColorIOLib` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `OpenColorIOLib` lives under `ThirdParty`; build rule `ThirdParty/OpenColorIO/OpenColorIOLib.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenColorIOLib\" });`. Use Public when exposing `OpenColorIOLib` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `OpenColorIOLib` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `OpenColorIOLib.h` / `OpenColorIOLibModule.h`), then use `FModuleManager::LoadModulePtr<OpenColorIOLibModule>` or the exported types directly.",
+      "Transitive deps: `OpenColorIOLib` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`OpenColorIOLib` 的构建规则位于 `ThirdParty/OpenColorIO/OpenColorIOLib.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`OpenColorIOLib` build rule is `ThirdParty/OpenColorIO/OpenColorIOLib.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "opencoloriowrapper",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`OpenColorIOWrapper` 位于 `Runtime`，构建规则 `Runtime/OpenColorIOWrapper/OpenColorIOWrapper.Build.cs`。它直接依赖 2 个模块：`Core`, `ImageCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenColorIOWrapper\" });`；对外暴露 `OpenColorIOWrapper` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`OpenColorIOWrapper` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `OpenColorIOWrapper.h` / `OpenColorIOWrapperModule.h`），再用 `FModuleManager::LoadModulePtr<OpenColorIOWrapperModule>` 或直接使用导出类型。",
+      "传递依赖：`OpenColorIOWrapper` 还依赖 `Core`, `ImageCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `OpenColorIOWrapper` lives under `Runtime`; build rule `Runtime/OpenColorIOWrapper/OpenColorIOWrapper.Build.cs`.It directly depends on 2 modules: `Core`, `ImageCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenColorIOWrapper\" });`. Use Public when exposing `OpenColorIOWrapper` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `OpenColorIOWrapper` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `OpenColorIOWrapper.h` / `OpenColorIOWrapperModule.h`), then use `FModuleManager::LoadModulePtr<OpenColorIOWrapperModule>` or the exported types directly.",
+      "Transitive deps: `OpenColorIOWrapper` also needs `Core`, `ImageCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`OpenColorIOWrapper` 的构建规则位于 `Runtime/OpenColorIOWrapper/OpenColorIOWrapper.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`OpenColorIOWrapper` build rule is `Runtime/OpenColorIOWrapper/OpenColorIOWrapper.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "opengl",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`OpenGL` 位于 `ThirdParty`，构建规则 `ThirdParty/OpenGL/OpenGL.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenGL\" });`；对外暴露 `OpenGL` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`OpenGL` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `OpenGL.h` / `OpenGLModule.h`），再用 `FModuleManager::LoadModulePtr<OpenGLModule>` 或直接使用导出类型。",
+      "传递依赖：`OpenGL` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `OpenGL` lives under `ThirdParty`; build rule `ThirdParty/OpenGL/OpenGL.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenGL\" });`. Use Public when exposing `OpenGL` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `OpenGL` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `OpenGL.h` / `OpenGLModule.h`), then use `FModuleManager::LoadModulePtr<OpenGLModule>` or the exported types directly.",
+      "Transitive deps: `OpenGL` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`OpenGL` 的构建规则位于 `ThirdParty/OpenGL/OpenGL.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`OpenGL` build rule is `ThirdParty/OpenGL/OpenGL.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "opengldrv",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`OpenGLDrv` 位于 `Runtime`，构建规则 `Runtime/OpenGLDrv/OpenGLDrv.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `ArmlibGPUInfo`, `Core`, `CoreUObject`, `Engine`, `GoogleGameSDK`, `PreLoadScreen`, `RHI`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenGLDrv\" });`；对外暴露 `OpenGLDrv` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`OpenGLDrv` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `OpenGLDrv.h` / `OpenGLDrvModule.h`），再用 `FModuleManager::LoadModulePtr<OpenGLDrvModule>` 或直接使用导出类型。",
+      "传递依赖：`OpenGLDrv` 还依赖 `ApplicationCore`, `ArmlibGPUInfo`, `Core`, `CoreUObject`, `Engine`, `GoogleGameSDK`, `PreLoadScreen`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `OpenGLDrv` lives under `Runtime`; build rule `Runtime/OpenGLDrv/OpenGLDrv.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `ArmlibGPUInfo`, `Core`, `CoreUObject`, `Engine`, `GoogleGameSDK`, `PreLoadScreen`, `RHI`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenGLDrv\" });`. Use Public when exposing `OpenGLDrv` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `OpenGLDrv` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `OpenGLDrv.h` / `OpenGLDrvModule.h`), then use `FModuleManager::LoadModulePtr<OpenGLDrvModule>` or the exported types directly.",
+      "Transitive deps: `OpenGLDrv` also needs `ApplicationCore`, `ArmlibGPUInfo`, `Core`, `CoreUObject`, `Engine`, `GoogleGameSDK`, `PreLoadScreen`, `RHI`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`OpenGLDrv` 的构建规则位于 `Runtime/OpenGLDrv/OpenGLDrv.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`OpenGLDrv` build rule is `Runtime/OpenGLDrv/OpenGLDrv.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "openssl",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`OpenSSL` 位于 `ThirdParty`，构建规则 `ThirdParty/OpenSSL/OpenSSL.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"OpenSSL\" });`；对外暴露 `OpenSSL` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`OpenSSL` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `OpenSSL.h` / `OpenSSLModule.h`），再用 `FModuleManager::LoadModulePtr<OpenSSLModule>` 或直接使用导出类型。",
+      "传递依赖：`OpenSSL` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `OpenSSL` lives under `ThirdParty`; build rule `ThirdParty/OpenSSL/OpenSSL.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"OpenSSL\" });`. Use Public when exposing `OpenSSL` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `OpenSSL` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `OpenSSL.h` / `OpenSSLModule.h`), then use `FModuleManager::LoadModulePtr<OpenSSLModule>` or the exported types directly.",
+      "Transitive deps: `OpenSSL` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`OpenSSL` 的构建规则位于 `ThirdParty/OpenSSL/OpenSSL.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`OpenSSL` build rule is `ThirdParty/OpenSSL/OpenSSL.Build.cs`; depends on 0 modules; category External."
+  }
+]

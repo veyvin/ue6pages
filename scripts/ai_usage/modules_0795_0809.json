@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "ubacli",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaCli` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Cli/UbaCli.Build.cs`。它直接依赖 1 个模块：`UbaCommon`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCli\" });`；对外暴露 `UbaCli` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaCli` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaCli.h` / `UbaCliModule.h`），再用 `FModuleManager::LoadModulePtr<UbaCliModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaCli` 还依赖 `UbaCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaCli` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Cli/UbaCli.Build.cs`.It directly depends on 1 modules: `UbaCommon`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCli\" });`. Use Public when exposing `UbaCli` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaCli` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaCli.h` / `UbaCliModule.h`), then use `FModuleManager::LoadModulePtr<UbaCliModule>` or the exported types directly.",
+      "Transitive deps: `UbaCli` also needs `UbaCommon`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaCli` 的构建规则位于 `Programs/UnrealBuildAccelerator/Cli/UbaCli.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`UbaCli` build rule is `Programs/UnrealBuildAccelerator/Cli/UbaCli.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "ubacommon",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaCommon` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Common/UbaCommon.Build.cs`。它直接依赖 5 个模块：`Detours`, `OodleDataCompression`, `OpenSSL`, `UbaCore`, `UbaMimalloc`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCommon\" });`；对外暴露 `UbaCommon` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaCommon` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaCommon.h` / `UbaCommonModule.h`），再用 `FModuleManager::LoadModulePtr<UbaCommonModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaCommon` 还依赖 `Detours`, `OodleDataCompression`, `OpenSSL`, `UbaCore`, `UbaMimalloc`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaCommon` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Common/UbaCommon.Build.cs`.It directly depends on 5 modules: `Detours`, `OodleDataCompression`, `OpenSSL`, `UbaCore`, `UbaMimalloc`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCommon\" });`. Use Public when exposing `UbaCommon` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaCommon` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaCommon.h` / `UbaCommonModule.h`), then use `FModuleManager::LoadModulePtr<UbaCommonModule>` or the exported types directly.",
+      "Transitive deps: `UbaCommon` also needs `Detours`, `OodleDataCompression`, `OpenSSL`, `UbaCore`, `UbaMimalloc`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaCommon` 的构建规则位于 `Programs/UnrealBuildAccelerator/Common/UbaCommon.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`UbaCommon` build rule is `Programs/UnrealBuildAccelerator/Common/UbaCommon.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "ubacoordinatorhorde",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaCoordinatorHorde` 位于 `Developer`，构建规则 `Developer/UbaCoordinatorHorde/UbaCoordinatorHorde.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `DesktopPlatform`, `HTTP`, `Horde`, `Json`, `OpenSSL`, `SSL`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCoordinatorHorde\" });`；对外暴露 `UbaCoordinatorHorde` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaCoordinatorHorde` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `UbaCoordinatorHorde.h` / `UbaCoordinatorHordeModule.h`），再用 `FModuleManager::LoadModulePtr<UbaCoordinatorHordeModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaCoordinatorHorde` 还依赖 `ApplicationCore`, `Core`, `DesktopPlatform`, `HTTP`, `Horde`, `Json`, `OpenSSL`, `SSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaCoordinatorHorde` lives under `Developer`; build rule `Developer/UbaCoordinatorHorde/UbaCoordinatorHorde.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `DesktopPlatform`, `HTTP`, `Horde`, `Json`, `OpenSSL`, `SSL`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCoordinatorHorde\" });`. Use Public when exposing `UbaCoordinatorHorde` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaCoordinatorHorde` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `UbaCoordinatorHorde.h` / `UbaCoordinatorHordeModule.h`), then use `FModuleManager::LoadModulePtr<UbaCoordinatorHordeModule>` or the exported types directly.",
+      "Transitive deps: `UbaCoordinatorHorde` also needs `ApplicationCore`, `Core`, `DesktopPlatform`, `HTTP`, `Horde`, `Json`, `OpenSSL`, `SSL`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaCoordinatorHorde` 的构建规则位于 `Developer/UbaCoordinatorHorde/UbaCoordinatorHorde.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`UbaCoordinatorHorde` build rule is `Developer/UbaCoordinatorHorde/UbaCoordinatorHorde.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "ubacoordinatorhordetests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaCoordinatorHordeTests` 位于 `Programs`，构建规则 `Programs/UbaCoordinatorHordeTests/UbaCoordinatorHordeTests.Build.cs`。它直接依赖 2 个模块：`Core`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCoordinatorHordeTests\" });`；对外暴露 `UbaCoordinatorHordeTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaCoordinatorHordeTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaCoordinatorHordeTests.h` / `UbaCoordinatorHordeTestsModule.h`），再用 `FModuleManager::LoadModulePtr<UbaCoordinatorHordeTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaCoordinatorHordeTests` 还依赖 `Core`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaCoordinatorHordeTests` lives under `Programs`; build rule `Programs/UbaCoordinatorHordeTests/UbaCoordinatorHordeTests.Build.cs`.It directly depends on 2 modules: `Core`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCoordinatorHordeTests\" });`. Use Public when exposing `UbaCoordinatorHordeTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaCoordinatorHordeTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaCoordinatorHordeTests.h` / `UbaCoordinatorHordeTestsModule.h`), then use `FModuleManager::LoadModulePtr<UbaCoordinatorHordeTestsModule>` or the exported types directly.",
+      "Transitive deps: `UbaCoordinatorHordeTests` also needs `Core`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaCoordinatorHordeTests` 的构建规则位于 `Programs/UbaCoordinatorHordeTests/UbaCoordinatorHordeTests.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`UbaCoordinatorHordeTests` build rule is `Programs/UbaCoordinatorHordeTests/UbaCoordinatorHordeTests.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "ubacore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaCore` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Core/UbaCore.Build.cs`。它直接依赖 3 个模块：`BLAKE3`, `UbaMimalloc`, `UbaVersion`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCore\" });`；对外暴露 `UbaCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaCore` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaCore.h` / `UbaCoreModule.h`），再用 `FModuleManager::LoadModulePtr<UbaCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaCore` 还依赖 `BLAKE3`, `UbaMimalloc`, `UbaVersion`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaCore` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Core/UbaCore.Build.cs`.It directly depends on 3 modules: `BLAKE3`, `UbaMimalloc`, `UbaVersion`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaCore\" });`. Use Public when exposing `UbaCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaCore` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaCore.h` / `UbaCoreModule.h`), then use `FModuleManager::LoadModulePtr<UbaCoreModule>` or the exported types directly.",
+      "Transitive deps: `UbaCore` also needs `BLAKE3`, `UbaMimalloc`, `UbaVersion`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaCore` 的构建规则位于 `Programs/UnrealBuildAccelerator/Core/UbaCore.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`UbaCore` build rule is `Programs/UnrealBuildAccelerator/Core/UbaCore.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "ubadetours",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaDetours` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Detours/UbaDetours.Build.cs`。它直接依赖 3 个模块：`Detours`, `OodleDataCompression`, `UbaCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaDetours\" });`；对外暴露 `UbaDetours` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaDetours` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaDetours.h` / `UbaDetoursModule.h`），再用 `FModuleManager::LoadModulePtr<UbaDetoursModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaDetours` 还依赖 `Detours`, `OodleDataCompression`, `UbaCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaDetours` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Detours/UbaDetours.Build.cs`.It directly depends on 3 modules: `Detours`, `OodleDataCompression`, `UbaCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaDetours\" });`. Use Public when exposing `UbaDetours` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaDetours` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaDetours.h` / `UbaDetoursModule.h`), then use `FModuleManager::LoadModulePtr<UbaDetoursModule>` or the exported types directly.",
+      "Transitive deps: `UbaDetours` also needs `Detours`, `OodleDataCompression`, `UbaCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaDetours` 的构建规则位于 `Programs/UnrealBuildAccelerator/Detours/UbaDetours.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`UbaDetours` build rule is `Programs/UnrealBuildAccelerator/Detours/UbaDetours.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "ubahost",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaHost` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Host/UbaHost.Build.cs`。它直接依赖 2 个模块：`UbaCommon`, `UbaMimalloc`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaHost\" });`；对外暴露 `UbaHost` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaHost` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaHost.h` / `UbaHostModule.h`），再用 `FModuleManager::LoadModulePtr<UbaHostModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaHost` 还依赖 `UbaCommon`, `UbaMimalloc`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaHost` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Host/UbaHost.Build.cs`.It directly depends on 2 modules: `UbaCommon`, `UbaMimalloc`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaHost\" });`. Use Public when exposing `UbaHost` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaHost` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaHost.h` / `UbaHostModule.h`), then use `FModuleManager::LoadModulePtr<UbaHostModule>` or the exported types directly.",
+      "Transitive deps: `UbaHost` also needs `UbaCommon`, `UbaMimalloc`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaHost` 的构建规则位于 `Programs/UnrealBuildAccelerator/Host/UbaHost.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`UbaHost` build rule is `Programs/UnrealBuildAccelerator/Host/UbaHost.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "ubamimalloc",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaMimalloc` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Mimalloc/UbaMimalloc.Build.cs`。它直接依赖 1 个模块：`mimalloc212`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaMimalloc\" });`；对外暴露 `UbaMimalloc` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaMimalloc` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaMimalloc.h` / `UbaMimallocModule.h`），再用 `FModuleManager::LoadModulePtr<UbaMimallocModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaMimalloc` 还依赖 `mimalloc212`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaMimalloc` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Mimalloc/UbaMimalloc.Build.cs`.It directly depends on 1 modules: `mimalloc212`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaMimalloc\" });`. Use Public when exposing `UbaMimalloc` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaMimalloc` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaMimalloc.h` / `UbaMimallocModule.h`), then use `FModuleManager::LoadModulePtr<UbaMimallocModule>` or the exported types directly.",
+      "Transitive deps: `UbaMimalloc` also needs `mimalloc212`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaMimalloc` 的构建规则位于 `Programs/UnrealBuildAccelerator/Mimalloc/UbaMimalloc.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`UbaMimalloc` build rule is `Programs/UnrealBuildAccelerator/Mimalloc/UbaMimalloc.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "ubaninja",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaNinja` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Ninja/UbaNinja.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaNinja\" });`；对外暴露 `UbaNinja` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaNinja` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaNinja.h` / `UbaNinjaModule.h`），再用 `FModuleManager::LoadModulePtr<UbaNinjaModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaNinja` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaNinja` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Ninja/UbaNinja.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaNinja\" });`. Use Public when exposing `UbaNinja` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaNinja` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaNinja.h` / `UbaNinjaModule.h`), then use `FModuleManager::LoadModulePtr<UbaNinjaModule>` or the exported types directly.",
+      "Transitive deps: `UbaNinja` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`UbaNinja` 的构建规则位于 `Programs/UnrealBuildAccelerator/Ninja/UbaNinja.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`UbaNinja` build rule is `Programs/UnrealBuildAccelerator/Ninja/UbaNinja.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "ubaobjtool",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaObjTool` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/ObjTool/UbaObjTool.Build.cs`。它直接依赖 1 个模块：`UbaCommon`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaObjTool\" });`；对外暴露 `UbaObjTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaObjTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaObjTool.h` / `UbaObjToolModule.h`），再用 `FModuleManager::LoadModulePtr<UbaObjToolModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaObjTool` 还依赖 `UbaCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaObjTool` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/ObjTool/UbaObjTool.Build.cs`.It directly depends on 1 modules: `UbaCommon`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaObjTool\" });`. Use Public when exposing `UbaObjTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaObjTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaObjTool.h` / `UbaObjToolModule.h`), then use `FModuleManager::LoadModulePtr<UbaObjToolModule>` or the exported types directly.",
+      "Transitive deps: `UbaObjTool` also needs `UbaCommon`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaObjTool` 的构建规则位于 `Programs/UnrealBuildAccelerator/ObjTool/UbaObjTool.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`UbaObjTool` build rule is `Programs/UnrealBuildAccelerator/ObjTool/UbaObjTool.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "ubatest",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaTest` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Test/UbaTest.Build.cs`。它直接依赖 1 个模块：`UbaCommon`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaTest\" });`；对外暴露 `UbaTest` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaTest` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaTest.h` / `UbaTestModule.h`），再用 `FModuleManager::LoadModulePtr<UbaTestModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaTest` 还依赖 `UbaCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaTest` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Test/UbaTest.Build.cs`.It directly depends on 1 modules: `UbaCommon`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaTest\" });`. Use Public when exposing `UbaTest` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaTest` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaTest.h` / `UbaTestModule.h`), then use `FModuleManager::LoadModulePtr<UbaTestModule>` or the exported types directly.",
+      "Transitive deps: `UbaTest` also needs `UbaCommon`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaTest` 的构建规则位于 `Programs/UnrealBuildAccelerator/Test/UbaTest.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`UbaTest` build rule is `Programs/UnrealBuildAccelerator/Test/UbaTest.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "ubatestapp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaTestApp` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/TestApp/UbaTestApp.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaTestApp\" });`；对外暴露 `UbaTestApp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaTestApp` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaTestApp.h` / `UbaTestAppModule.h`），再用 `FModuleManager::LoadModulePtr<UbaTestAppModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaTestApp` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaTestApp` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/TestApp/UbaTestApp.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaTestApp\" });`. Use Public when exposing `UbaTestApp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaTestApp` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaTestApp.h` / `UbaTestAppModule.h`), then use `FModuleManager::LoadModulePtr<UbaTestAppModule>` or the exported types directly.",
+      "Transitive deps: `UbaTestApp` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`UbaTestApp` 的构建规则位于 `Programs/UnrealBuildAccelerator/TestApp/UbaTestApp.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`UbaTestApp` build rule is `Programs/UnrealBuildAccelerator/TestApp/UbaTestApp.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "ubaversion",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaVersion` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Version/UbaVersion.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaVersion\" });`；对外暴露 `UbaVersion` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaVersion` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaVersion.h` / `UbaVersionModule.h`），再用 `FModuleManager::LoadModulePtr<UbaVersionModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaVersion` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaVersion` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Version/UbaVersion.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaVersion\" });`. Use Public when exposing `UbaVersion` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaVersion` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaVersion.h` / `UbaVersionModule.h`), then use `FModuleManager::LoadModulePtr<UbaVersionModule>` or the exported types directly.",
+      "Transitive deps: `UbaVersion` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`UbaVersion` 的构建规则位于 `Programs/UnrealBuildAccelerator/Version/UbaVersion.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`UbaVersion` build rule is `Programs/UnrealBuildAccelerator/Version/UbaVersion.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "ubavisualizer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UbaVisualizer` 位于 `Programs`，构建规则 `Programs/UnrealBuildAccelerator/Visualizer/UbaVisualizer.Build.cs`。它直接依赖 1 个模块：`UbaCommon`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UbaVisualizer\" });`；对外暴露 `UbaVisualizer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UbaVisualizer` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `UbaVisualizer.h` / `UbaVisualizerModule.h`），再用 `FModuleManager::LoadModulePtr<UbaVisualizerModule>` 或直接使用导出类型。",
+      "传递依赖：`UbaVisualizer` 还依赖 `UbaCommon`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `UbaVisualizer` lives under `Programs`; build rule `Programs/UnrealBuildAccelerator/Visualizer/UbaVisualizer.Build.cs`.It directly depends on 1 modules: `UbaCommon`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UbaVisualizer\" });`. Use Public when exposing `UbaVisualizer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UbaVisualizer` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `UbaVisualizer.h` / `UbaVisualizerModule.h`), then use `FModuleManager::LoadModulePtr<UbaVisualizerModule>` or the exported types directly.",
+      "Transitive deps: `UbaVisualizer` also needs `UbaCommon`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`UbaVisualizer` 的构建规则位于 `Programs/UnrealBuildAccelerator/Visualizer/UbaVisualizer.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`UbaVisualizer` build rule is `Programs/UnrealBuildAccelerator/Visualizer/UbaVisualizer.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "uejpegcomp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`UEJpegComp` 位于 `Runtime`，构建规则 `Runtime/UEJpegComp/UEJpegComp.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"UEJpegComp\" });`；对外暴露 `UEJpegComp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`UEJpegComp` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `UEJpegComp.h` / `UEJpegCompModule.h`），再用 `FModuleManager::LoadModulePtr<UEJpegCompModule>` 或直接使用导出类型。",
+      "传递依赖：`UEJpegComp` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `UEJpegComp` lives under `Runtime`; build rule `Runtime/UEJpegComp/UEJpegComp.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"UEJpegComp\" });`. Use Public when exposing `UEJpegComp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `UEJpegComp` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `UEJpegComp.h` / `UEJpegCompModule.h`), then use `FModuleManager::LoadModulePtr<UEJpegCompModule>` or the exported types directly.",
+      "Transitive deps: `UEJpegComp` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`UEJpegComp` 的构建规则位于 `Runtime/UEJpegComp/UEJpegComp.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`UEJpegComp` build rule is `Runtime/UEJpegComp/UEJpegComp.Build.cs`; depends on 0 modules; category External."
+  }
+]

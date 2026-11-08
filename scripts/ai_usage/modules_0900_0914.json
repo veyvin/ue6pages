@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "webtestsservercpp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WebTestsServerCpp` 位于 `Programs`，构建规则 `Programs/WebTestsServerCpp/WebTestsServerCpp.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `Core`, `HTTPServer`, `Json`, `Projects`, `Sockets`, `WebSocketServer`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WebTestsServerCpp\" });`；对外暴露 `WebTestsServerCpp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WebTestsServerCpp` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `WebTestsServerCpp.h` / `WebTestsServerCppModule.h`），再用 `FModuleManager::LoadModulePtr<WebTestsServerCppModule>` 或直接使用导出类型。",
+      "传递依赖：`WebTestsServerCpp` 还依赖 `ApplicationCore`, `Core`, `HTTPServer`, `Json`, `Projects`, `Sockets`, `WebSocketServer`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WebTestsServerCpp` lives under `Programs`; build rule `Programs/WebTestsServerCpp/WebTestsServerCpp.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `Core`, `HTTPServer`, `Json`, `Projects`, `Sockets`, `WebSocketServer`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WebTestsServerCpp\" });`. Use Public when exposing `WebTestsServerCpp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WebTestsServerCpp` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `WebTestsServerCpp.h` / `WebTestsServerCppModule.h`), then use `FModuleManager::LoadModulePtr<WebTestsServerCppModule>` or the exported types directly.",
+      "Transitive deps: `WebTestsServerCpp` also needs `ApplicationCore`, `Core`, `HTTPServer`, `Json`, `Projects`, `Sockets`, `WebSocketServer`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WebTestsServerCpp` 的构建规则位于 `Programs/WebTestsServerCpp/WebTestsServerCpp.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`WebTestsServerCpp` build rule is `Programs/WebTestsServerCpp/WebTestsServerCpp.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "wegame",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WeGame` 位于 `ThirdParty`，构建规则 `ThirdParty/Tencent/WeGame/WeGame.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WeGame\" });`；对外暴露 `WeGame` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WeGame` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `WeGame.h` / `WeGameModule.h`），再用 `FModuleManager::LoadModulePtr<WeGameModule>` 或直接使用导出类型。",
+      "传递依赖：`WeGame` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `WeGame` lives under `ThirdParty`; build rule `ThirdParty/Tencent/WeGame/WeGame.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WeGame\" });`. Use Public when exposing `WeGame` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WeGame` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `WeGame.h` / `WeGameModule.h`), then use `FModuleManager::LoadModulePtr<WeGameModule>` or the exported types directly.",
+      "Transitive deps: `WeGame` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`WeGame` 的构建规则位于 `ThirdParty/Tencent/WeGame/WeGame.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`WeGame` build rule is `ThirdParty/Tencent/WeGame/WeGame.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "widgetcarousel",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WidgetCarousel` 位于 `Runtime`，构建规则 `Runtime/WidgetCarousel/WidgetCarousel.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WidgetCarousel\" });`；对外暴露 `WidgetCarousel` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WidgetCarousel` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `WidgetCarousel.h` / `WidgetCarouselModule.h`），再用 `FModuleManager::LoadModulePtr<WidgetCarouselModule>` 或直接使用导出类型。",
+      "传递依赖：`WidgetCarousel` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WidgetCarousel` lives under `Runtime`; build rule `Runtime/WidgetCarousel/WidgetCarousel.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `Core`, `CoreUObject`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WidgetCarousel\" });`. Use Public when exposing `WidgetCarousel` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WidgetCarousel` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `WidgetCarousel.h` / `WidgetCarouselModule.h`), then use `FModuleManager::LoadModulePtr<WidgetCarouselModule>` or the exported types directly.",
+      "Transitive deps: `WidgetCarousel` also needs `ApplicationCore`, `Core`, `CoreUObject`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WidgetCarousel` 的构建规则位于 `Runtime/WidgetCarousel/WidgetCarousel.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`WidgetCarousel` build rule is `Runtime/WidgetCarousel/WidgetCarousel.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "widgetregistration",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WidgetRegistration` 位于 `Developer`，构建规则 `Developer/WidgetRegistration/WidgetRegistration.Build.cs`。它直接依赖 7 个模块：`Core`, `CoreUObject`, `EditorConfig`, `Engine`, `Slate`, `SlateCore`, `ToolMenus`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WidgetRegistration\" });`；对外暴露 `WidgetRegistration` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WidgetRegistration` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `WidgetRegistration.h` / `WidgetRegistrationModule.h`），再用 `FModuleManager::LoadModulePtr<WidgetRegistrationModule>` 或直接使用导出类型。",
+      "传递依赖：`WidgetRegistration` 还依赖 `Core`, `CoreUObject`, `EditorConfig`, `Engine`, `Slate`, `SlateCore`, `ToolMenus`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WidgetRegistration` lives under `Developer`; build rule `Developer/WidgetRegistration/WidgetRegistration.Build.cs`.It directly depends on 7 modules: `Core`, `CoreUObject`, `EditorConfig`, `Engine`, `Slate`, `SlateCore`, `ToolMenus`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WidgetRegistration\" });`. Use Public when exposing `WidgetRegistration` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WidgetRegistration` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `WidgetRegistration.h` / `WidgetRegistrationModule.h`), then use `FModuleManager::LoadModulePtr<WidgetRegistrationModule>` or the exported types directly.",
+      "Transitive deps: `WidgetRegistration` also needs `Core`, `CoreUObject`, `EditorConfig`, `Engine`, `Slate`, `SlateCore`, `ToolMenus`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WidgetRegistration` 的构建规则位于 `Developer/WidgetRegistration/WidgetRegistration.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`WidgetRegistration` build rule is `Developer/WidgetRegistration/WidgetRegistration.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "windowsd3d",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WindowsD3D` 位于 `Runtime`，构建规则 `Runtime/Windows/WindowsD3D/WindowsD3D.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsD3D\" });`；对外暴露 `WindowsD3D` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WindowsD3D` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `WindowsD3D.h` / `WindowsD3DModule.h`），再用 `FModuleManager::LoadModulePtr<WindowsD3DModule>` 或直接使用导出类型。",
+      "传递依赖：`WindowsD3D` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WindowsD3D` lives under `Runtime`; build rule `Runtime/Windows/WindowsD3D/WindowsD3D.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsD3D\" });`. Use Public when exposing `WindowsD3D` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WindowsD3D` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `WindowsD3D.h` / `WindowsD3DModule.h`), then use `FModuleManager::LoadModulePtr<WindowsD3DModule>` or the exported types directly.",
+      "Transitive deps: `WindowsD3D` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WindowsD3D` 的构建规则位于 `Runtime/Windows/WindowsD3D/WindowsD3D.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`WindowsD3D` build rule is `Runtime/Windows/WindowsD3D/WindowsD3D.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "windowsmmdeviceenumeration",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WindowsMMDeviceEnumeration` 位于 `Runtime`，构建规则 `Runtime/AudioDeviceEnumeration/Windows/WindowsMMDeviceEnumeration/WindowsMMDeviceEnumeration.Build.cs`。它直接依赖 2 个模块：`Core`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsMMDeviceEnumeration\" });`；对外暴露 `WindowsMMDeviceEnumeration` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WindowsMMDeviceEnumeration` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `WindowsMMDeviceEnumeration.h` / `WindowsMMDeviceEnumerationModule.h`），再用 `FModuleManager::LoadModulePtr<WindowsMMDeviceEnumerationModule>` 或直接使用导出类型。",
+      "传递依赖：`WindowsMMDeviceEnumeration` 还依赖 `Core`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WindowsMMDeviceEnumeration` lives under `Runtime`; build rule `Runtime/AudioDeviceEnumeration/Windows/WindowsMMDeviceEnumeration/WindowsMMDeviceEnumeration.Build.cs`.It directly depends on 2 modules: `Core`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsMMDeviceEnumeration\" });`. Use Public when exposing `WindowsMMDeviceEnumeration` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WindowsMMDeviceEnumeration` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `WindowsMMDeviceEnumeration.h` / `WindowsMMDeviceEnumerationModule.h`), then use `FModuleManager::LoadModulePtr<WindowsMMDeviceEnumerationModule>` or the exported types directly.",
+      "Transitive deps: `WindowsMMDeviceEnumeration` also needs `Core`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WindowsMMDeviceEnumeration` 的构建规则位于 `Runtime/AudioDeviceEnumeration/Windows/WindowsMMDeviceEnumeration/WindowsMMDeviceEnumeration.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`WindowsMMDeviceEnumeration` build rule is `Runtime/AudioDeviceEnumeration/Windows/WindowsMMDeviceEnumeration/WindowsMMDeviceEnumeration.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "windowsplatformeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WindowsPlatformEditor` 位于 `Developer`，构建规则 `Developer/Windows/WindowsPlatformEditor/WindowsPlatformEditor.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `WindowsTargetPlatformSettings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsPlatformEditor\" });`；对外暴露 `WindowsPlatformEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WindowsPlatformEditor` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `WindowsPlatformEditor.h` / `WindowsPlatformEditorModule.h`），再用 `FModuleManager::LoadModulePtr<WindowsPlatformEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`WindowsPlatformEditor` 还依赖 `Core`, `CoreUObject`, `WindowsTargetPlatformSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WindowsPlatformEditor` lives under `Developer`; build rule `Developer/Windows/WindowsPlatformEditor/WindowsPlatformEditor.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `WindowsTargetPlatformSettings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsPlatformEditor\" });`. Use Public when exposing `WindowsPlatformEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WindowsPlatformEditor` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `WindowsPlatformEditor.h` / `WindowsPlatformEditorModule.h`), then use `FModuleManager::LoadModulePtr<WindowsPlatformEditorModule>` or the exported types directly.",
+      "Transitive deps: `WindowsPlatformEditor` also needs `Core`, `CoreUObject`, `WindowsTargetPlatformSettings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WindowsPlatformEditor` 的构建规则位于 `Developer/Windows/WindowsPlatformEditor/WindowsPlatformEditor.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`WindowsPlatformEditor` build rule is `Developer/Windows/WindowsPlatformEditor/WindowsPlatformEditor.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "windowsplatformfeatures",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WindowsPlatformFeatures` 位于 `Runtime`，构建规则 `Runtime/Windows/WindowsPlatformFeatures/WindowsPlatformFeatures.Build.cs`。它直接依赖 7 个模块：`AVEncoder`, `ApplicationCore`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `GameplayMediaEncoder`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsPlatformFeatures\" });`；对外暴露 `WindowsPlatformFeatures` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WindowsPlatformFeatures` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `WindowsPlatformFeatures.h` / `WindowsPlatformFeaturesModule.h`），再用 `FModuleManager::LoadModulePtr<WindowsPlatformFeaturesModule>` 或直接使用导出类型。",
+      "传递依赖：`WindowsPlatformFeatures` 还依赖 `AVEncoder`, `ApplicationCore`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `GameplayMediaEncoder`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WindowsPlatformFeatures` lives under `Runtime`; build rule `Runtime/Windows/WindowsPlatformFeatures/WindowsPlatformFeatures.Build.cs`.It directly depends on 7 modules: `AVEncoder`, `ApplicationCore`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `GameplayMediaEncoder`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsPlatformFeatures\" });`. Use Public when exposing `WindowsPlatformFeatures` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WindowsPlatformFeatures` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `WindowsPlatformFeatures.h` / `WindowsPlatformFeaturesModule.h`), then use `FModuleManager::LoadModulePtr<WindowsPlatformFeaturesModule>` or the exported types directly.",
+      "Transitive deps: `WindowsPlatformFeatures` also needs `AVEncoder`, `ApplicationCore`, `AudioMixer`, `Core`, `CoreUObject`, `Engine`, `GameplayMediaEncoder`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WindowsPlatformFeatures` 的构建规则位于 `Runtime/Windows/WindowsPlatformFeatures/WindowsPlatformFeatures.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`WindowsPlatformFeatures` build rule is `Runtime/Windows/WindowsPlatformFeatures/WindowsPlatformFeatures.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "windowstargetplatform",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WindowsTargetPlatform` 位于 `Developer`，构建规则 `Developer/Windows/WindowsTargetPlatform/WindowsTargetPlatform.Build.cs`。它直接依赖 5 个模块：`Core`, `DesktopPlatform`, `TargetPlatform`, `WindowsTargetPlatformControls`, `WindowsTargetPlatformSettings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsTargetPlatform\" });`；对外暴露 `WindowsTargetPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WindowsTargetPlatform` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `WindowsTargetPlatform.h` / `WindowsTargetPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<WindowsTargetPlatformModule>` 或直接使用导出类型。",
+      "传递依赖：`WindowsTargetPlatform` 还依赖 `Core`, `DesktopPlatform`, `TargetPlatform`, `WindowsTargetPlatformControls`, `WindowsTargetPlatformSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WindowsTargetPlatform` lives under `Developer`; build rule `Developer/Windows/WindowsTargetPlatform/WindowsTargetPlatform.Build.cs`.It directly depends on 5 modules: `Core`, `DesktopPlatform`, `TargetPlatform`, `WindowsTargetPlatformControls`, `WindowsTargetPlatformSettings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsTargetPlatform\" });`. Use Public when exposing `WindowsTargetPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WindowsTargetPlatform` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `WindowsTargetPlatform.h` / `WindowsTargetPlatformModule.h`), then use `FModuleManager::LoadModulePtr<WindowsTargetPlatformModule>` or the exported types directly.",
+      "Transitive deps: `WindowsTargetPlatform` also needs `Core`, `DesktopPlatform`, `TargetPlatform`, `WindowsTargetPlatformControls`, `WindowsTargetPlatformSettings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WindowsTargetPlatform` 的构建规则位于 `Developer/Windows/WindowsTargetPlatform/WindowsTargetPlatform.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`WindowsTargetPlatform` build rule is `Developer/Windows/WindowsTargetPlatform/WindowsTargetPlatform.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "windowstargetplatformcontrols",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WindowsTargetPlatformControls` 位于 `Developer`，构建规则 `Developer/Windows/WindowsTargetPlatfomControls/WindowsTargetPlatformControls.Build.cs`。它直接依赖 8 个模块：`AudioPlatformConfiguration`, `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsTargetPlatformControls\" });`；对外暴露 `WindowsTargetPlatformControls` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WindowsTargetPlatformControls` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `WindowsTargetPlatformControls.h` / `WindowsTargetPlatformControlsModule.h`），再用 `FModuleManager::LoadModulePtr<WindowsTargetPlatformControlsModule>` 或直接使用导出类型。",
+      "传递依赖：`WindowsTargetPlatformControls` 还依赖 `AudioPlatformConfiguration`, `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WindowsTargetPlatformControls` lives under `Developer`; build rule `Developer/Windows/WindowsTargetPlatfomControls/WindowsTargetPlatformControls.Build.cs`.It directly depends on 8 modules: `AudioPlatformConfiguration`, `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsTargetPlatformControls\" });`. Use Public when exposing `WindowsTargetPlatformControls` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WindowsTargetPlatformControls` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `WindowsTargetPlatformControls.h` / `WindowsTargetPlatformControlsModule.h`), then use `FModuleManager::LoadModulePtr<WindowsTargetPlatformControlsModule>` or the exported types directly.",
+      "Transitive deps: `WindowsTargetPlatformControls` also needs `AudioPlatformConfiguration`, `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WindowsTargetPlatformControls` 的构建规则位于 `Developer/Windows/WindowsTargetPlatfomControls/WindowsTargetPlatformControls.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`WindowsTargetPlatformControls` build rule is `Developer/Windows/WindowsTargetPlatfomControls/WindowsTargetPlatformControls.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "windowstargetplatformsettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WindowsTargetPlatformSettings` 位于 `Developer`，构建规则 `Developer/Windows/WindowsTargetPlatformSettings/WindowsTargetPlatformSettings.Build.cs`。它直接依赖 8 个模块：`AudioPlatformConfiguration`, `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsTargetPlatformSettings\" });`；对外暴露 `WindowsTargetPlatformSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WindowsTargetPlatformSettings` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `WindowsTargetPlatformSettings.h` / `WindowsTargetPlatformSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<WindowsTargetPlatformSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`WindowsTargetPlatformSettings` 还依赖 `AudioPlatformConfiguration`, `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `WindowsTargetPlatformSettings` lives under `Developer`; build rule `Developer/Windows/WindowsTargetPlatformSettings/WindowsTargetPlatformSettings.Build.cs`.It directly depends on 8 modules: `AudioPlatformConfiguration`, `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WindowsTargetPlatformSettings\" });`. Use Public when exposing `WindowsTargetPlatformSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WindowsTargetPlatformSettings` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `WindowsTargetPlatformSettings.h` / `WindowsTargetPlatformSettingsModule.h`), then use `FModuleManager::LoadModulePtr<WindowsTargetPlatformSettingsModule>` or the exported types directly.",
+      "Transitive deps: `WindowsTargetPlatformSettings` also needs `AudioPlatformConfiguration`, `CookedEditor`, `Core`, `CoreUObject`, `DesktopPlatform`, `Engine`, `RHI`, `TargetPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`WindowsTargetPlatformSettings` 的构建规则位于 `Developer/Windows/WindowsTargetPlatformSettings/WindowsTargetPlatformSettings.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`WindowsTargetPlatformSettings` build rule is `Developer/Windows/WindowsTargetPlatformSettings/WindowsTargetPlatformSettings.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "winhttp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WinHttp` 位于 `ThirdParty`，构建规则 `ThirdParty/WinHttp/WinHttp.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WinHttp\" });`；对外暴露 `WinHttp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WinHttp` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `WinHttp.h` / `WinHttpModule.h`），再用 `FModuleManager::LoadModulePtr<WinHttpModule>` 或直接使用导出类型。",
+      "传递依赖：`WinHttp` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `WinHttp` lives under `ThirdParty`; build rule `ThirdParty/WinHttp/WinHttp.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WinHttp\" });`. Use Public when exposing `WinHttp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WinHttp` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `WinHttp.h` / `WinHttpModule.h`), then use `FModuleManager::LoadModulePtr<WinHttpModule>` or the exported types directly.",
+      "Transitive deps: `WinHttp` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`WinHttp` 的构建规则位于 `ThirdParty/WinHttp/WinHttp.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`WinHttp` build rule is `ThirdParty/WinHttp/WinHttp.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "wininet",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WinInet` 位于 `Engine`，构建规则 `Engine/Source/ThirdParty/Windows/WinInet/WinInet.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WinInet\" });`；对外暴露 `WinInet` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WinInet` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `WinInet.h` / `WinInetModule.h`），再用 `FModuleManager::LoadModulePtr<WinInetModule>` 或直接使用导出类型。",
+      "传递依赖：`WinInet` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `WinInet` lives under `Engine`; build rule `Engine/Source/ThirdParty/Windows/WinInet/WinInet.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WinInet\" });`. Use Public when exposing `WinInet` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WinInet` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `WinInet.h` / `WinInetModule.h`), then use `FModuleManager::LoadModulePtr<WinInetModule>` or the exported types directly.",
+      "Transitive deps: `WinInet` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`WinInet` 的构建规则位于 `Engine/Source/ThirdParty/Windows/WinInet/WinInet.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`WinInet` build rule is `Engine/Source/ThirdParty/Windows/WinInet/WinInet.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "winpixeventruntime",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`WinPixEventRuntime` 位于 `ThirdParty`，构建规则 `ThirdParty/Windows/PIX/WinPixEventRuntime.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"WinPixEventRuntime\" });`；对外暴露 `WinPixEventRuntime` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`WinPixEventRuntime` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `WinPixEventRuntime.h` / `WinPixEventRuntimeModule.h`），再用 `FModuleManager::LoadModulePtr<WinPixEventRuntimeModule>` 或直接使用导出类型。",
+      "传递依赖：`WinPixEventRuntime` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `WinPixEventRuntime` lives under `ThirdParty`; build rule `ThirdParty/Windows/PIX/WinPixEventRuntime.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"WinPixEventRuntime\" });`. Use Public when exposing `WinPixEventRuntime` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `WinPixEventRuntime` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `WinPixEventRuntime.h` / `WinPixEventRuntimeModule.h`), then use `FModuleManager::LoadModulePtr<WinPixEventRuntimeModule>` or the exported types directly.",
+      "Transitive deps: `WinPixEventRuntime` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`WinPixEventRuntime` 的构建规则位于 `ThirdParty/Windows/PIX/WinPixEventRuntime.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`WinPixEventRuntime` build rule is `ThirdParty/Windows/PIX/WinPixEventRuntime.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "wintab",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Wintab` 位于 `ThirdParty`，构建规则 `ThirdParty/Wintab/Wintab.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Wintab\" });`；对外暴露 `Wintab` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Wintab` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Wintab.h` / `WintabModule.h`），再用 `FModuleManager::LoadModulePtr<WintabModule>` 或直接使用导出类型。",
+      "传递依赖：`Wintab` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Wintab` lives under `ThirdParty`; build rule `ThirdParty/Wintab/Wintab.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Wintab\" });`. Use Public when exposing `Wintab` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Wintab` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Wintab.h` / `WintabModule.h`), then use `FModuleManager::LoadModulePtr<WintabModule>` or the exported types directly.",
+      "Transitive deps: `Wintab` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Wintab` 的构建规则位于 `ThirdParty/Wintab/Wintab.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Wintab` build rule is `ThirdParty/Wintab/Wintab.Build.cs`; depends on 0 modules; category External."
+  }
+]

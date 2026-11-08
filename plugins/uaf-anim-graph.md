@@ -3,8 +3,6 @@ layout: default
 title: UAF 动画图 / UAF Anim Graph
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,37 @@ title: UAF 动画图 / UAF Anim Graph
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于定义动画图的框架。</div><div class="lang-content">Framework for defining animation graphs.</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：用于定义动画图的框架。</p><p>UAF 家族：新动画图框架上的一层（状态、层、Pose Search、Control Rig 桥）。</p><p>Epic 把它放在 Experimental：功能可用，但接口可能随夜构建变化。</p><p>它打包的模块包括：UAFAnimGraph, UAFAnimGraphEditor, UAFAnimGraphUncookedOnly。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Framework for defining animation graphs.</p><p>UAF family: a layer on the Unreal Animation Framework (state, layering, Pose Search, Control Rig bridge).</p><p>Epic ships this under Experimental: usable, but the contract may change on nightly builds.</p><p>It ships these modules: UAFAnimGraph, UAFAnimGraphEditor, UAFAnimGraphUncookedOnly. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">UAF Anim Graph</code>（运行时 <code class="usage-code">UAFAnimGraph</code>，编辑器 <code class="usage-code">UAFAnimGraphEditor</code>，<code class="usage-code">UAFAnimGraphUncookedOnly</code>）。</li><li>它是用于定义动画图的框架（UAF 的新动画图）。</li><li>用其图编辑器搭建动画逻辑，运行时代码驱动。</li><li>Game 模块依赖运行时模块；编辑器/UncookedOnly 模块只进 Editor Target。</li></ol><p class="usage-note">定义动画图的框架（UAF 新动画图）。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">UAF Anim Graph</code> (runtime <code class="usage-code">UAFAnimGraph</code>, editor <code class="usage-code">UAFAnimGraphEditor</code>, <code class="usage-code">UAFAnimGraphUncookedOnly</code>).</li><li>It is the framework for defining animation graphs (UAF&#x27;s new anim graph).</li><li>Build animation logic in its graph editor, driven by runtime code.</li><li>Game modules depend on runtime modules; editor/UncookedOnly modules go to Editor targets only.</li></ol><p class="usage-note">The framework for defining animation graphs (UAF&#x27;s new anim graph).</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (3)</div><div class="module-item"><span class="dot"></span><span class="name mono">UAFAnimGraph</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">UAFAnimGraphEditor</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">UAFAnimGraphUncookedOnly</span><span class="tag runtime">Runtime</span></div></div>

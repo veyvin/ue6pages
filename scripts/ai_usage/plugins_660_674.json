@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "nvcodecs",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NVCodecs`（模块 `NVCodecs`、`NVCodecsRHI`、`NVDEC`、`NVENC`）。",
+      "它把 NVIDIA Media Codec SDK 的编解码器（NVDEC 解码/NVENC 编码）加入 AVCodecs。",
+      "在录制/解码流程里选 NVENC/NVDEC，享受 GPU 硬件加速。",
+      "Experimental：接口可能变动；需 NVIDIA GPU 与相应驱动。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NVCodecs` (modules `NVCodecs`, `NVCodecsRHI`, `NVDEC`, `NVENC`).",
+      "It adds NVIDIA Media Codec SDK codecs (NVDEC decode / NVENC encode) to AVCodecs.",
+      "Choose NVENC/NVDEC in recording/decoding flows for GPU hardware acceleration.",
+      "Experimental: contract may change; requires an NVIDIA GPU and drivers."
+    ],
+    "note_cn": "把 NVIDIA NVENC/NVDEC 编解码加入 AVCodecs，实验性。",
+    "note_en": "Adds NVIDIA NVENC/NVDEC codecs to AVCodecs, experimental."
+  },
+  {
+    "slug": "nvdec-hardware-decoder-support-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NVDEC hardware decoder support for Electra`（模块 `NVDECElectra`）。",
+      "它为 Electra 播放器加入来自 NVIDIA Media Codec SDK 的硬件解码（NVDEC）。",
+      "在 Media Player 选 Electra 后端播放视频，由 NVDEC 硬解；支持的编解码取决于 GPU。",
+      "需 D3D12 与 NVIDIA GPU；属 Media Framework 解码扩展。"
+    ],
+    "en_steps": [
+      "Enable `NVDEC hardware decoder support for Electra` (module `NVDECElectra`).",
+      "It adds hardware decoding (NVDEC) from the NVIDIA Media Codec SDK to the Electra player.",
+      "Play video via a Media Player with the Electra backend, hardware-decoded by NVDEC; supported codecs depend on the GPU.",
+      "Requires D3D12 and an NVIDIA GPU; it is a Media Framework decode extension."
+    ],
+    "note_cn": "Electra 的 NVDEC 硬件解码（需 D3D12/NVIDIA GPU）。",
+    "note_en": "NVDEC hardware decoding for Electra (needs D3D12/NVIDIA GPU)."
+  },
+  {
+    "slug": "nvidia-geforce-now-wrapper",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NVidia GeForce NOW Wrapper`（模块 `GeForceNOWWrapper`），运行时插件。",
+      "它把 GeForce NOW 云游戏相关能力封装进引擎（平台/流式集成）。",
+      "在 GeForce NOW 目标平台下打包/运行，调用其接口。",
+      "运行时模块可进游戏包；仅在 GeForce NOW 环境下有意义。"
+    ],
+    "en_steps": [
+      "Enable `NVidia GeForce NOW Wrapper` (module `GeForceNOWWrapper`), a runtime plugin.",
+      "It wraps GeForce NOW cloud-gaming capabilities into the engine (platform/streaming integration).",
+      "Package/run on the GeForce NOW target platform and call its API.",
+      "Runtime modules can ship; meaningful only in the GeForce NOW environment."
+    ],
+    "note_cn": "GeForce NOW 云游戏的引擎封装（运行时）。",
+    "note_en": "An engine wrapper for GeForce NOW cloud gaming (runtime)."
+  },
+  {
+    "slug": "nvidia-rivermax-media-streaming",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NVIDIA Rivermax Media Streaming`（运行时 `RivermaxMedia`，编辑器 `RivermaxMediaEditor`，工厂 `RivermaxMediaFactory`），属 Virtual Production。",
+      "它为媒体捕获与媒体播放器添加 NVIDIA Rivermax 功能（低延迟 SMPTE ST 2110 网络视频）。",
+      "在 Media IO/Media Player 里选 Rivermax 源/输出，接入专业网络视频流。",
+      "Game 模块依赖 `RivermaxMedia`；编辑器/工厂模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `NVIDIA Rivermax Media Streaming` (runtime `RivermaxMedia`, editor `RivermaxMediaEditor`, factory `RivermaxMediaFactory`), part of Virtual Production.",
+      "It adds NVIDIA Rivermax to media capture and media players (low-latency SMPTE ST 2110 networked video).",
+      "Select a Rivermax source/output in Media IO/Media Player to tap professional networked video.",
+      "Game modules depend on `RivermaxMedia`; editor/factory modules go to Editor targets only."
+    ],
+    "note_cn": "NVIDIA Rivermax 的专业网络视频（ST 2110）媒体 IO。",
+    "note_en": "NVIDIA Rivermax professional networked-video (ST 2110) media IO."
+  },
+  {
+    "slug": "nvidia-rivermax-media-synchronization-for-ndisplay",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NVIDIA Rivermax Media synchronization for nDisplay`（模块 `RivermaxSync`，编辑器 `RivermaxSyncEditor`），属 Virtual Production。",
+      "它为 nDisplay 添加 NVIDIA Rivermax 同步功能（集群间媒体/时间同步）。",
+      "在多节点 nDisplay 虚拟制片里用 Rivermax 做媒体同步。",
+      "属 nDisplay 同步扩展；需 Rivermax 与 nDisplay。"
+    ],
+    "en_steps": [
+      "Enable `NVIDIA Rivermax Media synchronization for nDisplay` (module `RivermaxSync`, editor `RivermaxSyncEditor`), part of Virtual Production.",
+      "It adds NVIDIA Rivermax synchronization to nDisplay (media/time sync across the cluster).",
+      "In multi-node nDisplay virtual production, use Rivermax for media synchronization.",
+      "It is an nDisplay sync extension; requires Rivermax and nDisplay."
+    ],
+    "note_cn": "为 nDisplay 增加 NVIDIA Rivermax 同步。",
+    "note_en": "Adds NVIDIA Rivermax synchronization to nDisplay."
+  },
+  {
+    "slug": "object-mixer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Object Mixer`（模块 `ObjectMixerEditor`）并重启。",
+      "用它的电子表格视图批量编辑场景对象的任意属性。",
+      "适合对大量 Actor/对象做对比与批量改参。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Object Mixer` (module `ObjectMixerEditor`) and restart.",
+      "Use its spreadsheet view to batch-edit any property of scene objects.",
+      "Great for comparing and bulk-editing properties across many actors/objects.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "用电子表格批量编辑场景对象属性的编辑器工具。",
+    "note_en": "An editor tool for spreadsheet batch-editing scene object properties."
+  },
+  {
+    "slug": "object-tracking-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Object Tracking Insights`（模块 `ObjectTracking`、`ObjectTrackingInsights`）。",
+      "它在 Spatial Insights 视图上记录并可视化对象的位置与移动历史。",
+      "启动相关 trace 后，在 Spatial Insights 里回溯对象运动轨迹。",
+      "属 Insights/Trace 分析工具。"
+    ],
+    "en_steps": [
+      "Enable `Object Tracking Insights` (modules `ObjectTracking`, `ObjectTrackingInsights`).",
+      "It records and visualizes object position and movement history on the Spatial Insights view.",
+      "After starting the relevant trace, replay object trajectories in Spatial Insights.",
+      "It is an Insights/Trace analysis tool."
+    ],
+    "note_cn": "在 Spatial Insights 上记录/可视化对象运动轨迹。",
+    "note_en": "Records/visualizes object movement history on Spatial Insights."
+  },
+  {
+    "slug": "oculus-touch-controller-keys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Oculus Touch Controller Keys`（模块 `OculusTouchControllerKeys`）。",
+      "它定义 Oculus Touch 控制器的输入键（`OculusTouch_*` FKey），只依赖 InputCore。",
+      "无需 OpenXR 映射即可引用这些键（如 Pixel Streaming 等场景）。",
+      "轻量按键定义插件；供需要这些键的模块引用。"
+    ],
+    "en_steps": [
+      "Enable `Oculus Touch Controller Keys` (module `OculusTouchControllerKeys`).",
+      "It defines the Oculus Touch controller input keys (`OculusTouch_*` FKeys), depending only on InputCore.",
+      "These keys can be referenced without OpenXR mapping (e.g. Pixel Streaming scenarios).",
+      "A lightweight key-definition plugin; referenced by modules that need these keys."
+    ],
+    "note_cn": "Oculus Touch 输入键的定义（仅依赖 InputCore，无需 OpenXR 映射）。",
+    "note_en": "Oculus Touch input-key definitions (InputCore-only, no OpenXR mapping needed)."
+  },
+  {
+    "slug": "onesky",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `OneSky`（模块 `OneSkyLocalizationService`）并重启。",
+      "它提供 OneSky 本地化服务集成，在编辑器里上传/下载本地化文本。",
+      "在本地化设置里配置 OneSky 项目与 API 凭据，同步翻译。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `OneSky` (module `OneSkyLocalizationService`) and restart.",
+      "It provides OneSky localization service integration to upload/download localized text in the editor.",
+      "Configure the OneSky project and API credentials in localization settings to sync translations.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "OneSky 本地化服务集成（编辑器同步翻译）。",
+    "note_en": "OneSky localization service integration (editor translation sync)."
+  },
+  {
+    "slug": "online-base",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Base`（模块 `OnlineBase`）。",
+      "它提供在线子系统（OSSv1）与在线服务（OSSv2）接口的共享代码。",
+      "通常作为底层依赖随在线子系统/服务插件启用，不直接面向用户。",
+      "编写跨在线平台通用逻辑时才直接依赖它。"
+    ],
+    "en_steps": [
+      "Enable `Online Base` (module `OnlineBase`).",
+      "It provides shared code for the Online Subsystem (OSSv1) and Online Services (OSSv2) interfaces.",
+      "Usually enabled as a low-level dependency with online subsystem/service plugins, not directly user-facing.",
+      "Depend on it directly only when writing cross-platform online code."
+    ],
+    "note_cn": "在线子系统(OSSv1)/在线服务(OSSv2) 的共享底层代码。",
+    "note_en": "Shared base code for Online Subsystem (OSSv1)/Online Services (OSSv2)."
+  },
+  {
+    "slug": "online-framework-common",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Framework Common`（模块 `OnlineFrameworkCommon`）。",
+      "它提供在线框架的通用功能（共享工具/接口）。",
+      "通常随在线框架插件（如 Lobby/Party）作为底层依赖启用。",
+      "编写在线框架相关通用逻辑时才直接依赖。"
+    ],
+    "en_steps": [
+      "Enable `Online Framework Common` (module `OnlineFrameworkCommon`).",
+      "It provides common functionality (shared utilities/interfaces) for the online framework.",
+      "Usually enabled as a low-level dependency with online framework plugins (e.g. Lobby/Party).",
+      "Depend on it directly only when writing common online-framework logic."
+    ],
+    "note_cn": "在线框架的通用功能/工具。",
+    "note_en": "Common functionality/utilities for the online framework."
+  },
+  {
+    "slug": "online-framework-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Framework Plugin`（模块 `Qos`、`Party`、`Lobby`、`PatchCheck`、`Hotfix`、`Rejoin`、`PlayTimeLimit`、`LoginFlow`）。",
+      "它提供与在线游戏服务交互的共享代码（大厅、队伍、QoS、补丁检查、热更、重连、登录流程等）。",
+      "用其模块搭建大厅/组队/登录等在线功能，接入所选 OSS。",
+      "Game 模块可进包；按需启用具体子模块。"
+    ],
+    "en_steps": [
+      "Enable `Online Framework Plugin` (modules `Qos`, `Party`, `Lobby`, `PatchCheck`, `Hotfix`, `Rejoin`, `PlayTimeLimit`, `LoginFlow`).",
+      "It provides shared code to interact with online game services (lobby, party, QoS, patch check, hotfix, rejoin, login flow, etc.).",
+      "Build lobby/party/login features from its modules on your chosen OSS.",
+      "Game modules can ship; enable the specific submodules you need."
+    ],
+    "note_cn": "在线游戏服务交互的共享代码（大厅/队伍/QoS/登录流程等）。",
+    "note_en": "Shared code to interact with online game services (lobby/party/QoS/login flow, etc.)."
+  },
+  {
+    "slug": "online-services-eos-game-services",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Services EOS (Game Services)`（模块 `OnlineServicesEOSGS`）。",
+      "它是仅针对 EOS 游戏服务（Epic Online Services Game Services）的在线服务实现。",
+      "在在线服务设置里选 EOS GS 提供方，配置 EOS 项目凭据。",
+      "属在线服务(OSSv2) EOS 实现；与账户服务分开。"
+    ],
+    "en_steps": [
+      "Enable `Online Services EOS (Game Services)` (module `OnlineServicesEOSGS`).",
+      "It is an Online Services implementation only for EOS Game Services (Epic Online Services Game Services).",
+      "Select the EOS GS provider in Online Services settings and configure EOS project credentials.",
+      "It is the Online Services (OSSv2) EOS implementation; separate from account services."
+    ],
+    "note_cn": "仅 EOS 游戏服务的在线服务实现（OSSv2）。",
+    "note_en": "An Online Services (OSSv2) implementation only for EOS Game Services."
+  },
+  {
+    "slug": "online-services-eos",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Services EOS`（模块 `OnlineServicesEOS`）。",
+      "它是 EOS 账户与游戏服务的在线服务实现（OSSv2）。",
+      "在在线服务设置里选 EOS 提供方，配置账户/游戏服务凭据。",
+      "属在线服务/平台服务；覆盖登录、会话、成就等。"
+    ],
+    "en_steps": [
+      "Enable `Online Services EOS` (module `OnlineServicesEOS`).",
+      "It is the Online Services (OSSv2) implementation for EOS account and game services.",
+      "Select the EOS provider in Online Services settings and configure account/game-service credentials.",
+      "It is online/platform services; covers login, sessions, achievements, etc."
+    ],
+    "note_cn": "EOS 账户与游戏服务的在线服务实现（OSSv2）。",
+    "note_en": "The Online Services (OSSv2) implementation for EOS account and game services."
+  },
+  {
+    "slug": "online-services-epic-common",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Online Services Epic Common`（模块 `OnlineServicesEpicCommon`）。",
+      "它提供 Epic 账户服务与 Epic 游戏服务之间共享的通用在线服务实现。",
+      "作为 EOS 相关实现的共享底层，随 EOS 在线服务插件启用。",
+      "编写 Epic 在线服务通用逻辑时才直接依赖。"
+    ],
+    "en_steps": [
+      "Enable `Online Services Epic Common` (module `OnlineServicesEpicCommon`).",
+      "It provides common online-services implementation shared between Epic account services and Epic game services.",
+      "A shared base for EOS-related implementations; enabled with EOS online-service plugins.",
+      "Depend on it directly only when writing common Epic online-service logic."
+    ],
+    "note_cn": "Epic 账户/游戏服务之间的共享在线服务实现。",
+    "note_en": "Common online-services implementation shared across Epic account/game services."
+  }
+]

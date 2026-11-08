@@ -3,7 +3,6 @@ layout: default
 title: 加密密钥 / CryptoKeys
 ---
 
-
 <h1>加密密钥 / CryptoKeys</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 加密密钥 / CryptoKeys
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">（无描述）</div><div class="lang-content">(no description)</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用编辑器插件 <code class="usage-code">CryptoKeys</code>（<code class="usage-code">CryptoKeys</code>、<code class="usage-code">CryptoKeysOpenSSL</code>）。</li><li>打开 <code class="usage-code">Project Settings &gt; Crypto</code>（加密密钥设置）：生成 AES 加密密钥以及 RSA 签名公私钥；保存后写入项目的 crypto 配置（常见为 <code class="usage-code">Crypto.json</code> / ini，勿提交到公开仓库）。</li><li>在 <code class="usage-code">Project Settings &gt; Packaging</code> 勾选 pak、Encrypt Pak Ini / Index / Assets（按需要），使打包读取刚才的密钥。</li><li>用 <code class="usage-code">UnrealPak</code> 或项目打包出加密 pak，在未持有密钥的环境打开应失败；安装/补丁流程要分发同一套密钥。</li><li>只在编辑器生成密钥；游戏运行时解密由 pak 加载器处理，不要把 <code class="usage-code">CryptoKeysOpenSSL</code> 链进 Shipping 模块去「当场造钥」。</li></ol><p class="usage-note">Pak 加密/签名密钥生成器，不是通用 OpenSSL 蓝图库。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable the editor plugin <code class="usage-code">CryptoKeys</code> (<code class="usage-code">CryptoKeys</code>, <code class="usage-code">CryptoKeysOpenSSL</code>).</li><li>Open <code class="usage-code">Project Settings &gt; Crypto</code> and generate the AES encryption key plus RSA signing key pair. Saving writes the project crypto config (<code class="usage-code">Crypto.json</code> / ini — do not commit it to a public repo).</li><li>Under <code class="usage-code">Project Settings &gt; Packaging</code>, enable pak and Encrypt Pak Ini / Index / Assets as needed so the cook reads those keys.</li><li>Cook an encrypted pak (<code class="usage-code">UnrealPak</code> or project package). Opening it without the key should fail. Installers/patches must ship the same keys.</li><li>Generate keys in the editor only. Runtime decryption is the pak loader; do not link <code class="usage-code">CryptoKeysOpenSSL</code> into Shipping just to mint keys on device.</li></ol><p class="usage-note">Pak encryption/signing key generator, not a general OpenSSL Blueprint library.</p></div></div></div>
+    </div>
+

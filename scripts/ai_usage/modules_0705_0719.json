@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "soundtouchz",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SoundTouchZ` 位于 `ThirdParty`，构建规则 `ThirdParty/SoundTouchZ/SoundTouchZ.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SoundTouchZ\" });`；对外暴露 `SoundTouchZ` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SoundTouchZ` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `SoundTouchZ.h` / `SoundTouchZModule.h`），再用 `FModuleManager::LoadModulePtr<SoundTouchZModule>` 或直接使用导出类型。",
+      "传递依赖：`SoundTouchZ` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `SoundTouchZ` lives under `ThirdParty`; build rule `ThirdParty/SoundTouchZ/SoundTouchZ.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SoundTouchZ\" });`. Use Public when exposing `SoundTouchZ` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SoundTouchZ` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `SoundTouchZ.h` / `SoundTouchZModule.h`), then use `FModuleManager::LoadModulePtr<SoundTouchZModule>` or the exported types directly.",
+      "Transitive deps: `SoundTouchZ` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`SoundTouchZ` 的构建规则位于 `ThirdParty/SoundTouchZ/SoundTouchZ.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`SoundTouchZ` build rule is `ThirdParty/SoundTouchZ/SoundTouchZ.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "sourcecodeaccess",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SourceCodeAccess` 位于 `Developer`，构建规则 `Developer/SourceCodeAccess/SourceCodeAccess.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `Settings`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SourceCodeAccess\" });`；对外暴露 `SourceCodeAccess` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SourceCodeAccess` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `SourceCodeAccess.h` / `SourceCodeAccessModule.h`），再用 `FModuleManager::LoadModulePtr<SourceCodeAccessModule>` 或直接使用导出类型。",
+      "传递依赖：`SourceCodeAccess` 还依赖 `Core`, `CoreUObject`, `Settings`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SourceCodeAccess` lives under `Developer`; build rule `Developer/SourceCodeAccess/SourceCodeAccess.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `Settings`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SourceCodeAccess\" });`. Use Public when exposing `SourceCodeAccess` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SourceCodeAccess` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `SourceCodeAccess.h` / `SourceCodeAccessModule.h`), then use `FModuleManager::LoadModulePtr<SourceCodeAccessModule>` or the exported types directly.",
+      "Transitive deps: `SourceCodeAccess` also needs `Core`, `CoreUObject`, `Settings`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SourceCodeAccess` 的构建规则位于 `Developer/SourceCodeAccess/SourceCodeAccess.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`SourceCodeAccess` build rule is `Developer/SourceCodeAccess/SourceCodeAccess.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "sourcecontrol",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SourceControl` 位于 `Developer`，构建规则 `Developer/SourceControl/SourceControl.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `MessageLog`, `RHI`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControl\" });`；对外暴露 `SourceControl` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SourceControl` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `SourceControl.h` / `SourceControlModule.h`），再用 `FModuleManager::LoadModulePtr<SourceControlModule>` 或直接使用导出类型。",
+      "传递依赖：`SourceControl` 还依赖 `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `MessageLog`, `RHI`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SourceControl` lives under `Developer`; build rule `Developer/SourceControl/SourceControl.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `MessageLog`, `RHI`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControl\" });`. Use Public when exposing `SourceControl` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SourceControl` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `SourceControl.h` / `SourceControlModule.h`), then use `FModuleManager::LoadModulePtr<SourceControlModule>` or the exported types directly.",
+      "Transitive deps: `SourceControl` also needs `AssetRegistry`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `MessageLog`, `RHI`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SourceControl` 的构建规则位于 `Developer/SourceControl/SourceControl.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SourceControl` build rule is `Developer/SourceControl/SourceControl.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "sourcecontrolcheckinprompt",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SourceControlCheckInPrompt` 位于 `Developer`，构建规则 `Developer/SourceControlCheckInPrompt/SourceControlCheckInPrompt.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `SourceControlWindows`, `UnrealEd`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControlCheckInPrompt\" });`；对外暴露 `SourceControlCheckInPrompt` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SourceControlCheckInPrompt` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `SourceControlCheckInPrompt.h` / `SourceControlCheckInPromptModule.h`），再用 `FModuleManager::LoadModulePtr<SourceControlCheckInPromptModule>` 或直接使用导出类型。",
+      "传递依赖：`SourceControlCheckInPrompt` 还依赖 `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `SourceControlWindows`, `UnrealEd`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SourceControlCheckInPrompt` lives under `Developer`; build rule `Developer/SourceControlCheckInPrompt/SourceControlCheckInPrompt.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `SourceControlWindows`, `UnrealEd`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControlCheckInPrompt\" });`. Use Public when exposing `SourceControlCheckInPrompt` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SourceControlCheckInPrompt` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `SourceControlCheckInPrompt.h` / `SourceControlCheckInPromptModule.h`), then use `FModuleManager::LoadModulePtr<SourceControlCheckInPromptModule>` or the exported types directly.",
+      "Transitive deps: `SourceControlCheckInPrompt` also needs `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `SourceControlWindows`, `UnrealEd`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SourceControlCheckInPrompt` 的构建规则位于 `Developer/SourceControlCheckInPrompt/SourceControlCheckInPrompt.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SourceControlCheckInPrompt` build rule is `Developer/SourceControlCheckInPrompt/SourceControlCheckInPrompt.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "sourcecontrolviewport",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SourceControlViewport` 位于 `Developer`，构建规则 `Developer/SourceControlViewport/SourceControlViewport.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InputCore`, `LevelEditor`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControlViewport\" });`；对外暴露 `SourceControlViewport` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SourceControlViewport` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `SourceControlViewport.h` / `SourceControlViewportModule.h`），再用 `FModuleManager::LoadModulePtr<SourceControlViewportModule>` 或直接使用导出类型。",
+      "传递依赖：`SourceControlViewport` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InputCore`, `LevelEditor`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SourceControlViewport` lives under `Developer`; build rule `Developer/SourceControlViewport/SourceControlViewport.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InputCore`, `LevelEditor`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControlViewport\" });`. Use Public when exposing `SourceControlViewport` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SourceControlViewport` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `SourceControlViewport.h` / `SourceControlViewportModule.h`), then use `FModuleManager::LoadModulePtr<SourceControlViewportModule>` or the exported types directly.",
+      "Transitive deps: `SourceControlViewport` also needs `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `InputCore`, `LevelEditor`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SourceControlViewport` 的构建规则位于 `Developer/SourceControlViewport/SourceControlViewport.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SourceControlViewport` build rule is `Developer/SourceControlViewport/SourceControlViewport.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "sourcecontrolwindowextender",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SourceControlWindowExtender` 位于 `Editor`，构建规则 `Editor/SourceControlWindowExtender/SourceControlWindowExtender.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `SourceControlWindows`, `ToolMenus`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControlWindowExtender\" });`；对外暴露 `SourceControlWindowExtender` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SourceControlWindowExtender` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `SourceControlWindowExtender.h` / `SourceControlWindowExtenderModule.h`），再用 `FModuleManager::LoadModulePtr<SourceControlWindowExtenderModule>` 或直接使用导出类型。",
+      "传递依赖：`SourceControlWindowExtender` 还依赖 `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `SourceControlWindows`, `ToolMenus`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SourceControlWindowExtender` lives under `Editor`; build rule `Editor/SourceControlWindowExtender/SourceControlWindowExtender.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `SourceControlWindows`, `ToolMenus`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControlWindowExtender\" });`. Use Public when exposing `SourceControlWindowExtender` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SourceControlWindowExtender` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `SourceControlWindowExtender.h` / `SourceControlWindowExtenderModule.h`), then use `FModuleManager::LoadModulePtr<SourceControlWindowExtenderModule>` or the exported types directly.",
+      "Transitive deps: `SourceControlWindowExtender` also needs `Core`, `CoreUObject`, `Engine`, `Slate`, `SlateCore`, `SourceControl`, `SourceControlWindows`, `ToolMenus`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SourceControlWindowExtender` 的构建规则位于 `Editor/SourceControlWindowExtender/SourceControlWindowExtender.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SourceControlWindowExtender` build rule is `Editor/SourceControlWindowExtender/SourceControlWindowExtender.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "sourcecontrolwindows",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SourceControlWindows` 位于 `Editor`，构建规则 `Editor/SourceControlWindows/SourceControlWindows.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `AssetDefinition`, `AssetTools`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControlWindows\" });`；对外暴露 `SourceControlWindows` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SourceControlWindows` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `SourceControlWindows.h` / `SourceControlWindowsModule.h`），再用 `FModuleManager::LoadModulePtr<SourceControlWindowsModule>` 或直接使用导出类型。",
+      "传递依赖：`SourceControlWindows` 还依赖 `ApplicationCore`, `AssetDefinition`, `AssetTools`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SourceControlWindows` lives under `Editor`; build rule `Editor/SourceControlWindows/SourceControlWindows.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `AssetDefinition`, `AssetTools`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SourceControlWindows\" });`. Use Public when exposing `SourceControlWindows` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SourceControlWindows` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `SourceControlWindows.h` / `SourceControlWindowsModule.h`), then use `FModuleManager::LoadModulePtr<SourceControlWindowsModule>` or the exported types directly.",
+      "Transitive deps: `SourceControlWindows` also needs `ApplicationCore`, `AssetDefinition`, `AssetTools`, `Core`, `CoreUObject`, `DeveloperToolSettings`, `EditorFramework`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SourceControlWindows` 的构建规则位于 `Editor/SourceControlWindows/SourceControlWindows.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SourceControlWindows` build rule is `Editor/SourceControlWindows/SourceControlWindows.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "sparsevolumetexture",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SparseVolumeTexture` 位于 `Editor`，构建规则 `Editor/SparseVolumeTexture/SparseVolumeTexture.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MainFrame`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SparseVolumeTexture\" });`；对外暴露 `SparseVolumeTexture` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SparseVolumeTexture` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `SparseVolumeTexture.h` / `SparseVolumeTextureModule.h`），再用 `FModuleManager::LoadModulePtr<SparseVolumeTextureModule>` 或直接使用导出类型。",
+      "传递依赖：`SparseVolumeTexture` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MainFrame`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SparseVolumeTexture` lives under `Editor`; build rule `Editor/SparseVolumeTexture/SparseVolumeTexture.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MainFrame`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SparseVolumeTexture\" });`. Use Public when exposing `SparseVolumeTexture` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SparseVolumeTexture` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `SparseVolumeTexture.h` / `SparseVolumeTextureModule.h`), then use `FModuleManager::LoadModulePtr<SparseVolumeTextureModule>` or the exported types directly.",
+      "Transitive deps: `SparseVolumeTexture` also needs `ApplicationCore`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `MainFrame`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SparseVolumeTexture` 的构建规则位于 `Editor/SparseVolumeTexture/SparseVolumeTexture.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`SparseVolumeTexture` build rule is `Editor/SparseVolumeTexture/SparseVolumeTexture.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "speedtree",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SpeedTree` 位于 `ThirdParty`，构建规则 `ThirdParty/SpeedTree/SpeedTree.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SpeedTree\" });`；对外暴露 `SpeedTree` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SpeedTree` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `SpeedTree.h` / `SpeedTreeModule.h`），再用 `FModuleManager::LoadModulePtr<SpeedTreeModule>` 或直接使用导出类型。",
+      "传递依赖：`SpeedTree` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `SpeedTree` lives under `ThirdParty`; build rule `ThirdParty/SpeedTree/SpeedTree.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SpeedTree\" });`. Use Public when exposing `SpeedTree` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SpeedTree` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `SpeedTree.h` / `SpeedTreeModule.h`), then use `FModuleManager::LoadModulePtr<SpeedTreeModule>` or the exported types directly.",
+      "Transitive deps: `SpeedTree` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`SpeedTree` 的构建规则位于 `ThirdParty/SpeedTree/SpeedTree.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`SpeedTree` build rule is `ThirdParty/SpeedTree/SpeedTree.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "spirvreflect",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SPIRVReflect` 位于 `ThirdParty`，构建规则 `ThirdParty/SPIRV-Reflect/SPIRVReflect.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SPIRVReflect\" });`；对外暴露 `SPIRVReflect` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SPIRVReflect` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `SPIRVReflect.h` / `SPIRVReflectModule.h`），再用 `FModuleManager::LoadModulePtr<SPIRVReflectModule>` 或直接使用导出类型。",
+      "传递依赖：`SPIRVReflect` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `SPIRVReflect` lives under `ThirdParty`; build rule `ThirdParty/SPIRV-Reflect/SPIRVReflect.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SPIRVReflect\" });`. Use Public when exposing `SPIRVReflect` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SPIRVReflect` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `SPIRVReflect.h` / `SPIRVReflectModule.h`), then use `FModuleManager::LoadModulePtr<SPIRVReflectModule>` or the exported types directly.",
+      "Transitive deps: `SPIRVReflect` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`SPIRVReflect` 的构建规则位于 `ThirdParty/SPIRV-Reflect/SPIRVReflect.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`SPIRVReflect` build rule is `ThirdParty/SPIRV-Reflect/SPIRVReflect.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "ssl",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`SSL` 位于 `Runtime`，构建规则 `Runtime/Online/SSL/SSL.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"SSL\" });`；对外暴露 `SSL` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`SSL` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `SSL.h` / `SSLModule.h`），再用 `FModuleManager::LoadModulePtr<SSLModule>` 或直接使用导出类型。",
+      "传递依赖：`SSL` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `SSL` lives under `Runtime`; build rule `Runtime/Online/SSL/SSL.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"SSL\" });`. Use Public when exposing `SSL` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `SSL` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `SSL.h` / `SSLModule.h`), then use `FModuleManager::LoadModulePtr<SSLModule>` or the exported types directly.",
+      "Transitive deps: `SSL` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`SSL` 的构建规则位于 `Runtime/Online/SSL/SSL.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`SSL` build rule is `Runtime/Online/SSL/SSL.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "standalonerenderer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StandaloneRenderer` 位于 `Developer`，构建规则 `Developer/StandaloneRenderer/StandaloneRenderer.Build.cs`。它直接依赖 7 个模块：`ApplicationCore`, `Core`, `CoreUObject`, `ImageWrapper`, `InputCore`, `SlateCore`, `SlateNullRenderer`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StandaloneRenderer\" });`；对外暴露 `StandaloneRenderer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StandaloneRenderer` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `StandaloneRenderer.h` / `StandaloneRendererModule.h`），再用 `FModuleManager::LoadModulePtr<StandaloneRendererModule>` 或直接使用导出类型。",
+      "传递依赖：`StandaloneRenderer` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`, `ImageWrapper`, `InputCore`, `SlateCore`, `SlateNullRenderer`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StandaloneRenderer` lives under `Developer`; build rule `Developer/StandaloneRenderer/StandaloneRenderer.Build.cs`.It directly depends on 7 modules: `ApplicationCore`, `Core`, `CoreUObject`, `ImageWrapper`, `InputCore`, `SlateCore`, `SlateNullRenderer`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StandaloneRenderer\" });`. Use Public when exposing `StandaloneRenderer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StandaloneRenderer` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `StandaloneRenderer.h` / `StandaloneRendererModule.h`), then use `FModuleManager::LoadModulePtr<StandaloneRendererModule>` or the exported types directly.",
+      "Transitive deps: `StandaloneRenderer` also needs `ApplicationCore`, `Core`, `CoreUObject`, `ImageWrapper`, `InputCore`, `SlateCore`, `SlateNullRenderer`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StandaloneRenderer` 的构建规则位于 `Developer/StandaloneRenderer/StandaloneRenderer.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`StandaloneRenderer` build rule is `Developer/StandaloneRenderer/StandaloneRenderer.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "statestream",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StateStream` 位于 `Runtime`，构建规则 `Runtime/StateStream/StateStream.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StateStream\" });`；对外暴露 `StateStream` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StateStream` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `StateStream.h` / `StateStreamModule.h`），再用 `FModuleManager::LoadModulePtr<StateStreamModule>` 或直接使用导出类型。",
+      "传递依赖：`StateStream` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StateStream` lives under `Runtime`; build rule `Runtime/StateStream/StateStream.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StateStream\" });`. Use Public when exposing `StateStream` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StateStream` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `StateStream.h` / `StateStreamModule.h`), then use `FModuleManager::LoadModulePtr<StateStreamModule>` or the exported types directly.",
+      "Transitive deps: `StateStream` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StateStream` 的构建规则位于 `Runtime/StateStream/StateStream.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`StateStream` build rule is `Runtime/StateStream/StateStream.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "statestreamtests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StateStreamTests` 位于 `Programs`，构建规则 `Programs/LowLevelTests/StateStreamTests/StateStreamTests.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `StateStream`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StateStreamTests\" });`；对外暴露 `StateStreamTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StateStreamTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `StateStreamTests.h` / `StateStreamTestsModule.h`），再用 `FModuleManager::LoadModulePtr<StateStreamTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`StateStreamTests` 还依赖 `Core`, `CoreUObject`, `StateStream`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StateStreamTests` lives under `Programs`; build rule `Programs/LowLevelTests/StateStreamTests/StateStreamTests.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `StateStream`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StateStreamTests\" });`. Use Public when exposing `StateStreamTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StateStreamTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `StateStreamTests.h` / `StateStreamTestsModule.h`), then use `FModuleManager::LoadModulePtr<StateStreamTestsModule>` or the exported types directly.",
+      "Transitive deps: `StateStreamTests` also needs `Core`, `CoreUObject`, `StateStream`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StateStreamTests` 的构建规则位于 `Programs/LowLevelTests/StateStreamTests/StateStreamTests.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`StateStreamTests` build rule is `Programs/LowLevelTests/StateStreamTests/StateStreamTests.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "staticmeshdescription",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`StaticMeshDescription` 位于 `Runtime`，构建规则 `Runtime/StaticMeshDescription/StaticMeshDescription.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `MeshDescription`, `MeshUtilitiesCommon`, `RawMesh`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"StaticMeshDescription\" });`；对外暴露 `StaticMeshDescription` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`StaticMeshDescription` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `StaticMeshDescription.h` / `StaticMeshDescriptionModule.h`），再用 `FModuleManager::LoadModulePtr<StaticMeshDescriptionModule>` 或直接使用导出类型。",
+      "传递依赖：`StaticMeshDescription` 还依赖 `Core`, `CoreUObject`, `MeshDescription`, `MeshUtilitiesCommon`, `RawMesh`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `StaticMeshDescription` lives under `Runtime`; build rule `Runtime/StaticMeshDescription/StaticMeshDescription.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `MeshDescription`, `MeshUtilitiesCommon`, `RawMesh`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"StaticMeshDescription\" });`. Use Public when exposing `StaticMeshDescription` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `StaticMeshDescription` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `StaticMeshDescription.h` / `StaticMeshDescriptionModule.h`), then use `FModuleManager::LoadModulePtr<StaticMeshDescriptionModule>` or the exported types directly.",
+      "Transitive deps: `StaticMeshDescription` also needs `Core`, `CoreUObject`, `MeshDescription`, `MeshUtilitiesCommon`, `RawMesh`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`StaticMeshDescription` 的构建规则位于 `Runtime/StaticMeshDescription/StaticMeshDescription.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`StaticMeshDescription` build rule is `Runtime/StaticMeshDescription/StaticMeshDescription.Build.cs`; depends on 5 modules; category Module."
+  }
+]

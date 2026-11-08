@@ -3,7 +3,6 @@ layout: default
 title: CodeLite 集成 / CodeLite Integration
 ---
 
-
 <h1>CodeLite 集成 / CodeLite Integration</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: CodeLite 集成 / CodeLite Integration
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">允许访问 CodeLite 中的源代码。</div><div class="lang-content">Allows access to source code in CodeLite.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 Linux 开发机启用 <code class="usage-code">CodeLite Integration</code>（模块 <code class="usage-code">CodeLiteSourceCodeAccess</code>，<code class="usage-code">CodeLiteSourceCodeAccess.uplugin</code>）并重启；Windows 上通常应改用 Visual Studio 访问器。</li><li>安装并启动 CodeLite，确认 <code class="usage-code">codelite</code> 在 PATH。到 <code class="usage-code">Edit &gt; Editor Preferences &gt; Source Code</code>，把 <code class="usage-code">Source Code Editor</code> 设为 <code class="usage-code">CodeLite</code>。</li><li>用引擎的 Generate Project Files（或 <code class="usage-code">GenerateProjectFiles.sh -codelite</code>）生成 <code class="usage-code">.workspace</code>；用 CodeLite 打开该工作区，不要手搓 VS 工程再硬接。</li><li>在编辑器里对 C++ 类右键 <code class="usage-code">Open in IDE</code>，或编译失败日志里点文件名：<code class="usage-code">FCodeLiteSourceCodeAccessor</code> 会唤起 CodeLite 并定位行。</li><li>热重载/Live Coding 仍走 UnrealBuildTool；CodeLite 只负责打开与调试符号，不要指望它替代 <code class="usage-code">Build.cs</code> 编译。</li></ol><p class="usage-note">开发者源码访问器，只服务 CodeLite。不要加进游戏运行时模块，也不要在 Win64 上当默认 IDE。</p></div><div class="lang-content"><ol class="usage-steps"><li>On a Linux machine enable <code class="usage-code">CodeLite Integration</code> (module <code class="usage-code">CodeLiteSourceCodeAccess</code>, <code class="usage-code">CodeLiteSourceCodeAccess.uplugin</code>) and restart. On Windows prefer the Visual Studio accessor instead.</li><li>Install CodeLite with <code class="usage-code">codelite</code> on PATH. In <code class="usage-code">Edit &gt; Editor Preferences &gt; Source Code</code>, set <code class="usage-code">Source Code Editor</code> to <code class="usage-code">CodeLite</code>.</li><li>Generate a <code class="usage-code">.workspace</code> with Generate Project Files (or <code class="usage-code">GenerateProjectFiles.sh -codelite</code>) and open that workspace in CodeLite — do not bolt a VS solution onto this accessor.</li><li>Right-click a C++ class <code class="usage-code">Open in IDE</code>, or click a compile-error path: <code class="usage-code">FCodeLiteSourceCodeAccessor</code> launches CodeLite at the line.</li><li>Live Coding / hot reload still go through UnrealBuildTool. CodeLite only opens files and debug symbols; it does not replace <code class="usage-code">Build.cs</code> compiles.</li></ol><p class="usage-note">Developer `ISourceCodeAccessor` for CodeLite only. Not a game runtime module and not the default Win64 IDE.</p></div></div></div>
+    </div>
+

@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "deriveddatatool",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DerivedDataTool` 位于 `Programs`，构建规则 `Programs/DerivedDataTool/DerivedDataTool.Build.cs`。它直接依赖 6 个模块：`ApplicationCore`, `Core`, `DerivedDataCache`, `DesktopPlatform`, `NetworkCacheStores`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataTool\" });`；对外暴露 `DerivedDataTool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DerivedDataTool` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DerivedDataTool.h` / `DerivedDataToolModule.h`），再用 `FModuleManager::LoadModulePtr<DerivedDataToolModule>` 或直接使用导出类型。",
+      "传递依赖：`DerivedDataTool` 还依赖 `ApplicationCore`, `Core`, `DerivedDataCache`, `DesktopPlatform`, `NetworkCacheStores`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DerivedDataTool` lives under `Programs`; build rule `Programs/DerivedDataTool/DerivedDataTool.Build.cs`.It directly depends on 6 modules: `ApplicationCore`, `Core`, `DerivedDataCache`, `DesktopPlatform`, `NetworkCacheStores`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataTool\" });`. Use Public when exposing `DerivedDataTool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DerivedDataTool` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DerivedDataTool.h` / `DerivedDataToolModule.h`), then use `FModuleManager::LoadModulePtr<DerivedDataToolModule>` or the exported types directly.",
+      "Transitive deps: `DerivedDataTool` also needs `ApplicationCore`, `Core`, `DerivedDataCache`, `DesktopPlatform`, `NetworkCacheStores`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DerivedDataTool` 的构建规则位于 `Programs/DerivedDataTool/DerivedDataTool.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`DerivedDataTool` build rule is `Programs/DerivedDataTool/DerivedDataTool.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "deriveddatawidgets",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DerivedDataWidgets` 位于 `Editor`，构建规则 `Editor/DerivedDataWidgets/DerivedDataWidgets.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DerivedDataCache`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`, `MessageLog`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataWidgets\" });`；对外暴露 `DerivedDataWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DerivedDataWidgets` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `DerivedDataWidgets.h` / `DerivedDataWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<DerivedDataWidgetsModule>` 或直接使用导出类型。",
+      "传递依赖：`DerivedDataWidgets` 还依赖 `Core`, `CoreUObject`, `DerivedDataCache`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`, `MessageLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DerivedDataWidgets` lives under `Editor`; build rule `Editor/DerivedDataWidgets/DerivedDataWidgets.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DerivedDataCache`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`, `MessageLog`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DerivedDataWidgets\" });`. Use Public when exposing `DerivedDataWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DerivedDataWidgets` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `DerivedDataWidgets.h` / `DerivedDataWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<DerivedDataWidgetsModule>` or the exported types directly.",
+      "Transitive deps: `DerivedDataWidgets` also needs `Core`, `CoreUObject`, `DerivedDataCache`, `EditorFramework`, `EditorSubsystem`, `Engine`, `InputCore`, `MessageLog`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DerivedDataWidgets` 的构建规则位于 `Editor/DerivedDataWidgets/DerivedDataWidgets.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`DerivedDataWidgets` build rule is `Editor/DerivedDataWidgets/DerivedDataWidgets.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "desktopplatform",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DesktopPlatform` 位于 `Developer`，构建规则 `Developer/DesktopPlatform/DesktopPlatform.Build.cs`。它直接依赖 3 个模块：`ApplicationCore`, `Core`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DesktopPlatform\" });`；对外暴露 `DesktopPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DesktopPlatform` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `DesktopPlatform.h` / `DesktopPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<DesktopPlatformModule>` 或直接使用导出类型。",
+      "传递依赖：`DesktopPlatform` 还依赖 `ApplicationCore`, `Core`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DesktopPlatform` lives under `Developer`; build rule `Developer/DesktopPlatform/DesktopPlatform.Build.cs`.It directly depends on 3 modules: `ApplicationCore`, `Core`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DesktopPlatform\" });`. Use Public when exposing `DesktopPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DesktopPlatform` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `DesktopPlatform.h` / `DesktopPlatformModule.h`), then use `FModuleManager::LoadModulePtr<DesktopPlatformModule>` or the exported types directly.",
+      "Transitive deps: `DesktopPlatform` also needs `ApplicationCore`, `Core`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DesktopPlatform` 的构建规则位于 `Developer/DesktopPlatform/DesktopPlatform.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`DesktopPlatform` build rule is `Developer/DesktopPlatform/DesktopPlatform.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "desktopwidgets",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DesktopWidgets` 位于 `Developer`，构建规则 `Developer/DesktopWidgets/DesktopWidgets.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DesktopWidgets\" });`；对外暴露 `DesktopWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DesktopWidgets` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `DesktopWidgets.h` / `DesktopWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<DesktopWidgetsModule>` 或直接使用导出类型。",
+      "传递依赖：`DesktopWidgets` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DesktopWidgets` lives under `Developer`; build rule `Developer/DesktopWidgets/DesktopWidgets.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DesktopWidgets\" });`. Use Public when exposing `DesktopWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DesktopWidgets` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `DesktopWidgets.h` / `DesktopWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<DesktopWidgetsModule>` or the exported types directly.",
+      "Transitive deps: `DesktopWidgets` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DesktopWidgets` 的构建规则位于 `Developer/DesktopWidgets/DesktopWidgets.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`DesktopWidgets` build rule is `Developer/DesktopWidgets/DesktopWidgets.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "detailcustomizations",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DetailCustomizations` 位于 `Editor`，构建规则 `Editor/DetailCustomizations/DetailCustomizations.Build.cs`。它直接依赖 8 个模块：`AIModule`, `AdvancedPreviewScene`, `AdvancedWidgets`, `AnimGraph`, `AppFramework`, `ApplicationCore`, `AudioEditor`, `AudioSettingsEditor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DetailCustomizations\" });`；对外暴露 `DetailCustomizations` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DetailCustomizations` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `DetailCustomizations.h` / `DetailCustomizationsModule.h`），再用 `FModuleManager::LoadModulePtr<DetailCustomizationsModule>` 或直接使用导出类型。",
+      "传递依赖：`DetailCustomizations` 还依赖 `AIModule`, `AdvancedPreviewScene`, `AdvancedWidgets`, `AnimGraph`, `AppFramework`, `ApplicationCore`, `AudioEditor`, `AudioSettingsEditor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DetailCustomizations` lives under `Editor`; build rule `Editor/DetailCustomizations/DetailCustomizations.Build.cs`.It directly depends on 8 modules: `AIModule`, `AdvancedPreviewScene`, `AdvancedWidgets`, `AnimGraph`, `AppFramework`, `ApplicationCore`, `AudioEditor`, `AudioSettingsEditor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DetailCustomizations\" });`. Use Public when exposing `DetailCustomizations` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DetailCustomizations` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `DetailCustomizations.h` / `DetailCustomizationsModule.h`), then use `FModuleManager::LoadModulePtr<DetailCustomizationsModule>` or the exported types directly.",
+      "Transitive deps: `DetailCustomizations` also needs `AIModule`, `AdvancedPreviewScene`, `AdvancedWidgets`, `AnimGraph`, `AppFramework`, `ApplicationCore`, `AudioEditor`, `AudioSettingsEditor`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DetailCustomizations` 的构建规则位于 `Editor/DetailCustomizations/DetailCustomizations.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`DetailCustomizations` build rule is `Editor/DetailCustomizations/DetailCustomizations.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "detex",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`detex` 位于 `ThirdParty`，构建规则 `ThirdParty/Android/detex/detex.Build.cs`。它直接依赖 3 个模块：`ApplicationCore`, `Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"detex\" });`；对外暴露 `detex` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`detex` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `detex.h` / `detexModule.h`），再用 `FModuleManager::LoadModulePtr<detexModule>` 或直接使用导出类型。",
+      "传递依赖：`detex` 还依赖 `ApplicationCore`, `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `detex` lives under `ThirdParty`; build rule `ThirdParty/Android/detex/detex.Build.cs`.It directly depends on 3 modules: `ApplicationCore`, `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"detex\" });`. Use Public when exposing `detex` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `detex` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `detex.h` / `detexModule.h`), then use `FModuleManager::LoadModulePtr<detexModule>` or the exported types directly.",
+      "Transitive deps: `detex` also needs `ApplicationCore`, `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`detex` 的构建规则位于 `ThirdParty/Android/detex/detex.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`detex` build rule is `ThirdParty/Android/detex/detex.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "detours",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Detours` 位于 `ThirdParty`，构建规则 `ThirdParty/Detours/Detours.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Detours\" });`；对外暴露 `Detours` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Detours` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Detours.h` / `DetoursModule.h`），再用 `FModuleManager::LoadModulePtr<DetoursModule>` 或直接使用导出类型。",
+      "传递依赖：`Detours` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Detours` lives under `ThirdParty`; build rule `ThirdParty/Detours/Detours.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Detours\" });`. Use Public when exposing `Detours` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Detours` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Detours.h` / `DetoursModule.h`), then use `FModuleManager::LoadModulePtr<DetoursModule>` or the exported types directly.",
+      "Transitive deps: `Detours` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Detours` 的构建规则位于 `ThirdParty/Detours/Detours.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Detours` build rule is `ThirdParty/Detours/Detours.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "developersettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DeveloperSettings` 位于 `Runtime`，构建规则 `Runtime/DeveloperSettings/DeveloperSettings.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DeveloperSettings\" });`；对外暴露 `DeveloperSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DeveloperSettings` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `DeveloperSettings.h` / `DeveloperSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<DeveloperSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`DeveloperSettings` 还依赖 `Core`, `CoreUObject`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DeveloperSettings` lives under `Runtime`; build rule `Runtime/DeveloperSettings/DeveloperSettings.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DeveloperSettings\" });`. Use Public when exposing `DeveloperSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DeveloperSettings` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `DeveloperSettings.h` / `DeveloperSettingsModule.h`), then use `FModuleManager::LoadModulePtr<DeveloperSettingsModule>` or the exported types directly.",
+      "Transitive deps: `DeveloperSettings` also needs `Core`, `CoreUObject`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DeveloperSettings` 的构建规则位于 `Runtime/DeveloperSettings/DeveloperSettings.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`DeveloperSettings` build rule is `Runtime/DeveloperSettings/DeveloperSettings.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "developertoolsettings",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DeveloperToolSettings` 位于 `Developer`，构建规则 `Developer/DeveloperToolSettings/DeveloperToolSettings.Build.cs`。它直接依赖 6 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `InputCore`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DeveloperToolSettings\" });`；对外暴露 `DeveloperToolSettings` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DeveloperToolSettings` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `DeveloperToolSettings.h` / `DeveloperToolSettingsModule.h`），再用 `FModuleManager::LoadModulePtr<DeveloperToolSettingsModule>` 或直接使用导出类型。",
+      "传递依赖：`DeveloperToolSettings` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `InputCore`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DeveloperToolSettings` lives under `Developer`; build rule `Developer/DeveloperToolSettings/DeveloperToolSettings.Build.cs`.It directly depends on 6 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `InputCore`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DeveloperToolSettings\" });`. Use Public when exposing `DeveloperToolSettings` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DeveloperToolSettings` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `DeveloperToolSettings.h` / `DeveloperToolSettingsModule.h`), then use `FModuleManager::LoadModulePtr<DeveloperToolSettingsModule>` or the exported types directly.",
+      "Transitive deps: `DeveloperToolSettings` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `InputCore`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DeveloperToolSettings` 的构建规则位于 `Developer/DeveloperToolSettings/DeveloperToolSettings.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`DeveloperToolSettings` build rule is `Developer/DeveloperToolSettings/DeveloperToolSettings.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "devhttp",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DevHttp` 位于 `Developer`，构建规则 `Developer/DevHttp/DevHttp.Build.cs`。它直接依赖 3 个模块：`Core`, `HTTP`, `SSL`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DevHttp\" });`；对外暴露 `DevHttp` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DevHttp` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `DevHttp.h` / `DevHttpModule.h`），再用 `FModuleManager::LoadModulePtr<DevHttpModule>` 或直接使用导出类型。",
+      "传递依赖：`DevHttp` 还依赖 `Core`, `HTTP`, `SSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DevHttp` lives under `Developer`; build rule `Developer/DevHttp/DevHttp.Build.cs`.It directly depends on 3 modules: `Core`, `HTTP`, `SSL`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DevHttp\" });`. Use Public when exposing `DevHttp` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DevHttp` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `DevHttp.h` / `DevHttpModule.h`), then use `FModuleManager::LoadModulePtr<DevHttpModule>` or the exported types directly.",
+      "Transitive deps: `DevHttp` also needs `Core`, `HTTP`, `SSL`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DevHttp` 的构建规则位于 `Developer/DevHttp/DevHttp.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`DevHttp` build rule is `Developer/DevHttp/DevHttp.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "devicemanager",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DeviceManager` 位于 `Developer`，构建规则 `Developer/DeviceManager/DeviceManager.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`, `TargetPlatform`, `WorkspaceMenuStructure`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DeviceManager\" });`；对外暴露 `DeviceManager` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DeviceManager` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `DeviceManager.h` / `DeviceManagerModule.h`），再用 `FModuleManager::LoadModulePtr<DeviceManagerModule>` 或直接使用导出类型。",
+      "传递依赖：`DeviceManager` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`, `TargetPlatform`, `WorkspaceMenuStructure`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DeviceManager` lives under `Developer`; build rule `Developer/DeviceManager/DeviceManager.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`, `TargetPlatform`, `WorkspaceMenuStructure`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DeviceManager\" });`. Use Public when exposing `DeviceManager` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DeviceManager` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `DeviceManager.h` / `DeviceManagerModule.h`), then use `FModuleManager::LoadModulePtr<DeviceManagerModule>` or the exported types directly.",
+      "Transitive deps: `DeviceManager` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `InputCore`, `Slate`, `SlateCore`, `TargetPlatform`, `WorkspaceMenuStructure`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DeviceManager` 的构建规则位于 `Developer/DeviceManager/DeviceManager.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`DeviceManager` build rule is `Developer/DeviceManager/DeviceManager.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "deviceprofileeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DeviceProfileEditor` 位于 `Editor`，构建规则 `Editor/DeviceProfileEditor/DeviceProfileEditor.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `SharedSettingsWidgets`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DeviceProfileEditor\" });`；对外暴露 `DeviceProfileEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DeviceProfileEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `DeviceProfileEditor.h` / `DeviceProfileEditorModule.h`），再用 `FModuleManager::LoadModulePtr<DeviceProfileEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`DeviceProfileEditor` 还依赖 `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `SharedSettingsWidgets`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DeviceProfileEditor` lives under `Editor`; build rule `Editor/DeviceProfileEditor/DeviceProfileEditor.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `SharedSettingsWidgets`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DeviceProfileEditor\" });`. Use Public when exposing `DeviceProfileEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DeviceProfileEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `DeviceProfileEditor.h` / `DeviceProfileEditorModule.h`), then use `FModuleManager::LoadModulePtr<DeviceProfileEditorModule>` or the exported types directly.",
+      "Transitive deps: `DeviceProfileEditor` also needs `Core`, `CoreUObject`, `Engine`, `InputCore`, `PropertyEditor`, `SharedSettingsWidgets`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DeviceProfileEditor` 的构建规则位于 `Editor/DeviceProfileEditor/DeviceProfileEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`DeviceProfileEditor` build rule is `Editor/DeviceProfileEditor/DeviceProfileEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "deviceprofileservices",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DeviceProfileServices` 位于 `Editor`，构建规则 `Editor/DeviceProfileServices/DeviceProfileServices.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `Json`, `JsonUtilities`, `PIEPreviewDeviceSpecification`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DeviceProfileServices\" });`；对外暴露 `DeviceProfileServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DeviceProfileServices` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `DeviceProfileServices.h` / `DeviceProfileServicesModule.h`），再用 `FModuleManager::LoadModulePtr<DeviceProfileServicesModule>` 或直接使用导出类型。",
+      "传递依赖：`DeviceProfileServices` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `Json`, `JsonUtilities`, `PIEPreviewDeviceSpecification`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DeviceProfileServices` lives under `Editor`; build rule `Editor/DeviceProfileServices/DeviceProfileServices.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `Json`, `JsonUtilities`, `PIEPreviewDeviceSpecification`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DeviceProfileServices\" });`. Use Public when exposing `DeviceProfileServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DeviceProfileServices` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `DeviceProfileServices.h` / `DeviceProfileServicesModule.h`), then use `FModuleManager::LoadModulePtr<DeviceProfileServicesModule>` or the exported types directly.",
+      "Transitive deps: `DeviceProfileServices` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `EditorFramework`, `Engine`, `Json`, `JsonUtilities`, `PIEPreviewDeviceSpecification`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DeviceProfileServices` 的构建规则位于 `Editor/DeviceProfileServices/DeviceProfileServices.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`DeviceProfileServices` build rule is `Editor/DeviceProfileServices/DeviceProfileServices.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "diasdk",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DiaSdk` 位于 `ThirdParty`，构建规则 `ThirdParty/DiaSdk/DiaSdk.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DiaSdk\" });`；对外暴露 `DiaSdk` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DiaSdk` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `DiaSdk.h` / `DiaSdkModule.h`），再用 `FModuleManager::LoadModulePtr<DiaSdkModule>` 或直接使用导出类型。",
+      "传递依赖：`DiaSdk` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `DiaSdk` lives under `ThirdParty`; build rule `ThirdParty/DiaSdk/DiaSdk.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DiaSdk\" });`. Use Public when exposing `DiaSdk` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DiaSdk` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `DiaSdk.h` / `DiaSdkModule.h`), then use `FModuleManager::LoadModulePtr<DiaSdkModule>` or the exported types directly.",
+      "Transitive deps: `DiaSdk` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`DiaSdk` 的构建规则位于 `ThirdParty/DiaSdk/DiaSdk.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`DiaSdk` build rule is `ThirdParty/DiaSdk/DiaSdk.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "diffassetbulkdata",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`DiffAssetBulkData` 位于 `Programs`，构建规则 `Programs/DiffAssetBulkData/DiffAssetBulkData.Build.cs`。它直接依赖 6 个模块：`ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `Json`, `Projects`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"DiffAssetBulkData\" });`；对外暴露 `DiffAssetBulkData` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`DiffAssetBulkData` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `DiffAssetBulkData.h` / `DiffAssetBulkDataModule.h`），再用 `FModuleManager::LoadModulePtr<DiffAssetBulkDataModule>` 或直接使用导出类型。",
+      "传递依赖：`DiffAssetBulkData` 还依赖 `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `Json`, `Projects`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `DiffAssetBulkData` lives under `Programs`; build rule `Programs/DiffAssetBulkData/DiffAssetBulkData.Build.cs`.It directly depends on 6 modules: `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `Json`, `Projects`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"DiffAssetBulkData\" });`. Use Public when exposing `DiffAssetBulkData` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `DiffAssetBulkData` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `DiffAssetBulkData.h` / `DiffAssetBulkDataModule.h`), then use `FModuleManager::LoadModulePtr<DiffAssetBulkDataModule>` or the exported types directly.",
+      "Transitive deps: `DiffAssetBulkData` also needs `ApplicationCore`, `AssetRegistry`, `Core`, `CoreUObject`, `Json`, `Projects`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`DiffAssetBulkData` 的构建规则位于 `Programs/DiffAssetBulkData/DiffAssetBulkData.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`DiffAssetBulkData` build rule is `Programs/DiffAssetBulkData/DiffAssetBulkData.Build.cs`; depends on 6 modules; category Module."
+  }
+]

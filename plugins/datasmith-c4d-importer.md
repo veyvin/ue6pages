@@ -3,7 +3,6 @@ layout: default
 title: Datasmith C4D 导入器 / Datasmith C4D Importer
 ---
 
-
 <h1>Datasmith C4D 导入器 / Datasmith C4D Importer</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: Datasmith C4D 导入器 / Datasmith C4D Importer
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">添加了对将 Cinema4D 应用程序中的内容导入虚幻引擎的支持</div><div class="lang-content">Adds support for importing content from Cinema4D applications into Unreal Engine</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 Cinema 4D 里安装 Epic 官方的 Datasmith C4D Exporter，并让它与目标引擎版本匹配，否则导出的 <code class="usage-code">.udatasmith</code> 可能读不进。</li><li>在 C4D 中整理好场景、材质与相机，通过 <code class="usage-code">扩展 → Datasmith Exporter</code> 导出为 <code class="usage-code">.udatasmith</code>，把贴图放在同目录一起导出。</li><li>启用 <code class="usage-code">Datasmith C4D Importer</code>（会自动带上 <code class="usage-code">Datasmith Importer</code>），重启编辑器。</li><li>把 <code class="usage-code">.udatasmith</code> 拖进内容浏览器或走 <code class="usage-code">文件 → 导入</code>，在 Datasmith 导入选项里核对坐标系、单位缩放和材质导入方式。</li><li>导入后检查材质与贴图引用是否丢失，把生成的静态网格摆进关卡，并用 C4D 里的相机构图对照摆放。</li></ol><p class="usage-note">导出器与引擎版本必须一致；贴图路径丢失时优先在导出目录里补全贴图而非手动重建材质。</p></div><div class="lang-content"><ol class="usage-steps"><li>Install Epic&#x27;s Datasmith C4D Exporter inside Cinema 4D and match it to your engine version, or the exported <code class="usage-code">.udatasmith</code> may fail to read.</li><li>Tidy up geometry, materials, and cameras in C4D, then export from <code class="usage-code">Extensions → Datasmith Exporter</code> to a <code class="usage-code">.udatasmith</code>, keeping textures in the same folder.</li><li>Enable <code class="usage-code">Datasmith C4D Importer</code> (it pulls in <code class="usage-code">Datasmith Importer</code>), then restart the editor.</li><li>Drag the <code class="usage-code">.udatasmith</code> into the Content Browser or use <code class="usage-code">File → Import</code>, and in the Datasmith import options verify coordinate system, unit scale, and material import.</li><li>After import, check for missing materials/texture references, drop the static meshes into a level, and compare framing against the camera you set up in C4D.</li></ol><p class="usage-note">Keep exporter and engine versions in lockstep; fix missing textures by completing the export folder rather than rebuilding materials by hand.</p></div></div></div>
+    </div>
+

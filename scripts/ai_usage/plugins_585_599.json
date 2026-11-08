@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "motion-trajectory",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Motion Trajectory`（模块 `MotionTrajectory`）。",
+      "它生成角色运动的预测并跟踪运动历史（供动画/运动匹配/决策使用）。",
+      "在角色组件上启用轨迹采样，读取预测/历史轨迹数据。",
+      "Experimental：接口可能变动；属动画辅助，运行时模块可进包。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Motion Trajectory` (module `MotionTrajectory`).",
+      "It generates predictions and tracks history of character motion (for animation/motion matching/decisions).",
+      "Enable trajectory sampling on the character component and read predicted/history trajectory data.",
+      "Experimental: contract may change; it is animation assist, runtime modules can ship."
+    ],
+    "note_cn": "生成角色运动预测与历史轨迹，实验性。",
+    "note_en": "Predicts and tracks character motion history, experimental."
+  },
+  {
+    "slug": "motion-warping",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Motion Warping`（模块 `MotionWarping`）。",
+      "它通过“运动扭曲”把根运动对齐到目标点/朝向（如越过窗台、攀爬落脚）。",
+      "给 Character 加 MotionWarping 组件，用 Warp Target 指定对齐目标。",
+      "Game 模块依赖 `MotionWarping`；常用于 Root Motion 动画的对齐。"
+    ],
+    "en_steps": [
+      "Enable `Motion Warping` (module `MotionWarping`).",
+      "It warps root motion to align to target positions/orientations (e.g. vaulting a ledge, landing a climb).",
+      "Add a MotionWarping component to the Character and specify a Warp Target to align to.",
+      "Game modules depend on `MotionWarping`; commonly used to align root-motion animations."
+    ],
+    "note_cn": "把根运动对齐到目标的运动扭曲组件。",
+    "note_en": "Motion warping to align root motion to targets."
+  },
+  {
+    "slug": "motionjpeg-decoder-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MotionJPEG Decoder for Electra`（模块 `MJPEGDecoderElectra`）。",
+      "它为 Electra 播放器提供 MotionJPEG 编码视频的解码/播放能力。",
+      "在 Media Player 选 Electra 后端播放 MJPEG 文件，由该解码器处理。",
+      "属 Media Framework / Electra 解码扩展。"
+    ],
+    "en_steps": [
+      "Enable `MotionJPEG Decoder for Electra` (module `MJPEGDecoderElectra`).",
+      "It adds decoding/playback of MotionJPEG-encoded video for the Electra player.",
+      "Play an MJPEG file with a Media Player using the Electra backend, decoded by this plugin.",
+      "It is a Media Framework / Electra decode extension."
+    ],
+    "note_cn": "给 Electra 播放器加 MotionJPEG 解码。",
+    "note_en": "Adds MotionJPEG decoding to the Electra player."
+  },
+  {
+    "slug": "motorsimoutputmotosynth",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MotorSimOutputMotoSynth`（模块 `MotorSimOutputMotoSynth`）。",
+      "它提供一个使用 MotoSynth 的 MotorSim 输出组件（把发动机模拟输出到 MotoSynth）。",
+      "在车辆音频里用该组件驱动 MotoSynth 生成引擎声。",
+      "Experimental：接口可能变动；需 MotoSynth 插件。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MotorSimOutputMotoSynth` (module `MotorSimOutputMotoSynth`).",
+      "It provides a MotorSim output component that uses MotoSynth (routing engine simulation into MotoSynth).",
+      "Use it in vehicle audio to drive MotoSynth to generate engine sound.",
+      "Experimental: contract may change; requires the MotoSynth plugin."
+    ],
+    "note_cn": "使用 MotoSynth 的车辆发动机模拟输出组件，实验性。",
+    "note_en": "A MotorSim output component using MotoSynth, experimental."
+  },
+  {
+    "slug": "motosynth",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MotoSynth`（运行时 `MotoSynth`，编辑器 `MotoSynthEditor`）。",
+      "它是实验性颗粒合成车辆发动机音频系统（探索/演示用途，官方明确不保证支持）。",
+      "用 MotoSynth 资产配置发动机颗粒合成，配合 MotorSim 输入驱动。",
+      "Experimental：接口可能变动、不受支持；用于实验而非量产关键功能。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MotoSynth` (runtime `MotoSynth`, editor `MotoSynthEditor`).",
+      "It is an experimental granular vehicle-engine audio system (for exploration/demo; explicitly not supported).",
+      "Configure engine granular synthesis in a MotoSynth asset, driven by MotorSim input.",
+      "Experimental: contract may change and it is unsupported; use for experiments, not critical production."
+    ],
+    "note_cn": "实验性颗粒车辆发动机音频（不受支持，仅探索/演示）。",
+    "note_en": "An experimental granular vehicle-engine audio system (unsupported, exploration/demo only)."
+  },
+  {
+    "slug": "mountinspector",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `MountInspector`（模块 `MountInspector`、`MountInspectorUI`）。",
+      "它提供游戏内调试面板，显示已挂载的 pak / utoc / uondemandtoc 容器以及挂载原因。",
+      "在运行时打开该面板，排查内容挂载与按需加载问题。",
+      "属调试工具，开发/测试期使用。"
+    ],
+    "en_steps": [
+      "Enable `MountInspector` (modules `MountInspector`, `MountInspectorUI`).",
+      "It provides an in-game debug panel showing which pak / utoc / uondemandtoc containers are mounted, and why.",
+      "Open the panel at runtime to troubleshoot content mounting and on-demand loading.",
+      "It is a debug tool for development/testing."
+    ],
+    "note_cn": "游戏内查看已挂载 pak/utoc/uondemandtoc 及原因的调试面板。",
+    "note_en": "An in-game debug panel for mounted pak/utoc/uondemandtoc and why."
+  },
+  {
+    "slug": "mover-examples",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mover Examples`（模块 `MoverExamples`）。",
+      "它是 Mover 插件的非必需类与内容：示例代码、测试地图等，帮助上手 Mover。",
+      "参考示例工程理解 Mover 用法；不适合直接用于正式产品。",
+      "Experimental：接口可能变动；配合 `Mover` 主插件使用。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mover Examples` (module `MoverExamples`).",
+      "It is non-essential classes and content for the Mover plugin: sample code, test maps, etc. to help get started.",
+      "Study the samples to learn Mover; not meant for direct production use.",
+      "Experimental: contract may change; used with the main `Mover` plugin."
+    ],
+    "note_cn": "Mover 的示例代码/测试地图（非必需，不宜直接上产品）。",
+    "note_en": "Mover sample code/test maps (non-essential, not for production direct use)."
+  },
+  {
+    "slug": "mover-integrations",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mover Integrations`（模块 `MoverIntegrations`、`MoverMassIntegration`）。",
+      "它是保护伞插件，汇集支持 Mover 与其它插件（动画、AI、其它游戏系统）集成的模块。",
+      "在 Mover 基础上需要与动画/AI/Mass 等联动时启用对应集成。",
+      "Experimental：接口可能变动；依赖 `Mover` 主插件。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mover Integrations` (modules `MoverIntegrations`, `MoverMassIntegration`).",
+      "It is an umbrella plugin covering modules that integrate Mover with other plugins (animation, AI, other game systems).",
+      "Enable the relevant integrations when you need Mover to work with animation/AI/Mass, etc.",
+      "Experimental: contract may change; depends on the main `Mover` plugin."
+    ],
+    "note_cn": "Mover 与动画/AI/其它系统集成的保护伞插件，实验性。",
+    "note_en": "An umbrella plugin integrating Mover with animation/AI/other systems, experimental."
+  },
+  {
+    "slug": "mover-uaf",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mover UAF`（模块 `MoverAnimNext`）。",
+      "它为 Mover 插件添加 UAF（虚幻动画框架/AnimNext）支持。",
+      "在基于 UAF 的动画流程里驱动 Mover 角色的移动动画。",
+      "Experimental：接口可能变动；需 Mover 与 UAF 相关插件。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mover UAF` (module `MoverAnimNext`).",
+      "It adds UAF (Unreal Animation Framework / AnimNext) support for the Mover plugin.",
+      "In UAF-based animation flows, drive Mover character locomotion animation.",
+      "Experimental: contract may change; requires Mover and UAF-related plugins."
+    ],
+    "note_cn": "Mover 插件的 UAF/AnimNext 支持，实验性。",
+    "note_en": "UAF/AnimNext support for the Mover plugin, experimental."
+  },
+  {
+    "slug": "mover",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Mover`（运行时 `Mover`、`MoverCVDData`，编辑器 `MoverEditor`、`MoverCVDEditor`）。",
+      "它用于在回滚网络（rollback networking）下支持 Actor 的移动（类似预测/回滚的运动系统）。",
+      "用 Mover Component 配置移动模式，联网项目在预测/回滚下同步移动。",
+      "Experimental：接口可能变动；参考 README 了解概念与已知问题。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Mover` (runtime `Mover`, `MoverCVDData`, editor `MoverEditor`, `MoverCVDEditor`).",
+      "It supports actor movement with rollback networking (a prediction/rollback movement system).",
+      "Configure movement modes via the Mover Component; net projects sync movement under prediction/rollback.",
+      "Experimental: contract may change; see the README for concepts and known issues."
+    ],
+    "note_cn": "回滚网络下的 Actor 移动系统（Mover），实验性。",
+    "note_en": "An actor movement system with rollback networking (Mover), experimental."
+  },
+  {
+    "slug": "movertests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `MoverTests`（模块 `MoverTests`）。",
+      "它提供 Mover 系统的一系列测试内容。",
+      "在自动化/测试地图里跑这些用例，验证 Mover 行为。",
+      "这是测试内容插件；Experimental，不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable Experimental `MoverTests` (module `MoverTests`).",
+      "It provides a series of test content for the Mover system.",
+      "Run these cases in automation/test maps to validate Mover behavior.",
+      "It is a test-content plugin; Experimental, not for production."
+    ],
+    "note_cn": "Mover 系统的测试内容，实验性。",
+    "note_en": "Test content for the Mover system, experimental."
+  },
+  {
+    "slug": "movie-player-for-webm-files",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Movie Player for WebM files`（模块 `WebMMoviePlayer`）。",
+      "它提供 WebM 文件的电影播放器（用于 UI/过场/媒体播放）。",
+      "在媒体/影片播放设置里启用并选择它播放 .webm。",
+      "属 Media Framework 的 WebM 播放后端。"
+    ],
+    "en_steps": [
+      "Enable `Movie Player for WebM files` (module `WebMMoviePlayer`).",
+      "It provides a movie player for WebM files (for UI/cutscenes/media playback).",
+      "Enable it in media/movie playback settings and select it to play .webm.",
+      "It is the WebM playback backend of Media Framework."
+    ],
+    "note_cn": "WebM 文件的电影播放器。",
+    "note_en": "A movie player for WebM files."
+  },
+  {
+    "slug": "movie-render-graph-psd-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Movie Render Graph PSD Support`（模块 `MovieRenderGraphPSD`）。",
+      "它向 Movie Render Graph（MRG）添加 PSD 输出支持（分层 PSD 输出）。",
+      "在 MRG 配置里启用 PSD 输出，渲染后得到分层 PSD。",
+      "属电影渲染管线扩展；配合 Movie Render Queue/Graph。"
+    ],
+    "en_steps": [
+      "Enable `Movie Render Graph PSD Support` (module `MovieRenderGraphPSD`).",
+      "It adds PSD output support (layered PSD output) to Movie Render Graph (MRG).",
+      "Enable PSD output in the MRG config to get layered PSD after rendering.",
+      "It is a movie-render-pipeline extension; used with Movie Render Queue/Graph."
+    ],
+    "note_cn": "给 Movie Render Graph 加分层 PSD 输出。",
+    "note_en": "Adds layered PSD output to Movie Render Graph."
+  },
+  {
+    "slug": "movie-render-pipeline-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Movie Render Pipeline Toolset` 插件（无独立模块列表）。",
+      "它是通过 Python 使用 MRQ（Movie Render Queue）与 MRG（Movie Render Graph）、并编辑其预设与图表的代理技能（agent skills）。",
+      "让 AI 助手/自动化通过 Python 调用 MRQ/MRG 渲染与编辑预设。",
+      "属 AI 工具链/编辑器自动化，不是运行时功能。"
+    ],
+    "en_steps": [
+      "Enable the `Movie Render Pipeline Toolset` plugin (no standalone module list).",
+      "It provides agent skills to use MRQ (Movie Render Queue) and MRG (Movie Render Graph), and edit their presets and graphs, through Python.",
+      "Let AI assistants/automation drive MRQ/MRG rendering and preset editing via Python.",
+      "It is AI-toolchain/editor automation, not a runtime feature."
+    ],
+    "note_cn": "通过 Python 操作 MRQ/MRG 的 AI 代理技能。",
+    "note_en": "Agent skills to drive MRQ/MRG via Python."
+  },
+  {
+    "slug": "movie-render-queue-additional-render-passes",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Movie Render Queue Additional Render Passes`（模块 `MoviePipelineMaskRenderPass`）。",
+      "它为 MRQ 增加附加渲染通道：ObjectId 遮罩（Cryptomatte 规范，仅编辑器）以及 Sequencer 集成更好的全景通道。",
+      "在 MRQ 设置里启用 ObjectId/全景通道，渲染后用于合成/后期。",
+      "属 MRQ 渲染通道扩展；ObjectId 仅编辑器可用。"
+    ],
+    "en_steps": [
+      "Enable `Movie Render Queue Additional Render Passes` (module `MoviePipelineMaskRenderPass`).",
+      "It adds extra render passes to MRQ: ObjectId pass (Cryptomatte spec, Editor-only) and a panoramic pass with better Sequencer integration.",
+      "Enable the ObjectId/panoramic passes in MRQ settings for compositing/post afterward.",
+      "It is an MRQ render-pass extension; ObjectId is Editor-only."
+    ],
+    "note_cn": "MRQ 的附加渲染通道（ObjectId 遮罩/全景）。",
+    "note_en": "Additional MRQ render passes (ObjectId mask/panoramic)."
+  }
+]

@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "cadence",
+    "kind": "plugin",
+    "cn": "Cadence 把每个引擎帧拆成固定步长的子滴答来驱动 UWorld::Tick，让联网物理在确定性时间轴上推进。它会逐帧复制 Enhanced Input，并在游戏线程拥有的单一重模拟驱动里同时倒带、重放游戏逻辑与 Chaos 求解器。客户端和服务器因此可以对齐碰撞、角色与载具状态，减少可变帧率造成的物理分叉。",
+    "en": "Cadence splits each engine frame into a fixed number of sub-ticks that drive UWorld::Tick so networked physics advances on a deterministic clock. It replicates Enhanced Input every frame and rewinds both the game thread and the Chaos solver from one game-thread-owned resimulation driver. Clients and servers can then align collisions, characters, and vehicles without frame-rate dependent divergence."
+  },
+  {
+    "slug": "camera-calibration-core",
+    "kind": "plugin",
+    "cn": "Camera Calibration Core 存放镜头畸变模型、内外参，并在运行时对射线与成像求值。CameraCalibrationCoreEditor 负责在编辑器里编辑这些校准资产。虚拟制片的实拍摄像机、内视锥和镜头文件依赖这层数据类型，而不是引擎通用的 Core 运行时。",
+    "en": "Camera Calibration Core stores lens-distortion models, intrinsics and extrinsics, and evaluates them at runtime. CameraCalibrationCoreEditor authors those calibration assets in the editor. Virtual-production cameras, inner frustum, and lens files depend on this layer rather than the engine-wide Core runtime."
+  },
+  {
+    "slug": "camera-calibration-machine-learning",
+    "kind": "plugin",
+    "cn": "Camera Calibration Machine Learning 给出用机器学习拟合镜头畸变的参考实现，用来替代纯手调棋盘格多项式。CameraCalibrationML 面向传统标板难以覆盖的复杂畸变。拟合结果仍写入引擎校准资产，供实拍合成读取。",
+    "en": "Camera Calibration Machine Learning is a reference implementation that fits lens distortion with a learned model instead of a hand-tuned checkerboard polynomial. CameraCalibrationML targets complex distortions that traditional charts cover poorly. Fitted results still land in engine calibration assets consumed by live compositing."
+  },
+  {
+    "slug": "camera-calibration",
+    "kind": "plugin",
+    "cn": "Camera Calibration 是引擎内镜头畸变与摄像机标定的完整框架，覆盖标定会话、标板采集以及把结果写回镜头文件。TrackingAlignment 与 TrackingAlignmentEditor 把跟踪坐标系对齐到引擎摄像机。它建立在 Core 校准类型之上，服务虚拟制片现场工作流。",
+    "en": "Camera Calibration is the in-engine framework for lens distortion and camera calibration sessions, including chart capture and writing results back to lens files. TrackingAlignment and TrackingAlignmentEditor align tracking coordinates to the engine camera. It sits on the Core calibration types and targets virtual-production stage workflows."
+  },
+  {
+    "slug": "camera-shake-previewer",
+    "kind": "plugin",
+    "cn": "Camera Shake Previewer 在关卡编辑器中增加面板，让动画师在视口里直接预览摄像机抖动资产，而不必进入 Play。它只服务编辑器视口预览，不改变运行时 Shake 的求值路径。CameraShakePreviewer 把预览相机接到现有 Camera Shake 资产上。",
+    "en": "Camera Shake Previewer adds a Level Editor panel so animators can preview camera-shake assets in editor viewports without entering Play. It is authoring preview only and does not change how shakes evaluate at runtime. CameraShakePreviewer wires a preview camera to existing Camera Shake assets."
+  },
+  {
+    "slug": "capture-data",
+    "kind": "plugin",
+    "cn": "Capture Data 定义虚拟制片采集结果的资产类型，例如镜头、标定与媒体引用。CaptureDataCore、CaptureDataEditor 和 CaptureDataUtils 分别负责运行时对象、编辑器导入与转换工具。它是 Capture Manager 写入引擎之后的数据层，而不是设备控制本身。",
+    "en": "Capture Data defines Unreal asset types for virtual-production takes: footage, calibration, and media references. CaptureDataCore, CaptureDataEditor, and CaptureDataUtils cover runtime objects, editor import, and conversion helpers. This is the data layer after Capture Manager writes into the engine, not device control itself."
+  },
+  {
+    "slug": "capture-manager-application",
+    "kind": "plugin",
+    "cn": "Capture Manager Application 在现场控制采集设备、监视状态、取流并转码，再把数据上传供虚幻导入。CaptureManagerUnrealEndpoint 与 LiveLinkCapabilities、IngestLiveLinkDevice 把会话接到引擎和 Live Link。它是采集端应用，不是编辑器里的入库界面。",
+    "en": "Capture Manager Application controls and monitors capture devices on set, pulls and transcodes their streams, and uploads data for Unreal import. CaptureManagerUnrealEndpoint plus LiveLinkCapabilities and IngestLiveLinkDevice connect the session to the engine and Live Link. It is the on-set capture app, not the in-editor ingest UI."
+  },
+  {
+    "slug": "capture-manager-core",
+    "kind": "plugin",
+    "cn": "Capture Manager Core 提供 App 与 Editor 两侧共用的协议栈、管线、媒体读写与数据转换。CaptureProtocolStack、CaptureManagerPipeline、CaptureDataConverter 和 DataIngestCore 构成采集会话的中间层。没有这一层，现场应用和编辑器入库会各自重写同一套转码与消息协议。",
+    "en": "Capture Manager Core holds protocol, pipeline, media I/O, and conversion utilities shared by the App and Editor plugins. CaptureProtocolStack, CaptureManagerPipeline, CaptureDataConverter, and DataIngestCore form the mid-layer of a capture session. Without it the on-set app and editor ingest would each reimplement the same transcode and messaging protocol."
+  },
+  {
+    "slug": "capture-manager-devices",
+    "kind": "plugin",
+    "cn": "Capture Manager Devices 向 Live Link Hub 的 Capture Manager 布局注册具体采集设备。MonoVideoIngestDevice、StereoVideoIngestDevice、CPSLiveLinkDevice 和 TakeArchiveIngestDevice 分别覆盖单路视频、立体视频、协议栈 Live Link 和镜头归档。VideoLiveLinkDeviceCommon 抽出这些设备共用的 Live Link 适配。",
+    "en": "Capture Manager Devices registers concrete ingest devices for the Capture Manager layout in Live Link Hub. MonoVideoIngestDevice, StereoVideoIngestDevice, CPSLiveLinkDevice, and TakeArchiveIngestDevice cover mono video, stereo video, protocol-stack Live Link, and take archives. VideoLiveLinkDeviceCommon factors the Live Link adapter those devices share."
+  },
+  {
+    "slug": "capture-manager-editor",
+    "kind": "plugin",
+    "cn": "Capture Manager Editor 把采集归档导入 UE 或 UEFN，并生成 Footage 等必要资产。LiveLinkHubWorkerManager、ExportServer 和 DiscoveryEditor 在编辑器侧发现 Hub、导出并调度入库任务。Ingest 与 Device 蓝图模块让技术美术配置采集设备，而不改 C++。",
+    "en": "Capture Manager Editor imports capture archives into UE or UEFN and creates the footage assets those takes need. LiveLinkHubWorkerManager, ExportServer, and DiscoveryEditor discover the Hub, export, and schedule ingest from the editor. Ingest and Device Blueprint modules let TDs configure capture devices without C++."
+  },
+  {
+    "slug": "capture-manager-toolset",
+    "kind": "plugin",
+    "cn": "Capture Manager Toolset 给编辑器 AI 助手提供检查工具，用来查看 Capture Manager 镜头和 FootageCaptureData 资产。采集与设备写入仍由 Capture Manager Editor 提供，本插件不重复那套入库命令。它位于 Experimental Toolsets，服务问答与自动化巡检。",
+    "en": "Capture Manager Toolset exposes AI Assistant tools for inspecting Capture Manager takes and FootageCaptureData assets. Ingest and device commands stay on Capture Manager Editor; this plugin does not duplicate those write paths. It lives under Experimental Toolsets for Q&A and automated audits."
+  },
+  {
+    "slug": "capturemanagertoolset",
+    "kind": "plugin",
+    "cn": "这个 Experimental 工具集让 AI 助手发起 Capture Manager 入库：单路/立体视频、LiveLink Face、镜头归档和标定。它把这些采集源变成助手可调用的写入工具，而不仅是查看 FootageCaptureData。与只检查镜头的同名检查工具集相比，这里覆盖从设备到资产的摄取路径。",
+    "en": "This experimental toolset lets the AI Assistant ingest Capture Manager takes: mono and stereo video, LiveLink Face, take archives, and calibration. It exposes those sources as write tools, not only FootageCaptureData inspection. Compared with the inspect-oriented sibling, this one covers the device-to-asset ingest path."
+  },
+  {
+    "slug": "cascade-editor",
+    "kind": "plugin",
+    "cn": "Cascade Editor 维护旧版粒子系统 Cascade 的编辑器、运行时与顶点工厂。CascadeRuntime 与 CascadeVertexFactories 让已有 Cascade 资产在游戏中继续播放，即使关掉编辑器模块。新特效应迁到 Niagara，但本插件保证遗留效果仍可打开和运行。",
+    "en": "Cascade Editor still hosts the authoring UI, runtime, and vertex factories for legacy Cascade particle systems. CascadeRuntime and CascadeVertexFactories keep existing Cascade assets playing in-game even if the editor module is off. New work should move to Niagara, but this plugin keeps leftover effects editable and runnable."
+  },
+  {
+    "slug": "cascade-to-niagara-converter-v2",
+    "kind": "plugin",
+    "cn": "Cascade To Niagara Converter V2 是实验性的 C++ 转换器，把 Cascade 发射器与模块映射成 Niagara 系统。它强调本机转换管线，而不是第一代以脚本为主的迁移助手。转换结果仍需技术美术核对碰撞、GPU 粒子与材质差异。",
+    "en": "Cascade To Niagara Converter V2 is an experimental C++ converter that maps Cascade emitters and modules onto Niagara systems. It emphasizes a native conversion pipeline rather than the first-generation script-heavy helper. Converted assets still need a TD pass for collisions, GPU particles, and material differences."
+  },
+  {
+    "slug": "cascade-to-niagara-converter",
+    "kind": "plugin",
+    "cn": "Cascade To Niagara Converter 提供第一代编辑器迁移工具，把 Cascade 粒子资产转成 Niagara 发射器与模块栈。它面向仍以 Cascade 为主的项目批量升级，而不是在运行时播放 Cascade。输出是可继续迭代的 Niagara 资产。",
+    "en": "Cascade To Niagara Converter is the first-generation editor tool that turns Cascade particle assets into Niagara emitters and module stacks. It is a batch upgrade path for Cascade-heavy projects, not a runtime player for Cascade. Output is editable Niagara assets so work continues in the modern VFX stack."
+  },
+  {
+    "slug": "celestialvault",
+    "kind": "plugin",
+    "cn": "CelestialVault 用星历驱动地球天穹，作为 Day Sequence 实现，计算太阳、月亮与恒星在真实日期地点下的位置。CelestialVaultEditor 用来配置时间、地点和穹顶资产。它服务需要天文级日夜的影视与开放世界，而不是简单旋转方向光。",
+    "en": "CelestialVault implements a Day Sequence celestial vault for Earth using ephemeris, placing the sun, moon, and stars for a real date and location. CelestialVaultEditor authors time, site, and vault assets. It targets film and open-world skies that need astronomical day-night, not a spinning directional light."
+  },
+  {
+    "slug": "changelist-reviews",
+    "kind": "plugin",
+    "cn": "Changelist Reviews 在编辑器里打开源代码管理变更列表，供审阅提交说明与文件差异。ChangelistReview 接到引擎的 source control 提供器，面向开发流水线而不是游戏运行时。团队可以在提交前于编辑器内完成 changelist 审查。",
+    "en": "Changelist Reviews opens source-control changelists inside the editor so reviewers can inspect comments and file diffs. ChangelistReview talks to the engine source-control provider and is an authoring-pipeline tool, not a game runtime. Teams finish changelist review before submit without leaving Unreal."
+  },
+  {
+    "slug": "chaos-caching-usd",
+    "kind": "plugin",
+    "cn": "Chaos Caching USD 把 Chaos 物理缓存导入或导出为 USD，让破碎、布料或刚体缓存进入 USD 舞台。它是实验性导入器，补齐引擎缓存资产与 USD 流水线之间的桥。需要把 Chaos 缓存交给外部 DCC 或 USD 合成时使用它。",
+    "en": "Chaos Caching USD imports and exports Chaos physics caches as USD so fracture, cloth, or rigid caches can travel on a USD stage. It is an experimental importer bridging cache assets and USD. Use it when in-engine Chaos caches must leave Unreal for DCC or USD compositing."
+  },
+  {
+    "slug": "chaos-cloth-asset-dataflow-nodes",
+    "kind": "plugin",
+    "cn": "Chaos Cloth Asset Dataflow Nodes 向 Dataflow 图提供制作 Chaos 布料资产的节点：面板、缝合、碰撞与模拟属性。它不包含布料编辑器外壳，只扩展节点库。服装 TD 在 Dataflow 里用这些节点生成可模拟的 Cloth Asset。",
+    "en": "Chaos Cloth Asset Dataflow Nodes add Dataflow graph nodes for building Chaos cloth assets: panels, seams, collision, and sim properties. It does not ship the cloth editor shell; it only extends the node library. Clothing TDs use these nodes inside Dataflow to produce simulatable Cloth Assets."
+  },
+  {
+    "slug": "chaos-cloth-asset-editor-core",
+    "kind": "plugin",
+    "cn": "Chaos Cloth Asset Editor Core 提供 Cloth Asset 的主编辑器与交互工具，包含视口、属性与面板编辑。ChaosClothAssetEditorTools 承载选择、绘制和约束等操作。它是现行布料资产编辑器核心，替代已弃用的旧 Cloth Asset Editor 插件。",
+    "en": "Chaos Cloth Asset Editor Core hosts the Cloth Asset editor and interactive tools: viewport, properties, and panel editing. ChaosClothAssetEditorTools implements selection, painting, and constraint operations. This is the current cloth-asset editor core that replaces the deprecated Cloth Asset Editor plugin."
+  },
+  {
+    "slug": "chaos-cloth-asset-editor-deprecated",
+    "kind": "plugin",
+    "cn": "Chaos Cloth Asset Editor（已弃用）是旧版布料资产编辑器插件入口，当前不再提供模块。项目应改用 Chaos Cloth Asset Editor Core 与 Cloth Asset 运行时插件。保留该条目是为了识别遗留启用项，避免和新编辑器混淆。",
+    "en": "Chaos Cloth Asset Editor (Deprecated) is the old cloth-asset editor plugin entry and no longer ships modules. Projects should use Chaos Cloth Asset Editor Core plus the Cloth Asset runtime plugin. The stub remains so leftover enables are recognizable and not confused with the new editor."
+  },
+  {
+    "slug": "chaos-cloth-asset-usd-dataflow-nodes",
+    "kind": "plugin",
+    "cn": "Chaos Cloth Asset USD Dataflow Nodes 在 Dataflow 中加入从 USD 读取服装拓扑、绑定与材质的节点。它把 USD 服装管线接到 Chaos Cloth Asset，而不是充当通用 USD 导入器。适用于 MetaHuman 或外部服装以 USD 进入 Chaos 布料资产的流程。",
+    "en": "Chaos Cloth Asset USD Dataflow Nodes add Dataflow nodes that read garment topology, binding, and materials from USD. They connect a USD clothing pipeline to Chaos Cloth Asset rather than acting as a generic USD importer. That path is for MetaHuman or external garments arriving as USD into Chaos cloth assets."
+  },
+  {
+    "slug": "chaos-cloth-asset",
+    "kind": "plugin",
+    "cn": "Chaos Cloth Asset 定义可模拟服装的资产格式，ChaosClothAssetEngine 把资产绑到骨架网格上运行。ChaosClothAssetTools 提供创建、分配和校验服装的编辑器工具。它负责数据与运行时，编辑器 UI 则由 Editor Core 承担。",
+    "en": "Chaos Cloth Asset defines the simulatable garment asset, and ChaosClothAssetEngine binds it onto skeletal meshes at runtime. ChaosClothAssetTools create, assign, and validate clothing in the editor. This plugin is data plus runtime; the editor UI lives in Editor Core."
+  },
+  {
+    "slug": "chaos-cloth-editor-deprecated",
+    "kind": "plugin",
+    "cn": "Chaos Cloth Editor（已弃用）是早期 Chaos 布料编辑器实验插件，现已抽空模块。旧工作流应迁移到 Cloth Asset 及其 Editor Core。继续启用它不会提供面板，只表示历史插件名仍在清单中。",
+    "en": "Chaos Cloth Editor (Deprecated) is the early experimental Chaos cloth editor and now ships no modules. Old workflows should move to Cloth Asset and its Editor Core. Leaving it enabled yields no panels; it only preserves the historical plugin name in the list."
+  },
+  {
+    "slug": "chaos-cloth-generator",
+    "kind": "plugin",
+    "cn": "Chaos Cloth Generator 位于 ML Deformer 目录，用 Chaos 布料模拟生成训练姿态，供机器学习变形器学习布料。它不是游戏运行时布料求解器，而是编辑器侧数据生成器。输出用于 ML Deformer 训练，而不是作为 Cloth Asset 直接播放。",
+    "en": "Chaos Cloth Generator sits under ML Deformer and runs Chaos cloth to generate training poses for learned deformers. It is not the in-game cloth solver; it is an editor-side data generator. Output feeds ML Deformer training rather than playing as a Cloth Asset."
+  },
+  {
+    "slug": "chaos-cloth",
+    "kind": "plugin",
+    "cn": "Chaos Cloth 是角色服装的 Chaos 布料运行时与编辑器，处理骨骼网格上的布料代理、约束与碰撞。ChaosClothEditor 提供旧式绘制与参数面板。相对于 Cloth Asset 管线，它更贴近传统 Skeletal Mesh 布料组件工作流。",
+    "en": "Chaos Cloth is the Chaos clothing runtime and editor for garments on skeletal meshes, including cloth proxies, constraints, and collision. ChaosClothEditor supplies the older paint-and-parameter UI. Versus the Cloth Asset pipeline, this plugin tracks the traditional skeletal-mesh cloth component workflow."
+  },
+  {
+    "slug": "chaos-composable-solver",
+    "kind": "plugin",
+    "cn": "Chaos Composable Solver 把 Chaos 求解器拆成可组合的求解阶段，便于实验约束、碰撞与子步进的编排。它是 Experimental 物理插件，不替代关卡里的默认 Chaos 世界求解。物理程序员用它拼装定制求解图。",
+    "en": "Chaos Composable Solver breaks the Chaos solver into composable stages so experiments can rearrange constraints, collision, and substepping. It is an experimental physics plugin and does not replace the default Chaos world solver in a level. Physics programmers use it to assemble a custom solve graph."
+  },
+  {
+    "slug": "chaos-deformable-base",
+    "kind": "plugin",
+    "cn": "Chaos Deformable Base 抽出布料与软体共用的基础资产类、引擎绑定和工具。ChaosDeformableBaseEngine 与 Tools 让 Cloth 与 Flesh 资产共享序列化、预览和转换路径。没有它，两类可变形资产会重复同一套资产基础设施。",
+    "en": "Chaos Deformable Base extracts the shared asset class, engine binding, and tools used by both cloth and soft-body assets. ChaosDeformableBaseEngine and Tools give Cloth and Flesh a common serialize, preview, and convert path. Without it those deformable assets would duplicate the same asset infrastructure."
+  },
+  {
+    "slug": "chaos-flesh-generator",
+    "kind": "plugin",
+    "cn": "Chaos Flesh Generator 同样挂在 ML Deformer 下，用 Chaos Flesh 软体模拟生成训练网格，供学习式肌肉或软组织变形使用。它与 Cloth Generator 平行，但采样的是体网格而非布料表面。生成数据进入 ML Deformer，而不是直接驱动游戏里的 Flesh 组件。",
+    "en": "Chaos Flesh Generator also lives under ML Deformer and samples Chaos Flesh soft-body sims into training meshes for learned muscle or tissue deformers. It parallels Cloth Generator but captures volumetric flesh rather than cloth surfaces. Data goes into ML Deformer, not straight onto an in-game Flesh component."
+  },
+  {
+    "slug": "chaos-flesh",
+    "kind": "plugin",
+    "cn": "Chaos Flesh 实现软组织与肌肉体网格模拟：ChaosFleshEngine 运行时求解，ChaosFleshEditor 编辑四面体资产，Nodes 在 Dataflow 里搭建肉体。DeprecatedNodes 保留旧节点以免图断开。它是 Experimental 的体积可变形求解，区别于表面布料。",
+    "en": "Chaos Flesh simulates soft tissue and muscle tetrahedral meshes: ChaosFleshEngine at runtime, ChaosFleshEditor for tet assets, and Nodes to build flesh in Dataflow. DeprecatedNodes keep old graphs from breaking. This experimental volumetric deformer is distinct from surface cloth."
+  },
+  {
+    "slug": "chaos-insights",
+    "kind": "plugin",
+    "cn": "Chaos Insights 把物理求解轨迹接到 Unreal Insights：ChaosInsightsAnalysis 解析碰撞、约束与求解耗时，ChaosInsightsUI 绘制时间线。物理程序员用它定位昂贵的宽相位或约束岛，而不是只在视口里看调试绘制。它属于性能分析，不是求解器本身。",
+    "en": "Chaos Insights feeds physics traces into Unreal Insights: ChaosInsightsAnalysis parses collision, constraints, and solve cost, and ChaosInsightsUI draws the timeline. Physics programmers hunt expensive broadphase or constraint islands here rather than in viewport debug draw. It is profiling, not the solver itself."
+  },
+  {
+    "slug": "chaos-modular-vehicle-examples",
+    "kind": "plugin",
+    "cn": "Chaos Modular Vehicle Examples 提供模块化载具的示例内容与地图，展示如何用悬挂、动力与轮胎模块拼装车辆。它本身不实现车辆求解，只附带可运行的示范。适合对照 Chaos Modular Vehicle 插件学习组装方式。",
+    "en": "Chaos Modular Vehicle Examples ships sample content and maps that assemble suspension, powertrain, and tires with Chaos Modular Vehicle. It does not implement the vehicle solver; it only provides runnable demos. Use it as a reference assembly for the modular vehicle plugin."
+  },
+  {
+    "slug": "chaos-modular-vehicle",
+    "kind": "plugin",
+    "cn": "Chaos Modular Vehicle 用可组合模块（底盘、悬挂、传动、轮胎）在 Chaos 上模拟载具，而不是单一 VehicleMovement 组件。ChaosModularVehicleEngine 运行模拟，Editor 配置模块图。Experimental 接口可能变化，面向需要拆件载具的项目。",
+    "en": "Chaos Modular Vehicle simulates vehicles as composable Chaos modules—chassis, suspension, transmission, tires—rather than one VehicleMovement component. ChaosModularVehicleEngine runs the sim and the Editor authors the module graph. The experimental API can change; it targets projects that need breakable, piece-wise vehicles."
+  },
+  {
+    "slug": "chaos-mover",
+    "kind": "plugin",
+    "cn": "Chaos Mover 把 Mover 角色移动框架接到 Chaos 物理，让角色控制器用 Chaos 查询并推动刚体。它是 Experimental 桥接插件，不替代 Chaos 世界，也不实现完整载具。用于需要物理驱动移动、又要走 Mover 网络预测的角色。",
+    "en": "Chaos Mover connects the Mover character-movement framework to Chaos so controllers query and push rigid bodies through the Chaos scene. It is an experimental bridge, not a world solver and not a full vehicle. Use it for physically driven movement that still rides Mover network prediction."
+  },
+  {
+    "slug": "chaos-niagara",
+    "kind": "plugin",
+    "cn": "Chaos Niagara 让 Niagara 读取 Chaos 破碎、碰撞与场数据，把物理事件变成粒子源。ChaosNiagara 模块提供 Niagara 数据接口，而不是另一套粒子引擎。摧毁建筑时的尘土与碎片拖尾通常走这条桥。",
+    "en": "Chaos Niagara lets Niagara read Chaos fracture, collision, and field data and turn physics events into particle sources. The ChaosNiagara module is a data interface, not a second particle engine. Dust and debris trails on collapsing geometry typically use this bridge."
+  },
+  {
+    "slug": "chaos-outfit-asset",
+    "kind": "plugin",
+    "cn": "Chaos Outfit Asset 把多件 Chaos 服装收成套装资产：Dataflow 节点生成、Engine 运行时穿着、Editor 编辑层叠与遮挡。它管理整套服装而不是单块布料面板。角色换装系统用它一次性绑定多层衣服。",
+    "en": "Chaos Outfit Asset packs multiple Chaos garments into one outfit: Dataflow nodes author it, Engine wears it, Editor edits layering and occlusion. It manages a full wardrobe stack rather than a single cloth panel. Character outfit systems bind layered clothes in one asset."
+  },
+  {
+    "slug": "chaos-rigid-asset",
+    "kind": "plugin",
+    "cn": "Chaos Rigid Asset 用 Dataflow 节点定义刚体集合资产，Engine 在运行时生成 Chaos 刚体，Editor 编辑碰撞与质量属性。它把可复用的刚体配置资产化，而不是只在关卡里摆 Static Mesh 碰撞。Experimental 管线适合程序化堆叠与预制刚体组。",
+    "en": "Chaos Rigid Asset defines rigid-body collection assets via Dataflow nodes, the Engine instantiates Chaos bodies, and the Editor authors collision and mass. Reusable rigid setups become assets instead of only Static Mesh collision in a level. The experimental path suits procedural stacks and prefab rigid groups."
+  },
+  {
+    "slug": "chaos-rigid-physics-async",
+    "kind": "plugin",
+    "cn": "Chaos Rigid Physics Async 把刚体求解放到异步线程或任务上推进，减少游戏线程等待。它是 Experimental 调度层，改变的是何时求解，而不是接触模型本身。高密度刚体场景用它尝试错开物理与游戏逻辑。",
+    "en": "Chaos Rigid Physics Async advances rigid solves on async threads or tasks so the game thread waits less. It is an experimental scheduler: when the solve runs, not the contact model. Dense rigid scenes use it to overlap physics with gameplay."
+  },
+  {
+    "slug": "chaos-solver",
+    "kind": "plugin",
+    "cn": "Chaos Solver 插件主要提供 ChaosSolverEditor，用来在关卡中放置与配置独立的 Chaos 求解器 Actor。可以把破碎、场或子世界物理从默认世界求解器中拆出。它是编辑器侧的求解器资产管理，核心求解仍在引擎 Chaos 模块。",
+    "en": "The Chaos Solver plugin mainly ships ChaosSolverEditor for placing and configuring standalone Chaos solver actors in a level. Fracture, fields, or sub-world physics can be pulled off the default world solver. This is editor-side solver-actor authoring; the core solve still lives in engine Chaos."
+  },
+  {
+    "slug": "chaos-visual-debugger",
+    "kind": "plugin",
+    "cn": "Chaos Visual Debugger（ChaosVD）记录并回放 Chaos 场景，刚体、约束与碰撞形状可在独立调试会话中逐步查看。ChaosVDBlueprint 与 BuiltInExtensions 扩展录制事件与可视化。它用于复现物理 bug，而不是 Insights 里的耗时曲线。",
+    "en": "Chaos Visual Debugger (ChaosVD) records and replays a Chaos scene so rigid bodies, constraints, and shapes can be stepped in a dedicated debug session. ChaosVDBlueprint and BuiltInExtensions add recorded events and visualizations. Use it to reproduce physics bugs, not to plot Insights timing curves."
+  },
+  {
+    "slug": "chaoscaching",
+    "kind": "plugin",
+    "cn": "ChaosCaching 把 Chaos 模拟烘焙成可回放的缓存资产，供过场或破坏镜头锁定结果。ChaosCachingEditor 负责录制、修剪并在关卡中放置缓存播放器。这是引擎内缓存格式；USD 导入导出则由 Chaos Caching USD 承担。",
+    "en": "ChaosCaching bakes Chaos simulations into playback caches so cinematics or destruction shots lock a take. ChaosCachingEditor records, trims, and places cache players in the level. That is the in-engine cache format; USD import/export is Chaos Caching USD."
+  },
+  {
+    "slug": "chaosclothasset-toolset",
+    "kind": "plugin",
+    "cn": "ChaosClothAsset Toolset 向 AI 代理暴露创建 ChaosClothAsset 并把服装赋给骨架网格的工具。它走 Toolset 注册表，供助手自动穿衣，而不是给美术用的视口编辑器。与 Cloth Asset Editor 互补：一个给人点选，一个给代理调用。",
+    "en": "ChaosClothAsset Toolset exposes AI-agent tools that create ChaosClothAsset clothing and assign it to skeletal meshes. It registers with the Toolset registry for assistant-driven dressing, not a viewport editor for artists. It complements the Cloth Asset Editor: one is click-driven, the other is agent-called."
+  },
+  {
+    "slug": "chaosdataflowsolver",
+    "kind": "plugin",
+    "cn": "ChaosDataflowSolver 在 Dataflow 图中嵌入 Chaos 求解步骤，让程序化资产在图内模拟刚体或可变形体后再输出。它不是关卡世界求解器，而是资产构建期的求解节点。Experimental 下用于生成破碎、布料或刚体预计算结果。",
+    "en": "ChaosDataflowSolver embeds Chaos solve steps inside Dataflow so procedural assets can simulate rigid or deformable bodies in-graph before emit. It is not the level world solver; it is a build-time solve node. Experimental graphs use it to precompute fracture, cloth, or rigid results."
+  },
+  {
+    "slug": "chaoseditor",
+    "kind": "plugin",
+    "cn": "ChaosEditor 通过 FractureEditor 提供几何体破碎编辑模式：切割、聚类、连接图与破碎预览。美术在编辑器里把网格打成 Geometry Collection，供 Chaos 运行时摧毁。它是破碎创作工具，不是车辆或布料编辑器。",
+    "en": "ChaosEditor ships FractureEditor, the geometry fracture editing mode: cuts, clustering, connection graphs, and fracture preview. Artists break meshes into Geometry Collections for Chaos destruction at runtime. It is the fracture authoring tool, not the vehicle or cloth editor."
+  },
+  {
+    "slug": "chaosuserdatapt",
+    "kind": "plugin",
+    "cn": "ChaosUserDataPT 允许在 Chaos 粒子或刚体上附加用户数据，并在物理线程上读取，避免每帧回游戏线程查询。Gameplay 可以把自定义标志或索引跟进求解器。Experimental 插件面向需要在物理回调里携带业务数据的项目。",
+    "en": "ChaosUserDataPT attaches user data to Chaos particles or rigid bodies and reads it on the physics thread so gameplay flags need not round-trip to the game thread every frame. Custom indices can ride with the solver. The experimental plugin is for physics callbacks that must carry gameplay payload."
+  },
+  {
+    "slug": "chaosvehiclesplugin",
+    "kind": "plugin",
+    "cn": "ChaosVehiclesPlugin 是 Chaos 载具的经典插件：ChaosVehicles 运行时实现悬挂、轮胎摩擦与动力总成，ChaosVehiclesEditor 配置载具骨架与车轮。它面向完整载具 Actor 工作流，区别于后来的模块化载具。多数项目的 Chaos 车仍从此插件起步。",
+    "en": "ChaosVehiclesPlugin is the classic Chaos vehicle plugin: ChaosVehicles runs suspension, tire friction, and powertrain, and ChaosVehiclesEditor authors the vehicle skeleton and wheels. It targets a full vehicle Actor workflow, unlike the later modular vehicle. Most Chaos cars still start here."
+  },
+  {
+    "slug": "character-creation-tools",
+    "kind": "plugin",
+    "cn": "Character Creation Tools 为 MetaHuman 角色编辑提供共享状态、工具与 Interactive Tools 外壳。CharacterMeshConformer 把编辑后的体型贴合回网格。它是角色创建管线的工具层，不是 MetaHuman 运行时本身。",
+    "en": "Character Creation Tools supply shared state, tools, and Interactive Tools shells for MetaHuman character editing. CharacterMeshConformer fits edited bodies back onto meshes. This is the character-creation tool layer, not the MetaHuman runtime."
+  },
+  {
+    "slug": "characterai",
+    "kind": "plugin",
+    "cn": "CharacterAI 提供以角色为中心的实验性 AI 代码与资产，补足行为树或 StateTree 之外的角色智能示例。CharacterAI 模块面向角色项目的感知、决策或动画驱动实验。接口可能随夜构建变化，不应当成稳定玩法框架。",
+    "en": "CharacterAI ships experimental code and assets for character-centric AI beyond stock Behavior Trees or StateTree. The CharacterAI module prototypes perception, decision, or animation-driven brains for character projects. The contract can change on nightlies and is not a stable gameplay framework."
+  },
+  {
+    "slug": "cheatstoolset",
+    "kind": "plugin",
+    "cn": "CheatsToolset 让编辑器 AI 助手列出并调用本地玩家 Cheat Manager 上的作弊命令。它走 Toolset 注册表，方便自动化测试或调试会话触发无敌、刷物品等。不作为 Shipping 游戏功能，只服务编辑器侧助手。",
+    "en": "CheatsToolset lets the in-editor AI assistant list and invoke cheat commands on the local player's cheat manager. Through the Toolset registry, automated tests or debug sessions can fire god mode or spawn items. It is not a shipping game feature; it only serves the editor assistant."
+  },
+  {
+    "slug": "chooser",
+    "kind": "plugin",
+    "cn": "Chooser 与 Proxy Table 按上下文从多份动画或资产中选出一份，例如按武器、速度或角色选择 AnimSequence。ChooserEditor 与 ProxyTableEditor 编辑选择表，Uncooked 模块处理未烘焙数据。运行时 Chooser 求值，避免在 AnimBP 里堆大量枚举分支。",
+    "en": "Chooser and Proxy Tables pick one animation or asset from many by context—weapon, speed, or character. ChooserEditor and ProxyTableEditor author the tables; Uncooked modules handle unbaked data. Runtime Chooser evaluation avoids huge enum branches in AnimBPs."
+  },
+  {
+    "slug": "chunk-downloader",
+    "kind": "plugin",
+    "cn": "Chunk Downloader 实现流式安装客户端，按 Pak chunk 从 CDN 拉取并挂载游戏内容。运行时可查询 chunk 状态、下载优先级与挂载完成回调。它服务主机平台的可下载内容与分期安装，而不是编辑器 pak 打包本身。",
+    "en": "Chunk Downloader is a streaming-install client that fetches and mounts Pak chunks from a CDN. Runtime code can query chunk status, prioritize downloads, and wait on mount callbacks. It serves host-platform DLC and install-on-demand, not editor pak cooking itself."
+  },
+  {
+    "slug": "cinecamerarigs",
+    "kind": "plugin",
+    "cn": "CineCameraRigs 为电影摄像机提供轨道、摇臂、起重机等扩展装置，可在 Sequencer 里当虚拟摄影设备驱动。CineCameraRigsEditor 放置与配置这些装置。Experimental 插件补足虚拟制片的摄像机运动机械，而不是镜头标定。",
+    "en": "CineCameraRigs adds rails, jibs, and cranes as cinematic camera rigs you can drive from Sequencer like virtual grip gear. CineCameraRigsEditor places and configures those rigs. The experimental plugin is stage camera mechanics, not lens calibration."
+  },
+  {
+    "slug": "cinecamerascenecapture",
+    "kind": "plugin",
+    "cn": "CineCameraSceneCapture 让电影摄像机按 Scene Capture 的方式把视图画进 Render Target，同时保留胶片背、裁切与镜头设置。它用于监看、画中画或把电影机输出接到合成。Experimental 下补齐 Cine Camera 与 Scene Capture 之间的渲染路径。",
+    "en": "CineCameraSceneCapture renders a cine camera into a Render Target the way Scene Capture does, keeping filmback, crop, and lens settings. Use it for monitors, picture-in-picture, or feeding a cine camera into a composite. The experimental path fills the gap between Cine Camera and Scene Capture."
+  },
+  {
+    "slug": "cinematic-assembly-tools-cat",
+    "kind": "plugin",
+    "cn": "Cinematic Assembly Tools（CAT）管理镜头组装与线性内容：镜头列表、装配资产与剪辑结构。CineAssemblyTools 是运行时装配表示，Editor 提供镜头管理 UI。它面向虚拟制片的线性剪辑管线，而不是通用 Sequencer 轨道。",
+    "en": "Cinematic Assembly Tools (CAT) manage shot assembly and linear content: shot lists, assembly assets, and editorial structure. CineAssemblyTools is the runtime assembly; the Editor is the shot-management UI. It is the virtual-production linear editorial pipeline, not generic Sequencer tracks."
+  },
+  {
+    "slug": "cinematic-prestreaming",
+    "kind": "plugin",
+    "cn": "Cinematic Prestreaming 在过场中记录流送请求，再把这些请求放到 Sequencer 上提前播放，使地形、纹理与关卡在镜头切到前就绪。CinematicPrestreamingEditor 负责录制并把数据挂到序列。它降低电影级镜头的流送卡顿，不改变普通游戏探路。",
+    "en": "Cinematic Prestreaming records streaming requests during a cutscene and plays them back early on the Sequencer timeline so landscapes, textures, and levels are ready before the cut. CinematicPrestreamingEditor records and attaches that data to the sequence. It hides streaming hitches in cinematic shots, not in open-world traversal."
+  },
+  {
+    "slug": "cinematic-sequence-navigator-bridge",
+    "kind": "plugin",
+    "cn": "Cinematic Sequence Navigator Bridge 把 CAT 电影装配接到 Sequence Navigator，便于在装配镜头之间跳转。CinematicSequenceNavigator 是这座桥的模块。Experimental 下让剪辑在装配视图与 Sequencer 之间导航，而不是另做一套时间轴。",
+    "en": "Cinematic Sequence Navigator Bridge connects CAT cinematic assemblies to Sequence Navigator so you can jump between assembly shots. CinematicSequenceNavigator is that bridge module. Experimentally it routes editorial navigation between assembly view and Sequencer, not a second timeline."
+  },
+  {
+    "slug": "clion-integration",
+    "kind": "plugin",
+    "cn": "CLion Integration 通过 CLionSourceCodeAccess 把打开源码请求送到 JetBrains CLion。双击调用栈或生成的类会在 CLion 中定位文件。它是开发者 IDE 接入，不参与游戏运行。",
+    "en": "CLion Integration implements CLionSourceCodeAccess so Open Source requests go to JetBrains CLion. Double-clicking a callstack or generated class locates the file in CLion. It is developer IDE access and never ships in the game."
+  },
+  {
+    "slug": "cloners-and-effectors",
+    "kind": "plugin",
+    "cn": "Cloners and Effectors 用 Niagara 按布局复制实例，再用效应器（力、噪声、场）逐实例影响克隆。ClonerEffectorMeshBuilder 构建实例网格，Editor 编辑布局。虚拟制片用它铺大量道具或灯光阵列，而不是另起粒子引擎。",
+    "en": "Cloners and Effectors duplicate instances in Niagara layouts, then effectors (forces, noise, fields) influence each clone. ClonerEffectorMeshBuilder builds instance meshes; the Editor authors layouts. Virtual production uses it to scatter props or light arrays, not as a separate particle engine."
+  },
+  {
+    "slug": "code-editor",
+    "kind": "plugin",
+    "cn": "Code Editor 是实验性的编辑器内代码编辑界面，可在虚幻里直接改源文件。CodeEditor 模块嵌入文本编辑与文件浏览，不替代 Visual Studio 或 CLion 的完整工程。接口未稳定，适合轻量查看或热修，不适合作为主 IDE。",
+    "en": "Code Editor is an experimental in-Unreal source editor for editing files without leaving the editor. The CodeEditor module embeds text editing and file browsing; it does not replace Visual Studio or CLion as a full IDE. The API is unstable and fits light viewing or hotfixes, not primary development."
+  },
+  {
+    "slug": "code-quality-tests-unreal-test-plugin",
+    "kind": "plugin",
+    "cn": "该插件承载 CQTest 框架自身的自动化测试（CQTestTests），验证断言、夹具与测试发现是否正常。它不是游戏功能测试集，而是引擎测试基础设施的回归包。启用后随引擎测试运行器执行。",
+    "en": "This plugin hosts automated tests for the CQTest framework itself (CQTestTests), checking asserts, fixtures, and test discovery. It is not a gameplay test suite; it is a regression pack for the engine test infrastructure. Once enabled it runs under the engine test runner."
+  },
+  {
+    "slug": "code-view",
+    "kind": "plugin",
+    "cn": "Code View 在编辑器中展示游戏类与结构体的代码视图，并可一键跳到外部 IDE。CodeView 帮助在不翻解决方案资源管理器的情况下定位类型定义。Experimental 功能面向快速浏览反射类型与源码的对应关系。",
+    "en": "Code View shows an in-editor view of game classes and structs with one-click jumps into an external IDE. CodeView helps find type definitions without hunting the solution explorer. The experimental feature maps reflected types to source quickly."
+  },
+  {
+    "slug": "codelite-integration",
+    "kind": "plugin",
+    "cn": "CodeLite Integration 通过 CodeLiteSourceCodeAccess 把引擎的源码打开请求交给 CodeLite IDE。在使用 CodeLite 的 Linux 等环境里，调用栈与生成代码会跳到该 IDE。与 CLion 插件职责同类，只是目标 IDE 不同。",
+    "en": "CodeLite Integration implements CodeLiteSourceCodeAccess so engine Open Source requests land in the CodeLite IDE. On Linux setups that use CodeLite, callstacks and generated code jump there. It is the same job as the CLion plugin, aimed at a different IDE."
+  },
+  {
+    "slug": "color-correction-regions-ccr",
+    "kind": "plugin",
+    "cn": "Color Correction Regions 把调色与着色限制在体积或区域内，只影响走进该区域的像素或 Actor。ColorCorrectRegionsEditor 放置区域并编辑 LUT、曝光等。Experimental 下用于舞台局部校色，而不是后处理全局 Color Grading。",
+    "en": "Color Correction Regions confine grading and shading to volumes so only pixels or actors inside the region change. ColorCorrectRegionsEditor places regions and edits LUT, exposure, and related controls. Experimentally it is local stage grading, not the global post-process Color Grading panel."
+  },
+  {
+    "slug": "color-grading",
+    "kind": "plugin",
+    "cn": "Color Grading 插件添加带 ASC CDL、饱和度、色轮等控件的调色面板（ColorGradingEditor）。它服务过场与虚拟制片的全局调色，而不是区域体积。面板驱动后期处理调色参数，便于调色师在编辑器里精调。",
+    "en": "Color Grading adds a panel of ASC CDL, saturation, and color-wheel controls via ColorGradingEditor. It is global cinematic grading, not regional volumes. The panel drives post-process color properties so colorists can grade inside the editor."
+  },
+  {
+    "slug": "command-link-server",
+    "kind": "plugin",
+    "cn": "Command Link Server 监听 CmdLink 客户端发来的控制台命令并在引擎进程内执行。CmdLinkServer 让外部工具远程 exec，而不用附加调试器。用于自动化、设备农场或外部面板驱动编辑器或游戏。",
+    "en": "Command Link Server listens for console commands from CmdLink clients and runs them inside the engine process. CmdLinkServer lets external tools remote-exec without attaching a debugger. Use it for automation, device farms, or outside panels driving the editor or game."
+  },
+  {
+    "slug": "common-conversation",
+    "kind": "plugin",
+    "cn": "Common Conversation 提供基于图的对话树：Runtime 执行节点，Graph 描述对话图，Editor 编辑分支与条件。它是实验性对话框架，可接 UI 与任务系统。适合需要可视化对话而不是纯数据表对白的项目。",
+    "en": "Common Conversation authors graph-based conversation trees: Runtime executes nodes, Graph stores the dialogue graph, Editor edits branches and conditions. It is an experimental dialogue framework that can hook UI and quests. Use it when conversations need a visual graph rather than a pure data table."
+  },
+  {
+    "slug": "common-ui-plugin",
+    "kind": "plugin",
+    "cn": "Common UI 提供与具体游戏无关的可激活控件、输入路由与多层 UI 栈（CommonUI、CommonInput）。CommonUIEditor 编辑可激活层级与输入数据。主机游戏用它处理菜单焦点、返回栈与平台输入提示，而不从零写 UMG 导航。",
+    "en": "Common UI ships game-agnostic activatable widgets, input routing, and a layered UI stack (CommonUI, CommonInput). CommonUIEditor authors activatable trees and input data. Console-style games use it for menu focus, back stacks, and platform prompts instead of rolling UMG navigation from scratch."
+  },
+  {
+    "slug": "commonui-toolset",
+    "kind": "plugin",
+    "cn": "CommonUI Toolset 给 AI 调试器抓取可激活树快照、诊断焦点分叉、记录激活与路由事件，并提供假设检验写入工具。它专门调试 CommonUI 的焦点与激活，而不是通用 UMG 层级。助手用这些工具解释焦点为何落到错误按钮。",
+    "en": "CommonUI Toolset gives an AI debugger activatable-tree snapshots, focus-divergence diagnosis, activation and routing traces, and hypothesis-testing writes. It debugs CommonUI focus and activation, not generic UMG hierarchies. Assistants use it to explain why focus landed on the wrong button."
+  },
+  {
+    "slug": "composite-plane",
+    "kind": "plugin",
+    "cn": "Composite Plane 提供电影摄像机 Actor，把纹理或视频投影到场景平面上，用于监视器、返投或简易合成卡。CompositePlane 模块面向虚拟制片的现场预览，而不是完整后期合成图。它把媒体贴到与摄影机相关的几何上。",
+    "en": "Composite Plane provides a cine camera actor that projects textures or video onto a plane for monitors, playback, or simple cards. The CompositePlane module is on-set preview, not a full compositing graph. Media is mapped onto camera-relative geometry."
+  },
+  {
+    "slug": "compositecore",
+    "kind": "plugin",
+    "cn": "CompositeCore 是新合成系统的运行时内核：合成节点、媒体管线与求值上下文。它被新版 Composure（Composite 插件）扩展，本身不带完整编辑器。Compositing 目录下的其他插件都建立在这层图执行上。",
+    "en": "CompositeCore is the runtime kernel of the modern compositing system: composite nodes, media pipeline, and eval context. The newer Composure (Composite plugin) extends it; this plugin does not ship the full editor. Other compositing plugins execute graphs on this layer."
+  },
+  {
+    "slug": "composure-shared",
+    "kind": "plugin",
+    "cn": "Composure Shared 存放从旧版 Composure 迁出的共享材质、纹理与网格，供旧 Composure 与新 Composite 同时引用。它没有代码模块，只是内容资产包。避免两套合成插件复制同一批后处理材质。",
+    "en": "Composure Shared holds materials, textures, and meshes migrated from legacy Composure so both old Composure and new Composite can reference them. It ships no code modules—only content. That avoids duplicating the same post materials across both compositing plugins."
+  },
+  {
+    "slug": "composure",
+    "kind": "plugin",
+    "cn": "新版 Composure（Composite 插件）是现代实时合成系统，在 CompositeCore 上提供合成图与 CompositeEditor。它接替旧 Composure，用于摄像机内视锥、CG 与实拍叠加以及输出。虚拟制片用它在引擎内完成现场合成，而不是只靠外部切换台。",
+    "en": "The modern Composure (Composite plugin) is the real-time compositing system that extends CompositeCore with a composite graph and CompositeEditor. It succeeds legacy Composure for inner frustum, CG-over-plate, and outputs. Virtual production grades and composites in-engine rather than only on an external switcher."
+  },
+  {
+    "slug": "compute-framework",
+    "kind": "plugin",
+    "cn": "Compute Framework 让用户编写 GPU 计算图：ComputeFramework 运行，EditableComputeGraph 描述可编辑图，DataInterface 把引擎数据喂给计算。Editor 模块提供图编辑。技术美术可用它做自定义 GPU 变形、场或后处理计算，而不手写完整 Global Shader 插件。",
+    "en": "Compute Framework lets users author GPU compute graphs: ComputeFramework runs them, EditableComputeGraph stores the graph, and DataInterface feeds engine data. Editor modules provide the graph UI. TDs can build custom GPU deformers, fields, or post computes without a full Global Shader plugin."
+  },
+  {
+    "slug": "concert---main",
+    "kind": "plugin",
+    "cn": "Concert Main 是多人编辑的传输与会话内核：Concert、Client、Server、Transport 负责会话生命周期与消息。编辑器之间靠它建立协同会话，关卡与资产同步细节由 Concert Sync 插件完成。它是 Concert 家族的底板，不包含 Insights 可视化。",
+    "en": "Concert Main is the multi-user editing transport and session kernel: Concert, Client, Server, and Transport own session lifetime and messages. Editors form collaborative sessions here; level and asset sync details live in Concert Sync. This is the Concert family's floor, not Insights visualization."
+  },
+  {
+    "slug": "concert-replication-scripting",
+    "kind": "plugin",
+    "cn": "Concert Replication Scripting 把 Concert 复制类型暴露给蓝图等脚本，便于在协同会话里用脚本注册要复制的对象。Editor 模块提供脚本节点。它不实现复制协议本身，只开放给技术美术调用。",
+    "en": "Concert Replication Scripting exposes Concert replication types to Blueprints and other scripts so collaborative sessions can register replicated objects from script. The Editor module adds script nodes. It does not implement the replication protocol; it only opens it to TDs."
+  },
+  {
+    "slug": "concert-shared-slate-b8d626",
+    "kind": "plugin",
+    "cn": "Concert Client Shared Slate（ConcertClientSharedSlate）提供客户端会话 UI 共用的 Slate 控件：连接状态、用户列表与客户端特有面板。它只服务于 Concert 客户端外观，不画服务器管理壳。与 ConcertSharedSlate 相比，这里绑定的是 client 会话控件。",
+    "en": "Concert Client Shared Slate (ConcertClientSharedSlate) supplies Slate widgets shared by client session UI: connection status, user lists, and client-only panels. It styles the Concert client, not the server admin shell. Versus ConcertSharedSlate, this module binds client session widgets."
+  },
+  {
+    "slug": "concert-shared-slate-fc2592",
+    "kind": "plugin",
+    "cn": "Concert Shared Slate（ConcertSharedSlate）提供客户端与服务器都复用的 Concert Slate 基础控件与样式。会话浏览器、通用对话框和列表视图从这里取件。它是 UI 共享库，不负责联网协议。",
+    "en": "Concert Shared Slate (ConcertSharedSlate) provides base Concert Slate widgets and styles reused by both client and server UIs. Session browsers, common dialogs, and lists come from this library. It is a UI share pack and does not own the network protocol."
+  },
+  {
+    "slug": "concert-sync---client",
+    "kind": "plugin",
+    "cn": "Concert Sync Client 在连接到 Concert 服务器后同步关卡与资产编辑，把本地事务变成可发送的同步操作。ConcertSyncClient 是多人编辑在客户端的工作副本。没有它，Concert 会话只能连接，不能真正合入关卡改动。",
+    "en": "Concert Sync Client syncs level and asset edits after connecting to a Concert server, turning local transactions into sync operations. ConcertSyncClient is the client working copy of multi-user editing. Without it a Concert session can connect but cannot merge level changes."
+  },
+  {
+    "slug": "concert-sync---server",
+    "kind": "plugin",
+    "cn": "Concert Sync Server 在服务器端维护多人编辑会话的权威事务流，接收客户端改动并广播。ConcertSyncServer 保证各编辑器看到一致的关卡与资产历史。它与客户端成对出现，是协同编辑的服务端。",
+    "en": "Concert Sync Server keeps the authoritative transaction stream for a multi-user session, accepting client edits and broadcasting them. ConcertSyncServer makes each editor see a consistent level and asset history. It pairs with the client as the collaborative-editing server."
+  },
+  {
+    "slug": "concert-sync---test",
+    "kind": "plugin",
+    "cn": "Concert Sync Test 运行多人编辑同步的自动化测试，覆盖冲突、重连与事务回放。ConcertSyncTest 不进入制作流程 UI，只在测试配置中加载。用来防止 Concert 同步回归，而不是给用户开会话。",
+    "en": "Concert Sync Test runs automated multi-user sync tests for conflicts, reconnects, and transaction replay. ConcertSyncTest never appears in production UI; it loads in test configs. It guards Concert sync regressions rather than hosting user sessions."
+  },
+  {
+    "slug": "concert-sync-core",
+    "kind": "plugin",
+    "cn": "Concert Sync Core 存放客户端与服务器共用的同步数据类型、事务序列化与冲突处理原语。ConcertSyncCore 是 Sync 插件的共享内核。没有它，Client 与 Server 无法对同一套操作日志达成一致。",
+    "en": "Concert Sync Core holds sync data types, transaction serialization, and conflict primitives shared by client and server. ConcertSyncCore is the shared kernel of the Sync plugins. Without it Client and Server could not agree on the same operation log."
+  },
+  {
+    "slug": "concertinsightsclient",
+    "kind": "plugin",
+    "cn": "ConcertInsightsClient 扩展编辑器状态栏，可在所有已连接的 Concert 端点上同时启动同步 Unreal Insights 追踪。它解决多人会话里只录到本机的问题。真正的服务端接听由 ConcertInsightsServer 完成。",
+    "en": "ConcertInsightsClient extends the editor status bar so you can start a synchronized Unreal Insights trace on every connected Concert endpoint. That fixes recording only the local machine in a multi-user session. The server that listens for those requests is ConcertInsightsServer."
+  },
+  {
+    "slug": "concertinsightscore",
+    "kind": "plugin",
+    "cn": "ConcertInsightsCore 提供 Concert Insights 系列共用的追踪协议与数据类型。Client、Server 与 Visualizer 都依赖这层对齐时间戳与消息。它本身不画 UI，也不启动追踪。",
+    "en": "ConcertInsightsCore supplies the shared tracing protocol and data types for the Concert Insights family. Client, Server, and Visualizer align timestamps and messages on this layer. It neither draws UI nor starts traces by itself."
+  },
+  {
+    "slug": "concertinsightsserver",
+    "kind": "plugin",
+    "cn": "ConcertInsightsServer 侦听客户端发起的同步追踪请求（由 ConcertInsightsClient 触发），并在服务器端点上开录。它让会话主机与各编辑器的 Insights 轨迹对齐。没有 Client 插件，服务器不会主动开录。",
+    "en": "ConcertInsightsServer listens for synchronized-trace requests initiated by ConcertInsightsClient and starts recording on the server endpoint. Session host and editor Insights traces line up through this listener. Without the Client plugin the server does not start traces on its own."
+  },
+  {
+    "slug": "concertinsightsvisualizer",
+    "kind": "plugin",
+    "cn": "ConcertInsightsVisualizer 在 Unreal Insights 中解析 Concert 消息并提供可视化控件，显示会话流量、事务与复制。它是分析端，不在编辑器状态栏里启动追踪。性能与同步问题可在 Insights 时间线上对照 Concert 消息。",
+    "en": "ConcertInsightsVisualizer parses Concert messages in Unreal Insights and draws widgets for session traffic, transactions, and replication. It is the analysis end, not the status-bar trace starter. Performance and sync issues can be lined up against Concert messages on the Insights timeline."
+  },
+  {
+    "slug": "configsettingstoolset",
+    "kind": "plugin",
+    "cn": "ConfigSettingsToolset 通过 AI Toolset 注册表列出、检查并编辑 Config 设置段（.ini 节）。助手可以查询或改 DefaultEngine 一类配置，而不打开项目设置 UI。它是编辑器自动化工具，不在 Shipping 游戏里暴露配置编辑。",
+    "en": "ConfigSettingsToolset lists, inspects, and edits Config Settings sections (.ini) through the AI Toolset registry. An assistant can query or change DefaultEngine-style config without opening Project Settings. It is editor automation and does not expose config editing in a shipping game."
+  },
+  {
+    "slug": "configuration-for-microsoft-gdk-plug-ins-for-unreal-engine",
+    "kind": "plugin",
+    "cn": "该插件（MSGamingSupport）为 Microsoft GDK、Gaming Runtime 与 Microsoft Game Store 相关插件提供编辑器配置（MSGamingSupportEditor）。它集中 Xbox 与 PC Game Pass 打包、运行时所需的工程设置。本身不是 GDK 运行时实现，而是那些插件的配置壳。",
+    "en": "This plugin (MSGamingSupport) provides editor configuration for Microsoft GDK, Gaming Runtime, and Microsoft Game Store plugins via MSGamingSupportEditor. It centralizes project settings for Xbox and PC Game Pass packaging. It is not the GDK runtime itself, only the configuration shell those plugins need."
+  },
+  {
+    "slug": "console-variables-editor",
+    "kind": "plugin",
+    "cn": "Console Variables Editor 用 Slate 面板保存、加载和分组控制台变量，方便虚拟制片切换画质或调试预设。ConsoleVariablesEditorRuntime 支持在运行时应用这些预设。它管理 cvar 集合，而不是定义新变量类型。",
+    "en": "Console Variables Editor is a Slate panel that saves, loads, and groups console variables so virtual production can swap quality or debug presets. ConsoleVariablesEditorRuntime applies those presets at runtime. It manages cvar collections rather than defining new variable types."
+  },
+  {
+    "slug": "consoletoolset",
+    "kind": "plugin",
+    "cn": "ConsoleToolset 让 AI 助手通过注册表驱动控制台子系统：读写 CVar、执行 Exec 命令。它面向自动化与助手操作，而不是给人用的 CVar 面板。与 Console Variables Editor 相比，这里没有预设式 UI，只有工具调用。",
+    "en": "ConsoleToolset lets an AI assistant drive the console subsystem through the registry: read and write CVars and run Exec commands. It is automation and assistant I/O, not a human CVar panel. Unlike Console Variables Editor it has no preset UI, only tool calls."
+  },
+  {
+    "slug": "content-browser---alias-data-source",
+    "kind": "plugin",
+    "cn": "Content Browser Alias Data Source 让资源在内容浏览器中出现在原始路径以外的别名目录，便于按镜头或部门组织。ContentBrowserAliasDataSource 只提供虚拟视图，不复制磁盘上的 uasset。制作管线用它做工作集，而不改资产引用。",
+    "en": "Content Browser Alias Data Source lets assets appear in Content Browser folders other than their real path, for shot or department layouts. ContentBrowserAliasDataSource is a virtual view and does not copy uassets on disk. Authoring pipelines use it as a working set without changing asset references."
+  },
+  {
+    "slug": "content-browser---asset-data-source",
+    "kind": "plugin",
+    "cn": "Content Browser Asset Data Source 向内容浏览器提供 uasset 资产数据，是浏览器列出游戏资产的主数据源。没有它，内容浏览器无法枚举包内资产。它属于编辑器数据源插件，不进入游戏包。",
+    "en": "Content Browser Asset Data Source feeds uasset records to the Content Browser and is the primary source that lists game assets. Without it the browser cannot enumerate packaged assets. It is an editor data-source plugin and does not ship in the game."
+  },
+  {
+    "slug": "content-browser---class-data-source",
+    "kind": "plugin",
+    "cn": "Content Browser Class Data Source 向内容浏览器提供类（C++ 与蓝图类）数据，使 Classes 视图能浏览类型。ContentBrowserClassDataSource 与资产数据源并列，一个管资产一个管 UClass。程序员用它从浏览器创建类实例或打开类。",
+    "en": "Content Browser Class Data Source feeds class (C++ and Blueprint class) data so the Classes view can browse types. ContentBrowserClassDataSource sits beside the asset source: one is assets, one is UClass. Programmers spawn class instances or open types from that view."
+  },
+  {
+    "slug": "content-browser---file-data-source",
+    "kind": "plugin",
+    "cn": "Content Browser File Data Source 让内容浏览器显示尚未导入的松散文件（磁盘上的 png、fbx 等）。ContentBrowserFileDataSource 把文件系统条目映射成浏览器项，便于拖入导入。它不把松散文件当成 uasset 管理。",
+    "en": "Content Browser File Data Source shows loose files not yet imported (png, fbx on disk) inside the Content Browser. ContentBrowserFileDataSource maps filesystem entries to browser items for drag-import. It does not treat loose files as uassets."
+  },
+  {
+    "slug": "contextualanimation",
+    "kind": "plugin",
+    "cn": "Contextual Animation 根据交互上下文选择并对齐动画，例如开门或拾取时把角色手脚匹配到场景对象。ContextualAnimationEditor 编辑交互定义与对齐。Experimental 动画插件补足环境交互动画，而不是通用 Chooser 选片。",
+    "en": "Contextual Animation selects and aligns animations to an interaction context, such as matching hands to a door or pickup. ContextualAnimationEditor authors interaction definitions and alignment. The experimental plugin is environment-interaction animation, not generic Chooser clip picking."
+  },
+  {
+    "slug": "control-rig-knowledge-base",
+    "kind": "plugin",
+    "cn": "Control Rig Knowledge Base 提供 Control Rig 图可放置的节点目录，供 AI 或文档系统查询节点用途与引脚。ControlRigKnowledgeBase 不执行绑定，只描述节点知识。助手用它避免编造不存在的 Rig 节点。",
+    "en": "Control Rig Knowledge Base catalogues nodes a Control Rig graph may place, for AI or docs to query purpose and pins. ControlRigKnowledgeBase does not evaluate a rig; it describes node knowledge. Assistants use it so they do not invent nonexistent Rig nodes."
+  },
+  {
+    "slug": "control-rig-modules",
+    "kind": "plugin",
+    "cn": "Control Rig Modules 提供可复用的 Control Rig 功能模块与内容包，供绑定图组装标准肢体、空间切换等积木。该插件主要是模块内容，清单中未列代码模块。绑定师用现成模块加快角色绑定，而不从空白图搭 IK。",
+    "en": "Control Rig Modules ships reusable Control Rig function modules and content so rig graphs can assemble standard limbs and space switches. It is primarily module content and lists no code modules in the catalog. Riggers drop ready modules instead of building IK from a blank graph."
+  },
+  {
+    "slug": "control-rig-spline",
+    "kind": "plugin",
+    "cn": "Control Rig Spline 为 Control Rig 增加样条节点，用曲线驱动脊椎、触手、绳索等链。ControlRigSpline 在绑定图里求值样条位置与切线。它扩展绑定工具，而不是关卡里的 Spline Component。",
+    "en": "Control Rig Spline adds spline nodes to Control Rig so curves can drive spines, tentacles, and rope chains. ControlRigSpline evaluates spline position and tangent inside the rig graph. It extends the rig toolkit, not the level Spline Component."
+  },
+  {
+    "slug": "control-rig",
+    "kind": "plugin",
+    "cn": "Control Rig 是虚幻的程序化绑定系统：ControlRig 运行时求值绑定图，Developer 提供编译与图模型，Editor 编辑控制器与层级。可在 Sequencer 里关键帧，也可在运行时驱动。常与 IK Rig、重定向一起构成角色动画管线的核心。",
+    "en": "Control Rig is Unreal's procedural rig: ControlRig evaluates the rig graph, Developer compiles the graph model, and Editor authors controls and hierarchy. Rigs are keyable in Sequencer or driven at runtime. Together with IK Rig and retargeting it sits at the center of the character animation pipeline."
+  },
+  {
+    "slug": "controlflows",
+    "kind": "plugin",
+    "cn": "ControlFlows 提供把异步操作写成清晰控制流（顺序、并行、分支）的工具库，避免回调地狱。ControlFlows 模块面向编辑器向导、登录或资源加载等异步流程。Experimental 工具，不是行为树，也不进游戏 AI。",
+    "en": "ControlFlows is a library for writing asynchronous work as explicit control flow—sequence, parallel, branch—without callback soup. The ControlFlows module targets editor wizards, login, or asset-load flows. It is an experimental utility, not a Behavior Tree and not game AI."
+  },
+  {
+    "slug": "controlrigdynamics",
+    "kind": "plugin",
+    "cn": "ControlRigDynamics 在 Control Rig 中加入轻量动力学与外观模拟，如发丝、饰品的二次运动，不走完整 Chaos 布料。ControlRigDynamicsEditor 在绑定图里配置这些节点。Experimental 下给绑定加化妆品级动态。",
+    "en": "ControlRigDynamics adds light dynamics and cosmetic simulation inside Control Rig—secondary motion on hair or props—without full Chaos cloth. ControlRigDynamicsEditor configures those nodes in the rig graph. Experimentally it is cosmetic dynamics on the rig."
+  },
+  {
+    "slug": "controlrigphysics",
+    "kind": "plugin",
+    "cn": "ControlRigPhysics 把物理模拟接入 Control Rig，让控制器或骨骼与 Chaos 刚体交互，而不只是外观弹簧。ControlRigPhysicsEditor 编辑物理节点与碰撞。它比 Dynamics 更接近真碰撞约束，仍属 Experimental 绑定扩展。",
+    "en": "ControlRigPhysics brings physics simulation into Control Rig so controls or bones can interact with Chaos rigid bodies, not only cosmetic springs. ControlRigPhysicsEditor authors physics nodes and collision. It is closer to real contact than Dynamics, still an experimental rig extension."
+  },
+  {
+    "slug": "conversationtoolset",
+    "kind": "plugin",
+    "cn": "ConversationToolset 向 AI 助手暴露对话系统的读写工具，用于检查或修改 Common Conversation 等对话图。它走 Experimental Toolset 注册表，不是运行时对话 UI。自动化可以列出节点、改分支条件而不打开对话编辑器。",
+    "en": "ConversationToolset exposes read and write tools for conversation systems so an AI assistant can inspect or edit graphs such as Common Conversation. It registers as an experimental toolset, not a runtime dialogue UI. Automation can list nodes and change branch conditions without opening the conversation editor."
+  },
+  {
+    "slug": "crashdiagnosticstoolset",
+    "kind": "plugin",
+    "cn": "CrashDiagnosticsToolset 让 AI 助手读取 CrashDiagnostics 记录的编辑器崩溃，并解释调用栈与上下文。它把崩溃报告变成助手可查询的工具，而不是 Crash Reporter 客户端。Experimental 下帮助排查编辑器稳定性，不进 Shipping 游戏。",
+    "en": "CrashDiagnosticsToolset lets the AI assistant read editor crashes recorded by CrashDiagnostics and explain stacks and context. It turns crash records into assistant-queryable tools, not the Crash Reporter client. Experimentally it helps editor stability work and does not ship in the game."
+  },
+  {
+    "slug": "cryptokeys",
+    "kind": "plugin",
+    "cn": "CryptoKeys 在编辑器里生成与管理 pak 签名和加密用的密钥，CryptoKeysOpenSSL 提供 OpenSSL 后端。打包加密内容前在此配置 Encryption Key。它是制作管线密钥工具，密钥材料不会作为玩法系统出现在游戏里。",
+    "en": "CryptoKeys generates and manages pak signing and encryption keys in the editor, with CryptoKeysOpenSSL as the OpenSSL backend. Configure the Encryption Key here before packaging encrypted content. It is a pipeline key tool; key material is not a gameplay system in the shipped game."
+  },
+  {
+    "slug": "curve-editor-tools",
+    "kind": "plugin",
+    "cn": "Curve Editor Tools 为曲线编辑器提供默认编辑工具：框选、刷子、滤波、关键帧操作等。CurveEditorTools 扩展 Sequencer 与曲线编辑器的工具栏。没有它，曲线编辑器只剩核心操纵，缺少这套常用工具。",
+    "en": "Curve Editor Tools supplies the default Curve Editor toolset: marquee, brush, filters, and key operations. CurveEditorTools extends the Sequencer and curve-editor toolbar. Without it the Curve Editor keeps core manipulation but loses this standard tool pack."
+  },
+  {
+    "slug": "custom-details-view",
+    "kind": "plugin",
+    "cn": "Custom Details View 为虚拟制片提供可定制的细节面板宿主，把选定对象的属性嵌到自定义布局里。CustomDetailsView 模块让操作员界面只露出镜头所需参数。它不定义新属性系统，只改变细节面板的呈现。",
+    "en": "Custom Details View hosts a customizable details panel for virtual production, embedding selected-object properties in a custom layout. CustomDetailsView lets operator UIs show only the parameters a shot needs. It does not invent a new property system; it changes how details are presented."
+  },
+  {
+    "slug": "custom-mesh-component",
+    "kind": "plugin",
+    "cn": "Custom Mesh Component 允许用 C++ 或蓝图提供顶点与三角形，生成可渲染的运行时网格组件。适合程序化网格、调试形状或简单动态几何。它不是 Procedural Mesh 的完整碰撞与截面工具集，而是轻量可渲染组件。",
+    "en": "Custom Mesh Component lets C++ or Blueprint supply vertices and triangles for a renderable runtime mesh component. Use it for procedural meshes, debug shapes, or simple dynamic geometry. It is not Procedural Mesh's full collision and section toolkit; it is a lightweight renderable component."
+  },
+  {
+    "slug": "customizable-sequencer-tracks-experimental",
+    "kind": "plugin",
+    "cn": "Customizable Sequencer Tracks 提供可蓝图化的 Sequencer 轨道类型，让项目在不写完整 Track Editor 插件的情况下加自定义轨道。Editor 模块注册轨道 UI。Experimental 库面向过场扩展，而不是内置 Transform 轨道。",
+    "en": "Customizable Sequencer Tracks is a library of Blueprintable Sequencer track types so a project can add custom tracks without a full Track Editor plugin. The Editor module registers track UI. The experimental library extends cinematics, not the built-in Transform track."
+  },
+  {
+    "slug": "d3d12-hardware-accelerated-video-decoding-plugin-for-the-electra-media-player",
+    "kind": "plugin",
+    "cn": "该插件为 Electra 播放器提供 Direct3D 12 Video 硬件解码，调用 GPU 厂商加速器解 H.264/HEVC 等。D3D12VideoDecodersElectra 只服务 Electra，不替换 WMF 或其它播放器后端。Windows D3D12 上播 4K 过场或直播时走这条解码路径。",
+    "en": "This plugin gives the Electra player Direct3D 12 Video hardware decode via GPU-vendor accelerators for H.264, HEVC, and similar codecs. D3D12VideoDecodersElectra serves Electra only and does not replace WMF or other player backends. Windows D3D12 4K cinematics or live video use this decode path."
+  },
+  {
+    "slug": "data-charts",
+    "kind": "plugin",
+    "cn": "Data Charts 根据 Data Table 生成图表资产，把数值表可视化成曲线或柱状图。DataChartsEditor 编辑图表样式与数据绑定。虚拟制片或工具项目用它在编辑器里看表格趋势，而不是运行时 HUD 统计。",
+    "en": "Data Charts builds chart assets from Data Tables so numeric tables become curves or bars. DataChartsEditor authors chart style and bindings. Virtual production and tooling use it to see table trends in the editor, not as a runtime HUD stat."
+  },
+  {
+    "slug": "data-driven-console-variables",
+    "kind": "plugin",
+    "cn": "Data-Driven Console Variables 允许在数据资产里声明 cvar 的名字、类型与默认值，启动时注册，编辑器中可热更新而无需重启。Editor 与 Tests 模块覆盖编辑和回归。程序员不必改 C++ 就能加新控制台变量定义。",
+    "en": "Data-Driven Console Variables declare cvar name, type, and default in Data Assets, register them at startup, and live-update in the editor without restart. Editor and Tests modules cover authoring and regression. Programmers can add new console variable definitions without a C++ change."
+  },
+  {
+    "slug": "data-registry",
+    "kind": "plugin",
+    "cn": "Data Registry 提供运行时从多源（数据表、资产、内存）按 ID 取结构体数据的统一接口。DataRegistryEditor 配置注册表与源。Gameplay 用它查物品、对话行或曲线，而不把所有表硬编码进子系统。",
+    "en": "Data Registry is a generic runtime interface for fetching struct data by ID from multiple sources—tables, assets, memory. DataRegistryEditor configures registries and sources. Gameplay looks up items, dialogue rows, or curves without hardcoding every table into a subsystem."
+  },
+  {
+    "slug": "data-validation",
+    "kind": "plugin",
+    "cn": "Data Validation 提供编辑器 UI 与工具，对资产运行 IsDataValid 等校验规则，在提交前抓住缺失引用或非法数值。DataValidation 模块可接入自动化与内容浏览器。它是制作期质量门，不在运行时拦截。",
+    "en": "Data Validation supplies editor UI and utilities that run IsDataValid-style rules on assets to catch missing references or illegal values before submit. The DataValidation module hooks automation and the Content Browser. It is an authoring quality gate, not a runtime interceptor."
+  },
+  {
+    "slug": "database-support",
+    "kind": "plugin",
+    "cn": "Database Support 提供抽象数据库访问层，让引擎工具以统一接口连接 SQL 类后端。DatabaseSupport 不绑定单一厂商驱动，具体实现由其它数据库插件补齐。用于编辑器或服务工具读外部表，而不是游戏存档。",
+    "en": "Database Support is an abstract database access layer so engine tools talk to SQL-style backends through one interface. DatabaseSupport does not bind a single vendor driver; other database plugins fill that in. Use it for editor or service tools reading external tables, not game save files."
+  },
+  {
+    "slug": "dataflow-stroke-field",
+    "kind": "plugin",
+    "cn": "Dataflow Stroke Field 允许在构建视口上手绘方向、权重和弧长场，再作为场数据进入 Dataflow 图。Editor 模块处理笔刷与视口绘制。布料流向、生长方向等程序化效果用笔画场驱动，而不是纯噪声纹理。",
+    "en": "Dataflow Stroke Field lets you hand-draw direction, weight, and arc-length fields over the construction viewport and feed them into Dataflow. The Editor module owns the brush and viewport stroke. Procedural cloth flow or growth directions can be stroke-driven instead of pure noise textures."
+  },
+  {
+    "slug": "dataflowagent",
+    "kind": "plugin",
+    "cn": "DataflowAgent 向 AI 代理开放编辑 Dataflow 图的工具：增删节点、连线、改参数。它走 Experimental Toolset，让助手搭建或修复程序化图。与 Dataflow 编辑器 UI 并行，一个给人拖节点，一个给代理调 API。",
+    "en": "DataflowAgent exposes AI-agent tools for editing Dataflow graphs: add or remove nodes, wires, and parameters. It is an experimental toolset so an assistant can build or repair procedural graphs. It parallels the Dataflow editor UI: one is drag-drop, the other is agent API."
+  },
+  {
+    "slug": "dataflowvolumetric",
+    "kind": "plugin",
+    "cn": "DataflowVolumetric 为 Dataflow 增加体积数据核心与节点（DataflowVolumeCore、DataflowVolumeNodes），在图里处理体素、SDF 或密度场。程序化岩石、云或破碎体积可在图内运算。它扩展 Dataflow 数据类型，不是独立体积渲染引擎。",
+    "en": "DataflowVolumetric adds volumetric cores and nodes (DataflowVolumeCore, DataflowVolumeNodes) so Dataflow graphs can process voxels, SDFs, or density fields. Procedural rock, cloud, or fracture volumes can compute in-graph. It extends Dataflow data types rather than shipping a separate volume renderer."
+  },
+  {
+    "slug": "dataprep-editor",
+    "kind": "plugin",
+    "cn": "Dataprep Editor 在编辑器内创建并执行数据准备管线：过滤、合并、替材质、减面后再导入场景。DataprepCore 与 Libraries 提供操作，ScriptingUtilities 供脚本调用。企业 CAD 与建筑资源常用它在进关卡前清洗数据。",
+    "en": "Dataprep Editor authors and runs data-prep pipelines in the editor: filter, merge, replace materials, and decimate before a scene lands. DataprepCore and Libraries implement operations; ScriptingUtilities expose them to script. Enterprise CAD and architectural assets use it to sanitize data before the level."
+  },
+  {
+    "slug": "dataprep-geometry-operations",
+    "kind": "plugin",
+    "cn": "Dataprep Geometry Operations 向 Dataprep 管线加入实验性几何处理操作，如布尔、重网格、修复法线等。DataprepGeometryOperations 扩展操作库，不提供独立编辑器。CAD 网格需要几何修复时在 Dataprep 图里调用这些节点。",
+    "en": "Dataprep Geometry Operations adds experimental geometry ops to Dataprep pipelines—booleans, remesh, normal repair. DataprepGeometryOperations extends the operator library and does not ship a standalone editor. CAD meshes that need geometric repair call these nodes inside a Dataprep graph."
+  },
+  {
+    "slug": "dataregistrytoolset",
+    "kind": "plugin",
+    "cn": "DataRegistryToolset 让 AI 助手查询与检查 Data Registry 的表、ID 与源配置。它是 Toolset 检查侧，不替代 DataRegistry 运行时取数。自动化可用它核对物品 ID 是否注册，而不打开注册表编辑器。",
+    "en": "DataRegistryToolset lets an AI assistant query and inspect Data Registry tables, IDs, and source setup. It is the toolset inspect side, not a replacement for runtime DataRegistry fetches. Automation can verify that item IDs are registered without opening the registry editor."
+  }
+]

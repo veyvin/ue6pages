@@ -1,0 +1,416 @@
+[
+  {
+    "slug": "windows-mixed-reality-controller-keys",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Windows Mixed Reality Controller Keys`（模块 `MixedRealityControllerKeys`）。",
+      "它定义 Windows Mixed Reality 控制器的输入键（`MixedReality_*` FKey），只依赖 InputCore。",
+      "无需 OpenXR 映射即可引用这些键（如 Pixel Streaming 场景）。",
+      "轻量按键定义插件；供需要这些键的模块引用。"
+    ],
+    "en_steps": [
+      "Enable `Windows Mixed Reality Controller Keys` (module `MixedRealityControllerKeys`).",
+      "It defines the Windows Mixed Reality controller input keys (`MixedReality_*` FKeys), depending only on InputCore.",
+      "These keys can be referenced without OpenXR mapping (e.g. Pixel Streaming scenarios).",
+      "A lightweight key-definition plugin; referenced by modules that need these keys."
+    ],
+    "note_cn": "Windows Mixed Reality 输入键定义（仅依赖 InputCore）。",
+    "note_en": "Windows Mixed Reality input-key definitions (InputCore-only)."
+  },
+  {
+    "slug": "windows-movie-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Windows Movie Player`（模块 `WindowsMoviePlayer`）。",
+      "它使用 Media Foundation 的 Windows 专用电影播放器。",
+      "在 Windows 上播放影片/媒体（如开场动画）。",
+      "运行时模块；Windows 平台专用。"
+    ],
+    "en_steps": [
+      "Enable `Windows Movie Player` (module `WindowsMoviePlayer`).",
+      "It is a Windows-specific movie player using Media Foundation.",
+      "Play movies/media on Windows (e.g. startup cinematics).",
+      "A runtime module; Windows-platform only."
+    ],
+    "note_cn": "使用 Media Foundation 的 Windows 专用电影播放器。",
+    "note_en": "A Windows-specific movie player using Media Foundation."
+  },
+  {
+    "slug": "windows-rawinput",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Windows RawInput`（模块 `RawInput`）。",
+      "RawInput 提供接口接收 Windows 中飞行摇杆、方向盘等不支持 XInput 的设备的输入。",
+      "在飞行模拟/驾驶类项目里用 RawInput 读取专用控制器。",
+      "Experimental：接口可能变动；Windows 平台。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Windows RawInput` (module `RawInput`).",
+      "RawInput provides an interface to receive input from Windows flight sticks, wheels, and other non-XInput devices.",
+      "In flight-sim/driving projects, use RawInput to read specialized controllers.",
+      "Experimental: contract may change; Windows platform."
+    ],
+    "note_cn": "Windows 中飞行摇杆/方向盘等非 XInput 设备的输入接口，实验性。",
+    "note_en": "Windows RawInput interface for flight sticks/wheels and other non-XInput devices, experimental."
+  },
+  {
+    "slug": "windows-virtual-keyboard",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Windows Virtual Keyboard`（模块 `WinVirtualKeyboard`）。",
+      "它提供 Windows 虚拟键盘支持（触摸/无实体键盘时输入）。",
+      "在 Windows 设备上弹出系统虚拟键盘进行文本输入。",
+      "运行时模块；需 Windows 11 26100.5061 或更高版本。"
+    ],
+    "en_steps": [
+      "Enable `Windows Virtual Keyboard` (module `WinVirtualKeyboard`).",
+      "It provides Windows virtual-keyboard support (text input via touch/no physical keyboard).",
+      "Pop up the system virtual keyboard for text entry on Windows devices.",
+      "A runtime module; requires Windows 11 26100.5061 or later."
+    ],
+    "note_cn": "Windows 虚拟键盘支持（需 Win11 26100.5061+）。",
+    "note_en": "Windows virtual-keyboard support (needs Win11 26100.5061+)."
+  },
+  {
+    "slug": "wizard-for-mobile-packaging-scenarios",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Wizard for mobile packaging scenarios`（模块 `MobileLauncherProfileWizard`）。",
+      "它提供移动打包场景向导（配置 Android/iOS 打包选项）。",
+      "在编辑器里用向导生成移动端打包配置。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Wizard for mobile packaging scenarios` (module `MobileLauncherProfileWizard`).",
+      "It provides a mobile packaging scenario wizard (configure Android/iOS packaging options).",
+      "Use the wizard in the editor to generate mobile packaging configs.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "移动打包场景向导。",
+    "note_en": "A mobile packaging scenario wizard."
+  },
+  {
+    "slug": "wmf-media-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `WMF Media Player`（模块 `WmfMedia`、`WmfMediaFactory`，编辑器 `WmfMediaEditor`）。",
+      "它使用 Windows Media Foundation 框架实现媒体播放器。",
+      "在 Media Player 里用 WMF 源播放视频/音频（Windows 平台）。",
+      "Game 模块依赖运行时模块；编辑器/工厂模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `WMF Media Player` (modules `WmfMedia`, `WmfMediaFactory`, editor `WmfMediaEditor`).",
+      "It implements a media player using the Windows Media Foundation framework.",
+      "Play video/audio via a WMF source in a Media Player (Windows platform).",
+      "Game modules depend on runtime modules; editor/factory modules go to Editor targets only."
+    ],
+    "note_cn": "使用 Windows Media Foundation 的媒体播放器。",
+    "note_en": "A media player using Windows Media Foundation."
+  },
+  {
+    "slug": "wmfcodecs",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `WMFCodecs`（模块 `WMFCodecs`）。",
+      "它把 Windows Media Foundation 的编解码器加入 AVCodecs（Windows 平台编解码）。",
+      "在录制/解码流程里用 WMF 编解码。",
+      "Experimental：接口可能变动；Windows 平台。"
+    ],
+    "en_steps": [
+      "Enable Experimental `WMFCodecs` (module `WMFCodecs`).",
+      "It adds Windows Media Foundation codecs to AVCodecs (Windows-platform codecs).",
+      "Use WMF codecs in recording/decoding flows.",
+      "Experimental: contract may change; Windows platform."
+    ],
+    "note_cn": "把 Windows Media Foundation 编解码加入 AVCodecs，实验性。",
+    "note_en": "Adds Windows Media Foundation codecs to AVCodecs, experimental."
+  },
+  {
+    "slug": "workspace",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Workspace`（模块 `WorkspaceEditor`）。",
+      "它是编辑器框架，允许在统一的工作区 UI 中编辑多个资产。",
+      "在 Workspace 里并在同一 UI 编辑相关资产，提升工作流效率。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Workspace` (module `WorkspaceEditor`).",
+      "It is an editor framework letting you edit multiple assets in a unified workspace UI.",
+      "Edit related assets side-by-side in a Workspace to improve workflow efficiency.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "在统一工作区 UI 中编辑多个资产的编辑器框架。",
+    "note_en": "An editor framework to edit multiple assets in a unified workspace UI."
+  },
+  {
+    "slug": "world-conditions",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `World Conditions`（运行时 `WorldConditions`，编辑器 `WorldConditionsEditor`，测试 `WorldConditionsTestSuite`）。",
+      "它提供通用缓存条件（可在世界上下文里评估的条件，带缓存）。",
+      "用 World Conditions 在玩法/系统里按条件切换行为。",
+      "Game 模块依赖运行时模块；编辑器/测试模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `World Conditions` (runtime `WorldConditions`, editor `WorldConditionsEditor`, tests `WorldConditionsTestSuite`).",
+      "It provides general cached conditions (conditions evaluated in the world context, with caching).",
+      "Use World Conditions to switch behavior by conditions in gameplay/systems.",
+      "Game modules depend on runtime modules; editor/test modules go to Editor targets only."
+    ],
+    "note_cn": "通用缓存条件（世界上下文评估）。",
+    "note_en": "General cached conditions (evaluated in world context)."
+  },
+  {
+    "slug": "world-metrics",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `World Metrics`（模块 `WorldMetricsCore`、`CsvMetrics`，测试 `WorldMetricsTest`）。",
+      "它提供对世界指标系统的访问（采集/统计世界中的度量）。",
+      "用 World Metrics 采集玩法/系统指标并导出（如 CSV）。",
+      "Game 模块依赖运行时模块；测试模块不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable `World Metrics` (modules `WorldMetricsCore`, `CsvMetrics`, tests `WorldMetricsTest`).",
+      "It provides access to the world metrics system (collect/aggregate metrics in the world).",
+      "Use World Metrics to collect gameplay/system metrics and export (e.g. CSV).",
+      "Game modules depend on runtime modules; keep the test module out of production."
+    ],
+    "note_cn": "访问世界指标系统（采集/导出度量）。",
+    "note_en": "Access to the world metrics system (collect/export metrics)."
+  },
+  {
+    "slug": "world-partition-hlod-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `World Partition HLOD Utilities`（模块 `WorldPartitionHLODUtilities`）。",
+      "它提供编辑器实用程序类与 HLOD 图层资源类型。",
+      "在大世界 World Partition 里用其工具/HLOD 图层搭建分层 LOD。",
+      "这是编辑器工具，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `World Partition HLOD Utilities` (module `WorldPartitionHLODUtilities`).",
+      "It provides editor utility classes and HLOD layer asset types.",
+      "In large-world World Partition, use its tools/HLOD layers to set up hierarchical LODs.",
+      "It is an editor tool for Editor targets only; it does not ship."
+    ],
+    "note_cn": "World Partition 的 HLOD 实用程序/图层资源类型。",
+    "note_en": "World Partition HLOD utilities/HLOD layer asset types."
+  },
+  {
+    "slug": "world-streaming-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `World Streaming Insights`（模块 `WorldStreamingInsights`）。",
+      "它是用于分析、调试与监控世界中世界流送(world streaming)各环节的工具套件。",
+      "启动相关 trace 后分析流送加载/卸载行为。",
+      "属 Insights/Trace 分析工具。"
+    ],
+    "en_steps": [
+      "Enable `World Streaming Insights` (module `WorldStreamingInsights`).",
+      "It is a tool suite to analyze, debug, and monitor aspects of world streaming in the engine.",
+      "After starting the relevant trace, analyze streaming load/unload behavior.",
+      "It is an Insights/Trace analysis tool."
+    ],
+    "note_cn": "分析/调试/监控世界流送的工具套件。",
+    "note_en": "A tool suite for analyzing/debugging/monitoring world streaming."
+  },
+  {
+    "slug": "worldconditionstoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `WorldConditionsToolset`（模块 `WorldConditionsToolset`）。",
+      "它提供 WorldConditions 检查工具集（供 AI 助手/自动化读取条件配置）。",
+      "用其工具检查 WorldConditions 内容排查逻辑。",
+      "Experimental：接口可能变动；属 AI 工具链/编辑器自动化。"
+    ],
+    "en_steps": [
+      "Enable Experimental `WorldConditionsToolset` (module `WorldConditionsToolset`).",
+      "It provides a WorldConditions inspection toolset (for AI assistants/automation to read condition config).",
+      "Use its tools to inspect WorldConditions content and troubleshoot logic.",
+      "Experimental: contract may change; part of AI toolchain/editor automation."
+    ],
+    "note_cn": "WorldConditions 检查工具集，实验性。",
+    "note_en": "A WorldConditions inspection toolset, experimental."
+  },
+  {
+    "slug": "xcode-gpu-debugger-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Xcode GPU Debugger Plugin`（模块 `XcodeGPUDebuggerPlugin`）。",
+      "它提供 Xcode GPU 调试器集成（在 Apple 平台调试 GPU）。",
+      "在 macOS 上用其集成把 GPU 工作捕获到 Xcode 调试。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Xcode GPU Debugger Plugin` (module `XcodeGPUDebuggerPlugin`).",
+      "It provides Xcode GPU debugger integration (debug GPU on Apple platforms).",
+      "On macOS, use its integration to capture GPU work into the Xcode debugger.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "Xcode GPU 调试器集成。",
+    "note_en": "Xcode GPU debugger integration."
+  },
+  {
+    "slug": "xcode-integration",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `XCode Integration`（模块 `XCodeSourceCodeAccess`）。",
+      "它允许在 Xcode 中访问/打开项目源代码。",
+      "在编辑器里把源代码访问器设为 Xcode，一键打开文件。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `XCode Integration` (module `XCodeSourceCodeAccess`).",
+      "It allows accessing/opening project source in Xcode.",
+      "Set the source-code accessor to Xcode in the editor to open files in one click.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "在 Xcode 中访问项目源代码。",
+    "note_en": "Access project source in Xcode."
+  },
+  {
+    "slug": "xge-controller",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `XGE Controller`（模块 `XGEController`），类别 Build Distribution。",
+      "它添加对使用 XGE 的着色器编译分发的支持。",
+      "在分布式构建/编译里启用 XGE 加速着色器编译。",
+      "属构建加速扩展；CI/团队构建用。"
+    ],
+    "en_steps": [
+      "Enable `XGE Controller` (module `XGEController`), category Build Distribution.",
+      "It adds support for shader-compile distribution using XGE.",
+      "Enable XGE in distributed build/compile setups to accelerate shader compilation.",
+      "It is a build-acceleration extension; used in CI/team builds."
+    ],
+    "note_cn": "用 XGE 加速着色器编译分发的支持。",
+    "note_en": "Shader-compile distribution support via XGE."
+  },
+  {
+    "slug": "xinput-device",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `XInput Device`（模块 `XInputDevice`）。",
+      "XInput 是适用于 Windows 的游戏控制器 API（Xbox 手柄等）。",
+      "在 Windows 上用 XInput 手柄，接入输入系统。",
+      "运行时模块；Windows 平台专用。"
+    ],
+    "en_steps": [
+      "Enable `XInput Device` (module `XInputDevice`).",
+      "XInput is the game-controller API for Windows (Xbox controllers, etc.).",
+      "Use an XInput gamepad on Windows and bring it into the input system.",
+      "A runtime module; Windows-platform only."
+    ],
+    "note_cn": "适用于 Windows 的 XInput 游戏控制器 API。",
+    "note_en": "The XInput game-controller API for Windows."
+  },
+  {
+    "slug": "xr-creative-framework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `XR Creative Framework`（运行时 `XRCreative`，编辑器 `XRCreativeEditor`）。",
+      "它提供 XR 创作框架（在 VR/XR 里做创作/编辑的工具集，插件无官方描述，按用途使用）。",
+      "在 VR 头显里进行场景创作/编辑。",
+      "Experimental：接口可能变动；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `XR Creative Framework` (runtime `XRCreative`, editor `XRCreativeEditor`).",
+      "It provides an XR creative framework (tools to author/edit in VR/XR; no official description, follow usage).",
+      "Do scene authoring/editing inside a VR headset.",
+      "Experimental: contract may change; editor modules go to Editor targets only."
+    ],
+    "note_cn": "XR 创作框架（在 VR/XR 里创作/编辑），实验性。",
+    "note_en": "An XR creative framework (author/edit in VR/XR), experimental."
+  },
+  {
+    "slug": "xrbase",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `XRBase`（运行时 `XRBase`，编辑器 `XRBaseEditor`）。",
+      "它是 XR 基本功能实现（通常被需要它的其它插件自动启用）。",
+      "作为 XR 相关插件的底层依赖，一般无需手动启停。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `XRBase` (runtime `XRBase`, editor `XRBaseEditor`).",
+      "It is the XR base feature implementation (usually auto-enabled by another plugin that needs it).",
+      "A low-level dependency for XR-related plugins; generally no need to toggle manually.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "XR 基本功能实现（常被依赖插件自动启用）。",
+    "note_en": "XR base feature implementation (often auto-enabled by a dependent plugin)."
+  },
+  {
+    "slug": "xrscribe",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `XRScribe`（模块 `XRScribe`）。",
+      "它提供 OpenXR API 捕获/仿真能力。",
+      "在调试/验证 XR 应用时捕获/回放 OpenXR 调用。",
+      "运行时模块；属 XR 调试工具。"
+    ],
+    "en_steps": [
+      "Enable `XRScribe` (module `XRScribe`).",
+      "It provides OpenXR API capture/emulation capability.",
+      "Capture/replay OpenXR calls when debugging/validating XR apps.",
+      "A runtime module; an XR debug tool."
+    ],
+    "note_cn": "OpenXR API 捕获/仿真。",
+    "note_en": "OpenXR API capture/emulation."
+  },
+  {
+    "slug": "xrvisualization",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `XRVisualization`（模块 `XRVisualization`），类别 Mixed Reality。",
+      "它是 XR HMD 与控制器可视化的库（显示头显/手柄模型与追踪）。",
+      "在 XR 项目里用其可视化显示设备/控制器。",
+      "运行时模块；用于 XR 设备可视化。"
+    ],
+    "en_steps": [
+      "Enable `XRVisualization` (module `XRVisualization`), category Mixed Reality.",
+      "It is a library to visualize XR HMDs and controllers (display headset/controller models and tracking).",
+      "Use its visualization to display devices/controllers in XR projects.",
+      "A runtime module; for XR device visualization."
+    ],
+    "note_cn": "XR HMD 与控制器的可视化库。",
+    "note_en": "An XR HMD/controller visualization library."
+  },
+  {
+    "slug": "zonegraph-annotations",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ZoneGraph Annotations`（模块 `ZoneGraphAnnotations`）。",
+      "它提供区域图(ZoneGraph)的注释（在 ZoneGraph 上标注信息，供 AI/寻路使用）。",
+      "在基于 ZoneGraph 的 AI 寻路里用注释标记区域属性。",
+      "运行时模块；配合 ZoneGraph 使用。"
+    ],
+    "en_steps": [
+      "Enable `ZoneGraph Annotations` (module `ZoneGraphAnnotations`).",
+      "It provides annotations for ZoneGraph (mark information on zones for AI/pathing).",
+      "In ZoneGraph-based AI pathing, use annotations to mark zone properties.",
+      "A runtime module; used with ZoneGraph."
+    ],
+    "note_cn": "区域图(ZoneGraph)的注释。",
+    "note_en": "Annotations for ZoneGraph."
+  },
+  {
+    "slug": "zonegraph",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ZoneGraph`（运行时 `ZoneGraph`，编辑器 `ZoneGraphEditor`，测试 `ZoneGraphTestSuite`，`ZoneGraphDebug`）。",
+      "它是区域图系统（为 AI/人群提供沿通道/车道的高效移动与寻路图）。",
+      "用 ZoneGraph 搭建车道/通道图，驱动 AI/车辆/人群移动。",
+      "Game 模块依赖运行时模块；编辑器/测试/调试模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `ZoneGraph` (runtime `ZoneGraph`, editor `ZoneGraphEditor`, tests `ZoneGraphTestSuite`, `ZoneGraphDebug`).",
+      "It is the ZoneGraph system (an efficient movement/pathing graph of lanes/corridors for AI/crowds).",
+      "Build lane/corridor graphs with ZoneGraph to drive AI/vehicle/crowd movement.",
+      "Game modules depend on runtime modules; editor/test/debug modules go to Editor targets only."
+    ],
+    "note_cn": "为 AI/人群提供通道图移动与寻路的区域图系统。",
+    "note_en": "A lane/corridor graph system for AI/crowd movement and pathing."
+  }
+]

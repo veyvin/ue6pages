@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "rig-mapper",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Rig Mapper`（模块 `RigMapperEditor`、`RigMapper`、`RigMapperDeveloper`）。",
+      "它提供一组动画重映射功能（把曲线/骨骼映射到另一套绑定）。",
+      "用 Rig Mapper 定义映射，再接到重定向或动画混合流程。",
+      "属实验性动画工具；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Rig Mapper` (modules `RigMapperEditor`, `RigMapper`, `RigMapperDeveloper`).",
+      "It provides a set of animation remapping features (map curves/bones onto another rig).",
+      "Author a Rig Mapper definition, then feed it into retargeting or animation-mix flows.",
+      "It is an experimental animation tool; editor modules are Editor-target only."
+    ],
+    "note_cn": "动画曲线/骨骼重映射工具集。",
+    "note_en": "Animation remapping features (curves/bones onto another rig)."
+  },
+  {
+    "slug": "riglogic-for-uaf",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RigLogic for UAF`（模块 `RigLogicUAF`、`RigLogicUAFUncookedOnly`）。",
+      "它把 RigLogic 面部解算接到 Unreal Animation Framework (UAF)。",
+      "在 UAF 角色管线里驱动 DNA/面部，而不是只走旧 AnimBP 路径。",
+      "需 RigLogic 主插件；未煮熟模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `RigLogic for UAF` (modules `RigLogicUAF`, `RigLogicUAFUncookedOnly`).",
+      "It wires RigLogic facial evaluation into the Unreal Animation Framework (UAF).",
+      "Drive DNA/face on UAF character pipelines instead of only the legacy AnimBP path.",
+      "Requires the main RigLogic plugin; uncooked modules are Editor-target only."
+    ],
+    "note_cn": "把 RigLogic 面部解算接到 UAF。",
+    "note_en": "RigLogic facial evaluation for UAF."
+  },
+  {
+    "slug": "riglogic-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RigLogic Plugin`（模块 `RigLogicLib`、`RigLogicLibTest`、`RigLogicModule`、`RigLogicDeveloper`、`RigLogicEditor`）。",
+      "它是面部动画的 RigLogic 运行时（DNA 驱动的面部解算，常用于 MetaHuman）。",
+      "把 DNA 资产接到骨骼网格，运行时由 RigLogic 解算面部。",
+      "Game 模块依赖 `RigLogicModule`；编辑器/测试模块只进对应 Target。"
+    ],
+    "en_steps": [
+      "Enable `RigLogic Plugin` (modules `RigLogicLib`, `RigLogicLibTest`, `RigLogicModule`, `RigLogicDeveloper`, `RigLogicEditor`).",
+      "It is the RigLogic runtime for facial animation (DNA-driven face eval, commonly MetaHuman).",
+      "Attach a DNA asset to a skeletal mesh; RigLogic evaluates the face at runtime.",
+      "Game modules depend on `RigLogicModule`; editor/test modules go to matching targets only."
+    ],
+    "note_cn": "面部动画 RigLogic 运行时（DNA/MetaHuman）。",
+    "note_en": "RigLogic runtime for facial animation (DNA/MetaHuman)."
+  },
+  {
+    "slug": "rigmapper-op",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RigMapper Op`（模块 `RigMapperOp`）。",
+      "它是用 RigMapper 定义重映射曲线的实验性 Retarget Op。",
+      "在重定向图里加入该 Op，按 RigMapper 定义改曲线。",
+      "属实验性重定向扩展；需 Rig Mapper。"
+    ],
+    "en_steps": [
+      "Enable `RigMapper Op` (module `RigMapperOp`).",
+      "It is an experimental Retarget Op that remaps curves using RigMapper definitions.",
+      "Add this op in a retarget graph to remap curves from a RigMapper definition.",
+      "It is an experimental retarget extension; requires Rig Mapper."
+    ],
+    "note_cn": "用 RigMapper 定义重映射曲线的 Retarget Op。",
+    "note_en": "Retarget Op that remaps curves via RigMapper definitions."
+  },
+  {
+    "slug": "rigvm-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RigVM Tests`（测试内容插件，无独立运行时模块列表）。",
+      "它是 RigVM 图模型的 MTF 测试。",
+      "跑这些测试来校验 RigVM 图的前端/后端行为。",
+      "属测试插件；需 RigVM。"
+    ],
+    "en_steps": [
+      "Enable `RigVM Tests` (test-content plugin; no separate runtime module list).",
+      "It is MTF tests for the RigVM graph model.",
+      "Run these tests to validate RigVM graph frontend/backend behavior.",
+      "It is a test plugin; requires RigVM."
+    ],
+    "note_cn": "RigVM 图模型的 MTF 测试。",
+    "note_en": "MTF tests for the RigVM graph model."
+  },
+  {
+    "slug": "rigvm",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RigVM`（模块 `RigVM`、`RigVMDeveloper`、`RigVMEditor`）。",
+      "它提供 RigVM 可视化编程语言与运行时的前端和后端（Control Rig 等的虚拟机）。",
+      "作为 Control Rig / Rig 图的底层依赖，一般不要单独当游戏功能开关。",
+      "Game 模块依赖 `RigVM`；开发者/编辑器模块只进对应 Target。"
+    ],
+    "en_steps": [
+      "Enable `RigVM` (modules `RigVM`, `RigVMDeveloper`, `RigVMEditor`).",
+      "It provides the frontend and backend for the RigVM visual language and runtime (the VM behind Control Rig and similar graphs).",
+      "A low-level dependency for Control Rig / rig graphs; not a gameplay toggle by itself.",
+      "Game modules depend on `RigVM`; developer/editor modules go to matching targets only."
+    ],
+    "note_cn": "RigVM 可视化语言与运行时的前端/后端。",
+    "note_en": "Frontend and backend for the RigVM visual language and runtime."
+  },
+  {
+    "slug": "rivermaxcore",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RivermaxCore`（模块 `RivermaxCore`、`RivermaxEditor`、`RivermaxRendering`）。",
+      "它是把 NVIDIA Rivermax 暴露给引擎的基础插件（高质量、低延迟的视频/数据网卡传输）。",
+      "在虚拟制片 SMPTE 2110/Rivermax 工作流里作为底层依赖启用。",
+      "属 VP/IO 基础层；需 Rivermax 驱动与网卡。"
+    ],
+    "en_steps": [
+      "Enable `RivermaxCore` (modules `RivermaxCore`, `RivermaxEditor`, `RivermaxRendering`).",
+      "It is the base plugin exposing NVIDIA Rivermax to the engine (high-quality, low-latency NIC video/data transport).",
+      "Enable it as a low-level dependency in virtual-production SMPTE 2110/Rivermax workflows.",
+      "It is a VP/IO foundation layer; requires Rivermax drivers and NIC."
+    ],
+    "note_cn": "把 NVIDIA Rivermax 暴露给引擎的基础插件。",
+    "note_en": "Base plugin exposing NVIDIA Rivermax to the engine."
+  },
+  {
+    "slug": "rtsp-media",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `RTSP Media`（运行时 `RTSPMedia`，编辑器 `RTSPMediaEditor`）。",
+      "它通过 RTSP 协议做实时媒体流（拉流到 Media Framework）。",
+      "创建 RTSP Media Source，填 URL，在关卡里播实时摄像头/编码器流。",
+      "属媒体播放扩展；需 Media Framework。"
+    ],
+    "en_steps": [
+      "Enable `RTSP Media` (runtime `RTSPMedia`, editor `RTSPMediaEditor`).",
+      "It does real-time media streaming via RTSP (pull into Media Framework).",
+      "Create an RTSP Media Source, set the URL, and play live camera/encoder streams in a level.",
+      "It is a media-playback extension; requires Media Framework."
+    ],
+    "note_cn": "经 RTSP 拉实时媒体流到引擎。",
+    "note_en": "Real-time media streaming into the engine via RTSP."
+  },
+  {
+    "slug": "runtime-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Runtime Tests`（模块 `RuntimeTests`）。",
+      "它对编辑器和煮熟包都会用到的运行时代码做自动化测试。",
+      "跑这些测试来校验运行时在 Editor 与 cooked 两种环境下的行为。",
+      "属测试插件；不要当 Shipping 玩法。"
+    ],
+    "en_steps": [
+      "Enable `Runtime Tests` (module `RuntimeTests`).",
+      "It is automated tests for runtime code used in both editor and cooked builds.",
+      "Run these tests to validate runtime behavior in Editor and cooked environments.",
+      "It is a test plugin; not a shipping gameplay feature."
+    ],
+    "note_cn": "覆盖 Editor 与 cooked 运行时的自动化测试。",
+    "note_en": "Automated tests for runtime code in editor and cooked builds."
+  },
+  {
+    "slug": "sample-mesh-reconstructor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sample Mesh Reconstructor`（模块 `DummyMeshReconstructor`）。",
+      "它演示如何驱动网格重建：生成虚拟几何来展示 API 用法。",
+      "把它当示例参考去接自己的网格重建，而不是当生产重建器。",
+      "属示例插件；不要当 Shipping 网格方案。"
+    ],
+    "en_steps": [
+      "Enable `Sample Mesh Reconstructor` (module `DummyMeshReconstructor`).",
+      "It is a sample of how to drive mesh reconstruction: it generates dummy geometry to show the API.",
+      "Treat it as a reference when wiring your own reconstructor, not as a production reconstructor.",
+      "It is a sample plugin; not a shipping mesh solution."
+    ],
+    "note_cn": "网格重建 API 的示例（生成虚拟几何）。",
+    "note_en": "Sample mesh-reconstruction API (dummy geometry)."
+  },
+  {
+    "slug": "sample-tools-editor-mode",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sample Tools Editor Mode`（模块 `SampleToolsEditorMode`）。",
+      "它包含一组示例工具，展示 Interactive Tools Framework 的能力。",
+      "在编辑器 Modes 里打开 Sample Tools，对照实现再写自己的交互工具。",
+      "属编辑器示例；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Sample Tools Editor Mode` (module `SampleToolsEditorMode`).",
+      "It includes a set of sample tools demonstrating the Interactive Tools Framework.",
+      "Open Sample Tools in editor Modes and use the implementations as a starting point for your own tools.",
+      "It is an editor sample; it does not ship by default."
+    ],
+    "note_cn": "展示 Interactive Tools Framework 的示例编辑器模式。",
+    "note_en": "Sample editor mode demonstrating the Interactive Tools Framework."
+  },
+  {
+    "slug": "sandboxes",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sandboxes`（模块 `SandboxedEditing`）。",
+      "它允许在沙箱环境中编辑文件，改完的文件可以写回主项目。",
+      "在试验性编辑时先在沙箱里改，确认后再持久化到主工程。",
+      "属编辑器工作流插件；默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Sandboxes` (module `SandboxedEditing`).",
+      "It allows editing files in sandbox environments; edited files can be persisted into the main project.",
+      "Try experimental edits in a sandbox first, then persist into the main project when confirmed.",
+      "It is an editor-workflow plugin; it does not ship by default."
+    ],
+    "note_cn": "在沙箱里编辑文件，确认后再写回主项目。",
+    "note_en": "Edit files in sandboxes, then persist into the main project."
+  },
+  {
+    "slug": "scene-capture-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Scene Capture Toolset`（模块 `SceneCaptureToolset`）。",
+      "它提供视口视频录制、场景诊断、游戏帧缓冲捕获和编辑器相机捕获。",
+      "通过 AI 工具集注册表调用这些捕获工具，而不是当 Shipping 功能。",
+      "属 Toolset；一般不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable `Scene Capture Toolset` (module `SceneCaptureToolset`).",
+      "It provides viewport video recording, scene diagnostics, game framebuffer capture, and editor-camera capture.",
+      "Call these capture tools via the AI Toolset Registry; not a shipping gameplay feature.",
+      "It is a Toolset; typically not shipped in a cooked game."
+    ],
+    "note_cn": "视口/帧缓冲/编辑器相机捕获的 AI 工具集。",
+    "note_en": "AI toolset for viewport/framebuffer/editor-camera capture."
+  },
+  {
+    "slug": "scenegraphtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SceneGraphToolset`（模块 `SceneGraphToolset`）。",
+      "它通过 AI 工具集注册表只读检查场景图（实体预制件、放置实体、继承链和属性覆盖）。",
+      "给编辑器 AI 助手查询场景图结构，而不是当 Shipping 功能。",
+      "属实验性只读 Toolset。"
+    ],
+    "en_steps": [
+      "Enable `SceneGraphToolset` (module `SceneGraphToolset`).",
+      "It inspects the Scene Graph read-only via the AI Toolset Registry (entity prefabs, placed entities, inheritance, property overrides).",
+      "Let the in-editor AI assistant query scene-graph structure; not a shipping gameplay feature.",
+      "It is an experimental read-only Toolset."
+    ],
+    "note_cn": "只读检查场景图的 AI 工具集。",
+    "note_en": "Read-only AI toolset to inspect the Scene Graph."
+  },
+  {
+    "slug": "screenreader",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `ScreenReader`（模块 `ScreenReader`）。",
+      "它包含可扩展的无障碍类和框架，用于提供视觉辅助服务。",
+      "在此基础上接系统读屏或自定义语音反馈，而不是从零写无障碍层。",
+      "属无障碍基础框架；按产品需求扩展。"
+    ],
+    "en_steps": [
+      "Enable `ScreenReader` (module `ScreenReader`).",
+      "It contains accessibility classes and frameworks that can be extended to offer vision accessibility services.",
+      "Build system screen-reader or custom speech feedback on top of it instead of writing the a11y layer from scratch.",
+      "It is an accessibility foundation framework; extend per product need."
+    ],
+    "note_cn": "可扩展的视觉无障碍/读屏框架。",
+    "note_en": "Extensible vision-accessibility / screen-reader framework."
+  }
+]

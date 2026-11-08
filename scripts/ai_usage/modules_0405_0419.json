@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "kismetwidgets",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`KismetWidgets` 位于 `Editor`，构建规则 `Editor/KismetWidgets/KismetWidgets.Build.cs`。它直接依赖 8 个模块：`BlueprintGraph`, `ClassViewer`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"KismetWidgets\" });`；对外暴露 `KismetWidgets` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`KismetWidgets` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `KismetWidgets.h` / `KismetWidgetsModule.h`），再用 `FModuleManager::LoadModulePtr<KismetWidgetsModule>` 或直接使用导出类型。",
+      "传递依赖：`KismetWidgets` 还依赖 `BlueprintGraph`, `ClassViewer`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `KismetWidgets` lives under `Editor`; build rule `Editor/KismetWidgets/KismetWidgets.Build.cs`.It directly depends on 8 modules: `BlueprintGraph`, `ClassViewer`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"KismetWidgets\" });`. Use Public when exposing `KismetWidgets` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `KismetWidgets` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `KismetWidgets.h` / `KismetWidgetsModule.h`), then use `FModuleManager::LoadModulePtr<KismetWidgetsModule>` or the exported types directly.",
+      "Transitive deps: `KismetWidgets` also needs `BlueprintGraph`, `ClassViewer`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `EditorWidgets`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`KismetWidgets` 的构建规则位于 `Editor/KismetWidgets/KismetWidgets.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`KismetWidgets` build rule is `Editor/KismetWidgets/KismetWidgets.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "kiss_fft",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Kiss_FFT` 位于 `ThirdParty`，构建规则 `ThirdParty/Kiss_FFT/Kiss_FFT.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Kiss_FFT\" });`；对外暴露 `Kiss_FFT` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Kiss_FFT` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `KissFFT.h` / `KissFFTModule.h`），再用 `FModuleManager::LoadModulePtr<KissFFTModule>` 或直接使用导出类型。",
+      "传递依赖：`Kiss_FFT` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Kiss_FFT` lives under `ThirdParty`; build rule `ThirdParty/Kiss_FFT/Kiss_FFT.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Kiss_FFT\" });`. Use Public when exposing `Kiss_FFT` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Kiss_FFT` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `KissFFT.h` / `KissFFTModule.h`), then use `FModuleManager::LoadModulePtr<KissFFTModule>` or the exported types directly.",
+      "Transitive deps: `Kiss_FFT` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Kiss_FFT` 的构建规则位于 `ThirdParty/Kiss_FFT/Kiss_FFT.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Kiss_FFT` build rule is `ThirdParty/Kiss_FFT/Kiss_FFT.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "landscape",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Landscape` 位于 `Runtime`，构建规则 `Runtime/Landscape/Landscape.Build.cs`。它直接依赖 8 个模块：`ActionableMessage`, `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `Foliage`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Landscape\" });`；对外暴露 `Landscape` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Landscape` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Landscape.h` / `LandscapeModule.h`），再用 `FModuleManager::LoadModulePtr<LandscapeModule>` 或直接使用导出类型。",
+      "传递依赖：`Landscape` 还依赖 `ActionableMessage`, `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `Foliage`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Landscape` lives under `Runtime`; build rule `Runtime/Landscape/Landscape.Build.cs`.It directly depends on 8 modules: `ActionableMessage`, `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `Foliage`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Landscape\" });`. Use Public when exposing `Landscape` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Landscape` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Landscape.h` / `LandscapeModule.h`), then use `FModuleManager::LoadModulePtr<LandscapeModule>` or the exported types directly.",
+      "Transitive deps: `Landscape` also needs `ActionableMessage`, `ApplicationCore`, `Core`, `CoreUObject`, `DeveloperSettings`, `EditorFramework`, `Engine`, `Foliage`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Landscape` 的构建规则位于 `Runtime/Landscape/Landscape.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`Landscape` build rule is `Runtime/Landscape/Landscape.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "landscapeeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LandscapeEditor` 位于 `Editor`，构建规则 `Editor/LandscapeEditor/LandscapeEditor.Build.cs`。它直接依赖 8 个模块：`ApplicationCore`, `CQTest`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`, `DirectoryWatcher`, `Documentation`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LandscapeEditor\" });`；对外暴露 `LandscapeEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LandscapeEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `LandscapeEditor.h` / `LandscapeEditorModule.h`），再用 `FModuleManager::LoadModulePtr<LandscapeEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`LandscapeEditor` 还依赖 `ApplicationCore`, `CQTest`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`, `DirectoryWatcher`, `Documentation`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LandscapeEditor` lives under `Editor`; build rule `Editor/LandscapeEditor/LandscapeEditor.Build.cs`.It directly depends on 8 modules: `ApplicationCore`, `CQTest`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`, `DirectoryWatcher`, `Documentation`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LandscapeEditor\" });`. Use Public when exposing `LandscapeEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LandscapeEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `LandscapeEditor.h` / `LandscapeEditorModule.h`), then use `FModuleManager::LoadModulePtr<LandscapeEditorModule>` or the exported types directly.",
+      "Transitive deps: `LandscapeEditor` also needs `ApplicationCore`, `CQTest`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`, `DirectoryWatcher`, `Documentation`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LandscapeEditor` 的构建规则位于 `Editor/LandscapeEditor/LandscapeEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LandscapeEditor` build rule is `Editor/LandscapeEditor/LandscapeEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "landscapeeditorutilities",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LandscapeEditorUtilities` 位于 `Editor`，构建规则 `Editor/LandscapeEditorUtilities/LandscapeEditorUtilities.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `Engine`, `Landscape`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LandscapeEditorUtilities\" });`；对外暴露 `LandscapeEditorUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LandscapeEditorUtilities` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `LandscapeEditorUtilities.h` / `LandscapeEditorUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<LandscapeEditorUtilitiesModule>` 或直接使用导出类型。",
+      "传递依赖：`LandscapeEditorUtilities` 还依赖 `Core`, `CoreUObject`, `Engine`, `Landscape`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LandscapeEditorUtilities` lives under `Editor`; build rule `Editor/LandscapeEditorUtilities/LandscapeEditorUtilities.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `Engine`, `Landscape`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LandscapeEditorUtilities\" });`. Use Public when exposing `LandscapeEditorUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LandscapeEditorUtilities` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `LandscapeEditorUtilities.h` / `LandscapeEditorUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<LandscapeEditorUtilitiesModule>` or the exported types directly.",
+      "Transitive deps: `LandscapeEditorUtilities` also needs `Core`, `CoreUObject`, `Engine`, `Landscape`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LandscapeEditorUtilities` 的构建规则位于 `Editor/LandscapeEditorUtilities/LandscapeEditorUtilities.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`LandscapeEditorUtilities` build rule is `Editor/LandscapeEditorUtilities/LandscapeEditorUtilities.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "launch",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Launch` 位于 `Runtime`，构建规则 `Runtime/Launch/Launch.Build.cs`。它直接依赖 8 个模块：`AgilitySDK`, `ApplicationCore`, `AudioMixerAndroid`, `AutomationWorker`, `BuildSettings`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`, `CookOnTheFly`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Launch\" });`；对外暴露 `Launch` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Launch` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Launch.h` / `LaunchModule.h`），再用 `FModuleManager::LoadModulePtr<LaunchModule>` 或直接使用导出类型。",
+      "传递依赖：`Launch` 还依赖 `AgilitySDK`, `ApplicationCore`, `AudioMixerAndroid`, `AutomationWorker`, `BuildSettings`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`, `CookOnTheFly`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Launch` lives under `Runtime`; build rule `Runtime/Launch/Launch.Build.cs`.It directly depends on 8 modules: `AgilitySDK`, `ApplicationCore`, `AudioMixerAndroid`, `AutomationWorker`, `BuildSettings`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`, `CookOnTheFly`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Launch\" });`. Use Public when exposing `Launch` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Launch` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Launch.h` / `LaunchModule.h`), then use `FModuleManager::LoadModulePtr<LaunchModule>` or the exported types directly.",
+      "Transitive deps: `Launch` also needs `AgilitySDK`, `ApplicationCore`, `AudioMixerAndroid`, `AutomationWorker`, `BuildSettings`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`, `CookOnTheFly`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Launch` 的构建规则位于 `Runtime/Launch/Launch.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`Launch` build rule is `Runtime/Launch/Launch.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "launchdaemonmessages",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LaunchDaemonMessages` 位于 `Runtime`，构建规则 `Runtime/IOS/LaunchDaemonMessages/LaunchDaemonMessages.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LaunchDaemonMessages\" });`；对外暴露 `LaunchDaemonMessages` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LaunchDaemonMessages` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LaunchDaemonMessages.h` / `LaunchDaemonMessagesModule.h`），再用 `FModuleManager::LoadModulePtr<LaunchDaemonMessagesModule>` 或直接使用导出类型。",
+      "传递依赖：`LaunchDaemonMessages` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LaunchDaemonMessages` lives under `Runtime`; build rule `Runtime/IOS/LaunchDaemonMessages/LaunchDaemonMessages.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LaunchDaemonMessages\" });`. Use Public when exposing `LaunchDaemonMessages` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LaunchDaemonMessages` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LaunchDaemonMessages.h` / `LaunchDaemonMessagesModule.h`), then use `FModuleManager::LoadModulePtr<LaunchDaemonMessagesModule>` or the exported types directly.",
+      "Transitive deps: `LaunchDaemonMessages` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LaunchDaemonMessages` 的构建规则位于 `Runtime/IOS/LaunchDaemonMessages/LaunchDaemonMessages.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`LaunchDaemonMessages` build rule is `Runtime/IOS/LaunchDaemonMessages/LaunchDaemonMessages.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "launchercheck",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LauncherCheck` 位于 `Runtime`，构建规则 `Runtime/Portal/LauncherCheck/LauncherCheck.Build.cs`。它直接依赖 3 个模块：`Core`, `HTTP`, `LauncherPlatform`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LauncherCheck\" });`；对外暴露 `LauncherCheck` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LauncherCheck` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LauncherCheck.h` / `LauncherCheckModule.h`），再用 `FModuleManager::LoadModulePtr<LauncherCheckModule>` 或直接使用导出类型。",
+      "传递依赖：`LauncherCheck` 还依赖 `Core`, `HTTP`, `LauncherPlatform`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LauncherCheck` lives under `Runtime`; build rule `Runtime/Portal/LauncherCheck/LauncherCheck.Build.cs`.It directly depends on 3 modules: `Core`, `HTTP`, `LauncherPlatform`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LauncherCheck\" });`. Use Public when exposing `LauncherCheck` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LauncherCheck` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LauncherCheck.h` / `LauncherCheckModule.h`), then use `FModuleManager::LoadModulePtr<LauncherCheckModule>` or the exported types directly.",
+      "Transitive deps: `LauncherCheck` also needs `Core`, `HTTP`, `LauncherPlatform`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LauncherCheck` 的构建规则位于 `Runtime/Portal/LauncherCheck/LauncherCheck.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`LauncherCheck` build rule is `Runtime/Portal/LauncherCheck/LauncherCheck.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "launcherplatform",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LauncherPlatform` 位于 `Runtime`，构建规则 `Runtime/Portal/LauncherPlatform/LauncherPlatform.Build.cs`。它直接依赖 2 个模块：`Core`, `HTTP`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LauncherPlatform\" });`；对外暴露 `LauncherPlatform` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LauncherPlatform` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LauncherPlatform.h` / `LauncherPlatformModule.h`），再用 `FModuleManager::LoadModulePtr<LauncherPlatformModule>` 或直接使用导出类型。",
+      "传递依赖：`LauncherPlatform` 还依赖 `Core`, `HTTP`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LauncherPlatform` lives under `Runtime`; build rule `Runtime/Portal/LauncherPlatform/LauncherPlatform.Build.cs`.It directly depends on 2 modules: `Core`, `HTTP`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LauncherPlatform\" });`. Use Public when exposing `LauncherPlatform` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LauncherPlatform` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LauncherPlatform.h` / `LauncherPlatformModule.h`), then use `FModuleManager::LoadModulePtr<LauncherPlatformModule>` or the exported types directly.",
+      "Transitive deps: `LauncherPlatform` also needs `Core`, `HTTP`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LauncherPlatform` 的构建规则位于 `Runtime/Portal/LauncherPlatform/LauncherPlatform.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`LauncherPlatform` build rule is `Runtime/Portal/LauncherPlatform/LauncherPlatform.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "launcherservices",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LauncherServices` 位于 `Developer`，构建规则 `Developer/LauncherServices/LauncherServices.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `SessionMessages`, `TargetPlatform`, `TurnkeyIO`, `UnrealEdMessages`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LauncherServices\" });`；对外暴露 `LauncherServices` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LauncherServices` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `LauncherServices.h` / `LauncherServicesModule.h`），再用 `FModuleManager::LoadModulePtr<LauncherServicesModule>` 或直接使用导出类型。",
+      "传递依赖：`LauncherServices` 还依赖 `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `SessionMessages`, `TargetPlatform`, `TurnkeyIO`, `UnrealEdMessages`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LauncherServices` lives under `Developer`; build rule `Developer/LauncherServices/LauncherServices.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `SessionMessages`, `TargetPlatform`, `TurnkeyIO`, `UnrealEdMessages`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LauncherServices\" });`. Use Public when exposing `LauncherServices` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LauncherServices` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `LauncherServices.h` / `LauncherServicesModule.h`), then use `FModuleManager::LoadModulePtr<LauncherServicesModule>` or the exported types directly.",
+      "Transitive deps: `LauncherServices` also needs `Core`, `CoreUObject`, `DesktopPlatform`, `Json`, `SessionMessages`, `TargetPlatform`, `TurnkeyIO`, `UnrealEdMessages`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LauncherServices` 的构建规则位于 `Developer/LauncherServices/LauncherServices.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LauncherServices` build rule is `Developer/LauncherServices/LauncherServices.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "layers",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Layers` 位于 `Editor`，构建规则 `Editor/Layers/Layers.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `SceneOutliner`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Layers\" });`；对外暴露 `Layers` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Layers` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `Layers.h` / `LayersModule.h`），再用 `FModuleManager::LoadModulePtr<LayersModule>` 或直接使用导出类型。",
+      "传递依赖：`Layers` 还依赖 `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `SceneOutliner`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Layers` lives under `Editor`; build rule `Editor/Layers/Layers.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `SceneOutliner`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Layers\" });`. Use Public when exposing `Layers` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Layers` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `Layers.h` / `LayersModule.h`), then use `FModuleManager::LoadModulePtr<LayersModule>` or the exported types directly.",
+      "Transitive deps: `Layers` also needs `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `SceneOutliner`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Layers` 的构建规则位于 `Editor/Layers/Layers.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`Layers` build rule is `Editor/Layers/Layers.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "legacyprojectlauncher",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LegacyProjectLauncher` 位于 `Engine`，构建规则 `Engine/Source/Developer/LegacyProjectLauncher/LegacyProjectLauncher.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LegacyProjectLauncher\" });`；对外暴露 `LegacyProjectLauncher` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LegacyProjectLauncher` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LegacyProjectLauncher.h` / `LegacyProjectLauncherModule.h`），再用 `FModuleManager::LoadModulePtr<LegacyProjectLauncherModule>` 或直接使用导出类型。",
+      "传递依赖：`LegacyProjectLauncher` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `LegacyProjectLauncher` lives under `Engine`; build rule `Engine/Source/Developer/LegacyProjectLauncher/LegacyProjectLauncher.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LegacyProjectLauncher\" });`. Use Public when exposing `LegacyProjectLauncher` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LegacyProjectLauncher` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LegacyProjectLauncher.h` / `LegacyProjectLauncherModule.h`), then use `FModuleManager::LoadModulePtr<LegacyProjectLauncherModule>` or the exported types directly.",
+      "Transitive deps: `LegacyProjectLauncher` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`LegacyProjectLauncher` 的构建规则位于 `Engine/Source/Developer/LegacyProjectLauncher/LegacyProjectLauncher.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`LegacyProjectLauncher` build rule is `Engine/Source/Developer/LegacyProjectLauncher/LegacyProjectLauncher.Build.cs`; depends on 0 modules; category Module."
+  },
+  {
+    "slug": "leveleditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LevelEditor` 位于 `Editor`，构建规则 `Editor/LevelEditor/LevelEditor.Build.cs`。它直接依赖 8 个模块：`ActionableMessage`, `ActorPickerMode`, `Analytics`, `AppFramework`, `ApplicationCore`, `BlueprintGraph`, `CommonMenuExtensions`, `ContentBrowser`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LevelEditor\" });`；对外暴露 `LevelEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LevelEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `LevelEditor.h` / `LevelEditorModule.h`），再用 `FModuleManager::LoadModulePtr<LevelEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`LevelEditor` 还依赖 `ActionableMessage`, `ActorPickerMode`, `Analytics`, `AppFramework`, `ApplicationCore`, `BlueprintGraph`, `CommonMenuExtensions`, `ContentBrowser`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LevelEditor` lives under `Editor`; build rule `Editor/LevelEditor/LevelEditor.Build.cs`.It directly depends on 8 modules: `ActionableMessage`, `ActorPickerMode`, `Analytics`, `AppFramework`, `ApplicationCore`, `BlueprintGraph`, `CommonMenuExtensions`, `ContentBrowser`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LevelEditor\" });`. Use Public when exposing `LevelEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LevelEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `LevelEditor.h` / `LevelEditorModule.h`), then use `FModuleManager::LoadModulePtr<LevelEditorModule>` or the exported types directly.",
+      "Transitive deps: `LevelEditor` also needs `ActionableMessage`, `ActorPickerMode`, `Analytics`, `AppFramework`, `ApplicationCore`, `BlueprintGraph`, `CommonMenuExtensions`, `ContentBrowser`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LevelEditor` 的构建规则位于 `Editor/LevelEditor/LevelEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LevelEditor` build rule is `Editor/LevelEditor/LevelEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "levelinstanceeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LevelInstanceEditor` 位于 `Editor`，构建规则 `Editor/LevelInstanceEditor/LevelInstanceEditor.Build.cs`。它直接依赖 8 个模块：`AssetTools`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LevelInstanceEditor\" });`；对外暴露 `LevelInstanceEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LevelInstanceEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `LevelInstanceEditor.h` / `LevelInstanceEditorModule.h`），再用 `FModuleManager::LoadModulePtr<LevelInstanceEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`LevelInstanceEditor` 还依赖 `AssetTools`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LevelInstanceEditor` lives under `Editor`; build rule `Editor/LevelInstanceEditor/LevelInstanceEditor.Build.cs`.It directly depends on 8 modules: `AssetTools`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LevelInstanceEditor\" });`. Use Public when exposing `LevelInstanceEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LevelInstanceEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `LevelInstanceEditor.h` / `LevelInstanceEditorModule.h`), then use `FModuleManager::LoadModulePtr<LevelInstanceEditorModule>` or the exported types directly.",
+      "Transitive deps: `LevelInstanceEditor` also needs `AssetTools`, `BlueprintGraph`, `ClassViewer`, `ContentBrowser`, `Core`, `CoreUObject`, `DeveloperSettings`, `DeveloperToolSettings`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LevelInstanceEditor` 的构建规则位于 `Editor/LevelInstanceEditor/LevelInstanceEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LevelInstanceEditor` build rule is `Editor/LevelInstanceEditor/LevelInstanceEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "levelsequence",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`LevelSequence` 位于 `Runtime`，构建规则 `Runtime/LevelSequence/LevelSequence.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MediaAssets`, `MovieScene`, `MovieSceneTracks`, `TimeManagement`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"LevelSequence\" });`；对外暴露 `LevelSequence` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`LevelSequence` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `LevelSequence.h` / `LevelSequenceModule.h`），再用 `FModuleManager::LoadModulePtr<LevelSequenceModule>` 或直接使用导出类型。",
+      "传递依赖：`LevelSequence` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MediaAssets`, `MovieScene`, `MovieSceneTracks`, `TimeManagement`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `LevelSequence` lives under `Runtime`; build rule `Runtime/LevelSequence/LevelSequence.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MediaAssets`, `MovieScene`, `MovieSceneTracks`, `TimeManagement`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"LevelSequence\" });`. Use Public when exposing `LevelSequence` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `LevelSequence` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `LevelSequence.h` / `LevelSequenceModule.h`), then use `FModuleManager::LoadModulePtr<LevelSequenceModule>` or the exported types directly.",
+      "Transitive deps: `LevelSequence` also needs `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MediaAssets`, `MovieScene`, `MovieSceneTracks`, `TimeManagement`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`LevelSequence` 的构建规则位于 `Runtime/LevelSequence/LevelSequence.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`LevelSequence` build rule is `Runtime/LevelSequence/LevelSequence.Build.cs`; depends on 8 modules; category Module."
+  }
+]

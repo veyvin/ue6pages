@@ -1,0 +1,310 @@
+[
+  {
+    "slug": "iostoreondemanddebug",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IoStoreOnDemandDebug` 位于 `Runtime`，构建规则 `Runtime/Experimental/IoStore/OnDemandDebug/IoStoreOnDemandDebug.Build.cs`。它直接依赖 5 个模块：`Core`, `CoreUObject`, `Engine`, `IoStoreOnDemandCore`, `RenderCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemandDebug\" });`；对外暴露 `IoStoreOnDemandDebug` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IoStoreOnDemandDebug` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IoStoreOnDemandDebug.h` / `IoStoreOnDemandDebugModule.h`），再用 `FModuleManager::LoadModulePtr<IoStoreOnDemandDebugModule>` 或直接使用导出类型。",
+      "传递依赖：`IoStoreOnDemandDebug` 还依赖 `Core`, `CoreUObject`, `Engine`, `IoStoreOnDemandCore`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`IoStoreOnDemandDebug` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `IoStoreOnDemandDebug` lives under `Runtime`; build rule `Runtime/Experimental/IoStore/OnDemandDebug/IoStoreOnDemandDebug.Build.cs`.It directly depends on 5 modules: `Core`, `CoreUObject`, `Engine`, `IoStoreOnDemandCore`, `RenderCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemandDebug\" });`. Use Public when exposing `IoStoreOnDemandDebug` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IoStoreOnDemandDebug` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IoStoreOnDemandDebug.h` / `IoStoreOnDemandDebugModule.h`), then use `FModuleManager::LoadModulePtr<IoStoreOnDemandDebugModule>` or the exported types directly.",
+      "Transitive deps: `IoStoreOnDemandDebug` also needs `Core`, `CoreUObject`, `Engine`, `IoStoreOnDemandCore`, `RenderCore`; do not re-list them unless you include their headers.",
+      "Note: `IoStoreOnDemandDebug` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`IoStoreOnDemandDebug` 的构建规则位于 `Runtime/Experimental/IoStore/OnDemandDebug/IoStoreOnDemandDebug.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`IoStoreOnDemandDebug` build rule is `Runtime/Experimental/IoStore/OnDemandDebug/IoStoreOnDemandDebug.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "iostoreondemandtests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IoStoreOnDemandTests` 位于 `Runtime`，构建规则 `Runtime/Experimental/IoStore/Tests/IoStoreOnDemandTests.Build.cs`。它直接依赖 2 个模块：`Core`, `IoStoreOnDemand`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemandTests\" });`；对外暴露 `IoStoreOnDemandTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IoStoreOnDemandTests` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IoStoreOnDemandTests.h` / `IoStoreOnDemandTestsModule.h`），再用 `FModuleManager::LoadModulePtr<IoStoreOnDemandTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`IoStoreOnDemandTests` 还依赖 `Core`, `IoStoreOnDemand`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`IoStoreOnDemandTests` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `IoStoreOnDemandTests` lives under `Runtime`; build rule `Runtime/Experimental/IoStore/Tests/IoStoreOnDemandTests.Build.cs`.It directly depends on 2 modules: `Core`, `IoStoreOnDemand`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemandTests\" });`. Use Public when exposing `IoStoreOnDemandTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IoStoreOnDemandTests` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IoStoreOnDemandTests.h` / `IoStoreOnDemandTestsModule.h`), then use `FModuleManager::LoadModulePtr<IoStoreOnDemandTestsModule>` or the exported types directly.",
+      "Transitive deps: `IoStoreOnDemandTests` also needs `Core`, `IoStoreOnDemand`; do not re-list them unless you include their headers.",
+      "Note: `IoStoreOnDemandTests` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`IoStoreOnDemandTests` 的构建规则位于 `Runtime/Experimental/IoStore/Tests/IoStoreOnDemandTests.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`IoStoreOnDemandTests` build rule is `Runtime/Experimental/IoStore/Tests/IoStoreOnDemandTests.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "iostoreondemandutilities",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IoStoreOnDemandUtilities` 位于 `Developer`，构建规则 `Developer/IoStore/OnDemandUtilities/IoStoreOnDemandUtilities.Build.cs`。它直接依赖 8 个模块：`Core`, `IoStoreHttpClient`, `IoStoreOnDemand`, `IoStoreOnDemandCore`, `Json`, `RSA`, `S3Client`, `SSL`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemandUtilities\" });`；对外暴露 `IoStoreOnDemandUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IoStoreOnDemandUtilities` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `IoStoreOnDemandUtilities.h` / `IoStoreOnDemandUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<IoStoreOnDemandUtilitiesModule>` 或直接使用导出类型。",
+      "传递依赖：`IoStoreOnDemandUtilities` 还依赖 `Core`, `IoStoreHttpClient`, `IoStoreOnDemand`, `IoStoreOnDemandCore`, `Json`, `RSA`, `S3Client`, `SSL`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IoStoreOnDemandUtilities` lives under `Developer`; build rule `Developer/IoStore/OnDemandUtilities/IoStoreOnDemandUtilities.Build.cs`.It directly depends on 8 modules: `Core`, `IoStoreHttpClient`, `IoStoreOnDemand`, `IoStoreOnDemandCore`, `Json`, `RSA`, `S3Client`, `SSL`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreOnDemandUtilities\" });`. Use Public when exposing `IoStoreOnDemandUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IoStoreOnDemandUtilities` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `IoStoreOnDemandUtilities.h` / `IoStoreOnDemandUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<IoStoreOnDemandUtilitiesModule>` or the exported types directly.",
+      "Transitive deps: `IoStoreOnDemandUtilities` also needs `Core`, `IoStoreHttpClient`, `IoStoreOnDemand`, `IoStoreOnDemandCore`, `Json`, `RSA`, `S3Client`, `SSL`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IoStoreOnDemandUtilities` 的构建规则位于 `Developer/IoStore/OnDemandUtilities/IoStoreOnDemandUtilities.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`IoStoreOnDemandUtilities` build rule is `Developer/IoStore/OnDemandUtilities/IoStoreOnDemandUtilities.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "iostoreutilities",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IoStoreUtilities` 位于 `Developer`，构建规则 `Developer/IoStoreUtilities/IoStoreUtilities.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `CookMetadata`, `CoreUObject`, `DerivedDataCache`, `DevHttp`, `DeveloperToolSettings`, `Json`, `PakFile`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreUtilities\" });`；对外暴露 `IoStoreUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IoStoreUtilities` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `IoStoreUtilities.h` / `IoStoreUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<IoStoreUtilitiesModule>` 或直接使用导出类型。",
+      "传递依赖：`IoStoreUtilities` 还依赖 `AssetRegistry`, `CookMetadata`, `CoreUObject`, `DerivedDataCache`, `DevHttp`, `DeveloperToolSettings`, `Json`, `PakFile`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IoStoreUtilities` lives under `Developer`; build rule `Developer/IoStoreUtilities/IoStoreUtilities.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `CookMetadata`, `CoreUObject`, `DerivedDataCache`, `DevHttp`, `DeveloperToolSettings`, `Json`, `PakFile`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IoStoreUtilities\" });`. Use Public when exposing `IoStoreUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IoStoreUtilities` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `IoStoreUtilities.h` / `IoStoreUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<IoStoreUtilitiesModule>` or the exported types directly.",
+      "Transitive deps: `IoStoreUtilities` also needs `AssetRegistry`, `CookMetadata`, `CoreUObject`, `DerivedDataCache`, `DevHttp`, `DeveloperToolSettings`, `Json`, `PakFile`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IoStoreUtilities` 的构建规则位于 `Developer/IoStoreUtilities/IoStoreUtilities.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`IoStoreUtilities` build rule is `Developer/IoStoreUtilities/IoStoreUtilities.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "ipc",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IPC` 位于 `Runtime`，构建规则 `Runtime/IPC/IPC.Build.cs`。它直接依赖 1 个模块：`Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IPC\" });`；对外暴露 `IPC` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IPC` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IPC.h` / `IPCModule.h`），再用 `FModuleManager::LoadModulePtr<IPCModule>` 或直接使用导出类型。",
+      "传递依赖：`IPC` 还依赖 `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IPC` lives under `Runtime`; build rule `Runtime/IPC/IPC.Build.cs`.It directly depends on 1 modules: `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IPC\" });`. Use Public when exposing `IPC` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IPC` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IPC.h` / `IPCModule.h`), then use `FModuleManager::LoadModulePtr<IPCModule>` or the exported types directly.",
+      "Transitive deps: `IPC` also needs `Core`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IPC` 的构建规则位于 `Runtime/IPC/IPC.Build.cs`，直接依赖 1 个模块，分类 Module。",
+    "note_en": "`IPC` build rule is `Runtime/IPC/IPC.Build.cs`; depends on 1 modules; category Module."
+  },
+  {
+    "slug": "iriscore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`IrisCore` 位于 `Runtime`，构建规则 `Runtime/Net/Iris/IrisCore.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `NetCore`, `TraceLog`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"IrisCore\" });`；对外暴露 `IrisCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`IrisCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `IrisCore.h` / `IrisCoreModule.h`），再用 `FModuleManager::LoadModulePtr<IrisCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`IrisCore` 还依赖 `Core`, `CoreUObject`, `NetCore`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `IrisCore` lives under `Runtime`; build rule `Runtime/Net/Iris/IrisCore.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `NetCore`, `TraceLog`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"IrisCore\" });`. Use Public when exposing `IrisCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `IrisCore` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `IrisCore.h` / `IrisCoreModule.h`), then use `FModuleManager::LoadModulePtr<IrisCoreModule>` or the exported types directly.",
+      "Transitive deps: `IrisCore` also needs `Core`, `CoreUObject`, `NetCore`, `TraceLog`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`IrisCore` 的构建规则位于 `Runtime/Net/Iris/IrisCore.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`IrisCore` build rule is `Runtime/Net/Iris/IrisCore.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "ismpool",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ISMPool` 位于 `Runtime`，构建规则 `Runtime/Experimental/ISMPool/ISMPool.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ISMPool\" });`；对外暴露 `ISMPool` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ISMPool` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ISMPool.h` / `ISMPoolModule.h`），再用 `FModuleManager::LoadModulePtr<ISMPoolModule>` 或直接使用导出类型。",
+      "传递依赖：`ISMPool` 还依赖 `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`ISMPool` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `ISMPool` lives under `Runtime`; build rule `Runtime/Experimental/ISMPool/ISMPool.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ISMPool\" });`. Use Public when exposing `ISMPool` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ISMPool` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ISMPool.h` / `ISMPoolModule.h`), then use `FModuleManager::LoadModulePtr<ISMPoolModule>` or the exported types directly.",
+      "Transitive deps: `ISMPool` also needs `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers.",
+      "Note: `ISMPool` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`ISMPool` 的构建规则位于 `Runtime/Experimental/ISMPool/ISMPool.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ISMPool` build rule is `Runtime/Experimental/ISMPool/ISMPool.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "itoo",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Itoo` 位于 `Programs`，构建规则 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/ThirdParty/Itoo/Itoo.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Itoo\" });`；对外暴露 `Itoo` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Itoo` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `Itoo.h` / `ItooModule.h`），再用 `FModuleManager::LoadModulePtr<ItooModule>` 或直接使用导出类型。",
+      "传递依赖：`Itoo` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `Itoo` lives under `Programs`; build rule `Programs/Enterprise/Datasmith/DatasmithMaxExporter/ThirdParty/Itoo/Itoo.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Itoo\" });`. Use Public when exposing `Itoo` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Itoo` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `Itoo.h` / `ItooModule.h`), then use `FModuleManager::LoadModulePtr<ItooModule>` or the exported types directly.",
+      "Transitive deps: `Itoo` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`Itoo` 的构建规则位于 `Programs/Enterprise/Datasmith/DatasmithMaxExporter/ThirdParty/Itoo/Itoo.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`Itoo` build rule is `Programs/Enterprise/Datasmith/DatasmithMaxExporter/ThirdParty/Itoo/Itoo.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "jemalloc",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`jemalloc` 位于 `ThirdParty`，构建规则 `ThirdParty/jemalloc/jemalloc.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"jemalloc\" });`；对外暴露 `jemalloc` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`jemalloc` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `jemalloc.h` / `jemallocModule.h`），再用 `FModuleManager::LoadModulePtr<jemallocModule>` 或直接使用导出类型。",
+      "传递依赖：`jemalloc` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `jemalloc` lives under `ThirdParty`; build rule `ThirdParty/jemalloc/jemalloc.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"jemalloc\" });`. Use Public when exposing `jemalloc` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `jemalloc` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `jemalloc.h` / `jemallocModule.h`), then use `FModuleManager::LoadModulePtr<jemallocModule>` or the exported types directly.",
+      "Transitive deps: `jemalloc` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`jemalloc` 的构建规则位于 `ThirdParty/jemalloc/jemalloc.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`jemalloc` build rule is `ThirdParty/jemalloc/jemalloc.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "json",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Json` 位于 `Runtime`，构建规则 `Runtime/Json/Json.Build.cs`。它直接依赖 3 个模块：`Core`, `RapidJSON`, `TraceLog`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Json\" });`；对外暴露 `Json` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Json` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `Json.h` / `JsonModule.h`），再用 `FModuleManager::LoadModulePtr<JsonModule>` 或直接使用导出类型。",
+      "传递依赖：`Json` 还依赖 `Core`, `RapidJSON`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Json` lives under `Runtime`; build rule `Runtime/Json/Json.Build.cs`.It directly depends on 3 modules: `Core`, `RapidJSON`, `TraceLog`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Json\" });`. Use Public when exposing `Json` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Json` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `Json.h` / `JsonModule.h`), then use `FModuleManager::LoadModulePtr<JsonModule>` or the exported types directly.",
+      "Transitive deps: `Json` also needs `Core`, `RapidJSON`, `TraceLog`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Json` 的构建规则位于 `Runtime/Json/Json.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`Json` build rule is `Runtime/Json/Json.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "jsonobjectgraph",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`JsonObjectGraph` 位于 `Runtime`，构建规则 `Runtime/Experimental/JsonObjectGraph/JsonObjectGraph.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"JsonObjectGraph\" });`；对外暴露 `JsonObjectGraph` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`JsonObjectGraph` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `JsonObjectGraph.h` / `JsonObjectGraphModule.h`），再用 `FModuleManager::LoadModulePtr<JsonObjectGraphModule>` 或直接使用导出类型。",
+      "传递依赖：`JsonObjectGraph` 还依赖 `Core`, `CoreUObject`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`JsonObjectGraph` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `JsonObjectGraph` lives under `Runtime`; build rule `Runtime/Experimental/JsonObjectGraph/JsonObjectGraph.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"JsonObjectGraph\" });`. Use Public when exposing `JsonObjectGraph` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `JsonObjectGraph` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `JsonObjectGraph.h` / `JsonObjectGraphModule.h`), then use `FModuleManager::LoadModulePtr<JsonObjectGraphModule>` or the exported types directly.",
+      "Transitive deps: `JsonObjectGraph` also needs `Core`, `CoreUObject`, `Json`; do not re-list them unless you include their headers.",
+      "Note: `JsonObjectGraph` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`JsonObjectGraph` 的构建规则位于 `Runtime/Experimental/JsonObjectGraph/JsonObjectGraph.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`JsonObjectGraph` build rule is `Runtime/Experimental/JsonObjectGraph/JsonObjectGraph.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "jsonutilities",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`JsonUtilities` 位于 `Runtime`，构建规则 `Runtime/JsonUtilities/JsonUtilities.Build.cs`。它直接依赖 3 个模块：`Core`, `CoreUObject`, `Json`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"JsonUtilities\" });`；对外暴露 `JsonUtilities` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`JsonUtilities` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `JsonUtilities.h` / `JsonUtilitiesModule.h`），再用 `FModuleManager::LoadModulePtr<JsonUtilitiesModule>` 或直接使用导出类型。",
+      "传递依赖：`JsonUtilities` 还依赖 `Core`, `CoreUObject`, `Json`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `JsonUtilities` lives under `Runtime`; build rule `Runtime/JsonUtilities/JsonUtilities.Build.cs`.It directly depends on 3 modules: `Core`, `CoreUObject`, `Json`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"JsonUtilities\" });`. Use Public when exposing `JsonUtilities` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `JsonUtilities` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `JsonUtilities.h` / `JsonUtilitiesModule.h`), then use `FModuleManager::LoadModulePtr<JsonUtilitiesModule>` or the exported types directly.",
+      "Transitive deps: `JsonUtilities` also needs `Core`, `CoreUObject`, `Json`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`JsonUtilities` 的构建规则位于 `Runtime/JsonUtilities/JsonUtilities.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`JsonUtilities` build rule is `Runtime/JsonUtilities/JsonUtilities.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "jsonutilitieseditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`JsonUtilitiesEditor` 位于 `Editor`，构建规则 `Editor/JsonUtilitiesEditor/JsonUtilitiesEditor.Build.cs`。它直接依赖 8 个模块：`AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `Json`, `JsonUtilities`, `Slate`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"JsonUtilitiesEditor\" });`；对外暴露 `JsonUtilitiesEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`JsonUtilitiesEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `JsonUtilitiesEditor.h` / `JsonUtilitiesEditorModule.h`），再用 `FModuleManager::LoadModulePtr<JsonUtilitiesEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`JsonUtilitiesEditor` 还依赖 `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `Json`, `JsonUtilities`, `Slate`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `JsonUtilitiesEditor` lives under `Editor`; build rule `Editor/JsonUtilitiesEditor/JsonUtilitiesEditor.Build.cs`.It directly depends on 8 modules: `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `Json`, `JsonUtilities`, `Slate`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"JsonUtilitiesEditor\" });`. Use Public when exposing `JsonUtilitiesEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `JsonUtilitiesEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `JsonUtilitiesEditor.h` / `JsonUtilitiesEditorModule.h`), then use `FModuleManager::LoadModulePtr<JsonUtilitiesEditorModule>` or the exported types directly.",
+      "Transitive deps: `JsonUtilitiesEditor` also needs `AssetTools`, `BlueprintGraph`, `Core`, `CoreUObject`, `Engine`, `Json`, `JsonUtilities`, `Slate`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`JsonUtilitiesEditor` 的构建规则位于 `Editor/JsonUtilitiesEditor/JsonUtilitiesEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`JsonUtilitiesEditor` build rule is `Editor/JsonUtilitiesEditor/JsonUtilitiesEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "kismet",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`Kismet` 位于 `Editor`，构建规则 `Editor/Kismet/Kismet.Build.cs`。它直接依赖 8 个模块：`AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `DeveloperToolSettings`, `EditorFramework`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"Kismet\" });`；对外暴露 `Kismet` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`Kismet` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `Kismet.h` / `KismetModule.h`），再用 `FModuleManager::LoadModulePtr<KismetModule>` 或直接使用导出类型。",
+      "传递依赖：`Kismet` 还依赖 `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `DeveloperToolSettings`, `EditorFramework`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `Kismet` lives under `Editor`; build rule `Editor/Kismet/Kismet.Build.cs`.It directly depends on 8 modules: `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `DeveloperToolSettings`, `EditorFramework`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"Kismet\" });`. Use Public when exposing `Kismet` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `Kismet` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `Kismet.h` / `KismetModule.h`), then use `FModuleManager::LoadModulePtr<KismetModule>` or the exported types directly.",
+      "Transitive deps: `Kismet` also needs `AppFramework`, `ApplicationCore`, `Core`, `CoreUObject`, `DesktopPlatform`, `DeveloperSettings`, `DeveloperToolSettings`, `EditorFramework`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`Kismet` 的构建规则位于 `Editor/Kismet/Kismet.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`Kismet` build rule is `Editor/Kismet/Kismet.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "kismetcompiler",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`KismetCompiler` 位于 `Engine`，构建规则 `Engine/Source/Editor/KismetCompiler/KismetCompiler.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"KismetCompiler\" });`；对外暴露 `KismetCompiler` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`KismetCompiler` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `KismetCompiler.h` / `KismetCompilerModule.h`），再用 `FModuleManager::LoadModulePtr<KismetCompilerModule>` 或直接使用导出类型。",
+      "传递依赖：`KismetCompiler` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `KismetCompiler` lives under `Engine`; build rule `Engine/Source/Editor/KismetCompiler/KismetCompiler.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"KismetCompiler\" });`. Use Public when exposing `KismetCompiler` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `KismetCompiler` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `KismetCompiler.h` / `KismetCompilerModule.h`), then use `FModuleManager::LoadModulePtr<KismetCompilerModule>` or the exported types directly.",
+      "Transitive deps: `KismetCompiler` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`KismetCompiler` 的构建规则位于 `Engine/Source/Editor/KismetCompiler/KismetCompiler.Build.cs`，直接依赖 0 个模块，分类 Module。",
+    "note_en": "`KismetCompiler` build rule is `Engine/Source/Editor/KismetCompiler/KismetCompiler.Build.cs`; depends on 0 modules; category Module."
+  }
+]

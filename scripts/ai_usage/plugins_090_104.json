@@ -1,0 +1,306 @@
+[
+  {
+    "slug": "av1-software-decoder-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 的 Media Players 中启用 `AV1 software decoder for Electra`（`AV1DecoderElectra.uplugin`），并同时保持 `Electra Player` 可用，然后重启编辑器。",
+      "把 AV1 片源（常见为 `av01` 的 `.mp4` / `.webm`，或 IVF）放进项目可访问路径；该模块是 dav1d 一类的 CPU 软解，不会在内容浏览器里生成独立「解码器资产」。",
+      "新建 `File Media Source`（或 URL/`Stream Media Source`），指向上述 AV1 文件；在 `Media Player` 资产上把首选播放器设为 Electra，不要用 WMF/AVF 去解 AV1。",
+      "创建 `Media Texture` 绑定该 `Media Player`，赋给材质采样器或 `Media Plate`；蓝图里对播放器 `Open Source` / `Play`。Electra 会按四字符码自动选用 `AV1DecoderElectra`。",
+      "在目标平台用 `stat unit` / 媒体日志确认解码线程 CPU 占用；软解性能随分辨率与平台变化，Shipping 包需把该插件打进对应平台，不要只在编辑器启用。",
+      "游戏模块一般不必把 `AV1DecoderElectra` 写进 `Build.cs`：解码器由 Electra 工厂在运行时注册。只有写自定义 Electra 解码管线时才依赖该模块头文件。"
+    ],
+    "en_steps": [
+      "Enable `AV1 software decoder for Electra` (`AV1DecoderElectra.uplugin`) under `Edit > Plugins` > Media Players, keep `Electra Player` enabled, then restart the editor.",
+      "Place AV1 bitstreams (typically `av01` in `.mp4` / `.webm`, or IVF) where the project can read them. This module is a CPU software decoder (dav1d-style); it does not create a decoder asset in the Content Browser.",
+      "Create a `File Media Source` (or URL/`Stream Media Source`) that points at the AV1 file. On the `Media Player` asset, prefer Electra — do not expect WMF/AVF to decode AV1.",
+      "Create a `Media Texture` bound to that `Media Player` and sample it in a material or `Media Plate`. From Blueprint, `Open Source` / `Play`. Electra selects `AV1DecoderElectra` from the codec fourCC.",
+      "On the target device, watch `stat unit` and media logs for decode-thread CPU. Software AV1 cost varies by resolution and platform; include the plugin in the cooked platform, not editor-only.",
+      "Gameplay `Build.cs` files usually omit `AV1DecoderElectra` because Electra’s factory registers the decoder at runtime. Depend on the module only if you are extending Electra’s decoder pipeline in C++."
+    ],
+    "note_cn": "这是 Electra 的 AV1 软解插件，不是通用 Media Player。没有独立组件；片源必须是 AV1，播放器必须走 Electra。",
+    "note_en": "This is Electra’s AV1 software decoder, not a generic Media Player. There is no component to add; the bitstream must be AV1 and playback must go through Electra."
+  },
+  {
+    "slug": "avcodecs-core",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 的 Codecs / Experimental 中启用 `AVCodecs Core`（`AVCodecsCore.uplugin`）。多数项目是作为 Pixel Streaming、硬件编解码器等插件的依赖被拉起，不必单独做关卡里的「播放」操作。",
+      "游戏或功能模块的 `Build.cs` 按需加入运行时模块 `AVCodecsCore`（GPU 资源互操作再加 `AVCodecsCoreRHI`），然后 Generate Project Files。不要把该 Experimental 接口写进 Shipping 公共 API。",
+      "在 C++ 里通过 `AVCodecsCore` 的编解码上下文创建编码器/解码器实例，把待压帧从游戏/RHI 纹理交给 `AVCodecsCoreRHI` 做资源包装后再送进具体 codec 后端。",
+      "具体 codec（NVENC、VPx 等）是别的插件；本插件只提供公共 `FAV*` 设备/实例层。对照 `AVCodecsCore` 与 `AVCodecsCoreRHI` 的 Public 头文件选择实现，不要在蓝图里找「AVCodecs」节点。",
+      "用一帧已知分辨率的测试纹理跑通 Initialize → Encode/Decode → Shutdown；用日志确认 `FAVResult` 失败码来自设备创建还是码流，而不是媒体框架的 `Media Player`。"
+    ],
+    "en_steps": [
+      "Enable `AVCodecs Core` (`AVCodecsCore.uplugin`) under `Edit > Plugins` (Codecs / Experimental). Most projects pull it in as a dependency of Pixel Streaming or hardware codec plugins; there is nothing to drop in a level.",
+      "Add runtime module `AVCodecsCore` to your `Build.cs` (and `AVCodecsCoreRHI` if you share GPU resources), then Generate Project Files. Treat the Experimental surface as unstable for Shipping public APIs.",
+      "In C++, create encoder/decoder instances through `AVCodecsCore`’s codec context. Wrap game/RHI textures with `AVCodecsCoreRHI` before handing frames to a concrete codec backend.",
+      "NVENC, VPx, and similar backends live in other plugins. This plugin only supplies the shared `FAV*` device/instance layer. Pick types from `AVCodecsCore` / `AVCodecsCoreRHI` Public headers — there are no Blueprint “AVCodecs” nodes.",
+      "Prove a single known-resolution test texture through Initialize → Encode/Decode → Shutdown. Read `FAVResult` logs to see whether failure is device creation or bitstream, not Media Framework `Media Player`."
+    ],
+    "note_cn": "实验性 C++ 编解码抽象层，不是音频混合器，也不是 Media Framework 播放器。蓝图无入口。",
+    "note_en": "Experimental C++ codec abstraction — not an audio mixer and not a Media Framework player. No Blueprint entry point."
+  },
+  {
+    "slug": "avf-media-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "仅在 macOS / iOS / tvOS 工程启用 `AVF Media Player`（`AvfMedia.uplugin`）。Windows 上 `AvfMediaFactory` 不会注册可用播放器。",
+      "用 `AvfMediaFactory` 作为 Media Framework 后端：内容浏览器新建 `File Media Source` 或 `Stream Media Source`，指向 AVFoundation 能解的封装（MOV/MP4/HLS 等）。",
+      "新建 `Media Player` + `Media Texture`，打开该 Source。播放器名称应落到 AVF；`AvfMediaEditor` 只提供编辑器工厂/预览，不要写进 Game Target 的 `Build.cs`。",
+      "采集苹果摄像头或麦克风时走 `AvfMediaCapture`：创建对应 Capture/`Media Source`，选 AVFoundation 设备，再 `Open` 到同一个 `Media Player`。",
+      "把 `Media Texture` 接到材质或 `Media Plate`，蓝图 `Play` / `Pause` / `Seek`。真机权限在 iOS `Info.plist` 相机/麦克风用途说明里配置，而不是在 Windows 编辑器里测通。",
+      "运行时模块依赖 `AvfMedia`、`AvfMediaFactory`、`AvfMediaCapture`；编辑器扩展只放 `AvfMediaEditor` 到 `*Editor.Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable `AVF Media Player` (`AvfMedia.uplugin`) only on macOS / iOS / tvOS projects. `AvfMediaFactory` will not register a usable player on Windows.",
+      "Use `AvfMediaFactory` as the Media Framework backend: create a `File Media Source` or `Stream Media Source` pointing at an AVFoundation-readable container (MOV/MP4/HLS, etc.).",
+      "Create a `Media Player` plus `Media Texture` and open that source. The player name should resolve to AVF. `AvfMediaEditor` is editor factory/preview only — never add it to a Game Target `Build.cs`.",
+      "For Apple camera or microphone capture, use `AvfMediaCapture`: create the capture/`Media Source`, pick the AVFoundation device, then `Open` it on the same `Media Player`.",
+      "Wire the `Media Texture` into a material or `Media Plate` and `Play` / `Pause` / `Seek` from Blueprint. iOS camera/mic usage strings belong in `Info.plist`; proving this on a Windows editor is not a valid test.",
+      "Runtime modules are `AvfMedia`, `AvfMediaFactory`, and `AvfMediaCapture`. Put `AvfMediaEditor` only in `*Editor.Build.cs`."
+    ],
+    "note_cn": "Apple AVFoundation 后端。不能在 Win64 上当通用解码器；采集走 `AvfMediaCapture`，不是 Electra。",
+    "note_en": "Apple AVFoundation backend. It is not a Win64 decoder. Capture goes through `AvfMediaCapture`, not Electra."
+  },
+  {
+    "slug": "avid-dnxhd-decoder-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Avid DNxHD® decoder for Electra`（`AvidDNxHDDecoderElectra.uplugin`）并确保 `Electra Player` 已开，重启编辑器。",
+      "准备 Avid DNxHD 编码的审查片（常见 `.mxf` / `.mov`）。本插件只解码 DNxHD 供 Electra 播放，不负责 DNxHR 导出。",
+      "创建 `File Media Source` 指向该文件；`Media Player` 首选 Electra。打开后 Electra 按 codec id 挂上 `AvidDNxHDDecoderElectra`。",
+      "用 `Media Texture` / `Media Plate` 上屏，核对分辨率、帧率与色彩是否与后期交付一致。虚拟制片回放时把引擎 `Timecode Provider` 与片源时码对齐。",
+      "不要在蓝图里查找「DNxHD 组件」。游戏 `Build.cs` 通常不用链接 `AvidDNxHDDecoderElectra`；只有扩展 Electra 解码器时才包含该模块。"
+    ],
+    "en_steps": [
+      "Enable `Avid DNxHD® decoder for Electra` (`AvidDNxHDDecoderElectra.uplugin`), keep `Electra Player` on, and restart the editor.",
+      "Stage Avid DNxHD review media (typically `.mxf` / `.mov`). This plugin only decodes DNxHD for Electra; it does not export DNxHR.",
+      "Create a `File Media Source` to that file and prefer Electra on the `Media Player`. Electra attaches `AvidDNxHDDecoderElectra` from the codec id.",
+      "Display through a `Media Texture` / `Media Plate` and check resolution, frame rate, and color against the finishing spec. For virtual-production playback, align the engine `Timecode Provider` with the file’s timecode.",
+      "There is no Blueprint “DNxHD component”. Game `Build.cs` files usually skip `AvidDNxHDDecoderElectra`; include it only when extending Electra’s decoder list."
+    ],
+    "note_cn": "只服务 Electra 播放 DNxHD。导出 MXF/DNxHR 请用 `Avid DNxHR/DNxMXF Media Plugin`，不要混用。",
+    "note_en": "Decode-only for Electra DNxHD playback. Exporting MXF/DNxHR is the other Avid DNx plugin — do not mix the two."
+  },
+  {
+    "slug": "avid-dnxhr-dnxmxf-media-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "在 `Edit > Plugins` 启用 `Avid DNxHR/DNxMXF Media Plugin`（`AvidDNxMedia.uplugin`）并重启。这是导出编码器，不是 Electra 的 DNxHD 软解。",
+      "打开 `Window > Cinematics > Movie Render Queue`，把 Level Sequence 加入队列，在 Job 的 Settings 里 `+ Setting` 增加 `Avid DNx [8bit]`（名称随引擎小版本可能略有出入）。",
+      "输出容器为 `.mxf`。在该设置里开关 `Use Compression`（压缩 DNxHR vs 未压缩）、设置 `Number of Encoding Threads`。DNx 轨不含内嵌音频，再加一项 `WAV Audio` 以便后期合成。",
+      "C++ 直接写 MXF 时依赖模块 `AvidDNxMedia`，使用 `FAvidDNxEncoder`（头文件 `AvidDNxEncoder/AvidDNxEncoder.h`）：`Initialize` → 每帧 `WriteFrame` / `WriteFrame_16bit` → `Finalize`。当前 MXF writer 不写音频。",
+      "按 Avid 规格核对待机分辨率与帧率（例如 1920×1080 @ 24/25/30）。渲染完成用外部 NLE 打开 `.mxf`，不要用普通 `Media Player` 当验收手段。"
+    ],
+    "en_steps": [
+      "Enable `Avid DNxHR/DNxMXF Media Plugin` (`AvidDNxMedia.uplugin`) in `Edit > Plugins` and restart. This is an export encoder, not Electra’s DNxHD software decoder.",
+      "Open `Window > Cinematics > Movie Render Queue`, add a Level Sequence, and in the job Settings use `+ Setting` to add `Avid DNx [8bit]` (label may vary slightly by engine version).",
+      "The container is `.mxf`. Toggle `Use Compression` (lossy DNxHR vs uncompressed) and set `Number of Encoding Threads`. DNx does not embed audio — add a `WAV Audio` setting and mux in post.",
+      "For C++ MXF writers, depend on `AvidDNxMedia` and `FAvidDNxEncoder` (`AvidDNxEncoder/AvidDNxEncoder.h`): `Initialize`, per-frame `WriteFrame` / `WriteFrame_16bit`, then `Finalize`. The bundled MXF writer does not write audio.",
+      "Match Avid-legal resolutions and frame rates (for example 1920×1080 at 24/25/30). Open the `.mxf` in an NLE; a generic `Media Player` is not a finishing check."
+    ],
+    "note_cn": "Movie Render Queue / `FAvidDNxEncoder` 出 `.mxf`。与 `AvidDNxHDDecoderElectra` 职责相反。音频需单独 WAV。",
+    "note_en": "Writes `.mxf` via Movie Render Queue / `FAvidDNxEncoder`. Opposite job from `AvidDNxHDDecoderElectra`. Audio is a separate WAV."
+  },
+  {
+    "slug": "axf-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用企业插件 `AxF Importer`（`Engine/Plugins/Enterprise/AxFImporter/AxFImporter.uplugin`）。若构建未链 X-Rite AxF SDK，导入会直接失败，先确认该引擎发行版包含 AxF 运行时。",
+      "在内容浏览器 `Import` 选择 X-Rite `.axf`（Appearance Exchange Format）。工厂由模块 `AxFImporter` 注册，不要走 FBX/USD 材质槽去「假装」导入 AxF。",
+      "导入结果是一套 UE 材质 + 测量贴图（SVBRDF：漫反射、高光、法线、粗糙度等，视 AxF 模型而定），不是可播放网格。检查材质实例参数与贴图 sRGB/线性标记。",
+      "把生成的材质赋给静态/骨骼网格，在默认光照下对比测量球；AxF 是外观交换格式，几何仍用你自己的 FBX/USD。",
+      "`AxFImporter` 是编辑器导入器：不要写进游戏 Target。重新导入时覆盖同路径贴图，避免场景里旧材质实例指向失效纹理。"
+    ],
+    "en_steps": [
+      "Enable the enterprise plugin `AxF Importer` (`Engine/Plugins/Enterprise/AxFImporter/AxFImporter.uplugin`). Import fails if this engine build is not linked against the X-Rite AxF SDK — confirm the runtime is present.",
+      "In the Content Browser `Import` an X-Rite `.axf` (Appearance Exchange Format). The factory is registered by module `AxFImporter`; do not try to smuggle AxF through FBX/USD material slots.",
+      "The result is a UE material plus measured maps (SVBRDF: diffuse, specular, normal, roughness, depending on the AxF model), not a playable mesh. Check instance parameters and sRGB vs linear on textures.",
+      "Assign the generated material to your static/skeletal meshes and compare under a known light. AxF is appearance interchange; geometry still comes from your FBX/USD.",
+      "`AxFImporter` is an editor importer — keep it off Game Targets. Reimport over the same texture paths so existing material instances do not dangle."
+    ],
+    "note_cn": "X-Rite `.axf` 外观导入器，产出材质与贴图。需要 AxF SDK；不是网格导入器。",
+    "note_en": "X-Rite `.axf` appearance importer producing materials and maps. Needs the AxF SDK; it does not import meshes."
+  },
+  {
+    "slug": "backchannel",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验插件 `BackChannel`（`Engine/Plugins/Experimental/BackChannel/BackChannel.uplugin`）。它给正在运行的 UE 会话提供外部查询/推送通道，不是关卡组件。",
+      "游戏或 Gauntlet 测试模块的 `Build.cs` 加入 `BackChannel`。包含 `IBackChannelConnection` 以及 OSC 实现 `FBackChannelOSCConnection`（`BackChannel/Protocol/OSC/`）。",
+      "在进程内 `Listen` 或 `Connect` 一条 TCP OSC 连接；外部工具按 OSC 地址模式发数据包。Gauntlet / 自动化主机常用这条回通道向 PIE 或独立进程注入命令、拉截图或状态。",
+      "实现 `IBackChannelPacket` 处理器，按地址分发：只处理你登记过的路径，避免把任意 OSC 直接映射到控制台命令。",
+      "用本机小 OSC 客户端先打通监听端口与一条回包；确认防火墙放行。接口随 Experimental 变更，不要作为 Shipping 公共协议。"
+    ],
+    "en_steps": [
+      "Enable experimental `BackChannel` (`Engine/Plugins/Experimental/BackChannel/BackChannel.uplugin`). It lets external tools query and push into a running UE session; it is not a level component.",
+      "Add `BackChannel` to the game or Gauntlet test `Build.cs`. Use `IBackChannelConnection` and the OSC implementation `FBackChannelOSCConnection` under `BackChannel/Protocol/OSC/`.",
+      "From process code, `Listen` or `Connect` a TCP OSC link. External tools send packets by OSC address pattern. Gauntlet/automation hosts use this back channel to inject commands or pull screenshots/status from PIE or a standalone process.",
+      "Implement an `IBackChannelPacket` handler and dispatch on address. Only honor paths you registered — do not map arbitrary OSC onto console commands.",
+      "Prove the listen port and one round-trip with a local OSC client, and open the firewall. The Experimental contract can change; do not treat it as a Shipping public protocol."
+    ],
+    "note_cn": "面向 Gauntlet/外部工具的 OSC TCP 回通道。无编辑器面板；API 以 `IBackChannelConnection` 为准。",
+    "note_en": "OSC-over-TCP back channel for Gauntlet and external tools. No editor panel; `IBackChannelConnection` is the API."
+  },
+  {
+    "slug": "basecharacterfxeditor",
+    "kind": "plugin",
+    "cn_steps": [
+      "这是角色 FX 资产编辑器的基类插件（`BaseCharacterFXEditor.uplugin`），Groom / Chaos Cloth 等编辑器依赖它。内容制作人通常不用单独「打开 BaseCharacterFX 窗口」。",
+      "写自定义角色 FX 资产编辑器时，在 `*Editor.Build.cs` 依赖模块 `BaseCharacterFXEditor`（Editor 模块，禁止进 Game Target）。",
+      "派生 `UBaseCharacterFXEditor` / Toolkit，接入 Interactive Tools Framework 视口、工具命令与细节托管；资源类型用 Asset Tools 注册打开行为。",
+      "验证：双击你的角色 FX 资产应打开共用视口布局（3D 预览 + 工具板），而不是普通 Actor 细节。对照引擎里 Hair/Cloth 编辑器插件的依赖列表。",
+      "不要把该模块当运行时 Character FX 播放库。运行时 Groom/Cloth 走各自 Runtime 插件；这里只有编辑器骨架。"
+    ],
+    "en_steps": [
+      "This plugin (`BaseCharacterFXEditor.uplugin`) supplies base classes for character FX asset editors. Groom and Chaos Cloth editors depend on it. Content authors do not open a standalone “BaseCharacterFX” window.",
+      "When writing a custom character FX asset editor, depend on module `BaseCharacterFXEditor` from `*Editor.Build.cs` only — never a Game Target.",
+      "Subclass `UBaseCharacterFXEditor` / its toolkit, hook the Interactive Tools Framework viewport, tool commands, and details hosting, and register the asset type with Asset Tools.",
+      "Verify that double-clicking your character FX asset opens the shared viewport layout (3D preview + tool palette), not a generic Actor Details panel. Match how Hair/Cloth editor plugins list this dependency.",
+      "Do not use this module as a runtime Character FX playback library. Runtime Groom/Cloth live in their own runtime plugins; this is editor scaffolding only."
+    ],
+    "note_cn": "编辑器基类，给 Groom/Cloth 等工具提供视口骨架。不是可放置的角色特效组件。",
+    "note_en": "Editor base classes for Groom/Cloth-style toolkits. Not a placeable character FX component."
+  },
+  {
+    "slug": "basematerial",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用内容插件 `BaseMaterial`（`Engine/Plugins/BaseMaterial/BaseMaterial.uplugin`）。它几乎没有 C++ 模块，提供的是统一基础材质与材质函数库。",
+      "在内容浏览器打开该插件 Content（Engine 插件资产，过滤器打开 `Show Plugin Content` / `Show Engine Content`），找到随插件分发的父材质与 `Material Function`。",
+      "新建 `Material Instance` 继承该基础材质（或在自定义材质里调用其 `Material Function`），接入 Base Color、Metallic、Roughness、Normal、AO 等标准输入，避免每个资产再搭一套 shading。",
+      "把实例赋给网格，在相同光照下对比直连自定义着色器的旧材质。Fab / Megascans 管线常依赖这套统一层，改父材质参数会波及所有实例。",
+      "不要把插件 Content 复制进项目后再分叉一份「私有 Base Material」，除非你准备自己维护升级；引擎更新会改函数签名。"
+    ],
+    "en_steps": [
+      "Enable the content plugin `BaseMaterial` (`Engine/Plugins/BaseMaterial/BaseMaterial.uplugin`). It ships almost no C++ modules — it is a unified base material and material-function repository.",
+      "In the Content Browser, turn on plugin/engine content and open this plugin’s Content to the shipped parent material and `Material Function` assets.",
+      "Create a `Material Instance` from that parent (or call its `Material Function`s from a custom graph). Wire the standard inputs — Base Color, Metallic, Roughness, Normal, AO — instead of rebuilding shading per asset.",
+      "Assign instances to meshes and compare under a locked lighting setup. Fab/Megascans pipelines often sit on this layer; changing parent parameters affects every instance.",
+      "Avoid copying plugin Content into the project as a private fork unless you will maintain upgrades; engine updates change function signatures."
+    ],
+    "note_cn": "内容向的统一基础材质库，不是运行时组件。入口是插件 Content 里的材质/函数。",
+    "note_en": "Content-only unified base material library, not a runtime component. Entry point is the plugin Content materials/functions."
+  },
+  {
+    "slug": "batch-renamer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验插件 `Batch Renamer`（描述符 `AdvancedRenamer.uplugin`，模块 `AdvancedRenamer`）。5.5 起常默认开启。",
+      "在内容浏览器多选资产，或在关卡/World Outliner 多选 Actor，右键选 `Batch Rename`（快捷键 `Shift+F2`），打开 Batch Renamer 对话框。",
+      "用面板操作组合规则：`Search`/`Rename to`（可切 `Regex`）、`Remove Old Prefix`/`Suffix`、`Add Prefix`/`Add Suffix`、`Auto Increment`、`Change Case`。右侧预览旧名→新名，确认无碰撞再 `Apply`。",
+      "资产重命名走资源注册表引用修复；Actor 重命名改的是关卡实例名。两类可以分次处理，不要指望一次操作同时改磁盘路径和关卡标签以外的包名。",
+      "大规模重命名后保存关卡与重定向器（`Fix Up Redirectors`）。`AdvancedRenamer` 只属于编辑器，不要加入游戏 `Build.cs`。"
+    ],
+    "en_steps": [
+      "Enable experimental `Batch Renamer` (descriptor `AdvancedRenamer.uplugin`, module `AdvancedRenamer`). It is often on by default from 5.5.",
+      "Multi-select assets in the Content Browser, or actors in the level / World Outliner, then right-click `Batch Rename` (`Shift+F2`) to open the Batch Renamer dialog.",
+      "Build a rule chain: `Search`/`Rename to` (optional `Regex`), `Remove Old Prefix`/`Suffix`, `Add Prefix`/`Add Suffix`, `Auto Increment`, `Change Case`. Preview old→new names on the right and `Apply` only when collisions are clear.",
+      "Asset renames go through the asset registry and reference fixup; actor renames change level instance names. Run them as separate passes if you need both.",
+      "After large batches, save the level and fix redirectors (`Fix Up Redirectors`). `AdvancedRenamer` is editor-only — do not add it to a game `Build.cs`."
+    ],
+    "note_cn": "编辑器批量改名：右键 `Batch Rename` / `Shift+F2`。模块名仍是 `AdvancedRenamer`。",
+    "note_en": "Editor batch rename via right-click `Batch Rename` / `Shift+F2`. The module is still `AdvancedRenamer`."
+  },
+  {
+    "slug": "bink-media",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Bink Media`（`BinkMedia.uplugin`）。运行时模块 `BinkMediaPlayer`，编辑器工厂在 `BinkMediaPlayerEditor`。",
+      "用 RAD Video Tools 把视频压成 `.bk2`，再导入内容浏览器，得到 `Bink Media Player` 一类资产（不是普通 Electra `File Media Source`）。",
+      "创建 `Bink Media Texture`，指向该 Player；把纹理接到材质或 UMG `Image`。蓝图调用该 Player 的 Play/Pause/Seek，而不是 Media Framework 的通用 `Open Source`。",
+      "全屏开场片可走 Bink 电影播放路径：在 `DefaultEngine.ini` / 项目电影设置里配置 `StartupMovies` 等条目，让启动时解码 `.bk2` 而不是 WMF。",
+      "游戏 `Build.cs` 只依赖 `BinkMediaPlayer`。`BinkMediaPlayerEditor` 仅编辑器。Shipping 平台需包含 Bink 授权库；在目标硬件上看解码 CPU/GPU，不要只在编辑器视口点播放。"
+    ],
+    "en_steps": [
+      "Enable `Bink Media` (`BinkMedia.uplugin`). Runtime module is `BinkMediaPlayer`; the editor factory is `BinkMediaPlayerEditor`.",
+      "Encode video to `.bk2` with RAD Video Tools, then import it. You get a `Bink Media Player` asset — not a generic Electra `File Media Source`.",
+      "Create a `Bink Media Texture` aimed at that player and sample it in a material or UMG `Image`. Drive Play/Pause/Seek on the Bink player, not Media Framework `Open Source`.",
+      "Fullscreen startup movies use the Bink movie-player path: set `StartupMovies` (and related entries) in `DefaultEngine.ini` / project movie settings so boot decodes `.bk2` instead of WMF.",
+      "Game `Build.cs` depends on `BinkMediaPlayer` only. `BinkMediaPlayerEditor` stays editor-side. Shipping platforms need the licensed Bink libs; profile decode on device, not only the editor viewport."
+    ],
+    "note_cn": "RAD Bink `.bk2` 播放器与 `Bink Media Texture`。不要当成 Electra 解码插件。",
+    "note_en": "RAD Bink `.bk2` player plus `Bink Media Texture`. Not an Electra decoder plugin."
+  },
+  {
+    "slug": "blackmagic-media-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "安装 Blackmagic Desktop Video 驱动，再启用 `Blackmagic Media Player`（`BlackmagicMedia.uplugin`）。无卡/无驱动时 `BlackmagicMediaFactory` 枚举不到设备。",
+      "采集：新建 `Blackmagic Media Source`（`UBlackmagicMediaSource`），选设备、输入口、分辨率、帧率、色彩/HDR、音频声道与时码。用 `Media Player` + `Media Texture` `Open` 该 Source。",
+      "输出：新建 `Blackmagic Media Output`（`UBlackmagicMediaOutput`），配置填满输出标准。用 `Media Capture`（`UMediaCapture`）从视口、Composure 或渲染目标捕获并送 SDI/HDMI。",
+      "虚拟制片时在 `Project Settings` 对齐 `Timecode Provider` / 帧率，与卡上参考信号一致；nDisplay 或媒体 IO 面板里确认 Drop Frame 与信号格式。",
+      "运行时依赖 `BlackmagicCore`、`BlackmagicMedia`、`BlackmagicMediaOutput`、`BlackmagicMediaFactory`。`BlackmagicMediaEditor` 只进 `*Editor.Build.cs`。现场用 `stat Media` / 设备指示灯查锁定，不要只看编辑器预览窗。"
+    ],
+    "en_steps": [
+      "Install Blackmagic Desktop Video drivers, then enable `Blackmagic Media Player` (`BlackmagicMedia.uplugin`). Without a card/driver, `BlackmagicMediaFactory` enumerates nothing.",
+      "Ingest: create a `Blackmagic Media Source` (`UBlackmagicMediaSource`), set device, input, resolution, frame rate, color/HDR, audio, and timecode. `Open` it on a `Media Player` + `Media Texture`.",
+      "Egress: create a `Blackmagic Media Output` (`UBlackmagicMediaOutput`) that matches the fill standard. Drive `Media Capture` (`UMediaCapture`) from a viewport, Composure, or render target out to SDI/HDMI.",
+      "For virtual production, match `Timecode Provider` / frame rate in `Project Settings` to the card’s reference. Confirm drop-frame and signal format in nDisplay or Media IO.",
+      "Runtime modules: `BlackmagicCore`, `BlackmagicMedia`, `BlackmagicMediaOutput`, `BlackmagicMediaFactory`. `BlackmagicMediaEditor` belongs in `*Editor.Build.cs` only. Check lock with `stat Media` and the hardware LEDs, not only the editor preview."
+    ],
+    "note_cn": "Blackmagic 采集卡的 `UBlackmagicMediaSource` / `UBlackmagicMediaOutput`。必须有 Desktop Video 驱动。",
+    "note_en": "Blackmagic ingest/egress via `UBlackmagicMediaSource` / `UBlackmagicMediaOutput`. Desktop Video drivers are required."
+  },
+  {
+    "slug": "blank-example-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "把 `Engine/Plugins/Developer/BlankPlugin` 整目录复制到项目 `Plugins/`（不要改引擎树里的示例当产品插件）。",
+      "重命名文件夹、`.uplugin`、模块名 `BlankPlugin` 以及描述符里的 FriendlyName/GUID；`BlankPlugin.Build.cs` 与 `FBlankPluginModule` 类名一并改掉。",
+      "在 `.uplugin` 里声明模块类型（Runtime 或 Editor），实现 `StartupModule` / `ShutdownModule`。需要 UI 时另加 `*Editor` 模块，不要把 Slate 链进 Game Target。",
+      "项目 `.uproject` 的 `Plugins` 数组启用你的插件名，Generate Project Files 后编译。日志里应出现模块加载，而不是仍加载引擎自带的 `BlankPlugin`。",
+      "示例默认几乎无功能：在模块启动里注册控制台命令或 Editor 菜单再验证。Developer 示例默认不进 Shipping。"
+    ],
+    "en_steps": [
+      "Copy `Engine/Plugins/Developer/BlankPlugin` into your project `Plugins/` folder. Do not turn the engine-tree sample into a product plugin in place.",
+      "Rename the folder, `.uplugin`, module `BlankPlugin`, FriendlyName, and GUID. Rename `BlankPlugin.Build.cs` and `FBlankPluginModule` to match.",
+      "Declare the module type (Runtime vs Editor) in the `.uplugin` and implement `StartupModule` / `ShutdownModule`. Add a separate `*Editor` module for UI; do not link Slate into a Game Target.",
+      "Enable your plugin name in the `.uproject` `Plugins` array, Generate Project Files, and compile. Logs should load your module, not the engine’s stock `BlankPlugin`.",
+      "The sample is intentionally empty: register a console command or editor menu in startup to prove it. Developer examples are not Shipping plugins by default."
+    ],
+    "note_cn": "最小插件模板。正确用法是复制后改名实现 `FBlankPluginModule`，不是在游戏里搜索组件。",
+    "note_en": "Minimal plugin template. Copy, rename, and implement `FBlankPluginModule` — there is no gameplay component to find."
+  },
+  {
+    "slug": "blend-stack",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Blend Stack`（模块 `BlendStack` + 编辑器 `BlendStackEditor`）。做 Motion Matching 时通常还要开 Pose Search。",
+      "打开角色 `Animation Blueprint` 的 AnimGraph，放入 `Blend Stack` 节点（运行时对应 `FAnimNode_BlendStack` / `FAnimNode_BlendStack_Standalone`）。",
+      "把 Pose Search 的 Motion Matching 输出、Chooser、或游戏逻辑要播的 `AnimSequence`/`BlendSpace` 推进该栈。调节 `Max Active Blends`、`Max Blend In Time to Override Animation`、`Store Blended Pose`，避免每帧重复 BlendTo 把权重重置为零。",
+      "需要惯性混合时在节点上开 Inertial Blend / Blend Profile。游戏线程通过 Blend Stack 接口请求新动画，而不是用 Montage 槽硬切。",
+      "对照 Game Animation Sample：Chooser + Blend Stack 选步态/坡度。`BlendStackEditor` 只提供 AnimGraph 细节，勿加入 Game Target。运行时 `Build.cs` 依赖 `BlendStack`。"
+    ],
+    "en_steps": [
+      "Enable `Blend Stack` (runtime `BlendStack`, editor `BlendStackEditor`). Turn on Pose Search as well if you are doing Motion Matching.",
+      "In the character `Animation Blueprint` AnimGraph, place a `Blend Stack` node (`FAnimNode_BlendStack` / `FAnimNode_BlendStack_Standalone`).",
+      "Feed it Motion Matching output from Pose Search, a Chooser, or gameplay-requested `AnimSequence`/`BlendSpace` assets. Tune `Max Active Blends`, `Max Blend In Time to Override Animation`, and `Store Blended Pose` so per-frame BlendTo does not reset weights to zero.",
+      "Enable inertial blend / a Blend Profile on the node when you need bone-aware blends. Request new animations through the Blend Stack interface instead of slamming Montage slots.",
+      "Use Game Animation Sample as the reference for Chooser + Blend Stack locomotion. `BlendStackEditor` is AnimGraph details only — keep it off Game Targets. Runtime `Build.cs` depends on `BlendStack`."
+    ],
+    "note_cn": "AnimGraph 的 `FAnimNode_BlendStack`，给 Motion Matching/Chooser 做多层混合。不是 Blend Space 资产类型。",
+    "note_en": "AnimGraph `FAnimNode_BlendStack` for Motion Matching/Chooser layering. It is not a Blend Space asset type."
+  },
+  {
+    "slug": "blendspace-motion-analysis",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Blendspace Motion Analysis`（模块 `BlendSpaceMotionAnalysis`）。它给 Blend Space 增加根运动/位移分析，不是新的动画资产类型。",
+      "打开已有 `Blend Space`（或带轴的 Aim Offset），在编辑器的 Analysis / 分析属性里启用运动分析（速度、方向等来自根运动的量）。",
+      "对每个采样动画跑分析，让插件从根位移推导轴值，再把样本点放到对应 Speed/Direction 位置，减少手填轴。",
+      "在 AnimBP 的 `Blend Space Player` 上用同一套轴参数（速度、方向）驱动；分析数据用于编辑时摆点与运行时匹配，不是单独的组件。",
+      "根运动必须在动画上正确烘焙。原地循环且无根位移的片段分析会得到接近零的速度。运行时若要读分析缓存，依赖 `BlendSpaceMotionAnalysis`，以该模块 Public 头文件为准。"
+    ],
+    "en_steps": [
+      "Enable `Blendspace Motion Analysis` (module `BlendSpaceMotionAnalysis`). It adds locomotion/root-motion analysis to Blend Spaces; it does not add a new animation asset type.",
+      "Open an existing `Blend Space` (or an Aim Offset with axes). In the editor Analysis properties, enable motion analysis quantities derived from root motion (speed, direction, and similar).",
+      "Run analysis on each sample animation so the plugin derives axis values from root displacement, then place sample points on the Speed/Direction grid instead of typing axes by hand.",
+      "Drive the same axes from an AnimBP `Blend Space Player` (speed, direction). The analysis cache is for authoring and matching, not a separate component.",
+      "Root motion must be baked on the clips. In-place loops with no root displacement analyze near zero speed. If runtime code reads the analysis cache, depend on `BlendSpaceMotionAnalysis` and its Public headers."
+    ],
+    "note_cn": "在 Blend Space 编辑器里分析根运动以自动摆轴。没有可放置组件。",
+    "note_en": "Analyzes root motion inside the Blend Space editor to place axes. There is no placeable component."
+  }
+]

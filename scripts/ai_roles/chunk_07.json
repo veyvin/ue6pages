@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "scribble",
+    "kind": "plugin",
+    "cn": "Scribble 是动画实验目录下的涂鸦界面插件，让动画师能在视口或时间轴相关界面上手绘标注、草图或修正意图。Scribble 模块提供运行时涂鸦数据与绘制能力，ScribbleEditor 把这些能力接到编辑器控件上。它面向镜头与角色动画评审，而不是通用 2D 绘画工具。",
+    "en": "Scribble is an experimental Animation plugin that adds freehand scribble UI so animators can sketch notes or correction intent in viewport and timeline-adjacent widgets. The Scribble module holds the runtime stroke data and drawing path, while ScribbleEditor wires that into editor chrome. It is meant for animation review markup, not as a general 2D paint suite."
+  },
+  {
+    "slug": "script-plugin",
+    "kind": "plugin",
+    "cn": "Script Plugin 是引擎自带的脚本插件示例，演示如何把外部脚本语言接到 Unreal 的模块与编辑器扩展里。ScriptPlugin 负责运行时脚本宿主，ScriptEditorPlugin 提供编辑器侧的示例界面与资源钩子。团队通常拿它当脚手架去写自己的脚本插件，而不是当作生产级脚本运行时。",
+    "en": "Script Plugin is Epic’s sample script plugin: a starting point for hosting an external scripting language inside Unreal. ScriptPlugin implements the runtime host; ScriptEditorPlugin shows editor UI and asset hooks. Treat it as scaffolding for a custom script plugin, not as a production scripting runtime."
+  },
+  {
+    "slug": "scriptable-tools-editor-mode",
+    "kind": "plugin",
+    "cn": "Scriptable Tools Editor Mode 为可脚本工具提供专用编辑器模式，把 Scriptable Tools Framework 里的工具挂进视口模式切换。它本身不实现工具逻辑，只负责模式注册、工具面板与交互上下文。内容制作管线用它在关卡视口里启动蓝图可写的建模或布局工具。",
+    "en": "Scriptable Tools Editor Mode registers a dedicated editor mode that hosts tools from the Scriptable Tools Framework in the viewport. It does not implement the tools themselves; it owns mode registration, palettes, and the interaction context. Authoring pipelines use it to launch Blueprint-scriptable modeling or layout tools in the level viewport."
+  },
+  {
+    "slug": "scriptable-tools-framework",
+    "kind": "plugin",
+    "cn": "Scriptable Tools Framework 把 Interactive Tools Framework 扩展成可用蓝图编写的工具层。ScriptableToolsFramework 提供运行时工具对象与点击/拖拽交互，EditorScriptableToolsFramework 暴露编辑器侧的工具定义与注册。美术与技术美术可以不写 C++ 就做自定义视口工具。",
+    "en": "Scriptable Tools Framework extends Interactive Tools Framework so tools can be authored in Blueprint. ScriptableToolsFramework supplies runtime tool objects and click/drag interaction; EditorScriptableToolsFramework exposes editor-side definitions and registration. Artists and TDs can ship custom viewport tools without writing C++."
+  },
+  {
+    "slug": "security-sandbox",
+    "kind": "plugin",
+    "cn": "Security Sandbox 用来降低游戏客户端进程的操作系统权限，缩小被漏洞接管后能造成的伤害。它在客户端启动路径上收紧令牌、特权与可访问资源，而不是做反作弊检测。适合发行 Windows 客户端时作为纵深防御的一层。",
+    "en": "Security Sandbox reduces the OS permissions a game client process runs with, limiting damage if an attacker hijacks the process through a vulnerability. It tightens tokens, privileges, and reachable resources on the client launch path; it is not an anti-cheat detector. Use it as defense-in-depth for shipping Windows clients."
+  },
+  {
+    "slug": "semantic-search",
+    "kind": "plugin",
+    "cn": "Semantic Search 是资产语义搜索的早期实验：用嵌入向量按含义查找内容浏览器里的资源，而不是只靠文件名。SemanticSearch 处理查询与嵌入，SemanticSearchEditorIntegrations 把它接到编辑器搜索入口。当前必须配置自定义远程 Embedding Provider 才能真正工作。",
+    "en": "Semantic Search is an early experimental asset search that ranks Content Browser items by meaning via embeddings rather than filenames alone. SemanticSearch owns query and embedding plumbing; SemanticSearchEditorIntegrations hooks it into editor search UI. It currently requires a custom Remote Embedding Provider before it is usable."
+  },
+  {
+    "slug": "sequence-navigator",
+    "kind": "plugin",
+    "cn": "Sequence Navigator 给复杂 Movie Scene / Sequencer 资产提供可编辑的面包屑导航，帮助在嵌套镜头、子序列和镜头切换之间跳转。它面向动画与过场制作中层级很深的序列，而不是替代 Sequencer 时间轴本身。导航条目可直接用于定位并打开对应片段。",
+    "en": "Sequence Navigator is an experimental breadcrumb tool for nested Movie Scene / Sequencer assets, with editing so you can jump among shots, subsequences, and cuts. It targets deep cinematic hierarchies rather than replacing the Sequencer timeline. Breadcrumb entries locate and open the corresponding sequence section."
+  },
+  {
+    "slug": "sequence-validator",
+    "kind": "plugin",
+    "cn": "Sequence Validator 为 Sequencer 序列提供一套校验规则，用来抓住绑定丢失、轨道引用失效、常见过场配置错误等。它运行在 MovieScene 插件树里，面向镜头提交前的质量闸门。校验结果给剪辑与动画把关，而不是在运行时播放序列。",
+    "en": "Sequence Validator ships validation rules that flag common Sequencer mistakes such as broken bindings, stale track references, and cinematic setup errors. It lives under MovieScene plugins and is meant as a pre-submit quality gate. It inspects authored sequences; it does not play them at runtime."
+  },
+  {
+    "slug": "sequencer-anim-mixer",
+    "kind": "plugin",
+    "cn": "Sequencer Anim Mixer（MovieSceneAnimMixer）在序列里做分层动画混合，让多条动画层按权重叠到同一角色上。MovieSceneAnimMixerEditor 提供层叠界面，MovieSceneAnimMixerScripting 开放脚本控制。它处理的是镜头里的层混合，不是 Animation Blueprint 状态机。",
+    "en": "Sequencer Anim Mixer (MovieSceneAnimMixer) mixes layered animation inside sequences so multiple anim layers can blend onto one character by weight. MovieSceneAnimMixerEditor authors those layers; MovieSceneAnimMixerScripting exposes them to scripts. It is sequence-time layer mixing, not an Animation Blueprint state machine."
+  },
+  {
+    "slug": "sequencer-anim-tools",
+    "kind": "plugin",
+    "cn": "Sequencer Anim Tools 把面向 Sequencer 与 Control Rig 的动画制作小工具集中到编辑器里，例如关键帧辅助、绑定操作和镜头内动画编辑。它只服务内容管线，不会打进 Shipping 游戏。动画师在同一时间轴上同时修骨骼动画与 Control Rig 曲线时会用到它。",
+    "en": "Sequencer Anim Tools collects editor utilities for Sequencer and Control Rig authoring—key helpers, rig operations, and in-shot animation edits. It is an authoring plugin and is not cooked into shipping games. Animators use it when they need both skeletal animation and Control Rig curves on the same timeline."
+  },
+  {
+    "slug": "sequencer-mixed-control-rig",
+    "kind": "plugin",
+    "cn": "Sequencer Mixed Control Rig 让 Control Rig 能以混合轨的方式进入 Movie Scene：同一镜头里可以把程序化绑定层与传统动画层叠在一起。MovieSceneMixedControlRig 负责运行时求值，对应 Editor 模块负责轨与区段编辑。它补的是 Sequencer 里「混合 Control Rig」这条实验路径，而不是完整的 Control Rig 图编辑器。",
+    "en": "Sequencer Mixed Control Rig lets Control Rig participate as mixed Movie Scene tracks, stacking procedural rig layers with conventional animation in one shot. MovieSceneMixedControlRig evaluates at runtime; the editor module authors tracks and sections. It is the experimental mixed-rig Sequencer path, not the full Control Rig graph editor."
+  },
+  {
+    "slug": "sequencer-scripting",
+    "kind": "plugin",
+    "cn": "Sequencer Scripting 为 Sequencer 与 Movie Scene 提供 Python / Editor Utility 扩展，可用脚本创建轨道、关键帧、绑定和镜头结构。SequencerScripting 暴露可脚本 API，SequencerScriptingEditor 接到编辑器实用程序蓝图。它是过场批处理与自动化的入口，而不是播放器。",
+    "en": "Sequencer Scripting adds Python and Editor Utility APIs for Sequencer and Movie Scene so scripts can create tracks, keys, bindings, and shot structure. SequencerScripting exposes the scriptable surface; SequencerScriptingEditor hooks Editor Utility Blueprints. It is the automation entry for cinematics, not a playback engine."
+  },
+  {
+    "slug": "sequenceranimmixertoolset",
+    "kind": "plugin",
+    "cn": "SequencerAnimMixerToolset 是给 Sequencer 动画混合器准备的 EDA 工具集，把层混合器的查询与操作暴露给编辑器内的 AI/自动化代理。它不实现混合求值本身，而是给外部工具读写混合器状态。通常与 MovieSceneAnimMixer 一起出现在实验 Toolsets 目录。",
+    "en": "SequencerAnimMixerToolset is an EDA toolset for the Sequencer Animation Mixer, exposing layer-mixer queries and operations to in-editor AI or automation agents. It does not evaluate blends; it lets external tools inspect and drive mixer state. It typically sits beside MovieSceneAnimMixer under Experimental Toolsets."
+  },
+  {
+    "slug": "serialization-utils",
+    "kind": "plugin",
+    "cn": "Serialization Utils 提供超出引擎默认 UObject 序列化的 JSON 与 XML 读写扩展。JsonSerialization 与 XmlSerialization 两个模块分别处理对应文本格式，便于和外部工具链交换结构化数据。它面向实验性互操作，不是替代 SaveGame 或包文件格式。",
+    "en": "Serialization Utils adds extended JSON and XML serialization beyond default UObject archives. JsonSerialization and XmlSerialization each handle their text format so structured data can round-trip with external toolchains. It is experimental interop, not a replacement for SaveGame or package files."
+  },
+  {
+    "slug": "shader-toolkit",
+    "kind": "plugin",
+    "cn": "Shader Toolkit（ShaderAudit）分析项目构建与着色器变体，帮助找出多余的材质排列并缩小着色器排列空间。ShaderAuditCore 做审计数据，ShaderAudit 提供开发者界面。它是编辑器侧的着色器成本工具，不会进入游戏包。",
+    "en": "Shader Toolkit (ShaderAudit) analyzes project builds and shaders to surface excess material permutations and shrink shader permutation space. ShaderAuditCore gathers audit data; ShaderAudit presents the developer UI. It is an editor-side shader-cost tool and does not ship in the game package."
+  },
+  {
+    "slug": "shared-memory-media",
+    "kind": "plugin",
+    "cn": "Shared Memory Media 实现同机进程间共享 GPU 纹理的 Media Output 与 Media Source，适合把引擎画面零拷贝送给另一进程或从另一进程读入。SharedMemoryMedia 是核心路径，Vulkan 预初始化模块处理 Vulkan 设备共享，Editor 模块配置媒体资产。典型场景是虚拟制片或本地合成管线，而不是网络推流。",
+    "en": "Shared Memory Media implements a Media Output and Media Source that share GPU textures between processes on the same machine, avoiding copies. SharedMemoryMedia is the core path, the Vulkan pre-init module prepares device sharing, and the editor module configures media assets. Typical use is local virtual-production compositing, not networked streaming."
+  },
+  {
+    "slug": "signals",
+    "kind": "plugin",
+    "cn": "Signals 是 Unreal 上的信号（Signal）响应式数据模式实现：值变化时自动通知依赖方，类似细粒度观察者。它给游戏逻辑与 UI 绑定提供实验性原语，而不是网络复制或委托系统的替代品。适合在需要自动失效/更新的数据图里试用。",
+    "en": "Signals is an Unreal-specific Signal pattern: values notify dependents when they change, like a fine-grained observer graph. It offers experimental primitives for gameplay and UI bindings, not a replacement for replication or multicast delegates. Try it where you want automatic invalidation across a data graph."
+  },
+  {
+    "slug": "significance-manager",
+    "kind": "plugin",
+    "cn": "Significance Manager 让游戏按自定义规则给世界中的对象打「重要性」分，再据此降频、关特效或简化 AI。它是可扩展框架而不是固定 LOD 系统：项目注册自己的显著性计算。开放世界常用它把预算花在玩家真正注意到的 Actor 上。",
+    "en": "Significance Manager lets a game score how important each object is, then throttle ticks, effects, or AI in response. It is an extensible framework, not a fixed LOD system—projects register their own significance calculators. Open-world titles use it to spend budget on Actors the player actually notices."
+  },
+  {
+    "slug": "simplehmd",
+    "kind": "plugin",
+    "cn": "SimpleHMD 是最基础的立体头显实现样例，展示如何向引擎注册一个最小 XR/HMD 设备。它用于学习立体渲染与头显接口，而不是驱动消费级头显。要做真实 VR 请走 OpenXR 或其他平台插件。",
+    "en": "SimpleHMD is a sample of a minimal stereo HMD implementation, showing how to register a tiny XR device with the engine. Use it to learn stereo rendering and the HMD interface, not to drive consumer headsets. Production VR should use OpenXR or a platform plugin."
+  },
+  {
+    "slug": "skeletal-merging",
+    "kind": "plugin",
+    "cn": "Skeletal Merging 在运行时把多个骨架网格体合并成一个，并提供蓝图节点来驱动合并。常用于把换装部件、附加网格合成单一蒙皮网格以减少 Draw Call。它处理的是运行时合并，不是编辑器里的骨骼重定向。",
+    "en": "Skeletal Merging exposes Blueprint functions to merge skeletal meshes at runtime into one skinned mesh. Typical use is combining outfit pieces to cut draw calls. It is runtime mesh merging, not editor skeleton retargeting."
+  },
+  {
+    "slug": "skeletal-mesh-editing-tools",
+    "kind": "plugin",
+    "cn": "Skeletal Mesh Editing Tools（SkeletalMeshModelingTools）在引擎内创建骨架、绘制蒙皮权重并直接编辑骨架网格。它把建模工具集接到骨骼网格工作流，减少往返 DCC。适合在编辑器里修绑定网格与权重，而不是运行时动画。",
+    "en": "Skeletal Mesh Editing Tools (SkeletalMeshModelingTools) lets you create skeletons, paint skin weights, and edit skeletal meshes inside the engine. It brings modeling-tool workflows onto skinned meshes so you bounce less to a DCC. It is an authoring toolkit, not a runtime animation system."
+  },
+  {
+    "slug": "skeletal-mesh-morph-target-editing-tools",
+    "kind": "plugin",
+    "cn": "该插件把变形目标（Morph Target）编辑能力嵌进骨架网格编辑器，可在引擎内雕刻或调整表情/肌肉形态。它是动画实验工具，接口可能随版本变化。面向角色面部与形体修正，而不是通用静态网格雕刻。",
+    "en": "This plugin adds morph-target editing inside the skeletal mesh editor so you can sculpt or tweak expression and muscle shapes in-engine. It is experimental animation tooling whose contract may change. It targets character face and body shapes, not general static-mesh sculpting."
+  },
+  {
+    "slug": "skeletal-mesh-simplifier-early-access",
+    "kind": "plugin",
+    "cn": "Skeletal Mesh Simplifier（SkeletalMeshReduction）为可变形网格生成 LOD，在减面时尽量保住蒙皮与变形质量。它走实验/抢先体验路径，专门处理会随骨骼变形的网格，而不是静态网格简化器。角色资产管线用它批量产出骨骼网格 LOD。",
+    "en": "Skeletal Mesh Simplifier (SkeletalMeshReduction) generates LODs for deforming meshes while trying to preserve skinning and morph quality. It is an experimental/early-access path aimed at skinned meshes, not the static-mesh simplifier. Character pipelines use it to batch skeletal LOD."
+  },
+  {
+    "slug": "slate-debugger",
+    "kind": "plugin",
+    "cn": "Slate Debugger 记录编辑器里的 Slate 焦点与导航事件，再通过 USlateDebuggerSubsystem 暴露给 Python 和 AI 工具。SlateDebuggerCommonUI 覆盖 Common UI 相关的焦点路径。它用来诊断「谁抢走了焦点」以及自动化点击路径，而不是做性能分析。",
+    "en": "Slate Debugger records Slate focus and navigation events in the editor and exposes them through USlateDebuggerSubsystem to Python and AI tools. SlateDebuggerCommonUI covers Common UI focus paths. Use it to diagnose focus theft and automate click paths, not for GPU/CPU profiling."
+  },
+  {
+    "slug": "slate-insights",
+    "kind": "plugin",
+    "cn": "Slate Insights 把 Slate UI 的布局、绘制与无效化开销接到 Unreal Insights 时间线。用它排查编辑器卡顿或控件刷新风暴，而不是看游戏世界 Trace。分析师可以按控件树对照哪一块 Slate 在烧帧。",
+    "en": "Slate Insights pipes Slate layout, paint, and invalidation cost into Unreal Insights. Use it to hunt editor hitches or widget invalidation storms, not world-trace gameplay. Analysts can map time back to the widget tree that burned the frame."
+  },
+  {
+    "slug": "slate-model-view-viewmodel",
+    "kind": "plugin",
+    "cn": "Slate MVVM（SlateMVVM）把 Model-View-ViewModel 绑定带到纯 Slate 控件层，让编辑器或自定义 Slate UI 也能数据驱动。它不经过 UMG，适合编辑器工具面板。实验阶段，和 UMG Viewmodel 插件解决的是不同 UI 栈。",
+    "en": "Slate MVVM (SlateMVVM) brings Model-View-ViewModel bindings to raw Slate widgets so editor or custom Slate UI can be data-driven without UMG. It targets editor tool panels. It is experimental and addresses a different UI stack than the UMG Viewmodel plugin."
+  },
+  {
+    "slug": "slate-scripting",
+    "kind": "plugin",
+    "cn": "Slate Scripting 通过 SlateScriptingCommands 让脚本查找、点击和驱动 Slate 控件，服务编辑器自动化与测试。它操作的是控件命令层，不是绘制 API。适合写无头或半自动的编辑器操作脚本。",
+    "en": "Slate Scripting (SlateScriptingCommands) lets scripts find, click, and drive Slate widgets for editor automation and tests. It talks to the widget command layer, not the paint API. Use it for headless or semi-automated editor operation scripts."
+  },
+  {
+    "slug": "slateim",
+    "kind": "plugin",
+    "cn": "SlateIM 提供立即模式风格的 Slate API，用函数式调用即时构建控件，而不是传统的声明式 Widget 树。SlateIMEngine / SlateIMInGame / SlateIMBlueprint 分别覆盖引擎、游戏内与蓝图入口。适合快速做调试叠加层或工具 UI，实验接口可能变动。",
+    "en": "SlateIM adds an immediate-mode style API on top of Slate: build widgets with function calls instead of a retained widget tree. SlateIMEngine, SlateIMInGame, and SlateIMBlueprint cover engine, in-game, and Blueprint entry points. It is handy for debug overlays and tool UI; the experimental contract may change."
+  },
+  {
+    "slug": "slateinspectortoolset",
+    "kind": "plugin",
+    "cn": "SlateInspectorToolset 是面向 Slate 的检查与 UI 自动化工具集，供编辑器内代理查询控件树、属性与可见状态。配套测试模块验证这些工具调用。它给 AI/EDA 工作流用，不会作为游戏 UI 功能发布。",
+    "en": "SlateInspectorToolset provides Slate inspection and UI automation tools so in-editor agents can query the widget tree, properties, and visibility. A tests module covers those tool calls. It serves AI/EDA workflows, not shipping game UI."
+  },
+  {
+    "slug": "slatescreenreader",
+    "kind": "plugin",
+    "cn": "SlateScreenReader 把 Slate 控件树转成无障碍可读信息，让屏幕阅读器能朗读编辑器或游戏 UI。它走辅助功能通道，补充焦点导航与文本公告。实验插件，用于提升残障用户对 Slate UI 的可达性。",
+    "en": "SlateScreenReader turns the Slate widget tree into accessible speech so a screen reader can announce editor or game UI. It rides the accessibility channel alongside focus navigation and text announcements. The experimental plugin improves Slate reachability for assistive tech."
+  },
+  {
+    "slug": "smartobjects",
+    "kind": "plugin",
+    "cn": "Smart Objects 描述世界里可供 AI 与环境生命使用的交互槽：椅子、工作点、队列位置等。运行时模块定义对象与声明，Editor 模块用于放置和配置，测试套件覆盖选择逻辑。Mass / AI 人群常用它让 NPC 占用场景中的具体交互点。",
+    "en": "Smart Objects describe world slots ambient AI can use—chairs, work spots, queue points. The runtime module defines objects and claims, the editor module places them, and the test suite covers selection. Mass and crowd AI use it so NPCs occupy concrete interaction points in the level."
+  },
+  {
+    "slug": "socket-subsystem-eos",
+    "kind": "plugin",
+    "cn": "Socket Subsystem EOS 管理 Epic Online Services 上的 P2P Socket 连接，把 EOS 的点对点通道接到引擎 Socket 子系统。游戏用它在 EOS 会话里传自定义可靠/不可靠数据，而不是 HTTP 或语音。需要与 Online Subsystem EOS 一起构成完整在线栈。",
+    "en": "Socket Subsystem EOS manages EOS P2P socket connections and surfaces them through Unreal’s socket subsystem. Games send custom reliable or unreliable payloads over EOS sessions; it is not HTTP or voice. Pair it with Online Subsystem EOS for a full online stack."
+  },
+  {
+    "slug": "socket-subsystem-steam-ip",
+    "kind": "plugin",
+    "cn": "Socket Subsystem Steam (IP) 用 Steam 的 IP 网络路径连接用户，不包含 NAT 穿透。需要真正的 P2P 打洞时应改用 SteamSockets 插件。它负责 Steam 用户之间的套接字层，而不是 Steam 成就或大厅 API。",
+    "en": "Socket Subsystem Steam (IP) handles Steam net connections over IP and does not perform NAT punchthrough. Use the SteamSockets plugin when you need real P2P traversal. This module is the socket layer between Steam users, not achievements or lobbies."
+  },
+  {
+    "slug": "solaris",
+    "kind": "plugin",
+    "cn": "Solaris 是 Verse / uLang 的编译与运行时宿主：文本脚本、VPL、VerseNative 互操作以及编辑器工作流都挂在这棵插件上。它包含编译器加载、编辑器、预测执行（VersePredicts）和 VerseWorkflowServer 等模块。这是 Fortnite/UEFN 脚本栈的引擎内核，不是普通蓝图插件。",
+    "en": "Solaris hosts Verse / uLang: text scripting, VPL, VerseNative interop, and editor workflow. Modules cover compiler load, SolarisEditor, VersePredicts, and VerseWorkflowServer. It is the engine core of the Fortnite/UEFN scripting stack, not a generic Blueprint plugin."
+  },
+  {
+    "slug": "sound-cue-templates",
+    "kind": "plugin",
+    "cn": "Sound Cue Templates 提供一批可复用的 Sound Cue 模板，覆盖常见的随机、循环、衰减等音频设计套路。运行时模块实例化这些模板，Editor 模块在内容浏览器里创建它们。音频设计师用模板快速铺基础声音图，再按项目改参数。",
+    "en": "Sound Cue Templates ships reusable Sound Cue templates for common design patterns such as randomization, loops, and attenuation. Runtime instantiates them; the editor module creates them in the Content Browser. Designers scaffold a cue graph from a template, then tune per project."
+  },
+  {
+    "slug": "sound-module-plugin",
+    "kind": "plugin",
+    "cn": "Sound Module Plugin（SoundMod）播放老式 tracker 模块音乐：ProTracker MOD、Scream Tracker S3M、Fast Tracker XM、Impulse Tracker IT。SoundModImporter 把这些文件导入为引擎可播放资产。适合复古配乐或体积很小的程序化音轨，而不是现代流式音频。",
+    "en": "Sound Module Plugin (SoundMod) plays classic tracker music: ProTracker MOD, Scream Tracker S3M, Fast Tracker XM, and Impulse Tracker IT. SoundModImporter brings those files in as playable assets. Use it for retro scores or tiny procedural tracks, not modern streaming audio."
+  },
+  {
+    "slug": "sound-utilities",
+    "kind": "plugin",
+    "cn": "Sound Utilities 收集一批蓝图可调用的音频辅助函数与对象，例如分析、封装播放器、常用数学与转换。Editor 模块提供资产与细节面板支持。它补的是引擎音频 API 周围的便利层，不是新的混音器后端。",
+    "en": "Sound Utilities collects Blueprint-callable audio helpers, objects, and conversions around analysis and playback wrappers. The editor module adds asset and details support. It is a convenience layer around engine audio APIs, not a new mixer backend."
+  },
+  {
+    "slug": "soundfields",
+    "kind": "plugin",
+    "cn": "SoundFields 提供基础的声场（Ambisonics 等）编解码与播放方案，把多通道声场接到 Unreal 音频管线。它面向空间音频实验与基础声场工作流，而不是完整的第三方中间件替代。项目可用它处理一阶或基础高阶声场资产。",
+    "en": "SoundFields ships basic sound-field (including Ambisonics-style) encode/decode and playback hooked into Unreal’s audio pipeline. It covers foundational sound-field workflows, not a full third-party middleware suite. Projects can play first-order or simple higher-order sound-field assets with it."
+  },
+  {
+    "slug": "soundscape-plugin",
+    "kind": "plugin",
+    "cn": "Soundscape 是动态环境声系统：按玩家位置、状态和调色板在关卡中生成持续变化的氛围声。Editor 模块编辑声景调色板与生成规则。它管理的是环境层，而不是一次性音效或对话。",
+    "en": "Soundscape is a dynamic ambient system that spawns evolving atmosphere based on player location, state, and palettes. The editor module authors palettes and spawn rules. It owns the ambience layer, not one-shots or dialogue."
+  },
+  {
+    "slug": "spatialization",
+    "kind": "plugin",
+    "cn": "Spatialization 提供一组基础 3D 音频空间化算法（衰减、定位、简单 HRTF 类方案），可在音源上选用。Editor 模块配置空间化设置资产。它是引擎自带的入门空间化，复杂场景常再接第三方或 Steam Audio 等方案。",
+    "en": "Spatialization offers basic 3D audio spatializers—panning, attenuation, simple HRTF-style options—you can assign on sources. The editor module authors spatialization settings assets. It is the built-in starter spatializer; complex titles often add third-party or Steam Audio."
+  },
+  {
+    "slug": "spatially-aware-retarget-ops",
+    "kind": "plugin",
+    "cn": "Spatially Aware Retarget Ops 是一组 IK Retarget 操作，用来在重定向时保住手脚相对道具、地面和身体的空间关系。RelativeIKOp、ProximityIKOp、PelvisVolumeOp、BodyIntersectIKOp 等分别处理相对 IK、邻近约束、骨盆体积和身体交叉。PreviewPropOp 帮助在预览里带着道具看结果。",
+    "en": "Spatially Aware Retarget Ops is a pack of IK Retarget operations that preserve spatial relationships—hands to props, feet to ground, body volumes—after retarget. RelativeIKOp, ProximityIKOp, PelvisVolumeOp, and BodyIntersectIKOp each handle relative IK, proximity, pelvis volume, and intersections. PreviewPropOp lets you preview with props in the retarget editor."
+  },
+  {
+    "slug": "spatialreadiness",
+    "kind": "plugin",
+    "cn": "SpatialReadiness 是实验性空间计算就绪检查：评估项目或内容是否满足空间/混合现实体验的约束（尺度、交互、场景结构等）。官方 .uplugin 暂无说明，模块以运行时检查器的形式存在。适合在 XR/空间项目里做内容合规扫描，而不是渲染空间网格本身。",
+    "en": "SpatialReadiness is an experimental spatial-computing readiness checker: it evaluates whether a project or content set meets mixed-reality constraints such as scale, interaction, and scene structure. The .uplugin ships no description; the runtime module acts as that inspector. Use it to scan XR/spatial content, not to render spatial meshes."
+  },
+  {
+    "slug": "speedtree-importer",
+    "kind": "plugin",
+    "cn": "SpeedTree Importer 把 SpeedTree 运行时文件导入为 Unreal 的树木网格、材质与风动画数据。它只服务编辑器导入管线，不把 SpeedTree 建模器打进游戏。植被美术用它把 .st 运行时资源送进引擎。",
+    "en": "SpeedTree Importer brings SpeedTree runtime files into Unreal as tree meshes, materials, and wind data. It is an editor importer, not the SpeedTree modeler in-game. Vegetation artists use it to ingest .st runtime assets."
+  },
+  {
+    "slug": "sqlite-support",
+    "kind": "plugin",
+    "cn": "SQLite Support 在运行时提供 SQLite 数据库接入层，让游戏或工具用 SQL 查询本地库。它建立在 SQLite 核心之上，面向需要结构化本地存储的系统（配置、索引、遥测缓存）。不是云数据库客户端。",
+    "en": "SQLite Support is the runtime database access layer for SQLite, letting games or tools run SQL against a local library. It sits on the SQLite core and targets structured local storage such as config, indexes, or telemetry caches. It is not a cloud database client."
+  },
+  {
+    "slug": "sqlite",
+    "kind": "plugin",
+    "cn": "SQLite（SQLiteCore）是对 sqlite C 库的轻量 C++ 封装，负责创建、打开和操作 SQLite 数据库文件。它可以打进 Cooking 后的游戏包。许可证见引擎 ThirdParty 下的 SQLite 许可文件；更高层查询 API 通常走 SQLite Support。",
+    "en": "SQLite (SQLiteCore) is a thin C++ wrapper around the sqlite C library for creating and manipulating SQLite files. It can ship in a cooked game. See the engine ThirdParty SQLite license; higher-level query helpers usually live in SQLite Support."
+  },
+  {
+    "slug": "stage-monitor",
+    "kind": "plugin",
+    "cn": "Stage Monitor 监控虚拟制片现场上多台机器的健康与数据：哪台渲染节点掉线、时间码是否对齐、舞台数据是否在流。StageDataProvider 提供数据，StageMonitor / Editor / Common 构成监视端。它是 nDisplay/舞台运维面板，不是普通性能分析器。",
+    "en": "Stage Monitor watches a virtual-production stage with many machines: render-node health, timecode lock, and live stage data. StageDataProvider feeds data; StageMonitor, Editor, and Common form the watcher UI. It is nDisplay/stage ops, not a generic profiler."
+  },
+  {
+    "slug": "state-graph",
+    "kind": "plugin",
+    "cn": "State Graph 提供通用状态机管理类（StateGraph / StateGraphManager），用图结构描述状态与转换。它比 StateTree 更底层、更通用，没有那套游戏任务编辑器。适合需要自定义状态图运行时、又不想绑 AI 资源类型的系统。",
+    "en": "State Graph supplies generic state-machine types (StateGraph / StateGraphManager) that describe states and transitions as a graph. It is lower-level and more generic than StateTree, without that gameplay editor. Use it when you need a custom state-graph runtime unbound from AI asset types."
+  },
+  {
+    "slug": "statetree",
+    "kind": "plugin",
+    "cn": "StateTree 是通用分层状态机：把选择、任务和过渡做成可资产化的树，广泛用于 AI、交互和游戏流程。StateTreeModule 是运行时，Editor 模块编辑树，Developer 与 TestSuite 服务调试和测试。它可打进游戏，常替代或补充行为树。",
+    "en": "StateTree is a general-purpose hierarchical state machine: selectable tasks and transitions authored as assets for AI, interaction, and game flow. StateTreeModule is runtime; the editor module authors trees; Developer and TestSuite cover debug and tests. It can ship in-game and often complements or replaces Behavior Trees."
+  },
+  {
+    "slug": "statetreetoolset",
+    "kind": "plugin",
+    "cn": "StateTreeToolset 把 StateTree 的检查能力包装成 EDA 工具，让自动化代理查询当前状态、任务和转换。它不编辑树资产，只做只读或受控检查。用于编辑器内 AI 助手诊断 StateTree 行为。",
+    "en": "StateTreeToolset wraps StateTree inspection as an EDA toolset so automation agents can query active states, tasks, and transitions. It does not author tree assets; it inspects them. In-editor AI assistants use it to diagnose StateTree behavior."
+  },
+  {
+    "slug": "static-mesh-editor-modeling-mode",
+    "kind": "plugin",
+    "cn": "该插件在静态网格编辑器中打开 Modeling Tools 选项卡，让你在编辑单个 Static Mesh 资产时直接使用几何建模工具。StaticMeshEditorModeling 只扩展该资产编辑器，不替代关卡视口的 Modeling Mode。适合在网格资产上做布尔、焊接、重拓扑前的修补。",
+    "en": "This plugin enables a Modeling Tools tab inside the Static Mesh Editor so you can run geometry tools on a single Static Mesh asset. StaticMeshEditorModeling extends that asset editor; it does not replace Modeling Mode in the level viewport. Use it for booleans, welding, and pre-retopo fixes on the mesh asset."
+  },
+  {
+    "slug": "steam-audio-deprecated",
+    "kind": "plugin",
+    "cn": "引擎内置的 Steam Audio 插件已弃用，将在后续引擎版本移除；Epic 要求改用 Valve 官网提供的插件。历史上它提供基于几何的声传播、遮挡与 HRTF。现有项目应迁移，避免继续依赖 Engine/Plugins/Runtime/Steam/SteamAudio。",
+    "en": "The in-engine Steam Audio plugin is deprecated and will be removed; Epic directs you to Valve’s plugin instead. Historically it provided geometry-based propagation, occlusion, and HRTF. Migrate existing projects away from Engine/Plugins/Runtime/Steam/SteamAudio."
+  },
+  {
+    "slug": "steam-controller-plugin",
+    "kind": "plugin",
+    "cn": "Steam Controller Plugin 是 Steam 控制器的 InputDevice 插件，把 Steam 输入 API 的手柄/触控板映射进 Unreal 输入栈。它处理设备枚举与轴键，而不是 Steam 联机。需要 Steam 手柄配置的项目启用它。",
+    "en": "Steam Controller Plugin is the InputDevice plugin for Steam controllers, mapping Steam Input pads and trackpads into Unreal’s input stack. It handles device enumeration and axes, not Steam online services. Enable it when the project relies on Steam controller configuration."
+  },
+  {
+    "slug": "steam-shared-module",
+    "kind": "plugin",
+    "cn": "Steam Shared 是 Steamworks API 的共享加载器，保证多个 Steam 相关插件只初始化一份 Steam 客户端。Socket、Controller、Sockets 等插件都依赖它来拿到 ISteam 接口。它本身不实现联机功能。",
+    "en": "Steam Shared is the shared Steamworks API loader so multiple Steam plugins initialize one Steam client. Sockets, controller, and socket-subsystem plugins depend on it for ISteam interfaces. It does not implement online features by itself."
+  },
+  {
+    "slug": "steam-sockets",
+    "kind": "plugin",
+    "cn": "Steam Sockets 实现 Steamworks 的 SteamSockets 网络接口，支持 NAT 穿透的 P2P。它只与 SteamSockets NetDriver 兼容，未在项目里配置对应 NetDriver 则不会工作。相对 Steam IP Socket 子系统，这是推荐的 Steam P2P 传输。",
+    "en": "Steam Sockets implements Steamworks SteamSockets networking, including NAT-punch P2P. It only works with the SteamSockets NetDriver; without those netdriver definitions it does nothing. Prefer it over the Steam IP socket subsystem for Steam P2P."
+  },
+  {
+    "slug": "storm-sync-motion-design-bridge",
+    "kind": "plugin",
+    "cn": "Storm Sync Motion Design Bridge（StormSyncAvalancheBridge）把 Motion Design（Avalanche）资产接到 Storm Sync，使运动图形资源能在编辑器间同步。Bridge 运行时与 Editor 模块处理推拉与依赖映射。虚拟制片里常用它让 Motion Design 场景跟舞台机器对齐。",
+    "en": "Storm Sync Motion Design Bridge (StormSyncAvalancheBridge) connects Motion Design (Avalanche) assets to Storm Sync so motion-graphics content can sync across editors. Runtime and editor bridge modules handle push/pull and dependency mapping. Virtual-production stages use it to keep Motion Design scenes aligned across machines."
+  },
+  {
+    "slug": "storm-sync",
+    "kind": "plugin",
+    "cn": "Storm Sync 在虚拟制片与 Motion Design 工作流里同步、拉取、推送资产及其依赖。Core/Drives/Transport 模块负责传输与驱动器抽象，Editor 与 Import 处理编辑器侧同步界面。它让多台编辑器共享同一套运动设计与舞台资产，而不是通用 Git。",
+    "en": "Storm Sync syncs, pulls, and pushes assets and their dependencies for virtual production and Motion Design. Core, Drives, and Transport modules own transfer; Editor and Import own the in-editor sync UI. It keeps motion-design and stage assets aligned across machines, not as a general Git replacement."
+  },
+  {
+    "slug": "streaming-audio-driven-animation",
+    "kind": "plugin",
+    "cn": "Streaming Audio Driven Animation（StreamingADA / SpeechAnimationSolver）根据流式音频求解口型与语音动画，无需预先烘焙整段。它面向直播、对话流或实时语音驱动的面部。模块做求解器，具体绑定仍由动画图或 Control Rig 消费。",
+    "en": "Streaming Audio Driven Animation (StreamingADA / SpeechAnimationSolver) solves visemes and speech animation from streaming audio without baking the whole clip. It targets live dialogue or realtime voice-driven faces. The solver feeds an anim graph or Control Rig; it is not a full facial rig."
+  },
+  {
+    "slug": "struct-utils",
+    "kind": "plugin",
+    "cn": "Struct Utils 提供 InstancedStruct 等可实例化结构体类型，让容器能在运行时持有任意 USTRUCT 而不靠固定子类。StructUtilsEngine 把这些类型接到引擎反射与垃圾回收。GAS、StateTree 和许多游戏框架用它做异构结构存储。",
+    "en": "Struct Utils supplies InstancedStruct and related helpers so containers can hold arbitrary USTRUCTs at runtime without a fixed subclass. StructUtilsEngine ties those types into reflection and GC. GAS, StateTree, and other gameplay frameworks use it for heterogeneous struct storage."
+  },
+  {
+    "slug": "stylus-tablet-plugin",
+    "kind": "plugin",
+    "cn": "Stylus Input 为压感笔与数位板提供压力、按键和笔倾角等高级输入。Windows 走 RealTimeStylus / Wintab，Mac 有独立模块，另有调试控件。它服务编辑器绘制、权重绘制和建模笔刷，通常不打进 Shipping 游戏。",
+    "en": "Stylus Input adds pressure, barrel buttons, and tilt from styluses and tablets. Windows uses RealTimeStylus/Wintab, Mac has its own module, plus a debug widget. It serves editor painting, weight painting, and modeling brushes and typically does not ship in the game."
+  },
+  {
+    "slug": "submit-tool-editor-override",
+    "kind": "plugin",
+    "cn": "Submit Tool Editor Override 把 Epic 的 Submit Tool（提交/预检工具）接到编辑器启动入口，使美术可以从编辑器里唤起提交流程。它不实现版本控制本身，只做启动与覆盖配置。大型工作室用它统一从编辑器走提交闸门。",
+    "en": "Submit Tool Editor Override launches Epic’s Submit Tool from the editor so artists can start the submit/preflight flow in-editor. It does not implement source control; it configures launch and overrides. Large studios use it as the editor-side submit gate."
+  },
+  {
+    "slug": "subsonic",
+    "kind": "plugin",
+    "cn": "Subsonic 是实验性的高级音频创作与播放系统，试图用比 Sound Cue 更高层的资产表达声音设计。Core/Engine/Editor 模块覆盖数据、运行时与编辑器，并带测试模块。接口不保证向后兼容，不适合当作稳定发声后端。",
+    "en": "Subsonic is an experimental high-level audio authoring and playback system, aiming above Sound Cue for sound-design assets. Core, Engine, and Editor modules cover data, runtime, and UI, plus tests. Backward compatibility is not guaranteed; do not treat it as a stable shipping backend."
+  },
+  {
+    "slug": "subtitles-and-closed-captions",
+    "kind": "plugin",
+    "cn": "该插件独立显示对白字幕与隐藏式字幕（Closed Captions），把时间轴或音频事件上的文本打到 HUD。Editor 模块编辑字幕资产与样式。它服务无障碍与本地化呈现，不负责语音识别。",
+    "en": "Subtitles and Closed Captions is a standalone display path for dialogue subtitles and closed captions, drawing timed text on the HUD. The editor module authors caption assets and styling. It presents accessibility and localization text; it does not transcribe speech."
+  },
+  {
+    "slug": "subversion",
+    "kind": "plugin",
+    "cn": "Subversion Source Control 把 SVN 接到编辑器的修订控制提供器：检出、提交、更新、锁文件。它只存在于开发者插件路径，不会进入游戏包。仍使用 SVN 资产管线的团队依赖它在内容浏览器里看到文件状态。",
+    "en": "Subversion Source Control plugs SVN into the editor revision-control provider: checkout, submit, update, and file locks. It is a developer plugin and does not cook into the game. Teams still on SVN use it to see file state in the Content Browser."
+  },
+  {
+    "slug": "sun-position-calculator",
+    "kind": "plugin",
+    "cn": "Sun Position 根据经纬度与日期时间计算太阳方位和高度角，驱动方向光或天空大气。常用于建筑可视化、影视场景匹配真实日照。它算出的是天文位置，不模拟天气云层。",
+    "en": "Sun Position computes solar azimuth and elevation from latitude, longitude, date, and time to drive a directional light or sky atmosphere. Archviz and cinematic scenes use it to match real sunlight. It is astronomy, not a weather or cloud simulator."
+  },
+  {
+    "slug": "surfaceeffects",
+    "kind": "plugin",
+    "cn": "SurfaceEffects 是上下文驱动的表面系统：按物理材质、速度、足迹类型等选择落地、刮擦或冲击效果。它把「踩到什么就播什么」做成可扩展数据，而不是在每个角色里写死。适合统一角色与载具的地表反馈。",
+    "en": "SurfaceEffects is a context-driven surface system: it picks footstep, scrape, or impact effects from physical material, speed, and contact type. It data-drives “what plays on this surface” instead of hard-coding per character. Use it to unify character and vehicle ground feedback."
+  },
+  {
+    "slug": "svg-importer",
+    "kind": "plugin",
+    "cn": "SVG Importer 导入并处理 SVG 矢量文件，常用于 Motion Design / 虚拟制片里的矢量图形、遮罩和动态设计元素。Runtime 模块持有矢量数据，Editor 模块走导入器。它把 SVG 变成引擎可渲染/可动画的资产，而不是浏览器渲染。",
+    "en": "SVG Importer imports and handles SVG vector files, often for Motion Design and virtual-production graphics, masks, and motion elements. Runtime holds vector data; the editor module is the importer. It turns SVG into engine-renderable, animatable assets, not a browser engine."
+  },
+  {
+    "slug": "switchboard",
+    "kind": "plugin",
+    "cn": "Switchboard 插件是 Switchboard 桌面应用的启动器与安装器入口，用于虚拟制片里一键拉起多台机器上的 Unreal、nDisplay、设备控制。Editor 模块从编辑器启动该应用，Common 共享配置。真正的多机编排在 Switchboard 应用本身。",
+    "en": "The Switchboard plugin is the launcher/installer entry for the Switchboard desktop app, which starts Unreal, nDisplay, and devices across a virtual-production stage. The editor module launches it; Common shares config. Multi-machine orchestration lives in the Switchboard application itself."
+  },
+  {
+    "slug": "synthesis-and-dsp-effects",
+    "kind": "plugin",
+    "cn": "Synthesis 提供实时合成器以及源/Submix 上的 DSP 效果（滤波、延迟、调制等），可在蓝图或 MetaSound 工作流中使用。Editor 模块编辑效果预设与合成器资产。它是引擎自带的程序化声音与效果器库。",
+    "en": "Synthesis ships realtime synthesizers and DSP source/submix effects—filters, delays, modulation—usable from Blueprint or MetaSound-adjacent workflows. The editor module authors effect presets and synth assets. It is the built-in procedural synth and DSP library."
+  },
+  {
+    "slug": "take-recorder-multi-user-synchronization",
+    "kind": "plugin",
+    "cn": "Multi User Takes（ConcertTakeRecorder）为 Take Recorder 提供可选的多用户同步：多台编辑器上的录制开始/停止与镜头状态经 Concert 对齐。它不替代 Take Recorder，只把 Takes 接到多人会话。虚拟制片团队用它让场记在各机上一致。",
+    "en": "Multi User Takes (ConcertTakeRecorder) adds opt-in Concert sync for Take Recorder so record start/stop and take state align across editor machines. It does not replace Take Recorder; it binds Takes into a multi-user session. VP teams use it so slates match on every box."
+  },
+  {
+    "slug": "take-recorder",
+    "kind": "plugin",
+    "cn": "Take Recorder 是虚拟制片的镜头录制套件：记录实拍/虚拟摄像机、Actor 变换、缓存轨，并回看 Takes。TakesCore、TakeRecorderSources、TakeMovieScene、CacheTrackRecorder 等模块覆盖源、序列集成与缓存。它把现场表演变成可回放的 Sequencer 资产。",
+    "en": "Take Recorder is the virtual-production take suite: record live/virtual cameras, actor transforms, and cache tracks, then review takes. TakesCore, sources, TakeMovieScene, and CacheTrackRecorder cover sources, sequence integration, and caches. It turns a stage performance into playable Sequencer assets."
+  },
+  {
+    "slug": "targetdeviceservices-scripting-library",
+    "kind": "plugin",
+    "cn": "该插件把 TargetDeviceServices（设备发现、启动、部署）暴露成可脚本/蓝图函数，方便自动化把构建推到主机或移动设备。它不实现设备协议，只做脚本封装。CI 或编辑器工具可用它列举和操作目标设备。",
+    "en": "This plugin exposes TargetDeviceServices—device discovery, launch, deploy—as Blueprint/script functions so automation can push builds to consoles or mobile devices. It does not implement device protocols; it wraps them for script. CI and editor tools use it to list and drive target devices."
+  },
+  {
+    "slug": "targeting-system",
+    "kind": "plugin",
+    "cn": "Gameplay Targeting System 是面向技能、锁定和瞄准辅助的通用选目标框架：过滤、排序、形状检测可组合成任务。它常与 Gameplay Ability System 一起用，但本身是独立实验插件。战斗、交互提示和自动瞄准都可以复用同一套目标查询。",
+    "en": "Gameplay Targeting System is a generic target-query framework for abilities, lock-on, and aim assist: filters, sorts, and shape traces compose into tasks. It often pairs with GAS but is a separate experimental plugin. Combat, interaction prompts, and auto-aim can share the same targeting queries."
+  },
+  {
+    "slug": "tcp-messaging",
+    "kind": "plugin",
+    "cn": "TCP Messaging 给引擎消息子系统加上基于 TCP 连接的传输层，让编辑器、游戏实例和工具在可靠流上收发 Message Bus 消息。适合需要有序、可靠投递的跨进程通信。与 UDP Messaging 相比更强调连接和可靠性，而不是发现广播。",
+    "en": "TCP Messaging adds a TCP transport to the messaging subsystem so editors, game instances, and tools exchange Message Bus messages on a reliable stream. Use it when you need ordered, reliable cross-process delivery. Versus UDP Messaging it favors connections and reliability over discovery broadcasts."
+  },
+  {
+    "slug": "techaudiotools",
+    "kind": "plugin",
+    "cn": "TechAudioTools 是实验性音频工具箱，并带 MetaSound 节点与对应编辑器模块。它给技术音频做分析、调试和专用节点，而不是面向玩家的混音器。接口可能随夜构建变化，适合音频程序员在编辑器里探查图。",
+    "en": "TechAudioTools is an experimental audio toolbox with MetaSound nodes and an editor module. It serves technical audio analysis, debug, and specialist nodes, not the player-facing mixer. The contract may change; audio programmers use it to probe graphs in the editor."
+  },
+  {
+    "slug": "teds-editor-data-storage-features",
+    "kind": "plugin",
+    "cn": "TEDS Features 在 Editor Data Storage 之上堆实验性编辑器 UI：Outliner、Content Browser、Property Editor、Alerts、Debugger、Query Stack 以及 Actor 兼容层。它们用统一数据存储驱动新一代编辑器面板。这是 TEDS 的功能插件，不是存储内核。",
+    "en": "TEDS Features stacks experimental editor UI on Editor Data Storage: Outliner, Content Browser, Property Editor, Alerts, Debugger, Query Stack, and actor compatibility. Those panels are driven by the shared storage. This is the features plugin, not the TEDS core."
+  },
+  {
+    "slug": "teds-editor-data-storage",
+    "kind": "plugin",
+    "cn": "TEDS（Editor Data Storage）为编辑器提供可扩展的中心数据存储，用类似 ECS 的方式存放 Actor、资产和编辑器对象，再用控件集合查看编辑。TedsCore 是存储，TedsUI 是通用查看编辑控件。后续 Outliner/细节面板实验都建在这层上。",
+    "en": "TEDS (Editor Data Storage) is a central, extensible store for editor objects—actors, assets, editor data—in an ECS-like layout, viewed through a widget collection. TedsCore is the store; TedsUI is the generic view/edit widgets. Later Outliner and details experiments build on this layer."
+  },
+  {
+    "slug": "template-sequence",
+    "kind": "plugin",
+    "cn": "Template Sequence 提供可复用的序列模板运行时：把摄像机或动画模板实例化到不同绑定对象上。Editor 与 Scripting 模块用于创作和脚本实例化。过场里常用它避免为每个角色复制整条镜头序列。",
+    "en": "Template Sequence is the runtime for reusable sequence templates: instantiate a camera or animation template onto different bound objects. Editor and scripting modules author and spawn those instances. Cinematics use it to avoid duplicating an entire shot per character."
+  },
+  {
+    "slug": "tensorboard",
+    "kind": "plugin",
+    "cn": "Tensorboard 插件打包可选的 TensorBoard Python 包及其依赖，方便在引擎的 Python 环境里可视化机器学习训练曲线。它本身不训练模型，只提供查看工具。学习或 NNE 相关工作流用它对照标量与图。",
+    "en": "The Tensorboard plugin vendors an optional TensorBoard Python package and dependencies so the engine Python environment can visualize ML training curves. It does not train models; it is a viewer. Learning or NNE workflows use it to inspect scalars and graphs."
+  },
+  {
+    "slug": "terminal",
+    "kind": "plugin",
+    "cn": "Terminal 是原生 Slate 终端模拟器，在编辑器里提供类似控制台的字符终端界面。TerminalTests 覆盖模拟器行为。它用于在编辑器内跑命令行式交互，而不是操作系统 cmd 窗口的完整替代。",
+    "en": "Terminal is a native Slate terminal emulator, giving the editor a console-like character terminal. TerminalTests cover emulator behavior. Use it for in-editor command-line interaction, not as a full replacement for the OS shell window."
+  },
+  {
+    "slug": "testframework",
+    "kind": "plugin",
+    "cn": "TestFramework 位于 Plugins/Tests，为引擎自动化测试提供共享测试夹具、助手和运行约定。官方描述为空，但路径和模块名表明它是测试基础设施而非游戏功能。引擎与插件测试套件会依赖它来组织用例。",
+    "en": "TestFramework lives under Plugins/Tests and supplies shared fixtures, helpers, and run conventions for engine automation tests. The official description is empty, but the path marks it as test infrastructure, not gameplay. Engine and plugin suites depend on it to organize cases."
+  },
+  {
+    "slug": "testsamples",
+    "kind": "plugin",
+    "cn": "TestSamples 提供自动化测试的示例用例与样本资产，演示如何编写引擎测试。它不是产品功能，启用后用于对照测试 API。新测试作者常从这里复制结构。",
+    "en": "TestSamples ships sample automation cases and assets that demonstrate how to write engine tests. It is not a product feature; enable it to study the test APIs. New test authors often copy its structure."
+  },
+  {
+    "slug": "tet-meshing",
+    "kind": "plugin",
+    "cn": "Tet Meshing 生成并细化四面体体网格，供 Chaos 软体、布料或有限元类模拟使用。它把表面网格体素化/四面体化成可模拟体积。实验物理插件，不负责刚体碰撞生成。",
+    "en": "Tet Meshing generates and refines tetrahedral volume meshes for Chaos soft bodies, cloth, or FEM-style simulation. It turns a surface mesh into a simulatable tet volume. The experimental physics plugin does not build rigid collision."
+  },
+  {
+    "slug": "text-3d",
+    "kind": "plugin",
+    "cn": "Text 3D 把 TrueType/矢量文字挤出成三维网格，支持倒角、挤出深度和材质插槽等。Editor 模块提供 3D 文字 Actor 与资产编辑。虚拟制片和标题设计用它在场景里放可渲染的立体字，而不是 UMG 文本。",
+    "en": "Text 3D extrudes TrueType/vector glyphs into 3D meshes with bevel, extrusion depth, and material slots. The editor module authors 3D text actors and assets. Virtual production and title design use it for renderable scene type, not UMG labels."
+  },
+  {
+    "slug": "texttospeech",
+    "kind": "plugin",
+    "cn": "TextToSpeech 把输入字符串合成语音播放，用于无障碍朗读、系统公告或调试提示。它走辅助功能分类，强调听觉反馈而不是角色对白表演。平台后端取决于操作系统 TTS。",
+    "en": "TextToSpeech synthesizes speech from input strings for accessibility announcements, system cues, or debug speech. It sits in Accessibility and is auditory feedback, not character performance dialogue. The backend follows the OS TTS engine."
+  },
+  {
+    "slug": "texture-share",
+    "kind": "plugin",
+    "cn": "Texture Share 在进程间共享 GPU 纹理与附加数据，nDisplay/DisplayCluster 模块把它接到集群节点。虚拟制片用它把引擎画面交给外部合成、LED 处理器或另一 Unreal 实例。相比 Shared Memory Media，它更偏向 VP/集群纹理交换。",
+    "en": "Texture Share shares GPU textures and sidecar data between processes, with a DisplayCluster module for nDisplay nodes. Virtual production uses it to hand engine frames to an external compositor, LED processor, or another Unreal. Versus Shared Memory Media it is more VP/cluster-oriented."
+  },
+  {
+    "slug": "texturegraph",
+    "kind": "plugin",
+    "cn": "TextureGraph 用节点图程序化生成纹理：混合、遮罩、噪声和材质风格的纹理图。Engine 求值图，Editor/Insight 模块提供编辑与分析。它是引擎内的纹理生成器，类似简化的 Substance 图，但走 Unreal 资产。",
+    "en": "TextureGraph authors textures with a node graph—blends, masks, noise, material-style texture ops. The engine evaluates the graph; Editor and Insight modules edit and analyze it. It is an in-engine texture generator, Substance-like in spirit, using Unreal assets."
+  },
+  {
+    "slug": "texturegraphtoolset",
+    "kind": "plugin",
+    "cn": "TextureGraphToolset 为 TextureGraph 资产提供创建与检查用的 EDA 工具，供自动化代理读写纹理图。它不求值着色器，只暴露图结构与参数。搭配 TextureGraph 主插件使用。",
+    "en": "TextureGraphToolset is an EDA toolset for creating and inspecting TextureGraph assets so automation agents can read and write graphs. It does not evaluate shaders; it exposes graph structure and parameters. Use it alongside the TextureGraph plugin."
+  },
+  {
+    "slug": "tiled-mipmap-video-player",
+    "kind": "plugin",
+    "cn": "Tiled Mipmap Video（TMV）播放器用 APV 编解码器播放按块、带 mip 的海量视频，适合超高分辨率或可缩放的视频纹理。包含转码工具、着色器、MP4 工具和 ApvMedia。虚拟制片或巨型媒体墙用它按视口只解码可见图块。",
+    "en": "Tiled Mipmap Video (TMV) plays tiled, mip-chained video via the APV codec, aimed at huge or scalable video textures. It includes transcode tools, shaders, MP4 helpers, and ApvMedia. VP or media-wall setups decode only visible tiles for the viewport."
+  },
+  {
+    "slug": "tiled-mipmap-video-utilities",
+    "kind": "plugin",
+    "cn": "Tiled Mipmap Video Utilities 给 TMV 框架补上 Movie Render Graph 编码器（MovieRenderPipelineTmvEncoder），把离线渲染直接输出为平铺 mipmap 视频。它不负责播放，只负责 MRG 集成与编码。和 TmvMedia 播放器配套形成制作闭环。",
+    "en": "Tiled Mipmap Video Utilities adds Movie Render Graph encoding (MovieRenderPipelineTmvEncoder) so offline renders can output tiled-mipmap video. It does not play TMV; it encodes it from MRG. Pair it with the TmvMedia player for a full authoring loop."
+  },
+  {
+    "slug": "timecode-synchronizer-deprecated",
+    "kind": "plugin",
+    "cn": "Timecode Synchronizer 已弃用：它曾在多路输入对齐到同一时间码后成为 TimecodeProvider。Epic 要求改用 Timed Data Monitor。继续使用会在未来引擎版本被移除。",
+    "en": "Timecode Synchronizer is deprecated: it used to become the TimecodeProvider once inputs locked to a timecode. Epic wants projects on Timed Data Monitor instead. Remaining usage will be removed in a future engine version."
+  },
+  {
+    "slug": "timed-data-monitor",
+    "kind": "plugin",
+    "cn": "Timed Data Monitor 监视可时间同步的输入（时间码、Genlock、媒体、追踪），显示偏移、丢帧和锁定状态。Editor 模块提供舞台监视 UI。虚拟制片用它替代旧的 Timecode Synchronizer 来确认所有源在同一时钟上。",
+    "en": "Timed Data Monitor watches time-synchronizable inputs—timecode, genlock, media, tracking—and shows offset, drops, and lock. The editor module is the stage monitor UI. Virtual production uses it instead of Timecode Synchronizer to confirm every source shares a clock."
+  },
+  {
+    "slug": "tool-palette-for-the-widget-editor",
+    "kind": "plugin",
+    "cn": "Widget Editor Tool Palette 在 UMG 控件编辑器里增加工具调色板，改善对齐、分布和常用创建操作的 UX。它只增强编辑器体验，不改变运行时控件。实验阶段，针对 UI 设计师的制作效率。",
+    "en": "Widget Editor Tool Palette adds a tool palette to the UMG widget editor to improve alignment, distribution, and common creation UX. It is editor-only and does not change runtime widgets. The experimental plugin targets UI designer throughput."
+  },
+  {
+    "slug": "tool-presets",
+    "kind": "plugin",
+    "cn": "Tool Presets 允许把交互式工具（建模笔刷、脚本工具等）的设置存成预设资产并一键加载。ToolPresetAsset 存数据，ToolPresetEditor 管理预设库。团队用它统一布尔、雕刻或布局工具的默认参数。",
+    "en": "Tool Presets save and load interactive-tool settings (modeling brushes, scriptable tools) as preset assets. ToolPresetAsset stores data; ToolPresetEditor manages the library. Teams use it to standardize boolean, sculpt, or layout tool defaults."
+  },
+  {
+    "slug": "toolset-registry",
+    "kind": "plugin",
+    "cn": "Toolset Registry 登记编辑器内的 EDA/AI 工具集，让代理发现有哪些只读或可写工具可用。Registry、Engine、Editor 三个模块分别覆盖注册表、引擎侧发现和编辑器集成。官方无描述，但它是各 *Toolset 插件的发现中枢，而不是某一个具体工具。",
+    "en": "Toolset Registry catalogs in-editor EDA/AI toolsets so agents can discover which read or write tools exist. Registry, Engine, and Editor modules cover the catalog, engine discovery, and editor integration. The .uplugin has no description; it is the discovery hub for *Toolset plugins, not a single tool."
+  },
+  {
+    "slug": "traceutilities",
+    "kind": "plugin",
+    "cn": "TraceUtilities 增强 Unreal Insights 与 Trace 框架的可用性：编辑器内开始/停止 Trace、通道开关和 Insights 编辑器入口。EditorTraceUtilities 与 InsightsEditor 把这些操作放到编辑器菜单。分析师不必只靠命令行才能抓一段 Trace。",
+    "en": "TraceUtilities improves Unreal Insights and the Trace framework UX: start/stop traces, channel toggles, and an Insights editor entry. EditorTraceUtilities and InsightsEditor put those controls in editor menus. Analysts can capture a trace without living on the command line."
+  },
+  {
+    "slug": "trajectory-recording-tool",
+    "kind": "plugin",
+    "cn": "Trajectory Tools 处理游戏轨迹工作流：从录像或游戏过程中提取角色运动轨迹，供动画、运动匹配或调试使用。它属于动画实验插件，连接录制数据与动画资产。不是通用 Sequencer 录像器。",
+    "en": "Trajectory Tools owns gameplay trajectory workflows: extract character motion paths from recordings or play for animation, motion matching, or debug. It is an experimental animation plugin bridging capture data to anim assets. It is not a general Sequencer recorder."
+  },
+  {
+    "slug": "tweening-utils",
+    "kind": "plugin",
+    "cn": "Tweening Utils 提供动画中间帧（inbetween）算法与编辑器控件，帮助在关键姿态之间生成过渡。Runtime 做插值数学，Editor 提供操作界面。动画师用它补关键帧空隙，而不是做运行时 UI tween 库。",
+    "en": "Tweening Utils supplies inbetweening algorithms and editor widgets to generate transitions between keyed poses. Runtime does the interpolation math; the editor module presents the tools. Animators use it to fill key gaps, not as a runtime UI tween library."
+  },
+  {
+    "slug": "uaf-acl-plugin",
+    "kind": "plugin",
+    "cn": "UAF ACL Plugin 把 Animation Compression Library（ACL）接到 Unreal Animation Framework，使 UAF 动画数据能用 ACL 压缩。它是 UAF 家族的压缩扩展，不是独立的动画图。需要 UAF 与 ACL 两侧都存在才有意义。",
+    "en": "UAF ACL Plugin extends the ACL plugin for Unreal Animation Framework so UAF animation data can use ACL compression. It is a UAF-family compression bridge, not an anim graph. It only matters when both UAF and ACL are present."
+  },
+  {
+    "slug": "uaf-anim-graph",
+    "kind": "plugin",
+    "cn": "UAF Anim Graph 是 Unreal Animation Framework 的动画图定义框架，描述节点如何连接成可求值的图。Editor 与 UncookedOnly 模块负责编辑和烹饪前数据。它替代/演进传统 AnimBP 图在 UAF 下的表示。",
+    "en": "UAF Anim Graph is the Unreal Animation Framework’s graph definition: how nodes connect into an evaluable graph. Editor and UncookedOnly modules cover authoring and pre-cook data. It is the UAF evolution of the traditional AnimBP graph representation."
+  },
+  {
+    "slug": "uaf-anim-node",
+    "kind": "plugin",
+    "cn": "UAF Anim Node 定义 UAF 图上的节点系统：节点类型、引脚和求值契约。Editor/UncookedOnly 支持节点编辑与编译。没有它，UAF 动画图就没有可组合的运算单元。",
+    "en": "UAF Anim Node is the node system for UAF graphs: node types, pins, and evaluation contracts. Editor and UncookedOnly modules support node editing and compile. Without it, UAF anim graphs have no composable operators."
+  },
+  {
+    "slug": "uaf-animgen",
+    "kind": "plugin",
+    "cn": "UAF AnimGen 为 Unreal Animation Framework 提供动画生成（AnimGen）路径，用生成模型或程序化方法产出动作。它是实验性生成层，挂在 UAF 运行时上。适合研究生成式动画，而不是替换现有 AnimSeq 库。",
+    "en": "UAF AnimGen adds an AnimGen path to Unreal Animation Framework, producing motion from generative or procedural methods. It is an experimental generation layer on the UAF runtime. Use it to explore generative animation, not to replace an AnimSeq library."
+  },
+  {
+    "slug": "uaf-chooser",
+    "kind": "plugin",
+    "cn": "UAF Chooser 把 Chooser Table（按上下文选择动画/资产）集成进 UAF 图，使节点能按游戏状态挑片段。Editor 与 UncookedOnly 处理选择表编辑。它让 UAF 能复用引擎现有的 Chooser 工作流。",
+    "en": "UAF Chooser integrates Chooser Tables into UAF graphs so nodes can pick clips from gameplay context. Editor and UncookedOnly modules author those tables. It lets UAF reuse the engine’s existing Chooser workflow."
+  },
+  {
+    "slug": "uaf-control-rig",
+    "kind": "plugin",
+    "cn": "UAF Control Rig 把 Control Rig 求值桥进 UAF，使程序化绑定能作为 UAF 图中的一层或节点。Editor 模块配置桥接。角色可以在同一 UAF 图里混合 Control Rig 与采样动画。",
+    "en": "UAF Control Rig bridges Control Rig evaluation into UAF so a procedural rig can be a layer or node in a UAF graph. The editor module configures the bridge. Characters can mix Control Rig and sampled animation in one UAF graph."
+  },
+  {
+    "slug": "uaf-default-notifies",
+    "kind": "plugin",
+    "cn": "UAF Default Notifies 提供默认 Notify 子类以及原生 C++ 处理器示例（Play Sound、Play Niagara Effect），演示 UAF 的 native notify handler API。项目可照此扩展脚步声、特效等通知。它是示例加默认实现，不是 Notify 编辑器本体。",
+    "en": "UAF Default Notifies ships default notify subclasses and native C++ handlers (Play Sound, Play Niagara Effect) that demonstrate the UAF native notify-handler API. Projects extend it for footsteps and cues. It is sample plus defaults, not the notify editor itself."
+  },
+  {
+    "slug": "uaf-layering",
+    "kind": "plugin",
+    "cn": "UAF Layering 定义 UAF 中的动画分层：上半身、加性层、遮罩如何叠到基础姿态。Editor/UncookedOnly 编辑层设置。它让 UAF 能表达传统 AnimBP 分层混合的那套结构。",
+    "en": "UAF Layering defines how UAF stacks animation layers—upper body, additive, masks—onto a base pose. Editor and UncookedOnly modules author the layer setup. It is UAF’s equivalent of traditional AnimBP layered blending."
+  },
+  {
+    "slug": "uaf-mass",
+    "kind": "plugin",
+    "cn": "UAF Mass 把 Unreal Animation Framework 接到 Mass Entity，让大规模 ECS 实体能跑 UAF 动画而不是逐 Actor AnimBP。适合人群、士兵海等需要便宜动画的实体。它是桥，不是 Mass 移动系统。",
+    "en": "UAF Mass integrates Unreal Animation Framework with Mass Entity so large ECS crowds can run UAF animation instead of per-Actor AnimBPs. It targets cheap animation for crowds and armies. It is a bridge, not the Mass movement system."
+  },
+  {
+    "slug": "uaf-mirroring",
+    "kind": "plugin",
+    "cn": "UAF Mirroring 为 UAF 提供关键帧左右镜像，便于把只做了一侧的动作翻到另一侧。UncookedOnly 模块处理烹饪前的镜像数据。它是资源处理工具，不是运行时镜像混合节点全集。",
+    "en": "UAF Mirroring provides keyframe left/right mirroring for UAF so one-sided authored motion can be flipped. The UncookedOnly module owns pre-cook mirror data. It is an asset processing path, not a full runtime mirror-blend node set."
+  },
+  {
+    "slug": "uaf-pose-search",
+    "kind": "plugin",
+    "cn": "UAF Pose Search 把 Motion Matching / Pose Search 数据库接到 UAF 图，按当前姿态与轨迹挑选下一段动画。Editor 与 UncookedOnly 构建搜索数据库。它让 UAF 角色能走现代运动匹配，而不只是状态机切片段。",
+    "en": "UAF Pose Search integrates Pose Search / motion matching databases into UAF graphs, picking the next clip from pose and trajectory. Editor and UncookedOnly modules build the search database. UAF characters can motion-match instead of only state-machine clip switches."
+  },
+  {
+    "slug": "uaf-shared-assets",
+    "kind": "plugin",
+    "cn": "UAF Shared Assets 存放被多个 UAF 插件共用的默认资产（通知、示例设置、共享数据），本身不带编译模块。它避免每个 UAF 插件重复打包同一批默认内容。启用 UAF 全家桶时通常需要这些共享资源。",
+    "en": "UAF Shared Assets holds default assets shared across UAF plugins—notifies, sample settings, shared data—and ships no compiled modules. It avoids duplicating the same defaults in every UAF plugin. Enabling the UAF family typically needs these shared assets."
+  },
+  {
+    "slug": "uaf-state-tree-ux",
+    "kind": "plugin",
+    "cn": "UAF State Tree UX 是工作区内「以状态为中心」的原型界面：用共享 State Tree 视图模型驱动一个 UX 选项卡。它只做编辑器沙盒体验（UAFSandboxStateTreeUXEditor），不改变 StateTree 运行时。用来试验 uaf-web-ux 那套状态中心布局。",
+    "en": "UAF State Tree UX prototypes a state-centric view tab in the UAF workspace, driven by a shared State Tree view model. It is editor-sandbox UX (UAFSandboxStateTreeUXEditor) and does not change StateTree runtime. It explores the uaf-web-ux state-centric layout."
+  },
+  {
+    "slug": "uaf-state-tree",
+    "kind": "plugin",
+    "cn": "UAF State Tree 把 StateTree 作为 UAF 的状态层：用分层状态选择 UAF 图中的姿态、层和搜索。Runtime、UncookedOnly 与 Editor 模块覆盖求值、烹饪与编辑。它是 UAF 家族里连接游戏状态与动画图的那一层。",
+    "en": "UAF State Tree integrates StateTree as UAF’s state layer: hierarchical states select poses, layers, and searches in the UAF graph. Runtime, UncookedOnly, and Editor modules cover evaluate, cook, and author. It is the UAF-family bridge from gameplay state to the anim graph."
+  },
+  {
+    "slug": "uaf-tests",
+    "kind": "plugin",
+    "cn": "UAF Tests（UAFTestSuites）包含 UAF 各子系统的自动化测试：CQ、AnimGraph、AnimNode 及测试数据。它验证实验动画框架的回归，不提供运行时功能。提交 UAF 改动时应跑这些套件。",
+    "en": "UAF Tests (UAFTestSuites) holds automated tests for UAF subsystems: CQ, AnimGraph, AnimNode, and test data. It validates the experimental animation framework and adds no runtime feature. Run these suites when submitting UAF changes."
+  },
+  {
+    "slug": "uaf-warping",
+    "kind": "plugin",
+    "cn": "UAF Warping 为 UAF 提供动画与姿态扭曲：把动作对齐到目标位置、方向或脚步落地。它对应传统 Animation Warping 节点在 UAF 中的实现。运动匹配角色常用它把选出的片段贴到游戏轨迹上。",
+    "en": "UAF Warping is animation and pose warping for UAF: align motion to a target location, facing, or foot plants. It is the UAF counterpart of classic Animation Warping nodes. Motion-matched characters use it to stick the chosen clip to the gameplay trajectory."
+  },
+  {
+    "slug": "uba-controller",
+    "kind": "plugin",
+    "cn": "UBA Controller 让着色器编译走 Unreal Build Accelerator 分布式网络，把 ShaderCompileWorker 任务分到 UBA 机器。它作用于构建分发，不改变着色器语义。大型项目用来缩短着色器编译墙钟时间。",
+    "en": "UBA Controller distributes shader compiles through Unreal Build Accelerator, sending ShaderCompileWorker jobs to UBA helpers. It is build distribution, not a change to shader semantics. Large projects use it to cut shader compile wall-clock time."
+  },
+  {
+    "slug": "udp-messaging",
+    "kind": "plugin",
+    "cn": "UDP Messaging 给消息子系统加上 UDP 传输与隧道，适合编辑器发现、多机广播和无连接消息。Concert、设备发现和许多开发者工具默认走这条路径。与 TCP Messaging 相比更轻、更适合局域网发现。",
+    "en": "UDP Messaging adds a UDP transport and tunneling layer to the messaging subsystem for editor discovery, multi-machine broadcast, and connectionless messages. Concert, device discovery, and many developer tools ride this path. Versus TCP Messaging it is lighter and better for LAN discovery."
+  },
+  {
+    "slug": "uiframework",
+    "kind": "plugin",
+    "cn": "UIFramework 允许服务器权威地驱动 UMG：由服务器决定显示哪个控件、数据和可见性，客户端负责呈现。它面向多人游戏里反作弊或一致性要求高的 HUD。实验插件，不是普通本地 Widget Blueprint 工作流。",
+    "en": "UIFramework lets the server authoritatively drive UMG: the server decides which widgets, data, and visibility the client presents. It targets multiplayer HUDs that need anti-cheat or consistency. It is experimental, not the normal local Widget Blueprint workflow."
+  },
+  {
+    "slug": "umg-toolset",
+    "kind": "plugin",
+    "cn": "UMG ToolSet 是针对 UMG 的 EDA 工具集，让自动化代理检查、创建或修改 Widget Blueprint 与控件树。它服务编辑器内 AI/自动化，而不是给玩家提供新控件。实验 Toolsets 目录下的 UI 专用工具包。",
+    "en": "UMG ToolSet is an EDA toolset for UMG so automation agents can inspect, create, or modify Widget Blueprints and widget trees. It serves in-editor AI/automation, not new player-facing widgets. It is the experimental UI toolset pack."
+  },
+  {
+    "slug": "umg-viewmodel-for-umg-preview",
+    "kind": "plugin",
+    "cn": "ModelViewViewModelPreview 让 UMG 预览窗口能绑定 Viewmodel，在不 PIE 的情况下预览 MVVM 数据驱动的界面。它只服务控件编辑器预览管线。需要先有 UMG Viewmodel 运行时插件才有完整意义。",
+    "en": "ModelViewViewModelPreview binds Viewmodels into the UMG preview so you can see MVVM-driven UI without PIE. It is an editor preview pipeline plugin. It only pays off together with the runtime UMG Viewmodel plugin."
+  },
+  {
+    "slug": "umg-viewmodel",
+    "kind": "plugin",
+    "cn": "UMG Viewmodel（ModelViewViewModel）在 UMG 中实现 MVVM：Viewmodel 对象绑定到控件属性，Blueprint 模块定义绑定，Editor/Debugger 负责编辑与调试。游戏 HUD 可以把业务数据从控件蓝图里拆出去。这是官方推荐的 UMG 数据驱动方案。",
+    "en": "UMG Viewmodel (ModelViewViewModel) implements MVVM in UMG: Viewmodel objects bind to widget properties, the Blueprint module defines bindings, and Editor/Debugger modules author and debug them. Game HUDs can keep business data out of widget graphs. This is the official data-driven UMG path."
+  },
+  {
+    "slug": "umg-widget-preview",
+    "kind": "plugin",
+    "cn": "UMG Widget Preview 提供独立的控件预览宿主，可在编辑器里隔离预览 UUserWidget 及其插槽、动画状态。它增强 UMG 制作时的预览，而不进入 Shipping。适合检查不同分辨率或预览数据下的布局。",
+    "en": "UMG Widget Preview hosts an isolated preview of a UUserWidget, including slots and animation states, inside the editor. It improves UMG authoring preview and does not ship. Use it to check layout under different resolutions or preview data."
+  }
+]

@@ -1,0 +1,328 @@
+[
+  {
+    "slug": "android-movie-player",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Android Movie Player`（模块 `AndroidMoviePlayer`）。它是 Android 上的平台开场/加载影片播放器，不是 Media Framework 的 `Media Player` 资产。",
+      "把要播的 `.mp4` 放到项目 `Content/Movies/`（或 `Project Settings > Movies` 指向的影片目录），并加入 Android 包装。",
+      "打开 `Project Settings > Project > Movies`，把文件名填进 `Startup Movies`，按需勾选 `Wait for Movies to Complete` / `Movies are Skippable`。",
+      "也可用 `DefaultGame.ini` 的 `[/Script/MoviePlayer.MoviePlayerSettings]` 写 `+StartupMovies=`，由 `AndroidMoviePlayer` 在设备上用 Android Media 库解码。",
+      "用 Launch on Device / 包装 APK 验证启动片；编辑器 PIE 不会走这条 Android 播放器。",
+      "游戏内循环视频请改用 `Android Media Player` + `UMediaPlayer`/`File Media Source`，不要把本插件当运行时组件去加。"
+    ],
+    "en_steps": [
+      "Enable `Android Movie Player` (module `AndroidMoviePlayer`). It is the Android startup/loading movie player, not a Media Framework `Media Player` asset.",
+      "Put the `.mp4` under `Content/Movies/` (or the folder used by `Project Settings > Movies`) and include it in the Android cook.",
+      "Open `Project Settings > Project > Movies`, add the clip to `Startup Movies`, and set `Wait for Movies to Complete` / `Movies are Skippable` as needed.",
+      "Alternatively set `+StartupMovies=` under `[/Script/MoviePlayer.MoviePlayerSettings]` in `DefaultGame.ini`; `AndroidMoviePlayer` decodes it with the Android Media library on device.",
+      "Verify with Launch on Device or a packaged APK; editor PIE does not use this Android player.",
+      "For in-game looping video use `Android Media Player` with `UMediaPlayer` / `File Media Source` — do not add this plugin as a component."
+    ],
+    "note_cn": "只负责 Android 启动/加载影片；设备内游戏视频走 Media Framework。",
+    "note_en": "Android startup/loading movies only; in-game video belongs to Media Framework."
+  },
+  {
+    "slug": "android-runtime-permission",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Android Runtime Permission`（模块 `AndroidPermission`）。",
+      "在 `Project Settings > Platforms > Android` 的 `Extra Permissions` 写入清单权限，例如 `android.permission.CAMERA`、`android.permission.RECORD_AUDIO`（对应 `DefaultEngine.ini` 里 `[/Script/AndroidRuntimeSettings.AndroidRuntimeSettings]` 的 `+ExtraPermissions=`）。",
+      "运行时先调 `UAndroidPermissionFunctionLibrary::CheckPermission`，未授权再 `AcquirePermissions`；回调对象是 `UAndroidPermissionCallbackProxy`（蓝图节点 `Check Permission` / `Acquire Permissions`）。",
+      "游戏 `Build.cs` 依赖 `AndroidPermission`，`#include \"AndroidPermissionFunctionLibrary.h\"`。",
+      "在真机 Android 6+ 上验证系统权限对话框；编辑器与非 Android 目标不会弹出授权 UI。",
+      "Shipping 仍需清单里声明权限，否则运行时请求会被系统直接拒绝。"
+    ],
+    "en_steps": [
+      "Enable `Android Runtime Permission` (module `AndroidPermission`).",
+      "Add manifest permissions under `Project Settings > Platforms > Android` → `Extra Permissions` (e.g. `android.permission.CAMERA`, `android.permission.RECORD_AUDIO`), which writes `+ExtraPermissions=` in `[/Script/AndroidRuntimeSettings.AndroidRuntimeSettings]` of `DefaultEngine.ini`.",
+      "At runtime call `UAndroidPermissionFunctionLibrary::CheckPermission`, then `AcquirePermissions` if needed; the callback is `UAndroidPermissionCallbackProxy` (Blueprint `Check Permission` / `Acquire Permissions`).",
+      "Depend on `AndroidPermission` in the game `Build.cs` and `#include \"AndroidPermissionFunctionLibrary.h\"`.",
+      "Verify the system permission dialog on an Android 6+ device; the editor and non-Android targets will not show it.",
+      "Shipping builds still need the permission in the manifest, or the OS will deny the request."
+    ],
+    "note_cn": "这是运行时动态授权；清单 Extra Permissions 与代码请求必须成对出现。",
+    "note_en": "Runtime grants only; Extra Permissions in the manifest must match the code request."
+  },
+  {
+    "slug": "androidfileserver",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `AndroidFileServer`（运行时 `AndroidFileServer`，设置 UI 在 `AndroidFileServerEditor`）。",
+      "打开 `Project Settings > Platforms > Android` 的 `File Server` / Android File Server 段，勾选启用插件与允许网络连接，设置 Security Token、压缩与日志。",
+      "配置写入 `DefaultEngine.ini` 的 `[/Script/AndroidFileServerEditor.AndroidFileServerRuntimeSettings]`（`bEnablePlugin`、`bAllowNetworkConnection`、`SecurityToken` 等）。",
+      "用编辑器 Launch on Device 或命令行 `UnrealAndroidFileTool`（UAFT）向设备推送已 cook 的文件，避免整包重装。",
+      "开发迭代保持 File Server 开启；Shipping/商店包务必关掉 `bEnablePlugin`，不要把远程写盘留在正式包。",
+      "`AndroidFileServerEditor` 只进 Editor Target；设备上跑的是运行时 `AndroidFileServer`。"
+    ],
+    "en_steps": [
+      "Enable `AndroidFileServer` (runtime `AndroidFileServer`, settings UI in `AndroidFileServerEditor`).",
+      "Open `Project Settings > Platforms > Android` File Server / Android File Server, enable the plugin and network connection, and set the security token, compression, and logging.",
+      "Settings land in `DefaultEngine.ini` under `[/Script/AndroidFileServerEditor.AndroidFileServerRuntimeSettings]` (`bEnablePlugin`, `bAllowNetworkConnection`, `SecurityToken`, …).",
+      "Push cooked files with editor Launch on Device or `UnrealAndroidFileTool` (UAFT) instead of a full reinstall.",
+      "Leave File Server on for iteration; turn off `bEnablePlugin` for Shipping/store builds so remote writes are not in the packaged game.",
+      "Keep `AndroidFileServerEditor` on an Editor target; the device runs `AndroidFileServer`."
+    ],
+    "note_cn": "这是 Android 远程文件推送（UAFS），不是内容浏览器里的文件服务器 Actor。",
+    "note_en": "Android remote file push (UAFS), not a file-server actor in the Content Browser."
+  },
+  {
+    "slug": "animation-budget-allocator",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Budget Allocator`（模块 `AnimationBudgetAllocator`）。",
+      "把需要限预算的角色骨骼网格从 `USkeletalMeshComponent` 换成 `USkeletalMeshComponentBudgeted`（蓝图组件列表里的 Skeletal Mesh Component Budgeted）。",
+      "开局用 `UAnimationBudgetBlueprintLibrary::EnableAnimationBudget`（或控制台 `a.Budget.Enabled 1`）打开世界子系统 `UAnimationBudgetAllocator`。",
+      "在 `DefaultEngine.ini` 的动画预算参数（`UAnimationBudgetAllocatorParameters` / `a.Budget.BudgetMs`）里设每帧毫秒预算，并按距离/重要性调 `USkeletalMeshComponentBudgeted` 的 Significance。",
+      "用 `stat Animation` / Insights 看骨骼网格 Tick 是否被节流；预算耗尽时低重要性网格会降 tick 或停更。",
+      "不要把普通 `USkeletalMeshComponent` 期望自动进预算——只有 Budgeted 组件会向分配器注册。"
+    ],
+    "en_steps": [
+      "Enable `Animation Budget Allocator` (module `AnimationBudgetAllocator`).",
+      "Replace throttled meshes’ `USkeletalMeshComponent` with `USkeletalMeshComponentBudgeted` (Skeletal Mesh Component Budgeted in the component list).",
+      "Turn on world subsystem `UAnimationBudgetAllocator` via `UAnimationBudgetBlueprintLibrary::EnableAnimationBudget` (or `a.Budget.Enabled 1`).",
+      "Set the per-frame millisecond budget in `DefaultEngine.ini` (`UAnimationBudgetAllocatorParameters` / `a.Budget.BudgetMs`) and scale `USkeletalMeshComponentBudgeted` Significance by distance/importance.",
+      "Use `stat Animation` / Insights to confirm skeletal tick is throttled; low-significance meshes drop or skip ticks when the budget is spent.",
+      "A plain `USkeletalMeshComponent` is not registered — only budgeted components join the allocator."
+    ],
+    "note_cn": "用 Budgeted 组件限动画 Tick，不是压缩 AnimSequence，也不是 Animation Sharing。",
+    "note_en": "Throttles animation ticks on budgeted components; it is not AnimSequence compression or Animation Sharing."
+  },
+  {
+    "slug": "animation-compression-library",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Compression Library`（运行时 `ACLPlugin`，编辑器 `ACLPluginEditor`）。",
+      "内容浏览器新建 `Bone Compression Settings`（`UAnimBoneCompressionSettings`），Codec 选 `Anim Compress ACL`（`UAnimBoneCompressionCodec_ACL`）；曲线可用 `UAnimCurveCompressionCodec_ACL`。",
+      "打开 `Anim Sequence`，在 Asset Details 的 Compression Settings 指定该资产并 Apply Compression，在动画编辑器里看 ACL 误差/内存统计。",
+      "需要按平台剥精度时再建 `UAnimationCompressionLibraryDatabase`，Codec 改用 `UAnimBoneCompressionCodec_ACLDatabase`，把序列编进数据库。",
+      "骨架默认压缩也可指向同一份 ACL Settings，避免每条序列手填。",
+      "游戏模块只依赖 `ACLPlugin` 做运行时解压；`ACLPluginEditor` 禁止进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable `Animation Compression Library` (runtime `ACLPlugin`, editor `ACLPluginEditor`).",
+      "Create a `Bone Compression Settings` asset (`UAnimBoneCompressionSettings`) whose codec is `Anim Compress ACL` (`UAnimBoneCompressionCodec_ACL`); curves can use `UAnimCurveCompressionCodec_ACL`.",
+      "On an `Anim Sequence`, assign that asset under Compression Settings and Apply Compression; inspect ACL error/memory in the animation editor.",
+      "For per-platform stripping, create `UAnimationCompressionLibraryDatabase` and switch the codec to `UAnimBoneCompressionCodec_ACLDatabase`, then register sequences in the database.",
+      "Point skeleton default compression at the same ACL settings so you are not filling every sequence by hand.",
+      "Game modules depend on `ACLPlugin` for runtime decompress; never link `ACLPluginEditor` into a Game target."
+    ],
+    "note_cn": "ACL 替换 AnimSequence 的骨骼/曲线压缩 Codec，不会在关卡里出现组件。",
+    "note_en": "ACL replaces AnimSequence bone/curve codecs; there is no level component."
+  },
+  {
+    "slug": "animation-curve-expressions",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `Animation Curve Expressions`（运行时 `CurveExpression`，图节点在 `CurveExpressionEditor`）。",
+      "内容浏览器新建 `Curve Expressions Data Asset`（`UCurveExpressionsDataAsset`），用简单数学表达式把源曲线映射到目标名（例如 `Blink = Eye_L + Eye_R`）。",
+      "打开角色 `Animation Blueprint` 的 AnimGraph，加入 `Remap Curves` 节点（`FAnimNode_RemapCurves` / `UAnimGraphNode_RemapCurves`），把 `Source Pose` 接上，并指定该 Data Asset（或节点上的 `curve_expressions` 映射）。",
+      "要从另一份骨骼网格抄曲线，改用 `Remap Curves from Mesh`（`FAnimNode_RemapCurvesFromMesh`），指定 `Source Mesh Component` 或勾选 `Use Attached Parent`。",
+      "表达式确定不变时可开 `Expressions Immutable` 降运行时开销；PIE 看 Morph/曲线预览是否按公式输出。",
+      "`CurveExpressionEditor` 只进 Editor Target；游戏只依赖 `CurveExpression`。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Animation Curve Expressions` (runtime `CurveExpression`, graph nodes in `CurveExpressionEditor`).",
+      "Create a `Curve Expressions Data Asset` (`UCurveExpressionsDataAsset`) and map source curves to targets with simple math (e.g. `Blink = Eye_L + Eye_R`).",
+      "In the character `Animation Blueprint` AnimGraph, add `Remap Curves` (`FAnimNode_RemapCurves` / `UAnimGraphNode_RemapCurves`), wire `Source Pose`, and assign the data asset (or the node’s `curve_expressions` map).",
+      "To copy curves from another skeletal mesh, use `Remap Curves from Mesh` (`FAnimNode_RemapCurvesFromMesh`) and set `Source Mesh Component` or `Use Attached Parent`.",
+      "Turn on `Expressions Immutable` when the map will not change at runtime; PIE-preview morphs/curves against the formula.",
+      "Keep `CurveExpressionEditor` on an Editor target; the game depends only on `CurveExpression`."
+    ],
+    "note_cn": "用表达式重映射 Anim 曲线，不是曲线编辑器里的关键帧工具，也不是 IK Retargeter 的 Curve Remap Op。",
+    "note_en": "Expression-based anim-curve remap, not Curve Editor keys and not the IK Retargeter Curve Remap Op."
+  },
+  {
+    "slug": "animation-data",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Data`（模块 `AnimationData`）。它给动画编辑器提供基于 Sequencer 的数据控制器，不是关卡可放置资产。",
+      "双击 `Anim Sequence` 打开动画编辑器：骨骼轨道、曲线与属性由 `UAnimDataModel`（`IAnimationDataModel`）保存，编辑通过 `UAnimSequencerController` 写入。",
+      "改帧率、加骨骼轨道或曲线后保存，确认序列仍能在 AnimBP / Sequencer 里正常求值（运行时读的是模型派生出的压缩数据）。",
+      "编辑器工具/Python 依赖 `AnimationData`，对序列取 `UAnimSequencerController` 再 `SetModel` 到 `IAnimationDataModel`，用控制器 API 改轨，不要直接改 Raw 曲线数组。",
+      "不要把 `AnimationData` 当游戏运行时动画播放模块写进角色 `Build.cs` 去播蒙太奇。"
+    ],
+    "en_steps": [
+      "Enable `Animation Data` (module `AnimationData`). It supplies the Sequencer-style controller for the animation editor, not a placeable asset.",
+      "Open an `Anim Sequence`: bone tracks, curves, and attributes live on `UAnimDataModel` (`IAnimationDataModel`) and are edited through `UAnimSequencerController`.",
+      "After changing frame rate, bone tracks, or curves, save and confirm the sequence still evaluates in an AnimBP / Sequencer (runtime uses derived compressed data).",
+      "Editor tools/Python should depend on `AnimationData`, get `UAnimSequencerController`, `SetModel` on `IAnimationDataModel`, and mutate via the controller — do not poke raw curve arrays.",
+      "Do not add `AnimationData` to a character game `Build.cs` as if it played montages."
+    ],
+    "note_cn": "动画源数据模型/控制器，服务编辑器；运行时播放仍走 `UAnimSequence` 压缩数据。",
+    "note_en": "Source anim data model/controller for the editor; runtime playback still uses compressed `UAnimSequence` data."
+  },
+  {
+    "slug": "animation-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Insights`（`GameplayInsights` / `GameplayInsightsEditor`，以及 `RewindDebugger`、`RewindDebuggerRuntime`、`RewindDebuggerVLog`、`RewindDebuggerVLogRuntime`）。",
+      "打开 `Window > Developer Tools > Rewind Debugger`（历史入口也曾叫 Animation Insights），不要去内容浏览器找同名资产。",
+      "PIE 播放带动画的角色，在 Rewind Debugger 里录一段，暂停后拖时间轴回看 AnimGraph、Notify、曲线与姿态。",
+      "需要 Visual Logger 叠加时用 `RewindDebuggerVLog` 通道；对外包进程可用 Unreal Insights 打开带 `Anim` Trace 的 `.utrace`。",
+      "控制台可 `trace.enable Anim` 后再抓 Trace；包装测试只留 `RewindDebuggerRuntime`，编辑器模块不要进 Game Target。",
+      "这是调试器，不会改变动画压缩或骨骼 Tick 预算。"
+    ],
+    "en_steps": [
+      "Enable `Animation Insights` (`GameplayInsights` / `GameplayInsightsEditor`, plus `RewindDebugger`, `RewindDebuggerRuntime`, `RewindDebuggerVLog`, `RewindDebuggerVLogRuntime`).",
+      "Open `Window > Developer Tools > Rewind Debugger` (formerly also Animation Insights); do not look for a same-named content asset.",
+      "PIE a character, record in Rewind Debugger, pause, and scrub AnimGraph, notifies, curves, and pose.",
+      "Use `RewindDebuggerVLog` when you want Visual Logger overlay; for packaged processes open a `.utrace` with the `Anim` channel in Unreal Insights.",
+      "You can `trace.enable Anim` before capturing; shipping tests may keep `RewindDebuggerRuntime` only — editor modules stay off the Game target.",
+      "This is a debugger; it does not change compression or the animation tick budget."
+    ],
+    "note_cn": "Rewind Debugger / Anim Trace 调试动画，不是 Insights 的 CPU 总览，也不是预算分配器。",
+    "note_en": "Rewind Debugger / Anim trace for animation, not CPU Insights overview and not the budget allocator."
+  },
+  {
+    "slug": "animation-layering",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 插件 `Animation Layering`（运行时 `AnimationLayering`，图节点在 `AnimationLayeringUncookedOnly`）。",
+      "新建 Bone Mask Definition 类数据资产（身体部位骨骼权重），供 AnimGraph 的 Bone Mask 节点使用。",
+      "在角色 `Animation Blueprint` 的 AnimGraph 加入 Bone Mask 节点（`FAnimNode_BoneMask` / Extended Bone Mask 一类，模块 `AnimationLayering`），接上 Base Pose，指定该 Definition 资产。",
+      "用动画曲线（如 `Layering_Arm_L`、`Layering_Spine`）驱动各部位 Layering/Additive Alpha，把上半身叠加、道具持握与下半身移动分开。",
+      "这不是引擎自带的 `Linked Anim Layer`（`FAnimNode_LinkedAnimLayer` 在 `Engine`/`AnimGraph`）；不要用 `LinkAnimClassLayers` 来替代本插件的 Mask。",
+      "游戏只依赖 `AnimationLayering`；`AnimationLayeringUncookedOnly` 仅编辑器图节点。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Animation Layering` (runtime `AnimationLayering`, graph nodes in `AnimationLayeringUncookedOnly`).",
+      "Create a Bone Mask Definition data asset (per-body-part bone weights) for the AnimGraph Bone Mask node.",
+      "In the character `Animation Blueprint` AnimGraph, add the Bone Mask node (`FAnimNode_BoneMask` / Extended Bone Mask from `AnimationLayering`), wire Base Pose, and assign that definition asset.",
+      "Drive per-part Layering/Additive alphas with curves such as `Layering_Arm_L` and `Layering_Spine` so upper-body overlays and prop poses stay separate from locomotion.",
+      "This is not engine `Linked Anim Layer` (`FAnimNode_LinkedAnimLayer` in `Engine`/`AnimGraph`); do not replace the mask with `LinkAnimClassLayers`.",
+      "Game modules depend on `AnimationLayering` only; `AnimationLayeringUncookedOnly` is editor graph nodes."
+    ],
+    "note_cn": "Experimental 的按部位 Bone Mask 分层，接口可能变；不要和 Linked Anim Layer 混用。",
+    "note_en": "Experimental per-body-part bone-mask layering; do not confuse it with Linked Anim Layer."
+  },
+  {
+    "slug": "animation-locomotion-library",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Locomotion Library`（运行时 `AnimationLocomotionLibraryRuntime`，编辑器 `AnimationLocomotionLibraryEditor`）。",
+      "打开带 Root Motion 的 `Anim Sequence`，在 Animation Data Modifiers 里添加 `Distance Curve Modifier`（`UDistanceCurveModifier`）并 Apply，生成根骨行进距离曲线。",
+      "曲线压缩须用 Uniform Indexable，否则 Distance Matching 无法按距离采样。",
+      "在 `Animation Blueprint` 里对 `Sequence Evaluator` 把 `Explicit Time` 设为 Dynamic，在节点的 On Update（Thread Safe）里调用 `UAnimDistanceMatchingLibrary`：`Advance Time by Distance Matching` 或 `Distance Match to Target`。",
+      "循环步态也可用 `Set Playrate to Match Speed` 对齐 `UCharacterMovementComponent` 速度；停步距离用 `UAnimCharacterMovementLibrary::PredictGroundMovementStopLocation`。",
+      "`AnimationLocomotionLibraryEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Animation Locomotion Library` (runtime `AnimationLocomotionLibraryRuntime`, editor `AnimationLocomotionLibraryEditor`).",
+      "On a Root Motion `Anim Sequence`, add `Distance Curve Modifier` (`UDistanceCurveModifier`) in Animation Data Modifiers and Apply so a root-travel distance curve is baked.",
+      "Curve compression must be Uniform Indexable or Distance Matching cannot sample by distance.",
+      "In the `Animation Blueprint`, set the `Sequence Evaluator` `Explicit Time` to Dynamic and, in the node’s thread-safe On Update, call `UAnimDistanceMatchingLibrary`: `Advance Time by Distance Matching` or `Distance Match to Target`.",
+      "For cyclic gait use `Set Playrate to Match Speed` against `UCharacterMovementComponent`; stopping distance comes from `UAnimCharacterMovementLibrary::PredictGroundMovementStopLocation`.",
+      "Keep `AnimationLocomotionLibraryEditor` on an Editor target only."
+    ],
+    "note_cn": "距离匹配与移动预测库，不是 Pose Search Motion Matching，也不是 Animation Warping 的步幅节点。",
+    "note_en": "Distance matching and movement prediction, not Pose Search motion matching and not Animation Warping stride nodes."
+  },
+  {
+    "slug": "animation-modifier-library",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Modifier Library`（模块 `AnimationModifierLibrary`）。",
+      "打开 `Anim Sequence`，找到 Animation Modifiers / Animation Data Modifiers 面板（不是 AnimBP 图表）。",
+      "Add Modifier，选择本库的 `UMotionExtractorModifier`：填 `Bone Name`、`Motion Type`（Translation/Rotation/Speed）、`Axis`、采样率，Apply 后把骨骼运动烘到曲线。",
+      "需要相对另一根骨时把 Space 设为 RelativeToBone 并指定 `Relative To Bone Name`；批量处理可在骨架上设默认 Modifier 再 Apply to All。",
+      "生成的曲线给 AnimBP、距离匹配或脚步逻辑用；Revert 时若勾了 `Remove Curve on Revert` 会删掉曲线。",
+      "这是导入后批处理，不是运行时组件；不要在 PIE 里找 Modifier Actor。"
+    ],
+    "en_steps": [
+      "Enable `Animation Modifier Library` (module `AnimationModifierLibrary`).",
+      "Open an `Anim Sequence` and use the Animation Modifiers / Animation Data Modifiers panel (not the AnimBP graph).",
+      "Add Modifier → `UMotionExtractorModifier`: set `Bone Name`, `Motion Type` (Translation/Rotation/Speed), `Axis`, and sample rate, then Apply to bake bone motion into a curve.",
+      "For a relative bone, set Space to RelativeToBone and `Relative To Bone Name`; for bulk work, put the modifier on the skeleton and Apply to All.",
+      "Feed the baked curves into an AnimBP, distance matching, or foot logic; Revert deletes the curve if `Remove Curve on Revert` is set.",
+      "This is post-import batch processing, not a runtime component — do not look for a Modifier actor in PIE."
+    ],
+    "note_cn": "库存 Animation Modifier（含 Motion Extractor）；Distance Curve 属于 Locomotion Library。",
+    "note_en": "Stock animation modifiers including Motion Extractor; Distance Curve lives in the Locomotion Library."
+  },
+  {
+    "slug": "animation-sharing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Sharing`（运行时 `AnimationSharing`，编辑器 `AnimationSharingEd`）。",
+      "内容浏览器新建 `Animation Sharing Setup`（`UAnimationSharingSetup`）：指定 Skeleton、状态枚举、每个状态的动画、过渡与 Additive。",
+      "关卡 BeginPlay 调用 `UAnimationSharingFunctionLibrary` / `UAnimationSharingManager::CreateAnimationSharingManager`，传入该 Setup，生成 Leader-Follower 管理器。",
+      "大量同类 NPC 用 `RegisterActorWithSkeletonBP` 注册到管理器；只有 Leader 完整求值 AnimBP，Follower 拷贝姿势。",
+      "状态切换走 Setup 里配置的 Anim Sharing State Instance（`UAnimSharingStateInstance` 等），不要给每个 Follower 再挂一份重 AnimBP。",
+      "游戏模块只依赖 `AnimationSharing`；`AnimationSharingEd` 仅编辑器。"
+    ],
+    "en_steps": [
+      "Enable `Animation Sharing` (runtime `AnimationSharing`, editor `AnimationSharingEd`).",
+      "Create an `Animation Sharing Setup` (`UAnimationSharingSetup`): skeleton, state enum, per-state animation, transitions, and additives.",
+      "On BeginPlay call `UAnimationSharingFunctionLibrary` / `UAnimationSharingManager::CreateAnimationSharingManager` with that setup to spawn the leader-follower manager.",
+      "Register crowd actors with `RegisterActorWithSkeletonBP`; only leaders fully evaluate an AnimBP, followers copy pose.",
+      "Drive states through the setup’s Anim Sharing State Instance (`UAnimSharingStateInstance`, …); do not give every follower a heavy AnimBP.",
+      "Game modules depend on `AnimationSharing` only; `AnimationSharingEd` is editor-only."
+    ],
+    "note_cn": "人群 Leader-Follower 共享姿势，不是把 AnimSequence 存成共享资产，也不是预算分配器。",
+    "note_en": "Crowd leader-follower pose sharing, not shared AnimSequence storage and not the budget allocator."
+  },
+  {
+    "slug": "animation-validation",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Validation`（模块 `AnimationValidation`），并确保编辑器 `Data Validation` 插件已开。",
+      "它会注册针对引擎动画资产（`Anim Sequence`、`Skeleton`、`Anim Blueprint` 等）的 `UEditorValidatorBase`，而不是新的动画组件。",
+      "在内容浏览器对动画资产执行 `Asset Actions > Validate Assets`，或 `Tools > Validate Data` 跑全项目。",
+      "保存时若开启 Validate on Save，导入缺骨骼、坏压缩、空蒙太奇等会在 Message Log 的 Asset Check 里报出。",
+      "CI 可用 `UnrealEditor-Cmd.exe <project> -run=DataValidation`；不要把 `AnimationValidation` 链进 Game Target。",
+      "项目自定义规则请另建自己的 `UEditorValidatorBase`，不要改本插件源码。"
+    ],
+    "en_steps": [
+      "Enable `Animation Validation` (module `AnimationValidation`) and keep the editor `Data Validation` plugin on.",
+      "It registers `UEditorValidatorBase` classes for engine animation assets (`Anim Sequence`, `Skeleton`, `Anim Blueprint`, …), not a new animation component.",
+      "Run `Asset Actions > Validate Assets` on animation assets, or `Tools > Validate Data` for the project.",
+      "With Validate on Save, missing bones, bad compression, or empty montages show in Message Log → Asset Check.",
+      "CI can run `UnrealEditor-Cmd.exe <project> -run=DataValidation`; do not link `AnimationValidation` into a Game target.",
+      "Add project rules as your own `UEditorValidatorBase`; do not patch this plugin."
+    ],
+    "note_cn": "给引擎动画类型用的 Data Validation 规则，不播放也不压缩动画。",
+    "note_en": "Data Validation rules for engine animation assets; it does not play or compress animation."
+  },
+  {
+    "slug": "animation-warping",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Animation Warping`（运行时 `AnimationWarpingRuntime`，图节点在 `AnimationWarpingEditor`）。",
+      "在角色 `Animation Blueprint` 的 AnimGraph 于 Component Space 链路上加入 `Orientation Warping`（`FAnimNode_OrientationWarping`）：指定骨链与 `Locomotion Angle`，让上半身朝向移动方向。",
+      "步速对不齐时加 `Stride Warping`（`FAnimNode_StrideWarping`），填 IK 脚骨与步幅缩放，对照 `UCharacterMovementComponent` 速度。",
+      "斜坡加 `Slope Warping`（`FAnimNode_SlopeWarping`），用脚 IK 贴地；需要 Root Motion 增量属性时在序列上启用 Root Motion Delta。",
+      "节点 Mode 可选 Graph 输入或手动；PIE 看转身/加速时脚是否仍滑。",
+      "游戏只依赖 `AnimationWarpingRuntime`；这与 Locomotion Library 的距离匹配、Pose Search 都不是同一套节点。"
+    ],
+    "en_steps": [
+      "Enable `Animation Warping` (runtime `AnimationWarpingRuntime`, graph nodes in `AnimationWarpingEditor`).",
+      "In the character `Animation Blueprint` AnimGraph, on a Component Space chain, add `Orientation Warping` (`FAnimNode_OrientationWarping`) with the bone chain and `Locomotion Angle` so the upper body faces movement.",
+      "If speed and stride disagree, add `Stride Warping` (`FAnimNode_StrideWarping`) with IK feet and stride scale against `UCharacterMovementComponent` velocity.",
+      "On slopes add `Slope Warping` (`FAnimNode_SlopeWarping`) to plant IK feet; enable the Root Motion Delta attribute on sequences when the graph needs it.",
+      "Node mode can be Graph-driven or manual; in PIE check whether feet still slide on turns/accel.",
+      "Game modules depend on `AnimationWarpingRuntime` only; this is not Locomotion Library distance matching or Pose Search."
+    ],
+    "note_cn": "步幅/朝向/坡度姿势扭曲，运行时改 Pose，不烘曲线也不做人群共享。",
+    "note_en": "Runtime stride/orientation/slope pose warp; it does not bake curves or share crowd poses."
+  },
+  {
+    "slug": "animationassistanttoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `AnimationAssistantToolset`（模块 `AnimationAssistantToolset`），并同时打开 `AI Assistant`（需要全套时再开 `All Toolsets`）。",
+      "打开编辑器 AI Assistant 面板，确认已注册面向 `Anim Sequence` / `Animation Blueprint` / `Skeleton` 的检查或改写工具，而不是关卡里的动画组件。",
+      "在内容浏览器打开一份动画资产，让助手通过本 Toolset 读曲线、Notify 或 AnimGraph，而不是你在 Details 里手改。",
+      "不要把 `AnimationAssistantToolset` 写进游戏 `Build.cs` 或 Shipping；它只给编辑器助手/自动化用。",
+      "真正的动画运行时仍用 AnimBP、Warping、Locomotion Library 等插件；本项不会在视口创建 Gizmo。"
+    ],
+    "en_steps": [
+      "Enable Experimental `AnimationAssistantToolset` (module `AnimationAssistantToolset`) together with `AI Assistant` (and `All Toolsets` if you want every toolset).",
+      "Open the in-editor AI Assistant and confirm tools targeting `Anim Sequence` / `Animation Blueprint` / `Skeleton` — not an animation component on a pawn.",
+      "Open an animation asset and let the assistant read curves, notifies, or the AnimGraph through this toolset instead of editing Details by hand.",
+      "Do not add `AnimationAssistantToolset` to a game `Build.cs` or Shipping; it is editor-assistant/automation only.",
+      "Runtime animation still comes from AnimBP, Warping, Locomotion Library, and similar plugins; this does not spawn a viewport gizmo."
+    ],
+    "note_cn": "编辑器 AI 助手的动画工具包，不是运行时动画系统。",
+    "note_en": "Editor-assistant tooling over animation assets, not a runtime animation system."
+  }
+]

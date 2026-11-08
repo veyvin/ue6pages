@@ -3,7 +3,6 @@ layout: default
 title: 桥 / Bridge
 ---
 
-
 <h1>桥 / Bridge</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 桥 / Bridge
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">Quixel Bridge 的 Megascans 链接。</div><div class="lang-content">Megascans Link for Quixel Bridge.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>在 <code class="usage-code">Edit &gt; Plugins</code> 启用 <code class="usage-code">Bridge</code>（模块 <code class="usage-code">Bridge</code>、<code class="usage-code">MegascansPlugin</code>）并重启。</li><li>打开 <code class="usage-code">Window &gt; Quixel Bridge</code>（部分版本在模式工具栏的 Bridge 按钮）。</li><li>用 Epic Games 账号登录 Megascans，在 Bridge 里按 3D Asset / Surface / 3D Plant 浏览并选 LOD/分辨率。</li><li>下载后由 <code class="usage-code">MegascansPlugin</code> 导入工程，内容浏览器会出现 <code class="usage-code">Megascans</code> 目录下的静态网格、贴图和材质实例。</li><li>把导入的网格拖进关卡，检查自动生成的 MIC 是否接到正确贴图槽；需要时在材质实例里改材质质量或置换。</li><li>这是编辑器导入链路，不要把 <code class="usage-code">Bridge</code> / <code class="usage-code">MegascansPlugin</code> 加进游戏运行时 <code class="usage-code">Build.cs</code>；Shipping 只保留已导入的 uasset。</li></ol><p class="usage-note">Quixel/Megascans 导入器，与 Gameplay Ability System 无关。导入结果是普通静态网格与材质实例。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Bridge</code> in <code class="usage-code">Edit &gt; Plugins</code> (modules <code class="usage-code">Bridge</code>, <code class="usage-code">MegascansPlugin</code>) and restart.</li><li>Open <code class="usage-code">Window &gt; Quixel Bridge</code> (some builds also expose a Bridge button on the mode toolbar).</li><li>Sign in with an Epic account, browse 3D Assets / Surfaces / 3D Plants, and pick LOD and texture resolution.</li><li><code class="usage-code">MegascansPlugin</code> imports the download into the project under a <code class="usage-code">Megascans</code> folder (meshes, textures, material instances).</li><li>Drop meshes in the level and verify the generated MICs wire the expected texture slots; tweak quality or displacement on the instance as needed.</li><li>Editor import pipeline only — do not add <code class="usage-code">Bridge</code> or <code class="usage-code">MegascansPlugin</code> to a game <code class="usage-code">Build.cs</code>. Shipping should contain the imported uassets, not Bridge.</li></ol><p class="usage-note">Quixel Megascans importer — unrelated to Gameplay Ability System. You ship the imported meshes/MICs, not the Bridge UI.</p></div></div></div>
+    </div>
+

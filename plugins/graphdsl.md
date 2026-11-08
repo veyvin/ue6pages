@@ -3,8 +3,6 @@ layout: default
 title: 图Dsl / GraphDsl
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,75 @@ title: 图Dsl / GraphDsl
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于创作和编辑虚幻图形资源的 S-表达式语言运行时。</div><div class="lang-content">S-expression language runtime for authoring and editing Unreal graph assets.</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：用于创作和编辑虚幻图形资源的 S-表达式语言运行时。</p><p>Epic 把它放在 Experimental：功能可用，但接口可能随夜构建变化。</p><p>它打包的模块包括：GraphDsl。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: S-expression language runtime for authoring and editing Unreal graph assets.</p><p>Epic ships this under Experimental: usable, but the contract may change on nightly builds.</p><p>It ships these modules: GraphDsl. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental 的 <code class="usage-code">GraphDsl</code>（模块 <code class="usage-code">GraphDsl</code>）。</li><li>用 S-表达式语言运行时的 API 来编写/编辑 Unreal 图形资产（如材质、蓝图图的程序化创作）。</li><li>在工具或脚本里构造图、写回资产，用于批量/程序化生成图形。</li><li>Experimental：接口可能变动；它是图创作语言运行时，不是可视化编辑器替代。</li></ol><p class="usage-note">用 S-表达式编写图形资产的运行时，偏程序化/自动化。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental <code class="usage-code">GraphDsl</code> (module <code class="usage-code">GraphDsl</code>).</li><li>Use the S-expression language runtime API to author/edit Unreal graph assets (e.g. procedural creation of materials or blueprint graphs).</li><li>Build graphs and write them back to assets from tools/scripts for batch or procedural graph generation.</li><li>Experimental: contract may change; it is a graph-authoring language runtime, not a visual editor replacement.</li></ol><p class="usage-note">An S-expression runtime for authoring graph assets; procedural/automation oriented.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">GraphDsl</span><span class="tag runtime">Runtime</span></div></div>

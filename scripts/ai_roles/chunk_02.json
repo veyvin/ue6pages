@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "datasmith-c4d-importer",
+    "kind": "plugin",
+    "cn": "Cinema 4D 专用 Datasmith 翻译器，把 .c4d 场景里的网格、材质、摄像机和层级直接送进虚幻，而不是走通用 FBX。DatasmithC4DTranslator 读取 Maxon 场景图，再交给 Datasmith 管线生成 Actor 与静态网格。动画摄像机、实例化物体和 C4D 材质通道会尽量保留，方便建筑可视化和产品渲染从 Cinema 4D 迁到引擎。",
+    "en": "This is Epic’s Cinema 4D Datasmith translator: it pulls Maxon .c4d scenes into Unreal as meshes, materials, cameras, and hierarchy instead of a generic FBX dump. DatasmithC4DTranslator reads the C4D scene graph and feeds the Datasmith import pipeline. Camera animation, instancing, and C4D material channels are preserved where possible so visualization teams can move from Cinema 4D into engine levels."
+  },
+  {
+    "slug": "datasmith-cad-importer",
+    "kind": "plugin",
+    "cn": "企业级 CAD 导入套件，覆盖 STEP、IGES、CATIA、SolidWorks、Creo、NX 以及 OpenNURBS/Rhino 和 Alias Wire。CADLibrary 与 CADInterfaces 做核线曲面求值，DatasmithCADTranslator 把 B-rep 镶嵌成静态网格和材质。DatasmithDispatcher 把重镶嵌卸到外部进程；DatasmithOpenNurbsTranslator 与 DatasmithWireTranslator 分别处理 .3dm 与 Wire。适合把工程 CAD 做成可进关卡的可视化资产。",
+    "en": "Enterprise CAD ingest for STEP, IGES, CATIA, SolidWorks, Creo, NX, OpenNURBS/Rhino, and Alias Wire. CADLibrary and CADInterfaces evaluate NURBS; DatasmithCADTranslator tessellates B-rep into static meshes and materials. DatasmithDispatcher offloads heavy tessellation to a worker process, while DatasmithOpenNurbsTranslator and DatasmithWireTranslator handle .3dm and Wire. The result is engineering CAD that can land as Datasmith actors in a level."
+  },
+  {
+    "slug": "datasmith-content",
+    "kind": "plugin",
+    "cn": "Datasmith 导入器依赖的内容包：默认材质函数、Master 材质、灯光模板和场景 Actor 蓝图。DatasmithContent 在运行时提供这些资产，DatasmithContentEditor 在编辑器里注册它们。没有这套内容，翻译器生成的材质槽和灯光会落到空白引用。它不负责读 CAD/DCC 文件，只提供导入结果落地时用的引擎侧资源。",
+    "en": "Content pack the Datasmith importers expect: default material functions, master materials, light templates, and scene actor blueprints. DatasmithContent holds the runtime assets; DatasmithContentEditor registers them in the editor. Without it, translators would emit empty material and light references. It does not parse CAD or DCC files—it only supplies the engine-side assets those imports bind to."
+  },
+  {
+    "slug": "datasmith-fbx-importer",
+    "kind": "plugin",
+    "cn": "面向汽车可视化的 FBX 变体导入：不是通用 FBX 导入器，而是 DeltaGen 与 Autodesk VRED 场景。DatasmithDeltaGenTranslator 和 DatasmithVREDTranslator 解析变体集、切换器和标注材质，DatasmithFBXTranslator 承接共享 FBX 层。导入后可在虚幻里保留配置器开关、多材质变体和可视化灯光，适合数字样车和展厅。",
+    "en": "Automotive visualization FBX path for DeltaGen and Autodesk VRED, not the generic FBX importer. DatasmithDeltaGenTranslator and DatasmithVREDTranslator read variant sets, switchers, and annotated materials; DatasmithFBXTranslator shares the FBX layer. Configurator switches, multi-material variants, and viz lighting survive into Unreal for digital mockups and showrooms."
+  },
+  {
+    "slug": "datasmith-importer",
+    "kind": "plugin",
+    "cn": "Datasmith 核心导入器：吃 .udatasmith 以及各翻译器产出的场景描述，生成 Actor、网格、材质和关卡。DatasmithTranslator / DatasmithNativeTranslator 是翻译插件接口；DatasmithExternalSource 与 DirectLinkExtension 支持 Direct Link 实时推送。ExternalSource 抽象外部 DCC 会话，DirectLinkTest 覆盖链路测试。所有具体 CAD/DCC 翻译器都挂在这套骨架上。",
+    "en": "Core Datasmith importer: it consumes .udatasmith and translator scene descriptions and spawns actors, meshes, materials, and levels. DatasmithTranslator and DatasmithNativeTranslator are the plugin interfaces; DatasmithExternalSource plus DirectLinkExtension power live Direct Link pushes from a DCC. ExternalSource models an external session; DirectLinkTest covers the link. Every format-specific translator hangs off this skeleton."
+  },
+  {
+    "slug": "datasmith-mvr",
+    "kind": "plugin",
+    "cn": "把 My Virtual Rig（MVR）舞台数据嵌进 .udatasmith 再导入虚幻。DatasmithMVRTranslator 读取灯具位置、GDTF 引用和舞台坐标，映射到虚幻的 DMX 灯具与关卡布局。虚拟制片现场可用它把灯光台/Vectorworks 的灯位图一次灌进引擎，而不用手摆灯具 Actor。",
+    "en": "Imports My Virtual Rig (MVR) stage data packed inside .udatasmith files. DatasmithMVRTranslator maps fixture placements, GDTF references, and stage coordinates onto Unreal DMX fixtures and level layout. Virtual-production crews can dump a lighting-desk or Vectorworks plot into the engine instead of placing fixture actors by hand."
+  },
+  {
+    "slug": "datasmith-runtime",
+    "kind": "plugin",
+    "cn": "实验性运行时 Datasmith：在已打包或 PIE 的游戏里加载 .udatasmith / Direct Link 场景，不经过编辑器导入对话框。DatasmithRuntime 在运行时生成网格和 Actor，供 CAD 查看器、配置器和现场可视化边跑边换模型。接口仍可能随夜构建变动，不适合当稳定 Shipping 依赖。",
+    "en": "Experimental runtime Datasmith: load .udatasmith or Direct Link scenes inside a packaged or PIE game without the editor import dialog. DatasmithRuntime spawns meshes and actors at runtime for CAD viewers, configurators, and on-site viz that swap models while the app runs. The contract can still change on nightlies, so treat it as experimental rather than a shipping dependency."
+  },
+  {
+    "slug": "daysequence",
+    "kind": "plugin",
+    "cn": "实验性「一日时间」序列资产：用专用 Day Sequence 驱动太阳、天空、雾和曝光随时刻变化，而不是在普通 Level Sequence 里手抠一堆轨道。DaySequence 是运行时求值，DaySequenceEditor 提供编辑器。适合开放世界和电影关卡做可预览、可循环的昼夜循环。",
+    "en": "Experimental day-cycle asset: a dedicated Day Sequence drives sun, sky, fog, and exposure over clock time instead of hand-keying those tracks in a generic Level Sequence. DaySequence evaluates at runtime; DaySequenceEditor authors the asset. Open-world and cinematic levels can preview and loop a day/night cycle from one sequence type."
+  },
+  {
+    "slug": "debugdraw",
+    "kind": "plugin",
+    "cn": "无锁、色调映射之后的调试形状绘制（UE::DebugDraw::*），面向每帧成千上万条线的场景。它不走 ULineBatchComponent / DrawDebugLine 那套会争锁、还可能被后处理吃掉的路径。DebugDraw 模块把形状推到后处理之后显示，适合导航、物理和 AI 的海量可视化。",
+    "en": "Lock-free, post-tonemap debug shape drawing (UE::DebugDraw::*) for scenes that emit thousands of lines per frame. It bypasses ULineBatchComponent / DrawDebugLine, which contend on locks and can be eaten by post-process. The DebugDraw module submits shapes after tonemap, which fits nav, physics, and AI volume visualization."
+  },
+  {
+    "slug": "default-install-bundle-manager",
+    "kind": "plugin",
+    "cn": "游戏运行中下载、打补丁并挂载内容包（Install Bundle）的默认引擎实现。DefaultInstallBundleManager 对接 InstallBundle 子系统：排队包体、校验、挂 pak/io store。适合主机或移动端的分块 DLC 与后期安装，实验接口可能随构建变化。",
+    "en": "Default engine handler that downloads, patches, and mounts content bundles while the game is running. DefaultInstallBundleManager talks to the InstallBundle subsystem: queue packs, verify them, and mount pak/IoStore. It is the stock path for chunked DLC and post-install content on console and mobile; the experimental API may still move."
+  },
+  {
+    "slug": "deformer-graph",
+    "kind": "plugin",
+    "cn": "Optimus 变形器图：在 GPU 上用节点图写网格变形，而不是只靠 CPU AnimBP 或 Morph。OptimusCore 求值图，OptimusEditor 编辑，OptimusSettings 管项目设置，OptimusDeveloper 给扩展。骨骼网格可做布料近似、肌肉、接触修正等计算着色器变形，并挂到骨架网格组件上。",
+    "en": "Optimus Deformer Graph: GPU node graphs that deform meshes instead of relying only on CPU AnimBPs or morph targets. OptimusCore evaluates the graph, OptimusEditor authors it, OptimusSettings holds project options, and OptimusDeveloper supports extensions. Skeletal meshes can run cloth-like, muscle, or contact-corrective compute deformations on the skeletal mesh component."
+  },
+  {
+    "slug": "derived-data-build-controller",
+    "kind": "plugin",
+    "cn": "把着色器编译接到 Derived Data Build API，让着色器任务走 DDC 的分布式构建而不是本机 ShaderCompileWorker 单机硬扛。DerivedDataBuildController 把编译作业提交到共享构建农场，结果写回 Derived Data Cache。大型项目可缩短首次打开关卡时的着色器卡死时间。",
+    "en": "Hooks shader compilation into the Derived Data Build API so shader jobs can run as distributed DDC builds instead of only local ShaderCompileWorker. DerivedDataBuildController submits compile work to a shared farm and writes results back into Derived Data Cache. Large projects spend less time stalled on first-time shader compiles when opening maps."
+  },
+  {
+    "slug": "direct-mesh-control",
+    "kind": "plugin",
+    "cn": "在视口里点选网格表面并拖拽来摆姿势，而不是先调 Control Rig 控制器。DirectMeshControl 做表面选择与操纵，DirectMeshControlRig 把它接到 Control Rig。动画师可直接拉角色皮肤或道具表面做阻塞动画，实验阶段接口仍可能改。",
+    "en": "Viewport posing by clicking and dragging mesh surfaces instead of first grabbing Control Rig gizmos. DirectMeshControl handles surface pick and manipulate; DirectMeshControlRig wires that into Control Rig. Animators can block performances by pulling character skin or prop surfaces; the experimental API may still change."
+  },
+  {
+    "slug": "directory-placeholder",
+    "kind": "plugin",
+    "cn": "提供 Directory Placeholder 资产：空文件夹里放一个占位 uasset，以便 Git/P4 能跟踪该目录。DirectoryPlaceholder 模块注册这种轻量资产类型。内容管线常用它避免「空目录无法提交」导致的文件夹结构丢失，不进入 Shipping 游戏。",
+    "en": "Adds a Directory Placeholder asset you drop into otherwise empty folders so Git or Perforce can track the directory. The DirectoryPlaceholder module registers that lightweight asset type. Content pipelines use it so folder trees do not vanish because empty directories cannot be committed. It is editor-side and does not ship in a cooked game."
+  },
+  {
+    "slug": "discovery-beacon-receiver",
+    "kind": "plugin",
+    "cn": "在多播套接字上监听发现信标，并用本机引擎实例信息应答。DiscoveryBeaconReceiver 让局域网工具、会话浏览器或外部启动器找到正在跑的编辑器/游戏。它不实现完整在线子系统，只做「谁在这台机器上开着 UE」的发现应答。",
+    "en": "Listens on a multicast socket for discovery beacons and replies with facts about this engine instance. DiscoveryBeaconReceiver lets LAN tools, session browsers, or external launchers find a running editor or game. It is not a full online subsystem—only the “who is running Unreal on this machine” reply path."
+  },
+  {
+    "slug": "dlc-support-for-gdk",
+    "kind": "plugin",
+    "cn": "Xbox GDK 上的实验性 DLC 支持。GDKPlatformDLC 对接微软套件的附加内容安装、所有权查询和挂载，让虚幻的 DLC 流程能走 GDK 商店包。仍属实验，证书与商店规则变化时接口可能跟着改。",
+    "en": "Experimental DLC support on Xbox GDK. GDKPlatformDLC talks to Microsoft’s add-on install, entitlement, and mount APIs so Unreal DLC can ride GDK store packages. It remains experimental; store and certification changes can still move the contract."
+  },
+  {
+    "slug": "dmx-control-console",
+    "kind": "plugin",
+    "cn": "虚幻内的 DMX 控制台：从 DMX Library 里挑灯具打补丁，再把通道值送到输出端口。DMXControlConsole 是运行时发送，DMXControlConsoleEditor 是控制台 UI。现场可用引擎当简易灯光台，预览灯具而不必另开一套控台软件。",
+    "en": "In-engine DMX console: patch fixtures from a DMX Library and send channel values to output ports. DMXControlConsole is the runtime sender; DMXControlConsoleEditor is the console UI. A stage can use Unreal as a small lighting desk to preview fixtures without a separate console app."
+  },
+  {
+    "slug": "dmx-displaycluster",
+    "kind": "plugin",
+    "cn": "把 nDisplay（Display Cluster）和 DMX 接在一起：集群节点上的灯卡、同步和 DMX 驱动的灯具可以共用同一套舞台时间。DMXDisplayCluster 做集群集成，DMXDisplayClusterLightCard 把 nDisplay 灯卡暴露给 DMX。LED 墙虚拟制片可用真实 DMX 灯具和内视灯卡一起跑。",
+    "en": "Bridges nDisplay (Display Cluster) and DMX so light cards, cluster sync, and DMX-driven fixtures share stage time. DMXDisplayCluster is the cluster integration; DMXDisplayClusterLightCard exposes nDisplay light cards to DMX. LED-volume shoots can run practical DMX fixtures and in-camera light cards together."
+  },
+  {
+    "slug": "dmx-engine",
+    "kind": "plugin",
+    "cn": "DMX 引擎本体：库资产、灯具补丁、蓝图节点和运行时收发。DMXRuntime 维护宇宙与端口，DMXEditor 编辑库，DMXBlueprintGraph 提供蓝图访问。所有更高层的控制台、像素映射和灯具蓝图都依赖这套通信与资产层。",
+    "en": "The DMX engine itself: library assets, fixture patches, Blueprint nodes, and runtime I/O. DMXRuntime owns universes and ports, DMXEditor authors libraries, and DMXBlueprintGraph exposes Blueprint access. Consoles, pixel mapping, and fixture blueprints all sit on this communication and asset layer."
+  },
+  {
+    "slug": "dmx-fixtures",
+    "kind": "plugin",
+    "cn": "可投放的 DMX 灯具蓝图包：摇头灯、帕灯、光束等带通道绑定的可视灯具。DMXFixtures 把 DMX 通道驱动到灯光组件、运动和透镜参数。虚拟舞台摆灯后，控台或像素映射改 DMX 值，关卡里的灯具会跟着动和变色。",
+    "en": "Drop-in DMX fixture blueprints: movers, PARs, beams, and other visual fixtures with channel bindings. DMXFixtures drives light components, movement, and lens parameters from DMX channels. After you place fixtures, a console or pixel mapper changing DMX values moves and colors the in-level lights."
+  },
+  {
+    "slug": "dmx-gdtf",
+    "kind": "plugin",
+    "cn": "用虚幻类型实现 GDTF（General Device Type Format）灯具描述标准。DMXGDTF 解析 GDTF，DMXZip 解包容器，DMXGDTFTests 做校验。导入厂商灯库后，DMX 引擎能按官方通道布局和几何来补丁灯具，而不是手填 DMX 表。",
+    "en": "Implements the GDTF (General Device Type Format) fixture spec with Unreal types. DMXGDTF parses GDTF, DMXZip unpacks the container, and DMXGDTFTests validate it. After a vendor fixture library is ingested, the DMX engine can patch lights from official channel layouts and geometry instead of hand-filled DMX tables."
+  },
+  {
+    "slug": "dmx-modular-features",
+    "kind": "plugin",
+    "cn": "给 DMX 灯具 Actor 提供模块化特性接口（IModularFeature），让外部插件不必硬链 DMX 运行时。DMXFixtureActorInterface 声明灯具 Actor 约定。像素映射、nDisplay 或第三方灯具包可以通过该接口发现并驱动灯具。",
+    "en": "Modular-feature interfaces for DMX fixture actors so other plugins need not hard-link the DMX runtime. DMXFixtureActorInterface is the fixture-actor contract. Pixel mapping, nDisplay, or third-party fixture packs can discover and drive fixtures through that interface."
+  },
+  {
+    "slug": "dmx-pixel-mapping",
+    "kind": "plugin",
+    "cn": "把引擎画面或渲染目标采样成 DMX，驱动任意形状的 LED 灯带和灯具阵列。DMXPixelMappingCore/Runtime 做采样与发送，Editor 与 Widgets 编辑映射图，BlueprintGraph 暴露节点，Renderer 负责读像素。虚拟制片可用关卡内容去点亮真实 LED 墙或地灯矩阵。",
+    "en": "Samples engine views or render targets into DMX for LED strips and fixture arrays of any shape. DMXPixelMappingCore/Runtime sample and send; Editor and Widgets author the map; BlueprintGraph exposes nodes; Renderer reads pixels. Virtual production can light a practical LED wall or floor matrix from level content."
+  },
+  {
+    "slug": "dmx-protocol",
+    "kind": "plugin",
+    "cn": "DMX 传输层：Art-Net 与 sACN（E1.31）的收发实现。DMXProtocol 是公共接口，DMXProtocolArtNet / DMXProtocolSACN 是具体协议，Editor 与 BlueprintGraph 做端口配置。引擎因此能和真实灯光台、节点盒在同一宇宙上说话。",
+    "en": "DMX transport: Art-Net and sACN (E1.31) send/receive. DMXProtocol is the shared interface, DMXProtocolArtNet and DMXProtocolSACN are the protocols, and Editor plus BlueprintGraph configure ports. The engine can then speak the same universes as a real lighting desk or node box."
+  },
+  {
+    "slug": "dnacalib-plugin",
+    "kind": "plugin",
+    "cn": "MetaHuman DNA 校准工具：在 DNA 资产上做面部装配校正、关节与蒙皮调整。DNACalibLib 是校准库，DNACalibModule 接入引擎，DNACalibLibTest 覆盖测试。角色管线可在导入后微调 DNA，而不必回到 Maya 的全套装配。",
+    "en": "MetaHuman DNA calibration: facial-rig corrections, joint and skin tweaks on DNA assets. DNACalibLib is the calibration library, DNACalibModule hooks it into the engine, and DNACalibLibTest covers tests. Character pipelines can refine DNA after import without a full Maya re-rig."
+  },
+  {
+    "slug": "doodle",
+    "kind": "plugin",
+    "cn": "虚拟制片用的三维涂鸦/注释工具：在视口里画笔触、标注镜头，并作为 Movie Scene 轨道记进 Sequencer。Doodle 与 DoodleSlate 负责绘制，DoodleMovieScene / DoodleSequencer 把笔触时间轴化，DoodleEditor 提供编辑器，DoodleTests 做测试。导演和美术可在引擎里直接在镜头上画画，而不是只靠外部 overlay。",
+    "en": "Virtual-production doodle/annotation: draw strokes in the viewport, mark shots, and store them as Movie Scene tracks in Sequencer. Doodle and DoodleSlate handle drawing; DoodleMovieScene and DoodleSequencer timeline the strokes; DoodleEditor authors; DoodleTests cover tests. Directors and art can draw on the shot inside the engine instead of only on an external overlay."
+  },
+  {
+    "slug": "draw-debug-library",
+    "kind": "plugin",
+    "cn": "一组可在蓝图/代码里调用的常用调试绘制函数库，封装球体、盒体、箭头、胶囊等。DrawDebugLibrary 面向玩法调试，比零散的 DrawDebug* 全局函数更好归类。它与无锁的 DebugDraw 插件不同：这里是传统调试绘制的便利库，实验接口可能变化。",
+    "en": "A library of common debug-draw helpers—spheres, boxes, arrows, capsules—callable from Blueprint or code. DrawDebugLibrary is aimed at gameplay debugging and groups what used to be loose DrawDebug* globals. Unlike the lock-free DebugDraw plugin, this is a convenience wrapper around classic debug draw; the experimental API may change."
+  },
+  {
+    "slug": "dtls-network-packet-handler",
+    "kind": "plugin",
+    "cn": "Packet Handler 组件，用 DTLS 对虚幻网络包做加解密。DTLSHandlerComponent 插在 NetDriver 的 Handler 链上，给非 TLS 的 UDP 游戏流量提供数据报级安全。可打进 Shipping 包，用于需要加密但又不走完整 HTTPS 的多人连接。",
+    "en": "A Packet Handler that encrypts and decrypts Unreal net packets with DTLS. DTLSHandlerComponent sits on the NetDriver handler chain and secures datagram game traffic that is not already TLS. It can ship in a cooked build for multiplayer that needs encryption without a full HTTPS stack."
+  },
+  {
+    "slug": "dump-gpu-services",
+    "kind": "plugin",
+    "cn": "为 DumpGPU 命令提供自动上传：把 GPU 捕获（中间 RT、Pass 调试）送到配置好的服务端。DumpGPUServices 是开发者插件，方便图形程序员把本机 DumpGPU 结果共享给团队。默认不进游戏包。",
+    "en": "Automatic upload services for the DumpGPU command: GPU captures (intermediate RTs, pass debug) go to a configured backend. DumpGPUServices is a developer plugin so graphics programmers can share local DumpGPU output with the team. It does not ship in a cooked game by default."
+  },
+  {
+    "slug": "dynamic-wind",
+    "kind": "plugin",
+    "cn": "针对 Nanite 植被的实验性动态风：让 Nanite 树叶/草地响应风场，而不是只靠材质顶点动画。DynamicWind 在运行时求值，DynamicWindEditor 编辑风源。大规模 Nanite 森林可获得更可信的风动，但标记为极其实验，接口不稳定。",
+    "en": "Extremely experimental dynamic wind for Nanite foliage, so Nanite leaves and grass respond to a wind field instead of only material vertex animation. DynamicWind evaluates at runtime; DynamicWindEditor authors wind sources. Large Nanite forests can look more believable in wind, but the API is still unstable."
+  },
+  {
+    "slug": "ease-curve-tool",
+    "kind": "plugin",
+    "cn": "Sequencer / 曲线编辑器工具：用自定义缓动预设库去缓和关键帧之间的切线。EaseCurveTool 让动画师一键套用 ease-in/out 曲线库，而不用逐手柄调切线。适合镜头和角色动画里大量重复的缓入缓出。",
+    "en": "A Sequencer / Curve Editor tool that eases tangents between keys from a custom preset library. EaseCurveTool lets animators apply ease-in/out libraries in one shot instead of dragging every tangent handle. It is meant for the many repeated ease-ins in cameras and character animation."
+  },
+  {
+    "slug": "editor-dataflowgraph",
+    "kind": "plugin",
+    "cn": "编辑器里的 Dataflow 图：用节点图做几何、破坏、物理预处理等离线数据流。DataflowEditor 是图编辑器，DataflowEnginePlugin 接入引擎，DataflowNodes 提供节点。Chaos 破坏、骨骼和程序化资产常用它在编辑时生成缓存数据。",
+    "en": "Editor Dataflow graphs: node graphs for offline geometry, fracture, and physics preprocessing. DataflowEditor is the graph UI, DataflowEnginePlugin hooks the engine, and DataflowNodes supplies nodes. Chaos destruction, skeletons, and procedural assets often bake cached data through these graphs at edit time."
+  },
+  {
+    "slug": "editor-performance",
+    "kind": "plugin",
+    "cn": "向开发者反馈编辑器本身的性能：卡顿、停顿日志和崩溃诊断。EditorPerformance 汇总反馈，StallLogSubsystem 记录 hitch，CrashDiagnostics 辅助崩溃分析。用来抓「编辑器卡死」而不是游戏运行时帧率。",
+    "en": "Editor-side performance feedback: stalls, hitch logs, and crash diagnostics for developers. EditorPerformance aggregates the signal, StallLogSubsystem records hitches, and CrashDiagnostics helps crash analysis. It targets “the editor froze,” not in-game frame rate."
+  },
+  {
+    "slug": "editor-scripting-utilities",
+    "kind": "plugin",
+    "cn": "给蓝图和 Python 用的编辑器脚本辅助函数：批量改资产、关卡 Actor、导入选项等。EditorScriptingUtilities 把常见编辑器操作收成可脚本 API，方便做自动化管线。只在编辑器存在，不会打进 Shipping。",
+    "en": "Helper functions so Blueprint or Python can script editor work: bulk asset edits, level actors, import options, and similar. EditorScriptingUtilities wraps common editor operations as a scriptable API for automation pipelines. Editor-only; it does not cook into a shipping build."
+  },
+  {
+    "slug": "editor-system-configuration-assistant",
+    "kind": "plugin",
+    "cn": "编辑器实用程序：根据本机硬件与项目检查，给出系统/引擎配置建议（例如可扩展性、内存相关设置）。EditorSysConfigAssistant 扫描当前环境并提示可调项。面向把机器配到更适合跑该项目的开发者，不是技能系统（GAS）扩展。",
+    "en": "An editor utility that suggests system and engine configuration based on local hardware and the project (scalability, memory-related settings, and similar). EditorSysConfigAssistant inspects the machine and flags knobs to change. It is for fitting a workstation to the project, not a Gameplay Ability System extension."
+  },
+  {
+    "slug": "editor-telemetry-4c548b",
+    "kind": "plugin",
+    "cn": "运行时遥测插件（RuntimeTelemetry）：从编辑器会话发出常用遥测事件，供分析编辑器使用情况。路径在 Experimental/RuntimeTelemetry，模块名 RuntimeTelemetry，与同名的 EditorTelemetry 插件是另一套实现。用于内部度量编辑器行为，不参与游戏玩法。",
+    "en": "Runtime telemetry plugin (RuntimeTelemetry) that emits common telemetry events from editor sessions for usage analytics. It lives at Experimental/RuntimeTelemetry with the RuntimeTelemetry module—a separate implementation from the similarly named EditorTelemetry plugin. It measures editor behavior, not gameplay."
+  },
+  {
+    "slug": "editor-telemetry-516f9a",
+    "kind": "plugin",
+    "cn": "实验性 EditorTelemetry：从虚幻编辑器发出标准化遥测事件（打开资产、命令、会话等）。EditorTelemetry 模块负责采集与上报。与 RuntimeTelemetry 插件同主题但模块和路径不同，用于编辑器产品分析。",
+    "en": "Experimental EditorTelemetry: standardized editor events (asset opens, commands, sessions) emitted from Unreal Editor. The EditorTelemetry module collects and reports them. Same theme as RuntimeTelemetry but a different module and path, aimed at editor product analytics."
+  },
+  {
+    "slug": "editor-tests",
+    "kind": "plugin",
+    "cn": "引擎自带的编辑器自动化测试集：覆盖视口、资产编辑器、事务等编辑器工作流。EditorTests 在 Tests 目录下，给引擎 QA 和回归用。项目一般不直接依赖它，而是在自动化会话里加载以跑编辑器测试。",
+    "en": "Engine-owned editor automation tests covering viewports, asset editors, transactions, and similar editor workflows. EditorTests lives under Plugins/Tests for engine QA and regression. Games rarely depend on it directly; automation sessions load it to run editor tests."
+  },
+  {
+    "slug": "editordatastoragetoolset",
+    "kind": "plugin",
+    "cn": "给编辑器内 AI 助手用的 TEDS（Editor Data Storage）查询工具集。EditorDataStorageToolset 通过 AI Toolset Registry 暴露检查与查询接口，便于助手读编辑器结构化数据。实验性，不进 Shipping 游戏。",
+    "en": "AI toolset for inspecting and querying Typed Editor Data Storage (TEDS) at runtime. EditorDataStorageToolset exposes inspect/query tools through the AI Toolset Registry so an in-editor assistant can read structured editor data. Experimental; not a shipping game feature."
+  },
+  {
+    "slug": "editordebugtools",
+    "kind": "plugin",
+    "cn": "编辑器调试小工具集合：用于检查编辑器内部状态、可视化调试和开发期诊断。EditorDebugTools 只服务作者管线，默认不进游戏包。需要排查编辑器本身问题时才用，而不是游戏内 Draw Debug。",
+    "en": "A bundle of editor debug utilities for inspecting editor-internal state, debug visualization, and authoring-time diagnostics. EditorDebugTools is for the authoring pipeline and does not ship by default. Use it when debugging the editor itself, not in-game Draw Debug."
+  },
+  {
+    "slug": "editortoolset",
+    "kind": "plugin",
+    "cn": "通过 AI Toolset Registry 操作虚幻编辑器核心类型：蓝图、Actor、属性等。EditorToolset 让编辑器内助手能读/改场景与资产，而不是只聊天。实验性自动化层，不是玩家功能。",
+    "en": "Toolsets that talk to Unreal Editor core types—Blueprints, Actors, properties—via the AI Toolset Registry. EditorToolset lets an in-editor assistant read and mutate the scene and assets instead of only chatting. Experimental automation, not a player-facing feature."
+  },
+  {
+    "slug": "electra-codecs",
+    "kind": "plugin",
+    "cn": "Electra 播放器的编解码器工厂：按平台选出合适的音视频解码器。ElectraDecoders 实现解码，ElectraCodecFactory 按容器/编码注册解码器。没有它，Electra 播流时找不到具体 codec 实现。",
+    "en": "Codec factory for Electra: picks platform-appropriate audio/video decoders. ElectraDecoders implements decode; ElectraCodecFactory registers decoders by container and codec. Without it, Electra has no concrete codec implementations when playing a stream."
+  },
+  {
+    "slug": "electra-player-content-decryption-module",
+    "kind": "plugin",
+    "cn": "Electra 的 CDM（Content Decryption Module），用于加密流（如 Widevine/PlayReady 类 DRM）的许可证与样本解密。ElectraCDM 把解密接到 Electra 播放管线。点播受保护内容时由它解开媒体样本再交给解码器。",
+    "en": "Electra’s Content Decryption Module for encrypted streams (Widevine/PlayReady-style DRM): licenses and sample decrypt. ElectraCDM hooks decryption into the Electra pipeline. Protected VOD is unlocked here before samples reach the decoder."
+  },
+  {
+    "slug": "electra-player-subtitle-module",
+    "kind": "plugin",
+    "cn": "Electra 字幕解码：解析并渲染播放中的字幕轨（WebVTT 等常见格式视实现而定）。ElectraSubtitles 把字幕时间轴对齐到媒体时钟。流媒体播放器可在画面上叠字幕，而不用项目自己写解析器。",
+    "en": "Electra subtitle decoder: parses and presents subtitle tracks during playback (WebVTT and similar, depending on implementation). ElectraSubtitles clocks cues to the media timeline. A streaming player can overlay captions without a project-side parser."
+  },
+  {
+    "slug": "electra-player-utilities",
+    "kind": "plugin",
+    "cn": "Electra 可复用底座：基础类型、样本缓冲和 HTTP 流。ElectraBase、ElectraSamples、ElectraHTTPStream 被播放器、编解码器和字幕模块共用。把网络拉取与样本队列从具体播放器实现里抽出来，避免各插件重复造轮子。",
+    "en": "Reusable Electra plumbing: base types, sample buffers, and HTTP streaming. ElectraBase, ElectraSamples, and ElectraHTTPStream are shared by the player, codecs, and subtitles. Network fetch and sample queues live here so each plugin does not reinvent them."
+  },
+  {
+    "slug": "electra-player",
+    "kind": "plugin",
+    "cn": "跨平台 Electra 媒体播放器：播本地文件和互联网流（HLS/DASH 等视平台支持）。ElectraPlayerRuntime / Plugin / Factory 构成主播放器；ElectraProtron 及其 Factory 是桌面端优化的仅本地 MP4 播放器。Media Framework 用它作为现代流媒体后端，替代过时的平台播放器拼凑。",
+    "en": "Cross-platform Electra media player for local files and internet streaming (HLS/DASH where the platform allows). ElectraPlayerRuntime, Plugin, and Factory form the main player; ElectraProtron and its factory are a desktop-optimized local-MP4-only player. Media Framework uses this as the modern streaming backend instead of a patchwork of old platform players."
+  },
+  {
+    "slug": "engine-asset-definitions",
+    "kind": "plugin",
+    "cn": "为引擎内建资产类型注册 Asset Definition（内容浏览器菜单、打开器、缩略图等）。EngineAssetDefinitions 把静态网格、材质、声音等核心类型接到新的资产定义系统。编辑器专用，让内容浏览器认识引擎资产，而不是实现 Actor 运行时。",
+    "en": "Registers Asset Definitions for built-in engine types (Content Browser menus, openers, thumbnails). EngineAssetDefinitions wires static meshes, materials, sounds, and other core types into the newer asset-definition system. Editor-only: it teaches the Content Browser about engine assets; it is not the Actor runtime."
+  },
+  {
+    "slug": "engine-cameras",
+    "kind": "plugin",
+    "cn": "引擎级摄像机工具与资产：给摄像机系统提供基础摄像机类型、辅助与共享逻辑。EngineCameras 被 Gameplay Cameras 等更高层摄像机插件复用。它补齐摄像机插件栈的底层，而不是完整的数据驱动镜头导演系统。",
+    "en": "Engine-level camera utilities and assets: base camera types, helpers, and shared logic for the camera stack. EngineCameras is reused by higher camera plugins such as Gameplay Cameras. It is the lower camera layer, not a full data-driven cinematic director."
+  },
+  {
+    "slug": "enhanced-input-code-quality-unreal-test-plugin",
+    "kind": "plugin",
+    "cn": "Enhanced Input 的 CQTest 简化测试插件。CQTestEnhancedInput 与 CQTestEnhancedInputTests 用代码质量测试框架覆盖输入动作、映射上下文和触发器。给引擎/项目自动化确认增强输入行为，不是运行时输入栈本身。",
+    "en": "CQTest helper for Enhanced Input. CQTestEnhancedInput and CQTestEnhancedInputTests cover input actions, mapping contexts, and triggers through the code-quality test framework. Automation uses it to assert Enhanced Input behavior; it is not the runtime input stack."
+  },
+  {
+    "slug": "enhanced-input",
+    "kind": "plugin",
+    "cn": "用 Input Action 与 Mapping Context 替代旧轴/动作绑定，支持触发器、修饰符、和弦和运行时切换上下文（步行/载具/UI）。EnhancedInput 是运行时，InputBlueprintNodes / InputEditor 提供蓝图与编辑器，EnhancedInputTestSuite 做测试。新项目应优先用它，而不是 DefaultInput.ini 的老映射。",
+    "en": "Replaces legacy axis/action mappings with Input Actions and Mapping Contexts, plus triggers, modifiers, chords, and runtime context swaps (walk / vehicle / UI). EnhancedInput is runtime; InputBlueprintNodes and InputEditor cover Blueprint and editor; EnhancedInputTestSuite tests it. New projects should prefer this over DefaultInput.ini bindings."
+  },
+  {
+    "slug": "entityframework-pose-search",
+    "kind": "plugin",
+    "cn": "把 Pose Search（姿态搜索/运动匹配数据库）接到 Entity Framework 实体上。EntityFrameworkPoseSearch 让 Scene Graph / Verse 实体能用姿态搜索选动画，而不是只在传统 AnimBP 角色上用。实验性动画与实体运行时的桥。",
+    "en": "Pose Search (motion-matching database) integration for Entity Framework entities. EntityFrameworkPoseSearch lets Scene Graph / Verse entities pick animation via pose search instead of only classic AnimBP characters. Experimental bridge between animation search and the entity runtime."
+  },
+  {
+    "slug": "entityframework",
+    "kind": "plugin",
+    "cn": "UEFN/Verse 的实体框架：用 Entity 代替部分 Actor 心智来组成场景图。ActorEntity、Entity、EntityLevel、EntitySimulation、EntityStreaming 管实体生命周期与关卡；EntitySequencer 把实体接到 Sequencer。Fortnite 创作和 Scene Graph 体验的运行时骨架。",
+    "en": "UEFN/Verse entity framework: compose a scene graph from entities rather than only Actors. ActorEntity, Entity, EntityLevel, EntitySimulation, and EntityStreaming own lifetime and levels; EntitySequencer hooks entities to Sequencer. This is the runtime spine for Fortnite creative and Scene Graph experiences."
+  },
+  {
+    "slug": "entityframeworkeditortests",
+    "kind": "plugin",
+    "cn": "Entity Framework 的编辑器工作流测试。SceneGraphEditorWorkflows 验证 Scene Graph 在编辑器里的创建、选择和保存路径。给引擎回归用，确保实体编辑器操作在版本间不裂。",
+    "en": "Editor workflow tests for Entity Framework. SceneGraphEditorWorkflows verifies Scene Graph create, select, and save paths in the editor. Engine regression uses it so entity editor operations do not break across versions."
+  },
+  {
+    "slug": "entityframeworktests",
+    "kind": "plugin",
+    "cn": "Entity Framework 的运行时测试套件：实体、执行、组件和注册表。EntityTestSuite、ExecutionTestSuite、ComponentTestSuite、EntityRegistryTestSuite 分别覆盖这些层。用来锁住实体模拟语义，而不是编辑器 UI。",
+    "en": "Runtime test suites for Entity Framework: entities, execution, components, and the registry. EntityTestSuite, ExecutionTestSuite, ComponentTestSuite, and EntityRegistryTestSuite cover those layers. They lock entity-simulation semantics, not editor UI."
+  },
+  {
+    "slug": "environment-query-editor",
+    "kind": "plugin",
+    "cn": "环境查询（EQS）资产编辑器：给 AI 配置生成器、测试器和上下文，用于在世界里打分选点。EnvironmentQueryEditor 编辑 EQS 图，运行时仍由 AIModule 执行查询。行为树和 StateTree 常用这些查询找掩护、攻击位或逃跑点。",
+    "en": "Editor for Environment Query (EQS) assets: generators, tests, and contexts that score locations in the world for AI. EnvironmentQueryEditor authors the EQS graph; AIModule still runs queries at runtime. Behavior Trees and StateTrees use these queries for cover, attack, or flee points."
+  },
+  {
+    "slug": "eos-overlay-input-provider",
+    "kind": "plugin",
+    "cn": "把虚幻输入转发给 Epic Online Services SDK 覆盖层（好友、商城、成就 UI）。EOSOverlayInputProvider 在覆盖层打开时接管按键/手柄，避免游戏和 EOS UI 抢输入。依赖 EOS 覆盖层的多人游戏需要它才能在游戏内正确操作 EOS 界面。",
+    "en": "Forwards Unreal input into the Epic Online Services SDK overlay (friends, store, achievements). EOSOverlayInputProvider takes keyboard/gamepad while the overlay is up so the game and EOS UI do not fight. Multiplayer titles that show the EOS overlay need this to operate that UI in-game."
+  },
+  {
+    "slug": "eos-shared",
+    "kind": "plugin",
+    "cn": "EOSSDK 运行时库的初始化与关闭，以及多插件共享的 EOS 平台句柄。EOSShared 保证登录、成就、语音等 EOS 插件共用同一份 SDK 生命周期。项目应先有它，再叠具体 EOS 功能插件。",
+    "en": "Init and shutdown of the EOSSDK runtime library, plus the shared EOS platform handle other plugins use. EOSShared ensures login, achievements, voice, and similar EOS plugins share one SDK lifetime. Projects should have this before stacking feature-specific EOS plugins."
+  },
+  {
+    "slug": "eos-voice-chat",
+    "kind": "plugin",
+    "cn": "用引擎的 IVoiceChat 接口接上 EOS 语音服务。EOSVoiceChat 管理频道加入、设备与空间化（视 EOS 能力），让多人游戏走 Epic 语音而不是自建 VoIP。与 EOS Shared 一起构成 Epic 在线语音路径。",
+    "en": "IVoiceChat integration of Epic Online Services Voice. EOSVoiceChat handles channel join, devices, and spatialization where EOS allows, so multiplayer can use Epic voice instead of a custom VoIP stack. Together with EOS Shared it is Epic’s online voice path."
+  },
+  {
+    "slug": "epic-games-engine-restricted",
+    "kind": "plugin",
+    "cn": "Verse/UEFN 用的 Epic 受限引擎 API 绑定，不面向普通游戏项目公开。EpicGamesEngineRestricted 暴露仅内部/UEFN 可用的引擎入口。外部游戏不应依赖它，文档也标明不适合公众使用。",
+    "en": "Verse/UEFN bindings for Epic-restricted engine APIs, not for public game projects. EpicGamesEngineRestricted exposes engine entry points that stay internal or UEFN-only. External games should not depend on it; Epic marks it as not for public use."
+  },
+  {
+    "slug": "epic-stage-app",
+    "kind": "plugin",
+    "cn": "接收 Epic Stage 手机/平板应用的远程连接，在虚拟制片现场遥控关卡、灯光和舞台参数。EpicStageApp 走消息通道把 App 操作映射到引擎。LED 舞台上的 TD 可不用坐在操作台前微调场景。",
+    "en": "Accepts remote connections from the Epic Stage mobile app so a virtual-production floor can drive level, lighting, and stage parameters. EpicStageApp maps app actions onto the engine over messaging. Stage TDs can tweak the scene without sitting at the operator desk."
+  },
+  {
+    "slug": "epicgamestemporary",
+    "kind": "plugin",
+    "cn": "Verse 侧的临时/过渡类型模块（EpicGamesTemporary），给 UEFN 体验提供尚未定型的 Epic 游戏 API 占位。EpicGamesTemporary 随 Verse 快照演化，不是稳定游戏模块。只应出现在 Fortnite 创作/UEFN 工具链里。",
+    "en": "Verse transitional/temporary types (EpicGamesTemporary) that hold not-yet-stable Epic game APIs for UEFN. EpicGamesTemporary moves with Verse snapshots and is not a stable gameplay module. It belongs in the Fortnite Creative / UEFN toolchain only."
+  },
+  {
+    "slug": "evaluation-notifies",
+    "kind": "plugin",
+    "cn": "带动画求值时间码的 Anim Notify：通知在动画求值时钟上触发，而不是只在播放器更新时。EvaluationNotifiesRuntime 执行，EvaluationNotifiesEditor 编辑。需要与变形、重定向或同步标记精确对齐的效果（音效、轨迹）会用到它。",
+    "en": "Anim notifies that fire on animation evaluation timecode, not only on player tick. EvaluationNotifiesRuntime runs them; EvaluationNotifiesEditor authors them. Effects that must line up with deformation, retargeting, or sync markers (audio, trails) use this path."
+  },
+  {
+    "slug": "example-device-profile-selector",
+    "kind": "plugin",
+    "cn": "设备配置文件选择器示例：演示如何在真机上根据硬件挑选 Device Profile。ExampleDeviceProfileSelector 是教学/样板实现，项目通常会换成自己的选择逻辑。用来理解 Device Profile 在运行时的匹配挂钩。",
+    "en": "Example Device Profile selector showing how to pick profiles from real hardware. ExampleDeviceProfileSelector is a teaching/sample implementation; projects usually replace it with their own matching. It documents the runtime hook for Device Profile selection."
+  },
+  {
+    "slug": "examplecharacterfxeditor",
+    "kind": "plugin",
+    "cn": "基于 BaseCharacterFXEditor 基类的示例角色特效资产编辑器。ExampleCharacterFXEditor 示范如何做角色 FX 专用编辑器布局与工具。给引擎扩展作者当模板，不是最终产品级角色 FX 套件。",
+    "en": "Example character-FX asset editor built on BaseCharacterFXEditor. ExampleCharacterFXEditor shows a character-FX editor layout and tools. Engine extenders treat it as a template, not a shipping character-FX suite."
+  },
+  {
+    "slug": "experimental-code-quality-unreal-test-plugin",
+    "kind": "plugin",
+    "cn": "用 CQTest 框架跑引擎实验功能的简化测试。CQTestExperimentalTests 覆盖仍标 Experimental 的 API，避免实验模块在回归中无声裂开。测试插件本身，不提供实验功能实现。",
+    "en": "Simplified CQTest coverage for experimental Unreal features. CQTestExperimentalTests hit APIs still marked Experimental so those modules do not silently regress. The plugin tests features; it does not implement them."
+  },
+  {
+    "slug": "experimental-mesh-modeling-toolset",
+    "kind": "plugin",
+    "cn": "基于 Interactive Tools Framework 的实验性三维建模工具：挤出、布尔、重拓扑等进阶操作。MeshModelingToolsExp 与 EditorOnly 变体提供工具，GeometryProcessingAdapters 接几何库，ModelingUI / ModelingEditorUI 是界面。比稳定 Modeling Tools 更激进，接口可能变。",
+    "en": "Experimental 3D mesh modeling on the Interactive Tools Framework: extrude, boolean, retopo, and similar advanced ops. MeshModelingToolsExp and the editor-only variant provide tools; GeometryProcessingAdapters bridge geometry libraries; ModelingUI and ModelingEditorUI are the UI. More aggressive than the stable Modeling Tools; the API may move."
+  },
+  {
+    "slug": "experimental-websocket-networking-plugin",
+    "kind": "plugin",
+    "cn": "用 WebSocketNetDriver 替换默认 UDP NetDriver，让多人会话走 WebSocket（常为 HTML5/浏览器）。启用时必须关掉其他 NetDriverDefinition，并禁用 SteamAuth 等 WebSocket 不支持的 Packet Handler。适合把虚幻多人接到浏览器或只能走 WS 的网关。",
+    "en": "Replaces the default UDP NetDriver with WebSocketNetDriver so multiplayer rides WebSockets (often HTML5/browser). Other NetDriverDefinitions must be disabled, and Packet Handlers that WebSockets cannot carry (for example SteamAuth) must be turned off. Use it to put Unreal multiplayer behind a browser or WS-only gateway."
+  },
+  {
+    "slug": "external-gpu-statistics",
+    "kind": "plugin",
+    "cn": "从 NVIDIA、AMD、Intel 驱动读取比引擎自带计数器更细的 GPU 占用（显存、时钟、利用率等，视供应商 API）。ExternalGPUStatistics 把厂商统计接到引擎。性能分析可区分「引擎以为的 GPU 时间」和「驱动报告的真实占用」。",
+    "en": "Reads finer GPU usage from NVIDIA, AMD, and Intel drivers than engine counters alone (memory, clocks, utilization, depending on the vendor API). ExternalGPUStatistics pipes vendor stats into the engine. Profiling can separate “GPU time the engine thinks” from what the driver reports."
+  },
+  {
+    "slug": "fab",
+    "kind": "plugin",
+    "cn": "Fab 内容商城在编辑器里的客户端：浏览、获取并把 Fab 资产装进当前项目。Fab 模块对接 Fab 服务与内容浏览器集成。美术可从 Epic 的 Fab 货架拉模型和材质，而不用离开编辑器去网页。",
+    "en": "In-editor client for the Fab content store: browse, acquire, and install Fab assets into the open project. The Fab module talks to Fab services and the Content Browser. Artists can pull meshes and materials from Epic’s Fab shelf without leaving the editor for a browser."
+  },
+  {
+    "slug": "fabtoolset",
+    "kind": "plugin",
+    "cn": "给编辑器 AI 助手的 Fab 工具：列出用户在 Fab 上拥有的资产，并安装到正在运行的编辑器。FabToolset 走 Toolset Registry，让助手代劳获取内容。实验性，服务于自动化/助手，而不是玩家。",
+    "en": "Assistant tools that list Fab assets the user owns and install them into the running editor. FabToolset registers with the AI Toolset Registry so an assistant can fetch content. Experimental automation, not a player feature."
+  },
+  {
+    "slug": "facial-animation-bulk-importer",
+    "kind": "plugin",
+    "cn": "批量把面部动画曲线（FBX 曲线表）和对应音频导入为 SoundWave，并绑到脸部曲线。FacialAnimation 处理运行时曲线播放，FacialAnimationEditor 做批量导入 UI。配音管线可一次灌入大量口型曲线，而不用逐条手工导入。",
+    "en": "Bulk-imports facial animation curves (FBX curve tables) and matching audio into Sound Waves bound to face curves. FacialAnimation plays the curves at runtime; FacialAnimationEditor is the bulk-import UI. Voice pipelines can ingest large sets of viseme curves instead of importing clips one by one."
+  },
+  {
+    "slug": "fastbuild-controller",
+    "kind": "plugin",
+    "cn": "把着色器编译分发给 FASTBuild 农场。FastBuildController 实现引擎的分布式着色器编译控制器接口，让 ShaderCompileWorker 作业跑在 FASTBuild 节点上。已有 FASTBuild 基础设施的工作室可用来缩短着色器编译墙钟时间。",
+    "en": "Distributes shader compiles across a FASTBuild farm. FastBuildController implements the engine’s distributed shader compile controller so ShaderCompileWorker jobs run on FASTBuild nodes. Studios that already run FASTBuild can cut shader-compile wall-clock time."
+  },
+  {
+    "slug": "fastgeo-streaming",
+    "kind": "plugin",
+    "cn": "从分区大世界提取并转换几何，做成更适合流送的 FastGeo 表示，降低 World Partition 流送开销。FastGeoStreaming 在运行时使用，FastGeoStreamingEditor 做提取。开放世界可用它加快远景/碰撞几何的进出，仍属实验。",
+    "en": "Extracts and converts partitioned-world geometry into a FastGeo representation meant to stream cheaper than full World Partition payloads. FastGeoStreaming consumes it at runtime; FastGeoStreamingEditor extracts it. Open worlds can stream distant/collision geo faster; still experimental."
+  },
+  {
+    "slug": "fbxautomationtestbuilder",
+    "kind": "plugin",
+    "cn": "为 FBX 导入自动化测试构建测试资产与用例。FbxAutomationTestBuilder 生成或装配导入测试，供引擎 QA 回归 FBX 网格、动画和场景导入。测试基础设施，不是内容导入器本身。",
+    "en": "Builds assets and cases for automated FBX import tests. FbxAutomationTestBuilder generates or assembles import tests so engine QA can regress FBX mesh, animation, and scene import. Test infrastructure, not the importer itself."
+  },
+  {
+    "slug": "field-notification-trace",
+    "kind": "plugin",
+    "cn": "把 UMG/MVVM 的 Field Notification（字段通知）对象接入 Unreal Insights Trace。FieldNotificationTrace 记录通知，FieldNotificationTraceEditor 提供编辑器侧查看。用来查 UI 绑定风暴和多余的属性通知，而不是 CPU 采样。",
+    "en": "Traces UMG/MVVM Field Notification objects into Unreal Insights. FieldNotificationTrace records notifications; FieldNotificationTraceEditor adds editor-side viewing. Use it to hunt UI binding storms and extra property notifies, not CPU sampling."
+  },
+  {
+    "slug": "field-system",
+    "kind": "plugin",
+    "cn": "Chaos 解析场（Analytic Field）的编辑器：编辑力场、衰减场等，驱动几何集合破坏与布料。FieldSystemEditor 制作 Field System 资产。关卡里可用场把爆炸、引力和噪声作用到 Chaos 物体上。",
+    "en": "Editor for Chaos analytic fields: force and falloff fields that drive geometry-collection destruction and cloth. FieldSystemEditor authors Field System assets. Levels can push explosion, gravity, and noise onto Chaos objects through those fields."
+  },
+  {
+    "slug": "file-logging-analytics-provider",
+    "kind": "plugin",
+    "cn": "Analytics 提供者：把分析 API 调用写到本地磁盘，而不是发到云端。FileLogging 便于离线调试事件流、检查参数是否正确。开发期替代远程 Provider，避免污染生产分析数据。",
+    "en": "Analytics provider that writes analytics API calls to local disk instead of a cloud backend. FileLogging is for offline debugging of event streams and parameter sanity. Use it in development so you do not pollute production analytics."
+  },
+  {
+    "slug": "file-sandbox",
+    "kind": "plugin",
+    "cn": "编辑器文件沙盒：把某些读写限制在沙盒目录，避免工具误改工程外文件。FileSandboxCore 是核心策略，FileSandboxUI 提供界面。给编辑器自动化和助手用，降低乱写磁盘的风险。",
+    "en": "Editor file sandboxing: constrain some reads/writes to a sandbox directory so tools cannot casually touch files outside the project. FileSandboxCore is the policy; FileSandboxUI is the UI. Meant for editor automation and assistants to reduce runaway disk writes."
+  },
+  {
+    "slug": "file-system-toolset",
+    "kind": "plugin",
+    "cn": "AI Toolset：读文件、写文本、经 HTTPS 下载资源。FileSystemToolset 供编辑器助手访问工作区文件，FileSystemToolsetTests 覆盖行为。实验性，权限应受沙盒约束。",
+    "en": "AI toolset that reads files, writes text, and downloads HTTPS resources. FileSystemToolset lets an editor assistant touch workspace files; FileSystemToolsetTests cover behavior. Experimental; access should stay inside the sandbox policy."
+  },
+  {
+    "slug": "firebase",
+    "kind": "plugin",
+    "cn": "用 Firebase 做移动端远程推送通知。Firebase 模块对接 FCM，把设备令牌和通知载荷接到虚幻应用生命周期。Android/iOS 游戏可用它发运营推送，而不是自建推送网关。",
+    "en": "Remote notifications via Firebase Cloud Messaging. The Firebase module registers device tokens and notification payloads with the Unreal app lifecycle. Mobile games can send ops pushes without a custom notification gateway."
+  },
+  {
+    "slug": "flac-audio-decoder-for-electra",
+    "kind": "plugin",
+    "cn": "Electra 的 FLAC 音频解码器，让播放器能解无损 FLAC 流或文件。FlacDecoderElectra 注册到 Electra 编解码器工厂。媒体项目可在引擎里直接播 FLAC，而不先转成 WAV/OGG。",
+    "en": "FLAC audio decoder for Electra so the player can decode lossless FLAC streams or files. FlacDecoderElectra registers with Electra’s codec factory. Media projects can play FLAC in-engine without first transcoding to WAV or OGG."
+  },
+  {
+    "slug": "floating-properties",
+    "kind": "plugin",
+    "cn": "把细节面板里选中的属性浮到活动视口上，边看场景边改数值。FloatingProperties 避免在视口和细节面板之间来回切。实验性视口 UX，适合灯光和变换这类要对照画面调的属性。",
+    "en": "Shows selected Details-panel properties as floating widgets on the active viewport so you can tweak values while looking at the scene. FloatingProperties cuts the round trip between viewport and Details. Experimental viewport UX, useful for lights and transforms you must judge in-frame."
+  },
+  {
+    "slug": "flow-production-tracking",
+    "kind": "plugin",
+    "cn": "Autodesk Flow Production Tracking（原 Shotgun / ShotGrid）与虚幻编辑器的集成。Shotgrid 模块对接任务、版本发布和工具启动。影视管线可从 ShotGrid 页面打开关卡、回传预览，而不靠手工拷贝路径。",
+    "en": "Autodesk Flow Production Tracking (formerly Shotgun / ShotGrid) integration for Unreal Editor. The Shotgrid module talks to tasks, publishes, and tool launchers. Film pipelines can open levels from ShotGrid and send previews back without copying paths by hand."
+  },
+  {
+    "slug": "fracture",
+    "kind": "plugin",
+    "cn": "Chaos 破碎编辑的引擎侧模块 FractureEngine：切割、聚类、嵌入几何集合的核心算法。它给 Fracture Editor 模式提供底层，而不是完整 UI。破坏资产在编辑时的破碎求解走这里。",
+    "en": "Engine-side Chaos fracture module (FractureEngine): slicing, clustering, and embedding algorithms for geometry collections. It is the backend for Fracture Editor mode, not the full UI. Destruction assets run their edit-time fracture solves here."
+  },
+  {
+    "slug": "full-body-ik",
+    "kind": "plugin",
+    "cn": "全身 IK（PBIK，Position Based IK）：在 Control Rig / 动画图里用位置约束解全身姿势。FullBodyIK 与 PBIK 模块提供求解器。角色脚贴地、手扶杆、多人互动接触可用它，而不手 K 每一根骨头。",
+    "en": "Full-body IK (PBIK, position-based IK) for whole-body poses under position constraints in Control Rig or anim graphs. FullBodyIK and PBIK supply the solver. Foot planting, hand-on-rail, and contact in interactions can use it instead of keying every bone."
+  },
+  {
+    "slug": "functional-testing-editor",
+    "kind": "plugin",
+    "cn": "功能测试的编辑器扩展：在编辑器里创建、放置和运行 Functional Test Actor。FunctionalTestingEditor 给自动化测试关卡提供编辑器 UI 与命令。QA 用它在地图里摆测试点并在 PIE/编辑器会话中跑断言。",
+    "en": "Editor extensions for functional tests: create, place, and run Functional Test actors in the editor. FunctionalTestingEditor adds UI and commands for automation maps. QA drops test actors in a level and asserts them in PIE or an editor session."
+  },
+  {
+    "slug": "game-features-tests",
+    "kind": "plugin",
+    "cn": "Game Features 插件的配套测试，由 GameFeatures 的 TestConfig 声明。GameFeaturesTests 验证功能插件的注册、加载和卸载。用来锁住模块化游戏功能的生命周期，而不是提供玩法。",
+    "en": "Companion tests for the Game Features plugin, declared by GameFeatures’ TestConfig. GameFeaturesTests verify register, load, and unload of feature plugins. They lock modular feature lifetime, not gameplay content."
+  },
+  {
+    "slug": "game-features-toolset",
+    "kind": "plugin",
+    "cn": "AI 工具集：列出、检查并创建 Game Feature 插件。GameFeaturesToolset 让助手通过 Registry 操作 GFP，加快模块化内容脚手架。实验性编辑器自动化。",
+    "en": "AI toolset to list, inspect, and create Game Feature plugins. GameFeaturesToolset lets an assistant drive GFPs through the Registry and scaffold modular content faster. Experimental editor automation."
+  },
+  {
+    "slug": "game-features",
+    "kind": "plugin",
+    "cn": "模块化 Game Feature 插件：可按需加载的玩法/内容包，带自己的资源、模块和 GameFeatureAction。GameFeatures 是运行时注册表，GameFeaturesEditor 编辑功能插件。Lyra 式项目用它把模式、职业或活动做成可开关的插件，而不是全塞进主游戏模块。",
+    "en": "Modular Game Feature plugins: on-demand gameplay/content packs with their own assets, modules, and GameFeatureActions. GameFeatures is the runtime registry; GameFeaturesEditor authors feature plugins. Lyra-style projects split modes, classes, or events into toggleable plugins instead of one game module."
+  },
+  {
+    "slug": "game-input-base",
+    "kind": "plugin",
+    "cn": "微软 GameInput API 的引擎抽象：用统一接口暴露手柄、键盘、鼠标、赛车外设等。GameInputBase 是运行时，GameInputBaseEditor 是编辑器支持。上层平台插件（如 Windows）在这套接口上接具体 GameInput SDK。",
+    "en": "Engine abstraction over Microsoft GameInput: one interface for pads, keyboard, mouse, and racing devices. GameInputBase is runtime; GameInputBaseEditor is editor support. Platform plugins such as Windows bind the real GameInput SDK on top of this."
+  },
+  {
+    "slug": "game-input-windows",
+    "kind": "plugin",
+    "cn": "Windows 上的 GameInput 后端，把 Win32 GameInput 设备读数送进 Game Input Base。GameInputWindows 处理 Windows 特有的设备枚举与回调。PC 项目要走 GameInput 而不是仅 Raw Input/XInput 时需要它。",
+    "en": "Windows GameInput backend that feeds Win32 GameInput device reads into Game Input Base. GameInputWindows handles Windows-specific enumeration and callbacks. PC projects that want GameInput rather than only Raw Input/XInput need this."
+  },
+  {
+    "slug": "gameplay-abilities-game-feature-actions",
+    "kind": "plugin",
+    "cn": "把 Gameplay Ability System 接到 Game Features：用 GameFeatureAction 在功能插件加载时授予能力、效果或属性集。AbilitySystemGameFeatureActions 避免在角色里写死技能列表。模块化模式可随 GFP 装卸技能。",
+    "en": "Connects Gameplay Ability System to Game Features: GameFeatureActions grant abilities, effects, or attribute sets when a feature plugin loads. AbilitySystemGameFeatureActions avoid hard-coding skill lists on the character. Modular modes can add and remove abilities with the GFP."
+  },
+  {
+    "slug": "gameplay-abilities",
+    "kind": "plugin",
+    "cn": "Gameplay Ability System：用 GameplayAbility、GameplayEffect、AttributeSet 和 GameplayCue 做技能、冷却、消耗和 Buff。GameplayAbilities 是运行时，GameplayAbilitiesEditor 编辑能力和效果。适合需要复制的复杂多人技能交互。",
+    "en": "Gameplay Ability System: GameplayAbility, GameplayEffect, AttributeSet, and GameplayCue for skills, cooldowns, costs, and buffs. GameplayAbilities is runtime; GameplayAbilitiesEditor authors abilities and effects. Built for replicated, complicated multiplayer skill interactions."
+  },
+  {
+    "slug": "gameplay-cameras",
+    "kind": "plugin",
+    "cn": "模块化、数据驱动的玩法摄像机：用摄像机资产、过渡和修饰器组合镜头，而不是只靠弹簧臂。GameplayCameras 运行时求值，UncookedOnly 服务未烹饪资产，Editor 编辑摄像机图。第三人称、载具和技能镜头可做成可复用资产。",
+    "en": "Modular, data-driven gameplay cameras: compose shots from camera assets, transitions, and modifiers instead of only a spring arm. GameplayCameras evaluates at runtime, UncookedOnly serves uncooked assets, and Editor authors camera graphs. Third-person, vehicle, and ability cameras become reusable assets."
+  },
+  {
+    "slug": "gameplay-capture-interfaces",
+    "kind": "plugin",
+    "cn": "GameplayCapture 相关插件共享的模块化特性接口，避免各捕获插件互相硬依赖。GameplayCaptureInterfaces 在引擎层声明约定。回放、高光和自动摄像机捕获插件可通过它互操作。",
+    "en": "Shared modular-feature interfaces for GameplayCapture plugins so they interoperate without depending on each other. GameplayCaptureInterfaces holds engine-level contracts. Replay, highlight, and auto-camera capture plugins talk through this."
+  },
+  {
+    "slug": "gameplay-graph",
+    "kind": "plugin",
+    "cn": "玩法用的图数据结构与常用图算法（路径、连通、查询），不是 UMG 或材质图。GameplayGraph 给 AI、任务或空间关系提供通用图模型。实验性，供玩法代码当库用。",
+    "en": "A gameplay graph model and common graph algorithms (paths, connectivity, queries)—not UMG or material graphs. GameplayGraph gives AI, quests, or spatial relations a generic graph. Experimental library for gameplay code."
+  },
+  {
+    "slug": "gameplay-messages",
+    "kind": "plugin",
+    "cn": "解耦的玩法消息总线：发送带频道/结构体载荷的消息，监听者不必直接引用发送者。GameplayMessages 是运行时，GameplayMessagesEditor 编辑消息定义。Lyra 用类似模式让 UI、能力和任务跨模块通信。",
+    "en": "A decoupled gameplay message bus: emit channelled struct payloads so listeners need not reference the sender. GameplayMessages is runtime; GameplayMessagesEditor authors message definitions. Lyra-style UI, abilities, and missions talk across modules this way."
+  },
+  {
+    "slug": "gameplay-tags-toolset",
+    "kind": "plugin",
+    "cn": "AI 工具集：读取和管理 Gameplay Tag。GameplayTagsToolset 让助手查询标签树、添加标签，而不用手改 ini。实验性编辑器自动化。",
+    "en": "AI toolset for reading and managing Gameplay Tags. GameplayTagsToolset lets an assistant query the tag tree and add tags without hand-editing ini files. Experimental editor automation."
+  },
+  {
+    "slug": "gameplaybehaviorsmartobjects",
+    "kind": "plugin",
+    "cn": "Smart Object 的默认运行时行为用 GameplayBehavior 来执行：NPC 使用椅子、窗台、交互点时跑行为定义。GameplayBehaviorSmartObjectsModule 把 Smart Object 槽位绑到 Gameplay Behavior。世界交互物可声明「用这个行为占用我」。",
+    "en": "Smart Objects whose default runtime behavior is a GameplayBehavior: NPCs sit, lean, or use interactables by running that behavior. GameplayBehaviorSmartObjectsModule binds Smart Object slots to Gameplay Behaviors. World interactables can declare “occupy me with this behavior.”"
+  },
+  {
+    "slug": "gameplayinteractions",
+    "kind": "plugin",
+    "cn": "玩家与 NPC 的交互框架：对齐、动画、占用和交互槽位。GameplayInteractionsModule 协调谁在用世界里的交互点。对话、开门、双人协同动作可走这套而不是临时时间轴。",
+    "en": "Player and NPC interaction framework: alignment, animation, occupancy, and interact slots. GameplayInteractionsModule coordinates who is using a world interactable. Dialogue, doors, and two-person synced moves can use this instead of ad-hoc timelines."
+  },
+  {
+    "slug": "gameplaystatetree",
+    "kind": "plugin",
+    "cn": "把 StateTree 接到 AI/玩法行为：用状态树驱动 NPC 逻辑、任务阶段或游戏模式流。GameplayStateTreeModule 提供玩法侧 StateTree Schema 与任务。相对行为树，StateTree 更适合数据驱动、可调试的状态层次。",
+    "en": "StateTree for AI and gameplay behaviors: drive NPC logic, mission phases, or game-mode flow with a state tree. GameplayStateTreeModule supplies gameplay schemas and tasks. Versus Behavior Trees, StateTree is a more data-driven, debuggable state hierarchy."
+  },
+  {
+    "slug": "gameplaytagseditor",
+    "kind": "plugin",
+    "cn": "Gameplay Tag 的编辑器 UI 与蓝图节点：增删标签、在资产上打标签。GameplayTagsEditor 让策划在编辑器里维护标签，而不是只改 DefaultGameplayTags.ini。运行时标签系统仍在引擎核心，这里是作者工具。",
+    "en": "Editor UI and Blueprint nodes for Gameplay Tags: add/remove tags and tag assets. GameplayTagsEditor lets design maintain tags in the editor instead of only DefaultGameplayTags.ini. The runtime tag system stays in engine core; this is the authoring tool."
+  },
+  {
+    "slug": "gastoolsets",
+    "kind": "plugin",
+    "cn": "Gameplay Ability System 的 AI 工具集：检查能力、效果、属性和授予关系。GASToolsets 让编辑器助手查询 GAS 状态。实验性，用于调试和脚手架技能，不是运行时 GAS。",
+    "en": "AI toolsets for Gameplay Ability System: inspect abilities, effects, attributes, and grants. GASToolsets lets an editor assistant query GAS state. Experimental debugging and scaffolding, not runtime GAS."
+  },
+  {
+    "slug": "gauntlet",
+    "kind": "plugin",
+    "cn": "Gauntlet 自动化测试助手：在游戏进程里创建和管理测试用例，常与 Horde/BuildGraph 的端到端测试一起用。Gauntlet 模块提供测试生命周期挂钩。适合冒烟、性能测试在真机/目标平台上编排。",
+    "en": "Gauntlet automation helpers: create and manage tests inside the game process, often with Horde/BuildGraph end-to-end runs. The Gauntlet module supplies test lifetime hooks. Use it to orchestrate smoke and perf tests on real target hardware."
+  },
+  {
+    "slug": "gaussian-splat",
+    "kind": "plugin",
+    "cn": "3D Gaussian Splatting 资产与 ES3.1+ 渲染：导入 splat、在场景里绘制，并可走 Niagara 路径。GaussianSplat / Shader / SceneViewExtension 是核心渲染，Editor 导入，Niagara 变体用粒子系统画 splat，Tests 做校验。用真实扫描的高斯点云当场景，而不是网格重建。",
+    "en": "3D Gaussian Splat assets and ES3.1+ rendering: import splats, draw them in the scene, optionally via Niagara. GaussianSplat, Shader, and SceneViewExtension are core rendering; Editor imports; Niagara variants draw splats as a Niagara path; Tests validate. Use captured Gaussian point clouds as scenery instead of meshed reconstructions."
+  },
+  {
+    "slug": "gdk-net-driver",
+    "kind": "plugin",
+    "cn": "Xbox GDK 平台的 NetDriver：多人复制走微软 GDK 套接字与会话，而不是普通 IP NetDriver。GDKNetDriver 满足主机网络与安全套接字要求。Xbox 多人必须用平台 NetDriver 才能过网络认证。",
+    "en": "NetDriver for Xbox GDK: multiplayer replication uses Microsoft GDK sockets and sessions instead of a plain IP NetDriver. GDKNetDriver meets console networking and secure-socket requirements. Xbox multiplayer needs the platform NetDriver to pass network certification."
+  },
+  {
+    "slug": "gdk-package-chunk-installer",
+    "kind": "plugin",
+    "cn": "让游戏使用 GDK 的 XPackage 分块安装器，按块安装/卸载游戏内容。GDKPackageChunkInstall 对接微软分块 API。Xbox 上的语言包、地图包可按需安装，减小初始安装体积。",
+    "en": "Lets a title use the GDK chunk installer (XPackage) to install and remove game content by chunk. GDKPackageChunkInstall talks to Microsoft’s chunk APIs. Language and map packs on Xbox can install on demand to shrink the initial install."
+  },
+  {
+    "slug": "gdk-virtual-keyboard",
+    "kind": "plugin",
+    "cn": "GDK 虚拟键盘：Slate 文本框在主机上弹出系统键盘。GDKVirtualKeyboard 把虚幻文本输入接到 Xbox 虚拟键盘。没有它，主机上的搜索框和命名 UI 无法合规地收集文字。",
+    "en": "GDK virtual keyboard so Slate text fields pop the system keyboard on console. GDKVirtualKeyboard routes Unreal text input through the Xbox virtual keyboard. Search boxes and name UI cannot collect text in a cert-compliant way without it."
+  },
+  {
+    "slug": "genesplicer-plugin",
+    "kind": "plugin",
+    "cn": "GeneSplicer 面部动画库：在 DNA/面部装配上拼接、混合面部动画数据。GeneSplicerLib 是核心库，GeneSplicerModule 接入引擎，LibTest 做测试。MetaHuman 管线用它处理面部动画片段的组合，而不是只播一条曲线。",
+    "en": "GeneSplicer facial-animation library: splice and blend facial animation on DNA/face rigs. GeneSplicerLib is the core, GeneSplicerModule hooks the engine, LibTest covers tests. MetaHuman pipelines use it to compose face clips instead of playing a single curve."
+  },
+  {
+    "slug": "geometry-cache-from-alembic-file-experimental",
+    "kind": "plugin",
+    "cn": "实验性：不经传统导入流程，直接从 Alembic 文件把几何缓存流进引擎。GeometryCacheAbcFile 在运行时/编辑时引用 .abc，减少「先导入再烘焙 Geometry Cache 资产」的步骤。适合预览缓存动画，接口仍可能变。",
+    "en": "Experimental Geometry Cache from Alembic without a classic import step. GeometryCacheAbcFile references .abc at edit or run time so you skip “import then bake a Geometry Cache asset.” Useful for previewing cached animation; the contract may still change."
+  },
+  {
+    "slug": "geometry-cache",
+    "kind": "plugin",
+    "cn": "蒸馏后的逐帧几何动画（Geometry Cache）：顶点缓存网格可在 Sequencer 里播放。GeometryCache 是运行时，Streamer 流送数据，Tracks/Sequencer 接时间轴，Ed 是编辑器。Alembic 角色缓存、破坏预解算常用它，避免每帧都跑模拟。",
+    "en": "Distilled per-frame geometry animation (Geometry Cache): vertex-cached meshes play in Sequencer. GeometryCache is runtime, Streamer streams data, Tracks/Sequencer hit the timeline, Ed is editor. Alembic character caches and pre-solved destruction use it so you do not resimulate every frame."
+  },
+  {
+    "slug": "geometry-dataflow-nodes",
+    "kind": "plugin",
+    "cn": "Dataflow 里的几何处理节点，以及中轴骨骼（Medial Skeleton）相关节点。GeometryDataflowNodes 做网格处理，DataflowMedialSkeleton 从体积生成中轴。破坏和角色体素/骨骼预处理可在 Dataflow 图里完成。",
+    "en": "Geometry-processing nodes in Dataflow, plus medial-skeleton nodes. GeometryDataflowNodes process meshes; DataflowMedialSkeleton builds a medial axis from volume. Fracture and character voxel/bone preprocess can happen inside a Dataflow graph."
+  },
+  {
+    "slug": "geometry-mask",
+    "kind": "plugin",
+    "cn": "虚拟制片几何遮罩：用场景几何生成遮罩纹理，供合成、LED 或后处理隔离物体。GeometryMask 运行时生成遮罩，GeometryMaskEditor 编辑遮罩 Actor。现场可用真实几何轮廓做 holdout，而不只靠色键。",
+    "en": "Virtual-production geometry masks: scene geometry writes mask textures for comp, LED, or post to isolate objects. GeometryMask generates masks at runtime; GeometryMaskEditor authors mask actors. Stages can hold out from real geo silhouettes instead of only chroma key."
+  },
+  {
+    "slug": "geometry-processing",
+    "kind": "plugin",
+    "cn": "2D/3D 几何处理的数据结构与算法库：动态网格、几何算法和网格文件工具。GeometryAlgorithms、DynamicMesh、MeshFileUtils 被建模工具、Geometry Script 和破坏管线共用。它是几何工具的底层库，不是视口建模模式。",
+    "en": "Data structures and algorithms for 2D/3D geometry: dynamic meshes, geometric algorithms, and mesh file utilities. GeometryAlgorithms, DynamicMesh, and MeshFileUtils are shared by modeling tools, Geometry Script, and destruction. This is the geometry-tools library, not a viewport modeling mode."
+  },
+  {
+    "slug": "geometry-script",
+    "kind": "plugin",
+    "cn": "在蓝图和 Python 里创建、编辑网格的函数库（Geometry Scripting）。GeometryScriptingCore 可进游戏包做运行时程序化网格，GeometryScriptingEditor 提供编辑器节点。关卡生成、布尔和运行时变形可不用写 C++ 网格代码。",
+    "en": "A function library for creating and editing meshes in Blueprint and Python (Geometry Scripting). GeometryScriptingCore can ship in a cooked game for runtime procedural meshes; GeometryScriptingEditor adds editor nodes. Level gen, booleans, and runtime deform can skip hand-written C++ mesh code."
+  },
+  {
+    "slug": "geometry-toolset",
+    "kind": "plugin",
+    "cn": "给 AI 助手的程序化几何工具：生成 DynamicMesh Actor，追加盒/柱/锥/球/胶囊/环，并用并、差、交布尔组合。GeometryToolset 设计成底层工具，供 Blockout 等其他 toolset 组合。仅编辑器。",
+    "en": "Lets AI assistants author procedural geometry: spawn DynamicMesh actors, append boxes, cylinders, cones, spheres, capsules, and tori, then boolean union/subtract/intersect. GeometryToolset is a substrate other toolsets (Blockout, future vehicle/vegetation) can compose with. Editor-only."
+  },
+  {
+    "slug": "geometry",
+    "kind": "plugin",
+    "cn": "几何集合（Geometry Collection）容器与编辑器：Chaos 破坏的资产类型、Sequencer 轨道和 Dataflow 节点。GeometryCollectionEditor 编辑破碎资产，Tracks/Sequencer 做电影时间轴，Nodes 接 Dataflow。把可破坏物体做成几何集合而不是普通静态网格。",
+    "en": "Geometry Collection container and editor: Chaos destruction asset type, Sequencer tracks, and Dataflow nodes. GeometryCollectionEditor authors fracture assets; Tracks/Sequencer animate them; Nodes hook Dataflow. Destructibles become geometry collections instead of ordinary static meshes."
+  },
+  {
+    "slug": "geometrycachelevelsequencebaker",
+    "kind": "plugin",
+    "cn": "把 Level Sequence 里的骨骼网格动画烘焙成 Geometry Cache。GeometryCacheLevelSequenceBaker 把蒙皮结果冻成逐帧网格缓存，便于导出、流送或卸掉运行时蒙皮成本。实验性制作工具。",
+    "en": "Bakes skeletal meshes in a Level Sequence into Geometry Cache. GeometryCacheLevelSequenceBaker freezes skinned results into a per-frame mesh cache for export, streaming, or dropping runtime skin cost. Experimental authoring tool."
+  },
+  {
+    "slug": "geometryflow",
+    "kind": "plugin",
+    "cn": "几何 DataFlow 图运行时：在图里跑网格处理管线。GeometryFlowCore 是图核心，GeometryFlowMeshProcessing 做网格节点，Editor 变体提供编辑器。与编辑器 Dataflow 插件互补，偏几何处理执行层。",
+    "en": "Geometry DataFlow graph runtime: mesh-processing pipelines as graphs. GeometryFlowCore is the graph core, GeometryFlowMeshProcessing supplies mesh nodes, and the editor variant authors them. Complements the editor Dataflow plugin as the geometry-processing execution layer."
+  },
+  {
+    "slug": "geometrymode",
+    "kind": "plugin",
+    "cn": "传统几何与 BSP 编辑模式：画刷、BSP 布尔和纹理对齐。GeometryMode、BspMode、TextureAlignMode 是老式关卡构建工具。仍可用于灰盒 BSP，现代项目更多改用 Modeling Mode，但引擎仍保留这套刷子工作流。",
+    "en": "Legacy geometry and BSP editing: brushes, BSP booleans, and texture alignment. GeometryMode, BspMode, and TextureAlignMode are the old level-building tools. Still usable for greybox BSP; modern projects often prefer Modeling Mode, but the brush workflow remains in-engine."
+  }
+]

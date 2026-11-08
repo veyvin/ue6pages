@@ -3,7 +3,6 @@ layout: default
 title: 秘籍工具集 / CheatsToolset
 ---
 
-
 <h1>秘籍工具集 / CheatsToolset</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 秘籍工具集 / CheatsToolset
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">用于在本地玩家的作弊管理器上列出和调用作弊命令的工具集。</div><div class="lang-content">Toolset for listing and calling cheat commands on the local player's cheat manager.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 Experimental Toolset 插件 <code class="usage-code">CheatsToolset</code>（模块 <code class="usage-code">CheatsToolset</code>）。这是给编辑器 AI 助手/自动化列作弊命令用的，不是关卡里的 Cheat 组件。</li><li>在 PlayerController 上指定 <code class="usage-code">Cheat Class</code>（自定义 <code class="usage-code">UCheatManager</code> 子类），用 <code class="usage-code">UFUNCTION(exec)</code> 写出 <code class="usage-code">God</code>、<code class="usage-code">Fly</code> 一类命令。</li><li>PIE 进入游戏，确保本地 Player 已拥有带 CheatManager 的 Controller（非 Shipping、允许 cheats）。</li><li>通过编辑器 Toolset / 助手调用本插件：先列出本地玩家 CheatManager 上的命令，再按名调用并传参数。</li><li>对照控制台 <code class="usage-code">~</code> 手动敲同一条 exec，确认 Toolset 调到的是同一 <code class="usage-code">UCheatManager</code> 实例。</li><li>不要把 <code class="usage-code">CheatsToolset</code> 写进 Game Target 或包装；Shipping 应关闭作弊通道。</li></ol><p class="usage-note">编辑器 Toolset，面向助手自动化；不是给玩家做内置修改器菜单。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable Experimental Toolset plugin <code class="usage-code">CheatsToolset</code> (module <code class="usage-code">CheatsToolset</code>). It lists/invokes cheats for the in-editor assistant or automation, not a level component.</li><li>Set the PlayerController <code class="usage-code">Cheat Class</code> to your <code class="usage-code">UCheatManager</code> subclass and expose commands with <code class="usage-code">UFUNCTION(exec)</code> (<code class="usage-code">God</code>, <code class="usage-code">Fly</code>, …).</li><li>PIE so the local player owns a Controller with that CheatManager (cheats allowed, not Shipping).</li><li>From the editor Toolset / assistant, list commands on the local player’s CheatManager, then invoke by name with arguments.</li><li>Cross-check by typing the same exec in the <code class="usage-code">~</code> console; both paths must hit the same <code class="usage-code">UCheatManager</code> instance.</li><li>Do not link <code class="usage-code">CheatsToolset</code> into a Game target or packaged build; disable cheats for Shipping.</li></ol><p class="usage-note">Editor toolset for assistant automation, not an in-game mod menu.</p></div></div></div>
+    </div>
+

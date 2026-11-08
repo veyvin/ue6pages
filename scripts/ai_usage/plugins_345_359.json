@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "gdk-net-driver",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `GDK Net Driver`（模块 `GDKNetDriver`），面向 GDK / Xbox 平台。",
+      "在 `DefaultEngine.ini` 的 `[/Script/Engine.Engine]` 或网络设置里把 NetDriver 指向 GDK 实现，替换默认 UDP NetDriver。",
+      "构建并部署到 GDK 目标，联机时确认走的是 GDK 网络栈。",
+      "只对 GDK 平台生效；其他平台不要依赖 `GDKNetDriver`。"
+    ],
+    "en_steps": [
+      "Enable `GDK Net Driver` (module `GDKNetDriver`); it targets GDK / Xbox platforms.",
+      "Point the NetDriver at the GDK implementation in `DefaultEngine.ini` networking settings instead of the default UDP driver.",
+      "Build and deploy to a GDK target and confirm online play uses the GDK network stack.",
+      "It only applies to GDK platforms; do not depend on `GDKNetDriver` elsewhere."
+    ],
+    "note_cn": "GDK 平台专用网络驱动，替换默认 NetDriver。",
+    "note_en": "A GDK-only net driver that replaces the default NetDriver."
+  },
+  {
+    "slug": "gdk-package-chunk-installer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `GDK Package Chunk Installer`（模块 `GDKPackageChunkInstall`），面向 GDK / Xbox。",
+      "在打包时为内容划分 chunk，运行时用 XPackage / chunk installer API 按需下载并安装。",
+      "在游戏代码里查询 chunk 安装状态，处理下载进度与可用性判断。",
+      "只在 GDK 目标使用；其他平台用各自的 DLC/分块方案。"
+    ],
+    "en_steps": [
+      "Enable `GDK Package Chunk Installer` (module `GDKPackageChunkInstall`) for GDK / Xbox.",
+      "Split content into chunks at packaging, then download and install on demand via the XPackage / chunk installer API at runtime.",
+      "Query chunk install state in game code and handle download progress and availability.",
+      "Use it on GDK targets only; other platforms use their own DLC/chunk solutions."
+    ],
+    "note_cn": "GDK 的 XPackage 分块安装，不是通用补丁/DLC 系统。",
+    "note_en": "GDK XPackage chunked installs, not a generic patch/DLC system."
+  },
+  {
+    "slug": "gdk-virtual-keyboard",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `GDK Virtual Keyboard`（模块 `GDKVirtualKeyboard`），面向 GDK / Xbox。",
+      "当 Slate 文本框需要输入时调用平台虚拟键盘接口，处理返回的文本与提交/取消。",
+      "在需要输入的 UI（登录、取名等）里接入该接口，替代在主机上无法直接用的物理键盘输入。",
+      "只在 GDK 平台使用；其他平台用系统自带输入法。"
+    ],
+    "en_steps": [
+      "Enable `GDK Virtual Keyboard` (module `GDKVirtualKeyboard`) for GDK / Xbox.",
+      "When a Slate text box needs input, call the platform virtual keyboard interface and handle returned text plus submit/cancel.",
+      "Wire it into input UIs (login, naming, etc.) as a substitute for physical keyboard input unavailable on console.",
+      "Use it on GDK platforms only; other platforms use their native input methods."
+    ],
+    "note_cn": "主机上没有物理键盘时的文本输入方案，服务 Slate。",
+    "note_en": "Text entry for consoles without a physical keyboard; serves Slate."
+  },
+  {
+    "slug": "genesplicer-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `GeneSplicer Plugin`（模块 `GeneSplicerLib`、`GeneSplicerModule`，测试模块 `GeneSplicerLibTest`）。",
+      "用于面部动画：准备 GeneSplicer 相关数据/绑定，在面部动画管线里接入该插件。",
+      "把 GeneSplicer 输出的面部驱动接到骨架/动画蓝图，PIE 看面部表情是否正确。",
+      "运行时依赖 `GeneSplicerLib` / `GeneSplicerModule`；测试模块不要进游戏包。"
+    ],
+    "en_steps": [
+      "Enable `GeneSplicer Plugin` (modules `GeneSplicerLib`, `GeneSplicerModule`; test module `GeneSplicerLibTest`).",
+      "For facial animation, prepare the GeneSplicer data/rig and hook the plugin into the facial animation pipeline.",
+      "Feed GeneSplicer output into the skeleton/AnimBP and PIE to verify facial expressions.",
+      "Runtime depends on `GeneSplicerLib` / `GeneSplicerModule`; keep the test module out of the cooked game."
+    ],
+    "note_cn": "面部动画专用的 GeneSplicer 插件，不是通用骨骼动画系统。",
+    "note_en": "A GeneSplicer plugin for facial animation, not a general skeletal animation system."
+  },
+  {
+    "slug": "geometry-cache-from-alembic-file-experimental",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Geometry Cache from Alembic File`（模块 `GeometryCacheAbcFile`）。",
+      "无需先导入：直接把 `.abc` Alembic 文件作为几何缓存引用/导入到关卡。",
+      "在 Sequencer 里播放或挂到组件上查看动画几何体，检查帧范围与单位。",
+      "Experimental：接口可能变动；稳定管线可先导成 Geometry Cache 资产。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Geometry Cache from Alembic File` (module `GeometryCacheAbcFile`).",
+      "Skip the pre-import step: reference/import the `.abc` Alembic file directly as geometry cache.",
+      "Play it in Sequencer or attach it to a component; check frame range and units.",
+      "Experimental: contract may change; for stable pipelines you can bake to a Geometry Cache asset first."
+    ],
+    "note_cn": "直接从 Alembic 读几何缓存（免导入），与标准 Geometry Cache 导入路径互补。",
+    "note_en": "Reads geometry cache straight from Alembic without a pre-import; complements the standard Geometry Cache import path."
+  },
+  {
+    "slug": "geometry-cache",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Geometry Cache`（模块 `GeometryCache`、`GeometryCacheStreamer`、`GeometryCacheTracks`，编辑器 `GeometryCacheEd`、`GeometryCacheSequencer`）。",
+      "导入烘焙好的几何缓存资产（如 Alembic 导入得到的），挂到 Geometry Cache 组件上。",
+      "在 Sequencer 里用 Geometry Cache Track 编排播放，或用 Streaming 处理大缓存。",
+      "运行时依赖 `GeometryCache` / `GeometryCacheStreamer`；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Geometry Cache` (modules `GeometryCache`, `GeometryCacheStreamer`, `GeometryCacheTracks`; editor `GeometryCacheEd`, `GeometryCacheSequencer`).",
+      "Import a baked geometry cache asset (e.g. from Alembic) and attach it to a Geometry Cache component.",
+      "Sequence it with a Geometry Cache Track in Sequencer, or use streaming for large caches.",
+      "Runtime depends on `GeometryCache` / `GeometryCacheStreamer`; editor modules go to Editor targets only."
+    ],
+    "note_cn": "精炼的顶点动画几何缓存播放，不是骨骼动画。",
+    "note_en": "Playback of distilled vertex-animation geometry cache, not skeletal animation."
+  },
+  {
+    "slug": "geometry-dataflow-nodes",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Geometry Dataflow Nodes`（模块 `GeometryDataflowNodes`、`DataflowMedialSkeleton`）。",
+      "在 Dataflow 图里加入这些几何处理节点，对网格做生成/变形/处理。",
+      "编译 Dataflow 图，把结果输出到目标资产（如网格、骨架等）。",
+      "Experimental：节点接口可能变动；它是 Dataflow 图里的几何节点包。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Geometry Dataflow Nodes` (modules `GeometryDataflowNodes`, `DataflowMedialSkeleton`).",
+      "Add these geometry-processing nodes into a Dataflow graph to generate/deform/process meshes.",
+      "Compile the Dataflow graph and output the result to the target asset (mesh, skeleton, etc.).",
+      "Experimental: node contracts may change; it is a geometry node pack for Dataflow graphs."
+    ],
+    "note_cn": "Dataflow 里的几何处理节点，不是运行时几何库。",
+    "note_en": "Geometry-processing nodes inside Dataflow, not a runtime geometry library."
+  },
+  {
+    "slug": "geometry-mask",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Geometry Mask`（运行时 `GeometryMask`，编辑器 `GeometryMaskEditor`），属 Virtual Production。",
+      "在虚拟制片场景里用几何遮罩对摄像机画面做区域遮挡/裁切（如 LED 墙外区域）。",
+      "在编辑器里用 `GeometryMaskEditor` 绘制/编辑遮罩形状，绑定到对应输出。",
+      "运行时依赖 `GeometryMask`；`GeometryMaskEditor` 只用于编辑器。"
+    ],
+    "en_steps": [
+      "Enable `Geometry Mask` (runtime `GeometryMask`, editor `GeometryMaskEditor`); it is Virtual Production.",
+      "In a virtual production scene, use a geometry mask to occlude/crop camera view regions (e.g. outside the LED wall).",
+      "Draw/edit the mask shape with `GeometryMaskEditor` in the editor and bind it to the matching output.",
+      "Runtime depends on `GeometryMask`; `GeometryMaskEditor` is editor-only."
+    ],
+    "note_cn": "虚拟制片的几何遮罩，用于摄像机画面裁切/遮挡。",
+    "note_en": "A virtual production geometry mask for camera view crop/occlusion."
+  },
+  {
+    "slug": "geometry-processing",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Geometry Processing`（模块 `GeometryAlgorithms`、`DynamicMesh`、`MeshFileUtils`）。",
+      "在 C++/蓝图里用 `DynamicMesh` 与 `GeometryAlgorithms` 对网格做切割、布尔、简化、法线等处理。",
+      "用 `MeshFileUtils` 做网格文件的读写/转换，把处理结果落成资产。",
+      "这是运行时几何算法库，Game 模块依赖对应模块即可。"
+    ],
+    "en_steps": [
+      "Enable `Geometry Processing` (modules `GeometryAlgorithms`, `DynamicMesh`, `MeshFileUtils`).",
+      "In C++/Blueprint use `DynamicMesh` and `GeometryAlgorithms` to cut, boolean, simplify, and recompute normals on meshes.",
+      "Use `MeshFileUtils` to read/write and convert mesh files, saving results as assets.",
+      "It is a runtime geometry algorithm library; game modules depend on the relevant submodules."
+    ],
+    "note_cn": "处理 2D/3D 几何的数据结构与算法底座，DynamicMesh 与 Geometry Script 都建立在其上。",
+    "note_en": "The data-structure/algorithm base for 2D/3D geometry; DynamicMesh and Geometry Script build on it."
+  },
+  {
+    "slug": "geometry-script",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Geometry Script`（运行时 `GeometryScriptingCore`，编辑器 `GeometryScriptingEditor`）。",
+      "在蓝图或 Python 里调用 Geometry Script 函数库，对 DynamicMesh 做生成与编辑（布尔、挤出、倒角等）。",
+      "把脚本结果转成 StaticMesh 资产或直接用于关卡；编辑器工具默认不进 Shipping。",
+      "运行时依赖 `GeometryScriptingCore`；`GeometryScriptingEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Geometry Script` (runtime `GeometryScriptingCore`, editor `GeometryScriptingEditor`).",
+      "Call the Geometry Script function library from Blueprint or Python to generate/edit a DynamicMesh (boolean, extrude, bevel, etc.).",
+      "Convert the script result to a StaticMesh asset or use it in-level; editor tools do not ship.",
+      "Runtime depends on `GeometryScriptingCore`; `GeometryScriptingEditor` is Editor-target only."
+    ],
+    "note_cn": "蓝图/Python 的网格生成与编辑函数库，编辑器侧居多。",
+    "note_en": "A Blueprint/Python mesh generation and editing library, mostly editor-side."
+  },
+  {
+    "slug": "geometry-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Geometry Toolset`（模块 `GeometryToolset`），它面向 AI Toolset Registry，仅限编辑。",
+      "让 AI 助手生成 DynamicMesh Actor、附加原始形体（盒/柱/锥/球/胶囊/环），并用布尔运算组合。",
+      "它设计为基础工具集，可与 BlockoutToolset 等其它工具集组合使用。",
+      "仅限编辑器，不要打包进游戏；Experimental，接口可能变动。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Geometry Toolset` (module `GeometryToolset`); it targets the AI Toolset Registry and is editor-only.",
+      "Let AI assistants spawn DynamicMesh actors, append primitive shapes (box/cylinder/cone/sphere/capsule/torus), and combine them with booleans.",
+      "It is designed as a base toolset that composes with others like BlockoutToolset.",
+      "Editor-only, never ship it; Experimental with a contract that may change."
+    ],
+    "note_cn": "给 AI 助手用的程序化几何工具集，仅限编辑。",
+    "note_en": "A procedural geometry toolset for AI assistants, editor-only."
+  },
+  {
+    "slug": "geometry",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Geometry`（模块 `GeometryCollectionEditor`、`GeometryCollectionTracks`、`GeometryCollectionSequencer`、`GeometryCollectionNodes` 等）。",
+      "用于几何集合（Geometry Collection）容器及其 Chaos 破坏/碎裂管线。",
+      "在编辑器里创建 Geometry Collection、设置碎裂，再在 Sequencer 里用其轨道编排。",
+      "Experimental：接口可能变动；编辑器模块不要进 Game Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Geometry` (modules `GeometryCollectionEditor`, `GeometryCollectionTracks`, `GeometryCollectionSequencer`, `GeometryCollectionNodes`, etc.).",
+      "Use it for Geometry Collection containers and the Chaos destruction/fracture pipeline.",
+      "Create a Geometry Collection in the editor, set up fracturing, then sequence it with its tracks in Sequencer.",
+      "Experimental: contract may change; keep editor modules off Game targets."
+    ],
+    "note_cn": "几何集合容器与 Chaos 破坏管线，和 Geometry Cache 不是一回事。",
+    "note_en": "Geometry Collection containers plus the Chaos destruction pipeline, distinct from Geometry Cache."
+  },
+  {
+    "slug": "geometrycachelevelsequencebaker",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `GeometryCacheLevelSequenceBaker`（模块 `GeometryCacheLevelSequenceBaker`）。",
+      "在关卡序列（Level Sequence）里选中要烘焙的骨架网格动画，运行烘焙命令。",
+      "把骨骼动画结果烘成 Geometry Cache 资产，交由 `Geometry Cache` 播放。",
+      "这是编辑器烘焙工具；Experimental，接口可能变动。"
+    ],
+    "en_steps": [
+      "Enable Experimental `GeometryCacheLevelSequenceBaker` (module `GeometryCacheLevelSequenceBaker`).",
+      "In a Level Sequence, select the skeletal-mesh animation to bake and run the bake command.",
+      "Bake the skeletal animation into a Geometry Cache asset for `Geometry Cache` playback.",
+      "It is an editor bake tool; Experimental with a contract that may change."
+    ],
+    "note_cn": "把关卡序列里的骨骼动画烘成几何缓存，不是运行时组件。",
+    "note_en": "Bakes skeletal animation in Level Sequence into geometry cache; not a runtime component."
+  },
+  {
+    "slug": "geometryflow",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `GeometryFlow`（模块 `GeometryFlowCore`、`GeometryFlowMeshProcessing`、`GeometryFlowMeshProcessingEditor`）。",
+      "搭建几何数据流图，对网格做流式处理（生成、变换、合并等）。",
+      "Graph 编译运行后输出网格结果；编辑器节点用 `GeometryFlowMeshProcessingEditor`。",
+      "Experimental：接口可能变动；核心模块可运行时用，Editor 模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable Experimental `GeometryFlow` (modules `GeometryFlowCore`, `GeometryFlowMeshProcessing`, `GeometryFlowMeshProcessingEditor`).",
+      "Build geometry dataflow graphs to stream-process meshes (generate, transform, merge, etc.).",
+      "Compile and run the graph to output mesh results; editor nodes use `GeometryFlowMeshProcessingEditor`.",
+      "Experimental: contract may change; core modules can run at runtime, editor modules go to Editor targets."
+    ],
+    "note_cn": "几何数据流图，思路类似 Dataflow 但聚焦网格流处理。",
+    "note_en": "A geometry dataflow graph, Dataflow-like but focused on mesh stream processing."
+  },
+  {
+    "slug": "geometrymode",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `GeometryMode`（模块 `GeometryMode`、`BspMode`、`TextureAlignMode`）并重启。",
+      "在编辑器模式工具栏里切换到几何/BSP 编辑模式，对 Brush 与 BSP 几何做编辑。",
+      "用 Texture Align 模式对齐几何体上的纹理坐标。",
+      "这是编辑器工具，只能进 Editor Target，不要加进游戏运行时。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `GeometryMode` (modules `GeometryMode`, `BspMode`, `TextureAlignMode`) and restart.",
+      "Switch to the geometry/BSP editing mode in the editor mode toolbar to edit brushes and BSP geometry.",
+      "Use the Texture Align mode to align texture coordinates on geometry.",
+      "It is an editor tool for Editor targets only; never add it to a game runtime."
+    ],
+    "note_cn": "经典 BSP/几何编辑与纹理对齐工具，纯编辑器。",
+    "note_en": "Classic BSP/geometry editing and texture-align tools, editor-only."
+  }
+]

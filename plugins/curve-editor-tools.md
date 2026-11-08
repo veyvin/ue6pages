@@ -3,7 +3,6 @@ layout: default
 title: 曲线编辑器工具 / Curve Editor Tools
 ---
 
-
 <h1>曲线编辑器工具 / Curve Editor Tools</h1>
 
 <div class="info-card">
@@ -12,5 +11,9 @@ title: 曲线编辑器工具 / Curve Editor Tools
   </ul>
 </div>
 
-<h2>Description / 描述</h2>
-<div class="bilingual-block"><div class="lang-tabs"><div class="lang-tab active" onclick="switchLang(this)">中文</div><div class="lang-tab" onclick="switchLang(this)">English</div></div><div class="lang-content active">这为曲线编辑器提供了一组默认的编辑工具。</div><div class="lang-content">This provides a default set of editing tools for the Curve Editor.</div></div>
+<div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Curve Editor Tools</code>（模块 <code class="usage-code">CurveEditorTools</code>）。它给 Sequencer / 动画曲线编辑器注册默认工具，不会出现独立 Window 面板。</li><li>打开 Sequencer 或动画曲线窗口，选中若干关键帧，用工具栏的 Transform 工具做时间/数值平移缩放（绝对或相对模式）。</li><li>对抖动曲线跑内置 Filter（例如 key reduce、bake、Butterworth 一类滤波），确认帧数下降但姿态仍可接受。</li><li>需要自定义滤镜时，在 Editor 模块继承曲线编辑器 Filter/Tool 并依赖 <code class="usage-code">CurveEditorTools</code>；不要把该模块加进游戏 <code class="usage-code">Build.cs</code>。</li><li>改的是曲线关键帧，不影响 Control Rig 节点图，也不改静态 <code class="usage-code">CurveFloat</code> 资产的默认编辑器外观（除非你从该资产打开同一套曲线视图）。</li></ol><p class="usage-note">曲线视图像素级编辑工具，不是新建 Curve 资产的向导。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Curve Editor Tools</code> (module <code class="usage-code">CurveEditorTools</code>). It registers the default Sequencer / Animation Curve Editor tools — no standalone Window panel.</li><li>Open Sequencer or the animation curve window, select keys, and use the Transform tool to translate/scale in time or value (absolute or relative).</li><li>Run a built-in Filter on a noisy curve (key reduce, bake, Butterworth-style, …) and confirm fewer keys still look acceptable.</li><li>Custom filters/tools subclass the curve-editor Filter/Tool types in an Editor module that depends on <code class="usage-code">CurveEditorTools</code>. Do not add it to a game <code class="usage-code">Build.cs</code>.</li><li>This edits curve keys. It does not change a Control Rig graph, and it does not restyle the default <code class="usage-code">CurveFloat</code> asset editor unless you open that asset in the same curve view.</li></ol><p class="usage-note">Pixel-level curve view tools, not a wizard for creating Curve assets.</p></div></div></div>
+    </div>
+

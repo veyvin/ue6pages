@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "mac-graphics-switching",
+    "kind": "plugin",
+    "cn": "Mac Graphics Switching 专门处理 macOS 上多 GPU 之间的运行时切换，而不是通用渲染设置。它让编辑器和预览能在独立显卡与集成显卡之间换设备，避免笔记本合盖、外接显示器或省电策略导致画面卡在错误适配器上。模块 MacGraphicsSwitching 只服务作者管线，不会作为游戏功能打进 Shipping 包。",
+    "en": "Mac Graphics Switching exists so Unreal can hop between multiple GPU devices on macOS rather than being pinned to one adapter. It covers the laptop case of discrete versus integrated silicon, plus display-reattach events that would otherwise leave the editor on a stale device. The MacGraphicsSwitching module is authoring-only and is not a gameplay shipping feature."
+  },
+  {
+    "slug": "makecookededitorasdlc",
+    "kind": "plugin",
+    "cn": "MakeCookedEditorAsDLC 并不提供可玩内容，而是配合 MakeCookedEditor UAT 脚本，把已经 Cook 过的编辑器做成挂在 Cook 客户端上的 DLC 附加包。目标是让现场、虚拟制片或定制工具链拿到“熟编辑器”，而不必再发一整份开发者安装。描述符明确写了无需在项目里启用，它是构建步骤的配套件。",
+    "en": "MakeCookedEditorAsDLC is a build companion for the MakeCookedEditor UAT script, not a feature you toggle for gameplay. It packages a cooked editor as DLC layered onto an already cooked client, which is how virtual-production and custom tool chains ship a ready editor without a full developer install. Epic notes it does not need to be enabled in the project; the UAT job consumes it."
+  },
+  {
+    "slug": "mass-insights",
+    "kind": "plugin",
+    "cn": "Mass Insights 把 Mass Entity 执行过程接到 Insights 分析通道，用来观察处理器调度、分片吞吐和卡顿来源。MassInsightsUI 提供查看界面，而不是再实现一套人群 AI。它面向已经在跑 Mass 的项目，帮助判断哪一类 Processor 在吃掉帧时间。",
+    "en": "Mass Insights instruments Mass Entity execution so Unreal Insights can show processor timing, chunk throughput, and stalls. MassInsightsUI is the viewer layer; it does not implement crowd AI itself. Use it when a Mass world is already running and you need to see which processors dominate the frame."
+  },
+  {
+    "slug": "mass-iris-replication",
+    "kind": "plugin",
+    "cn": "Mass Iris Replication 把 Mass 实体状态接到 Iris 复制后端，让成千上万个 ECS 代理能按过滤器同步，而不是每个都变成传统 Actor 复制。MassIrisReplication 负责运行时，Editor 模块做配置，TestSuite 覆盖序列化与过滤契约。它仍属 Experimental，Iris 与 Mass 的接口可能随夜构建调整。",
+    "en": "Mass Iris Replication pushes Mass entity state through Iris instead of classic per-Actor replication, which is the only practical path for huge ECS agent counts with fine filtering. MassIrisReplication is the runtime, the Editor module authors settings, and MassIrisReplicationTestSuite guards serialization and filter contracts. The plugin is Experimental, so the Mass–Iris boundary can still move."
+  },
+  {
+    "slug": "mass-iris-representation-replication",
+    "kind": "plugin",
+    "cn": "Mass Iris Representation Replication 只管 Mass 的表现层（Representation）如何经 Iris 同步到远端，例如用何种网格或 Actor 壳来显示实体。它不负责导航或行为树，只补齐“实体已复制、外观也要跟”这一段。单一模块 MassIrisRepresentationReplication 运行在 Experimental AI 路径上。",
+    "en": "Mass Iris Representation Replication syncs Mass representation data over Iris: which mesh, actor shell, or visual proxy a replicated entity should show. It does not own navigation or behavior; it only closes the gap after entity state is already replicated. The single MassIrisRepresentationReplication module lives on the Experimental AI path."
+  },
+  {
+    "slug": "massai",
+    "kind": "plugin",
+    "cn": "MassAI 把 Mass Entity 用到大规模智能体：用 Fragment、Processor 和 StateTree 驱动人群与兵团，而不是给每个单位挂行为树 Actor。MassNavigation、MassNavMeshNavigation 与 MassZoneGraphNavigation 提供导航，MassAIBehavior 管决策，MassAIReplication 与 MassAIDebug 分别处理联网和可视化。它是 AI 工具链里面向“成千上万代理”的那一层。",
+    "en": "MassAI applies the Mass Entity ECS to crowds and armies: fragments, processors, and StateTree replace a Behavior Tree Actor per agent. MassNavigation, MassNavMeshNavigation, and MassZoneGraphNavigation cover movement, MassAIBehavior owns decisions, and MassAIReplication plus MassAIDebug handle net and visualization. This is the AI toolchain layer meant for thousands of agents, not hero characters."
+  },
+  {
+    "slug": "masscharacters",
+    "kind": "plugin",
+    "cn": "MassCharacters 用 MassCharactersRuntime 把角色表现接到 Mass 实体上，让 ECS 代理能以角色姿态出现，而不是只作为纯数据粒子。它属于 Experimental Mass 家族，接口会随实体碎片布局变化。不要把它当成普通 Character Movement 组件的替代品。",
+    "en": "MassCharacters, via MassCharactersRuntime, binds character-style presentation onto Mass entities so ECS agents can appear as characters rather than anonymous particles. It is Experimental Mass work; fragment layouts may still change. It is not a drop-in replacement for Character Movement on a possessed pawn."
+  },
+  {
+    "slug": "masscrowd",
+    "kind": "plugin",
+    "cn": "MassCrowd 是基于样条的人群系统：代理沿着编写好的 Crowd 样条流动，由 MassCrowd 模块在 Mass 管线里推进。它面向街道人流、场馆散场这类大规模移动，而不是单个 NPC 对话。导航与生成仍依赖 Mass 家族的其它插件协同。",
+    "en": "MassCrowd is the spline-driven crowd layer: agents flow along authored crowd splines, advanced by the MassCrowd module inside the Mass pipeline. It is for street traffic and stadium egress, not one-off NPC conversations. Spawning and navigation still lean on the rest of the Mass family."
+  },
+  {
+    "slug": "massgameplay",
+    "kind": "plugin",
+    "cn": "MassGameplay 是 MassEntity 上的大规模代理仿真实现，提供生成、LOD、EQS、Smart Object 和与 Actor 的桥接。MassSpawner、MassLOD、MassEQS、MassSmartObjects、MassActors、MassNetwork 与 MassSimulation 把 ECS 世界接到可玩的游戏循环。这是可进 Cook 包的运行时插件，而不仅是编辑器调试器。",
+    "en": "MassGameplay is the large-scale agent simulation built on MassEntity: spawning, LOD, EQS, Smart Objects, and Actor bridging. MassSpawner, MassLOD, MassEQS, MassSmartObjects, MassActors, MassNetwork, and MassSimulation hook the ECS world into a playable game loop. Unlike editor-only Mass tools, this runtime plugin can ship in a cooked game."
+  },
+  {
+    "slug": "massgameplaytoolset",
+    "kind": "plugin",
+    "cn": "MassGameplayToolset 通过 AI Toolset Registry 暴露 Mass 实体配置资产及其 Trait，供编辑器内助手浏览和查询。它不跑仿真，只让自动化或对话式工具能导航 MassGameplay 的配置图。模块同名，属于 Experimental Toolsets 目录。",
+    "en": "MassGameplayToolset registers Mass entity config assets and their traits with the AI Toolset Registry so an in-editor assistant can browse them. It does not run simulation; it only lets automation walk MassGameplay configuration. The namesake module lives under Experimental Toolsets."
+  },
+  {
+    "slug": "material-analyzer",
+    "kind": "plugin",
+    "cn": "Material Analyzer 扫描材质着色器，找出可合并的变体、过大的贴图采样和可能省下的着色器内存。它给美术和渲染程序员一份“这份材质为什么这么肥”的报告，而不是改写材质图本身。MaterialAnalyzer 只在编辑器管线工作。",
+    "en": "Material Analyzer inspects material shaders to flag mergeable permutations, heavy texture sampling, and likely shader-memory savings. It reports why a material is expensive; it does not rewrite the material graph for you. MaterialAnalyzer stays in the editor authoring pipeline."
+  },
+  {
+    "slug": "material-asset-wizard",
+    "kind": "plugin",
+    "cn": "Material Asset Wizard 为材质和材质实例提供新的 Factory，让带标签的资源浏览器能按向导创建资产。它依赖编辑器偏好里材质编辑器的 Tagged Asset Browser 配置，没有那套标签规则向导就无从分类。模块 MaterialAssetWizard 只服务内容生产，不参与运行时着色。",
+    "en": "Material Asset Wizard adds factories for Materials and Material Instances so the tagged asset browser can create them through a guided flow. It requires Tagged Asset Browser settings under Material Editor preferences; without those tags the wizard has nothing to classify against. MaterialAssetWizard is content production only, not a runtime shading path."
+  },
+  {
+    "slug": "material-designer-media-stream-bridge",
+    "kind": "plugin",
+    "cn": "该桥把 Media Stream 的可链接媒体代理接到 Material Designer（Dynamic Material）图里，让动态材质节点能采样实时视频流。DynamicMaterialMediaStreamBridge 是运行时接线，Editor 模块负责节点与资产 UI。没有两侧插件同时存在时，这条实验桥没有意义。",
+    "en": "This bridge wires Media Stream’s chainable media proxy into Material Designer (Dynamic Material) so dynamic material nodes can sample a live video chain. DynamicMaterialMediaStreamBridge is the runtime splice; the Editor module authors the nodes. It is Experimental and useless unless both Media Stream and Material Designer are present."
+  },
+  {
+    "slug": "material-designer",
+    "kind": "plugin",
+    "cn": "Material Designer（插件名 DynamicMaterial）是面向虚拟制片的紧凑动态材质编辑器，风格接近其它数字内容创建工具，而不是完整材质编辑器的替代品。DynamicMaterial 与 DynamicMaterialShaders 驱动运行时层叠，TextureSet 模块管理纹理集合，Editor 模块提供创作界面。它适合现场改 logo、颜色和媒体层，而不必打开庞大的材质图。",
+    "en": "Material Designer, shipped as DynamicMaterial, is a compact dynamic-material editor for virtual production, closer in feel to other DCC layer stacks than to the full Material Editor. DynamicMaterial and DynamicMaterialShaders drive the runtime stack, TextureSet modules own texture collections, and the Editor modules provide the authoring UI. It is meant for live logo, color, and media-layer tweaks without opening a huge material graph."
+  },
+  {
+    "slug": "material-editor-tests",
+    "kind": "plugin",
+    "cn": "Material Editor Tests 是针对材质编辑器 Python 脚本 API 的 MTF 测试包，用来锁住导入、参数暴露和批处理接口。它不含材质功能本身，只在引擎测试目录里回归脚本契约。没有模块列表是因为它作为测试插件被测试框架发现，而不是向游戏导出运行时。",
+    "en": "Material Editor Tests is an MTF suite for the Material Editor Python scripting API, locking down import, parameter, and batch-edit contracts. It ships no material features of its own; it only regression-tests the scripting surface. The empty module list is expected: the test harness discovers the plugin rather than exporting a game runtime."
+  },
+  {
+    "slug": "material-validation",
+    "kind": "plugin",
+    "cn": "Material Validation 在资产校验管线里增加材质专用规则，例如禁用的着色模型、缺失贴图或项目规范不允许的节点。它在保存或提交前拦住不合规材质，而不是运行时修复。MaterialValidation 属于编辑器插件，默认不进游戏包。",
+    "en": "Material Validation adds material-specific rules to the asset validation pipeline: banned shading models, missing textures, or nodes the project style guide forbids. It fails saves or submits before a bad material ships, rather than patching shaders at runtime. MaterialValidation is editor-only and stays out of cooked games."
+  },
+  {
+    "slug": "mcp-client-toolset",
+    "kind": "plugin",
+    "cn": "MCP Client Toolset 让 Toolset Registry 的消费者（例如编辑器数字助手 EDA）连接到本机或私有 MCP 服务器。MCPClientToolset 提供客户端协议，Editor 模块负责登记与会话。它不实现游戏玩法，只打通“助手 ↔ 外部工具服务器”这一段实验通道。",
+    "en": "MCP Client Toolset lets Toolset Registry clients such as the editor digital assistant reach a local or private MCP server. MCPClientToolset implements the client protocol; the Editor module registers sessions. It is Experimental plumbing for assistant-to-server tools, not gameplay."
+  },
+  {
+    "slug": "mdl-importer",
+    "kind": "plugin",
+    "cn": "MDL Importer 把 NVIDIA Material Definition Language 材质文件导入为虚幻材质，服务企业级 DCC 与 Omniverse 类工作流。MDLImporter 解析 MDL 并映射到引擎着色模型，而不是播放媒体。它位于 Enterprise 导入器目录，给跨软件材质交换用。",
+    "en": "MDL Importer brings NVIDIA Material Definition Language files into Unreal materials for enterprise DCC and Omniverse-style exchange. MDLImporter parses MDL and maps it onto engine shading models; it is not a media player. It lives under Enterprise importers specifically for cross-app material handoff."
+  },
+  {
+    "slug": "media-compositing",
+    "kind": "plugin",
+    "cn": "Media Compositing 提供把视频叠进场景的 Actor、组件和 Sequencer 轨道，例如把 Media Texture 合成到过场或虚拟制片画面。MediaCompositing 是运行时合成，Editor 模块暴露时间轴与细节面板。它补的是“媒体如何进合成”，而不是解码器本身。",
+    "en": "Media Compositing adds actors, components, and Sequencer tracks that composite video into the scene, typically a Media Texture over a cinematic or virtual-production plate. MediaCompositing is the runtime; the Editor module exposes timeline and details UI. It does not decode codecs; it places already-decoded media into a composite."
+  },
+  {
+    "slug": "media-foundation-media-player",
+    "kind": "plugin",
+    "cn": "该播放器通过 Microsoft Media Foundation 解码，覆盖 Windows 7 及以上以及 Xbox One 系主机。MfMedia 与 MfMediaFactory 把 MF 管道接到 Media Framework，Editor 模块处理资产工厂。同一工厂模块在描述符里出现两次，职责仍是注册 Windows/Xbox 播放器，而不是 Electra 或 WebM 路径。",
+    "en": "This player decodes through Microsoft Media Foundation on Windows 7+ and Xbox One-class consoles. MfMedia and MfMediaFactory hook the MF pipeline into Media Framework; the Editor module registers factories. The duplicated factory module in the descriptor still just registers the Windows/Xbox player, not Electra or WebM."
+  },
+  {
+    "slug": "media-framework-utilities",
+    "kind": "plugin",
+    "cn": "Media Framework Utilities 提供简化 Media Framework 搭建的实用资产、Actor 以及 Media Profile 编辑器入口。它把“建播放器、绑源、选输出”收成可复用的工具对象，减少每次从零接线。Editor 模块打开配置界面，运行时模块提供那些辅助 Actor。",
+    "en": "Media Framework Utilities ships helper assets, actors, and a door into the Media Profile editor so a Media Framework setup is not rebuilt from scratch every time. Runtime helpers hold the wiring; the Editor module opens the profile UI. It simplifies source, player, and output assembly rather than adding a new decoder."
+  },
+  {
+    "slug": "media-io-framework",
+    "kind": "plugin",
+    "cn": "Media IO Framework 为虚拟制片提供专业级 SDI/NDI 一类的 Media IO 基类。MediaIOCore 抽象输入输出设备，MediaIOEditor 配置卡与路由，GPUTextureTransfer 在 GPU 上搬纹理以免回读 CPU。没有这层，AJA、Blackmagic 等硬件插件就缺少统一的引擎侧 IO 合同。",
+    "en": "Media IO Framework supplies the professional Media IO classes virtual production uses for SDI/NDI-class devices. MediaIOCore abstracts capture and output, MediaIOEditor configures cards and routing, and GPUTextureTransfer moves frames on the GPU to avoid CPU round-trips. Hardware plugins such as AJA or Blackmagic sit on this contract."
+  },
+  {
+    "slug": "media-movie-streamer",
+    "kind": "plugin",
+    "cn": "Media Movie Streamer 用 Media Framework 实现开场片头/过场 Movie Streamer，让启动动画走统一的媒体播放器而不是单独的 Bink 路径。MediaMovieStreamer 在引擎启动时拉流并在完成后把控制权交还游戏。它属于 Movie Players 类别，只管启动影片，不管关卡内的 Media Plate。",
+    "en": "Media Movie Streamer implements the startup/cinematic Movie Streamer on top of Media Framework so boot movies use the same players as in-game media. MediaMovieStreamer pulls the stream during engine start and yields to the game when finished. It is a Movie Players plugin for boot films, not an in-level Media Plate."
+  },
+  {
+    "slug": "media-plate",
+    "kind": "plugin",
+    "cn": "Media Plate 提供可直接放入关卡的媒体播放 Actor，把播放器、纹理和网格合成一块可拖放的“屏幕”。MediaPlate 负责运行时播放，Editor 模块处理放置与预览。虚拟制片常用它在场景里挂监视器或背景板，而不必手搭一套 Media 组件。",
+    "en": "Media Plate is a drop-in actor that plays media in a level, bundling player, texture, and mesh into one screen. MediaPlate runs playback; the Editor module handles placement and preview. Virtual production uses it as an in-scene monitor or backdrop instead of wiring Media components by hand."
+  },
+  {
+    "slug": "media-player-editor",
+    "kind": "plugin",
+    "cn": "Media Player Editor 是 MediaPlayer 资产的专用内容编辑器，用来配置源、输出、播放列表和预览，而不是在关卡里播片。单一模块 MediaPlayerEditor 只存在于编辑器。它与解码插件互补：解码器负责格式，这里负责资产作者体验。",
+    "en": "Media Player Editor is the content editor for MediaPlayer assets: sources, outputs, playlists, and preview, not in-level playback. The single MediaPlayerEditor module is editor-only. Decoders own formats; this plugin owns the asset authoring experience."
+  },
+  {
+    "slug": "media-profile",
+    "kind": "plugin",
+    "cn": "Media Profile 把媒体源与输出收成一份可切换的配置资产，方便同一台机器在不同演播室路由之间切换。MediaProfile 在运行时应用配置，Editor 模块编辑配置文件。它是虚拟制片里“今天用哪块采集卡、哪路输出”的中心清单。",
+    "en": "Media Profile packs media sources and outputs into a switchable asset so one machine can change studio routing without rewiring actors. MediaProfile applies the profile at runtime; the Editor module authors it. Think of it as the virtual-production list of “which capture card and which output today.”"
+  },
+  {
+    "slug": "media-stream",
+    "kind": "plugin",
+    "cn": "Media Stream 是与内容类型无关的可链接媒体代理：每一级都可以变换、分流，再接到 Media Player。MediaStream 跑代理链，Editor 模块编辑节点图。它是 Experimental 基础设施，给动态材质桥、工具集读帧等下游使用，而不是某个具体编解码器。",
+    "en": "Media Stream is a content-agnostic, chainable media proxy: each stage can transform or fork frames before they hit a Media Player. MediaStream runs the proxy chain; the Editor module edits the graph. It is Experimental infrastructure for bridges and toolsets, not a specific codec."
+  },
+  {
+    "slug": "media-toolset",
+    "kind": "plugin",
+    "cn": "Media Toolset 向 AI/自动化工具集提供读图、采样视频，以及其它工具集共用的视频读写器。MediaToolsetVideo 管编解码采样，MediaToolset 暴露工具登记。它不面向玩家，只让助手能打开一张图或一段素材做检查。",
+    "en": "Media Toolset gives AI and automation tools image reads, video sampling, and the shared video reader/writer other toolsets record with. MediaToolsetVideo handles sample I/O; MediaToolset registers the tools. Players never see it; assistants use it to open a still or clip."
+  },
+  {
+    "slug": "mediaviewer",
+    "kind": "plugin",
+    "cn": "MediaViewer 提供并排显示与比较媒体的查看器，用来核对两段视频、静帧或输出是否一致。模块 MediaViewer 聚焦审查，而不是播放列表编排或硬件 IO。它适合过成片、对比渲染结果或检查色彩差异。",
+    "en": "MediaViewer is a viewer for displaying and comparing media side by side, so two clips, stills, or outputs can be judged together. The MediaViewer module is for review, not playlist authoring or hardware IO. Use it to inspect finals, render diffs, or color mismatches."
+  },
+  {
+    "slug": "memoryusagequeries",
+    "kind": "plugin",
+    "cn": "MemoryUsageQueries 向引擎查询当前内存占用明细，供调试命令和工具按类别拆解分配。MemoryUsageQueries 模块提供查询 API，而不是 Insights 时间线本身。它属于 Engine 类插件，用来回答“这一帧内存花在哪”。",
+    "en": "MemoryUsageQueries exposes engine queries that break down current memory by category for debug commands and tools. The module is a query API, not the Insights timeline. It answers “where did this frame’s memory go” from inside the engine plugin tree."
+  },
+  {
+    "slug": "mesh-lod-toolset",
+    "kind": "plugin",
+    "cn": "Mesh LOD Toolset 实现三维网格 LOD 的生成算法与工具接口，给编辑器助手或批处理调用，而不是运行时切换 LOD。MeshLODToolset 封装简化、重网格和写出 LOD 层。它属于作者工具，默认不进 Shipping 游戏。",
+    "en": "Mesh LOD Toolset implements 3D mesh LOD generation as algorithms and tool APIs for an editor assistant or batch job, not runtime LOD switching. MeshLODToolset wraps simplification, remeshing, and writing LOD layers. It is authoring-only and does not ship in the game."
+  },
+  {
+    "slug": "mesh-modeling-toolset",
+    "kind": "plugin",
+    "cn": "Mesh Modeling Toolset 基于 Interactive Tools Framework 提供网格创建与编辑算子，是建模模式背后的运行时工具箱。MeshModelingTools、ModelingOperators、ModelingComponents 以及对应的 EditorOnly 模块分担工具、几何运算和组件；SkeletalMeshModifiers 处理骨骼网格修改。着色器模块 MeshModelingToolsetShaders 支持工具视口反馈。",
+    "en": "Mesh Modeling Toolset implements mesh create/edit operators on the Interactive Tools Framework, i.e. the runtime toolbox behind Modeling Mode. MeshModelingTools, ModelingOperators, ModelingComponents and their EditorOnly counterparts split tools, geometry, and components; SkeletalMeshModifiers edits skeletal meshes. MeshModelingToolsetShaders draw tool viewport feedback."
+  },
+  {
+    "slug": "mesh-painting",
+    "kind": "plugin",
+    "cn": "Mesh Painting 让你在网格表面绘制顶点色、图层或其它每顶点数据，供材质或工具读取。MeshPaintEditorMode 是编辑器模式，MeshPaintingToolset 提供绘制工具实现。它改的是网格上的绘制数据，不是材质图节点。",
+    "en": "Mesh Painting paints vertex colors, layers, or other per-vertex data onto meshes for materials and tools to read. MeshPaintEditorMode is the editor mode; MeshPaintingToolset implements the brushes. It edits painted mesh data, not material-graph nodes."
+  },
+  {
+    "slug": "mesh-partition-water",
+    "kind": "plugin",
+    "cn": "Mesh Partition Water 把水体接到 Mesh Partition 的空间分区网格上，让河流湖泊能作为分区修改器存在，而不是传统 Landscape 水体 Actor 的完整替代。MeshPartitionWater 模块处理水面与分区表示的结合。它是 Experimental，依赖 Mesh Partition 主插件。",
+    "en": "Mesh Partition Water attaches water to Mesh Partition’s spatially partitioned meshes so rivers and lakes can live as partition modifiers rather than standalone Landscape water bodies. MeshPartitionWater binds the water representation to the partition. It is Experimental and requires the main Mesh Partition plugin."
+  },
+  {
+    "slug": "mesh-partition",
+    "kind": "plugin",
+    "cn": "Mesh Partition 用空间分区、非破坏修改器和按平台自适应的运行时表示，来创作超大世界网格。MeshPartition 与 MeshPartitionCompute 管数据和计算，ModelingToolset 与 Editor/EditorUI 提供交互编辑。目标是把城市或地形级网格切成可流送、可修改的块，而不是单张巨型 Static Mesh。",
+    "en": "Mesh Partition authors huge world meshes through spatial partitions, non-destructive modifiers, and platform-adaptive runtime representations. MeshPartition and MeshPartitionCompute own data and compute; the modeling toolset and Editor UI modules provide interaction. The point is streamable, editable chunks instead of one giant Static Mesh."
+  },
+  {
+    "slug": "mesh-resizing",
+    "kind": "plugin",
+    "cn": "Mesh Resizing 按目标尺寸或包围盒重缩放网格，并接到 Dataflow 节点和编辑器工具。MeshResizingCore 做几何变换，DataflowNodes 让图形化流程调用它，EditorTools 提供交互。它是 Experimental 的资产处理步骤，不是角色缩放组件。",
+    "en": "Mesh Resizing rescales meshes to a target size or bounds, exposed as Dataflow nodes and editor tools. MeshResizingCore does the geometry; DataflowNodes call it from graphs; EditorTools provide interaction. It is an Experimental asset step, not a character scale component."
+  },
+  {
+    "slug": "mesh-terrain-mode",
+    "kind": "plugin",
+    "cn": "Mesh Terrain Mode 是一套编辑器交互模式，专门在 Mesh Partition 上雕塑和编辑地形式网格。MeshTerrainMode 把笔刷与分区工作流绑在一起，区别于 Landscape 模式或通用 Modeling Mode。它仍是 Experimental，随 Mesh Partition 合同一起演进。",
+    "en": "Mesh Terrain Mode is an editor interaction mode for sculpting and editing terrain-like Mesh Partitions. MeshTerrainMode binds brushes to the partition workflow, distinct from Landscape Mode or generic Modeling Mode. It remains Experimental and tracks the Mesh Partition contract."
+  },
+  {
+    "slug": "message-bus-insights",
+    "kind": "plugin",
+    "cn": "Message Bus Insights（插件 MessagingInsights）把引擎 Message Bus 流量送到 Unreal Insights，用来查看 UDP 消息的时序与丢失。UdpMessagingInsights 模块解析总线事件，而不是实现总线本身。适合排查跨进程编辑器、游戏实例或集群之间的消息延迟。",
+    "en": "Message Bus Insights, shipped as MessagingInsights, traces engine Message Bus traffic into Unreal Insights so UDP message timing and loss are visible. UdpMessagingInsights parses bus events; it does not implement the bus. Use it when editor, game, or cluster processes miss or delay messages."
+  },
+  {
+    "slug": "messagebus-tester",
+    "kind": "plugin",
+    "cn": "MessageBus Tester 主动测试并监视 Message Bus 的可靠性，发送探测、统计送达与乱序。MessageBusTester 跑探测逻辑，Editor 模块给出监视面板。它是 Experimental 诊断插件，用来压总线而不是承载游戏玩法消息。",
+    "en": "MessageBus Tester actively probes Message Bus reliability: it sends probes and records delivery, loss, and reordering. MessageBusTester runs the probes; the Editor module shows a monitor. It is Experimental diagnostics, not a gameplay message channel."
+  },
+  {
+    "slug": "messaging-debugger",
+    "kind": "plugin",
+    "cn": "Messaging Debugger 为消息子系统提供可视化调试器，展示端点、主题和正在飞行的消息。MessagingDebugger 是编辑器窗口，帮助定位订阅错误或序列化失败。它观察总线，不改变消息协议。",
+    "en": "Messaging Debugger is a visual debugger for the messaging subsystem: endpoints, topics, and in-flight messages. MessagingDebugger is an editor window for spotting bad subscriptions or serialization failures. It observes the bus; it does not change the protocol."
+  },
+  {
+    "slug": "metahuman-animation-tools",
+    "kind": "plugin",
+    "cn": "MetaHuman Animation Tools 处理 MetaHuman 动画数据的序列化与编辑器导入导出，而不是实时面捕求解。MetaHumanAnimationSerialization 读写动画载荷，Editor 模块提供资产工具。它让表演数据在管线里可搬运，供 Animator 与 SDK 下游使用。",
+    "en": "MetaHuman Animation Tools serialize and editor-import MetaHuman animation data; they do not solve live face capture. MetaHumanAnimationSerialization reads and writes payloads; the Editor module provides asset tools. It is the transport layer other MetaHuman animator and SDK steps consume."
+  },
+  {
+    "slug": "metahuman-animator-calibration-diagnostics",
+    "kind": "plugin",
+    "cn": "该工具包专门诊断 MetaHuman 立体相机标定是否合格：重投影误差、帧选择问题和设备几何异常。MetaHumanCalibrationDiagnostics 输出检查结果，帮助判断标定能否进入 Animator 解算。它是 Experimental 诊断层，不生成最终面部动画。",
+    "en": "This toolkit diagnoses MetaHuman stereo-camera calibration: reprojection error, bad frame picks, and device geometry issues. MetaHumanCalibrationDiagnostics reports whether a calibration is fit for Animator solve. It is Experimental diagnostics and does not produce the final facial animation."
+  },
+  {
+    "slug": "metahuman-animator-calibration-processing",
+    "kind": "plugin",
+    "cn": "MetaHuman Animator Calibration Processing 执行立体相机标定求解与处理，生成 Animator 需要的标定资产。MetaHumanCalibrationGenerator、CalibrationLib 与 CalibrationCore 分担求解、库函数和核心数据结构。没有这一步，后续深度与表演解算缺少相机几何。",
+    "en": "MetaHuman Animator Calibration Processing runs the stereo-camera calibration solve that Animator needs as an asset. MetaHumanCalibrationGenerator, CalibrationLib, and CalibrationCore split solve, library, and core types. Depth and performance solves have no camera geometry without this step."
+  },
+  {
+    "slug": "metahuman-animator-toolset",
+    "kind": "plugin",
+    "cn": "MetaHuman Animator Toolset 把 Performance 素材检查和动画生成暴露给 AI 助手，而不是完整的 Animator 编辑器 UI。MetaHumanAnimatorToolset 登记只读/生成类工具，供对话式工作流调用。它依赖真正的 Animator 管线来执行解算。",
+    "en": "MetaHuman Animator Toolset exposes Performance footage inspection and animation generation to an AI assistant, not the full Animator editor UI. MetaHumanAnimatorToolset registers those tools for conversational workflows. Actual solves still run in the Animator pipeline."
+  },
+  {
+    "slug": "metahuman-animator",
+    "kind": "plugin",
+    "cn": "MetaHuman Animator 是官方从视频/立体素材求解面部与身体表演的工具包。MetaHumanPipeline、FaceContourTracker、Identity 以及对应 Editor 模块覆盖轮廓跟踪、身份资产和图像查看。它把标定、深度和表演解算串成一条可在引擎内完成的数字人动画管线。",
+    "en": "MetaHuman Animator is the official toolkit that solves facial and body performance from video or stereo footage. MetaHumanPipeline, FaceContourTracker, Identity, and their Editor modules cover contour tracking, identity assets, and image viewing. It is the in-engine digital-human animation pipeline from calibration through performance solve."
+  },
+  {
+    "slug": "metahuman-calibration-processing-toolset",
+    "kind": "plugin",
+    "cn": "该 Toolset 把 MetaHuman 立体相机标定（求解加自动选帧）挂到 AI Assistant 的工具注册表。MetaHumanCalibrationProcessingToolset 只做暴露，真正求解仍在 Calibration Processing 插件。适合让助手代选帧并触发标定，而不打开完整标定编辑器。",
+    "en": "This toolset publishes MetaHuman stereo calibration—solve plus automatic frame selection—to the AI Assistant registry. MetaHumanCalibrationProcessingToolset only exposes the job; Calibration Processing still runs the solve. An assistant can pick frames and kick calibration without the full calibration editor."
+  },
+  {
+    "slug": "metahuman-collections",
+    "kind": "plugin",
+    "cn": "MetaHuman Collections 管理数字人外观集合与调色板，把可共享的角色变体收成集合资产。MetaHumanCharacterPalette 与其 Editor 模块编辑调色板，CollectionUtils 提供集合运算。它解决“同一套 MetaHuman 技术下如何组织多套外观”，而不是生成网格。",
+    "en": "MetaHuman Collections manages digital-human appearance collections and palettes so variants can be shared as assets. MetaHumanCharacterPalette plus its Editor module author palettes; CollectionUtils implements set operations. It organizes looks on top of MetaHuman tech; it does not generate meshes."
+  },
+  {
+    "slug": "metahuman-core-tech",
+    "kind": "plugin",
+    "cn": "MetaHuman Core Tech 是 Creator 与 Animator 共用的底层库：捕捉数据、管线核心、图像查看和身体跟踪接口。MetaHumanCoreTechLib、CaptureData、PipelineCore、ImageViewer 与 BodyTrackerInterface 都不直接面向最终用户窗口。没有它，上层角色编辑器和表演解算无法共享同一套求解器。",
+    "en": "MetaHuman Core Tech is the shared foundation under Creator and Animator: capture data, pipeline core, image viewing, and body-tracker interfaces. MetaHumanCoreTechLib, CaptureData, PipelineCore, ImageViewer, and BodyTrackerInterface are not end-user windows. Upper editors and performance solvers share solvers through this layer."
+  },
+  {
+    "slug": "metahuman-coreml",
+    "kind": "plugin",
+    "cn": "MetaHuman CoreML 打包 Apple 平台上 MetaHuman 推理所需的 CoreML 模型与依赖，让面捕或跟踪能走 Neural Engine。它本身几乎没有游戏模块，职责是把模型资源送达 macOS/iOS 推理路径。没有这些模型，Apple 设备上的 MetaHuman 推断会缺少加速后端。",
+    "en": "MetaHuman CoreML ships CoreML models and dependencies for MetaHuman inference on Apple silicon, including Neural Engine paths. It has little or no game module surface; its job is to deliver model assets to macOS/iOS inference. Apple MetaHuman tracking lacks an accelerated backend without those models."
+  },
+  {
+    "slug": "metahuman-creator---uaf-support",
+    "kind": "plugin",
+    "cn": "该插件为 MetaHuman Creator 接上 Unreal Animation Framework（UAF/Anim Next），让角色资产能走新动画图而不仅是传统 AnimBP。MetaHumanCharacterUAFEditor 只在编辑器侧完成绑定与迁移辅助。它是 Experimental，依赖 Creator 与 UAF 同时存在。",
+    "en": "This plugin adds Unreal Animation Framework (UAF/Anim Next) support to MetaHuman Creator so characters can use the new animation graph instead of only AnimBP. MetaHumanCharacterUAFEditor does the editor-side binding and migration helpers. It is Experimental and needs both Creator and UAF present."
+  },
+  {
+    "slug": "metahuman-creator",
+    "kind": "plugin",
+    "cn": "MetaHuman Creator 是引擎内的 MetaHuman 角色资产创建与编辑器，覆盖体型、面部、组装和默认生成管线。MetaHumanCharacter 与 CharacterEditor 是核心，Palette、DefaultPipeline 与 MigrationEditor 处理外观、默认流水线和资产迁移。它产出可进关卡的数字人角色，而不是从视频解算动画。",
+    "en": "MetaHuman Creator is the in-engine MetaHuman character asset creator and editor: body, face, assembly, and default generation pipelines. MetaHumanCharacter and CharacterEditor are the core; Palette, DefaultPipeline, and MigrationEditor cover looks, default flow, and asset migration. It authors playable digital humans; it does not solve animation from video."
+  },
+  {
+    "slug": "metahuman-crowd",
+    "kind": "plugin",
+    "cn": "MetaHuman Crowd 让大量 MetaHuman 作为人群实例出现，而不是每个都走完整英雄级装配。MetaHumanCrowd 提供运行时实例化与 LOD 策略，Editor 模块配置人群资产。它把数字人外观接到人群规模，通常与 Mass 或传统人群系统协同。",
+    "en": "MetaHuman Crowd instances many MetaHumans as a crowd rather than fully assembled hero rigs. MetaHumanCrowd handles runtime instancing and LOD; the Editor module authors crowd assets. It scales digital-human looks to crowd counts, typically beside Mass or classic crowd systems."
+  },
+  {
+    "slug": "metahuman-depth-generator-toolset",
+    "kind": "plugin",
+    "cn": "该工具集把 MetaHuman 立体深度生成暴露给 AI 助手，针对已捕捉的表演素材生成深度。MetaHumanDepthGeneratorToolset 只登记工具，深度算法在 MetaHuman 技术栈其它模块。助手可据此检查或批跑深度，而不打开完整图像查看器。",
+    "en": "This toolset exposes MetaHuman stereo depth generation on capture footage to an AI assistant. MetaHumanDepthGeneratorToolset only registers the tool; depth math lives elsewhere in the MetaHuman stack. An assistant can inspect or batch depth without the full image viewer."
+  },
+  {
+    "slug": "metahuman-generator",
+    "kind": "plugin",
+    "cn": "MetaHuman Generator 是给 AI 驱动角色创建准备的简化工具集，收窄 Creator 的完整 UI，只保留生成与编辑所需的调用。MetaHumanGenerator 模块面向助手和自动化，而不是美术的完整角色工作台。它适合批量出角色草稿，再送回 Creator 精修。",
+    "en": "MetaHuman Generator is a simplified toolset for AI-driven character create/edit, narrowing Creator’s full UI to the calls an assistant needs. The MetaHumanGenerator module targets automation, not the artist’s full workbench. Use it to draft characters in batch, then refine them in Creator."
+  },
+  {
+    "slug": "metahuman-live-link",
+    "kind": "plugin",
+    "cn": "MetaHuman Live Link 提供把实时 MetaHuman 动画送进引擎的 Live Link 源，包括面部源发现与本机源。LiveLinkFaceSource、FaceDiscovery 与 MetaHumanLocalLiveLinkSource 覆盖手机/面捕设备以及本机推流，对应 Editor 模块配置源。它是实时表演驱动角色的入口，不是离线 Animator 解算。",
+    "en": "MetaHuman Live Link supplies Live Link sources that stream realtime MetaHuman animation, including face-source discovery and local sources. LiveLinkFaceSource, FaceDiscovery, and MetaHumanLocalLiveLinkSource cover phone/face devices and local push; Editor modules configure them. This is live performance retargeting, not offline Animator solve."
+  },
+  {
+    "slug": "metahuman-sdk",
+    "kind": "plugin",
+    "cn": "MetaHuman SDK 提供在引擎中使用 MetaHuman 的运行时与编辑器工具，含 DNA（数字人描述）的 Interchange 导入。MetaHumanSDKRuntime 给游戏侧装配，SDKEditor 给工具，InterchangeDNA 交换 DNA 资产。官方已把旧 MetaHumanRuntime 重定向到这里，作为现行集成层。",
+    "en": "MetaHuman SDK is the utilities layer for working with MetaHumans in-engine, including Interchange import of DNA descriptions. MetaHumanSDKRuntime assembles at game time, SDKEditor authors tools, and InterchangeDNA exchanges DNA assets. Deprecated MetaHumanRuntime now redirects here as the current integration surface."
+  },
+  {
+    "slug": "metahuman-tech-tools",
+    "kind": "plugin",
+    "cn": "MetaHuman Tech Tools 抽出角色技术栈里可共享的实用工具：地标跟踪、编辑状态、编辑工具和交互式工具。LandmarkTracking、EditState、EditTools 与 EditInteractiveTools 给 Creator/Animator 复用，避免每套插件各写一遍操纵器。它是内部技术工具箱，不是面向玩家的运行时。",
+    "en": "MetaHuman Tech Tools extracts shareable utilities from the character tech stack: landmark tracking, edit state, edit tools, and interactive tools. Those modules are reused by Creator and Animator so manipulators are not rewritten per plugin. It is an internal toolbox, not a player-facing runtime."
+  },
+  {
+    "slug": "metahuman-tracking-content",
+    "kind": "plugin",
+    "cn": "MetaHuman Tracking Content 提供面部跟踪所需的模型数据与轮廓配置，属于内容包而非逻辑插件。没有这些轮廓和模型，Face Contour Tracker 无法对准五官。它通常随 Animator 一起启用，本身不包含 C++ 游戏模块。",
+    "en": "MetaHuman Tracking Content ships model data and contour configuration for facial tracking—it is content, not gameplay code. Face Contour Tracker cannot lock onto features without those models. Enable it with Animator; it exposes no C++ game module of its own."
+  },
+  {
+    "slug": "metahumancalibrationprocessingtoolset",
+    "kind": "plugin",
+    "cn": "此条目与带连字符的 Calibration Processing Toolset 指向同一 .uplugin：把立体标定求解和自动选帧登记给助手。目录名 MetaHumanCalibrationProcessingToolset 是工具集侧的标识写法。职责仍是调用而非实现标定求解器。",
+    "en": "This slug is the unhyphenated catalog alias of the Calibration Processing Toolset: the same .uplugin that registers stereo solve and auto frame picks for an assistant. MetaHumanCalibrationProcessingToolset is the on-disk toolset identifier. It still invokes calibration; it does not implement the solver."
+  },
+  {
+    "slug": "metahumandepthgeneratortoolset",
+    "kind": "plugin",
+    "cn": "此条目是 Depth Generator Toolset 的紧凑 slug，对应同一立体深度生成工具注册。它让助手对捕捉素材请求深度，而不打开 MetaHuman 图像查看器。实现仍委托给 MetaHuman 深度生成管线。",
+    "en": "This compact slug is the same Depth Generator Toolset plugin: assistant-facing registration for stereo depth on capture footage. It requests depth without opening the MetaHuman image viewer. Implementation remains in the MetaHuman depth pipeline."
+  },
+  {
+    "slug": "metahumanruntime",
+    "kind": "plugin",
+    "cn": "MetaHumanRuntime 已被弃用，描述符要求改用 MetaHumanSDK。它不再携带运行时模块，只作为旧项目的重定向壳，避免突然找不到插件名。新集成应直接依赖 SDK 的 Runtime/Editor/InterchangeDNA。",
+    "en": "MetaHumanRuntime is deprecated and redirected to MetaHumanSDK. It ships no runtime modules anymore; it is a compatibility shell so old projects still resolve the plugin name. New work should depend on SDK Runtime, Editor, and InterchangeDNA directly."
+  },
+  {
+    "slug": "metahumantoolsetcore",
+    "kind": "plugin",
+    "cn": "MetaHumanToolsetCore 为各 MetaHuman AI 工具集提供共享工具函数和 Toast 通知，避免每个工具集自己弹提示。MetaHumanToolsetCore 模块是公共依赖，不暴露具体的标定或生成命令。没有它，助手工具的成功/失败反馈会各写一套。",
+    "en": "MetaHumanToolsetCore shares utilities and toast notifications across MetaHuman AI toolsets so each plugin does not invent its own prompts. The module is a common dependency, not a calibration or generate command. Assistant success/fail feedback would otherwise fork per toolset."
+  },
+  {
+    "slug": "metasound-tests",
+    "kind": "plugin",
+    "cn": "Metasound Tests 提供与具体节点无关的可复用测试：隔离 DSP 检查，以及新旧节点实现的等价性对比。MetasoundTests 可跨项目引用，用来锁住标准节点的音频正确性。它不增加新的合成节点，只回归已有图语义。",
+    "en": "Metasound Tests are reusable, node-agnostic checks: isolated DSP tests and old-versus-new equivalence. MetasoundTests can be referenced across projects to lock standard-node audio correctness. It adds no synthesizer nodes; it regression-tests existing graph semantics."
+  },
+  {
+    "slug": "metasound",
+    "kind": "plugin",
+    "cn": "MetaSound 是高性能节点图音频系统：声音设计师用采样级精确的参数与游戏事件调制 DSP 图，而不是只播放 Wave。GraphCore、Generator、Frontend、StandardNodes 与 Engine 构成运行时，Editor 提供图编辑，EngineTest 覆盖引擎侧契约。它相当于音频领域的 Niagara：运行时合成声源。",
+    "en": "MetaSound is the high-performance node-graph audio system: designers modulate a DSP graph with sample-accurate parameters and game/Blueprint events instead of only playing waves. GraphCore, Generator, Frontend, StandardNodes, and Engine form runtime; Editor authors graphs; EngineTest covers engine contracts. Treat it as Niagara for audio: sources synthesized at runtime."
+  },
+  {
+    "slug": "metasounds-experimental",
+    "kind": "plugin",
+    "cn": "Metasounds Experimental 放置尚未进入稳定 MetaSound 的实验运行时与编辑器节点。AudioExperimentalRuntime 与 MetasoundExperimental* 模块隔离不稳定 DSP，避免污染正式图。接口可能随夜构建变化，只应在明确接受实验音频图的项目中使用。",
+    "en": "Metasounds Experimental holds runtime and editor nodes not yet in stable MetaSound. AudioExperimentalRuntime and the MetasoundExperimental* modules isolate unstable DSP from production graphs. The contract can move nightly; only opt in if you accept experimental audio graphs."
+  },
+  {
+    "slug": "metasoundtoolset",
+    "kind": "plugin",
+    "cn": "MetaSoundToolset 向助手暴露创作与检查 MetaSound 图的工具：打开图、列举节点、查询引脚。MetaSoundToolset 模块走 Toolset Registry，不取代 MetaSound 编辑器。它让自动化能审图或改参数，而不模拟用户点击节点。",
+    "en": "MetaSoundToolset exposes authoring and inspection of MetaSound graphs to an assistant: open graphs, list nodes, query pins. The module uses the Toolset Registry and does not replace the MetaSound editor. Automation can audit or tweak parameters without clicking nodes."
+  },
+  {
+    "slug": "microsoft-gdk-runtime-plug-in-for-unreal-engine",
+    "kind": "plugin",
+    "cn": "该插件通过 MSGamingRuntime 把 Microsoft Game Development Kit 的运行时能力接到 Windows 游戏，例如成就、存储和 GDK 服务。它不是渲染或输入设备插件，而是 Xbox/PC GDK 运行时在引擎侧的桥。Windows 上要走 GDK 商店生态时需要这一层。",
+    "en": "This plugin, MSGamingRuntime, brings Microsoft Game Development Kit runtime services into Windows games: achievements, storage, and other GDK APIs. It is not a renderer or input device; it is the engine-side GDK runtime bridge. Windows titles targeting the GDK ecosystem need this layer."
+  },
+  {
+    "slug": "microsoft-gdk-store-plug-in-for-unreal-engine",
+    "kind": "plugin",
+    "cn": "MSGameStore 让 Windows 游戏按 Xbox PC 应用商店要求打包提交，处理商店清单与 GDK 商店侧包装。它和 GDK Runtime 分工：Runtime 跑服务，Store 管上架封装。没有它，面向 Xbox PC App 的提交包缺少引擎侧商店插件。",
+    "en": "MSGameStore packages Windows games for Xbox PC App submission, covering store manifests and GDK store wrapping. Runtime talks to GDK services; this plugin handles store packaging. Xbox PC App submission lacks the engine-side store hook without it."
+  },
+  {
+    "slug": "microsoftspatialsound",
+    "kind": "plugin",
+    "cn": "MicrosoftSpatialSound 用微软 SASAPI 做音频空间化，把虚幻声源交给 Windows 空间音频服务渲染 HRTF 或平台空间格式。MicrosoftSpatialSound 模块作为空间化插件插入音频引擎。它适合 Windows 上要走系统级空间音频的项目，而不是自研 HRTF 图。",
+    "en": "MicrosoftSpatialSound spatializes Unreal sources through Microsoft SASAPI so Windows spatial audio can render HRTF or platform spatial formats. The module plugs into the audio engine as a spatialization plugin. Use it when Windows system spatial audio is the target, not a custom HRTF MetaSound graph."
+  },
+  {
+    "slug": "midi-device-support",
+    "kind": "plugin",
+    "cn": "MIDI Device Support 用 C++ 和蓝图 API 收发 MIDI 事件，把键盘、控制器接到游戏或 MetaSound。MIDIDevice 模块枚举设备并泵送音符、CC 与时钟。它是输入设备插件，不负责合成音色本身。",
+    "en": "MIDI Device Support sends and receives MIDI through a small C++ and Blueprint API, wiring keyboards and controllers into gameplay or MetaSound. MIDIDevice enumerates devices and pumps notes, CC, and clock. It is an input-device plugin; it does not synthesize timbre."
+  },
+  {
+    "slug": "mixed-reality-capture-framework",
+    "kind": "plugin",
+    "cn": "Mixed Reality Capture Framework 把真人摄像机画面与 VR 虚拟场景合成，用于混合现实录制或直播。框架提供校准、前景抠像与合成摄像机路径，让 VR 项目不必自写一整套 MR 管线。MixedRealityCaptureFramework 是运行时集成层。",
+    "en": "Mixed Reality Capture Framework composites a live camera of a person into a VR scene for mixed-reality recording or streaming. It covers calibration, foreground keying, and a composite camera path so VR projects need not write a full MR pipeline. MixedRealityCaptureFramework is the runtime integration layer."
+  },
+  {
+    "slug": "ml-adapter",
+    "kind": "plugin",
+    "cn": "ML Adapter 让外部训练进程通过 RPC 查询游戏状态并操控 Actor，训练完成后可用 ONNX 网络在引擎内推理。MLAdapter 实现接口，TestSuite 锁定 RPC 契约。它面向用强化学习或模仿学习训练游戏内智能体，而不是通用 Python 脚本插件。",
+    "en": "ML Adapter exposes an RPC so an external trainer can query game state and drive actors, then run the trained policy in-engine from ONNX. MLAdapter is the interface; MLAdapterTestSuite locks the RPC contract. It is for RL or imitation agents, not a general Python scripting plugin."
+  },
+  {
+    "slug": "ml-deformer-detail-pose-model",
+    "kind": "plugin",
+    "cn": "Detail Pose Model 是 ML Deformer 的一种模型：按姿势检索细节形变，用来替代已弃用的最近邻模型。DetailPoseModel 运行推理，Editor 模块训练与预览。它给角色次级运动（肌肉、服装褶皱）补高精度增量。",
+    "en": "Detail Pose Model is an ML Deformer model that retrieves detail deformation by pose, replacing the deprecated nearest-neighbor model. DetailPoseModel infers at runtime; the Editor module trains and previews. It adds high-frequency muscle and cloth deltas on top of the skeletal pose."
+  },
+  {
+    "slug": "ml-deformer-framework",
+    "kind": "plugin",
+    "cn": "ML Deformer Framework 是机器学习网格形变的共用框架：训练数据、模型资产、运行时变形器插槽。MLDeformerFramework 提供抽象，Editor 模块管理训练会话。具体算法由 Neural Morph、Vertex Delta、Detail Pose 等模型插件填入。",
+    "en": "ML Deformer Framework is the shared machine-learning mesh deformer: training data, model assets, and the runtime deformer slot. MLDeformerFramework is the abstraction; the Editor module runs training sessions. Neural Morph, Vertex Delta, and Detail Pose plugins fill in concrete models."
+  },
+  {
+    "slug": "ml-deformer-nearest-neighbor-model-deprecated",
+    "kind": "plugin",
+    "cn": "Nearest Neighbor Model 曾按最近邻姿势查找形变样本，现已弃用，官方要求改用 Detail Pose Model。NearestNeighborModel 与 Editor 仍可能出现在旧资产中以便加载。新项目不应再把它当作训练目标。",
+    "en": "Nearest Neighbor Model looked up deformation samples by nearest pose and is deprecated in favor of Detail Pose Model. NearestNeighborModel and its Editor remain so old assets can still load. New training should not target this model."
+  },
+  {
+    "slug": "ml-deformer-neural-morph-model",
+    "kind": "plugin",
+    "cn": "Neural Morph Model 用神经网络预测骨骼姿势下的形态目标或形变，是 ML Deformer 的主力模型之一。NeuralMorphModel 做推理，Editor 负责训练数据和网络资产。它比纯顶点增量模型更紧凑，适合打包进角色。",
+    "en": "Neural Morph Model predicts morphs or deformation from skeletal pose with a neural net, one of the primary ML Deformer models. NeuralMorphModel infers; the Editor authors training data and network assets. It is typically more compact to pack on a character than a raw vertex-delta model."
+  },
+  {
+    "slug": "ml-deformer-vertex-delta-model",
+    "kind": "plugin",
+    "cn": "Vertex Delta Model 直接学习每个顶点相对蒙皮网格的位移，作为 ML Deformer 的一种高保真但更重的模型。VertexDeltaModel 应用增量，Editor 模块处理训练。适合需要贴合模拟结果的英雄角色，内存代价高于 Neural Morph。",
+    "en": "Vertex Delta Model learns per-vertex offsets from the skinned mesh, a high-fidelity but heavier ML Deformer. VertexDeltaModel applies deltas; the Editor module trains. Use it on hero meshes that must match simulation, at a higher memory cost than Neural Morph."
+  },
+  {
+    "slug": "mlflow",
+    "kind": "plugin",
+    "cn": "MLflow 插件随引擎附带可选的 MLflow Python 包与依赖，方便在编辑器 Python 环境里记录机器学习实验。它没有 C++ 游戏模块，也不会在运行时加载网络。属于 Experimental Scripting 辅助，给训练工作流做实验跟踪。",
+    "en": "The MLflow plugin vendors the optional MLflow Python package and dependencies into the editor Python environment for experiment tracking. It has no C++ game module and loads no networks at runtime. It is Experimental scripting support for ML training workflows."
+  },
+  {
+    "slug": "mobile-location-services---android-implementation",
+    "kind": "plugin",
+    "cn": "该插件实现 Android 上的定位服务，把 GPS/网络位置送到移动定位蓝图接口。LocationServicesAndroidImpl 调系统 API，Editor 模块处理 Android 权限与设置提示。它必须与跨平台蓝图库一起用，才能在蓝图里读到同一套位置节点。",
+    "en": "This plugin implements mobile location on Android, feeding GPS/network fixes into the shared Blueprint location API. LocationServicesAndroidImpl talks to OS APIs; the Editor module covers permissions and settings. Pair it with the cross-platform Blueprint library so the same nodes work on device."
+  },
+  {
+    "slug": "mobile-location-services---ios-implementation",
+    "kind": "plugin",
+    "cn": "该插件实现 iOS 上的定位服务，通过 Core Location 一类系统接口把坐标交给蓝图定位库。LocationServicesIOSImpl 是设备端实现，Editor 模块协助授权说明配置。与 Android 实现对称为平台后端，而不是另一套蓝图节点。",
+    "en": "This plugin implements mobile location on iOS, using system location APIs to feed the Blueprint location library. LocationServicesIOSImpl is the device backend; the Editor module helps with authorization strings. It is the iOS counterpart to the Android impl, not a second Blueprint API."
+  },
+  {
+    "slug": "mobile-location-services-blueprints-library",
+    "kind": "plugin",
+    "cn": "Location Services BP Library 提供从移动设备读位置的跨平台蓝图接口，屏蔽 Android/iOS 差异。LocationServicesBPLibrary 是运行时可进包的公共 API。真正取坐标仍由各平台 Implementation 插件完成。",
+    "en": "The Mobile Location Services Blueprint Library is the cross-platform Blueprint API for device location, hiding Android versus iOS differences. LocationServicesBPLibrary is a runtime that can ship in the cooked game. Platform Implementation plugins still perform the actual fix."
+  },
+  {
+    "slug": "mobile-patching-utilities",
+    "kind": "plugin",
+    "cn": "Mobile Patching Utilities 把移动端下载与补丁流程暴露给蓝图，用于首包后拉取 pak/chunk。MobilePatchingUtils 封装进度、挂载与错误处理，可进入 Shipping 包。它服务移动发行补丁，而不是编辑器热重载。",
+    "en": "Mobile Patching Utilities expose mobile download and patching to Blueprints so a small install can fetch pak/chunk content later. MobilePatchingUtils wraps progress, mount, and errors and can ship in the cooked game. It is a mobile distribution patcher, not editor hot reload."
+  },
+  {
+    "slug": "modeling-tools-editor-mode",
+    "kind": "plugin",
+    "cn": "Modeling Tools Editor Mode 把网格建模工具集收成编辑器里的 Modeling Mode，提供创建、切割、布尔等交互入口。ModelingToolsEditorMode 模块只负责模式 UI 与工具编排，算子来自 Mesh Modeling Toolset。没有这个模式，那些运行时工具缺少编辑器工作台。",
+    "en": "Modeling Tools Editor Mode gathers the mesh modeling toolset into the editor’s Modeling Mode: create, cut, boolean, and related interactions. ModelingToolsEditorMode only hosts the mode UI and tool orchestration; operators live in Mesh Modeling Toolset. Without this mode those runtime tools have no editor workbench."
+  },
+  {
+    "slug": "modular-gameplay",
+    "kind": "plugin",
+    "cn": "Modular Gameplay 提供把 Gameplay Framework 拆成可组合模块的基类与子系统，常用在 Lyra 式的 Game Feature 架构。ModularGameplay 让 Pawn、Ability、经验规则能按功能插件装卸。它是运行时骨架，不包含具体玩法。",
+    "en": "Modular Gameplay supplies base classes and subsystems that compose the gameplay framework in pieces, as Lyra-style Game Features do. ModularGameplay lets pawn, ability, and experience rules load as feature plugins. It is runtime scaffolding, not a canned game mode."
+  },
+  {
+    "slug": "modular-test-framework-self-tests",
+    "kind": "plugin",
+    "cn": "该配套插件对 Modular Test Framework 自身做冒烟测试，验证框架能发现、调度和报告测试。ModularTestFrameworkTests 不是游戏功能测试，而是防止框架回归。它应与框架一起在引擎测试中运行。",
+    "en": "This companion smoke-tests the Modular Test Framework itself: discovery, scheduling, and reporting. ModularTestFrameworkTests is not a game feature suite; it guards the harness. Run it with the framework in engine tests."
+  },
+  {
+    "slug": "modular-test-framework",
+    "kind": "plugin",
+    "cn": "Modular Test Framework 是引擎级、按插件范围编写和运行测试的框架。ModularTestFramework 定义测试模型，ModularTestRunner 执行作用域内的用例。它让插件自带测试并按需挂载，而不是全部塞进一个巨型 Automation 模块。",
+    "en": "Modular Test Framework is the engine-level way to author and run tests scoped to plugins. ModularTestFramework defines the model; ModularTestRunner executes the scoped cases. Plugins carry their own tests and mount them on demand instead of one giant Automation module."
+  },
+  {
+    "slug": "modular-test-gfp-self-tests",
+    "kind": "plugin",
+    "cn": "Modular Test GFP Self-Tests 冒烟验证 Modular Test GFP 插件：能否激活 Game Feature Plugin 并在该上下文中跑测试。ModularTestGFPTests 只测 GFP 测试辅助本身。它防止“依赖 GFP 的测试装不上功能插件”这类静默失败。",
+    "en": "Modular Test GFP Self-Tests smoke-test the Modular Test GFP plugin: activating a Game Feature Plugin and running tests in that context. ModularTestGFPTests only tests the GFP helper. It catches silent failures where GFP-dependent tests never mount the feature."
+  },
+  {
+    "slug": "modular-test-gfp",
+    "kind": "plugin",
+    "cn": "Modular Test GFP 为 Modular Test Framework 提供可选的 Game Feature Plugin 测试套件与工具。需要在测试里激活 GFP 的配套插件应依赖它，而不是自己伪造功能注册。ModularTestGFP 把 GFP 生命周期接到测试运行器。",
+    "en": "Modular Test GFP is the optional Game Feature Plugin test suite and utilities for Modular Test Framework. Test companions that must activate GFPs should depend on it instead of faking feature registration. ModularTestGFP binds GFP lifetime to the test runner."
+  },
+  {
+    "slug": "modular-test-resolver",
+    "kind": "plugin",
+    "cn": "Modular Test Resolver 实现 ModularTestFramework 的插件解析接口，决定一次测试运行要加载哪些测试插件。ModularTestResolver 把名称、作用域映射到实际插件，避免运行器硬编码路径。没有解析器，模块化测试无法按清单组装。",
+    "en": "Modular Test Resolver implements the plugin-resolution interface for ModularTestFramework: which test plugins a run should load. ModularTestResolver maps names and scopes to plugins so the runner is not hardcoded. Modular tests cannot assemble from a manifest without it."
+  },
+  {
+    "slug": "modular-test-runner-editor",
+    "kind": "plugin",
+    "cn": "Modular Test Runner Editor 提供框架的编辑器界面、助手工具集和测试模板。ModularTestRunnerUI 是窗口，Toolset 给自动化，Template 生成测试脚手架。它属于 Epic Internal 作者工具，不进入游戏包。",
+    "en": "Modular Test Runner Editor supplies the framework’s editor UI, assistant toolset, and test templates. ModularTestRunnerUI is the window, Toolset automates it, and Template scaffolds new tests. It is Epic-internal authoring and does not ship in the game."
+  },
+  {
+    "slug": "modular-test-runner-ui-tests",
+    "kind": "plugin",
+    "cn": "该配套插件专门测试 Modular Tests Runner 的编辑器 UI：列表、过滤、启动和结果展示。ModularTestRunnerUITests 防止界面与运行器协议脱节。它测的是窗口，而不是某个游戏功能。",
+    "en": "This companion tests the Modular Tests Runner editor UI: lists, filters, launch, and results. ModularTestRunnerUITests keeps the window aligned with the runner protocol. It tests the UI, not a game feature."
+  },
+  {
+    "slug": "modular-test-screenshot-tests",
+    "kind": "plugin",
+    "cn": "该测试伴侣证明 ModularTestScreenshot 能把客户端截图落到磁盘，并且比较失败可以让测试失败。ModularTestScreenshotTests 是元测试，锁住“截图比较作为断言”的路径。它不包含产品截图基线。",
+    "en": "This companion proves ModularTestScreenshot can write a client capture to disk and that a comparison miss can fail a test. ModularTestScreenshotTests is a meta-test of screenshot-as-assert. It does not contain product screenshot baselines."
+  },
+  {
+    "slug": "modular-test-screenshot",
+    "kind": "plugin",
+    "cn": "Modular Test Screenshot 为框架提供可选的视口截图与比较工具。需要捕获或对比客户端画面的测试应依赖 ModularTestScreenshot 与 Compare 模块。它把图像断言接到模块化测试，而不是 Unreal Insights。",
+    "en": "Modular Test Screenshot adds optional viewport capture and comparison to the Modular Test Framework. Companions that must capture or diff a client view depend on ModularTestScreenshot and Compare. It is image assertion for modular tests, not Unreal Insights."
+  },
+  {
+    "slug": "modular-test-unmount-fixture",
+    "kind": "plugin",
+    "cn": "Modular Test Unmount Fixture 是惰性夹具，供框架自测挂载再卸载插件生命周期。它明确不是测试伴侣，也不包含任何测试用例。ModularTestUnmountFixture 只作为可被装卸的空插件存在。",
+    "en": "Modular Test Unmount Fixture is an inert fixture the framework self-tests mount and unmount. It is not a test companion and contains no tests. ModularTestUnmountFixture exists only as an empty plugin with a loadable lifetime."
+  },
+  {
+    "slug": "modular-viewports",
+    "kind": "plugin",
+    "cn": "Modular Viewports 提供比默认 Game Viewport Client 更细粒度的视口客户端实现，允许多视口、分层合成或定制输入路由。ModularViewports 是可进游戏包的运行时。适合需要拆分画面或独立控制视口策略的项目，而不是编辑器预览窗口。",
+    "en": "Modular Viewports implements viewport clients with more flexibility than Game Viewport Client: split views, layered compositing, or custom input routing. ModularViewports is a runtime that can cook into the game. It is for shipping viewport policy, not the editor preview window."
+  },
+  {
+    "slug": "modulartestverse-tests",
+    "kind": "plugin",
+    "cn": "ModularTestVerse Tests 用真实 Verse 协程对 UMTFVerseTaskOps 做验收，验证模块化测试能等待 Verse 任务完成。ModularTestVerseTests 是配套验收插件，不是 Verse 语言本身。它锁住“测试框架 ↔ Verse”的异步边界。",
+    "en": "ModularTestVerse Tests acceptance-test UMTFVerseTaskOps with a real Verse coroutine, proving modular tests can await Verse work. ModularTestVerseTests is a companion, not the Verse language. It locks the async boundary between the test framework and Verse."
+  },
+  {
+    "slug": "motion-design-data-link-integration",
+    "kind": "plugin",
+    "cn": "Motion Design Data Link Integration（AvalancheDataLink）把 Data Link 接到 Avalanche/Motion Design 图层，让广播图文能消费外部数据。运行时模块驱动绑定，Editor 模块配置链接。没有描述符长文时，路径已表明它是 Motion Design 与 Data Link 的集成层。",
+    "en": "Motion Design Data Link Integration (AvalancheDataLink) binds Data Link into Avalanche/Motion Design layers so broadcast graphics can consume external data. Runtime drives bindings; the Editor module configures links. The path identifies it as the Motion Design–Data Link integration even without a long descriptor."
+  },
+  {
+    "slug": "motion-design-data-link-oauth",
+    "kind": "plugin",
+    "cn": "Data Link OAuth 为 Motion Design 数据链接实现 OAuth 2.0，让 HTTP/云端数据源能安全授权。DataLinkOAuth 处理令牌流，Editor 模块配置客户端。它不解析 JSON 本身，只解决“数据源要登录”的问题。",
+    "en": "Motion Design Data Link OAuth implements OAuth 2.0 for Data Link so HTTP or cloud sources can authorize securely. DataLinkOAuth runs the token flow; the Editor module configures clients. It does not parse JSON; it only solves signed-in data sources."
+  },
+  {
+    "slug": "motion-design-data-link",
+    "kind": "plugin",
+    "cn": "Motion Design Data Link 是把外部数据拉进 Motion Design 的核心：HTTP、WebSocket、JSON、DataTable 以及可视化编辑图。DataLink 与 Http/Json/WebSocket/DataTable 模块分协议，EdGraph/Editor 提供图编辑。广播包装可用它把比分、字幕或 CMS 字段驱动到图层。",
+    "en": "Motion Design Data Link is the core ingest path into Motion Design: HTTP, WebSocket, JSON, DataTable, and a visual graph. Protocol modules split by transport; EdGraph/Editor author the graph. Broadcast graphics drive scores, captions, or CMS fields into layers through it."
+  },
+  {
+    "slug": "motion-design-for-ndisplay",
+    "kind": "plugin",
+    "cn": "AvalancheDisplayCluster 让 Motion Design 场景在 nDisplay 集群上同步渲染，服务 LED 墙和多窗口播出。它把 Avalanche 图层对齐到 Display Cluster 视口，而不是实现 nDisplay 本体。实验插件，需与 nDisplay/Switchboard 一起用于虚拟制片播出。",
+    "en": "AvalancheDisplayCluster renders Motion Design scenes across an nDisplay cluster for LED walls and multi-window playout. It aligns Avalanche layers to Display Cluster viewports; it does not implement nDisplay itself. Experimental, used with nDisplay and Switchboard for virtual-production playout."
+  },
+  {
+    "slug": "motion-design-scene-state-data-link-bridge",
+    "kind": "plugin",
+    "cn": "该桥让 Scene State 任务执行 Data Link 图，从而在场景状态切换时拉取或推送外部数据。SceneStateDataLink 运行任务，Editor 模块配置状态机里的数据节点。它把“播出状态”和“数据刷新”接到同一时间线。",
+    "en": "This bridge lets Scene State tasks execute Data Link graphs so a state change can pull or push external data. SceneStateDataLink runs the task; the Editor module places data nodes in the state machine. Playout state and data refresh share one timeline."
+  },
+  {
+    "slug": "motion-design-scene-state-integration",
+    "kind": "plugin",
+    "cn": "AvalancheSceneState 把 Scene State 系统接到 Motion Design（Avalanche）图层与蓝图，让包装能按状态显示或隐藏元素。运行时与 Blueprint 模块驱动状态，Editor 模块编辑集成。它是 Motion Design 侧的场景状态适配器。",
+    "en": "AvalancheSceneState wires the Scene State system into Motion Design (Avalanche) layers and Blueprints so graphics can show or hide by state. Runtime and Blueprint modules drive states; the Editor module authors the integration. It is Motion Design’s adapter to scene states."
+  },
+  {
+    "slug": "motion-design-scene-state",
+    "kind": "plugin",
+    "cn": "Scene State 是 Motion Design 的场景状态机：事件、任务、绑定、玩法钩子以及状态/事件图。SceneState* 模块把播出逻辑做成可切换状态，而不是只靠 Sequencer 时间轴。它是实验性的广播控制层，决定包装何时进入哪一套画面。",
+    "en": "Scene State is Motion Design’s scene state machine: events, tasks, bindings, gameplay hooks, and state/event graphs. SceneState* modules make playout a set of states instead of only a Sequencer timeline. It is the experimental broadcast control layer for which graphic is on air."
+  },
+  {
+    "slug": "motion-design-sequence-navigator-bridge",
+    "kind": "plugin",
+    "cn": "AvalancheSequenceNavigator 把 Sequence Navigator 接到嵌入的 Motion Design 序列，便于在嵌套的 Avalanche 时间轴之间跳转。它不实现 Sequencer 本体，只做 Motion Design 序列的导航桥。实验插件，服务复杂包装里的多序列浏览。",
+    "en": "AvalancheSequenceNavigator bridges Sequence Navigator to embedded Motion Design sequences so nested Avalanche timelines can be jumped. It does not implement Sequencer; it only navigates Motion Design sequences. Experimental, for browsing many sequences inside a complex graphic."
+  },
+  {
+    "slug": "motion-design",
+    "kind": "plugin",
+    "cn": "Motion Design（Avalanche）是虚拟制片的合成、包装设计与广播工具，用来做实时图文、摄像机包装和播出层。Avalanche 与 Core、Camera、Effectors 以及大量 Editor 模块构成创作与运行时。它依赖动态材质、Media IO、建模工具、Remote Control、Text3D 等插件拼出完整设计器。",
+    "en": "Motion Design (Avalanche) is the virtual-production compositor, designer, and broadcast graphic tool for realtime titles, camera packages, and playout layers. Avalanche, Core, Camera, Effectors, and editor modules form authoring and runtime. It leans on Dynamic Material, Media IO, modeling, Remote Control, Text3D, and related plugins for a full designer."
+  },
+  {
+    "slug": "motion-trajectory",
+    "kind": "plugin",
+    "cn": "Motion Trajectory 记录角色运动历史并生成未来轨迹预测，供动画选择或防滑步使用。MotionTrajectory 模块输出轨迹采样，常与 Pose Search、Motion Matching 一类系统配合。它是 Experimental 动画辅助，不代替 Character Movement。",
+    "en": "Motion Trajectory records motion history and predicts future character trajectories for animation selection or foot-slide reduction. The MotionTrajectory module emits trajectory samples, often consumed by Pose Search or motion matching. It is Experimental animation support, not a Character Movement replacement."
+  },
+  {
+    "slug": "motion-warping",
+    "kind": "plugin",
+    "cn": "Motion Warping 在动画播放中按目标点扭曲根运动，使翻越、开门、攀爬能对齐场景锚点。MotionWarping 组件在蒙太奇窗口里平移旋转角色，而不重做整段动画。它是动画插件，用来解决“动画距离与关卡几何不一致”。",
+    "en": "Motion Warping warps root motion toward a target so vault, door, and climb anims align to world anchors. The MotionWarping component translates and rotates the character in montage windows without reauthoring the clip. Use it when authored distances do not match level geometry."
+  },
+  {
+    "slug": "motionjpeg-decoder-for-electra",
+    "kind": "plugin",
+    "cn": "MJPEGDecoderElectra 为 Electra 播放器实现 MotionJPEG 视频解码，让 Media Framework 能播 MJPEG 封装。它是解码插件，不提供编辑器时间轴。需要在工业相机或旧素材管线里播 MJPEG 时启用。",
+    "en": "MJPEGDecoderElectra implements MotionJPEG decode for the Electra player so Media Framework can play MJPEG files. It is a decoder, not a timeline editor. Enable it for industrial-camera or legacy MJPEG pipelines."
+  },
+  {
+    "slug": "motorsimoutputmotosynth",
+    "kind": "plugin",
+    "cn": "MotorSimOutputMotoSynth 是把载具 MotorSim 仿真输出接到 MotoSynth 的组件，用引擎转速等参数驱动颗粒合成。它不实现物理 MotorSim，也不实现 MotoSynth 引擎，只做音频输出桥。实验插件，服务载具音频原型。",
+    "en": "MotorSimOutputMotoSynth is the component that feeds a MotorSim vehicle simulation into MotoSynth, driving granular engine sound from RPM-like parameters. It implements neither MotorSim physics nor MotoSynth itself—only the audio output bridge. Experimental, for vehicle audio prototypes."
+  },
+  {
+    "slug": "motosynth",
+    "kind": "plugin",
+    "cn": "MotoSynth 是实验性颗粒载具发动机合成器，用来探索用颗粒拼接出发动机声，而非产品级支持的音频系统。MotoSynth 运行合成，Editor 模块编辑颗粒资产。官方标明不受支持，适合研究与演示，不适合当作发货音频方案。",
+    "en": "MotoSynth is an experimental granular vehicle-engine synthesizer for exploring grain-based engine notes, not a supported production audio stack. MotoSynth runs synthesis; the Editor module authors grain assets. Epic marks it unsupported: research and demos, not a ship audio solution."
+  },
+  {
+    "slug": "mountinspector",
+    "kind": "plugin",
+    "cn": "MountInspector 是游戏内调试面板，列出当前挂载了哪些 pak、utoc 和按需 toc 容器以及挂载原因。MountInspector 收集挂载状态，UI 模块绘制面板。它帮助排查补丁、IoStore 和 On-Demand 内容为何没出现。",
+    "en": "MountInspector is an in-game debug panel listing which pak, utoc, and on-demand toc containers are mounted and why. MountInspector gathers mount state; the UI module draws the panel. Use it when patches, IoStore, or on-demand content fail to appear."
+  },
+  {
+    "slug": "mover-examples",
+    "kind": "plugin",
+    "cn": "Mover Examples 提供 Mover 插件的示例类、测试关卡和入门内容，帮助理解回滚移动，但不应直接打进发行包。MoverExamples 模块是学习材料，细节以 Mover README 为准。它随 Experimental Mover 一起演进。",
+    "en": "Mover Examples ships non-essential classes, test maps, and samples so developers can learn Mover’s rollback movement; it is not for shipping products. MoverExamples is tutorial content; see the Mover README for concepts and known issues. It tracks Experimental Mover."
+  },
+  {
+    "slug": "mover-integrations",
+    "kind": "plugin",
+    "cn": "Mover Integrations 作为伞形插件，收纳 Mover 与动画、AI、Mass 等系统的对接模块。MoverIntegrations 与 MoverMassIntegration 把移动核心接到其它玩法插件，避免核心包膨胀。实验性质，随各侧 API 变化。",
+    "en": "Mover Integrations is an umbrella for modules that connect Mover to animation, AI, Mass, and other gameplay plugins. MoverIntegrations and MoverMassIntegration keep those bridges out of the Mover core. Experimental; it moves when either side’s API moves."
+  },
+  {
+    "slug": "mover-uaf",
+    "kind": "plugin",
+    "cn": "Mover UAF（MoverAnimNext）为 Mover 加上 Unreal Animation Framework 支持，让新动画图能驱动带回滚的移动。MoverAnimNext 模块桥接姿态与 Mover 状态，而不是旧 AnimBP 节点集。它属于 Experimental，需 Mover 与 UAF 同时启用。",
+    "en": "Mover UAF (MoverAnimNext) adds Unreal Animation Framework support so the new animation graph can drive rollback-aware Mover. MoverAnimNext bridges pose and Mover state rather than legacy AnimBP nodes. Experimental; enable it with both Mover and UAF."
+  },
+  {
+    "slug": "mover",
+    "kind": "plugin",
+    "cn": "Mover 用回滚网络支持 Actor 移动，作为实验性的下一代移动方案，替代或并存于 Character Movement。Mover 核心做模拟，MoverEditor 与 CVD 模块提供编辑器和 Chaos Visual Debugger 数据。入门、概念与已知问题以插件 README 为准。",
+    "en": "Mover moves actors with rollback networking, an Experimental next-gen movement path beside or instead of Character Movement. The Mover module simulates; MoverEditor and CVD modules add editor and Chaos Visual Debugger data. Start with the plugin README for concepts and known issues."
+  },
+  {
+    "slug": "movertests",
+    "kind": "plugin",
+    "cn": "MoverTests 存放 Mover 系统的测试内容与自动化，用来锁住回滚、碰撞和模式切换。MoverTests 模块不是示例玩法，而是回归套件。它随 Experimental Mover 一起运行，防止移动核心静默破坏。",
+    "en": "MoverTests holds test content and automation for Mover: rollback, collision, and mode switches. The MoverTests module is a regression suite, not sample gameplay. It runs with Experimental Mover to catch silent movement breakage."
+  },
+  {
+    "slug": "movie-player-for-webm-files",
+    "kind": "plugin",
+    "cn": "WebMMoviePlayer 在 Movie Player 路径上播放 WebM 容器，用于启动影片或简单过场。它走 WebM 解码，而不是 Electra 的通用媒体图。模块 WebMMoviePlayer 覆盖需要 WebM 片头且不想拉起完整 Media Framework 播放器的场景。",
+    "en": "WebMMoviePlayer plays WebM containers on the Movie Player path for boot movies or simple cinematics. It is WebM decode, not Electra’s full media graph. Use WebMMoviePlayer when a WebM bumper should not pull in a full Media Framework player."
+  },
+  {
+    "slug": "movie-render-graph-psd-support",
+    "kind": "plugin",
+    "cn": "Movie Render Graph PSD Support 给 Movie Render Graph 增加 Photoshop PSD 输出，便于把分层渲染交给后期。MovieRenderGraphPSD 写入 PSD，而不改变 MRG 的调度器。它是渲染管线的格式扩展，不是新的队列系统。",
+    "en": "Movie Render Graph PSD Support adds Photoshop PSD output to Movie Render Graph so layered renders reach finishing tools. MovieRenderGraphPSD writes PSD; it does not change MRG scheduling. It is a format extension, not a new queue."
+  },
+  {
+    "slug": "movie-render-pipeline-toolset",
+    "kind": "plugin",
+    "cn": "该工具集通过 Python 把 Movie Render Queue 与 Movie Render Graph 以及它们的预设、图资产暴露给代理技能。它没有 C++ 模块列表，职责是脚本/助手侧操作 MRQ/MRG。适合让自动化提交渲染、改节点，而不打开队列窗口。",
+    "en": "This toolset exposes Movie Render Queue, Movie Render Graph, and their presets/graphs to agent skills through Python. It lists no C++ modules because the job is script/assistant control of MRQ/MRG. Automation can submit renders and edit nodes without the queue window."
+  },
+  {
+    "slug": "movie-render-queue-additional-render-passes",
+    "kind": "plugin",
+    "cn": "该插件为 Movie Render Queue 增加额外渲染通道：编辑器专用的 ObjectId（Cryptomatte 风格对象遮罩）以及比旧全景捕捉插件更贴 Sequencer 的全景通道。MoviePipelineMaskRenderPass 实现这些通道。它扩展 MRQ 输出，而不是替换 Movie Render Graph。",
+    "en": "This plugin adds extra Movie Render Queue passes: an editor-only ObjectId/Cryptomatte-style object matte, and a panoramic pass with tighter Sequencer integration than the old Panoramic Capture plugin. MoviePipelineMaskRenderPass implements those passes. It extends MRQ output; it does not replace Movie Render Graph."
+  }
+]

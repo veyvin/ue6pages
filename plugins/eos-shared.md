@@ -3,8 +3,6 @@ layout: default
 title: EOS共享 / EOS Shared
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,79 @@ title: EOS共享 / EOS Shared
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">负责EOSSDK运行时库的初始化/关闭。</div><div class="lang-content">Responsible for init/shutdown of the EOSSDK runtime library.</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>Epic 在插件/模块描述里写的职责是：负责EOSSDK运行时库的初始化/关闭。</p><p>属于在线子系统 / 平台服务。</p><p>它打包的模块包括：EOSShared。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">作用说明综合了 Epic 在 .uplugin / Build.cs 中的官方描述，以及该插件在引擎源码树中的位置与模块职责（非「点启用」模板）。</p></div><div class="lang-content"><p>Epic’s own description of its job: Responsible for init/shutdown of the EOSSDK runtime library.</p><p>Part of Online Subsystem / platform services.</p><p>It ships these modules: EOSShared. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Role text combines Epic’s official Description with where this item lives in the engine tree and which modules it ships — not an enable-plugin template.</p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li><code class="usage-code">EOS Shared</code> 负责 EOSSDK 运行时库的初始化与关闭，通常作为依赖被其他 EOS 插件自动带起来，一般不需要手动单独用。</li><li>启用依赖它的功能（如 <code class="usage-code">OnlineSubsystemEOS</code>、<code class="usage-code">EOSVoiceChat</code>）时，它会随之加载。</li><li>在 <code class="usage-code">DefaultEngine.ini</code> 配好 EOS 参数（产品 ID、沙盒、客户端凭证等），保证它在启动时能成功初始化 SDK。</li><li>运行期调用 EOS 接口（登录、社交、语音）前确认 SDK 已初始化完成，退出时由它负责干净关闭。</li></ol><p class="usage-note">它是 EOS 家族的地基模块，不是给你直接调用的能力；真正做事的是 EOS OSS、语音、overlay 等上层插件。</p></div><div class="lang-content"><ol class="usage-steps"><li><code class="usage-code">EOS Shared</code> owns init/shutdown of the EOSSDK runtime library; it&#x27;s normally pulled in as a dependency by other EOS plugins, so you rarely use it directly.</li><li>Enabling the features depending on it (<code class="usage-code">OnlineSubsystemEOS</code>, <code class="usage-code">EOSVoiceChat</code>) loads it automatically.</li><li>Fill the EOS settings in <code class="usage-code">DefaultEngine.ini</code> (Product ID, Sandbox, client credentials, etc.) so it can initialize the SDK at startup.</li><li>Before calling EOS interfaces (login, social, voice) confirm the SDK finished initializing; on exit this plugin shuts it down cleanly.</li></ol><p class="usage-note">It&#x27;s the foundation module of the EOS family, not a capability you call directly; the real work lives in EOS OSS, voice, overlay, etc.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (1)</div><div class="module-item"><span class="dot"></span><span class="name mono">EOSShared</span><span class="tag runtime">Runtime</span></div></div>

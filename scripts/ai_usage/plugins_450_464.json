@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "live-link-control-rig",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Live Link Control Rig`（模块 `LiveLinkControlRig`）。",
+      "把 Live Link 的实时数据接到 Control Rig，驱动绑定图里的 FK/IK 与空间切换。",
+      "在 Sequencer 或运行时用 Control Rig 节点消费 Live Link 主体数据（如动捕/面捕）。",
+      "Experimental：接口可能变动；依赖 Control Rig 与 Live Link 已启用。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Live Link Control Rig` (module `LiveLinkControlRig`).",
+      "Feed Live Link real-time data into a Control Rig to drive FK/IK and space switching in the rig graph.",
+      "Consume Live Link subject data (mocap/facial) via Control Rig nodes in Sequencer or at runtime.",
+      "Experimental: contract may change; relies on Control Rig and Live Link being enabled."
+    ],
+    "note_cn": "把 Live Link 实时数据驱动到 Control Rig，实验性。",
+    "note_en": "Drives Control Rig from Live Link data, experimental."
+  },
+  {
+    "slug": "live-link-curve-debug-ui",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link Curve Debug UI`（模块 `LiveLinkCurveDebugUI`）。",
+      "在调试面板里实时查看 Live Link 主体输入的曲线值（如面捕/动捕曲线）。",
+      "用于排查驱动骨骼/Control Rig 时曲线是否按预期变化。",
+      "这是调试 UI 工具，编辑器/开发期用。"
+    ],
+    "en_steps": [
+      "Enable `Live Link Curve Debug UI` (module `LiveLinkCurveDebugUI`).",
+      "Watch Live Link subject input curve values (e.g. facial/mocap curves) live in the debug panel.",
+      "Use it to check whether curves change as expected when driving skeletons/Control Rig.",
+      "It is a debug UI tool for editor/development."
+    ],
+    "note_cn": "实时查看 Live Link 曲线值的调试 UI。",
+    "note_en": "A debug UI for live-viewing Live Link curve values."
+  },
+  {
+    "slug": "live-link-device-framework",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link Device Framework`（模块 `LiveLinkDevice`）。",
+      "它是 Live Link 设备接入的框架层，供实现/注册 Live Link 设备。",
+      "编写或接入具体设备时依赖该框架，再向上提供 Live Link 主体数据。",
+      "属 Live Link 基础框架，通常与 Live Link 主插件一起用。"
+    ],
+    "en_steps": [
+      "Enable `Live Link Device Framework` (module `LiveLinkDevice`).",
+      "It is the framework layer for Live Link device integration, used to implement/register Live Link devices.",
+      "Depend on it when writing or integrating a device, then expose Live Link subject data upward.",
+      "It is Live Link base framework, usually used with the main Live Link plugin."
+    ],
+    "note_cn": "Live Link 设备接入框架，供实现具体设备。",
+    "note_en": "The Live Link device-integration framework for implementing concrete devices."
+  },
+  {
+    "slug": "live-link-hub-example-device",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link Hub Example Device`（模块 `LiveLinkExampleDevice`）。",
+      "它是 Live Link Hub 的示例设备，用作自定义 Hub 设备的参考实现。",
+      "参考其代码了解如何把设备接入 Live Link Hub，再改造为自己的设备。",
+      "这是示例/教学用途，不是生产设备驱动。"
+    ],
+    "en_steps": [
+      "Enable `Live Link Hub Example Device` (module `LiveLinkExampleDevice`).",
+      "It is an example device for Live Link Hub, a reference implementation for custom Hub devices.",
+      "Study its code to learn how to attach a device to Live Link Hub, then adapt it for your own device.",
+      "It is for example/learning purposes, not a production device driver."
+    ],
+    "note_cn": "Live Link Hub 的示例设备，作自定义设备参考。",
+    "note_en": "An example device for Live Link Hub, a reference for custom devices."
+  },
+  {
+    "slug": "live-link-hub-obs-device",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link Hub OBS Device`（模块 `LiveLinkOBSDevice`），属 Virtual Production。",
+      "通过 OBS WebSocket v5 协议控制 OBS Studio 录制，并把录制视频以单声道 take 摄取。",
+      "在 Live Link Hub 里配置 OBS 连接，触发录制并接收录好的 take。",
+      "需 Live Link Hub 与 OBS Studio（启用 WebSocket v5）。"
+    ],
+    "en_steps": [
+      "Enable `Live Link Hub OBS Device` (module `LiveLinkOBSDevice`), part of Virtual Production.",
+      "Control OBS Studio recording over the OBS WebSocket v5 protocol and ingest recorded video as mono takes.",
+      "Configure the OBS connection in Live Link Hub, trigger recording, and receive the recorded takes.",
+      "Requires Live Link Hub and OBS Studio with WebSocket v5 enabled."
+    ],
+    "note_cn": "通过 OBS WebSocket v5 控制 OBS 录制并摄取的 Hub 设备。",
+    "note_en": "A Hub device that controls OBS recording via WebSocket v5 and ingests takes."
+  },
+  {
+    "slug": "live-link-hub-unreal-device",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link Hub Unreal Device`（模块 `LiveLinkUnrealDevice`）。",
+      "它让一个 Unreal 实例作为设备接入 Live Link Hub，向 Hub 提供/流转数据。",
+      "在多机/多引擎协作的虚拟制片流程里，用它打通 Unreal 与 Live Link Hub。",
+      "属 Live Link Hub 设备，需 Live Link Hub 启用。"
+    ],
+    "en_steps": [
+      "Enable `Live Link Hub Unreal Device` (module `LiveLinkUnrealDevice`).",
+      "It lets an Unreal instance join Live Link Hub as a device, providing/passing data to the Hub.",
+      "In multi-machine/multi-engine virtual production flows, use it to bridge Unreal and Live Link Hub.",
+      "It is a Live Link Hub device; Live Link Hub must be enabled."
+    ],
+    "note_cn": "让 Unreal 作为设备接入 Live Link Hub。",
+    "note_en": "Lets an Unreal instance join Live Link Hub as a device."
+  },
+  {
+    "slug": "live-link-hub",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link Hub`（运行时 `LiveLinkHub`，编辑器 `LiveLinkHubEditor`，`LiveLinkHubMessaging`）。",
+      "用 Live Link Hub 集中管理多台设备与多个引擎/客户端的实时数据路由。",
+      "在 Hub 里添加设备源与主体，把它们分发给需要的编辑器/渲染机。",
+      "Game 模块用 `LiveLinkHub`；`LiveLinkHubEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Live Link Hub` (runtime `LiveLinkHub`, editor `LiveLinkHubEditor`, `LiveLinkHubMessaging`).",
+      "Use Live Link Hub to centrally manage many devices and route real-time data across engines/clients.",
+      "Add device sources and subjects in the Hub and distribute them to the editors/render machines that need them.",
+      "Game modules use `LiveLinkHub`; `LiveLinkHubEditor` is Editor-target only."
+    ],
+    "note_cn": "多设备/多引擎的 Live Link 数据枢纽（Hub）。",
+    "note_en": "A Live Link data hub across many devices/engines."
+  },
+  {
+    "slug": "live-link-kipro-device",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link KiPro Device`（模块 `LiveLinkKiProDevice`），属虚拟制片工具链。",
+      "把 AJA Ki Pro 录机作为 Live Link 设备接入，提供时间码/录制状态等数据。",
+      "在虚拟制片流程里用它同步录机与镜次信息。",
+      "需对应硬件与 Live Link 已启用。"
+    ],
+    "en_steps": [
+      "Enable `Live Link KiPro Device` (module `LiveLinkKiProDevice`), part of the virtual production toolchain.",
+      "Attach an AJA Ki Pro recorder as a Live Link device providing timecode/recording-state data.",
+      "In the virtual production flow, use it to sync the recorder with take info.",
+      "Requires the matching hardware and Live Link enabled."
+    ],
+    "note_cn": "把 AJA Ki Pro 录机接入 Live Link，虚拟制片用。",
+    "note_en": "Brings an AJA Ki Pro recorder into Live Link for virtual production."
+  },
+  {
+    "slug": "live-link-over-ndisplay",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link Over nDisplay`（模块 `LiveLinkOverNDisplay`）。",
+      "它为 nDisplay 集群同步 Live Link 主体数据，让各渲染节点拿到一致的实时数据。",
+      "在多节点 nDisplay 虚拟制片环境里配置该同步。",
+      "属 nDisplay 数据同步，需 nDisplay 与 Live Link 已启用。"
+    ],
+    "en_steps": [
+      "Enable `Live Link Over nDisplay` (module `LiveLinkOverNDisplay`).",
+      "It synchronizes Live Link subject data across the nDisplay cluster so every render node gets consistent real-time data.",
+      "Configure this sync in a multi-node nDisplay virtual production environment.",
+      "It is nDisplay data sync; nDisplay and Live Link must be enabled."
+    ],
+    "note_cn": "nDisplay 集群的 Live Link 主体同步。",
+    "note_en": "Live Link subject sync for nDisplay clusters."
+  },
+  {
+    "slug": "live-link-sound-device",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link Sound Device`（模块 `LiveLinkSoundDevice`），属 Virtual Production。",
+      "它为 Live Link Hub 提供 Sound Devices 录音机支持，带录音与连接能力。",
+      "在 Hub 里连接录音机设备，同步录音/时间码信息。",
+      "需对应硬件与 Live Link Hub 启用。"
+    ],
+    "en_steps": [
+      "Enable `Live Link Sound Device` (module `LiveLinkSoundDevice`), part of Virtual Production.",
+      "It provides Sound Devices recorder support for Live Link Hub with recording and connection capabilities.",
+      "Connect the recorder in the Hub and sync record/timecode info.",
+      "Requires the matching hardware and Live Link Hub enabled."
+    ],
+    "note_cn": "Live Link Hub 的 Sound Devices 录音机支持。",
+    "note_en": "Sound Devices recorder support for Live Link Hub."
+  },
+  {
+    "slug": "live-link",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Live Link`（模块 `LiveLink`、`LiveLinkComponents`、`LiveLinkGraphNode`、`LiveLinkSequencer`、`LiveLinkMovieScene`，编辑器 `LiveLinkEditor`）。",
+      "把外部设备（动捕、摄像机、面捕、灯光）的数据变成 Live Link 主体，流进编辑器或运行时。",
+      "给骨骼/摄像机/Control Rig 加 Live Link 组件消费主体数据，用于虚拟制片与 MetaHuman 面捕。",
+      "Game 模块依赖运行时模块；`LiveLinkEditor` 等只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Live Link` (modules `LiveLink`, `LiveLinkComponents`, `LiveLinkGraphNode`, `LiveLinkSequencer`, `LiveLinkMovieScene`, editor `LiveLinkEditor`).",
+      "Turn external device data (mocap, cameras, facial, lights) into Live Link subjects that stream into the editor or runtime.",
+      "Add Live Link components to skeletons/cameras/Control Rig to consume subject data for virtual production and MetaHuman facial capture.",
+      "Game modules depend on runtime modules; editor ones like `LiveLinkEditor` go to Editor targets only."
+    ],
+    "note_cn": "实时设备数据流的主干，虚拟制片/MetaHuman 面捕依赖它。",
+    "note_en": "The backbone for real-time device data; virtual production/MetaHuman facial capture depend on it."
+  },
+  {
+    "slug": "live-update-for-slate",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `Live Update for Slate`（模块 `LiveUpdateForSlate`）并重启。",
+      "它在编辑器里支持对 Slate UI 的实时更新，加速 UI 迭代调试。",
+      "用于开发编辑器/工具 UI 时热更新布局与样式。",
+      "这是编辑器开发者工具，只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `Live Update for Slate` (module `LiveUpdateForSlate`) and restart.",
+      "It supports live updates to Slate UI in the editor to speed up UI iteration.",
+      "Use it to hot-update layout and styling while developing editor/tool UI.",
+      "It is an editor developer tool for Editor targets only."
+    ],
+    "note_cn": "Slate UI 的实时更新工具，编辑器开发用。",
+    "note_en": "A live-update tool for Slate UI, used in editor development."
+  },
+  {
+    "slug": "livecodingtoolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `LiveCodingToolset`（模块 `LiveCodingToolset`，测试 `LiveCodingToolsetTests`）。",
+      "它面向 AI Toolset Registry，提供 Live Coding 编译相关工具集。",
+      "让 AI 助手/自动化触发 Live Coding 编译，加速 C++ 迭代。",
+      "这是开发期工具集，不是运行时功能；测试模块不进游戏包。"
+    ],
+    "en_steps": [
+      "Enable Experimental `LiveCodingToolset` (module `LiveCodingToolset`, tests `LiveCodingToolsetTests`).",
+      "It targets the AI Toolset Registry and provides Live Coding compile tools.",
+      "Let AI assistants/automation trigger Live Coding compiles to speed up C++ iteration.",
+      "It is a development-time toolset, not a runtime feature; keep the test module out of the game."
+    ],
+    "note_cn": "面向 AI 工具链的 Live Coding 编译工具集。",
+    "note_en": "A Live Coding compile toolset for the AI toolchain."
+  },
+  {
+    "slug": "livelinkcamera",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `LiveLinkCamera`（运行时 `LiveLinkCamera`、`LiveLinkCameraRecording`，编辑器 `LiveLinkCameraEditor`），属 Virtual Production。",
+      "它给 Live Link 增加相机处理能力：接入真实摄像机的跟踪/镜头数据。",
+      "把相机数据驱动到引擎摄像机/镜头组件，用于虚拟制片取景与录制。",
+      "Game 模块依赖运行时模块；`LiveLinkCameraEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `LiveLinkCamera` (runtime `LiveLinkCamera`, `LiveLinkCameraRecording`, editor `LiveLinkCameraEditor`), part of Virtual Production.",
+      "It adds camera handling to Live Link: ingest real camera tracking/lens data.",
+      "Drive engine camera/lens components with the camera data for virtual production framing and recording.",
+      "Game modules depend on runtime modules; `LiveLinkCameraEditor` is Editor-target only."
+    ],
+    "note_cn": "Live Link 的相机处理（跟踪/镜头）能力，虚拟制片用。",
+    "note_en": "Live Link camera handling (tracking/lens) for virtual production."
+  },
+  {
+    "slug": "livelinkfaceimporter",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `LiveLinkFaceImporter`（模块 `LiveLinkFaceImporter`）。",
+      "从 Live Link Face 应用导入 CSV 录制，转成 Live Link 面捕数据。",
+      "把导入的面捕曲线驱动到 MetaHuman/角色面部绑定的 Live Link 主体。",
+      "Experimental：接口可能变动；属 Live Link 家族的离线面捕导入。"
+    ],
+    "en_steps": [
+      "Enable Experimental `LiveLinkFaceImporter` (module `LiveLinkFaceImporter`).",
+      "Import CSV recordings from the Live Link Face app and turn them into Live Link facial data.",
+      "Drive imported facial curves onto a MetaHuman/character facial rig via a Live Link subject.",
+      "Experimental: contract may change; it is offline facial import in the Live Link family."
+    ],
+    "note_cn": "从 Live Link Face 导入 CSV 面捕录制，实验性。",
+    "note_en": "Imports CSV facial recordings from Live Link Face, experimental."
+  }
+]

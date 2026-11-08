@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "smartobjects",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SmartObjects`（运行时 `SmartObjectsModule`，测试 `SmartObjectsTestSuite`，编辑器 `SmartObjectsEditorModule`）。",
+      "它支持游戏世界中的“环境生活”交互（对象提供可占用的交互槽，AI 前往使用）。",
+      "在关卡布置 Smart Object（如座位、资源点），用其定义行为与占用规则。",
+      "Game 模块依赖运行时模块；编辑器/测试模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `SmartObjects` (runtime `SmartObjectsModule`, tests `SmartObjectsTestSuite`, editor `SmartObjectsEditorModule`).",
+      "It supports ambient life in the game world (objects expose occupancy interaction slots that AI go use).",
+      "Place Smart Objects (seats, resource points) in the level and define behaviors/occupancy rules.",
+      "Game modules depend on runtime modules; editor/test modules go to Editor targets only."
+    ],
+    "note_cn": "支持世界“环境生活”交互的 Smart Objects。",
+    "note_en": "Smart Objects supporting ambient-life world interactions."
+  },
+  {
+    "slug": "socket-subsystem-eos",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Socket Subsystem EOS`（模块 `SocketSubsystemEOS`）。",
+      "它负责 EOS P2P Socket 连接的管理（Epic Online Services 点对点）。",
+      "在 OSS 设置里选 EOS 时，它提供 P2P 网络传输。",
+      "属在线子系统/平台服务；需 EOS 配置。"
+    ],
+    "en_steps": [
+      "Enable `Socket Subsystem EOS` (module `SocketSubsystemEOS`).",
+      "It manages EOS P2P socket connections (Epic Online Services peer-to-peer).",
+      "When EOS is selected in OSS settings, it provides P2P network transport.",
+      "It is online subsystem/platform service; requires EOS config."
+    ],
+    "note_cn": "EOS P2P Socket 连接管理。",
+    "note_en": "EOS P2P socket connection management."
+  },
+  {
+    "slug": "socket-subsystem-steam-ip",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Socket Subsystem Steam (IP)`（模块 `SocketSubsystemSteamIP`）。",
+      "它负责用户之间的 Steam 网络连接（基于 IP，不做 NAT 穿透）。",
+      "P2P 能力配合 `SteamSockets` 插件使用。",
+      "属平台网络传输；需 Steam 配置。"
+    ],
+    "en_steps": [
+      "Enable `Socket Subsystem Steam (IP)` (module `SocketSubsystemSteamIP`).",
+      "It handles Steam network connections between users (IP-based, no NAT punch-through).",
+      "For P2P, pair it with the `SteamSockets` plugin.",
+      "It is a platform network transport; requires Steam config."
+    ],
+    "note_cn": "Steam 用户间网络连接（IP，无 NAT 穿透）。",
+    "note_en": "Steam user-to-user network connections (IP, no NAT punch-through)."
+  },
+  {
+    "slug": "solaris",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Solaris`（模块 `Solaris`、`VerseNative`、`VersePredicts`、`SolarisEditor`、`VerseWorkflowServer` 等）。",
+      "它提供 uLang（Verse）的 VPL 与文本脚本能力（Epic 内部/Fortnite 方向）。",
+      "用 Verse 脚本与可视化编程搭建逻辑；多与 Fortnite/UEFN 生态相关。",
+      "属脚本/编程语言运行时；模块较多，编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Solaris` (modules `Solaris`, `VerseNative`, `VersePredicts`, `SolarisEditor`, `VerseWorkflowServer`, etc.).",
+      "It provides uLang (Verse) VPL and text scripting (Epic-internal/Fortnite-leaning).",
+      "Build logic in Verse scripting and visual programming; mostly tied to the Fortnite/UEFN ecosystem.",
+      "It is a scripting/language runtime; many modules, editor ones go to Editor targets only."
+    ],
+    "note_cn": "uLang(Verse) 的 VPL 与文本脚本运行时。",
+    "note_en": "uLang (Verse) VPL and text-scripting runtime."
+  },
+  {
+    "slug": "sound-cue-templates",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sound Cue Templates`（模块 `SoundCueTemplates`，编辑器 `SoundCueTemplatesEditor`）。",
+      "它提供 SoundCue 模板集合，加速常见音频设计工作流。",
+      "新建 SoundCue 时基于模板快速搭建（如循环、随机、调制）。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Sound Cue Templates` (modules `SoundCueTemplates`, editor `SoundCueTemplatesEditor`).",
+      "It provides a collection of SoundCue templates to speed up common audio-design workflows.",
+      "Create SoundCues quickly from templates (e.g. loop, random, modulation).",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "SoundCue 模板集合（加速常见音频设计流程）。",
+    "note_en": "A collection of SoundCue templates (faster common audio-design workflows)."
+  },
+  {
+    "slug": "sound-module-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sound Module Plugin`（运行时 `SoundMod`，导入器 `SoundModImporter`）。",
+      "它支持播放 ProTracker (MOD)、Scream Tracker 3 (S3M)、Fast Tracker II (XM) 和 Impulse Tracker (IT) 文件。",
+      "导入 .mod/.s3m/.xm/.it 追踪器音乐，作为音源播放。",
+      "属 Media/Audio 扩展；导入器只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Sound Module Plugin` (runtime `SoundMod`, importer `SoundModImporter`).",
+      "It supports playing ProTracker (MOD), Scream Tracker 3 (S3M), Fast Tracker II (XM), and Impulse Tracker (IT) files.",
+      "Import .mod/.s3m/.xm/.it tracker music to play as a sound source.",
+      "It is a Media/Audio extension; the importer goes to Editor targets only."
+    ],
+    "note_cn": "播放 MOD/S3M/XM/IT 追踪器音乐文件。",
+    "note_en": "Plays MOD/S3M/XM/IT tracker music files."
+  },
+  {
+    "slug": "sound-utilities",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Sound Utilities`（运行时 `SoundUtilities`，编辑器 `SoundUtilitiesEditor`）。",
+      "它提供各种音频相关的蓝图函数、对象与实用程序。",
+      "在蓝图里用其节点做音频处理/计算（如频率、包络等）。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Sound Utilities` (runtime `SoundUtilities`, editor `SoundUtilitiesEditor`).",
+      "It provides various audio-related Blueprint functions, objects, and utilities.",
+      "Use its nodes in Blueprint for audio processing/math (e.g. frequency, envelope).",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "音频相关的蓝图函数/对象/工具。",
+    "note_en": "Audio-related Blueprint functions/objects/utilities."
+  },
+  {
+    "slug": "soundfields",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SoundFields`（模块 `SoundFields`）。",
+      "它提供各种基本音频 SoundFields 解决方案（体积内的声场处理）。",
+      "在关卡布置 Sound Field 体积，对区域内声音做统一处理（混响/滤波等）。",
+      "属音频扩展；运行时模块可进包。"
+    ],
+    "en_steps": [
+      "Enable `SoundFields` (module `SoundFields`).",
+      "It provides various basic audio SoundFields solutions (sound-field processing within volumes).",
+      "Place Sound Field volumes in the level to apply unified processing (reverb/filtering, etc.) to a region.",
+      "It is an audio extension; runtime modules can ship."
+    ],
+    "note_cn": "基本音频 SoundFields（体积内声场处理）。",
+    "note_en": "Basic audio SoundFields (in-volume sound-field processing)."
+  },
+  {
+    "slug": "soundscape-plugin",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Soundscape Plugin`（运行时 `Soundscape`，编辑器 `SoundscapeEditor`）。",
+      "它是动态环境音响系统（按环境/时间/状态变化的环境音）。",
+      "在关卡配置 Soundscape，随环境条件动态混合背景/环境声。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Soundscape Plugin` (runtime `Soundscape`, editor `SoundscapeEditor`).",
+      "It is a dynamic ambient sound system (ambient audio that changes with environment/time/state).",
+      "Configure a Soundscape in the level to dynamically blend background/ambient sound by conditions.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "动态环境音响系统（随环境变化的环境音）。",
+    "note_en": "A dynamic ambient sound system (environment-reactive ambient audio)."
+  },
+  {
+    "slug": "spatialization",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Spatialization`（运行时 `Spatialization`，编辑器 `SpatializationEditor`）。",
+      "它提供各种基本的音频空间化解决方案（声源位置/朝向的空间定位）。",
+      "在音频设置里选其空间化方案，对 3D 声源做空间定位。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Spatialization` (runtime `Spatialization`, editor `SpatializationEditor`).",
+      "It provides various basic audio spatialization solutions (position/orientation of sound sources in space).",
+      "Select its spatialization scheme in audio settings to place 3D sound sources.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "基本音频空间化方案（3D 声源定位）。",
+    "note_en": "Basic audio spatialization solutions (3D source positioning)."
+  },
+  {
+    "slug": "spatially-aware-retarget-ops",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Spatially Aware Retarget Ops`（模块 `RelativeIKOp`、`RelativeBodyAnimInfo`、`BodyIntersectIKOp`、`SpatialRetargetUtils`、`ProximityIKOp` 等）。",
+      "它是一组重定向操作，用于在重定向动画上保留空间关系（如手与环境/物体的相对位置）。",
+      "在 IK Rig/重定向里用这些 Op 保持角色与环境的相对接触/距离。",
+      "Experimental：接口可能变动；用于高质量重定向。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Spatially Aware Retarget Ops` (modules `RelativeIKOp`, `RelativeBodyAnimInfo`, `BodyIntersectIKOp`, `SpatialRetargetUtils`, `ProximityIKOp`, etc.).",
+      "It is a set of retarget operations that preserve spatial relationships on retargeted animations (e.g. hand relative to environment/objects).",
+      "Use these Ops in IK Rig/retargeting to maintain relative contact/distance with the environment.",
+      "Experimental: contract may change; for high-quality retargeting."
+    ],
+    "note_cn": "保留空间关系的重定向操作集合，实验性。",
+    "note_en": "Retarget operations preserving spatial relationships, experimental."
+  },
+  {
+    "slug": "spatialreadiness",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SpatialReadiness`（模块 `SpatialReadiness`）。",
+      "它提供空间就绪相关能力（插件无官方描述，按源码/用途使用）。",
+      "按项目需求在空间/定位相关流程里接入。",
+      "属功能模块；具体 API 以源码为准。"
+    ],
+    "en_steps": [
+      "Enable `SpatialReadiness` (module `SpatialReadiness`).",
+      "It provides spatial-readiness capability (the plugin has no official description; follow source/usage).",
+      "Integrate it into spatial/positioning-related flows per project needs.",
+      "It is a feature module; treat source as the API source of truth."
+    ],
+    "note_cn": "空间就绪相关能力（无官方描述，按源码使用）。",
+    "note_en": "Spatial-readiness capability (no official description; follow source)."
+  },
+  {
+    "slug": "speedtree-importer",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用编辑器插件 `SpeedTree Importer`（模块 `SpeedTreeImporter`）。",
+      "它导入 SpeedTree 运行时文件（.srt）为引擎植被/网格。",
+      "把 SpeedTree 资产导入引擎，用于植被渲染。",
+      "这是编辑器/开发者插件，只进 Editor Target，不进 Shipping。"
+    ],
+    "en_steps": [
+      "Enable the editor plugin `SpeedTree Importer` (module `SpeedTreeImporter`).",
+      "It imports SpeedTree runtime files (.srt) into engine vegetation/meshes.",
+      "Import SpeedTree assets into the engine for vegetation rendering.",
+      "It is an editor/developer plugin for Editor targets only; it does not ship."
+    ],
+    "note_cn": "导入 SpeedTree 运行时文件(.srt)为植被。",
+    "note_en": "Imports SpeedTree runtime files (.srt) as vegetation."
+  },
+  {
+    "slug": "sqlite-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SQLite Support`（模块 `SQLiteSupport`）。",
+      "它提供 SQLite 数据库支持（在引擎里使用 SQLite）。",
+      "在需要本地数据库存储/查询的场景里用其接口建库/读写表。",
+      "属数据库扩展；运行时模块可进包。"
+    ],
+    "en_steps": [
+      "Enable `SQLite Support` (module `SQLiteSupport`).",
+      "It provides SQLite database support (using SQLite in the engine).",
+      "For local DB storage/query needs, use its API to create databases and read/write tables.",
+      "It is a database extension; runtime modules can ship."
+    ],
+    "note_cn": "在引擎里使用 SQLite 数据库的支持。",
+    "note_en": "SQLite database support for use in the engine."
+  },
+  {
+    "slug": "sqlite",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `SQLite`（模块 `SQLiteCore`）。",
+      "它提供用于创建和操作 SQLite 数据库的轻量级 C++ 包装器（基于 sqlite C 库）。",
+      "在 C++ 里用其接口直接操作 SQLite；注意许可证（见 SQLite_v3.47.1.license）。",
+      "属数据库底层；写 DB 逻辑时依赖它。"
+    ],
+    "en_steps": [
+      "Enable `SQLite` (module `SQLiteCore`).",
+      "It provides a lightweight C++ wrapper to create and operate SQLite databases (using the sqlite C library).",
+      "Operate SQLite directly from C++ via its API; mind the license (see SQLite_v3.47.1.license).",
+      "It is a database base layer; depend on it when writing DB logic."
+    ],
+    "note_cn": "创建/操作 SQLite 数据库的轻量 C++ 包装器。",
+    "note_en": "A lightweight C++ wrapper to create/operate SQLite databases."
+  }
+]

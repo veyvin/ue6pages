@@ -1,0 +1,304 @@
+[
+  {
+    "slug": "field-system",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Field System`（编辑器模块 `FieldSystemEditor`）。运行时场求解在引擎模块 `FieldSystemEngine`，游戏 `Build.cs` 依赖后者而不是把 Editor 模块打进包装。",
+      "先有 Chaos `Geometry Collection`：静态网格转成几何集合资产并放进关卡。再从 Place Actors 拖入 `Field System Actor`（`AFieldSystemActor` / `UFieldSystemComponent`）。",
+      "在场 Actor 的 Construction 里组解析树：例如 `Radial Falloff` 包 `Radial Vector` 或 `Uniform Vector`，外层再套 `Culling Field`；意图选 `Strain`、`Dynamic State`、`Linear Force` 等，对准破碎件而不是普通 Static Mesh。",
+      "把几何集合的 `Object Type` 设为可模拟，PIE 里走进场半径应看到外力/应变；没有反应时检查场 Intent、Falloff 半径是否包住聚类，以及是否启用了 Chaos 破坏。",
+      "蓝图节点 `Apply Strain` / `Apply Physics Field` / `Apply Linear Force` 可在运行时往同一 `UFieldSystemComponent` 喂场；编辑器里的场可视化只来自 `FieldSystemEditor`。",
+      "`FieldSystemEditor` 只进 `*Editor.Build.cs`。接口标 Experimental，场节点图可能随夜构建改名。"
+    ],
+    "en_steps": [
+      "Enable experimental `Field System` (editor module `FieldSystemEditor`). Runtime evaluation lives in engine module `FieldSystemEngine` — game `Build.cs` depends on that, not the editor module.",
+      "Convert a static mesh to a Chaos `Geometry Collection` and place it. Then drop a `Field System Actor` (`AFieldSystemActor` / `UFieldSystemComponent`) from Place Actors.",
+      "Build a construction graph: e.g. `Radial Falloff` wrapping `Radial Vector` or `Uniform Vector`, optionally inside a `Culling Field`. Set intent to `Strain`, `Dynamic State`, or `Linear Force` aimed at fractured pieces, not a regular Static Mesh.",
+      "Set the collection to simulated and PIE-walk into the radius; you should see force/strain. If nothing happens, check intent, falloff radius vs. clusters, and that Chaos destruction is on.",
+      "Blueprint `Apply Strain` / `Apply Physics Field` / `Apply Linear Force` can feed the same `UFieldSystemComponent` at runtime. Viewport field gizmos come only from `FieldSystemEditor`.",
+      "Keep `FieldSystemEditor` in `*Editor.Build.cs` only. Experimental — field node names can change on nightlies."
+    ],
+    "note_cn": "给几何集合喂解析场，不是体积雾，也不是普通力场组件替代品。",
+    "note_en": "Analytic fields for geometry collections, not volume fog and not a generic force-component stand-in."
+  },
+  {
+    "slug": "file-logging-analytics-provider",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `File Logging Analytics Provider`（模块 `FileLogging`）。它实现 `IAnalyticsProvider`，把 `RecordEvent` 写到本机文件，不连 Adjust / ET / Swrve。",
+      "在 `Config/DefaultEngine.ini` 的 `[Analytics]` 设置 `ProviderModuleName=FileLogging`（可再配 `FileLogging` 段指定目录）。未写 Provider 时 `UAnalyticsBlueprintLibrary` 的调用会 silently 丢掉。",
+      "开局调用 `Start Session`，玩法处 `Record Event` / `Record Event with Attributes`，退出 `End Session` 并 `Flush Events`。C++ 走 `FAnalytics::Get().GetDefaultConfiguredProvider()`。",
+      "PIE 后打开项目 `Saved/Analytics`（或配置的路径）核对 JSON/日志行是否带上事件名与属性；多会话应生成新文件或追加，而不是空目录。",
+      "Shipping 前换成真实 Provider；本模块可进包但只适合本地调试。游戏 `Build.cs` 一般只依赖 `Analytics` / `AnalyticsBlueprintLibrary`，不必直接链 `FileLogging`。"
+    ],
+    "en_steps": [
+      "Enable `File Logging Analytics Provider` (module `FileLogging`). It implements `IAnalyticsProvider` and writes `RecordEvent` to disk — not Adjust, ET, or Swrve.",
+      "In `Config/DefaultEngine.ini` under `[Analytics]` set `ProviderModuleName=FileLogging` (optional `[FileLogging]` path). Without a Provider, `UAnalyticsBlueprintLibrary` calls drop silently.",
+      "Call `Start Session` at boot, `Record Event` / `Record Event with Attributes` in gameplay, then `End Session` and `Flush Events`. C++ uses `FAnalytics::Get().GetDefaultConfiguredProvider()`.",
+      "After PIE, inspect `Saved/Analytics` (or your configured folder) for JSON/log lines with event names and attributes. New sessions should create or append files, not leave the folder empty.",
+      "Swap to a real provider before shipping. This module can cook but is for local debug. Game `Build.cs` usually depends on `Analytics` / `AnalyticsBlueprintLibrary`, not `FileLogging` directly."
+    ],
+    "note_cn": "磁盘落盘的 Analytics 后端，不是通用日志 `UE_LOG`。",
+    "note_en": "Disk-backed Analytics provider, not a general `UE_LOG` logger."
+  },
+  {
+    "slug": "file-sandbox",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用开发者插件 `File Sandbox`（`FileSandboxCore` + `FileSandboxUI`）并重启。它给编辑器套一层可重定向的 `IPlatformFile`，不是运行时 VFS。",
+      "用 `FileSandboxUI` 指定沙盒根目录（独立于工程 `Content/`）。之后经沙盒 API 的读写作到该根下，避免实验工具直接改工程资产。",
+      "编辑器工具模块依赖 `FileSandboxCore`，通过沙盒文件系统打开/保存临时包、导出缓存；不要对 `GFileManager` 的全局根做假设。",
+      "验证：在沙盒里新建/改文件后，工程 `Content` 与源码控制应保持干净，文件只出现在沙盒根。退出或关闭沙盒后，工具不得再写项目目录。",
+      "`FileSandboxUI` 与 `FileSandboxCore` 都不要进 Game Target；Shipping 包没有这套编辑器隔离。"
+    ],
+    "en_steps": [
+      "Enable developer plugin `File Sandbox` (`FileSandboxCore` + `FileSandboxUI`) and restart. It wraps editor I/O in a redirectable `IPlatformFile`, not a runtime VFS.",
+      "Use `FileSandboxUI` to pick a sandbox root outside project `Content/`. Sandbox API reads/writes land there so experimental tools do not mutate project assets.",
+      "Editor tool modules depend on `FileSandboxCore` and open/save temp packages or export caches through that filesystem; do not assume `GFileManager`’s global root.",
+      "Verify: files created in the sandbox appear only under the sandbox root; `Content` and source control stay clean. After closing the sandbox, tools must not write the project tree.",
+      "Keep `FileSandboxUI` and `FileSandboxCore` off Game targets; shipping builds have no editor isolation layer."
+    ],
+    "note_cn": "编辑器写盘隔离层，不是 Pak/IoStore 沙盒，也不是内容浏览器过滤器。",
+    "note_en": "Editor write isolation, not Pak/IoStore sandboxing and not a Content Browser filter."
+  },
+  {
+    "slug": "file-system-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `File System Toolset`（`FileSystemToolset`，测试 `FileSystemToolsetTests`），并打开 `Toolset Registry` / 编辑器 AI（MCP）会话。",
+      "助手应列出读文件、写文本、HTTPS 下载等工具；在对话里让它读取工程内一个已知文本路径，确认返回内容而不是通用「搜索 Details」。",
+      "写文本只应落在工具允许的工作区路径；让它改一个临时 `.txt` 后用资源管理器核对，不要授权整个磁盘根。",
+      "HTTPS 下载用于拉公开文档/清单，检查输出日志里的 URL 与落地文件；证书失败时看引擎 HTTP 模块，不是蓝图组件。",
+      "`FileSystemToolsetTests` 只在自动化里跑。不要把 `FileSystemToolset` 写进游戏 `Build.cs`；Shipping 不需要 AI 读盘工具。"
+    ],
+    "en_steps": [
+      "Enable experimental `File System Toolset` (`FileSystemToolset`, tests `FileSystemToolsetTests`) and open `Toolset Registry` / an editor AI (MCP) session.",
+      "The assistant should list read-file, write-text, and HTTPS-download tools. Ask it to read a known in-project text path and confirm the contents — not a generic Details search.",
+      "Writes must stay inside allowed workspace paths. Have it patch a temp `.txt` and verify on disk; do not grant the whole drive root.",
+      "Use HTTPS download for a public doc/manifest; check Output Log URL and the saved file. Cert failures are the engine HTTP stack, not a Blueprint component.",
+      "Run `FileSystemToolsetTests` only under automation. Do not add `FileSystemToolset` to a game `Build.cs`; shipping games do not need AI disk tools."
+    ],
+    "note_cn": "给编辑器 AI 的读写/下载工具，不是 `IFileManager` 游戏存档 API。",
+    "note_en": "Editor-AI read/write/download tools, not `IFileManager` save-game APIs."
+  },
+  {
+    "slug": "firebase",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Firebase`（模块 `Firebase`）。它走 Firebase Cloud Messaging 远程推送，不是 Analytics 也不是 Firestore 全套 SDK。",
+      "Android 把 `google-services.json` 放到项目 Android 构建目录并在 UPL/Gradle 里让插件读到；iOS 放入 `GoogleService-Info.plist`。控制台打开 Cloud Messaging。",
+      "打包到真机，启动后向 Firebase 注册并拿到设备 token（看 Output Log / 插件回调）。用 Firebase 控制台发一条测试通知，应用在后台时应弹出系统通知。",
+      "前台/点击通知的处理写在游戏模块对 `Firebase` 的回调里（打开指定关卡、深链）；不要在蓝图里找「Firebase 组件」当 Actor 挂件。",
+      "游戏 `Build.cs` 仅在移动目标依赖 `Firebase`。桌面 PIE 收不到 FCM；凭证填错会注册失败而不是静默启用。"
+    ],
+    "en_steps": [
+      "Enable `Firebase` (module `Firebase`). It is Firebase Cloud Messaging for remote notifications — not Analytics and not the full Firestore SDK.",
+      "Place Android `google-services.json` where the Android build/UPL/Gradle can see it, and `GoogleService-Info.plist` on iOS. Turn on Cloud Messaging in the Firebase console.",
+      "Ship to a device, register, and capture the FCM token (Output Log / plugin callback). Send a test message from the console; a backgrounded app should show a system notification.",
+      "Handle foreground/tap payloads in game-module callbacks (open a map, deep link). There is no `Firebase` actor component to drop in the level.",
+      "Depend on `Firebase` only on mobile game targets. Desktop PIE will not receive FCM; bad credentials fail registration rather than silently working."
+    ],
+    "note_cn": "移动端远程通知桥，不是通用后端 BaaS 插件。",
+    "note_en": "Mobile remote-notification bridge, not a full Firebase BaaS plugin."
+  },
+  {
+    "slug": "flac-audio-decoder-for-electra",
+    "kind": "plugin",
+    "cn_steps": [
+      "同时启用 `Electra Player` 与 `FLAC audio decoder for Electra`（模块 `FlacDecoderElectra`）后重启。本插件只向 Electra 注册 FLAC 解码器，不新建播放器窗口。",
+      "准备 `.flac`（或容器内 FLAC 音轨）。创建 `File Media Source` 指向该文件，再创建 `Media Player`，播放器后端选 Electra 而不是 WMF/`Android Media`。",
+      "把 `Media Texture` 可省略（纯音频）；用 `Media Sound Component` 或 Media Player 的音轨输出监听。蓝图 `Open Source` → `Play`。",
+      "Output Log 应出现 Electra 挂上 `FlacDecoderElectra`；若提示 codec 不支持，确认 Player 不是 WMF，且文件确实是 FLAC 而非 ALAC/Opus。",
+      "游戏 `Build.cs` 通常不必直接依赖 `FlacDecoderElectra`；插件启用后 Electra 工厂会加载它。不要把它当成 `Audio Mixer` 的解码器去播 `USoundWave`。"
+    ],
+    "en_steps": [
+      "Enable both `Electra Player` and `FLAC audio decoder for Electra` (module `FlacDecoderElectra`) and restart. The plugin only registers a FLAC decoder with Electra — no new player UI.",
+      "Point a `File Media Source` at a `.flac` (or a container with a FLAC track). Create a `Media Player` and select Electra, not WMF/`Android Media`.",
+      "Skip `Media Texture` for audio-only; listen via `Media Sound Component` or the player’s audio bus. Blueprint: `Open Source` then `Play`.",
+      "Output Log should show Electra attaching `FlacDecoderElectra`. If the codec is unsupported, the player is probably WMF, or the file is ALAC/Opus rather than FLAC.",
+      "Game `Build.cs` usually need not list `FlacDecoderElectra`; Electra’s factory loads it when the plugin is on. It does not decode `USoundWave` through Audio Mixer."
+    ],
+    "note_cn": "Electra 的 FLAC 编解码后端，不是 Sound Cue / MetaSound 解码器。",
+    "note_en": "Electra FLAC codec backend, not a Sound Cue / MetaSound decoder."
+  },
+  {
+    "slug": "floating-properties",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Floating Properties`（模块 `FloatingProperties`）并重启。它把 Details 里钉住的属性画在活动视口上，不是新的属性编辑器。",
+      "选中关卡 Actor，在 Details 属性旁使用钉到视口 / floating 控件（插件提供的 pin）。视口应出现可拖动的浮动行，改数值应与 Details 双向同步并可撤销。",
+      "切到正交/透视视口验证 overlay 跟的是「活动视口」；切换所选 Actor 时浮动条应换成新对象属性，而不是残留上一个。",
+      "适合调灯光强度、变换、VP 场景参数时不离开视口。不要把 `FloatingProperties` 加进游戏 `Build.cs`。",
+      "Experimental：钉住状态可能不进版本控制；Shipping 包没有视口 overlay。"
+    ],
+    "en_steps": [
+      "Enable experimental `Floating Properties` (module `FloatingProperties`) and restart. It draws pinned Details rows on the active viewport — it is not a second property editor.",
+      "Select a level actor and pin a Details property to the viewport via the plugin’s pin control. A draggable overlay row should appear; edits sync both ways with Details and undo.",
+      "Confirm the overlay follows the *active* viewport (ortho vs. perspective). Changing selection should swap the floating rows, not leave the previous object’s properties.",
+      "Use it to tweak light intensity, transforms, or VP scene values without leaving the viewport. Do not add `FloatingProperties` to a game `Build.cs`.",
+      "Experimental: pin state may not be source-controlled. Shipping builds have no viewport overlay."
+    ],
+    "note_cn": "视口上的 Details 钉钉条，不是 Runtime 调试 HUD。",
+    "note_en": "Pinned Details rows on the viewport, not a runtime debug HUD."
+  },
+  {
+    "slug": "flow-production-tracking",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Flow Production Tracking`（模块 `Shotgrid`，描述符仍是 `Shotgrid.uplugin`）。这是 Autodesk Flow（原 Shotgun/ShotGrid）的编辑器集成，不是运行时在线子系统。",
+      "安装/配置 Flow Python Toolkit（`tk-unreal`）与站点 URL、脚本密钥或 SSO。编辑器启动后用插件登录 Flow 项目，而不是在关卡里放组件。",
+      "从 Flow 面板 Load 当前 Shot 对应的 Unreal 工程/关卡；完成镜头后 Publish 网格、关卡或 Sequencer 资产，任务状态应回到 Flow 网页。",
+      "核对 Publish 版本号、路径模板与 Toolkit schema 一致；失败先看 Output Log 里 Shotgun/Flow API 错误和 Python 引擎是否加载 `tk-unreal`。",
+      "只给制片管线用：`Shotgrid` 不要进游戏 Target。凭证放在本机 Toolkit 配置，不要写进要提交的 `DefaultEngine.ini`。"
+    ],
+    "en_steps": [
+      "Enable experimental `Flow Production Tracking` (module `Shotgrid`, descriptor still `Shotgrid.uplugin`). It is Autodesk Flow (formerly Shotgun/ShotGrid) for the editor, not a runtime online subsystem.",
+      "Install/configure the Flow Python Toolkit (`tk-unreal`) with site URL and script key or SSO. Log into the Flow project from the editor plugin — do not place a level component.",
+      "Load the Unreal map for the current shot from the Flow panel; after the shot, Publish meshes, levels, or Sequencer assets and confirm the version appears on the Flow web task.",
+      "Publish paths must match the Toolkit schema. On failure, read Shotgun/Flow API errors in the Output Log and confirm `tk-unreal` loaded in the Python engine.",
+      "Pipeline-only: keep `Shotgrid` off game targets. Store credentials in local Toolkit config, not in a committed `DefaultEngine.ini`."
+    ],
+    "note_cn": "ShotGrid/Flow 制片登录与 Publish，不是过场动画工具。",
+    "note_en": "ShotGrid/Flow login and publish, not a cinematic authoring tool."
+  },
+  {
+    "slug": "fracture",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Fracture`（模块 `FractureEngine`），并保持 Chaos 几何集合 / Fracture Editor 相关插件开启。本模块给断裂编辑器提供引擎侧切割与聚类，不是单独的「破碎组件」面板。",
+      "选中静态网格，生成 `Geometry Collection` 资产并替换关卡里的网格。切到 `Fracture` 模式（模式工具栏），用 Uniform / Cluster / Slice / Plane 切块。",
+      "调 `Num Voronoi Sites`、最小体积、嵌入与聚类层次后 `Fracture`；视口应看到彩色碎块。保存几何集合资产，否则 PIE 仍是未切的整体。",
+      "把集合 `Object Type` 设为模拟，加场或碰撞触发应变；PIE 中应沿预切面裂开。运行时依赖 Chaos / `GeometryCollectionEngine`，`FractureEngine` 主要服务编辑器切分结果。",
+      "不要把 `FractureEngine` 误当成 Apex Destruction。编辑器切分数据写在几何集合资产里，Shipping 播的是已切好的集合，不是 Fracture 模式 UI。"
+    ],
+    "en_steps": [
+      "Enable experimental `Fracture` (module `FractureEngine`) and keep Chaos geometry-collection / Fracture Editor plugins on. This module supplies engine-side cut/cluster for the Fracture editor — not a standalone “break component” panel.",
+      "Select a static mesh, create a `Geometry Collection` asset, and swap it into the level. Enter `Fracture` mode and cut with Uniform / Cluster / Slice / Plane.",
+      "Tune Voronoi site count, min volume, embed, and cluster hierarchy, then Fracture. Colored pieces should appear; save the collection or PIE still uses the uncut solid.",
+      "Set object type to simulated and trigger strain via a field or impact; PIE should split along the pre-cut faces. Runtime uses Chaos / `GeometryCollectionEngine`; `FractureEngine` mainly authors the cuts.",
+      "This is not Apex Destruction. Cut data lives on the geometry collection; shipping plays the authored collection, not the Fracture-mode UI."
+    ],
+    "note_cn": "几何集合的预切编辑器后端，不是运行时随机碎裂求解器。",
+    "note_en": "Authoring backend for pre-cut geometry collections, not a runtime random-shatter solver."
+  },
+  {
+    "slug": "full-body-ik",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Full Body IK`（模块 `FullBodyIK` 与 `PBIK`）。这是动画图 / Control Rig 的全身 IK 求解器，不是角色组件。",
+      "打开骨架的 `AnimBP`，在 AnimGraph 加入 `Full Body IK`（PBIK）节点，接在输出 Pose 前。指定 Root、解算迭代次数，并为手/脚/头添加 Effector（骨名 + `Transform` 目标）。",
+      "用脚效应器对地面、手对道具；PIE 或预览网格上应看到整条链（脊柱、骨盆）补偿，而不是只有末端骨旋转。权重过大导致抖动时降低 Alpha 或加约束。",
+      "Control Rig 里同样有 `PBIK` 节点，适合绑定层；运行时角色通常用 AnimBP 节点。旧 `FullBodyIK` 节点与 `PBIK` 并存，新项目优先 PBIK。",
+      "游戏 `Build.cs` 依赖 `PBIK`（需要旧求解器再加 `FullBodyIK`）。不要把本插件当物理资产（Physics Asset）替代。"
+    ],
+    "en_steps": [
+      "Enable experimental `Full Body IK` (modules `FullBodyIK` and `PBIK`). It is a full-body IK solver for AnimGraph / Control Rig, not a character component.",
+      "In the skeleton’s `AnimBP`, add a `Full Body IK` (PBIK) node before Output Pose. Set the root, iteration count, and effectors (bone name + target `Transform`) for hands/feet/head.",
+      "Drive foot effectors to the floor and hands to props. Preview/PIE should show spine/pelvis compensation, not just end-bone rotation. If it jitters, lower alpha or add constraints.",
+      "Control Rig also has a `PBIK` node for rigs; runtime characters usually use the AnimBP node. Legacy `FullBodyIK` coexists — prefer PBIK on new work.",
+      "Game `Build.cs` depends on `PBIK` (add `FullBodyIK` only if you still call the old solver). This plugin does not replace a Physics Asset."
+    ],
+    "note_cn": "PBIK 全身 IK 节点，不是 Two Bone IK，也不是物理布娃娃。",
+    "note_en": "PBIK full-body node, not Two Bone IK and not a physics ragdoll."
+  },
+  {
+    "slug": "functional-testing-editor",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Functional Testing Editor`（模块 `FunctionalTestingEditor`）。它给 `AFunctionalTest` / Screenshot 等功能测试补编辑器放置、细节定制与会话集成，运行时测试框架仍是 `FunctionalTesting`。",
+      "在测试关卡放置 `Functional Test` Actor（或派生），填 `Test Label`、准备/完成延迟、成功条件（例如 Actor 到达、查询通过）。",
+      "用编辑器扩展设截图对比基准、选中测试 Actor 的细节定制；不要把测试逻辑写在普通关卡蓝图 Event BeginPlay 里却从不 `Finish Test`。",
+      "打开 Session Frontend → Automation，过滤 `Functional` 或你的测试名，PIE/编辑器会话跑用例。失败看 Message Log 与截图 diff，而不是游戏 HUD。",
+      "`FunctionalTestingEditor` 只进 Editor Target；CI 用 `-ExecCmds=\"Automation RunTests ...\"`。Shipping 客户端不要依赖本插件。"
+    ],
+    "en_steps": [
+      "Enable `Functional Testing Editor` (module `FunctionalTestingEditor`). It adds placement, Details customization, and session integration for `AFunctionalTest` / screenshot tests; the runtime harness remains `FunctionalTesting`.",
+      "Place a `Functional Test` actor (or subclass) in a test map. Set `Test Label`, prepare/finish delays, and success conditions (actor reached, query passed).",
+      "Use the editor extras for screenshot baselines and test-actor Details. Do not put test logic only in level BeginPlay without ever calling `Finish Test`.",
+      "In Session Frontend → Automation, filter `Functional` or your test name and run in PIE/editor. Failures show in Message Log and screenshot diffs, not the game HUD.",
+      "`FunctionalTestingEditor` is Editor-target only. CI uses `-ExecCmds=\"Automation RunTests ...\"`. Do not depend on this plugin in a shipping client."
+    ],
+    "note_cn": "功能测试的编辑器壳，真正的 `AFunctionalTest` API 在 `FunctionalTesting`。",
+    "note_en": "Editor shell for functional tests; `AFunctionalTest` APIs live in `FunctionalTesting`."
+  },
+  {
+    "slug": "game-features-tests",
+    "kind": "plugin",
+    "cn_steps": [
+      "这是 `Game Features` 的 `TestConfig` 同伴插件（模块 `GameFeaturesTests`），用于跑 GFP 加载/激活自动化，不是给玩家开的功能包。",
+      "同时启用 `Game Features`。用 Session Frontend 或 `Automation RunTests` 过滤 `GameFeatures` / `GameFeaturesTests` 相关用例。",
+      "测试会装载临时 Game Feature 插件、检查 `UGameFeaturesSubsystem` 状态机（Registered → Loaded → Active）再卸载；失败时看哪一步 Status 卡住。",
+      "不要把本插件列进项目默认启用列表给 Shipping；仅 Editor/Program 测试目标加载。",
+      "写自己的 GFP 测试时参考这些用例如何创建 `UGameFeatureData` 与 Action，而不是复制到游戏模块。"
+    ],
+    "en_steps": [
+      "This is the `TestConfig` companion for `Game Features` (module `GameFeaturesTests`): automation for GFP load/activate, not a player-facing feature pack.",
+      "Keep `Game Features` enabled. In Session Frontend or `Automation RunTests`, filter `GameFeatures` / `GameFeaturesTests`.",
+      "Tests mount a temporary Game Feature plugin, walk `UGameFeaturesSubsystem` (Registered → Loaded → Active), then unload. Failures usually stick on one of those states.",
+      "Do not enable this plugin by default in shipping projects; load it only on Editor/Program test targets.",
+      "When writing your own GFP tests, copy how these cases build `UGameFeatureData` and actions — do not ship the test module in the game."
+    ],
+    "note_cn": "GameFeatures 的自动化同伴，不会给项目增加可玩功能。",
+    "note_en": "Automation companion for GameFeatures; it does not add playable features."
+  },
+  {
+    "slug": "game-features-toolset",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用实验性 `Game Features Toolset`（模块 `GameFeaturesToolset`），并打开 `Toolset Registry` / 编辑器 AI；同时保持 `Game Features` 开启。",
+      "助手应出现列出、检查、创建 Game Feature Plugin 的工具。让它列出当前已注册 GFP，对照 `UGameFeaturesSubsystem` 或插件目录，而不是打开空白关卡。",
+      "用「创建」工具生成一个最小 GFP（含 `UGameFeatureData`）；内容浏览器/`Plugins` 目录应出现新插件，状态为 Registered 或可 Load。",
+      "再让助手 Inspect 该 GFP 的 Actions（加组件、数据包等）。创建失败时看路径是否落在允许的 Plugins 目录、以及 GameFeatures 是否启用。",
+      "不要把 `GameFeaturesToolset` 打进游戏包；它只替 AI 改工程插件树。"
+    ],
+    "en_steps": [
+      "Enable experimental `Game Features Toolset` (module `GameFeaturesToolset`) plus `Toolset Registry` / editor AI, and keep `Game Features` on.",
+      "The assistant should expose list/inspect/create Game Feature Plugin tools. Ask it to list registered GFPs and compare with `UGameFeaturesSubsystem` or the Plugins folder — not an empty map.",
+      "Use create to scaffold a minimal GFP (with `UGameFeatureData`). A new plugin should appear under `Plugins` and show Registered or loadable.",
+      "Inspect its Actions (add component, data packs). If create fails, check the target Plugins path and that GameFeatures is enabled.",
+      "Do not cook `GameFeaturesToolset` into the game; it only lets the AI mutate the project plugin tree."
+    ],
+    "note_cn": "AI 侧的 GFP 增删查，真正加载激活仍走 `GameFeatures` 子系统。",
+    "note_en": "AI list/inspect/create for GFPs; load/activate still goes through the `GameFeatures` subsystem."
+  },
+  {
+    "slug": "game-features",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Game Features`（运行时 `GameFeatures`，编辑器 `GameFeaturesEditor`）。它管理可热加载的模块化 `Game Feature Plugin`（GFP）。",
+      "用编辑器向导或在 `Plugins/` 下建 GFP：主资产 `UGameFeatureData`，在 Actions 里加 `Add Cheats`、`Add Components`、Data Registry、World Partition Data Layer 等。",
+      "默认状态在 `DefaultGame.ini` / GameFeature 插件列表里设为 Registered、Loaded 或 Active。运行时用 `UGameFeaturesSubsystem` 的 `LoadGameFeaturePlugin` / `ChangeGameFeatureTargetState` 切到 `Active`。",
+      "PIE 验证：激活后 Action 声明的组件应出现在目标 Actor 上，停用后应卸下。依赖未加载的 GFP 会导致 Action 空跑。",
+      "游戏模块 `Build.cs` 只加 `GameFeatures`；`GameFeaturesEditor` 仅 `*Editor.Build.cs`。每个可玩 DLC/季节内容一个 GFP，不要把所有玩法塞进同一个 Feature Data。"
+    ],
+    "en_steps": [
+      "Enable `Game Features` (runtime `GameFeatures`, editor `GameFeaturesEditor`). It manages hot-loadable modular Game Feature Plugins (GFPs).",
+      "Create a GFP via the editor wizard or under `Plugins/`. The primary asset is `UGameFeatureData`; add Actions such as `Add Cheats`, `Add Components`, Data Registry, or World Partition Data Layers.",
+      "Set default state in `DefaultGame.ini` / the Game Feature list (Registered, Loaded, or Active). At runtime call `UGameFeaturesSubsystem` `LoadGameFeaturePlugin` / `ChangeGameFeatureTargetState` toward `Active`.",
+      "In PIE, components declared by Actions should appear on target actors when active and detach when deactivated. Depending on an unloaded GFP makes Actions no-ops.",
+      "Game `Build.cs` lists `GameFeatures` only; `GameFeaturesEditor` stays in `*Editor.Build.cs`. One GFP per DLC/season slice — do not dump all gameplay into a single Feature Data asset."
+    ],
+    "note_cn": "模块化功能包的加载状态机，不是 Gameplay Ability 系统本身。",
+    "note_en": "Load-state machine for modular feature packs, not the Gameplay Ability System itself."
+  },
+  {
+    "slug": "game-input-base",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Game Input Base`（运行时 `GameInputBase`，编辑器 `GameInputBaseEditor`）。它封装 Microsoft GameInput 的设备枚举与读输入，需搭配平台插件（如 `Game Input (Windows)`）才有真实设备。",
+      "Windows/GDK 目标同时启用对应平台 GameInput 插件。Enhanced Input 的 `Input Device` 后端可走 GameInput，而不是 RawInput/XInput 各写一套。",
+      "插上手柄/方向盘，PIE 看设备出现在 GameInput 设备列表（编辑器 `GameInputBaseEditor` 辅助）。`FKey` 事件应进 PlayerController / Enhanced Input Mapping Context。",
+      "振动、触摸板、方向盘轴从 GameInput 设备对象读，不要假设 XInput 的 4 手柄上限。设备被系统占用时（Game Bar、其它全屏游戏）枚举会空。",
+      "游戏 `Build.cs` 依赖 `GameInputBase`；`GameInputBaseEditor` 只进编辑器。非微软平台不会凭空冒出 GameInput 设备。"
+    ],
+    "en_steps": [
+      "Enable `Game Input Base` (runtime `GameInputBase`, editor `GameInputBaseEditor`). It wraps Microsoft GameInput device enumeration and reads; pair it with a platform plugin such as `Game Input (Windows)` for real devices.",
+      "On Windows/GDK also enable the matching GameInput platform plugin. Enhanced Input can use GameInput as the device backend instead of separate RawInput/XInput paths.",
+      "Plug in a pad/wheel and PIE: the device should list via GameInput (`GameInputBaseEditor` helps in-editor). `FKey` events should reach the PlayerController / Enhanced Input mapping context.",
+      "Read rumble, touchpad, and wheel axes from the GameInput device object; do not assume XInput’s four-pad cap. Enumeration is empty if Game Bar or another fullscreen app owns the device.",
+      "Game `Build.cs` depends on `GameInputBase`; `GameInputBaseEditor` is editor-only. Non-Microsoft platforms will not magically grow GameInput devices."
+    ],
+    "note_cn": "GameInput 设备层，不是 Enhanced Input 的 Mapping Context 编辑器。",
+    "note_en": "GameInput device layer, not the Enhanced Input mapping-context editor."
+  }
+]

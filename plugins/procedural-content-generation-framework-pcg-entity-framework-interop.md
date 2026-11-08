@@ -3,8 +3,6 @@ layout: default
 title: 程序内容生成框架 (PCG) 实体框架互操作 / Procedural Content Generation Framework (PCG) Entity Framework Interop
 ---
 
-
-
 <!-- Hero card -->
 <div class="hero">
   <div class="hero-top">
@@ -27,6 +25,47 @@ title: 程序内容生成框架 (PCG) 实体框架互操作 / Procedural Content
       <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">用于与场景图实体和 Verse 标签交互的程序内容生成框架的额外插件。</div><div class="lang-content">Extra plugin for Procedural Content Generation Framework interacting with Scene Graph entities and Verse tags.</div></div></div>
     </div>
     
+    
+
+    
+
+    
+
+    
+
+    
+
+        <div class="card role-card" id="role">
+      <div class="card-title"><span class="card-title-sep"></span>Role<span class="card-title-cn">作用</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><p>PCG 用节点图在编辑器或运行时程序化生成关卡内容：点云、变换、网格、植被与生成规则，可和景观、HLOD、Nanite 配合。</p><p>这是引擎 Plugins 目录下的官方插件，由对应 .uplugin 描述其职责。</p><p>它打包的模块包括：PCGEntityFrameworkInterop, PCGEntityFrameworkInteropEditor。运行时逻辑在非 Editor 模块里，编辑器 UI 在 *Editor 模块里。</p><p class="usage-note">参考文档：<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-overview" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-overview</a></p></div><div class="lang-content"><p>PCG is a node graph for procedural level content in editor or at runtime: point clouds, transforms, meshes, foliage, and spawn rules, working with Landscape, HLOD, and Nanite.</p><p>This is an engine plugin under Plugins/; its .uplugin states its job.</p><p>It ships these modules: PCGEntityFrameworkInterop, PCGEntityFrameworkInteropEditor. Runtime lives in non-Editor modules; UI in *Editor modules.</p><p class="usage-note">Docs: <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-overview" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-overview</a></p></div></div></div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="card usage-card" id="usage" data-usage-source="ai">
+      <style>.usage-steps{margin:0;padding-left:22px}.usage-steps li{margin-bottom:12px;line-height:1.7}.usage-steps li:last-child{margin-bottom:0}.usage-code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:var(--surface-container-highest);padding:1px 7px;border-radius:8px;word-break:break-all}.usage-note{margin-top:16px;font-size:13px;color:var(--on-surface-variant);line-height:1.6}.usage-card .desc-body .bilingual-block{margin-bottom:0}</style>
+      <div class="card-title"><span class="card-title-sep"></span>How to use<span class="card-title-cn">使用方法</span></div>
+      <div class="desc-body"><div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active"><ol class="usage-steps"><li>启用 <code class="usage-code">Procedural Content Generation Framework (PCG) Entity Framework Interop</code>（运行时 <code class="usage-code">PCGEntityFrameworkInterop</code>，编辑器 <code class="usage-code">PCGEntityFrameworkInteropEditor</code>）。</li><li>它让 PCG 与 Scene Graph 实体和 Verse 标签交互。</li><li>在 PCG 图里读写实体/Verse 标签，把程序化生成接到场景图。</li><li>属实验性 PCG 互操作；需启用 PCG。</li></ol><p class="usage-note">PCG 与 Scene Graph 实体 / Verse 标签的互操作。</p></div><div class="lang-content"><ol class="usage-steps"><li>Enable <code class="usage-code">Procedural Content Generation Framework (PCG) Entity Framework Interop</code> (runtime <code class="usage-code">PCGEntityFrameworkInterop</code>, editor <code class="usage-code">PCGEntityFrameworkInteropEditor</code>).</li><li>It lets PCG interact with Scene Graph entities and Verse tags.</li><li>Read/write entities/Verse tags from PCG graphs to hook procedural generation into the scene graph.</li><li>It is experimental PCG interop; requires PCG enabled.</li></ol><p class="usage-note">PCG interop with Scene Graph entities and Verse tags.</p></div></div></div>
+    </div>
+
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card"><div class="sidebar-card-title">Modules (2)</div><div class="module-item"><span class="dot"></span><span class="name mono">PCGEntityFrameworkInterop</span><span class="tag runtime">Runtime</span></div><div class="module-item"><span class="dot"></span><span class="name mono">PCGEntityFrameworkInteropEditor</span><span class="tag runtime">Runtime</span></div></div>

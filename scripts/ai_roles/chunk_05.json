@@ -1,0 +1,722 @@
+[
+  {
+    "slug": "movie-render-queue",
+    "kind": "plugin",
+    "cn": "电影渲染队列（Movie Render Queue）是虚幻引擎面向成片与过场的离线渲染管线，而不是编辑器视口截图。它从 Sequencer 镜头读取相机、关卡、材质与后处理，按作业输出 EXR、图像序列或 MP4，并可拆成美工需要的多 Pass。MovieRenderPipelineCore 管理队列与抗锯齿采样，RenderPasses 与 Settings 控制输出格式，Editor 提供作业界面，MP4Encoder 与 UEOpenExrRTTI 负责封装和元数据。虚拟制片与过场团队用它保证每帧曝光、色彩和分辨率一致。",
+    "en": "Movie Render Queue is Unreal’s production offline renderer for cinematics and multimedia, not a viewport screenshot tool. It evaluates Sequencer shots into anti-aliased frames, EXR sequences, or MP4, with optional beauty and auxiliary passes. MovieRenderPipelineCore owns the job graph; RenderPasses and Settings define outputs; the Editor module hosts the queue UI; MP4Encoder and UEOpenExrRTTI write containers and metadata. Virtual-production and cinematic teams rely on it for repeatable color, resolution, and sampling."
+  },
+  {
+    "slug": "movie-scene-pose-search-tracks",
+    "kind": "plugin",
+    "cn": "Movie Scene Pose Search Tracks 把 Pose Search 运动匹配接到 Sequencer 时间轴上，而不是在 AnimBP 里单独跑姿态数据库。它通过 Anim Mixer 在镜头轨道上混合、切换姿态搜索结果，让过场角色能跟着镜头节奏改步态。运行时在 MovieScenePoseSearchTracks，轨道绘制与属性面板在 MovieScenePoseSearchTracksEditor。该插件标为 Experimental，轨道接口可能随版本调整。",
+    "en": "Movie Scene Pose Search Tracks expose Pose Search as Sequencer tracks that drive an Anim Mixer, instead of leaving matching only inside Animation Blueprints. Cinematic animators can blend searched poses on the timeline so a character’s gait follows shot timing. Runtime evaluation lives in MovieScenePoseSearchTracks; track drawing and details live in MovieScenePoseSearchTracksEditor. The plugin is Experimental, so the track contract may still change."
+  },
+  {
+    "slug": "moviescenetexttrack",
+    "kind": "plugin",
+    "cn": "MovieSceneTextTrack 曾经为 Sequencer 提供独立的文本轨道，用来在时间轴上驱动字幕或屏幕文字。Epic 已把它标为弃用：同类能力并入内置的 Movie Scene Tracks，不必再单独加载这个插件。它仍打包 MovieSceneTextTrack 与 MovieSceneTextTrackEditor，只为兼容旧工程里残留的文本轨道资产。新项目应改用内置文本/字幕轨道，避免继续依赖已迁移的实现。",
+    "en": "MovieSceneTextTrack used to own Sequencer text tracks for subtitles and on-screen copy. Epic deprecated it after moving that support into the built-in Movie Scene Tracks plugin. The remaining MovieSceneTextTrack and MovieSceneTextTrackEditor modules exist so older sequences that still reference the standalone track can open. New work should use the built-in text tracks rather than this relocated implementation."
+  },
+  {
+    "slug": "mp4-iso-iec-14496-12-utilities",
+    "kind": "plugin",
+    "cn": "这组工具按 ISO/IEC 14496-12（ISO BMFF）读写 MP4 盒子，服务 Electra 与 Media Framework 的封装层，而不是给用户一个独立播放器。MP4Boxes 解析 ftyp、moov、mdat 等盒结构；MP4Muxer 把音视频样本复用成合法 MP4；MP4Utilities 提供共享辅助。编解码插件、电影渲染 MP4 输出和流媒体封装都会落到这一层。没有它，引擎很难在运行时正确拆包或写出符合标准的 MP4。",
+    "en": "These utilities implement ISO/IEC 14496-12 (ISO BMFF) box parsing and muxing for Electra and Media Framework, not a standalone movie player. MP4Boxes reads ftyp, moov, mdat and related boxes; MP4Muxer packs audio/video samples into a legal MP4; MP4Utilities shares helpers. Hardware decoders, Movie Render Queue MP4 output, and streaming containers all sit on this layer. Without it the engine cannot reliably demux or write standard MP4 at runtime."
+  },
+  {
+    "slug": "mqtt",
+    "kind": "plugin",
+    "cn": "MQTT 插件在引擎里同时提供 MQTT 客户端与代理能力，面向物联网设备与关卡里的遥测通道。MQTTCore 处理连接、主题订阅、QoS 与消息载荷；MQTTCoreEditor 暴露编辑器侧配置与调试。游戏或数字孪生可以把传感器、灯光、工业设备的主题映射到蓝图或 C++ 事件，而不必另写套接字协议。它属于 Protocols 目录下的 IoT 插件，而不是通用 HTTP 后端。",
+    "en": "The MQTT plugin ships both a broker and a client so Unreal can talk MQTT topics used by IoT devices and telemetry. MQTTCore owns connections, subscriptions, QoS, and payloads; MQTTCoreEditor exposes editor configuration and inspection. Games or digital twins can map sensor, lighting, or industrial topics onto Blueprint or C++ events without a custom socket protocol. It lives under Protocols as an IoT plugin, not a generic HTTP backend."
+  },
+  {
+    "slug": "msquic-runtime-plugin",
+    "kind": "plugin",
+    "cn": "MsQuic Runtime Plugin 把微软 MsQuic 库接到虚幻运行时，使游戏进程能走 QUIC（HTTP/3 底层传输）而不是只依赖 TCP。MsQuicRuntime 在 cooked 包里加载本机库、初始化端点并提供套接字式访问。低延迟联机、云流送或需要连接迁移的网络层可以用它承载可靠数据报。它本身不实现游戏玩法复制，只提供传输运行时。",
+    "en": "The MsQuic Runtime Plugin binds Microsoft’s MsQuic library into Unreal so a cooked game can speak QUIC instead of TCP-only sockets. MsQuicRuntime loads the native stack, starts endpoints, and exposes transport access in packaged builds. Low-latency online, cloud streaming, or connection-migration paths can ride this reliable datagram layer. It does not implement gameplay replication; it is only the QUIC runtime."
+  },
+  {
+    "slug": "multi-server-replication",
+    "kind": "plugin",
+    "cn": "Multi-server Replication 让多台虚幻专用服务器进程互相连接，把一个大世界拆到多个权威进程上。MultiServerReplication 处理跨服 Actor 与状态衔接，MultiServerConfiguration 描述服务器拓扑与分区。MMO 或超大地图可以用它避免单进程模拟整张世界。它针对服务器对服务器链路，不是客户端的多人会话 UI。",
+    "en": "Multi-server Replication connects multiple Unreal dedicated-server processes so one large world can be split across authoritative hosts. MultiServerReplication moves or bridges replicated actors between servers; MultiServerConfiguration describes topology and partitioning. MMO-scale maps use it to keep simulation off a single process. It is a server-to-server replication path, not the client multiplayer session UI."
+  },
+  {
+    "slug": "multi-user-editing",
+    "kind": "plugin",
+    "cn": "Multi-User Editing 是 Concert 的编辑器客户端，让多台编辑器加入同一会话并同步关卡与资产改动。MultiUserClient 与 MultiUserClientLibrary 负责会话加入、变更流和冲突处理；MultiUserReplicationEditor 在编辑器里检查复制对象。虚拟制片现场常用它让灯光、关卡、镜头操作员同时改同一关卡。它服务于制作管线，默认不进入 Shipping 游戏包。",
+    "en": "Multi-User Editing is the Concert editor client that joins collaborative sessions and streams level and asset edits across machines. MultiUserClient and MultiUserClientLibrary handle join, change flow, and conflicts; MultiUserReplicationEditor inspects replicated editor objects. Virtual-production floors use it so lighting, layout, and camera operators work in one level at once. It is an authoring tool and does not ship in a game by default."
+  },
+  {
+    "slug": "multi-user-server",
+    "kind": "plugin",
+    "cn": "Multi User Server 运行并可视化 Concert 多人编辑服务器，供各编辑器客户端挂接。MultiUserServer 模块托管会话、转发给客户端的操作流，并提供服务器侧状态查看。没有这台服务器，Multi-User Editing 客户端无法汇合到同一事务时间线。它属于 Developer/Concert 工具链，面向制作机房而不是玩家联机。",
+    "en": "Multi User Server hosts and visualizes the Concert multi-user server that editor clients attach to. The MultiUserServer module keeps sessions, forwards operation streams, and shows server-side state. Without this host, Multi-User Editing clients cannot share one transaction timeline. It belongs to the Developer/Concert toolchain for production machines, not player multiplayer."
+  },
+  {
+    "slug": "multicast-analytics-provider",
+    "kind": "plugin",
+    "cn": "Multicast Analytics Provider 把引擎 Analytics API 的一次调用扇出到多个后端提供程序。Gameplay 代码仍写同一套 StartSession/RecordEvent，AnalyticsMulticast 再转发给列表里的 CSV、云服务或其他 Provider。AnalyticsMulticastEditor 在项目设置里维护这份列表。发行团队用它同时打内部日志和第三方分析，而不改游戏埋点。",
+    "en": "Multicast Analytics Provider fans one Analytics API call out to several registered providers. Gameplay still records StartSession and events once; AnalyticsMulticast forwards them to CSV, cloud, or other backends on the list. AnalyticsMulticastEditor maintains that list in project settings. Live teams can hit internal logs and a third-party service together without changing instrumentation."
+  },
+  {
+    "slug": "music-environment",
+    "kind": "plugin",
+    "cn": "Music Environment 提供项目级的音乐时间源：节拍时钟、同步事件和可被音频与游戏逻辑共享的音乐状态。MusicEnvironment 在运行时驱动这些时钟；MusicEnvironmentEditor 编辑环境资产；MusicEnvironmentTests 覆盖同步行为。交互音乐、QTE 或过场可以对齐同一个拍号，而不各自解析 MIDI。它可以打进 cooked 游戏，属于 Audio 运行时而不是 Sequencer 音轨本身。",
+    "en": "Music Environment is a project-wide source of musical clocks, synchronized events, and shared musical state. MusicEnvironment runs those clocks at runtime; MusicEnvironmentEditor authors the assets; MusicEnvironmentTests cover sync behavior. Interactive music, QTE, or cinematics can lock to one meter instead of parsing MIDI separately. It can ship in a cooked game as an Audio runtime, not as Sequencer audio tracks."
+  },
+  {
+    "slug": "mutable-agent-skills",
+    "kind": "plugin",
+    "cn": "Mutable Agent Skills 把可自定义对象编辑器的脚本工具注册给编辑器内 AI 助手。代理可以通过 CustomizableObjectEditor 的 CustomizableObjectScriptingSubsystem 创建、修改 Mutable 图和参数，而不是让模型直接改二进制资产。模块只有 MutableAgentSkills，类别挂在 Mutable 工具集下。它是 Experimental Toolsets 插件，服务作者管线，不是角色换装运行时。",
+    "en": "Mutable Agent Skills registers authoring tools so an in-editor AI assistant can drive Customizable Objects. The agent uses CustomizableObjectEditor’s CustomizableObjectScriptingSubsystem to create and edit Mutable graphs and parameters instead of touching binary assets. The only module is MutableAgentSkills, filed under the Mutable toolset. It is an Experimental Toolsets plugin for the authoring pipeline, not the character-customization runtime."
+  },
+  {
+    "slug": "mutable-asset-user-data",
+    "kind": "plugin",
+    "cn": "Mutable Asset User Data 为 Mutable 资源补充 Asset User Data 类型及对应操作，让网格、贴图或骨架上能挂自定义元数据。编译自定义对象时，这些数据可以参与参数或变体选择。模块 MutableAssetUserData 体积很小，依赖核心 Mutable 插件。它标为 Experimental，接口可能随夜构建变化。",
+    "en": "Mutable Asset User Data adds Asset User Data types and operations so meshes, textures, or skeletons can carry extra metadata for Mutable. Customizable Object compilation can read that data when choosing parameters or variants. MutableAssetUserData is a small companion to the core Mutable plugin. It is Experimental, so the type contract may still change."
+  },
+  {
+    "slug": "mutable-clothing",
+    "kind": "plugin",
+    "cn": "Mutable Clothing 把布料资产接到 Mutable 自定义对象流水线，使换装生成结果仍能带 Cloth 模拟数据。角色可以在运行时组合服装块，而不丢掉布料碰撞与约束。唯一模块 MutableClothing 扩展核心 Mutable，而不是替换 Chaos Cloth。它同样是 Experimental，服装节点集可能继续演进。",
+    "en": "Mutable Clothing wires clothing assets into the Mutable Customizable Object pipeline so generated outfits keep cloth simulation data. Characters can compose garment pieces at runtime without dropping cloth collision and constraints. MutableClothing extends core Mutable; it does not replace Chaos Cloth. It is Experimental, and the clothing node set may still evolve."
+  },
+  {
+    "slug": "mutable-dataflow-extensions",
+    "kind": "plugin",
+    "cn": "Mutable Dataflow Extensions 在 Dataflow 图里加入面向 Mutable 的实验节点，试图把自定义对象操作嵌进 Dataflow。Epic 明确警告：Dataflow 尚未完整支持 Mutable，这些节点功能有限且偏手工，未来会改或弃用。唯一模块 MutableDataflowEditor 只存在于编辑器。不要把它当成稳定的程序化换装图。",
+    "en": "Mutable Dataflow Extensions add experimental Dataflow nodes that try to drive Mutable Customizable Objects from Dataflow graphs. Epic warns that Dataflow does not fully support Mutable yet, so the nodes are limited, manual, and likely to change or be deprecated. Only MutableDataflowEditor ships, and it is editor-only. Do not treat this as a stable procedural-customization graph."
+  },
+  {
+    "slug": "mutable-extension-example",
+    "kind": "plugin",
+    "cn": "Mutable Extension Example 演示如何向 Mutable 注册外部操作，供插件作者仿写自己的节点或运算。MutableExtensionExample 不是产品功能，而是扩展点样例：自定义网格处理、参数或导出都可以照这个模式挂上去。它位于 Experimental，并依赖主 Mutable 插件。读它是为了看 API，而不是给玩家用的换装内容。",
+    "en": "Mutable Extension Example shows how to register new external operations on Mutable so plugin authors can add their own nodes or ops. MutableExtensionExample is a sample, not a shipping feature: custom mesh processing, parameters, or exporters can follow the same hook. It is Experimental and depends on the main Mutable plugin. Read it for the API, not as player-facing customization content."
+  },
+  {
+    "slug": "mutable-groom-extensions",
+    "kind": "plugin",
+    "cn": "Mutable Groom Extensions 让 HairStrands 的 Groom 资产参与 Mutable 自定义对象，使发型能随角色变体一起生成或替换。HairStrandsMutable 处理运行时绑定，HairStrandsMutableEditor 提供编辑器侧节点与校验。没有它，Mutable 换装管线通常只能处理网格和贴图，不含发束。该扩展同样标为 Experimental。",
+    "en": "Mutable Groom Extensions let HairStrands Groom assets participate in Mutable Customizable Objects so hairstyles can generate or swap with character variants. HairStrandsMutable handles runtime binding; HairStrandsMutableEditor adds editor nodes and validation. Without it, Mutable outfits are mostly meshes and textures, not hair strands. The extension is Experimental."
+  },
+  {
+    "slug": "mutable",
+    "kind": "plugin",
+    "cn": "Mutable 是可自定义对象系统的主体：在编辑器里用图编译角色/武器变体，在运行时按参数组合网格、材质和贴图。MutableRuntime 与 CustomizableObject 执行生成；MutableTools 与 MutableValidation 做编译与检查；CustomizableObjectEditor 提供图编辑器。它面向大量外观组合，避免为每个皮肤复制整套骨骼网格。游戏换装、捏脸和模块化装备都建立在这一套运行时之上。",
+    "en": "Mutable is the Customizable Object system: graphs compile character or weapon variants in the editor, then the runtime assembles meshes, materials, and textures from parameters. MutableRuntime and CustomizableObject perform generation; MutableTools and MutableValidation compile and check; CustomizableObjectEditor hosts the graph UI. It targets huge appearance combinatorics without duplicating a Skeletal Mesh per skin. Outfit, character-creator, and modular-gear pipelines sit on this runtime."
+  },
+  {
+    "slug": "mutablepopulation",
+    "kind": "plugin",
+    "cn": "MutablePopulation 扩展 Mutable，增加 Population 资产，用来批量描述一群可自定义角色的参数分布。CustomizableObjectPopulation 在运行时按种群定义抽样外观；CustomizableObjectPopulationEditor 编辑种群表。群演、背景 NPC 或程序化市民可以用同一套 Customizable Object 生成多样体型与服装。它是 Experimental，依赖主 Mutable 插件。",
+    "en": "MutablePopulation extends Mutable with Population assets that describe parameter distributions over many customizable characters. CustomizableObjectPopulation samples appearances at runtime; CustomizableObjectPopulationEditor authors the population tables. Crowds, background NPCs, or procedural citizens can share one Customizable Object while varying body and clothing. It is Experimental and depends on core Mutable."
+  },
+  {
+    "slug": "mvvm-toolset",
+    "kind": "plugin",
+    "cn": "MVVM Toolset 把 UMG ViewModel 的创建与查询注册到 AI Toolset Registry，让编辑器助手能读写 MVVM 绑定数据。它操作的是 ViewModel 类、字段和绑定关系，而不是运行时 HUD 绘制。唯一模块 MVVMToolset 属于 Experimental Toolsets。它服务 UI 作者自动化，不会作为游戏内 MVVM 运行时打包给玩家。",
+    "en": "MVVM Toolset registers create/query tools on the AI Toolset Registry so an editor assistant can manage UMG ViewModel data. It works on ViewModel classes, fields, and bindings, not on drawing the HUD at runtime. MVVMToolset is an Experimental Toolsets module. It automates UI authoring and is not a player-facing MVVM runtime."
+  },
+  {
+    "slug": "namingtokens",
+    "kind": "plugin",
+    "cn": "NamingTokens 定义可在字符串求值时展开的命名令牌，用来统一资产、Actor 或导出文件名。NamingTokens 与 UncookedOnly 保存令牌表；NamingTokensUI 与 NamingTokensEditor 提供编辑界面。内容管线可以写成 {Project}_{AssetType}_{Variant} 这类模式，在导入或重命名时自动替换。它是 Developer 编辑器插件，默认不进 Shipping。",
+    "en": "NamingTokens defines tokens that expand during string evaluation so asset, actor, or export names stay consistent. NamingTokens and NamingTokensUncookedOnly store the tables; NamingTokensUI and NamingTokensEditor provide the UI. Pipelines can author patterns such as {Project}_{AssetType}_{Variant} and expand them on import or rename. It is a Developer editor plugin and does not ship by default."
+  },
+  {
+    "slug": "nanite-assembly-editor-utilities",
+    "kind": "plugin",
+    "cn": "Nanite Assembly Editor Utilities 提供在蓝图里创建 Nanite Assembly 的实验支持。Nanite Assembly 把多个 Nanite 网格合成可实例化的装配体，这个模块给出编辑器工具函数而不是运行时光栅化。唯一模块 NaniteAssemblyEditorUtils 只在编辑器加载。接口仍可能变化，适合原型装配流程，而不是最终渲染特性开关。",
+    "en": "Nanite Assembly Editor Utilities add experimental Blueprint support for creating Nanite Assemblies. An assembly combines Nanite meshes into an instanceable cluster; this plugin supplies editor helper functions, not the runtime rasterizer. Only NaniteAssemblyEditorUtils ships, and it is editor-only. The API may still change, so treat it as assembly authoring, not a rendering feature toggle."
+  },
+  {
+    "slug": "nanite-displaced-mesh",
+    "kind": "plugin",
+    "cn": "Nanite Displaced Mesh 提供资产与组件，在 Nanite 网格进入运行时之前做一层预位移。美术可以把位移贴图烘焙进 Nanite 表示，得到更密的几何细节而无需每帧做完整位移着色。NaniteDisplacedMesh 是运行时组件/资产，NaniteDisplacedMeshEditor 负责导入与预览。它是 Experimental 的渲染资源类型，不是普通 Static Mesh 的置换材质球。",
+    "en": "Nanite Displaced Mesh supplies assets and components for a pre-displacement pass on Nanite meshes. Artists can bake a displacement map into the Nanite representation for denser silhouette detail without a full per-frame displacement shader. NaniteDisplacedMesh is the runtime asset/component; NaniteDisplacedMeshEditor handles import and preview. It is an Experimental resource type, not a regular Static Mesh displacement material."
+  },
+  {
+    "slug": "navcorridor",
+    "kind": "plugin",
+    "cn": "NavCorridor 实现实验性的导航走廊：在 Recast 导航网格路径周围生成一条有宽度的通道，供 AI 在通道内调整走位。相比一条折线路径，走廊允许代理在局部避障时仍保持全局走向。唯一模块 NavCorridor 挂在 Gameplay 运行时。它补充 NavMesh 路径跟随，并不替换寻路图生成。",
+    "en": "NavCorridor is an experimental navigation corridor: a width-aware channel around a Recast navmesh path so AI can steer inside the band. A corridor lets an agent dodge locally while keeping the global heading, unlike a single polyline. The NavCorridor module lives in the Gameplay runtime. It complements navmesh following; it does not replace navmesh generation."
+  },
+  {
+    "slug": "navdrivablepath",
+    "kind": "plugin",
+    "cn": "NavDrivablePath 把导航网格折线改写成圆弧加直线，满足有最小转弯半径的载具或轮式代理。规划结果可供车辆 AI 沿曲率可行的路径行驶，而不是在尖角处原地转向。NavDrivablePath 是规划器，NavDrivablePathTestSuite 覆盖几何与半径约束。它针对可行驶路径，不是人形角色的普通 MoveTo。",
+    "en": "NavDrivablePath turns a navmesh polyline into arcs and straights that an agent with a minimum turning radius can actually drive. Vehicle AI can follow curvature-feasible paths instead of pivoting on sharp corners. NavDrivablePath is the planner; NavDrivablePathTestSuite covers geometry and radius constraints. It is for drivable paths, not ordinary character MoveTo."
+  },
+  {
+    "slug": "navigation-logger-toolset",
+    "kind": "plugin",
+    "cn": "Navigation Logger ToolSet 记录 Slate 与 CommonUI 的焦点与导航事件，并把重建焦点路径的工具暴露给编辑器 AI。它抓的是 Widget 焦点链，不是世界里的 Recast 寻路。NavigationLoggerToolSet 属于 Experimental Toolsets，给助手或自动化复盘 UI 键盘/手柄导航。它不进入 Shipping 游戏的玩家 UI。",
+    "en": "Navigation Logger ToolSet records Slate and CommonUI focus and navigation events, then exposes AI tools that reconstruct the focus path. It logs widget focus chains, not Recast world pathfinding. NavigationLoggerToolSet is an Experimental Toolset for assistants that debug keyboard or gamepad UI navigation. It is not a shipping player-UI feature."
+  },
+  {
+    "slug": "navmeshtoolset",
+    "kind": "plugin",
+    "cn": "NavMeshToolset 给编辑器 AI 助手提供只读导航网格查询：发现项目设置、检查构建健康、读取生成输入、做点/路径查询、列图块以及网格上的 Actor。NavMeshToolset 实现这些工具调用，NavMeshToolsetTests 验证查询契约。助手可以诊断“为什么这点不可走”，但不能用这套工具去改导航数据。它是 Experimental Toolsets，不是运行时寻路组件。",
+    "en": "NavMeshToolset gives an editor AI assistant read-only navmesh queries: setup discovery, build health, generation inputs, point and path queries, tiles, and actors on the mesh. NavMeshToolset implements the calls; NavMeshToolsetTests lock the query contract. An assistant can diagnose why a point is unwalkable, but it cannot mutate nav data through this toolset. It is Experimental Toolsets, not a runtime path-following component."
+  },
+  {
+    "slug": "ndi-media",
+    "kind": "plugin",
+    "cn": "NDI Media 用 NewTek NDI 协议实现 Media Framework 的媒体源与媒体输出，便于在局域网里收发未压缩或轻压缩视频。NDIMedia 与 NDIMediaRendering 处理采集、播放和 GPU 提交；NDIMediaEditor 配置源与输出资产。虚拟制片可以把引擎画面送到导播台，或把外部摄像机 NDI 流填进场景。它走 Electra/Media 管线，不是 nDisplay 集群同步本身。",
+    "en": "NDI Media implements Media Framework sources and outputs over NewTek’s NDI protocol for LAN video send/receive. NDIMedia and NDIMediaRendering capture, play, and submit GPU frames; NDIMediaEditor configures source and output assets. Virtual production can feed engine pixels to a switcher or pull an NDI camera into the scene. It rides the Electra/Media stack; it is not nDisplay cluster sync."
+  },
+  {
+    "slug": "ndisplay-launch",
+    "kind": "plugin",
+    "cn": "nDisplay Launch 是编辑器里启动 nDisplay 集群节点的发射器，对应 DisplayClusterLaunchEditor。它可以按 nDisplay 配置把主节点与从节点拉起来，让 LED 墙或 CAVE 机房不必手写命令行。它服务 Switchboard/虚拟制片开机流程，本身不执行 clustered 渲染。运行时画面仍由 nDisplay（DisplayCluster）插件完成。",
+    "en": "nDisplay Launch is the editor launcher for nDisplay cluster nodes, implemented by DisplayClusterLaunchEditor. It starts primary and secondary nodes from an nDisplay config so LED-wall or CAVE rooms need not hand-write command lines. It belongs to the Switchboard/virtual-production boot path and does not perform clustered rendering itself. Runtime pixels still come from the nDisplay (DisplayCluster) plugin."
+  },
+  {
+    "slug": "ndisplay-modular-features",
+    "kind": "plugin",
+    "cn": "nDisplay Modular Features 用模块化特性扩展 nDisplay，重点包括灯光卡（Light Card）延伸。DisplayClusterLightCardExtender 让灯光卡行为可被外部模块改写；DisplayClusterModularFeaturesEditor 提供编辑器挂钩。虚拟制片可以在不改 DisplayCluster 核心的情况下插入自定义灯光卡或视口行为。它是 nDisplay 的扩展层，不是完整集群运行时。",
+    "en": "nDisplay Modular Features extend nDisplay through modular hooks, especially light-card behavior. DisplayClusterLightCardExtender lets other modules override light cards; DisplayClusterModularFeaturesEditor adds editor wiring. Virtual production can inject custom light-card or viewport behavior without forking DisplayCluster. It is an extension layer, not the full cluster runtime."
+  },
+  {
+    "slug": "ndisplay",
+    "kind": "plugin",
+    "cn": "nDisplay 把同一场景同步渲染到多台 PC、多窗口或 LED 墙视口，支持单目与立体。DisplayCluster 是集群运行时；Projection 与 Warp 做投影和几何校正；Shaders 与 Configuration 管着色与 JSON/资产配置；Editor 与 FillDerivedDataCache 服务编辑器和 DDC；MessageInterception 拦截集群消息。它是虚拟制片集群渲染的核心，常与 Live Link、摄像机跟踪和 Switchboard 一起用。",
+    "en": "nDisplay renders one scene across synchronized PCs, windows, or LED-wall viewports in mono or stereo. DisplayCluster is the cluster runtime; Projection and Warp correct lenses and geometry; Shaders and Configuration own shading and config assets; Editor and FillDerivedDataCache serve authoring and DDC; MessageInterception hooks cluster traffic. It is the core of virtual-production clustered rendering, typically with Live Link, tracking, and Switchboard."
+  },
+  {
+    "slug": "nessengine",
+    "kind": "plugin",
+    "cn": "NessEngine 是新序列化栈（Ness）的引擎绑定原型，把实验中的序列化后端接到 UObject/Engine 层。它探索替代现有包与属性序列化路径，而不是替换 SaveGame 蓝图节点。唯一模块 NessEngine 标为 Experimental。除非你在跟 Epic 的新序列化原型，否则不要把它当生产存档方案。",
+    "en": "NessEngine is the engine-binding prototype for the new serialization stack (Ness), wiring the experimental backend into UObject/Engine. It explores an alternative to the current package and property serialization path, not a replacement for SaveGame Blueprint nodes. Only NessEngine ships, marked Experimental. Do not treat it as a production save format unless you are following that prototype."
+  },
+  {
+    "slug": "netcode-unit-test---unreal-engine",
+    "kind": "plugin",
+    "cn": "Netcode Unit Test - Unreal Engine 在 NUT 框架上提供针对引擎及部分基础游戏模式的漏洞与回归单元测试。NUTUnrealEngine 模块收录这些引擎级用例，用来压复制、RPC 和包解析边界。它帮助网络工程师在提交前抓住可被利用的 netcode 缺陷。这是测试插件，不会作为游戏功能打进发行包。",
+    "en": "Netcode Unit Test - Unreal Engine supplies exploit and regression unit tests for the engine and some base Unreal games, on top of the NUT framework. NUTUnrealEngine holds those engine-level cases around replication, RPCs, and packet parsing. Network engineers run it to catch exploitable netcode bugs before submit. It is a test plugin, not a shipping gameplay feature."
+  },
+  {
+    "slug": "netcode-unit-test",
+    "kind": "plugin",
+    "cn": "Netcode Unit Test（NUT）是专门测虚幻 netcode 的单元测试框架，重点覆盖错误路径和潜在漏洞利用。NetcodeUnitTest 模块提供测试宿主、封包夹具和断言，用来写复制与连接层用例。引擎专用用例在配套的 NUTUnrealEngine 插件里。它面向 QA 与网络程序员，而不是运行时反作弊。",
+    "en": "Netcode Unit Test (NUT) is a unit-testing framework for Unreal netcode, aimed at bugs and exploit paths. NetcodeUnitTest provides the harness, packet fixtures, and asserts for replication and connection tests. Engine-specific cases live in the companion NUTUnrealEngine plugin. It is for QA and network programmers, not a runtime anti-cheat."
+  },
+  {
+    "slug": "network-prediction-extras",
+    "kind": "plugin",
+    "cn": "Network Prediction Extras 提供 Network Prediction 插件的示例类、测试关卡和辅助类型，帮助开发者上手预测框架。NetworkPredictionExtras 与 LatentLoad 模块明确标注不适合直接放进 Shipping 产品。它们展示如何把移动或技能写成预测友好的仿真。真正的预测核心在 Network Prediction 插件里。",
+    "en": "Network Prediction Extras ships sample classes, test maps, and helpers that teach the Network Prediction plugin. NetworkPredictionExtras and LatentLoad are explicitly not for a shipping product. They show how to write movement or abilities as prediction-friendly simulations. The actual prediction core lives in the Network Prediction plugin."
+  },
+  {
+    "slug": "network-prediction-insights",
+    "kind": "plugin",
+    "cn": "Network Prediction Insights 把 Network Prediction 的仿真时间线接到 Unreal Insights，便于对照预测、更正与回滚。NetworkPredictionInsights 采集并可视化这些通道，而不是实现移动预测本身。联机程序员可以在 Insights 里看到某次校正发生在哪一帧。它属于性能/调试 Insights 家族。",
+    "en": "Network Prediction Insights hooks the Network Prediction timeline into Unreal Insights so you can compare predict, correct, and rewind. NetworkPredictionInsights traces those channels; it does not implement movement prediction. Online programmers can see which frame a correction landed on. It belongs to the Insights debugging family."
+  },
+  {
+    "slug": "network-prediction",
+    "kind": "plugin",
+    "cn": "Network Prediction 是一套通用框架，用来编写对预测、回滚和服务器校对友好的玩法系统。它把仿真状态、输入和更新节拍抽象出来，让移动或技能能在客户端预测并在权威端纠正。唯一运行时模块是 NetworkPrediction。它比旧的 CharacterMovement 预测更通用，但需要按它的仿真模型重写逻辑。",
+    "en": "Network Prediction is a generalized framework for gameplay that is friendly to predict, rewind, and server reconcile. It abstracts sim state, input, and tick so movement or abilities can predict on clients and correct on the authority. The runtime module is NetworkPrediction. It is more general than legacy CharacterMovement prediction, but logic must follow its simulation model."
+  },
+  {
+    "slug": "network-service-discovery",
+    "kind": "plugin",
+    "cn": "Network Service Discovery 用各平台原生 API 做 mDNS/DNS-SD：Apple 上 NSNetServiceBrowser，Android 上 NsdManager，Windows 上 dnsapi。局域网游戏、设备配对或编辑器工具可以发现同网段服务，而不自己实现组播 DNS。唯一模块 NetworkServiceDiscovery 标为 Experimental。它解决服务发现，不负责会话复制。",
+    "en": "Network Service Discovery implements cross-platform mDNS/DNS-SD via native APIs: NSNetServiceBrowser on Apple, NsdManager on Android, and dnsapi on Windows. LAN games, device pairing, or editor tools can find services on the segment without a custom mDNS stack. NetworkServiceDiscovery is Experimental. It discovers services; it does not replicate sessions."
+  },
+  {
+    "slug": "neural-rendering",
+    "kind": "plugin",
+    "cn": "Neural Rendering 启用神经渲染特性，当前重点是神经后处理（Neural Post Processing）。NeuralPostProcessing 在渲染管线里插入学习到的后处理，而不是传统调色滤镜。它标为 Experimental，模型和插入点都可能改。把它当作研究/前瞻渲染路径，而不是默认电影后处理。",
+    "en": "Neural Rendering enables neural rendering features, currently neural post processing. NeuralPostProcessing inserts a learned post-process into the frame, not a classic color-grading filter. It is Experimental, so models and insertion points may change. Treat it as a research rendering path, not default cinematic post process."
+  },
+  {
+    "slug": "nfordenoise",
+    "kind": "plugin",
+    "cn": "NFORDenoise 是路径追踪器的时空去噪器，主要给电影渲染队列的离线帧使用。它按 Nonlinearly Weighted First-order Regression（NFOR）思路，用空间与时间邻域斑块回归每个像素。NFORDenoise 模块挂在 Denoising 类别，针对 Monte Carlo 噪声，而不是实时 TAA。高采样预算的 MRQ 作业常用它压 grain。",
+    "en": "NFORDenoise is a spatial-temporal denoiser for the Unreal Path Tracer, used mainly with Movie Render Queue. Inspired by Nonlinearly Weighted First-order Regression (NFOR), it regresses each pixel from neighboring patches in space and time. The NFORDenoise module sits under Denoising and targets Monte Carlo noise, not real-time TAA. High-sample MRQ jobs use it to crush grain."
+  },
+  {
+    "slug": "niagara-example-custom-datainterface",
+    "kind": "plugin",
+    "cn": "Niagara Example Custom DataInterface 是一份示例插件，演示如何实现自定义 Niagara 数据接口并把外部数据喂进粒子模拟。ExampleCustomDataInterface 展示模块栈如何读取用户定义的缓冲区或函数。特效程序员应把它当模板去写自己的 DI，而不是当成品特效内容。它属于 FX 工具链里的教学扩展。",
+    "en": "Niagara Example Custom DataInterface is a sample that shows how to implement a custom Niagara data interface and feed external data into a simulation. ExampleCustomDataInterface demonstrates how the module stack reads a user-defined buffer or function. FX programmers should copy it as a template, not ship it as content. It is a teaching extension in the Niagara toolchain."
+  },
+  {
+    "slug": "niagara-gaussian-splat",
+    "kind": "plugin",
+    "cn": "Niagara Gaussian Splat 让 Niagara 发射器渲染高斯溅射（3D Gaussian Splatting）点云，而不是传统 Sprite/Mesh 粒子。NiagaraGaussianSplat 提供运行时与渲染路径，NiagaraGaussianSplatEditor 负责资产与发射器编辑。重建的真实感场景或辐射场资产可以通过 Niagara 的模拟栈做剔除与更新。它是 FX 插件，依赖 Niagara 核心。",
+    "en": "Niagara Gaussian Splat lets Niagara emitters render 3D Gaussian Splatting point clouds instead of classic sprite or mesh particles. NiagaraGaussianSplat is the runtime and draw path; NiagaraGaussianSplatEditor authors assets and emitters. Captured radiance-field scenes can cull and update through Niagara’s simulation stack. It is an FX plugin that depends on core Niagara."
+  },
+  {
+    "slug": "niagara-insights",
+    "kind": "plugin",
+    "cn": "Niagara Insights 把 Niagara 系统的模拟与 GPU 开销接到 Unreal Insights，便于找出过重的发射器。NiagaraInsights 记录系统、发射器和数据接口的计时通道。特效与性能程序员可以对照 CPU 与 GPU 粒子成本，而不是只看统计面板。它是调试/性能插件，不改变粒子行为。",
+    "en": "Niagara Insights traces Niagara simulation and GPU cost into Unreal Insights so heavy emitters are easier to find. NiagaraInsights records timing channels for systems, emitters, and data interfaces. FX and performance programmers can compare CPU versus GPU particle cost beyond the in-editor stats. It is a debugging plugin and does not change particle behavior."
+  },
+  {
+    "slug": "niagara-lightweight",
+    "kind": "plugin",
+    "cn": "Niagara Lightweight 提供可选的轻量 Niagara 扩展：精简模块、模板生成器，以及把现有效果转成轻量形态的编辑器工具。NiagaraLightweight 是运行时扩展，Editor 与 Conversion 负责作者和批量转换。它面向大量简单粒子（打击、碎片）以降低完整 Niagara 系统的开销。它不替换 Niagara 核心，而是一条更便宜的发射路径。",
+    "en": "Niagara Lightweight is an optional Niagara extension with slim modules, a template builder, and editor conversion tools. NiagaraLightweight is the runtime; Editor and Conversion handle authoring and batch conversion. It targets many simple effects (hits, debris) that should not pay for a full Niagara system. It does not replace core Niagara; it is a cheaper emitter path."
+  },
+  {
+    "slug": "niagara-mrq-support",
+    "kind": "plugin",
+    "cn": "Niagara MRQ Support 提供数据接口，让 Niagara 模拟能读取电影渲染队列的作业信息，例如帧号、快门或分辨率。NiagaraMRQ 把这些值送进模块栈，使粒子在离线高采样渲染时与摄像机快门对齐。过场特效可以按 MRQ 时间而不是实时 Tick 来演化。没有它，Niagara 很难精确匹配离线渲染的时间与采样。",
+    "en": "Niagara MRQ Support is a data interface that lets Niagara simulations read Movie Render Queue job data such as frame index, shutter, or resolution. NiagaraMRQ feeds those values into the module stack so particles match camera shutter on high-sample offline frames. Cinematic FX can evolve on MRQ time instead of realtime ticks. Without it, Niagara cannot lock precisely to offline sampling."
+  },
+  {
+    "slug": "niagara-nanite",
+    "kind": "plugin",
+    "cn": "Niagara Nanite 允许 Niagara 用 Nanite 网格作为粒子渲染体，适合大量高细节碎片或实例化物体。NiagaraNanite 与 NiagaraNaniteShader 处理运行时与着色，NiagaraNaniteEditor 配置发射器侧选项。相比传统 Mesh 粒子，Nanite 路径能在近景保持几何密度。它扩展 Niagara 渲染器，而不是改 Nanite 场景虚拟化本身。",
+    "en": "Niagara Nanite lets Niagara render particles as Nanite meshes, useful for dense high-detail debris or instanced props. NiagaraNanite and NiagaraNaniteShader handle runtime and shading; NiagaraNaniteEditor exposes emitter options. Versus classic mesh particles, the Nanite path keeps geometric density up close. It extends Niagara’s renderer; it does not change Nanite scene virtualization."
+  },
+  {
+    "slug": "niagara-toolsets",
+    "kind": "plugin",
+    "cn": "Niagara Toolsets 向编辑器 AI 助手暴露一批工具调用，用来查询或修改 Niagara 系统、发射器与模块。助手可以列出系统、检查模块栈或调整参数，而不直接解析 .uasset。唯一模块 NiagaraToolsets 属于 Experimental Toolsets。它是作者自动化，不是新的粒子渲染器。",
+    "en": "Niagara Toolsets expose tool calls so an in-editor AI assistant can inspect or modify Niagara systems, emitters, and modules. The assistant can list systems, walk the module stack, or tweak parameters without parsing .uasset files. NiagaraToolsets is an Experimental Toolset. It automates authoring; it is not a new particle renderer."
+  },
+  {
+    "slug": "niagara-ui-renderer",
+    "kind": "plugin",
+    "cn": "Niagara UI Renderer 用专用 UI Sprite 渲染器，把 Niagara CPU 粒子画进 Slate/UMG 控件，而不是 3D 场景。NiagaraUIRenderer 在运行时把 CPU 模拟结果提交给 UI 几何；NiagaraUIRendererEditor 配置控件与系统引用。主菜单、HUD 或卡片可以用真正的 Niagara 做飘落与火花。GPU 模拟的 Niagara 系统不走这条 UI 路径。",
+    "en": "Niagara UI Renderer draws Niagara CPU particle systems inside Slate/UMG with a dedicated UI sprite renderer, not in the 3D scene. NiagaraUIRenderer submits CPU sim results as UI geometry; NiagaraUIRendererEditor binds widgets to systems. Menus, HUDs, or cards can use real Niagara for sparks and falloff. GPU Niagara simulations do not take this UI path."
+  },
+  {
+    "slug": "niagara",
+    "kind": "plugin",
+    "cn": "Niagara 是虚幻的下一代实时特效系统，用发射器模块栈模拟火焰、烟雾、粒子与大量实例。NiagaraCore/Niagara 运行模拟，NiagaraShader 与 VertexFactories 负责 GPU，AnimNotifies 与 BlueprintNodes 把效果接到动画和蓝图，Editor 与 EditorWidgets 提供图编辑器。技术美术可以在模块里扩展行为，而不为每个效果写 C++。同一模拟还能用 Sprite、Ribbon、Mesh 等多种渲染器输出。",
+    "en": "Niagara is Unreal’s next-generation realtime VFX stack: emitter module graphs simulate fire, smoke, particles, and large instance counts. NiagaraCore/Niagara run the sim; NiagaraShader and VertexFactories cover GPU; AnimNotifies and BlueprintNodes hook animation and Blueprint; Editor and EditorWidgets host the graph. Technical artists extend behavior in modules without a C++ emitter per effect. One simulation can render as sprites, ribbons, and meshes together."
+  },
+  {
+    "slug": "niagarafluids",
+    "kind": "plugin",
+    "cn": "NiagaraFluids 在 Niagara 上提供气体与液体模拟内容与模块，用来做烟雾、火焰、薄片液体一类实时流体。它把网格/粒子混合的流体求解接到 Niagara 系统，而不是独立的 Chaos 流体解算器。唯一模块 NiagaraFluids 依赖 Niagara 核心。特效团队用它做可导向的实时流体，而不是离线水花缓存。",
+    "en": "NiagaraFluids adds gas and liquid simulation content and modules on top of Niagara for smoke, fire, and thin liquid. It drives a hybrid grid/particle fluid solve through Niagara systems, not a standalone Chaos fluids solver. NiagaraFluids depends on core Niagara. FX teams use it for directed realtime fluids, not offline splash caches."
+  },
+  {
+    "slug": "niagarapreviewcontent",
+    "kind": "plugin",
+    "cn": "NiagaraPreviewContent 打包 Niagara 编辑器预览要用到的影片与媒体文件，供发射器或数据接口在预览窗口播放。NiagaraPreviewContent 模块不实现模拟，只提供这些内容资产。缺少它时，部分 Niagara 示例或预览轨道会找不到媒体。它是 FX 内容插件，不是渲染器。",
+    "en": "NiagaraPreviewContent packages movie files that Niagara uses in editor previews so emitters or data interfaces can play media in the preview window. The NiagaraPreviewContent module does not simulate particles; it only ships those assets. Without it, some Niagara samples or preview tracks fail to find media. It is an FX content plugin, not a renderer."
+  },
+  {
+    "slug": "niagarasimcaching",
+    "kind": "plugin",
+    "cn": "NiagaraSimCaching 把 Niagara 模拟缓存成可回放的资产，供 Sequencer 过场按帧重放粒子，而不是实时再解算。NiagaraSimCaching 读写缓存，NiagaraSimCachingEditor 提供录制与轨道工具。电影级火焰或破碎可以锁定到镜头，避免每次播放结果不同。它是过场确定性工具，不是运行时 LOD。",
+    "en": "NiagaraSimCaching records Niagara simulations into replayable assets so Sequencer shots can play particles frame-accurately instead of resimulating. NiagaraSimCaching reads and writes caches; NiagaraSimCachingEditor provides record and track tools. Cinematic fire or debris can lock to the camera without changing every playback. It is a determinism tool for cinematics, not a runtime LOD."
+  },
+  {
+    "slug": "nnedenoiser",
+    "kind": "plugin",
+    "cn": "NNEDenoiser 用神经网络引擎（NNE）给路径追踪器做神经去噪，输出比传统滤波更干净的离线帧。NNEDenoiser 跑模型推理，NNEDenoiserShaders 提供配套着色器。它挂在 NNE 插件树下的 Denoising 类别，常与 MRQ 路径追踪作业一起用。选择何种 NNE 运行时（ORT、RDG 等）决定它能在哪些硬件上加速。",
+    "en": "NNEDenoiser is a neural denoiser for the Unreal Path Tracer, backed by the Neural Network Engine (NNE). NNEDenoiser runs inference; NNEDenoiserShaders supply the shaders. It lives under NNE in the Denoising category and is typically paired with MRQ path-tracing jobs. Which NNE runtime you enable (ORT, RDG, and so on) decides where it can accelerate."
+  },
+  {
+    "slug": "nnemodeltests",
+    "kind": "plugin",
+    "cn": "NNEModelTests 提供把神经网络模型测试导入并挂到自动化测试的基础设施，覆盖不同 NNE 运行时。NNEModelTests 执行用例，NNEModelTestsEditor 帮助导入模型测试资产。ML 工程师可以用同一套测试对比 CPU、RDG、ORT 等后端的数值。它是 Experimental 测试插件，不是推理 API。",
+    "en": "NNEModelTests is infrastructure to import neural-network model tests and add them to automation that runs on different NNE runtimes. NNEModelTests executes cases; NNEModelTestsEditor imports test assets. ML engineers can compare CPU, RDG, ORT, and other backends on the same suite. It is an Experimental test plugin, not an inference API."
+  },
+  {
+    "slug": "nneruntimebasiccpu",
+    "kind": "plugin",
+    "cn": "NNERuntimeBasicCpu 是 NNE 的轻量跨平台 CPU 运行时，只覆盖较基础的算子与模型。它适合在没有 GPU 加速后端的平台上跑小网络，例如简单分类或去噪预处理。唯一模块 NNERuntimeBasicCpu 标为 Experimental。复杂 ONNX 图应改用 ORT、IREE 或 RDG 运行时。",
+    "en": "NNERuntimeBasicCpu is a performant, cross-platform CPU runtime for NNE that supports basic models. It is meant for small networks on platforms without a GPU NNE backend, such as simple classifiers or denoise preprocess. NNERuntimeBasicCpu is Experimental. Heavy ONNX graphs should use ORT, IREE, or RDG instead."
+  },
+  {
+    "slug": "nneruntimecoreml",
+    "kind": "plugin",
+    "cn": "NNERuntimeCoreML 把 Apple Core ML 接成 NNE 运行时，让 iOS/macOS 上的神经网络走系统加速。NNERuntimeCoreML 与 Utils 负责执行与转换，NNERuntimeCoreMLEditor 处理编辑器导入。Apple 设备上的 NNE 模型可以映射到 Neural Engine/GPU，而不改游戏侧 NNE API。它是平台后端，不是模型格式本身。",
+    "en": "NNERuntimeCoreML implements the NNE API on Apple Core ML so iOS/macOS networks can use system acceleration. NNERuntimeCoreML and Utils execute and convert; NNERuntimeCoreMLEditor handles editor import. NNE models on Apple hardware can map onto the Neural Engine or GPU without changing game-side NNE calls. It is a platform backend, not a model format."
+  },
+  {
+    "slug": "nneruntimeiree",
+    "kind": "plugin",
+    "cn": "NNERuntimeIREE 用 IREE、MLIR 和 LLVM 实现 NNE，把神经网络编译成可贴进游戏的代码/着色器。IREETracing、IREEUtils、IREEDriverRDG 对接追踪与 RDG；NNERuntimeIREE 与 Shader/Editor 完成运行时和编辑器。目标是减少通用解释器开销，把模型变成可优化的游戏代码。它是 Experimental 的编译型后端。",
+    "en": "NNERuntimeIREE implements NNE via IREE, MLIR, and LLVM, compiling networks toward game code or shaders. IREETracing, IREEUtils, and IREEDriverRDG cover tracing and RDG; NNERuntimeIREE plus Shader/Editor complete runtime and editor. The goal is to skip a generic interpreter and emit optimizable game code. It is an Experimental compiling backend."
+  },
+  {
+    "slug": "nneruntimelitert",
+    "kind": "plugin",
+    "cn": "NNERuntimeLiteRT 用 Google LiteRT（原 TensorFlow Lite 一脉）作为 NNE 执行后端。NNERuntimeLiteRT 跑推理，NNERuntimeLiteRTEditor 处理编辑器侧模型。移动或嵌入式目标可以把已有 LiteRT 模型接到同一套 NNE 接口。它是 Experimental ML 运行时，与 ORT/CoreML 并列而不是替换它们。",
+    "en": "NNERuntimeLiteRT is an NNE runtime backed by Google LiteRT (the TensorFlow Lite lineage). NNERuntimeLiteRT executes; NNERuntimeLiteRTEditor handles editor-side models. Mobile or embedded targets can plug existing LiteRT models into the same NNE API. It is an Experimental ML runtime alongside ORT and CoreML, not a replacement for them."
+  },
+  {
+    "slug": "nneruntimeort",
+    "kind": "plugin",
+    "cn": "NNERuntimeORT 用 ONNX Runtime 实现 NNE，并通过 CPU 与 DirectML 执行提供程序加速。NNERuntimeORT 加载 ONNX 图，在 Windows 上可走 DirectML GPU。这是引擎 Plugins/NNE 下较成熟的通用后端，适合标准 ONNX 模型。游戏代码仍只调用 NNE API，由 ORT 选择 EP。",
+    "en": "NNERuntimeORT implements NNE on ONNX Runtime, accelerated by CPU and DirectML execution providers. NNERuntimeORT loads ONNX graphs and can run DirectML GPU on Windows. It is the more general NNE backend under Plugins/NNE for standard ONNX models. Game code still calls the NNE API; ORT picks the EP."
+  },
+  {
+    "slug": "nneruntimerdg",
+    "kind": "plugin",
+    "cn": "NNERuntimeRDG 用渲染依赖图（RDG）实现 NNE，把推理编进引擎的 GPU 图而不是外部 ML 运行时。NNEHlslShaders 提供算子着色器，NNERuntimeRDG/Data/Utils 管理图、权重与辅助。路径追踪去噪或后处理可以与帧图同步执行，减少 CPU 往返。它是 Experimental 的引擎内 GPU 后端。",
+    "en": "NNERuntimeRDG implements NNE on the Render Dependency Graph so inference is scheduled inside the engine GPU graph instead of an external ML runtime. NNEHlslShaders supply operator shaders; NNERuntimeRDG, Data, and Utils manage the graph, weights, and helpers. Path-tracer denoising or post process can run in-frame without a CPU round trip. It is an Experimental in-engine GPU backend."
+  },
+  {
+    "slug": "nvcodecs",
+    "kind": "plugin",
+    "cn": "NVCodecs 把 NVIDIA Video Codec SDK 接到引擎 AVCodecs 层，提供 NVDEC 解码与 NVENC 编码。NVCodecs 与 NVCodecsRHI 对接 RHI，NVDEC/NVENC 封装编解码会话。像素流送、本地录像或专业采集可以在 NVIDIA GPU 上硬件编解码。它是 Experimental 的编解码插件，依赖支持的 GPU。",
+    "en": "NVCodecs adds NVIDIA Video Codec SDK codecs to Unreal’s AVCodecs layer: NVDEC decode and NVENC encode. NVCodecs and NVCodecsRHI talk to the RHI; NVDEC and NVENC wrap codec sessions. Pixel streaming, local capture, or pro I/O can hardware-codec on NVIDIA GPUs. It is Experimental and requires a supported GPU."
+  },
+  {
+    "slug": "nvdec-hardware-decoder-support-for-electra",
+    "kind": "plugin",
+    "cn": "该插件把 NVIDIA Media Codec SDK 的解码器交给 Electra 播放器，用 NVDEC 在 GPU 上解视频。NVDECElectra 需要 D3D12，具体能解哪些编码取决于显卡世代。Media Framework 因此可以硬件播放 HEVC/AV1 等流，而不走纯 CPU 解码。它是 Electra 的硬件解码后端，不是通用 AVCodecs 封装（那是 NVCodecs）。",
+    "en": "This plugin feeds NVIDIA Media Codec SDK decoders to the Electra player so NVDEC can decode video on the GPU. NVDECElectra requires D3D12; which codecs work depends on the GPU. Media Framework can then hardware-play HEVC/AV1-class streams instead of a CPU-only path. It is Electra’s hardware decode backend, not the general AVCodecs wrapper (that is NVCodecs)."
+  },
+  {
+    "slug": "nvidia-geforce-now-wrapper",
+    "kind": "plugin",
+    "cn": "NVidia GeForce NOW Wrapper 封装 GeForce NOW 云游戏 SDK，让打包游戏能检测是否运行在 GFN 会话里并读取平台服务。GeForceNOWWrapper 是可进 cooked 包的运行时模块。云发行可以据此调整输入、画质或账号联动。它不实现流送编码本身，只做 GFN 环境适配。",
+    "en": "The NVIDIA GeForce NOW Wrapper exposes the GeForce NOW cloud-game SDK so a packaged title can detect a GFN session and call platform services. GeForceNOWWrapper is a runtime module that can ship in a cooked game. Cloud releases can adjust input, quality, or account hooks from that signal. It does not implement streaming encode; it adapts to the GFN environment."
+  },
+  {
+    "slug": "nvidia-rivermax-media-streaming",
+    "kind": "plugin",
+    "cn": "NVIDIA Rivermax Media Streaming 把 Rivermax 网卡能力接到 Media Capture 与 Media Player，用于 SMPTE ST 2110 一类专业视频流。RivermaxMedia 与 Factory 创建源/输出，RivermaxMediaEditor 配置设备。虚拟制片机房可以通过以太网收发未压缩或轻压缩视频，而不是 NDI 或本地文件。它属于 VirtualProduction/Rivermax，面向广播级 I/O。",
+    "en": "NVIDIA Rivermax Media Streaming adds Rivermax NIC capabilities to Media Captures and Media Players for SMPTE ST 2110-class streams. RivermaxMedia and Factory create sources/outputs; RivermaxMediaEditor configures devices. VP stages can send and receive uncompressed or lightly compressed video over Ethernet instead of NDI or files. It lives under VirtualProduction/Rivermax for broadcast I/O."
+  },
+  {
+    "slug": "nvidia-rivermax-media-synchronization-for-ndisplay",
+    "kind": "plugin",
+    "cn": "该插件把 NVIDIA Rivermax 的同步能力接到 nDisplay，让集群视口能与专业视频时钟对齐。RivermaxSync 处理运行时同步，RivermaxSyncEditor 配置锁定关系。LED 墙可以跟 ST 2110 摄像机或切换台共享同一时间基，减少撕裂与漂移。它补的是集群 genlock，而不是媒体播放解码。",
+    "en": "This plugin adds NVIDIA Rivermax synchronization to nDisplay so cluster viewports can lock to a professional video clock. RivermaxSync runs the lock; RivermaxSyncEditor authors the relationship. LED walls can share a timebase with ST 2110 cameras or a switcher, reducing tear and drift. It is cluster genlock, not media decode."
+  },
+  {
+    "slug": "object-mixer",
+    "kind": "plugin",
+    "cn": "Object Mixer 用电子表格界面批量编辑场景对象属性，适合灯光、材质参数或大量 Actor 的同一组字段。ObjectMixerEditor 列出对象行与属性列，支持过滤和一并赋值。关卡美术不必在细节面板里逐个点选。它是编辑器制作工具，不进入游戏运行时。",
+    "en": "Object Mixer edits scene-object properties in a spreadsheet, which is ideal for lights, material parameters, or the same fields on many actors. ObjectMixerEditor lists object rows and property columns with filtering and bulk assign. Level artists can retune a field without clicking each Details panel. It is an editor authoring tool and does not ship at runtime."
+  },
+  {
+    "slug": "object-tracking-insights",
+    "kind": "plugin",
+    "cn": "Object Tracking Insights 在 Spatial Insights 视图里记录并回放对象位置与移动历史。ObjectTracking 采集变换，ObjectTrackingInsights 负责可视化。玩法或动画调试可以画出 Actor 轨迹，对照卡顿或传送。它是 Insights 调试通道，不是游戏内的目标锁定系统。",
+    "en": "Object Tracking Insights records object positions and movement history on the Spatial Insights view. ObjectTracking captures transforms; ObjectTrackingInsights draws them. Gameplay or animation debug can plot actor trails against hitch or teleport bugs. It is an Insights channel, not an in-game lock-on system."
+  },
+  {
+    "slug": "oculus-touch-controller-keys",
+    "kind": "plugin",
+    "cn": "Oculus Touch Controller Keys 只注册 OculusTouch_* FKey，依赖 InputCore 而不依赖 OpenXR 运行时。像素流送或其他不加载 OpenXR 的模块仍能在输入映射里引用这些键名。唯一模块 OculusTouchControllerKeys 不加载手柄模型或交互配置。真正的 Touch 手柄交互在 OpenXR Oculus Touch Controller 插件里。",
+    "en": "Oculus Touch Controller Keys only registers OculusTouch_* FKeys and depends on InputCore, not an OpenXR runtime. Pixel Streaming or other modules that never load OpenXR can still name those keys in input mapping. OculusTouchControllerKeys does not load controller meshes or interaction profiles. Actual Touch interaction lives in the OpenXR Oculus Touch Controller plugin."
+  },
+  {
+    "slug": "onesky",
+    "kind": "plugin",
+    "cn": "OneSky 把 OneSky 本地化服务接到编辑器的 Localization 管线，用来上传字符串表并拉回译文。OneSkyLocalizationService 实现服务端对接，而不是运行时切语言。本地化团队可以在编辑器里同步翻译，而不手拷 CSV。它是 Developer 插件，默认不进 Shipping。",
+    "en": "OneSky connects the OneSky localization service to the editor Localization pipeline so string tables can upload and translations can download. OneSkyLocalizationService is the service adapter, not runtime language switching. Localization teams can sync translations in-editor instead of hand-copying CSV. It is a Developer plugin and does not ship by default."
+  },
+  {
+    "slug": "online-base",
+    "kind": "plugin",
+    "cn": "Online Base 存放 Online Subsystem（OSSv1）与 Online Services（OSSv2）共享的底层代码与接口碎片。OnlineBase 让两代在线栈能共用身份、错误码一类基础类型。平台插件通常依赖它，而不是直接在各 OSS 里复制这些定义。它本身不对接 Steam 或 EOS，只提供共享地基。",
+    "en": "Online Base holds shared code between Online Subsystem (OSSv1) and Online Services (OSSv2). OnlineBase lets both stacks share identity and error primitives. Platform plugins depend on it instead of duplicating those types. It does not talk to Steam or EOS itself; it is the shared foundation."
+  },
+  {
+    "slug": "online-framework-common",
+    "kind": "plugin",
+    "cn": "Online Framework Common 提供在线框架层的共用功能，供 Party、Lobby、Hotfix 等模块复用。OnlineFrameworkCommon 放的是跨框架工具，而不是某个平台 SDK。它夹在 Online Framework 插件与具体 Online Services 实现之间。没有它，框架模块会各自复制会话与身份辅助代码。",
+    "en": "Online Framework Common supplies shared functionality for online frameworks that Party, Lobby, Hotfix, and similar modules reuse. OnlineFrameworkCommon is cross-framework glue, not a platform SDK. It sits between the Online Framework plugin and concrete Online Services backends. Without it, those modules would duplicate session and identity helpers."
+  },
+  {
+    "slug": "online-framework-plugin",
+    "kind": "plugin",
+    "cn": "Online Framework 提供与在线玩法服务交互的共享层：Qos、Party、Lobby、PatchCheck、Hotfix、Rejoin、PlayTimeLimit 和 LoginFlow。游戏用这些模块做组队、大厅、热修和登录流程，而不绑定单一平台 SDK。它建立在 Online Services / OSS 之上，是 Fortnite 一类产品用的框架，而不是 Steamworks 本身。运行时可以随游戏发布。",
+    "en": "Online Framework is shared code for online gameplay services: Qos, Party, Lobby, PatchCheck, Hotfix, Rejoin, PlayTimeLimit, and LoginFlow. Games use these modules for parties, lobbies, hotfixes, and login without binding to one platform SDK. It sits on Online Services / OSS and is the product framework, not Steamworks itself. It can ship in a game."
+  },
+  {
+    "slug": "online-services-eos-game-services",
+    "kind": "plugin",
+    "cn": "Online Services EOS (Game Services) 只实现 EOS 的游戏服务一侧（会话、成就、大厅等），不含完整账号登录栈。OnlineServicesEOSGS 走 OSSv2 接口，给已用别的方式登录、但仍要 EOS 游戏功能的项目。完整账号加游戏服务应使用 Online Services EOS。它是细分后端，不是 OSSv1 的 OnlineSubsystemEOS。",
+    "en": "Online Services EOS (Game Services) implements EOS game services only (sessions, achievements, lobbies) without the full account login stack. OnlineServicesEOSGS speaks OSSv2 for titles that authenticate elsewhere but still want EOS game features. Full account plus game services belong in Online Services EOS. It is a split backend, not OSSv1 OnlineSubsystemEOS."
+  },
+  {
+    "slug": "online-services-eos",
+    "kind": "plugin",
+    "cn": "Online Services EOS 是 OSSv2 上对 Epic Online Services 账号与游戏服务的完整实现。OnlineServicesEOS 覆盖登录、会话、成就等 EOS 能力，供新在线栈使用。它与旧的 Online Subsystem EOS（OSSv1）并行，接口模型不同。选择 OSSv2 的项目用这一层对接 Epic 账号与 Dev Portal 配置的游戏服务。",
+    "en": "Online Services EOS is the OSSv2 implementation of Epic Online Services account and game services. OnlineServicesEOS covers login, sessions, achievements, and related EOS features for the new online stack. It sits beside the older Online Subsystem EOS (OSSv1) with a different interface model. OSSv2 titles use this layer against Epic accounts and Dev Portal game services."
+  },
+  {
+    "slug": "online-services-epic-common",
+    "kind": "plugin",
+    "cn": "Online Services Epic Common 抽出 Epic 账号服务与 Epic 游戏服务之间共用的 OSSv2 实现。OnlineServicesEpicCommon 避免 EOS 账号插件和游戏服务插件重复写令牌、请求与错误处理。EOS 相关 Online Services 插件都建立在这层之上。它不单独面对玩家，只是 Epic 后端的公共实现。",
+    "en": "Online Services Epic Common is the shared OSSv2 implementation between Epic Account Services and Epic Game Services. OnlineServicesEpicCommon keeps token, request, and error handling from being duplicated in the account and game-service plugins. EOS-related Online Services plugins build on this layer. It is not player-facing; it is the common Epic backend."
+  },
+  {
+    "slug": "online-services-null",
+    "kind": "plugin",
+    "cn": "Online Services Null 提供不依赖外部后端的 OSSv2 空实现，便于离线开发与自动化。OnlineServicesNull 满足接口但几乎不做真实账号或会话。本地 PIE 和测试可以启用它，避免强依赖 EOS 或 Steam。它不能用于发行联机，只是空后端。",
+    "en": "Online Services Null is an OSSv2 implementation with no external service, for offline development and automation. OnlineServicesNull satisfies the interface but does not provide real accounts or sessions. Local PIE and tests can enable it without EOS or Steam. It is not for shipping online; it is a null backend."
+  },
+  {
+    "slug": "online-services-oss-adapter",
+    "kind": "plugin",
+    "cn": "Online Services OSS Adapter 把已有的 Online Subsystem（OSSv1）实现适配成 Online Services（OSSv2）接口。OnlineServicesOSSAdapter 让仍使用 Steam/Null 等 OSS 插件的项目，逐步把游戏代码迁到 OSSv2 API。它是桥接层，不是新的平台 SDK。迁移期可以两边同时存在。",
+    "en": "Online Services OSS Adapter adapts existing Online Subsystem (OSSv1) implementations onto the Online Services (OSSv2) interface. OnlineServicesOSSAdapter lets titles that still use Steam/Null OSS move gameplay toward the OSSv2 API. It is a bridge, not a new platform SDK. Both stacks can coexist during migration."
+  },
+  {
+    "slug": "online-services-xbox-live",
+    "kind": "plugin",
+    "cn": "Online Services Xbox Live 是 Xbox Live 的 OSSv2 实现，覆盖登录、会话和平台社交等。OnlineServicesXbl 走微软 GDK/Xbox Live 服务，而不是 Steam 或 EOS。Xbox 与 PC Game Pass 标题在新在线栈上用它对接 Live。它与 OSSv1 的 Online Subsystem GDK 是不同代接口。",
+    "en": "Online Services Xbox Live is the OSSv2 backend for Xbox Live login, sessions, and platform social features. OnlineServicesXbl talks to Microsoft GDK/Xbox Live, not Steam or EOS. Xbox and PC Game Pass titles on the new stack use it for Live. It is a different generation from OSSv1 Online Subsystem GDK."
+  },
+  {
+    "slug": "online-services",
+    "kind": "plugin",
+    "cn": "Online Services 是 OSSv2 的共享接口与公共实现：OnlineServicesInterface、OnlineServicesCommon 和 CommonEngineUtils。游戏代码应依赖这套接口，再由 EOS、Null、Xbox 等插件填充。它定义异步请求、身份和会话模型，取代直接包含各平台 SDK。没有这一层，OSSv2 后端无法互换。",
+    "en": "Online Services is the shared OSSv2 interface and common implementation: OnlineServicesInterface, OnlineServicesCommon, and CommonEngineUtils. Game code should depend on these interfaces, filled by EOS, Null, Xbox, or other plugins. It defines async requests, identity, and sessions so titles do not include platform SDKs directly. Without this layer, OSSv2 backends cannot swap."
+  },
+  {
+    "slug": "online-subsystem-amazon",
+    "kind": "plugin",
+    "cn": "Online Subsystem Amazon 是 OSSv1 里对接 Amazon 平台（应用商店/账号）的实现。OnlineSubsystemAmazon 提供登录与平台服务入口，供 Amazon 设备或商店发行使用。它遵循 IOnlineSubsystem，可与 Steam、Null 等后端切换。具体能力取决于 Amazon 侧 SDK 与引擎封装范围。",
+    "en": "Online Subsystem Amazon is the OSSv1 backend for the Amazon platform (store/account). OnlineSubsystemAmazon exposes login and platform services for Amazon-device or store releases. It follows IOnlineSubsystem and can swap with Steam, Null, and others. Feature coverage depends on Amazon’s SDK and the engine wrapper."
+  },
+  {
+    "slug": "online-subsystem-apple",
+    "kind": "plugin",
+    "cn": "Online Subsystem Apple 实现 Sign in with Apple，让 iOS/macOS 构建走苹果账号登录。OnlineSubsystemApple 把 Apple 身份接到 OSSv1 的 Identity 接口。移动或 Mac 发行可以用它满足苹果登录要求，而不自写 ASAuthorization。它不包含 Game Center 成就（那在 Online Subsystem iOS）。",
+    "en": "Online Subsystem Apple implements Sign in with Apple so iOS/macOS builds can authenticate with Apple IDs. OnlineSubsystemApple maps Apple identity onto OSSv1 Identity. Mobile or Mac releases can meet Apple’s sign-in rules without writing ASAuthorization themselves. It does not include Game Center achievements (those live in Online Subsystem iOS)."
+  },
+  {
+    "slug": "online-subsystem-eos",
+    "kind": "plugin",
+    "cn": "Online Subsystem EOS 是 OSSv1 对 Epic Online Services 的实现，覆盖登录、会话、P2P 等经典 OSS 接口。OnlineSubsystemEOS 让仍使用 IOnlineSubsystem 的项目对接 EOS Dev Portal。新项目若采用 OSSv2，应改看 Online Services EOS。两套可以在引擎里并存，但游戏代码应只选一代。",
+    "en": "Online Subsystem EOS is the OSSv1 implementation of Epic Online Services for login, sessions, P2P, and other classic OSS interfaces. OnlineSubsystemEOS lets IOnlineSubsystem titles talk to the EOS Dev Portal. New OSSv2 work should use Online Services EOS instead. Both can exist in the engine, but game code should pick one generation."
+  },
+  {
+    "slug": "online-subsystem-facebook",
+    "kind": "plugin",
+    "cn": "Online Subsystem Facebook 通过 OSSv1 对接 Facebook 平台登录与相关账号能力。OnlineSubsystemFacebook 把 Facebook 身份接到 Identity 接口，供需要 Facebook 登录的移动或社交发行。它不提供完整的 Facebook 社交图 SDK 封装。平台政策与 SDK 版本会限制实际可用接口。",
+    "en": "Online Subsystem Facebook is the OSSv1 backend for Facebook platform login and related identity. OnlineSubsystemFacebook maps Facebook identity onto Identity for mobile or social releases that still need Facebook sign-in. It is not a full Facebook Graph SDK wrapper. Platform policy and SDK version limit which calls exist."
+  },
+  {
+    "slug": "online-subsystem-gdk",
+    "kind": "plugin",
+    "cn": "Online Subsystem GDK 是 OSSv1 对接 Microsoft Game Development Kit 的实现，服务 Xbox 与 PC Game Pass。OnlineSubsystemGDK 覆盖 Xbox Live 登录、成就、云存档等 GDK 在线能力。Windows 上若游戏经 Xbox PC 应用安装，可用 Selector 插件自动切到这一后端。它与 OSSv2 的 Online Services Xbox Live 是不同接口代际。",
+    "en": "Online Subsystem GDK is the OSSv1 backend for the Microsoft Game Development Kit on Xbox and PC Game Pass. OnlineSubsystemGDK covers Xbox Live login, achievements, cloud saves, and related GDK online features. On Windows, the Selector plugin can switch to this backend when the game is installed via the Xbox PC App. It is a different generation from OSSv2 Online Services Xbox Live."
+  },
+  {
+    "slug": "online-subsystem-google",
+    "kind": "plugin",
+    "cn": "Online Subsystem Google 通过 OSSv1 对接 Google 账号平台，提供登录等身份能力。OnlineSubsystemGoogle 服务非 Play 商店场景或通用 Google 身份，与专门的 Google Play 游戏服务插件不同。Android 或跨平台标题可以用它做 Google 登录。Play 成就与排行榜通常在 Online Subsystem GooglePlay。",
+    "en": "Online Subsystem Google is the OSSv1 backend for the Google identity platform. OnlineSubsystemGoogle covers Google sign-in outside or beside Play Games, unlike the GooglePlay plugin. Android or cross-platform titles can use it for Google accounts. Play achievements and leaderboards usually live in Online Subsystem GooglePlay."
+  },
+  {
+    "slug": "online-subsystem-googleplay",
+    "kind": "plugin",
+    "cn": "Online Subsystem GooglePlay 对接 Google Play 游戏服务：登录、成就、排行榜和云存档等。OnlineSubsystemGooglePlay 走 Android 上的 Play Games SDK，并映射到 OSSv1。Android 商店发行用它满足 Play 游戏服务，而不是通用 Google 账号插件。它只在 Android 目标上有意义。",
+    "en": "Online Subsystem GooglePlay talks to Google Play Games services: sign-in, achievements, leaderboards, and cloud saves. OnlineSubsystemGooglePlay wraps the Play Games SDK on Android onto OSSv1. Android store releases use it for Play Games, not the generic Google identity plugin. It only matters on Android targets."
+  },
+  {
+    "slug": "online-subsystem-ios",
+    "kind": "plugin",
+    "cn": "Online Subsystem iOS 对接 Game Center 等 iOS 平台在线服务。OnlineSubsystemIOS 提供登录、成就、排行榜等 OSSv1 接口，供 App Store 发行使用。它与 Sign in with Apple 插件分工：iOS 管 Game Center，Apple 管苹果账号登录。只在 iOS/tvOS 目标上加载。",
+    "en": "Online Subsystem iOS talks to iOS platform online services such as Game Center. OnlineSubsystemIOS exposes OSSv1 login, achievements, and leaderboards for App Store releases. It splits work with the Apple plugin: iOS owns Game Center, Apple owns Sign in with Apple. It loads on iOS/tvOS targets."
+  },
+  {
+    "slug": "online-subsystem-null",
+    "kind": "plugin",
+    "cn": "Online Subsystem NULL 是没有外部平台的 OSSv1 空实现，供离线 PIE、自动化和没有联机 SDK 的构建使用。OnlineSubsystemNull 满足接口，会话和身份都是本地占位。开发者可以在没有 Steam 的机器上跑多人样例。发行联机必须换成 Steam、EOS 或其它真实后端。",
+    "en": "Online Subsystem NULL is the OSSv1 backend with no external platform, for offline PIE, automation, and builds without an online SDK. OnlineSubsystemNull satisfies the interface with local placeholder identity and sessions. Developers can run multiplayer samples on machines without Steam. Shipping online must switch to Steam, EOS, or another real backend."
+  },
+  {
+    "slug": "online-subsystem-selector---gdk-xbox-pc",
+    "kind": "plugin",
+    "cn": "该选择器在游戏通过 Xbox PC 应用安装时自动把 Online Subsystem 切到 OnlineSubsystemGDK。MSGameOSSSelector 检测安装渠道，避免同一 PC 构建在 Steam 与 Game Pass 之间手改配置。它属于 Runtime/Windows 平台逻辑，而不是完整的 GDK 在线实现。真正的 Live 调用仍由 Online Subsystem GDK 完成。",
+    "en": "This selector automatically switches Online Subsystem to OnlineSubsystemGDK when the game is installed via the Xbox PC App. MSGameOSSSelector detects the install channel so one PC build need not be hand-configured for Steam versus Game Pass. It is Runtime/Windows platform logic, not the full GDK online implementation. Live calls still go through Online Subsystem GDK."
+  },
+  {
+    "slug": "online-subsystem-steam",
+    "kind": "plugin",
+    "cn": "Online Subsystem Steam 把 Steamworks 接到 OSSv1：登录、好友、会话、成就与 Steam 联网。OnlineSubsystemSteam 是 PC 上最常用的联机后端之一。游戏通过 IOnlineSubsystem 调用，由 Steam 客户端完成鉴权。它不包含 EOS 覆盖（那是 Overlay/EOS 插件的职责划分）。",
+    "en": "Online Subsystem Steam maps Steamworks onto OSSv1: login, friends, sessions, achievements, and Steam networking. OnlineSubsystemSteam is one of the usual PC online backends. Game code calls IOnlineSubsystem; the Steam client authenticates. Overlay-versus-EOS responsibilities live in other plugins."
+  },
+  {
+    "slug": "online-subsystem-tencent",
+    "kind": "plugin",
+    "cn": "Online Subsystem Tencent 是 OSSv1 对接腾讯平台账号与在线服务的实现。OnlineSubsystemTencent 供国内发行渠道使用腾讯登录、会话等能力。它遵循同一套 OSS 接口，便于与其它区域后端切换。具体功能取决于腾讯 SDK 与项目合同范围。",
+    "en": "Online Subsystem Tencent is the OSSv1 backend for Tencent platform accounts and online services. OnlineSubsystemTencent is used by China-region releases for Tencent login and sessions. It follows the same OSS interface so region backends can swap. Feature coverage depends on Tencent’s SDK and the project contract."
+  },
+  {
+    "slug": "online-subsystem-utils",
+    "kind": "plugin",
+    "cn": "Online Subsystem Utils 提供使用 OSS 与 Online Services 时的共享辅助：会话工具、身份辅助以及 OnlineBlueprintSupport 蓝图节点。游戏和框架模块依赖它来创建会话、处理连接错误，而不直接包含平台 SDK。它不是某个商店的后端，而是所有 OSS 插件的工具层。缺少它时，蓝图很难安全调用在线接口。",
+    "en": "Online Subsystem Utils is shared helper code for OSS and Online Services: session helpers, identity utilities, and OnlineBlueprintSupport nodes. Games and framework modules use it to create sessions and handle connection errors without including a platform SDK. It is not a store backend; it is the utility layer for every OSS plugin. Without it, Blueprint cannot safely call online interfaces."
+  },
+  {
+    "slug": "online-subsystem",
+    "kind": "plugin",
+    "cn": "Online Subsystem 定义 OSSv1 的核心接口 IOnlineSubsystem 及共享实现 OnlineSubsystem 模块。所有 Steam、EOS、Null 等平台插件都实现这套 Identity/Session/Achievements 模块划分。游戏通过 Online::GetSubsystem 取得当前后端。它是经典在线栈的枢纽，OSSv2 则由 Online Services 插件承担同样角色。",
+    "en": "Online Subsystem defines the OSSv1 core interface IOnlineSubsystem and the shared OnlineSubsystem module. Steam, EOS, Null, and other platform plugins implement its Identity, Session, and Achievements modules. Games call Online::GetSubsystem to get the active backend. It is the hub of the classic online stack; OSSv2 uses the Online Services plugin for the same role."
+  },
+  {
+    "slug": "oodle-network",
+    "kind": "plugin",
+    "cn": "Oodle Network 用 Oodle 算法压缩复制数据包，降低带宽。OodleNetworkHandlerComponent 作为 PacketHandler 组件接入网络驱动，在发送前压缩、接收后解压。对战游戏可以在不改 RPC 布局的情况下减小包体。它处理的是包压缩，不是纹理压缩（纹理 Oodle 已并入引擎）。",
+    "en": "Oodle Network compresses replication packets with Oodle to cut bandwidth. OodleNetworkHandlerComponent plugs into the net driver as a PacketHandler, compressing on send and decompressing on receive. Competitive games can shrink packets without changing RPC layout. It is packet compression, not texture compression (Oodle Texture is now built into the engine)."
+  },
+  {
+    "slug": "oodle-texture",
+    "kind": "plugin",
+    "cn": "Oodle Texture 曾经是独立的 Oodle 纹理压缩插件，现在已经内置进引擎纹理格式管线。TextureFormatOodle 路径仍保留这个 Developer 插件作为弃用入口，避免旧项目指向丢失的 .uplugin。新项目无需启用它来获得 Oodle 纹理编码。继续把它当作独立编解码插件没有意义。",
+    "en": "Oodle Texture used to be a standalone Oodle texture-compression plugin; that encoder is now built into the engine texture-format pipeline. The TextureFormatOodle path keeps this Developer plugin as a deprecated stub so old projects do not lose a .uplugin reference. New projects do not enable it to get Oodle texture encoding. Treating it as a separate codec plugin is obsolete."
+  },
+  {
+    "slug": "opencolorio-ocio",
+    "kind": "plugin",
+    "cn": "OpenColorIO 把 OCIO 色彩管理接到视口、合成与电影渲染，使场景线性工作流能套工作室或 ACES 配置。OpenColorIO 运行时应用变换，OpenColorIOEditor 编辑配置资产。虚拟制片和灯光可以让 LED 墙、监看与 MRQ 输出共享同一套色彩空间。它属于 Compositing/Rendering，不是后处理调色滤镜替代品的全部。",
+    "en": "OpenColorIO (OCIO) brings OCIO color management into viewports, compositing, and movie renders so scene-linear work can use a studio or ACES config. OpenColorIO applies transforms at runtime; OpenColorIOEditor authors config assets. Virtual production can share one color space across LED walls, monitors, and MRQ output. It is compositing/rendering color, not a full replacement for every post-process grade."
+  },
+  {
+    "slug": "opencv-lens-distortion",
+    "kind": "plugin",
+    "cn": "OpenCV Lens Distortion 用 OpenCV 做相机标定，并生成镜头畸变/去畸变位移图，供合成与虚拟制片抠像对齐。OpenCVLensCalibration 跑标定流程，OpenCVLensDistortion 应用位移图。真实镜头拍到的板可以校正后再叠 CG。它依赖 OpenCV 插件初始化的库，而不是 Media 播放器。",
+    "en": "OpenCV Lens Distortion uses OpenCV for camera calibration and to build lens distortion/undistortion displacement maps for compositing and VP alignment. OpenCVLensCalibration runs calibration; OpenCVLensDistortion applies the maps. Plates from real lenses can be undistorted before CG overlay. It depends on the OpenCV plugin’s initialized library, not a media player."
+  },
+  {
+    "slug": "opencv",
+    "kind": "plugin",
+    "cn": "OpenCV 插件负责在引擎进程里初始化 OpenCV 库，供其它模块调用计算机视觉 API。OpenCVHelper 加载原生库并暴露辅助，而不是一个视觉游戏功能。镜头标定、检测或自定义 CV 代码都依赖这次初始化。没有它，OpenCV Lens Distortion 等插件无法链接到 OpenCV。",
+    "en": "The OpenCV plugin initializes the OpenCV library inside the engine process so other modules can call computer-vision APIs. OpenCVHelper loads the native library and helpers; it is not a gameplay vision feature by itself. Lens calibration, detection, or custom CV code all depend on this init. Without it, plugins such as OpenCV Lens Distortion cannot link OpenCV."
+  },
+  {
+    "slug": "openimagedenoise",
+    "kind": "plugin",
+    "cn": "OpenImageDenoise 用 Intel Open Image Denoise 库给路径追踪器去噪，适合 CPU 友好的离线帧。OpenImageDenoise 模块在 Denoising 类别下，常与 MRQ 路径追踪一起用。它与 NFOR、OptiX、NNE 去噪器是不同算法后端，可按硬件选择。它处理的是 Monte Carlo 噪点，不是实时屏幕空间去噪。",
+    "en": "OpenImageDenoise denoises the Unreal Path Tracer with Intel’s Open Image Denoise library, a CPU-friendly offline path. The OpenImageDenoise module sits under Denoising and is typically used with MRQ path tracing. It is a different backend from NFOR, OptiX, and NNE denoisers, chosen by hardware. It targets Monte Carlo noise, not realtime screen-space denoise."
+  },
+  {
+    "slug": "openxr-generic-controller-keys",
+    "kind": "plugin",
+    "cn": "OpenXR Generic Controller Keys 只注册 OpenXRGenericController_* FKey，仅依赖 InputCore。像素流送等不加载 OpenXR 的模块仍能映射 Khronos 通用手柄按键名。它不启用 XR_KHR_generic_controller 扩展。真正的通用手柄交互配置在 OpenXR Generic Controller 插件。",
+    "en": "OpenXR Generic Controller Keys only registers OpenXRGenericController_* FKeys and depends on InputCore. Pixel Streaming and other non-OpenXR modules can still map Khronos generic-controller key names. It does not enable the XR_KHR_generic_controller extension. The actual generic-controller interaction profile lives in OpenXR Generic Controller."
+  },
+  {
+    "slug": "openxr-generic-controller",
+    "kind": "plugin",
+    "cn": "OpenXR Generic Controller 启用 XR_KHR_generic_controller，并注册 /interaction_profiles/khr/generic_controller。OpenXRGenericController 让运行时把厂商手柄映射到 Khronos 通用交互配置，便于跨设备绑定。它加载的是交互配置，不是单独的 FKey 表（FKey 在 Keys 插件）。没有厂商专用插件时，可用这套通用配置兜底。",
+    "en": "OpenXR Generic Controller enables XR_KHR_generic_controller and registers /interaction_profiles/khr/generic_controller. OpenXRGenericController lets the runtime map vendor controllers onto the Khronos generic profile for cross-device bindings. It loads the interaction profile, not the FKey table (that is the Keys plugin). When a vendor plugin is missing, this generic profile is the fallback."
+  },
+  {
+    "slug": "openxr-mixed-reality-controller",
+    "kind": "plugin",
+    "cn": "OpenXR Mixed Reality Controller 为 Windows Mixed Reality 运动手柄注册 /interaction_profiles/microsoft/motion_controller，并提供手柄网格。OpenXRMixedRealityController 让 WMR 手柄按键、姿态和可视化出现在 OpenXR 输入路径上。它只服务这条 Microsoft 交互配置，不含 Oculus 或 Index。XR 项目按头显启用对应的手柄插件即可。",
+    "en": "OpenXR Mixed Reality Controller registers /interaction_profiles/microsoft/motion_controller and its controller meshes for Windows Mixed Reality. OpenXRMixedRealityController puts WMR buttons, poses, and visualization on the OpenXR input path. It only serves that Microsoft profile, not Oculus or Index. XR projects enable the controller plugin that matches the headset."
+  },
+  {
+    "slug": "openxr-oculus-touch-controller",
+    "kind": "plugin",
+    "cn": "OpenXR Oculus Touch Controller 注册 Oculus Touch 与 Go 的交互配置（touch_controller、go_controller），并带上 Rift/Quest/Quest 2/Go 的手柄网格。OpenXROculusTouchController 把 Meta 手柄输入接到 OpenXR 输入系统。Quest 类头显的抓取、摇杆和按键走这条配置，而不是 Valve Index 配置。FKey 名称仍可由独立的 Oculus Touch Controller Keys 插件提供。",
+    "en": "OpenXR Oculus Touch Controller registers the Oculus Touch and Go interaction profiles (touch_controller, go_controller) plus Rift, Quest, Quest 2, and Go meshes. OpenXROculusTouchController routes Meta controller input through OpenXR. Quest-class grip, sticks, and buttons use this profile, not Valve Index. FKey names can still come from the separate Oculus Touch Controller Keys plugin."
+  },
+  {
+    "slug": "openxr-render-model",
+    "kind": "plugin",
+    "cn": "OpenXR Render Model 在运行时支持 XR_EXT_render_model 与 XR_EXT_interaction_render_model 时，让 XRDeviceVisualizationComponent 加载官方手柄渲染模型。OpenXRRenderModel 从 OpenXR 运行时拉网格，而不打包每家手柄的静态 Mesh。玩家看到的控制器外观可以跟系统实际手柄一致。若运行时没有这些扩展，组件会回退到插件自带网格。",
+    "en": "OpenXR Render Model lets XRDeviceVisualizationComponent load controller render models from XR_EXT_render_model and XR_EXT_interaction_render_model when the active runtime supports them. OpenXRRenderModel pulls meshes from the OpenXR runtime instead of shipping every vendor static mesh. The in-game controller can match the physical device. If the runtime lacks those extensions, components fall back to plugin meshes."
+  },
+  {
+    "slug": "openxr-spatial-entities",
+    "kind": "plugin",
+    "cn": "OpenXR Spatial Entities 实现 XR_EXT_spatial_entity 系列（base、anchor、persistence、persistence_operations），用于跨厂商的持久空间锚点。OpenXRSpatialEntities 在运行时创建与恢复锚点，Editor 模块提供编辑器侧支持。AR 体验可以把虚拟物钉在房间同一位置，下次启动仍在。它走 Khronos 空间实体扩展，而不是某个厂商私有锚点 API。",
+    "en": "OpenXR Spatial Entities implements the XR_EXT_spatial_entity family (base, anchor, persistence, persistence_operations) for cross-vendor persistent spatial anchors. OpenXRSpatialEntities creates and restores anchors at runtime; the Editor module helps in the editor. AR experiences can pin content to a room location across launches. It uses the Khronos spatial-entity extensions, not a vendor-private anchor API."
+  },
+  {
+    "slug": "openxr-valve-index-controller",
+    "kind": "plugin",
+    "cn": "OpenXR Valve Index Controller 注册 /interaction_profiles/valve/index_controller 及其手柄网格，包含 Index 的指环与扳机模拟输入。OpenXRValveIndexController 把 SteamVR Index 手柄接到 OpenXR 输入。Knuckles 的手指弯曲和 A/B 键走这条配置。其它厂商手柄不会因为启用它而自动映射。",
+    "en": "OpenXR Valve Index Controller registers /interaction_profiles/valve/index_controller and its meshes, including Index finger and trigger analog input. OpenXRValveIndexController wires SteamVR Index controllers into OpenXR input. Knuckles finger curl and A/B buttons use this profile. Other vendors’ controllers are not mapped by enabling it."
+  },
+  {
+    "slug": "openxr-vive-controller",
+    "kind": "plugin",
+    "cn": "OpenXR Vive Controller 注册 /interaction_profiles/htc/vive_controller 及 Vive 手柄网格。OpenXRViveController 把经典 Vive 手柄的触控板、扳机和菜单键接到 OpenXR。它服务 1.0 Vive 手柄交互，不含 Cosmos 或 Tracker。需要 Tracker 时应启用 OpenXRViveTracker。",
+    "en": "OpenXR Vive Controller registers /interaction_profiles/htc/vive_controller and the Vive controller mesh. OpenXRViveController maps classic Vive trackpad, trigger, and menu onto OpenXR. It is the 1.0 Vive wand profile, not Cosmos or Tracker. Enable OpenXRViveTracker when you need trackers."
+  },
+  {
+    "slug": "openxr-vive-cosmos-controller",
+    "kind": "plugin",
+    "cn": "OpenXR Vive Cosmos Controller 注册 /interaction_profiles/htc/vive_cosmos_controller（XR_HTC_vive_cosmos_controller_interaction，OpenXR 1.1 核心）及 Cosmos 手柄网格。OpenXRViveCosmosController 把 Cosmos 的摇杆与按键布局接到 OpenXR。它与经典 Vive 触控板手柄不是同一交互配置。混用 Cosmos 与 Index 时要分别启用对应插件。",
+    "en": "OpenXR Vive Cosmos Controller registers /interaction_profiles/htc/vive_cosmos_controller (XR_HTC_vive_cosmos_controller_interaction, core in OpenXR 1.1) and Cosmos meshes. OpenXRViveCosmosController maps Cosmos sticks and buttons onto OpenXR. It is not the classic Vive trackpad wand profile. Mixed Cosmos and Index setups need both controller plugins."
+  },
+  {
+    "slug": "openxr",
+    "kind": "plugin",
+    "cn": "OpenXR 插件通过 Khronos OpenXR 运行时对接头显，使同一项目能面向 SteamVR、Meta、WMR 等，而不为每个 HMD 写专用插件。OpenXRHMD 提交姿态与交换链，OpenXRInput 处理动作绑定，OpenXRAR 覆盖 AR 扩展，OpenXREditor 提供编辑器设置。厂商手柄、手势、眼动是独立扩展插件，建立在这套运行时之上。它是虚幻 XR 的默认开放标准路径。",
+    "en": "The OpenXR plugin talks to a Khronos OpenXR runtime so one project can target SteamVR, Meta, WMR, and others without a vendor HMD plugin each. OpenXRHMD submits poses and swapchains; OpenXRInput handles action bindings; OpenXRAR covers AR extensions; OpenXREditor exposes settings. Vendor controllers, hands, and eye tracking are separate extension plugins on this runtime. It is Unreal’s default open XR path."
+  },
+  {
+    "slug": "openxreyetracker",
+    "kind": "plugin",
+    "cn": "OpenXREyeTracker 实现 XR_EXT_eye_gaze_interaction，把运行时提供的眼动射线接到引擎的 Eye Tracker 接口。注视点可用于 UI 高亮、注视交互或社交头像的眼球。它依赖活动的 OpenXR 运行时支持该扩展。没有眼动硬件时插件不会凭空生成视线。",
+    "en": "OpenXREyeTracker implements XR_EXT_eye_gaze_interaction and feeds the runtime gaze ray into Unreal’s Eye Tracker interface. Gaze can drive UI highlight, look-based interaction, or avatar eyes. It requires an OpenXR runtime that supports the extension. Without eye-tracking hardware it does not invent a gaze ray."
+  },
+  {
+    "slug": "openxrhandtracking",
+    "kind": "plugin",
+    "cn": "OpenXRHandTracking 实现 XR_EXT_hand_tracking，把双手关节姿态交给引擎，供手势交互或手部网格驱动。OpenXRHandTracking 是运行时，OpenXRHandTrackingEditor 提供编辑器预览与设置。Quest 等运行时开启手部追踪后，可以不用手柄做捏合与指点。它与微软的 Hand Interaction 配置文件是不同扩展。",
+    "en": "OpenXRHandTracking implements XR_EXT_hand_tracking and delivers joint poses for gesture interaction or a hand mesh. OpenXRHandTracking is the runtime; OpenXRHandTrackingEditor adds preview and settings. On Quest-class runtimes with hand tracking, pinch and point can work without controllers. It is a different extension from Microsoft’s Hand Interaction profile."
+  },
+  {
+    "slug": "openxrmsfthandinteraction",
+    "kind": "plugin",
+    "cn": "OpenXRMsftHandInteraction 启用微软的手部交互配置，把 XR_MSFT_hand_interaction 一类输入映射成 OpenXR 动作。它面向 Windows Mixed Reality / 支持该扩展的运行时，用悬停与选择手势代替手柄。OpenXRMsftHandInteraction 是运行时模块，可随 XR 应用打包。关节级手部网格仍由 OpenXRHandTracking 提供。",
+    "en": "OpenXRMsftHandInteraction enables Microsoft’s hand interaction profile, mapping XR_MSFT_hand_interaction-style input onto OpenXR actions. It targets Windows Mixed Reality and runtimes that expose that profile, using hover and select gestures instead of controllers. OpenXRMsftHandInteraction is a runtime module that can ship in an XR app. Joint-level hand meshes still come from OpenXRHandTracking."
+  },
+  {
+    "slug": "openxrvivetracker",
+    "kind": "plugin",
+    "cn": "OpenXRViveTracker 实现 XR_HTCX_vive_tracker_interaction，把 HTC Vive Tracker 的姿态接到 OpenXR。道具、脚部或物体追踪器可以驱动场景 Actor 或 Live Link。它与 Vive 手柄插件分开，只处理 Tracker 角色。没有 Tracker 硬件时启用它不会产生额外设备。",
+    "en": "OpenXRViveTracker implements XR_HTCX_vive_tracker_interaction so HTC Vive Tracker poses enter OpenXR. Props, feet, or object trackers can drive scene actors or Live Link. It is separate from the Vive controller plugin and only handles the tracker role. Enabling it without Tracker hardware does not create extra devices."
+  },
+  {
+    "slug": "operator-stack",
+    "kind": "plugin",
+    "cn": "Operator Stack 用直观的容器 UI 展示被链接在一起的对象，常见于虚拟制片里灯光卡、摄像机与 nDisplay 相关资产的成组编辑。OperatorStackEditor 把依赖关系画成可操作的栈，而不是散落在世界大纲。操作员可以沿着链接关系改参数，而不反复在细节面板跳转。它是 VP 编辑器工具，不是运行时玩法栈。",
+    "en": "Operator Stack shows linked objects in a container UI, typical of virtual production groupings such as light cards, cameras, and nDisplay-related assets. OperatorStackEditor draws those dependencies as an operable stack instead of scattering them in World Outliner. Operators can follow links to edit parameters without hopping Details panels. It is a VP editor tool, not a runtime gameplay stack."
+  },
+  {
+    "slug": "optimus",
+    "kind": "plugin",
+    "cn": "Optimus 曾经是 GPU 变形图插件的名称，现已弃用并重定向到 Deformer Graph。这个 Experimental 入口不再提供独立模块列表，只为旧项目保留插件引用。新的网格变形、形态与皮肤附加应使用 Deformer Graph。继续在文档里把 Optimus 当成现行系统会指向空实现。",
+    "en": "Optimus was the old name of the GPU deformer-graph plugin; it is deprecated and redirected to Deformer Graph. This Experimental stub no longer ships modules and only preserves the plugin reference for old projects. New mesh deform, morph, and skin attach work should use Deformer Graph. Treating Optimus as the current system now points at an empty implementation."
+  },
+  {
+    "slug": "optional-mobile-features-blueprint-library",
+    "kind": "plugin",
+    "cn": "Optional Mobile Features Blueprint Library 向蓝图暴露 Android 与 iOS 上的系统音量、电池电量和系统温度。OptionalMobileFeaturesBPLibrary 把这些只读设备状态包成节点，供移动游戏做省电或过热提示。它不包含通知、内购或商店 SDK。桌面目标上这些节点没有对应硬件意义。",
+    "en": "Optional Mobile Features Blueprint Library exposes sound volume, battery charge, and system temperature on Android and iOS to Blueprint. OptionalMobileFeaturesBPLibrary wraps those read-only device stats for mobile games that throttle or warn on heat. It does not include notifications, IAP, or store SDKs. On desktop targets the nodes have no matching hardware."
+  },
+  {
+    "slug": "optixdenoise",
+    "kind": "plugin",
+    "cn": "OptiXDenoise 用 NVIDIA OptiX AI 去噪库给路径追踪器去噪，适合 NVIDIA GPU 上的离线 MRQ 作业。OptiXDenoise 模块在 Denoising 类别，与 OIDN、NFOR、NNE 去噪器并列。开启路径追踪高采样时，它能在 GPU 上快速压噪。没有 NVIDIA OptiX 支持的硬件时应改用其它去噪后端。",
+    "en": "OptiXDenoise denoises the Unreal Path Tracer with NVIDIA’s OptiX AI-Accelerated Denoiser, aimed at offline MRQ jobs on NVIDIA GPUs. The OptiXDenoise module sits under Denoising beside OIDN, NFOR, and NNE denoisers. High-sample path tracing can crush noise on the GPU quickly. Hardware without OptiX support should use another denoiser."
+  },
+  {
+    "slug": "opus-audio-decoder-for-electra",
+    "kind": "plugin",
+    "cn": "该插件为 Electra 媒体播放器实现 Opus 音频解码，使 Media Framework 能播放 Opus 编码的音轨或流。OpusDecoderElectra 注册解码器，而不是一个独立音频引擎。直播、网络音轨或 WebM/MP4 里的 Opus 可以走 Electra 管线。它只解音频，视频编码仍由其它 Electra 解码插件负责。",
+    "en": "This plugin implements Opus audio playback for the Electra media player so Media Framework can play Opus tracks or streams. OpusDecoderElectra registers the decoder; it is not a separate audio engine. Live, net audio, or Opus inside WebM/MP4 can ride the Electra pipeline. It decodes audio only; video codecs stay in other Electra decoder plugins."
+  },
+  {
+    "slug": "osc-open-sound-control",
+    "kind": "plugin",
+    "cn": "OSC 插件实现 OSC 1.0，可在引擎与远程客户端之间发送、接收消息和 bundle。灯光台、音乐软件或传感器可以用 UDP OSC 驱动关卡参数、蓝图事件或音频控制。唯一模块 OSC 属于 Input Devices 运行时。它是控制协议，不是音频 DSP 效果器。",
+    "en": "The OSC plugin implements OSC 1.0 so Unreal can send and receive OSC messages and bundles with remote clients. Lighting desks, music software, or sensors can drive level parameters, Blueprint events, or audio controls over UDP OSC. The OSC module is an Input Devices runtime. It is a control protocol, not an audio DSP effect."
+  },
+  {
+    "slug": "panoramic-capture",
+    "kind": "plugin",
+    "cn": "Panoramic Capture 按序列捕捉单目或上下立体全景图，用于 VR 影片或环境探头类输出。PanoramicCapture 围绕相机渲染立方/等距柱状帧并写成图像序列。它是实验性 Movie Capture 工具，不是实时反射捕获。输出可交给外部拼接或后期，而不是 nDisplay LED 墙。",
+    "en": "Panoramic Capture records a sequence of monoscopic or top/bottom stereoscopic panoramas for VR movies or environment-style output. PanoramicCapture renders cube or equirectangular frames around a camera and writes an image sequence. It is an experimental Movie Capture tool, not realtime reflection capture. Output goes to external stitch or post, not an nDisplay LED wall."
+  }
+]

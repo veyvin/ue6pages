@@ -1,0 +1,312 @@
+[
+  {
+    "slug": "chaosspatialpartitions",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ChaosSpatialPartitions` 位于 `Runtime`，构建规则 `Runtime/Experimental/ChaosSpatialPartitions/ChaosSpatialPartitions.Build.cs`。它直接依赖 2 个模块：`ChaosCore`, `Core`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosSpatialPartitions\" });`；对外暴露 `ChaosSpatialPartitions` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ChaosSpatialPartitions` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ChaosSpatialPartitions.h` / `ChaosSpatialPartitionsModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosSpatialPartitionsModule>` 或直接使用导出类型。",
+      "传递依赖：`ChaosSpatialPartitions` 还依赖 `ChaosCore`, `Core`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`ChaosSpatialPartitions` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `ChaosSpatialPartitions` lives under `Runtime`; build rule `Runtime/Experimental/ChaosSpatialPartitions/ChaosSpatialPartitions.Build.cs`.It directly depends on 2 modules: `ChaosCore`, `Core`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosSpatialPartitions\" });`. Use Public when exposing `ChaosSpatialPartitions` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ChaosSpatialPartitions` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ChaosSpatialPartitions.h` / `ChaosSpatialPartitionsModule.h`), then use `FModuleManager::LoadModulePtr<ChaosSpatialPartitionsModule>` or the exported types directly.",
+      "Transitive deps: `ChaosSpatialPartitions` also needs `ChaosCore`, `Core`; do not re-list them unless you include their headers.",
+      "Note: `ChaosSpatialPartitions` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`ChaosSpatialPartitions` 的构建规则位于 `Runtime/Experimental/ChaosSpatialPartitions/ChaosSpatialPartitions.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`ChaosSpatialPartitions` build rule is `Runtime/Experimental/ChaosSpatialPartitions/ChaosSpatialPartitions.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "chaosspatialpartitionstests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ChaosSpatialPartitionsTests` 位于 `Programs`，构建规则 `Programs/ChaosSpatialPartitionsTests/ChaosSpatialPartitionsTests.Build.cs`。它直接依赖 6 个模块：`ChaosCore`, `ChaosSpatialPartitions`, `ChaosTestHarness`, `Core`, `CoreUObject`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosSpatialPartitionsTests\" });`；对外暴露 `ChaosSpatialPartitionsTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ChaosSpatialPartitionsTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ChaosSpatialPartitionsTests.h` / `ChaosSpatialPartitionsTestsModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosSpatialPartitionsTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`ChaosSpatialPartitionsTests` 还依赖 `ChaosCore`, `ChaosSpatialPartitions`, `ChaosTestHarness`, `Core`, `CoreUObject`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ChaosSpatialPartitionsTests` lives under `Programs`; build rule `Programs/ChaosSpatialPartitionsTests/ChaosSpatialPartitionsTests.Build.cs`.It directly depends on 6 modules: `ChaosCore`, `ChaosSpatialPartitions`, `ChaosTestHarness`, `Core`, `CoreUObject`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosSpatialPartitionsTests\" });`. Use Public when exposing `ChaosSpatialPartitionsTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ChaosSpatialPartitionsTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ChaosSpatialPartitionsTests.h` / `ChaosSpatialPartitionsTestsModule.h`), then use `FModuleManager::LoadModulePtr<ChaosSpatialPartitionsTestsModule>` or the exported types directly.",
+      "Transitive deps: `ChaosSpatialPartitionsTests` also needs `ChaosCore`, `ChaosSpatialPartitions`, `ChaosTestHarness`, `Core`, `CoreUObject`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ChaosSpatialPartitionsTests` 的构建规则位于 `Programs/ChaosSpatialPartitionsTests/ChaosSpatialPartitionsTests.Build.cs`，直接依赖 6 个模块，分类 Module。",
+    "note_en": "`ChaosSpatialPartitionsTests` build rule is `Programs/ChaosSpatialPartitionsTests/ChaosSpatialPartitionsTests.Build.cs`; depends on 6 modules; category Module."
+  },
+  {
+    "slug": "chaostestharness",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ChaosTestHarness` 位于 `Developer`，构建规则 `Developer/ChaosTestHarness/ChaosTestHarness.Build.cs`。它直接依赖 5 个模块：`Catch2`, `Core`, `CoreUObject`, `Engine`, `LowLevelTestsRunner`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosTestHarness\" });`；对外暴露 `ChaosTestHarness` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ChaosTestHarness` 属于开发者/工具模块，供编辑器或命令行使用，不要当游戏运行时依赖。",
+      "调用：#include 其 Public 头（常见 `ChaosTestHarness.h` / `ChaosTestHarnessModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosTestHarnessModule>` 或直接使用导出类型。",
+      "传递依赖：`ChaosTestHarness` 还依赖 `Catch2`, `Core`, `CoreUObject`, `Engine`, `LowLevelTestsRunner`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ChaosTestHarness` lives under `Developer`; build rule `Developer/ChaosTestHarness/ChaosTestHarness.Build.cs`.It directly depends on 5 modules: `Catch2`, `Core`, `CoreUObject`, `Engine`, `LowLevelTestsRunner`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosTestHarness\" });`. Use Public when exposing `ChaosTestHarness` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ChaosTestHarness` is a developer/tool module for editor or CLI use; not a game runtime dependency.",
+      "Call: include Public headers (often `ChaosTestHarness.h` / `ChaosTestHarnessModule.h`), then use `FModuleManager::LoadModulePtr<ChaosTestHarnessModule>` or the exported types directly.",
+      "Transitive deps: `ChaosTestHarness` also needs `Catch2`, `Core`, `CoreUObject`, `Engine`, `LowLevelTestsRunner`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ChaosTestHarness` 的构建规则位于 `Developer/ChaosTestHarness/ChaosTestHarness.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`ChaosTestHarness` build rule is `Developer/ChaosTestHarness/ChaosTestHarness.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "chaosuserdatapttests",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ChaosUserDataPTTests` 位于 `Programs`，构建规则 `Programs/ChaosUserDataPTTests/ChaosUserDataPTTests.Build.cs`。它直接依赖 5 个模块：`ApplicationCore`, `Chaos`, `ChaosUserDataPT`, `Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosUserDataPTTests\" });`；对外暴露 `ChaosUserDataPTTests` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ChaosUserDataPTTests` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ChaosUserDataPTTests.h` / `ChaosUserDataPTTestsModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosUserDataPTTestsModule>` 或直接使用导出类型。",
+      "传递依赖：`ChaosUserDataPTTests` 还依赖 `ApplicationCore`, `Chaos`, `ChaosUserDataPT`, `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ChaosUserDataPTTests` lives under `Programs`; build rule `Programs/ChaosUserDataPTTests/ChaosUserDataPTTests.Build.cs`.It directly depends on 5 modules: `ApplicationCore`, `Chaos`, `ChaosUserDataPT`, `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosUserDataPTTests\" });`. Use Public when exposing `ChaosUserDataPTTests` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ChaosUserDataPTTests` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ChaosUserDataPTTests.h` / `ChaosUserDataPTTestsModule.h`), then use `FModuleManager::LoadModulePtr<ChaosUserDataPTTestsModule>` or the exported types directly.",
+      "Transitive deps: `ChaosUserDataPTTests` also needs `ApplicationCore`, `Chaos`, `ChaosUserDataPT`, `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ChaosUserDataPTTests` 的构建规则位于 `Programs/ChaosUserDataPTTests/ChaosUserDataPTTests.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`ChaosUserDataPTTests` build rule is `Programs/ChaosUserDataPTTests/ChaosUserDataPTTests.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "chaosvdruntime",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ChaosVDRuntime` 位于 `Runtime`，构建规则 `Runtime/Experimental/ChaosVisualDebugger/ChaosVDRuntime.Build.cs`。它直接依赖 4 个模块：`Core`, `CoreUObject`, `TraceBasedDebuggers`, `TraceLog`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosVDRuntime\" });`；对外暴露 `ChaosVDRuntime` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ChaosVDRuntime` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ChaosVDRuntime.h` / `ChaosVDRuntimeModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosVDRuntimeModule>` 或直接使用导出类型。",
+      "传递依赖：`ChaosVDRuntime` 还依赖 `Core`, `CoreUObject`, `TraceBasedDebuggers`, `TraceLog`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`ChaosVDRuntime` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `ChaosVDRuntime` lives under `Runtime`; build rule `Runtime/Experimental/ChaosVisualDebugger/ChaosVDRuntime.Build.cs`.It directly depends on 4 modules: `Core`, `CoreUObject`, `TraceBasedDebuggers`, `TraceLog`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosVDRuntime\" });`. Use Public when exposing `ChaosVDRuntime` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ChaosVDRuntime` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ChaosVDRuntime.h` / `ChaosVDRuntimeModule.h`), then use `FModuleManager::LoadModulePtr<ChaosVDRuntimeModule>` or the exported types directly.",
+      "Transitive deps: `ChaosVDRuntime` also needs `Core`, `CoreUObject`, `TraceBasedDebuggers`, `TraceLog`; do not re-list them unless you include their headers.",
+      "Note: `ChaosVDRuntime` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`ChaosVDRuntime` 的构建规则位于 `Runtime/Experimental/ChaosVisualDebugger/ChaosVDRuntime.Build.cs`，直接依赖 4 个模块，分类 Module。",
+    "note_en": "`ChaosVDRuntime` build rule is `Runtime/Experimental/ChaosVisualDebugger/ChaosVDRuntime.Build.cs`; depends on 4 modules; category Module."
+  },
+  {
+    "slug": "chaosvehiclescore",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ChaosVehiclesCore` 位于 `Runtime`，构建规则 `Runtime/Experimental/ChaosVehicles/ChaosVehiclesCore/ChaosVehiclesCore.Build.cs`。它直接依赖 3 个模块：`Chaos`, `Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosVehiclesCore\" });`；对外暴露 `ChaosVehiclesCore` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ChaosVehiclesCore` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ChaosVehiclesCore.h` / `ChaosVehiclesCoreModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosVehiclesCoreModule>` 或直接使用导出类型。",
+      "传递依赖：`ChaosVehiclesCore` 还依赖 `Chaos`, `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`ChaosVehiclesCore` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `ChaosVehiclesCore` lives under `Runtime`; build rule `Runtime/Experimental/ChaosVehicles/ChaosVehiclesCore/ChaosVehiclesCore.Build.cs`.It directly depends on 3 modules: `Chaos`, `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosVehiclesCore\" });`. Use Public when exposing `ChaosVehiclesCore` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ChaosVehiclesCore` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ChaosVehiclesCore.h` / `ChaosVehiclesCoreModule.h`), then use `FModuleManager::LoadModulePtr<ChaosVehiclesCoreModule>` or the exported types directly.",
+      "Transitive deps: `ChaosVehiclesCore` also needs `Chaos`, `Core`, `CoreUObject`; do not re-list them unless you include their headers.",
+      "Note: `ChaosVehiclesCore` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`ChaosVehiclesCore` 的构建规则位于 `Runtime/Experimental/ChaosVehicles/ChaosVehiclesCore/ChaosVehiclesCore.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ChaosVehiclesCore` build rule is `Runtime/Experimental/ChaosVehicles/ChaosVehiclesCore/ChaosVehiclesCore.Build.cs`; depends on 3 modules; category Module."
+  },
+  {
+    "slug": "chaosvehiclesengine",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ChaosVehiclesEngine` 位于 `Runtime`，构建规则 `Runtime/Experimental/ChaosVehicles/ChaosVehiclesEngine/ChaosVehiclesEngine.Build.cs`。它直接依赖 7 个模块：`Chaos`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosVehiclesEngine\" });`；对外暴露 `ChaosVehiclesEngine` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ChaosVehiclesEngine` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ChaosVehiclesEngine.h` / `ChaosVehiclesEngineModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosVehiclesEngineModule>` 或直接使用导出类型。",
+      "传递依赖：`ChaosVehiclesEngine` 还依赖 `Chaos`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`ChaosVehiclesEngine` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `ChaosVehiclesEngine` lives under `Runtime`; build rule `Runtime/Experimental/ChaosVehicles/ChaosVehiclesEngine/ChaosVehiclesEngine.Build.cs`.It directly depends on 7 modules: `Chaos`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosVehiclesEngine\" });`. Use Public when exposing `ChaosVehiclesEngine` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ChaosVehiclesEngine` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ChaosVehiclesEngine.h` / `ChaosVehiclesEngineModule.h`), then use `FModuleManager::LoadModulePtr<ChaosVehiclesEngineModule>` or the exported types directly.",
+      "Transitive deps: `ChaosVehiclesEngine` also needs `Chaos`, `ChaosVehiclesCore`, `Core`, `CoreUObject`, `Engine`, `RHI`, `RenderCore`; do not re-list them unless you include their headers.",
+      "Note: `ChaosVehiclesEngine` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`ChaosVehiclesEngine` 的构建规则位于 `Runtime/Experimental/ChaosVehicles/ChaosVehiclesEngine/ChaosVehiclesEngine.Build.cs`，直接依赖 7 个模块，分类 Module。",
+    "note_en": "`ChaosVehiclesEngine` build rule is `Runtime/Experimental/ChaosVehicles/ChaosVehiclesEngine/ChaosVehiclesEngine.Build.cs`; depends on 7 modules; category Module."
+  },
+  {
+    "slug": "chaosvisualdebugger",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ChaosVisualDebugger` 位于 `Programs`，构建规则 `Programs/ChaosVisualDebugger/ChaosVisualDebugger.Build.cs`。它直接依赖 8 个模块：`AgilitySDK`, `ApplicationCore`, `ChaosVD`, `Core`, `CoreUObject`, `DerivedDataCache`, `EditorViewport`, `Engine`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosVisualDebugger\" });`；对外暴露 `ChaosVisualDebugger` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ChaosVisualDebugger` 属于独立程序(Programs)，给命令行/工具用，不进游戏运行时。",
+      "调用：#include 其 Public 头（常见 `ChaosVisualDebugger.h` / `ChaosVisualDebuggerModule.h`），再用 `FModuleManager::LoadModulePtr<ChaosVisualDebuggerModule>` 或直接使用导出类型。",
+      "传递依赖：`ChaosVisualDebugger` 还依赖 `AgilitySDK`, `ApplicationCore`, `ChaosVD`, `Core`, `CoreUObject`, `DerivedDataCache`, `EditorViewport`, `Engine`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ChaosVisualDebugger` lives under `Programs`; build rule `Programs/ChaosVisualDebugger/ChaosVisualDebugger.Build.cs`.It directly depends on 8 modules: `AgilitySDK`, `ApplicationCore`, `ChaosVD`, `Core`, `CoreUObject`, `DerivedDataCache`, `EditorViewport`, `Engine`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ChaosVisualDebugger\" });`. Use Public when exposing `ChaosVisualDebugger` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ChaosVisualDebugger` belongs to a standalone Program; used by CLI/tools, not game runtime.",
+      "Call: include Public headers (often `ChaosVisualDebugger.h` / `ChaosVisualDebuggerModule.h`), then use `FModuleManager::LoadModulePtr<ChaosVisualDebuggerModule>` or the exported types directly.",
+      "Transitive deps: `ChaosVisualDebugger` also needs `AgilitySDK`, `ApplicationCore`, `ChaosVD`, `Core`, `CoreUObject`, `DerivedDataCache`, `EditorViewport`, `Engine`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ChaosVisualDebugger` 的构建规则位于 `Programs/ChaosVisualDebugger/ChaosVisualDebugger.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ChaosVisualDebugger` build rule is `Programs/ChaosVisualDebugger/ChaosVisualDebugger.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "cinematiccamera",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CinematicCamera` 位于 `Runtime`，构建规则 `Runtime/CinematicCamera/CinematicCamera.Build.cs`。它直接依赖 8 个模块：`Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MovieScene`, `MovieSceneTracks`, `Slate`, `SlateCore`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CinematicCamera\" });`；对外暴露 `CinematicCamera` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CinematicCamera` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `CinematicCamera.h` / `CinematicCameraModule.h`），再用 `FModuleManager::LoadModulePtr<CinematicCameraModule>` 或直接使用导出类型。",
+      "传递依赖：`CinematicCamera` 还依赖 `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MovieScene`, `MovieSceneTracks`, `Slate`, `SlateCore`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `CinematicCamera` lives under `Runtime`; build rule `Runtime/CinematicCamera/CinematicCamera.Build.cs`.It directly depends on 8 modules: `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MovieScene`, `MovieSceneTracks`, `Slate`, `SlateCore`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CinematicCamera\" });`. Use Public when exposing `CinematicCamera` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CinematicCamera` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `CinematicCamera.h` / `CinematicCameraModule.h`), then use `FModuleManager::LoadModulePtr<CinematicCameraModule>` or the exported types directly.",
+      "Transitive deps: `CinematicCamera` also needs `Core`, `CoreUObject`, `DeveloperSettings`, `Engine`, `MovieScene`, `MovieSceneTracks`, `Slate`, `SlateCore`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`CinematicCamera` 的构建规则位于 `Runtime/CinematicCamera/CinematicCamera.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`CinematicCamera` build rule is `Runtime/CinematicCamera/CinematicCamera.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "classviewer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ClassViewer` 位于 `Editor`，构建规则 `Editor/ClassViewer/ClassViewer.Build.cs`。它直接依赖 8 个模块：`AssetRegistry`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ClassViewer\" });`；对外暴露 `ClassViewer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ClassViewer` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ClassViewer.h` / `ClassViewerModule.h`），再用 `FModuleManager::LoadModulePtr<ClassViewerModule>` 或直接使用导出类型。",
+      "传递依赖：`ClassViewer` 还依赖 `AssetRegistry`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ClassViewer` lives under `Editor`; build rule `Editor/ClassViewer/ClassViewer.Build.cs`.It directly depends on 8 modules: `AssetRegistry`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ClassViewer\" });`. Use Public when exposing `ClassViewer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ClassViewer` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ClassViewer.h` / `ClassViewerModule.h`), then use `FModuleManager::LoadModulePtr<ClassViewerModule>` or the exported types directly.",
+      "Transitive deps: `ClassViewer` also needs `AssetRegistry`, `ContentBrowserData`, `Core`, `CoreUObject`, `EditorFramework`, `Engine`, `InputCore`, `PropertyEditor`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ClassViewer` 的构建规则位于 `Editor/ClassViewer/ClassViewer.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ClassViewer` build rule is `Editor/ClassViewer/ClassViewer.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "cli11",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`CLI11` 位于 `ThirdParty`，构建规则 `ThirdParty/CLI11/CLI11.Build.cs`。描述符未声明依赖。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"CLI11\" });`；对外暴露 `CLI11` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`CLI11` 是第三方库的 UBT 封装。优先依赖引擎已包好的上层模块，而不是直接依赖它。",
+      "调用：#include 其 Public 头（常见 `CLI11.h` / `CLI11Module.h`），再用 `FModuleManager::LoadModulePtr<CLI11Module>` 或直接使用导出类型。",
+      "传递依赖：`CLI11` 未声明额外公开依赖，通常只依赖引擎基础层。"
+    ],
+    "en_steps": [
+      "Purpose: `CLI11` lives under `ThirdParty`; build rule `ThirdParty/CLI11/CLI11.Build.cs`.The descriptor declares no dependencies.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"CLI11\" });`. Use Public when exposing `CLI11` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `CLI11` wraps a third-party library. Prefer the engine module that already wraps it.",
+      "Call: include Public headers (often `CLI11.h` / `CLI11Module.h`), then use `FModuleManager::LoadModulePtr<CLI11Module>` or the exported types directly.",
+      "Transitive deps: `CLI11` declares no extra public deps; it typically relies on engine basics."
+    ],
+    "note_cn": "`CLI11` 的构建规则位于 `ThirdParty/CLI11/CLI11.Build.cs`，直接依赖 0 个模块，分类 External。",
+    "note_en": "`CLI11` build rule is `ThirdParty/CLI11/CLI11.Build.cs`; depends on 0 modules; category External."
+  },
+  {
+    "slug": "clientbandwidthdebugvisualizer",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ClientBandwidthDebugVisualizer` 位于 `Runtime`，构建规则 `Runtime/Online/Experimental/ClientBandwidthDebugVisualizer/ClientBandwidthDebugVisualizer.Build.cs`。它直接依赖 5 个模块：`BandwidthDebugDelegates`, `Core`, `CoreUObject`, `Engine`, `EngineSettings`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ClientBandwidthDebugVisualizer\" });`；对外暴露 `ClientBandwidthDebugVisualizer` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ClientBandwidthDebugVisualizer` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ClientBandwidthDebugVisualizer.h` / `ClientBandwidthDebugVisualizerModule.h`），再用 `FModuleManager::LoadModulePtr<ClientBandwidthDebugVisualizerModule>` 或直接使用导出类型。",
+      "传递依赖：`ClientBandwidthDebugVisualizer` 还依赖 `BandwidthDebugDelegates`, `Core`, `CoreUObject`, `Engine`, `EngineSettings`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。",
+      "注意：`ClientBandwidthDebugVisualizer` 位于 Experimental，接口可能随版本变动，先在空项目验证再进正式内容。"
+    ],
+    "en_steps": [
+      "Purpose: `ClientBandwidthDebugVisualizer` lives under `Runtime`; build rule `Runtime/Online/Experimental/ClientBandwidthDebugVisualizer/ClientBandwidthDebugVisualizer.Build.cs`.It directly depends on 5 modules: `BandwidthDebugDelegates`, `Core`, `CoreUObject`, `Engine`, `EngineSettings`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ClientBandwidthDebugVisualizer\" });`. Use Public when exposing `ClientBandwidthDebugVisualizer` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ClientBandwidthDebugVisualizer` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ClientBandwidthDebugVisualizer.h` / `ClientBandwidthDebugVisualizerModule.h`), then use `FModuleManager::LoadModulePtr<ClientBandwidthDebugVisualizerModule>` or the exported types directly.",
+      "Transitive deps: `ClientBandwidthDebugVisualizer` also needs `BandwidthDebugDelegates`, `Core`, `CoreUObject`, `Engine`, `EngineSettings`; do not re-list them unless you include their headers.",
+      "Note: `ClientBandwidthDebugVisualizer` is under Experimental and may change; prove it in an empty project before production."
+    ],
+    "note_cn": "`ClientBandwidthDebugVisualizer` 的构建规则位于 `Runtime/Online/Experimental/ClientBandwidthDebugVisualizer/ClientBandwidthDebugVisualizer.Build.cs`，直接依赖 5 个模块，分类 Module。",
+    "note_en": "`ClientBandwidthDebugVisualizer` build rule is `Runtime/Online/Experimental/ClientBandwidthDebugVisualizer/ClientBandwidthDebugVisualizer.Build.cs`; depends on 5 modules; category Module."
+  },
+  {
+    "slug": "clientpilot",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ClientPilot` 位于 `Runtime`，构建规则 `Runtime/ClientPilot/ClientPilot.Build.cs`。它直接依赖 2 个模块：`Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ClientPilot\" });`；对外暴露 `ClientPilot` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ClientPilot` 是运行时模块，可进游戏包；只在真正调用其 API 的模块里声明依赖。",
+      "调用：#include 其 Public 头（常见 `ClientPilot.h` / `ClientPilotModule.h`），再用 `FModuleManager::LoadModulePtr<ClientPilotModule>` 或直接使用导出类型。",
+      "传递依赖：`ClientPilot` 还依赖 `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ClientPilot` lives under `Runtime`; build rule `Runtime/ClientPilot/ClientPilot.Build.cs`.It directly depends on 2 modules: `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ClientPilot\" });`. Use Public when exposing `ClientPilot` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ClientPilot` is a runtime module and can ship. Depend on it only where you call its API.",
+      "Call: include Public headers (often `ClientPilot.h` / `ClientPilotModule.h`), then use `FModuleManager::LoadModulePtr<ClientPilotModule>` or the exported types directly.",
+      "Transitive deps: `ClientPilot` also needs `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ClientPilot` 的构建规则位于 `Runtime/ClientPilot/ClientPilot.Build.cs`，直接依赖 2 个模块，分类 Module。",
+    "note_en": "`ClientPilot` build rule is `Runtime/ClientPilot/ClientPilot.Build.cs`; depends on 2 modules; category Module."
+  },
+  {
+    "slug": "clothingsystemeditor",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ClothingSystemEditor` 位于 `Editor`，构建规则 `Editor/ClothingSystemEditor/ClothingSystemEditor.Build.cs`。它直接依赖 8 个模块：`ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemEditor\" });`；对外暴露 `ClothingSystemEditor` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ClothingSystemEditor` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ClothingSystemEditor.h` / `ClothingSystemEditorModule.h`），再用 `FModuleManager::LoadModulePtr<ClothingSystemEditorModule>` 或直接使用导出类型。",
+      "传递依赖：`ClothingSystemEditor` 还依赖 `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ClothingSystemEditor` lives under `Editor`; build rule `Editor/ClothingSystemEditor/ClothingSystemEditor.Build.cs`.It directly depends on 8 modules: `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemEditor\" });`. Use Public when exposing `ClothingSystemEditor` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ClothingSystemEditor` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ClothingSystemEditor.h` / `ClothingSystemEditorModule.h`), then use `FModuleManager::LoadModulePtr<ClothingSystemEditorModule>` or the exported types directly.",
+      "Transitive deps: `ClothingSystemEditor` also needs `ClothingSystemEditorInterface`, `ClothingSystemRuntimeCommon`, `ClothingSystemRuntimeInterface`, `ClothingSystemRuntimeNv`, `ContentBrowser`, `Core`, `CoreUObject`, `EditorFramework`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ClothingSystemEditor` 的构建规则位于 `Editor/ClothingSystemEditor/ClothingSystemEditor.Build.cs`，直接依赖 8 个模块，分类 Module。",
+    "note_en": "`ClothingSystemEditor` build rule is `Editor/ClothingSystemEditor/ClothingSystemEditor.Build.cs`; depends on 8 modules; category Module."
+  },
+  {
+    "slug": "clothingsystemeditorinterface",
+    "kind": "module",
+    "cn_steps": [
+      "用途：`ClothingSystemEditorInterface` 位于 `Editor`，构建规则 `Editor/ClothingSystemEditorInterface/ClothingSystemEditorInterface.Build.cs`。它直接依赖 3 个模块：`ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`。",
+      "依赖：在 `YourModule.Build.cs` 加入 `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemEditorInterface\" });`；对外暴露 `ClothingSystemEditorInterface` 类型用 Public，仅内部调用用 Private，然后 Generate Project Files 并编译。",
+      "部署：`ClothingSystemEditorInterface` 是编辑器模块，只能写进 `*Editor.Build.cs` 或编辑器插件；加进 Game Target 会链接失败。",
+      "调用：#include 其 Public 头（常见 `ClothingSystemEditorInterface.h` / `ClothingSystemEditorInterfaceModule.h`），再用 `FModuleManager::LoadModulePtr<ClothingSystemEditorInterfaceModule>` 或直接使用导出类型。",
+      "传递依赖：`ClothingSystemEditorInterface` 还依赖 `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`；不必在游戏模块重复填写，除非你要直接 include 那些头文件。"
+    ],
+    "en_steps": [
+      "Purpose: `ClothingSystemEditorInterface` lives under `Editor`; build rule `Editor/ClothingSystemEditorInterface/ClothingSystemEditorInterface.Build.cs`.It directly depends on 3 modules: `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`.",
+      "Depend: in `YourModule.Build.cs` add `PublicDependencyModuleNames.AddRange(new string[] { \"ClothingSystemEditorInterface\" });`. Use Public when exposing `ClothingSystemEditorInterface` types, Private if only calling it; then Generate Project Files and rebuild.",
+      "Placement: `ClothingSystemEditorInterface` is editor-only. Put it in `*Editor.Build.cs` or an editor plugin — never a Game target.",
+      "Call: include Public headers (often `ClothingSystemEditorInterface.h` / `ClothingSystemEditorInterfaceModule.h`), then use `FModuleManager::LoadModulePtr<ClothingSystemEditorInterfaceModule>` or the exported types directly.",
+      "Transitive deps: `ClothingSystemEditorInterface` also needs `ClothingSystemRuntimeInterface`, `Core`, `CoreUObject`; do not re-list them unless you include their headers."
+    ],
+    "note_cn": "`ClothingSystemEditorInterface` 的构建规则位于 `Editor/ClothingSystemEditorInterface/ClothingSystemEditorInterface.Build.cs`，直接依赖 3 个模块，分类 Module。",
+    "note_en": "`ClothingSystemEditorInterface` build rule is `Editor/ClothingSystemEditorInterface/ClothingSystemEditorInterface.Build.cs`; depends on 3 modules; category Module."
+  }
+]

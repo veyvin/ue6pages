@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "ndisplay",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `nDisplay`（模块 `DisplayCluster`、`DisplayClusterProjection`、`DisplayClusterWarp`、`DisplayClusterShaders`、`DisplayClusterConfiguration` 等，编辑器 `DisplayClusterEditor`）。",
+      "它支持用多台 PC 以单声道或立体声进行同步集群渲染（LED 墙、CAVE、集群视口）。",
+      "配置 nDisplay 集群与投影/变形，配合 Switchboard 启动与摄像机跟踪做虚拟制片。",
+      "Game 模块依赖运行时模块；`DisplayClusterEditor` 只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `nDisplay` (modules `DisplayCluster`, `DisplayClusterProjection`, `DisplayClusterWarp`, `DisplayClusterShaders`, `DisplayClusterConfiguration`, etc., editor `DisplayClusterEditor`).",
+      "It supports synchronized clustered rendering across multiple PCs in mono or stereo (LED walls, CAVE, cluster viewports).",
+      "Configure the nDisplay cluster and projection/warp, launch with Switchboard, and use camera tracking for virtual production.",
+      "Game modules depend on runtime modules; `DisplayClusterEditor` is Editor-target only."
+    ],
+    "note_cn": "多机同步集群渲染（nDisplay），LED 墙/CAVE 核心。",
+    "note_en": "Synchronized clustered multi-PC rendering (nDisplay), the core for LED walls/CAVE."
+  },
+  {
+    "slug": "nessengine",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `NessEngine`（模块 `NessEngine`）。",
+      "它是“新序列化栈原型”的引擎绑定部分（实验性序列化系统）。",
+      "用于探索/验证新序列化能力，非稳定接口。",
+      "Experimental：接口可能变动；不用于量产关键路径。"
+    ],
+    "en_steps": [
+      "Enable Experimental `NessEngine` (module `NessEngine`).",
+      "It is the engine-bindings part of the New Serialization Stack Prototype (an experimental serialization system).",
+      "Use it to explore/validate new serialization capabilities; not a stable interface.",
+      "Experimental: contract may change; do not use on critical production paths."
+    ],
+    "note_cn": "新序列化栈原型的引擎绑定，强实验性。",
+    "note_en": "Engine bindings of the New Serialization Stack Prototype, highly experimental."
+  },
+  {
+    "slug": "netcode-unit-test---unreal-engine",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Netcode Unit Test - Unreal Engine`（模块 `NUTUnrealEngine`）。",
+      "它基于 Netcode 单元测试框架，包含针对引擎及部分基础 UE 游戏的漏洞利用单元测试。",
+      "在自动化里跑这些用例，验证网络代码安全性。",
+      "这是测试插件，不要打进发行版本。"
+    ],
+    "en_steps": [
+      "Enable `Netcode Unit Test - Unreal Engine` (module `NUTUnrealEngine`).",
+      "Based on the Netcode Unit Test framework, it contains exploit unit tests for the engine and some base UE games.",
+      "Run these cases in automation to validate netcode security.",
+      "It is a test plugin; do not ship it in release builds."
+    ],
+    "note_cn": "针对引擎/基础游戏的网络漏洞利用单元测试。",
+    "note_en": "Exploit unit tests for the engine and base games."
+  },
+  {
+    "slug": "netcode-unit-test",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Netcode Unit Test`（模块 `NetcodeUnitTest`）。",
+      "它是测试 UE 网络代码的单元测试框架，主要针对 bug 与漏洞利用。",
+      "编写/运行网络单元测试，验证复制与网络行为。",
+      "这是测试框架插件，不进正式产品。"
+    ],
+    "en_steps": [
+      "Enable `Netcode Unit Test` (module `NetcodeUnitTest`).",
+      "It is a unit-testing framework for testing UE netcode, primarily for bugs and exploits.",
+      "Author/run network unit tests to validate replication and networking behavior.",
+      "It is a test-framework plugin, not for production."
+    ],
+    "note_cn": "测试 UE 网络代码的单元测试框架（bug/漏洞）。",
+    "note_en": "A unit-testing framework for UE netcode (bugs/exploits)."
+  },
+  {
+    "slug": "network-prediction-extras",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Network Prediction Extras`（模块 `NetworkPredictionExtras`、`NetworkPredictionExtrasLatentLoad`）。",
+      "它是 Network Prediction 的非必需类：示例、测试图等，帮助上手；不适合直接用上产品。",
+      "参考示例理解预测框架；正式系统只依赖 `Network Prediction` 核心。",
+      "示例/测试用途，宜作参考。"
+    ],
+    "en_steps": [
+      "Enable `Network Prediction Extras` (modules `NetworkPredictionExtras`, `NetworkPredictionExtrasLatentLoad`).",
+      "It is non-essential classes for Network Prediction: samples, test maps, etc. to help start; not for direct production use.",
+      "Study the samples to learn the prediction framework; production systems depend only on the `Network Prediction` core.",
+      "For example/test use; best as reference."
+    ],
+    "note_cn": "Network Prediction 的示例/测试内容（非必需）。",
+    "note_en": "Sample/test content for Network Prediction (non-essential)."
+  },
+  {
+    "slug": "network-prediction-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Network Prediction Insights`（模块 `NetworkPredictionInsights`）。",
+      "它允许通过 Unreal Insights 调试 NetworkPrediction（预测/回滚行为）。",
+      "启动带该插件的 trace，运行后分析预测状态与重模拟。",
+      "属 Insights/Trace 调试工具。"
+    ],
+    "en_steps": [
+      "Enable `Network Prediction Insights` (module `NetworkPredictionInsights`).",
+      "It allows debugging NetworkPrediction (prediction/rollback behavior) via Unreal Insights.",
+      "Start a trace with this plugin and analyze predicted state and resimulation afterward.",
+      "It is an Insights/Trace debugging tool."
+    ],
+    "note_cn": "在 Insights 里调试 NetworkPrediction。",
+    "note_en": "Debug NetworkPrediction in Insights."
+  },
+  {
+    "slug": "network-prediction",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Network Prediction`（模块 `NetworkPrediction`）。",
+      "它是编写网络预测友好游戏系统的通用框架（预测、回滚、重模拟）。",
+      "用其 SimulatedProxy/组件搭建可预测的移动/能力系统，联网时平滑。",
+      "Game 模块依赖 `NetworkPrediction`；配合 `Network Prediction Extras` 示例快速上手。"
+    ],
+    "en_steps": [
+      "Enable `Network Prediction` (module `NetworkPrediction`).",
+      "It is a generalized framework for writing network-prediction-friendly gameplay systems (prediction, rollback, resimulation).",
+      "Build predictable movement/ability systems with its simulated proxies/components; smooth in networking.",
+      "Game modules depend on `NetworkPrediction`; use `Network Prediction Extras` samples to start quickly."
+    ],
+    "note_cn": "网络预测友好玩法系统的通用框架（预测/回滚）。",
+    "note_en": "A framework for network-prediction-friendly gameplay (prediction/rollback)."
+  },
+  {
+    "slug": "network-service-discovery",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Network Service Discovery`（模块 `NetworkServiceDiscovery`）。",
+      "它用本机平台 API 做跨平台 mDNS/DNS-SD 服务发现（Apple NSNetServiceBrowser、Android NsdManager、Windows dnsapi）。",
+      "在局域网联机里用它发现/广播服务（如大厅/对局服务器）。",
+      "Experimental：接口可能变动；按平台行为略有差异。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Network Service Discovery` (module `NetworkServiceDiscovery`).",
+      "It does cross-platform mDNS/DNS-SD service discovery via native platform APIs (NSNetServiceBrowser on Apple, NsdManager on Android, dnsapi on Windows).",
+      "In LAN play, use it to discover/advertise services (e.g. lobby/match servers).",
+      "Experimental: contract may change; behavior differs slightly per platform."
+    ],
+    "note_cn": "跨平台 mDNS/DNS-SD 服务发现（局域网联机），实验性。",
+    "note_en": "Cross-platform mDNS/DNS-SD service discovery (LAN play), experimental."
+  },
+  {
+    "slug": "neural-rendering",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 Experimental 的 `Neural Rendering`（模块 `NeuralPostProcessing`）。",
+      "它启用神经渲染相关功能，当前包括神经后处理（neural post processing）。",
+      "在渲染/后处理设置里启用神经后处理，按硬件能力使用。",
+      "Experimental：接口可能变动；对 GPU/平台有要求。"
+    ],
+    "en_steps": [
+      "Enable Experimental `Neural Rendering` (module `NeuralPostProcessing`).",
+      "It enables neural rendering features, currently including neural post processing.",
+      "Enable neural post processing in render/post settings, subject to hardware capability.",
+      "Experimental: contract may change; has GPU/platform requirements."
+    ],
+    "note_cn": "神经渲染功能（当前含神经后处理），实验性。",
+    "note_en": "Neural rendering features (currently neural post processing), experimental."
+  },
+  {
+    "slug": "nfordenoise",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `NFORDenoise`（模块 `NFORDenoise`）。",
+      "它是 Unreal Path Tracer 的时空去噪引擎（主要与 MRQ 一起用于离线高质量渲染）。",
+      "在 Path Tracer/MRQ 渲染里启用 NFOR 去噪，降低采样数又保画质。",
+      "属去噪/离线渲染工具；常用于电影渲染。"
+    ],
+    "en_steps": [
+      "Enable `NFORDenoise` (module `NFORDenoise`).",
+      "It is a spatial-temporal denoising engine for the Unreal Path Tracer (mainly used with MRQ for offline high-quality rendering).",
+      "Enable NFOR denoising in Path Tracer/MRQ renders to cut sample counts while keeping quality.",
+      "It is a denoise/offline-render tool; common in cinematic rendering."
+    ],
+    "note_cn": "Path Tracer 的时空去噪引擎（MRQ 离线渲染用）。",
+    "note_en": "A spatial-temporal denoiser for the Path Tracer (MRQ offline render)."
+  },
+  {
+    "slug": "niagara-example-custom-datainterface",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Niagara Example Custom DataInterface`（模块 `ExampleCustomDataInterface`）。",
+      "它是 Niagara 自定义 Data Interface 的示例，演示如何把外部数据喂给 Niagara 模拟。",
+      "参考其代码实现自己的 Data Interface，接入自定义数据源。",
+      "属 Niagara 工具链的示例，作参考用途。"
+    ],
+    "en_steps": [
+      "Enable `Niagara Example Custom DataInterface` (module `ExampleCustomDataInterface`).",
+      "It is an example custom Data Interface for Niagara, showing how to feed external data into Niagara simulations.",
+      "Study its code to implement your own Data Interface feeding a custom data source.",
+      "It is a Niagara-toolchain example for reference."
+    ],
+    "note_cn": "Niagara 自定义 Data Interface 示例。",
+    "note_en": "An example custom Data Interface for Niagara."
+  },
+  {
+    "slug": "niagara-gaussian-splat",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Niagara Gaussian Splat`（运行时 `NiagaraGaussianSplat`，编辑器 `NiagaraGaussianSplatEditor`）。",
+      "它让 Niagara 支持高斯泼溅（Gaussian Splat）渲染（如 3DGS 点云风格特效）。",
+      "在 Niagara 系统里用高斯泼溅数据渲染，用于重建/特效。",
+      "Game 模块依赖运行时模块；编辑器模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Niagara Gaussian Splat` (runtime `NiagaraGaussianSplat`, editor `NiagaraGaussianSplatEditor`).",
+      "It adds Gaussian Splat rendering to Niagara (e.g. 3DGS-style point-cloud effects).",
+      "Render Gaussian-splat data in a Niagara system for reconstruction/VFX.",
+      "Game modules depend on runtime modules; editor modules go to Editor targets only."
+    ],
+    "note_cn": "Niagara 的高斯泼溅渲染支持。",
+    "note_en": "Gaussian Splat rendering support for Niagara."
+  },
+  {
+    "slug": "niagara-insights",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Niagara Insights`（模块 `NiagaraInsights`）。",
+      "它提供 Niagara 的 Unreal Insights 调试与性能分析。",
+      "启动带该插件的 trace，运行后查看 Niagara 模拟/开销。",
+      "属 Insights/Trace 性能工具。"
+    ],
+    "en_steps": [
+      "Enable `Niagara Insights` (module `NiagaraInsights`).",
+      "It provides Niagara debugging and performance analysis via Unreal Insights.",
+      "Start a trace with this plugin and inspect Niagara simulation/cost.",
+      "It is an Insights/Trace performance tool."
+    ],
+    "note_cn": "Niagara 的 Insights 调试与性能分析。",
+    "note_en": "Niagara debugging/performance via Insights."
+  },
+  {
+    "slug": "niagara-lightweight",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Niagara Lightweight`（运行时 `NiagaraLightweight`，编辑器 `NiagaraLightweightEditor`，转换 `NiagaraLightweightConversion`）。",
+      "它是可选 Niagara 轻量级扩展：轻量模块、模板生成器与编辑器转换工具。",
+      "把常规 Niagara 效果转换/生成轻量版本以降低开销。",
+      "Game 模块依赖运行时模块；编辑器/转换模块只进 Editor Target。"
+    ],
+    "en_steps": [
+      "Enable `Niagara Lightweight` (runtime `NiagaraLightweight`, editor `NiagaraLightweightEditor`, conversion `NiagaraLightweightConversion`).",
+      "It is an optional Niagara lightweight extension: lightweight modules, template builder, and editor conversion tools.",
+      "Convert/generate lightweight versions of regular Niagara effects to reduce cost.",
+      "Game modules depend on runtime modules; editor/conversion modules go to Editor targets only."
+    ],
+    "note_cn": "Niagara 轻量级扩展（轻量模块/模板/转换）。",
+    "note_en": "An optional Niagara lightweight extension (modules/template/conversion)."
+  },
+  {
+    "slug": "niagara-mrq-support",
+    "kind": "plugin",
+    "cn_steps": [
+      "启用 `Niagara MRQ Support`（模块 `NiagaraMRQ`）。",
+      "它包含一个数据接口，可在 Niagara 模拟中读取电影渲染队列（MRQ）信息。",
+      "在 Niagara 里用该 Data Interface 获取 MRQ 的帧/时间信息，实现离线渲染同步。",
+      "属 Niagara + MRQ 集成；渲染/出片用。"
+    ],
+    "en_steps": [
+      "Enable `Niagara MRQ Support` (module `NiagaraMRQ`).",
+      "It contains a data interface that reads Movie Render Queue (MRQ) information in Niagara simulations.",
+      "Use the Data Interface in Niagara to get MRQ frame/time info for offline-render sync.",
+      "It is Niagara + MRQ integration; used in rendering/output."
+    ],
+    "note_cn": "在 Niagara 里读取 MRQ 信息的数据接口。",
+    "note_en": "A data interface to read MRQ info in Niagara."
+  }
+]
