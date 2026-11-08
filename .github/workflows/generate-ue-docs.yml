@@ -102,14 +102,31 @@ jobs:
           if [ "$TRANSLATE_ENABLED" = "true" ]; then
             TRANSLATE_FLAG="--translate"
           fi
+          # Prefer the usage-aware generator already on gh-pages. The copy on
+          # main does not inject 使用方法 cards and would overwrite them.
+          if [ -f /tmp/ghpages/scripts/generate_docs.py ]; then
+            export PYTHONPATH=/tmp/ghpages/scripts
+            GEN=/tmp/ghpages/scripts/generate_docs.py
+          else
+            GEN=public-repo/scripts/generate_docs.py
+          fi
           # --no-ai：CI 不调用 AI（GitHub Models 会返回非 JSON 的 200 OK，
           # 且免费的用量无法支撑 1900+ 文档）。AI 内容统一由后端批量生成。
-          python public-repo/scripts/generate_docs.py \
+          python "$GEN" \
             --engine-root engine-repo \
             --docs-root /tmp/ghpages \
             --force     "$FORCE_REGEN" \
             --no-ai \
             $TRANSLATE_FLAG
+
+      - name: Re-inject AI usage cards from gh-pages JSON
+        run: |
+          set -euo pipefail
+          if [ -f /tmp/ghpages/scripts/apply_ai_usage.py ]; then
+            PYTHONPATH=/tmp/ghpages/scripts python /tmp/ghpages/scripts/apply_ai_usage.py
+          else
+            echo "apply_ai_usage.py not on gh-pages yet; skip inject"
+          fi
 
       - name: Commit & push gh-pages
         run: |

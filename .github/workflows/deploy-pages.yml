@@ -1,0 +1,52 @@
+name: Deploy GitHub Pages
+
+# git push to gh-pages does not update ue.veyvin.com unless Pages is
+# rebuilt. This repo's Pages source is GitHub Actions, so deploy on every
+# gh-pages push (and allow manual re-run).
+
+on:
+  push:
+    branches: [gh-pages]
+  workflow_dispatch:
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          fetch-depth: 1
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build site with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: './'
+          destination: './_site'
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './_site'
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
