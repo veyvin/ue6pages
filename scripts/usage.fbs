@@ -1,0 +1,25 @@
+// FlatBuffers schema for UE plugin/module usage guides.
+// Regenerate the binary with: python scripts/build_usage_fb.py
+// (Binary is built with the Python flatbuffers Builder using the same field
+//  order as below; the browser reads it with assets/usage-fb.js.)
+namespace uedocs;
+
+table UsageDoc {
+  kind: string;        // slot 0  "plugin" | "module"
+  slug: string;        // slot 1
+  name: string;        // slot 2
+  category: string;    // slot 3
+  cn_steps: [string];  // slot 4
+  en_steps: [string];  // slot 5
+  note_cn: string;     // slot 6
+  note_en: string;     // slot 7
+}
+
+table UsageBundle {
+  version: int;        // slot 0
+  generated_at: string;// slot 1
+  docs: [UsageDoc];    // slot 2
+}
+
+root_type UsageBundle;
+file_identifier "UEUG";

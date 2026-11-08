@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usage FB Demo / 从 FlatBuffers 读取用法</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+         max-width: 860px; margin: 40px auto; padding: 0 18px; color: #1d1d1f; background: #fafafa; }
+  h1 { font-size: 22px; letter-spacing: -.01em; }
+  .row { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+  select, input, button { font-size: 15px; padding: 8px 10px; border: 1px solid #d0d0d5; border-radius: 8px; background: #fff; }
+  button { cursor: pointer; background: #0a84ff; color: #fff; border-color: #0a84ff; }
+  .muted { color: #6e6e73; font-size: 13px; }
+  .card { background: #fff; border: 1px solid #e6e6ea; border-radius: 12px; padding: 18px 20px; margin-top: 18px; }
+  .card h2 { font-size: 17px; margin: 0 0 4px; }
+  .chip { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #eaf3ff; color: #0a66d6; margin-right: 6px; }
+  ol { padding-left: 20px; line-height: 1.7; }
+  code { background: #f2f2f5; padding: 1px 5px; border-radius: 5px; font-size: 13px; }
+  .tabs button { background:#eee; color:#333; border:none; margin-right:6px; padding:6px 12px; border-radius:8px; }
+  .tabs button.active { background:#0a84ff; color:#fff; }
+  .pane { display:none; } .pane.active { display:block; }
+</style>
+</head>
+<body>
+<h1>从 <code>usage.fb</code> 读取插件/模块用法</h1>
+<p class="muted">数据源：<code>/assets/usage.fb</code>（FlatBuffers，schema 见 <code>scripts/usage.fbs</code>）。本页不依赖任何框架，仅加载 <code>assets/usage-fb.js</code>。</p>
+
+<div class="row">
+  <select id="kind"><option value="module">模块 module</option><option value="plugin">插件 plugin</option></select>
+  <input id="slug" placeholder="slug，如 aimodule / sqlite" value="aimodule" style="flex:1;min-width:220px;">
+  <button id="go">查询</button>
+</div>
+<p class="muted" id="stat">加载中…</p>
+
+<div class="card" id="out" style="display:none;">
+  <h2 id="title"></h2>
+  <div style="margin:6px 0 14px;">
+    <span class="chip" id="c-kind"></span><span class="chip" id="c-cat"></span>
+  </div>
+  <div class="tabs">
+    <button data-lang="cn" class="active">中文</button>
+    <button data-lang="en">English</button>
+  </div>
+  <div class="pane active" id="pane-cn"><ol id="ol-cn"></ol><p class="muted" id="note-cn"></p></div>
+  <div class="pane" id="pane-en"><ol id="ol-en"></ol><p class="muted" id="note-en"></p></div>
+</div>
+
+<script src="assets/usage-fb.js"></script>
+<script>
+var $ = function (id) { return document.getElementById(id); };
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function inline(s){
+  // render `code` backticks -> <code>, escape rest
+  return esc(s).replace(/`([^`]+)`/g, function(_, c){ return '<code>' + c + '</code>'; });
+}
+function render() {
+  var d = UEUsage.get($('kind').value, $('slug').value.trim());
+  if (!d) { $('out').style.display = 'none'; $('stat').textContent = '未找到 : ' + $('kind').value + ':' + $('slug').value; return; }
+  $('out').style.display = '';
+  $('title').textContent = d.name || d.slug;
+  $('c-kind').textContent = d.kind;
+  $('c-cat').textContent = d.category || '—';
+  $('ol-cn').innerHTML = d.cn_steps.map(function(s){ return '<li>' + inline(s) + '</li>'; }).join('');
+  $('ol-en').innerHTML = d.en_steps.map(function(s){ return '<li>' + inline(s) + '</li>'; }).join('');
+  $('note-cn').innerHTML = inline(d.note_cn || '');
+  $('note-en').innerHTML = inline(d.note_en || '');
+  $('stat').textContent = '共 ' + UEUsage.count() + ' 条；已从 usage.fb 读取。';
+}
+UEUsage.load('assets/usage.fb').then(function(b){
+  $('stat').textContent = '已加载 usage.fb：' + b.docs.length + ' 条，生成于 ' + b.generated_at;
+  render();
+}).catch(function(e){
+  $('stat').textContent = '加载 usage.fb 失败：' + e.message;
+  console.error(e);
+});
+$('go').addEventListener('click', render);
+$('slug').addEventListener('keydown', function(e){ if (e.key === 'Enter') render(); });
+document.querySelectorAll('.tabs button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tabs button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    var lang = btn.getAttribute('data-lang');
+    $('pane-cn').classList.toggle('active', lang === 'cn');
+    $('pane-en').classList.toggle('active', lang === 'en');
+  });
+});
+</script>
+</body>
+</html>
