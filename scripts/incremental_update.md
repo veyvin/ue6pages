@@ -84,6 +84,28 @@ rg 'data-usage-source="pending"' plugins modules
 
 ---
 
+## 网页运行时从 FlatBuffers 读取（方案 1）
+
+GitHub Pages / Jekyll **没有运行时、没有数据库**。Jekyll 只在构建期把文件变成静态 HTML。
+详情页的用法数据走「静态兜底 + 浏览器读 `.fb`」：
+
+1. 构建时仍可把用法卡烤进 `plugins/*.md` / `modules/*.md`（无 JS 也能看、利于 SEO）。
+2. 详情页由 `_layouts/default.html` 注入 `window.__USAGE_PAGE__`（kind/slug 来自 `page.path`），并加载：
+   - `assets/usage.fb` — 1995 条用法的 FlatBuffers 二进制
+   - `assets/usage-fb.js` — 零依赖读取器
+   - `assets/usage-runtime.js` — 覆盖 `#usage` 卡片；没有卡时会插入一张再填充
+3. `fetch` 失败则保留页面上已有的静态卡。总览页不加载 `.fb`。
+
+更新数据后重建二进制：
+
+```bash
+python scripts/build_usage_fb.py    # -> assets/usage.fb
+```
+
+schema 见 `scripts/usage.fbs`。演示页：`usage-demo.html`。
+
+---
+
 ## 相关脚本速查
 
 | 脚本 | 作用 |
@@ -92,4 +114,7 @@ rg 'data-usage-source="pending"' plugins modules
 | `scripts/export_catalog.py` | 由页面重建 `scripts/catalog/*.json`（含 slug/path/deps） |
 | `scripts/inject_usage.py` | 用法卡渲染与注入核心（`load_ai_usage` / `usage_card_html`） |
 | `scripts/apply_ai_usage.py` | 入口：把 `ai_usage` 记录应用到所有命中页面（幂等） |
-| `scripts/_pending.py` | 增量检测：列出缺 AI 用法的 catatalog 条目与非 ai 来源页面 |
+| `scripts/_pending.py` | 增量检测：列出缺 AI 用法的 catalog 条目与非 ai 来源页面 |
+| `scripts/build_usage_fb.py` | 把全部 ai_usage 序列化成 `assets/usage.fb` |
+| `assets/usage-fb.js` | 浏览器端读取 `.fb` |
+| `assets/usage-runtime.js` | 详情页运行时覆盖用法卡 |

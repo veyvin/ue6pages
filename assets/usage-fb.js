@@ -116,7 +116,7 @@
   var UEUsage = {
     parse: parse,
     load: function (url) {
-      return fetch(url, { cache: 'no-cache' })
+      return fetch(url)
         .then(function (resp) {
           if (!resp.ok) throw new Error('fetch ' + url + ' -> ' + resp.status);
           return resp.arrayBuffer();

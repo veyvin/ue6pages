@@ -85,8 +85,17 @@
     </div>
   </div>
   <script src="{{ '/assets/main.js' | relative_url }}"></script>
-  <script>window.__USAGE_FB_URL__ = "{{ '/assets/usage.fb' | relative_url }}";</script>
+  {% assign usage_dir = page.path | split: '/' | first %}
+  {% if usage_dir == 'plugins' or usage_dir == 'modules' %}
+  <script>
+    window.__USAGE_FB_URL__ = "{{ '/assets/usage.fb' | relative_url }}";
+    window.__USAGE_PAGE__ = {
+      kind: "{% if usage_dir == 'plugins' %}plugin{% else %}module{% endif %}",
+      slug: "{{ page.path | split: '/' | last | remove: '.md' | downcase }}"
+    };
+  </script>
   <script src="{{ '/assets/usage-fb.js' | relative_url }}"></script>
   <script src="{{ '/assets/usage-runtime.js' | relative_url }}"></script>
+  {% endif %}
 </body>
 </html>
