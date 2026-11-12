@@ -138,172 +138,208 @@ onMounted(load)
 </script>
 
 <template>
-  <div class="page-title-wrap">
-    <h1>设置</h1>
-    <p>配置保存在后端 <code class="mono">{{ meta.path || 'backend/config.yaml' }}</code>，保存后立即生效</p>
+  <div class="settings-page">
+    <div class="page-head">
+      <div class="kicker">
+        <span class="kicker-dot"></span>
+        System / Config
+        <span class="kicker-dim">/ local backend</span>
+      </div>
+      <h1 class="page-title">设置 <span class="serif">Settings</span></h1>
+      <p class="page-sub">
+        配置保存在后端 <span class="mono">{{ meta.path || 'backend/config.yaml' }}</span>，保存后立即生效。
+      </p>
+    </div>
+
+    <div v-if="loading" class="empty">加载中…</div>
+
+    <template v-else>
+      <div v-if="!meta.engine_exists" class="banner banner-warn">
+        当前 engine_root 路径不存在，扫描结果为空。请填写正确的 UE 源码根目录。
+      </div>
+
+      <div class="settings-stack">
+        <section class="panel">
+          <div class="panel-head">
+            <span class="panel-index">01</span>
+            <div>
+              <h2 class="panel-title">UE 源码 <span class="serif">Source tree</span></h2>
+              <p class="panel-desc">指定引擎根目录与扫描范围，保存后重新建立索引。</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field full">
+              <label for="engine_root">engine_root / 引擎根目录</label>
+              <input id="engine_root" v-model="form.engine_root" type="text" class="mono" placeholder="D:/UnrealEngine" />
+              <span class="field-hint">包含 Engine 文件夹的目录，例如 D:/UnrealEngine</span>
+            </div>
+            <div class="field">
+              <label for="plugins_dir">plugins_dir / 插件目录</label>
+              <input id="plugins_dir" v-model="form.scan.plugins_dir" type="text" class="mono" />
+              <span class="field-hint">相对 engine_root，默认 Engine/Plugins</span>
+            </div>
+            <div class="field">
+              <label for="source_dir">source_dir / 源码目录</label>
+              <input id="source_dir" v-model="form.scan.source_dir" type="text" class="mono" />
+              <span class="field-hint">相对 engine_root，默认 Engine/Source</span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-dark" :disabled="store.loading" @click="store.reload()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="23 4 23 10 17 10" />
+                <polyline points="1 20 1 14 7 14" />
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+              </svg>
+              重新扫描
+            </button>
+            <span class="field-hint">扫描不修改源码，只读取 .uplugin 与 *.Build.cs</span>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <span class="panel-index">02</span>
+            <div>
+              <h2 class="panel-title">AI 模型 <span class="serif">OpenAI-compatible</span></h2>
+              <p class="panel-desc">兼容 OpenAI 接口的服务均可接入，用于详情页讲解与批量文档生成。</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field full">
+              <label class="check">
+                <input v-model="form.ai.enabled" type="checkbox" />
+                <span>启用 AI 助手</span>
+              </label>
+            </div>
+            <div class="field">
+              <label for="endpoint">endpoint / 接口地址</label>
+              <input id="endpoint" v-model="form.ai.endpoint" type="text" class="mono" placeholder="https://api.openai.com/v1" />
+              <span class="field-hint">会拼接 /chat/completions，任何兼容 OpenAI 的服务都可以</span>
+            </div>
+            <div class="field">
+              <label for="model">model / 模型名</label>
+              <input id="model" v-model="form.ai.model" type="text" class="mono" placeholder="gpt-4o-mini" />
+            </div>
+            <div class="field">
+              <label for="api_key">api_key / 密钥</label>
+              <input id="api_key" v-model="form.ai.api_key" type="password" class="mono" autocomplete="off" placeholder="留空表示清除；保留掩码则不修改" />
+              <span class="field-hint">
+                <template v-if="meta.env_api_key">已检测到环境变量 UE_AI_API_KEY，它会覆盖此处的值。</template>
+                <template v-else>也可使用环境变量 UE_AI_API_KEY 代替，避免明文保存。</template>
+              </span>
+            </div>
+            <div class="field">
+              <label for="timeout">timeout / 秒</label>
+              <input id="timeout" v-model.number="form.ai.timeout" type="number" min="5" max="600" />
+            </div>
+            <div class="field">
+              <label for="workers">workers / 批量并发生成数</label>
+              <input id="workers" v-model.number="form.ai.workers" type="number" min="1" max="32" />
+              <span class="field-hint">批量生成《使用方法》时的并行 AI 请求数，1-32</span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn" :disabled="testing" @click="testAi">
+              {{ testing ? '测试中…' : '测试 AI 连接' }}
+            </button>
+            <span class="field-hint">测试使用已保存的配置，修改后请先保存。</span>
+          </div>
+          <div v-if="testResult" class="banner" :class="testResult.type === 'ok' ? 'banner-ok' : 'banner-error'" style="margin-top: var(--space-3); word-break: break-all;">
+            {{ testResult.text }}
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <span class="panel-index">03</span>
+            <div>
+              <h2 class="panel-title">AI 批量生成 <span class="serif">Usage docs</span></h2>
+              <p class="panel-desc">为扫描到的条目批量生成《使用方法》，写入磁盘供详情页读取。</p>
+            </div>
+          </div>
+
+          <p class="settings-note" style="margin-bottom: var(--space-4);">
+            写入 <span class="mono">{{ configStats?.root || form.site.usage_docs_root || 'usage_docs' }}</span>
+            目录。CI 已不再调用 AI；这里生成的内容会显示在每个条目的详情页。
+          </p>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="batch-kind">生成范围</label>
+              <select id="batch-kind" v-model="batchForm.kind" class="mono">
+                <option value="all">全部（插件 + 模块）</option>
+                <option value="plugin">仅插件</option>
+                <option value="module">仅模块</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="batch-limit">数量上限（0 = 全部）</label>
+              <input id="batch-limit" v-model.number="batchForm.limit" type="number" min="0" />
+              <span class="field-hint">可先填 5 试跑看效果</span>
+            </div>
+            <div class="field">
+              <label>已有文档</label>
+              <label class="check" for="batch-overwrite">
+                <input id="batch-overwrite" v-model="batchForm.overwrite" type="checkbox" />
+                <span>覆盖重新生成（不勾选则跳过已有）</span>
+              </label>
+            </div>
+            <div class="field">
+              <label for="usage-root">usage_docs_root / 存储目录</label>
+              <input id="usage-root" v-model="form.site.usage_docs_root" type="text" class="mono" placeholder="usage_docs" />
+              <span class="field-hint">相对 backend/ 目录或绝对路径；修改后请点下方保存设置</span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-dark" :disabled="batchRunning" @click="startBatch">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
+              </svg>
+              {{ batchRunning ? '生成中…' : '开始批量生成' }}
+            </button>
+            <button v-if="batchRunning" class="btn" @click="stopBatch">停止</button>
+            <span v-if="configStats" class="field-hint">
+              已覆盖：插件 {{ configStats.plugins.have }}/{{ configStats.plugins.total }} ·
+              模块 {{ configStats.modules.have }}/{{ configStats.modules.total }}
+            </span>
+          </div>
+
+          <div v-if="batchRunning || batchSummary" class="progress-chips">
+            <span class="chip chip-light chip-success">成功 {{ batchProgress.ok }}</span>
+            <span class="chip chip-light">跳过 {{ batchProgress.skip }}</span>
+            <span class="chip chip-light chip-warning">失败 {{ batchProgress.fail }}</span>
+            <span class="field-hint">/{{ batchProgress.total }}　当前：{{ batchProgress.current || '—' }}</span>
+          </div>
+
+          <div v-if="batchSummary" class="banner" :class="batchSummary.fail ? 'banner-warn' : 'banner-ok'" style="margin-top: var(--space-3);">
+            完成：成功 {{ batchSummary.ok }} · 跳过 {{ batchSummary.skip }} · 失败 {{ batchSummary.fail }} ·
+            用时 {{ batchSummary.seconds }}s（输出目录 {{ batchSummary.output_root || configStats?.root }}）
+          </div>
+
+          <div v-if="batchErrors.length" class="batch-log">{{ batchErrors.join('\n') }}</div>
+        </section>
+      </div>
+
+      <div class="form-actions" style="margin-top: var(--space-2);">
+        <button class="btn btn-lime" :disabled="saving" @click="save">
+          {{ saving ? '保存中…' : '保存设置' }}
+        </button>
+        <span
+          v-if="status"
+          class="chip chip-light"
+          :class="status.type === 'ok' ? 'chip-success' : 'chip-warning'"
+        >{{ status.text }}</span>
+      </div>
+
+      <p class="settings-note">
+        提示：CORS 来源与端口属于启动参数，修改后需要重启后端。保存会重写 config.yaml，原有手写注释会被覆盖。
+      </p>
+    </template>
   </div>
-
-  <div v-if="loading" class="empty">加载中…</div>
-
-  <template v-else>
-    <div v-if="!meta.engine_exists" class="banner banner-warn">
-      当前 engine_root 路径不存在，扫描结果为空。请填写正确的 UE 源码根目录。
-    </div>
-
-    <section class="card">
-      <div class="card-title">
-        <span class="card-title-sep"></span>
-        UE 源码 <span class="card-title-cn">Source tree</span>
-      </div>
-      <div class="form-grid">
-        <div class="field full">
-          <label for="engine_root">engine_root（引擎根目录）</label>
-          <input id="engine_root" v-model="form.engine_root" type="text" class="mono" placeholder="D:/UnrealEngine" />
-          <span class="field-hint">包含 Engine 文件夹的目录，例如 D:/UnrealEngine</span>
-        </div>
-        <div class="field">
-          <label for="plugins_dir">plugins_dir（插件目录）</label>
-          <input id="plugins_dir" v-model="form.scan.plugins_dir" type="text" class="mono" />
-          <span class="field-hint">相对 engine_root，默认 Engine/Plugins</span>
-        </div>
-        <div class="field">
-          <label for="source_dir">source_dir（源码目录）</label>
-          <input id="source_dir" v-model="form.scan.source_dir" type="text" class="mono" />
-          <span class="field-hint">相对 engine_root，默认 Engine/Source</span>
-        </div>
-      </div>
-      <div class="form-actions">
-        <button class="btn" :disabled="store.loading" @click="store.reload()">重新扫描</button>
-      </div>
-    </section>
-
-    <section class="card" style="margin-top: var(--space-5);">
-      <div class="card-title">
-        <span class="card-title-sep"></span>
-        AI 模型 <span class="card-title-cn">OpenAI-compatible</span>
-      </div>
-
-      <div class="form-grid">
-        <div class="field full">
-          <label class="check">
-            <input v-model="form.ai.enabled" type="checkbox" />
-            <span>启用 AI 助手</span>
-          </label>
-        </div>
-        <div class="field">
-          <label for="endpoint">endpoint（接口地址）</label>
-          <input id="endpoint" v-model="form.ai.endpoint" type="text" class="mono" placeholder="https://api.openai.com/v1" />
-          <span class="field-hint">会拼接 /chat/completions，任何兼容 OpenAI 的服务都可以</span>
-        </div>
-        <div class="field">
-          <label for="model">model（模型名）</label>
-          <input id="model" v-model="form.ai.model" type="text" class="mono" placeholder="gpt-4o-mini" />
-        </div>
-        <div class="field">
-          <label for="api_key">api_key（密钥）</label>
-          <input id="api_key" v-model="form.ai.api_key" type="password" class="mono" autocomplete="off" placeholder="留空表示清除；保留掩码则不修改" />
-          <span class="field-hint">
-            <template v-if="meta.env_api_key">已检测到环境变量 UE_AI_API_KEY，它会覆盖此处的值。</template>
-            <template v-else>也可使用环境变量 UE_AI_API_KEY 代替，避免明文保存。</template>
-          </span>
-        </div>
-        <div class="field">
-          <label for="timeout">timeout（秒）</label>
-          <input id="timeout" v-model.number="form.ai.timeout" type="number" min="5" max="600" />
-        </div>
-        <div class="field">
-          <label for="workers">workers（批量生成并发数）</label>
-          <input id="workers" v-model.number="form.ai.workers" type="number" min="1" max="32" />
-          <span class="field-hint">批量生成《使用方法》时的并行 AI 请求数，1-32</span>
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <button class="btn" :disabled="testing" @click="testAi">
-          {{ testing ? '测试中…' : '测试 AI 连接' }}
-        </button>
-        <span class="field-hint">测试使用已保存的配置，修改后请先保存。</span>
-      </div>
-      <div v-if="testResult" class="banner" :class="testResult.type === 'ok' ? 'banner-ok' : 'banner-error'" style="margin-top: var(--space-3); word-break: break-all;">
-        {{ testResult.text }}
-      </div>
-    </section>
-
-    <section class="card" style="margin-top: var(--space-5);">
-      <div class="card-title">
-        <span class="card-title-sep"></span>
-        AI 批量生成 <span class="card-title-cn">使用方法 · Usage docs</span>
-      </div>
-
-      <div class="field-hint" style="margin-bottom: var(--space-3); line-height: 1.7;">
-        用上方配置的 AI 服务，按扫描到的插件/模块批量生成《使用方法》Markdown 文档，写入
-        <code class="mono">{{ configStats?.root || form.site.usage_docs_root || 'usage_docs' }}</code>。
-        CI 已不再调用 AI；这里生成的内容会显示在每个条目的详情页。
-      </div>
-
-      <div class="form-grid">
-        <div class="field">
-          <label for="batch-kind">生成范围</label>
-          <select id="batch-kind" v-model="batchForm.kind" class="mono">
-            <option value="all">全部（插件 + 模块）</option>
-            <option value="plugin">仅插件</option>
-            <option value="module">仅模块</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="batch-limit">数量上限（0 = 全部）</label>
-          <input id="batch-limit" v-model.number="batchForm.limit" type="number" min="0" />
-          <span class="field-hint">可先填 5 试跑看效果</span>
-        </div>
-        <div class="field">
-          <label for="batch-overwrite">已有文档</label>
-          <label class="check" for="batch-overwrite">
-            <input id="batch-overwrite" v-model="batchForm.overwrite" type="checkbox" />
-            <span>覆盖重新生成（不勾选则跳过已有）</span>
-          </label>
-        </div>
-        <div class="field">
-          <label for="usage-root">usage_docs_root（存储目录）</label>
-          <input id="usage-root" v-model="form.site.usage_docs_root" type="text" class="mono" placeholder="usage_docs" />
-          <span class="field-hint">相对 backend/ 目录或绝对路径；修改后请点下方保存设置</span>
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <button class="btn btn-primary" :disabled="batchRunning" @click="startBatch">
-          {{ batchRunning ? '生成中…' : '开始批量生成' }}
-        </button>
-        <button v-if="batchRunning" class="btn" @click="stopBatch">停止</button>
-        <span v-if="configStats" class="field-hint">
-          已覆盖：插件 {{ configStats.plugins.have }}/{{ configStats.plugins.total }} ·
-          模块 {{ configStats.modules.have }}/{{ configStats.modules.total }}
-        </span>
-      </div>
-
-      <div v-if="batchRunning || batchSummary" class="form-actions" style="gap: 12px; flex-wrap: wrap;">
-        <span class="chip chip-success">成功 {{ batchProgress.ok }}</span>
-        <span class="chip">跳过 {{ batchProgress.skip }}</span>
-        <span class="chip chip-warning">失败 {{ batchProgress.fail }}</span>
-        <span class="field-hint">/{{ batchProgress.total }}　当前：{{ batchProgress.current || '—' }}</span>
-      </div>
-
-      <div v-if="batchSummary" class="banner" :class="batchSummary.fail ? 'banner-warn' : 'banner-ok'" style="margin-top: var(--space-3);">
-        完成：成功 {{ batchSummary.ok }} · 跳过 {{ batchSummary.skip }} · 失败 {{ batchSummary.fail }} ·
-        用时 {{ batchSummary.seconds }}s（输出目录 {{ batchSummary.output_root || configStats?.root }}）
-      </div>
-
-      <div v-if="batchErrors.length" class="batch-log">{{ batchErrors.join('\n') }}</div>
-    </section>
-
-    <div class="form-actions" style="margin-top: var(--space-6);">
-      <button class="btn btn-primary" :disabled="saving" @click="save">
-        {{ saving ? '保存中…' : '保存设置' }}
-      </button>
-      <span v-if="status" :class="status.type === 'ok' ? 'chip chip-success' : 'chip chip-warning'">{{ status.text }}</span>
-    </div>
-
-    <p class="field-hint" style="margin-top: var(--space-4);">
-      提示：CORS 来源与端口属于启动参数，修改后需要重启后端。保存会重写 config.yaml，原有手写注释会被覆盖。
-    </p>
-  </template>
 </template>

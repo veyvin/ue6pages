@@ -153,6 +153,12 @@ function clearChat() {
   if (sending.value) return
   messages.value = []
 }
+
+function tagClass(type) {
+  if (type === 'Editor') return 'editor'
+  if (type === 'Runtime') return 'runtime'
+  return ''
+}
 </script>
 
 <template>
@@ -162,160 +168,187 @@ function clearChat() {
 
   <div v-else-if="item" class="detail">
     <nav class="crumb">
+      <router-link :to="{ name: 'home' }">Index</router-link>
+      <span class="sep">//</span>
       <router-link :to="{ name: 'home', hash: isPlugin ? '#plugins' : '#modules' }">
-        {{ isPlugin ? 'Plugins 插件' : 'Modules 模块' }}
+        {{ isPlugin ? 'Plugins' : 'Modules' }}
       </router-link>
-      <span class="sep">/</span>
-      <span class="current mono">{{ item.name }}</span>
+      <span class="sep">//</span>
+      <span class="current">{{ item.name }}</span>
     </nav>
 
-    <section class="hero" style="margin-top: var(--space-4);">
-      <div class="hero-top">
-        <div class="hero-badge">{{ item.name.charAt(0).toUpperCase() }}</div>
-        <div class="hero-info">
-          <div class="hero-subtitle">{{ isPlugin ? 'Plugin · 插件' : 'Module · 模块' }}</div>
-          <div class="hero-title">{{ item.name }}</div>
-          <div class="hero-tags">
-            <span v-if="item.category" class="chip chip-primary">{{ item.category }}</span>
-            <span v-if="!isPlugin" class="chip">{{ item.type }}</span>
-            <span v-if="isPlugin && item.version_name" class="chip mono">v{{ item.version_name }}</span>
-            <span v-if="isPlugin && item.author" class="chip">{{ item.author }}</span>
-            <span v-if="!isPlugin && item.platform" class="chip">{{ item.platform }}</span>
-          </div>
+    <section class="detail-head">
+      <div class="detail-head-main">
+        <div class="kicker">
+          <span class="kicker-dot"></span>
+          {{ isPlugin ? 'Plugin / 插件' : 'Module / 模块' }}
+          <span class="kicker-dim">/ Source Entry</span>
         </div>
-        <div class="hero-actions">
-          <button class="btn" :disabled="usageBusy" @click="generateUsage">
-            {{ usageBusy ? '生成中…' : (usage.found ? '重新生成使用方法' : 'AI 生成使用方法') }}
-          </button>
-          <button class="btn btn-primary" @click="openAi(quickPrompts[0])">
-            ✦ AI 讲解用法
-          </button>
+
+        <h1 class="detail-title">{{ item.name }}</h1>
+
+        <div class="hero-tags">
+          <span v-if="item.category" class="chip chip-light chip-lime">{{ item.category }}</span>
+          <span v-if="!isPlugin" class="chip chip-light">{{ item.type }}</span>
+          <span v-if="isPlugin && item.version_name" class="chip chip-light mono">v{{ item.version_name }}</span>
+          <span v-if="isPlugin && item.author" class="chip chip-light">{{ item.author }}</span>
+          <span v-if="!isPlugin && item.platform" class="chip chip-light">{{ item.platform }}</span>
+          <span class="chip chip-light">SLUG / {{ props.slug }}</span>
         </div>
       </div>
 
+      <div class="detail-actions">
+        <button class="btn" :disabled="usageBusy" @click="generateUsage">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
+          </svg>
+          {{ usageBusy ? '生成中…' : (usage.found ? '重新生成使用方法' : 'AI 生成使用方法') }}
+        </button>
+        <button class="btn btn-lime" @click="openAi(quickPrompts[0])">
+          ✦ AI 讲解用法
+        </button>
+      </div>
+    </section>
+
+    <section class="meta-console" aria-label="元数据">
       <div class="meta-grid">
         <template v-if="isPlugin">
           <div class="meta-item">
-            <div class="meta-label">Version / 版本</div>
+            <div class="meta-label">Version</div>
             <div class="meta-value mono">{{ item.version_name || item.version || '—' }}</div>
           </div>
           <div class="meta-item">
-            <div class="meta-label">Author / 作者</div>
+            <div class="meta-label">Author</div>
             <div class="meta-value">{{ item.author || '—' }}</div>
           </div>
           <div class="meta-item">
-            <div class="meta-label">Engine / 引擎</div>
-            <div class="meta-value mono">{{ item.engine_version || '—' }}</div>
+            <div class="meta-label">Engine</div>
+            <div class="meta-value mono orange">{{ item.engine_version || '—' }}</div>
           </div>
           <div class="meta-item">
-            <div class="meta-label">Modules / 模块数</div>
+            <div class="meta-label">Modules</div>
             <div class="meta-value mono">{{ item.modules.length }}</div>
           </div>
         </template>
         <template v-else>
           <div class="meta-item">
-            <div class="meta-label">Type / 类型</div>
+            <div class="meta-label">Type</div>
             <div class="meta-value">{{ item.type }}</div>
           </div>
           <div class="meta-item">
-            <div class="meta-label">Base rules / 基类</div>
+            <div class="meta-label">Base rules</div>
             <div class="meta-value mono">{{ item.base }}</div>
           </div>
           <div class="meta-item">
-            <div class="meta-label">Platform / 平台</div>
+            <div class="meta-label">Platform</div>
             <div class="meta-value">{{ item.platform || '通用' }}</div>
           </div>
           <div class="meta-item">
-            <div class="meta-label">Dependencies / 依赖</div>
+            <div class="meta-label">Dependencies</div>
             <div class="meta-value mono">{{ item.public_deps.length + item.private_deps.length }}</div>
           </div>
         </template>
-        <div class="meta-item wide">
-          <div class="meta-label">{{ isPlugin ? 'Plugin file / 插件文件' : 'Build file / 构建文件' }}</div>
-          <div class="file-path mono" style="margin-top: 4px; font-size: 12px;">{{ item.path }}</div>
-        </div>
+      </div>
+
+      <div class="meta-source">
+        <span class="label">{{ isPlugin ? 'Plugin file' : 'Build file' }}</span>
+        <span class="file-path">{{ item.path }}</span>
       </div>
     </section>
 
     <div class="content-grid">
-      <div>
-        <section class="card">
+      <div class="content-main">
+        <section class="paper-card">
           <div class="card-title">
-            <span class="card-title-sep"></span>
-            Description <span class="card-title-cn">描述</span>
+            <span class="card-title-sep">01</span>
+            描述 <span class="serif">Description</span>
           </div>
           <div class="desc-body">
             <p v-for="(para, i) in descriptionParagraphs" :key="i">{{ para }}</p>
-            <p v-if="!descriptionParagraphs.length" style="color: var(--on-surface-muted);">
+            <p v-if="!descriptionParagraphs.length" class="muted">
               源码中没有提供描述。点击右上角「AI 讲解用法」，由 AI 根据元数据给出说明。
             </p>
           </div>
         </section>
 
-        <section class="card">
+        <section class="paper-card">
           <div class="card-title">
-            <span class="card-title-sep"></span>
-            使用方法 <span class="card-title-cn">Usage · AI 生成，仅供参考</span>
-            <span v-if="usage.found" class="chip chip-success" style="margin-left: auto;">已生成 · {{ usageMtime }}</span>
+            <span class="card-title-sep">02</span>
+            使用方法 <span class="serif">Usage</span>
+            <span v-if="usage.found" class="chip chip-light chip-success" style="margin-left: auto;">
+              已生成 · {{ usageMtime }}
+            </span>
           </div>
           <div v-if="usageError" class="banner banner-error" style="margin-top: var(--space-3);">
             {{ usageError }}
           </div>
           <div v-else-if="usage.found" class="md usage-body" v-html="renderMarkdown(usage.content)"></div>
           <div v-else class="desc-body">
-            <p style="color: var(--on-surface-muted);">
+            <p class="muted">
               还没有《使用方法》文档。点击右上角「AI 生成使用方法」，文档会写入后端
               <span class="mono">usage_docs_root</span> 目录（<span class="mono">{{ isPlugin ? 'plugins' : 'modules' }}/{{ props.slug }}.md</span>）。
             </p>
           </div>
         </section>
 
-        <section class="card">
+        <section class="paper-card">
           <div class="card-title">
-            <span class="card-title-sep"></span>
-            AI 使用指南 <span class="card-title-cn">由 AI 生成，请以官方文档为准</span>
+            <span class="card-title-sep">03</span>
+            AI 使用指南 <span class="serif">Guide</span>
+            <span class="card-title-cn" style="margin-left: auto;">由 AI 生成，请以官方文档为准</span>
           </div>
           <div class="ai-quick-list">
-            <button v-for="q in quickPrompts" :key="q" class="ai-quick-btn" @click="openAi(q)">
+            <button v-for="q in quickPrompts" :key="q" class="prompt-btn" @click="openAi(q)">
               {{ q }}
             </button>
           </div>
         </section>
       </div>
 
-      <aside class="detail-sidebar">
-        <div v-if="isPlugin" class="sidebar-card">
-          <div class="sidebar-card-title">Modules ({{ item.modules.length }})</div>
-          <div v-if="!item.modules.length" style="font-size: 13px; color: var(--on-surface-muted);">无模块</div>
-          <div v-for="m in item.modules" :key="m.name" class="module-item">
-            <span class="dot" :style="m.type === 'Editor' ? 'background: var(--warning)' : ''"></span>
-            <span class="name mono">{{ m.name }}</span>
-            <span class="tag" :class="m.type.toLowerCase()">{{ m.type }}</span>
+      <aside class="detail-side">
+        <div v-if="isPlugin" class="side-console">
+          <div class="side-title">
+            <span>Modules</span>
+            <span class="count">{{ item.modules.length }}</span>
+          </div>
+          <div v-if="!item.modules.length" class="side-empty">无模块</div>
+          <div v-for="m in item.modules" :key="m.name" class="side-row">
+            <span class="dot" :class="{ editor: m.type === 'Editor' }"></span>
+            <span class="name" :title="m.name">{{ m.name }}</span>
+            <span class="tag" :class="tagClass(m.type)">{{ m.type }}</span>
           </div>
         </div>
 
         <template v-else>
-          <div class="sidebar-card">
-            <div class="sidebar-card-title">Public deps ({{ item.public_deps.length }})</div>
-            <div v-if="!item.public_deps.length" style="font-size: 13px; color: var(--on-surface-muted);">无</div>
+          <div class="side-console">
+            <div class="side-title">
+              <span>Public deps</span>
+              <span class="count">{{ item.public_deps.length }}</span>
+            </div>
+            <div v-if="!item.public_deps.length" class="side-empty">无</div>
             <div v-else class="dep-list">
-              <span v-for="d in item.public_deps" :key="d" class="chip mono">{{ d }}</span>
+              <span v-for="d in item.public_deps" :key="d" class="chip chip-lime mono">{{ d }}</span>
             </div>
           </div>
-          <div class="sidebar-card">
-            <div class="sidebar-card-title">Private deps ({{ item.private_deps.length }})</div>
-            <div v-if="!item.private_deps.length" style="font-size: 13px; color: var(--on-surface-muted);">无</div>
+          <div class="side-console">
+            <div class="side-title">
+              <span>Private deps</span>
+              <span class="count">{{ item.private_deps.length }}</span>
+            </div>
+            <div v-if="!item.private_deps.length" class="side-empty">无</div>
             <div v-else class="dep-list">
-              <span v-for="d in item.private_deps" :key="d" class="chip mono">{{ d }}</span>
+              <span v-for="d in item.private_deps" :key="d" class="chip chip-lime mono">{{ d }}</span>
             </div>
           </div>
         </template>
 
-        <div class="sidebar-card">
-          <div class="sidebar-card-title">Source / 来源</div>
-          <div style="font-size: 12px; color: var(--on-surface-variant); line-height: 1.6;">
-            由后端扫描 <span class="mono">{{ item.path }}</span> 生成，
-            路径相对于设置中的 engine_root。
+        <div class="side-console">
+          <div class="side-title">
+            <span>Source</span>
+            <span class="count">PATH</span>
+          </div>
+          <div class="side-note">
+            由后端扫描 <span class="mono">{{ item.path }}</span> 生成，路径相对于设置中的 engine_root。
           </div>
         </div>
       </aside>
@@ -323,22 +356,26 @@ function clearChat() {
   </div>
 
   <button v-if="item && !aiOpen" class="ai-trigger" aria-label="AI 助手" @click="aiOpen = true">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"/></svg>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
+      <path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z" />
+    </svg>
   </button>
 
   <div v-if="item && aiOpen" class="ai-panel">
     <div class="ai-header">
+      <span class="mini-dot" aria-hidden="true"></span>
       <div style="min-width: 0; flex: 1;">
         <div class="ai-header-title">AI 使用助手</div>
-        <div class="ai-header-sub mono" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-          {{ kindLabel }} · {{ item.name }}
+        <div class="ai-header-sub" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+          {{ isPlugin ? 'PLUGIN' : 'MODULE' }} · {{ item.name }}
         </div>
       </div>
       <button class="ai-icon-btn" title="清空对话" :disabled="sending" @click="clearChat">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14H6L5 6" /><path d="M10 11v6M14 11v6" /></svg>
       </button>
       <button class="ai-icon-btn" title="收起" @click="aiOpen = false">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
       </button>
     </div>
 
@@ -361,7 +398,7 @@ function clearChat() {
     </div>
 
     <div v-if="!messages.length" class="ai-quick-list ai-quick-panel">
-      <button v-for="q in quickPrompts" :key="q" class="ai-quick-btn" @click="send(q)">{{ q }}</button>
+      <button v-for="q in quickPrompts" :key="q" class="prompt-btn" @click="send(q)">{{ q }}</button>
     </div>
 
     <div class="ai-input-wrap">
@@ -372,7 +409,7 @@ function clearChat() {
         @keydown.enter.prevent="send()"
       />
       <button class="ai-send" :disabled="sending || !input.trim()" aria-label="发送" @click="send()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>
       </button>
     </div>
   </div>

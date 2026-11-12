@@ -16,121 +16,255 @@ watch(() => [store.query, store.category], () => {
   moduleLimit.value = PAGE_SIZE
 })
 
-const BADGE_CLASSES = ['', 'purple', 'green', 'amber']
+const totalItems = computed(() =>
+  (store.stats?.total_plugins ?? 0) + (store.stats?.total_modules ?? 0))
 
-function badgeClass(index) {
-  return BADGE_CLASSES[index % BADGE_CLASSES.length]
-}
+const ratio = computed(() => {
+  if (!totalItems.value) return 22
+  const raw = ((store.stats?.total_plugins ?? 0) / totalItems.value) * 100
+  return Math.max(20, Math.min(94, Math.round(raw)))
+})
 
 function initial(name) {
   return (name || '?').trim().charAt(0).toUpperCase()
 }
+
+function cardNo(index) {
+  return String(index + 1).padStart(2, '0')
+}
+
+function isWide(index) {
+  return index === 0 || index % 7 === 3
+}
+
+function typeClass(type) {
+  if (type === 'Editor') return 'editor'
+  if (type === 'Runtime') return 'runtime'
+  return ''
+}
 </script>
 
 <template>
-  <div class="page-title-wrap">
-    <h1>插件与模块总览</h1>
-    <p>来自 UE 源码树的 .uplugin 与 *.Build.cs · 点击卡片查看详情，详情页可让 AI 讲解用法</p>
-  </div>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">
+        <span class="kicker-dot"></span>
+        Live from source
+        <span class="kicker-dim">/ {{ store.stats?.engine_version || 'UNREAL ENGINE' }}</span>
+      </div>
 
-  <div v-if="store.error" class="banner banner-error">
-    无法连接后端：{{ store.error }}。请确认后端已启动（backend 目录下 uvicorn backend.app:app --port 8001），
-    或到 <router-link to="/settings">设置</router-link> 检查引擎路径。
-  </div>
+      <h1 class="hero-title">
+        <span class="line"><span>插件</span><span class="en">Plugins</span></span>
+        <span class="line"><span>模块</span><span class="en">Modules</span></span>
+      </h1>
 
-  <section class="stats">
-    <div class="stat-card plugins">
-      <div class="stat-card-accent-bar"></div>
-      <div class="stat-card-label">插件 Plugins</div>
-      <div class="stat-card-value mono">{{ store.stats?.total_plugins ?? '—' }}</div>
-      <div class="stat-card-sub">已扫描的 .uplugin</div>
+      <p class="hero-lede">
+        从 <span class="mono">.uplugin</span> 到 <span class="mono">*.Build.cs</span>，
+        把引擎源码里的每一个插件与模块，整理成可检索、可讲解的说明书。
+        <em>Read it. Use it. Ship it.</em>
+      </p>
+
+      <div class="hero-annot">About / UE Docs</div>
     </div>
-    <div class="stat-card modules">
-      <div class="stat-card-accent-bar"></div>
-      <div class="stat-card-label">模块 Modules</div>
-      <div class="stat-card-value mono">{{ store.stats?.total_modules ?? '—' }}</div>
-      <div class="stat-card-sub">已扫描的 *.Build.cs</div>
+
+    <div class="hero-object">
+      <a class="pill-play" href="#plugins">
+        <span class="play" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+        </span>
+        <span>Browse Index</span>
+      </a>
+
+      <div class="keycap-scene" aria-hidden="true">
+        <div class="keycap-aura"></div>
+        <div class="keycap">
+          <span class="keycap-legend">UE</span>
+          <span class="keycap-sub">F1</span>
+        </div>
+      </div>
+
+      <div class="object-caption">Tactile / Source / Docs</div>
     </div>
-    <div class="stat-card categories">
-      <div class="stat-card-accent-bar"></div>
-      <div class="stat-card-label">分类 Categories</div>
-      <div class="stat-card-value mono">{{ store.stats?.categories?.length ?? '—' }}</div>
-      <div class="stat-card-sub">插件分类数</div>
+  </section>
+
+  <section aria-label="扫描统计">
+    <div v-if="store.error" class="banner banner-error" style="margin-bottom: 18px;">
+      无法连接后端：{{ store.error }}。请确认后端已启动（backend 目录下
+      uvicorn backend.app:app --port 8001），或到
+      <router-link to="/settings">设置</router-link> 检查引擎路径。
     </div>
-    <div class="stat-card engine">
-      <div class="stat-card-accent-bar"></div>
-      <div class="stat-card-label">引擎版本 Engine</div>
-      <div class="stat-card-value mono" style="font-size: 26px;">{{ store.stats?.engine_version || '—' }}</div>
-      <div class="stat-card-sub">读取自插件 EngineVersion</div>
+
+    <div class="console-card">
+      <div class="console-top">
+        <div class="stat-block">
+          <div class="console-label"><span class="lb">01</span> Plugins / .uplugin</div>
+          <div class="stat-value">{{ store.stats?.total_plugins ?? '—' }}</div>
+          <div class="stat-sub">已扫描的插件条目</div>
+        </div>
+
+        <div class="stat-block">
+          <div class="console-label"><span class="lb">02</span> Modules / .Build.cs</div>
+          <div class="stat-value">{{ store.stats?.total_modules ?? '—' }}</div>
+          <div class="stat-sub">已扫描的模块构建文件</div>
+        </div>
+
+        <div class="console-panel">
+          <div class="console-row">
+            <span class="label">Engine</span>
+            <span class="value orange">{{ store.stats?.engine_version || 'UE5' }}</span>
+          </div>
+          <div class="divider"></div>
+          <div class="console-row">
+            <span class="label">Categories</span>
+            <span class="value">{{ store.stats?.categories?.length ?? '—' }}</span>
+          </div>
+          <div class="console-row">
+            <span class="label">Index status</span>
+            <span class="value lime">{{ store.loading ? 'SCANNING' : 'READY' }}</span>
+          </div>
+          <div class="note">数据实时来自 FastAPI 扫描结果 · 点击卡片进入详情</div>
+        </div>
+      </div>
+
+      <div class="console-foot">
+        <div class="console-slider" :style="{ '--ratio': ratio }">
+          <div class="slider-fill"></div>
+          <div class="slider-thumb" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="12" x2="19" y2="12" />
+              <polyline points="13 6 19 12 13 18" />
+            </svg>
+          </div>
+        </div>
+        <div class="console-ratio">
+          <b>{{ totalItems }} Items</b>
+          Source index
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="plugins">
-    <div class="filters-row">
-      <h2 class="section-title" style="margin: 0;">Plugins 插件</h2>
-      <div class="segmented">
+    <div class="section-head">
+      <div class="section-head-main">
+        <div class="section-kicker">02 / Plugin Index</div>
+        <h2 class="section-title">
+          插件 <span class="serif">Plugins</span>
+          <span class="title-cn-sub">{{ store.filteredPlugins.length }} 个</span>
+        </h2>
+      </div>
+      <span class="count-pill">{{ visiblePlugins.length }} / {{ store.filteredPlugins.length }} Items</span>
+    </div>
+
+    <div class="filter-bar">
+      <div class="segmented" role="tablist" aria-label="插件分类">
         <button :class="{ active: !store.category }" @click="store.category = ''">全部</button>
         <button
           v-for="c in store.categories"
           :key="c"
           :class="{ active: store.category === c }"
           @click="store.category = c"
-        >{{ c }}</button>
+        >
+          {{ c }}
+        </button>
       </div>
     </div>
 
     <div v-if="store.loading && !store.plugins.length" class="empty">加载中…</div>
     <div v-else-if="!store.filteredPlugins.length" class="empty">没有匹配的插件</div>
-    <div v-else class="card-grid" style="margin-top: var(--space-4);">
+    <div v-else class="bento-grid">
       <router-link
         v-for="(p, i) in visiblePlugins"
         :key="p.slug"
-        class="grid-card"
+        class="plugin-card"
+        :class="{ 'span-2': isWide(i) }"
         :to="{ name: 'plugin', params: { slug: p.slug } }"
       >
-        <div class="grid-card-head">
-          <div class="grid-card-badge" :class="badgeClass(i)">{{ initial(p.name) }}</div>
-          <div class="grid-card-title">{{ p.name }}</div>
+        <div class="plugin-card-top">
+          <div class="plugin-badge">{{ initial(p.name) }}</div>
+          <div class="plugin-meta">
+            <span class="card-no">No.{{ cardNo(i) }}</span>
+            <span v-if="p.usage_doc" class="doc-badge">MD</span>
+          </div>
         </div>
-        <div class="grid-card-desc">{{ p.description || '暂无描述' }}</div>
-        <div class="grid-card-foot">
-          <span class="grid-card-path mono">{{ p.path }}</span>
-          <span v-if="p.category" class="chip chip-primary">{{ p.category }}</span>
+
+        <h3 class="plugin-name">{{ p.name }}</h3>
+        <p class="plugin-desc">{{ p.description || '源码未提供描述，进入详情页可让 AI 讲解用法。' }}</p>
+
+        <div class="plugin-foot">
+          <span class="plugin-path" :title="p.path">{{ p.path }}</span>
+          <span class="chip chip-lime">{{ p.category || 'General' }}</span>
         </div>
+
+        <span class="card-sheen" aria-hidden="true"></span>
       </router-link>
     </div>
 
-    <div v-if="store.filteredPlugins.length > pluginLimit" class="more" style="margin-top: var(--space-5);">
-      <button class="btn" @click="pluginLimit += PAGE_SIZE">
+    <div v-if="store.filteredPlugins.length > pluginLimit" class="more">
+      <button class="btn btn-dark" @click="pluginLimit += PAGE_SIZE">
         加载更多（剩余 {{ store.filteredPlugins.length - pluginLimit }}）
       </button>
     </div>
   </section>
 
-  <section id="modules" style="margin-top: var(--space-8);">
-    <div class="filters-row">
-      <h2 class="section-title" style="margin: 0;">Modules 模块</h2>
-      <span class="chip">{{ store.filteredModules.length }} / {{ store.modules.length }}</span>
+  <section id="modules">
+    <div class="section-head">
+      <div class="section-head-main">
+        <div class="section-kicker">03 / Module Index</div>
+        <h2 class="section-title">
+          模块 <span class="serif">Modules</span>
+          <span class="title-cn-sub">{{ store.filteredModules.length }} 个</span>
+        </h2>
+      </div>
+      <span class="count-pill">{{ visibleModules.length }} / {{ store.filteredModules.length }} Items</span>
     </div>
 
     <div v-if="!store.filteredModules.length" class="empty">没有匹配的模块</div>
-    <div v-else class="module-grid" style="margin-top: var(--space-4);">
+    <div v-else class="module-grid">
       <router-link
-        v-for="m in visibleModules"
+        v-for="(m, i) in visibleModules"
         :key="m.slug"
-        class="module-item"
+        class="module-card"
+        :class="{ editor: m.type === 'Editor' }"
         :to="{ name: 'module', params: { slug: m.slug } }"
       >
-        <span class="dot"></span>
-        <span class="name mono">{{ m.name }}</span>
-        <span class="tag" :class="m.type.toLowerCase()">{{ m.type }}</span>
+        <div class="module-card-head">
+          <span class="module-dot"></span>
+          <span class="module-name" :title="m.name">{{ m.name }}</span>
+        </div>
+        <div class="module-path" :title="m.path">{{ m.path }}</div>
+        <div class="module-card-foot">
+          <span class="tag" :class="typeClass(m.type)">{{ m.type }}</span>
+          <span class="module-index">M.{{ String(i + 1).padStart(3, '0') }}</span>
+        </div>
       </router-link>
     </div>
 
-    <div v-if="store.filteredModules.length > moduleLimit" class="more" style="margin-top: var(--space-5);">
-      <button class="btn" @click="moduleLimit += PAGE_SIZE">
+    <div v-if="store.filteredModules.length > moduleLimit" class="more">
+      <button class="btn btn-dark" @click="moduleLimit += PAGE_SIZE">
         加载更多（剩余 {{ store.filteredModules.length - moduleLimit }}）
       </button>
     </div>
   </section>
+
+  <footer class="home-footer">
+    <section class="outro">
+      <div class="outro-slogan">
+        <span class="outro-paren" aria-hidden="true">(</span>
+        <div class="outro-text">
+          <span class="outro-cn">源码即说明书</span>
+          <span class="outro-en">Read the source. Know the engine.</span>
+        </div>
+        <span class="outro-paren" aria-hidden="true">)</span>
+      </div>
+      <svg class="outro-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0c1.1 8.2 3.8 10.9 12 12-8.2 1.1-10.9 3.8-12 12C10.9 15.8 8.2 13.1 0 12 8.2 10.9 10.9 8.2 12 0Z" />
+      </svg>
+    </section>
+
+    <div class="site-foot">
+      <span>UE Docs Lab — Generated from Unreal Engine source</span>
+      <span>FastAPI · Vue · {{ store.stats?.engine_version || 'UE5' }}</span>
+    </div>
+  </footer>
 </template>
