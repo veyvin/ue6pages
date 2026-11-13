@@ -161,7 +161,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment-retry.outputs.page_url }}
     steps:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v5
@@ -186,4 +186,17 @@ jobs:
 
       - name: Deploy
         id: deployment
+        uses: actions/deploy-pages@v4
+        # Actions 的 artifact 列表接口在上传完成后有数秒延迟，偶发
+        # "Found 0 artifact(s)"（artifact 实际已上传成功）。失败后等待
+        # 再重试一次，避免因这个瞬时问题让整个发布会话失败。
+        continue-on-error: true
+
+      - name: Wait for artifact metadata
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 15
+
+      - name: Deploy (retry)
+        id: deployment-retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
