@@ -253,7 +253,19 @@ async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
     if req.slugs:
         wanted = set(req.slugs)
         tasks = [(k, it) for k, it in tasks if it.slug in wanted]
-    if not tasks:
+    skipped_existing = 0
+    if not req.overwrite:
+        have_md = usage_docs.existing_slugs()
+        have_fb = usage_fb.load_ai_usage_keys()
+        kept: list[tuple[str, Any]] = []
+        for kind, item in tasks:
+            folder = "plugins" if kind == "plugin" else "modules"
+            if item.slug in have_md[folder] or (kind, item.slug) in have_fb:
+                skipped_existing += 1
+                continue
+            kept.append((kind, item))
+        tasks = kept
+    if not tasks and skipped_existing == 0:
         raise HTTPException(404, "没有匹配到任何条目（检查 kind / slugs 或 engine_root）")
     if req.limit > 0:
         tasks = tasks[:req.limit]
@@ -271,6 +283,7 @@ async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
             yield frame({
                 "type": "start",
                 "total": len(tasks),
+                "skipped_existing": skipped_existing,
                 "model": CONFIG.ai.model,
                 "workers": workers,
                 "output_root": str(usage_docs.usage_root()),
@@ -289,9 +302,6 @@ async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
                         "total": len(tasks),
                     }
                     target = usage_docs.doc_path(kind, item.slug)
-                    if not req.overwrite and target.is_file():
-                        payload.update(status="skip")
-                        return payload
                     try:
                         content = await generate_usage_doc(kind, item)
                         usage_docs.write_doc(kind, item.slug, content)
@@ -312,9 +322,9 @@ async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
 
             yield frame({
                 "type": "summary",
-                "total": len(tasks),
+                "total": len(tasks) + skipped_existing,
                 "seconds": round(time.monotonic() - started, 1),
-                **counters,
+                **{**counters, "skip": counters["skip"] + skipped_existing},
             })
             try:
                 usage_fb.write_files(force=True)

@@ -93,6 +93,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install packer deps
+        run: pip install -q flatbuffers pyyaml pydantic
+
       - name: Generate docs (static, no AI)
         env:
           TRANSLATE_ENABLED: ${{ env.TRANSLATE_ENABLED }}
@@ -127,6 +130,13 @@ jobs:
           else
             echo "apply_ai_usage.py not on gh-pages yet; skip inject"
           fi
+
+      - name: Pack usage.fb for the Vue catalog
+        run: |
+          set -euo pipefail
+          PYTHONPATH=public-repo python public-repo/scripts/pack_usage_fb.py \
+            --docs-root /tmp/ghpages \
+            --engine-root engine-repo
 
       - name: Commit & push gh-pages
         run: |

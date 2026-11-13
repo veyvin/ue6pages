@@ -23,6 +23,8 @@
   --lime-glow:   rgba(160, 230, 0, 0.6);
   --orange:      #FF8A1F;
   --orange-soft: rgba(255, 138, 31, 0.14);
+  --rose:        #FF5C8A;
+  --rose-soft:   rgba(255, 92, 138, 0.16);
 
   /* ----- 文字 ----- */
   --text:        #111113;

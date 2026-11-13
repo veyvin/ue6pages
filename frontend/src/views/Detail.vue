@@ -3,7 +3,7 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ItemsAPI, UsageDocAPI, errMsg } from '../api/client.js'
 import { streamAiChat, streamUsageBatch } from '../api/ai.js'
-import { ensureUsageFb, getUsageDoc, itemFromUsageFb, toUsageDoc } from '../api/usageFb.js'
+import { ensureUsageFb, getUsageDoc, itemFromUsageFb, itemStatus, toUsageDoc } from '../api/usageFb.js'
 import { renderMarkdown } from '../utils/markdown.js'
 import { useItemsStore } from '../stores/items.js'
 
@@ -32,6 +32,7 @@ const usageError = ref('')
 
 const isPlugin = computed(() => props.kind === 'plugin')
 const kindLabel = computed(() => (isPlugin.value ? '插件' : '模块'))
+const status = computed(() => itemStatus(item.value))
 
 const quickPrompts = computed(() => (isPlugin.value
   ? [
@@ -112,7 +113,12 @@ async function load() {
         : ItemsAPI.getModule(props.slug)
       overlay.then((apiItem) => {
         if (id !== requestId) return
-        item.value = { ...fromFb, ...apiItem, usage_doc: true }
+        item.value = {
+          ...fromFb,
+          ...apiItem,
+          usage_doc: Boolean(fromFb.usage_doc) || Boolean(apiItem.usage_doc),
+          in_source: true,
+        }
       }).catch(() => {})
       return
     }
@@ -236,6 +242,9 @@ function tagClass(type) {
           <span v-if="isPlugin && item.author" class="chip chip-light">{{ item.author }}</span>
           <span v-if="!isPlugin && item.platform" class="chip chip-light">{{ item.platform }}</span>
           <span class="chip chip-light mono">SLUG / {{ props.slug }}</span>
+          <span v-if="status === 'gone'" class="chip chip-light chip-rose">源码已删</span>
+          <span v-else-if="status === 'missing'" class="chip chip-light chip-warning">未生成用法</span>
+          <span v-else class="chip chip-light chip-success">已生成用法</span>
         </div>
       </div>
 
@@ -255,6 +264,13 @@ function tagClass(type) {
           </button>
         </div>
     </section>
+
+    <div v-if="status === 'gone'" class="banner banner-gone">
+      当前 UE 源码里已经找不到这个{{ kindLabel }}，目录里仍保留历史条目，用法仅供参考。
+    </div>
+    <div v-else-if="status === 'missing'" class="banner banner-warn is-missing">
+      还没有 AI 生成的《使用方法》。可以在本页或设置里批量补全。
+    </div>
 
     <section class="meta-console" aria-label="元数据">
       <div class="meta-grid">
@@ -321,8 +337,14 @@ function tagClass(type) {
           <div class="card-title">
             <span class="card-title-sep">02</span>
             使用方法 <span class="serif">Usage</span>
-            <span v-if="usage.found" class="chip chip-light chip-success" style="margin-left: auto;">
+            <span v-if="status === 'gone'" class="chip chip-light chip-rose" style="margin-left: auto;">
+              源码已删
+            </span>
+            <span v-else-if="usage.found" class="chip chip-light chip-success" style="margin-left: auto;">
               已生成 · {{ usageMtime }}
+            </span>
+            <span v-else class="chip chip-light chip-warning" style="margin-left: auto;">
+              未生成用法
             </span>
           </div>
           <div v-if="usageError" class="banner banner-error" style="margin-top: var(--space-3);">

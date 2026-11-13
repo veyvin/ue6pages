@@ -104,7 +104,8 @@ function startBatch() {
     {
       onFrame: (f) => {
         if (f.type === 'start') {
-          batchProgress.total = f.total
+          batchProgress.total = (f.total || 0) + (f.skipped_existing || 0)
+          batchProgress.skip = f.skipped_existing || 0
         } else if (f.type === 'item') {
           batchProgress.current = f.name
           if (f.status === 'ok') batchProgress.ok++
@@ -312,7 +313,7 @@ onMounted(load)
               <label>已有文档</label>
               <label class="check" for="batch-overwrite">
                 <input id="batch-overwrite" v-model="batchForm.overwrite" type="checkbox" />
-                <span>覆盖重新生成（不勾选则跳过已有）</span>
+                <span>覆盖重新生成（不勾选则跳过 usage.fb / 磁盘上已有用法的条目）</span>
               </label>
             </div>
             <div class="field">

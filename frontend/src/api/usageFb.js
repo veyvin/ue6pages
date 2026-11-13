@@ -5,6 +5,8 @@
  *   UsageBundle: version(slot0 int32) generated_at(slot1 string) docs(slot2 [UsageDoc])
  *   UsageDoc:    kind(0) slug(1) name(2) category(3)
  *                cn_steps(4 [string]) en_steps(5 [string]) note_cn(6) note_en(7)
+ *                ai_usage(8 bool) 已完成 AI 使用说明；旧文件无 slot8 时用步骤是否非空判断
+ *                in_source(9 bool) 仍在 UE 源码中；旧文件无 slot9 时视为仍存在
  *
  * 拉取顺序与 gh-pages 一致：先读静态 /assets/usage.fb，没有再回落已发布的
  * gh-pages 文件，最后才打后端 /api/usage-fb（开发时现场打包）。
@@ -100,7 +102,13 @@ function view(arrayBuffer) {
     return out
   }
 
-  return { ident: bytesToString(4, 4), u32, i32, fieldOffset, readString, readStringVec, readTableVec }
+  function readBool(tbl, slot, fallback = false) {
+    const off = fieldOffset(tbl, slot)
+    if (!off) return fallback
+    return bytes[tbl + off] !== 0
+  }
+
+  return { ident: bytesToString(4, 4), u32, i32, fieldOffset, readString, readStringVec, readTableVec, readBool }
 }
 
 function parse(arrayBuffer) {
@@ -124,7 +132,11 @@ function parse(arrayBuffer) {
       enSteps: r.readStringVec(tbl, 5),
       noteCn: r.readString(tbl, 6),
       noteEn: r.readString(tbl, 7),
+      aiUsage: false,
+      inSource: true,
     }
+    doc.aiUsage = r.readBool(tbl, 8) || doc.cnSteps.length > 0 || doc.enSteps.length > 0
+    doc.inSource = r.readBool(tbl, 9, true)
     if (!doc.slug) continue
     index.set(`${doc.kind}:${doc.slug}`, doc)
     count += 1
@@ -233,6 +245,19 @@ export function listUsageDocs() {
   return [...state.index.values()]
 }
 
+export function hasAiUsage(doc) {
+  if (!doc) return false
+  if (doc.aiUsage) return true
+  return Boolean((doc.cnSteps && doc.cnSteps.length) || (doc.enSteps && doc.enSteps.length))
+}
+
+export function itemStatus(item) {
+  if (!item) return 'ok'
+  if (item.in_source === false) return 'gone'
+  if (!item.usage_doc) return 'missing'
+  return 'ok'
+}
+
 export function getUsageDoc(kind, slug) {
   if (!state.index) return null
   return state.index.get(`${kind}:${slug}`) || null
@@ -275,7 +300,8 @@ export function catalogFromUsageFb() {
         version_name: '',
         description,
         path: `plugins/${doc.slug}`,
-        usage_doc: true,
+        usage_doc: hasAiUsage(doc),
+        in_source: doc.inSource !== false,
       })
     } else if (doc.kind === 'module') {
       modules.push({
@@ -284,7 +310,8 @@ export function catalogFromUsageFb() {
         type: 'Runtime',
         path: `modules/${doc.slug}`,
         description,
-        usage_doc: true,
+        usage_doc: hasAiUsage(doc),
+        in_source: doc.inSource !== false,
         public_deps: [],
         private_deps: [],
         base: 'ModuleRules',
@@ -320,7 +347,8 @@ export function itemFromUsageFb(kind, slug) {
       description,
       path: `plugins/${doc.slug}`,
       modules: [],
-      usage_doc: true,
+      usage_doc: hasAiUsage(doc),
+      in_source: doc.inSource !== false,
     }
   }
   return {
@@ -333,7 +361,8 @@ export function itemFromUsageFb(kind, slug) {
     public_deps: [],
     private_deps: [],
     platform: '',
-    usage_doc: true,
+    usage_doc: hasAiUsage(doc),
+    in_source: doc.inSource !== false,
   }
 }
 

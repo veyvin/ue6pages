@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { useItemsStore } from '../stores/items.js'
+import { itemStatus } from '../api/usageFb.js'
 
 const PAGE_SIZE = 60
 const store = useItemsStore()
@@ -11,7 +12,7 @@ const moduleLimit = ref(PAGE_SIZE)
 const visiblePlugins = computed(() => store.filteredPlugins.slice(0, pluginLimit.value))
 const visibleModules = computed(() => store.filteredModules.slice(0, moduleLimit.value))
 
-watch(() => [store.query, store.category], () => {
+watch(() => [store.query, store.category, store.status], () => {
   pluginLimit.value = PAGE_SIZE
   moduleLimit.value = PAGE_SIZE
 })
@@ -40,6 +41,32 @@ function isWide(index) {
 function resetFilters() {
   store.query = ''
   store.category = ''
+  store.status = ''
+}
+
+function cardClass(item, index) {
+  const status = itemStatus(item)
+  return {
+    'span-2': isWide(index),
+    'is-missing': status === 'missing',
+    'is-gone': status === 'gone',
+  }
+}
+
+function moduleCardClass(item) {
+  const status = itemStatus(item)
+  return {
+    editor: item.type === 'Editor',
+    'is-missing': status === 'missing',
+    'is-gone': status === 'gone',
+  }
+}
+
+function statusLabel(item) {
+  const status = itemStatus(item)
+  if (status === 'gone') return '源码已删'
+  if (status === 'missing') return '未生成用法'
+  return '已生成用法'
 }
 
 function typeClass(type) {
@@ -141,9 +168,17 @@ function typeClass(type) {
             <span class="label">Index status</span>
             <span class="value lime">{{ store.loading ? 'SCANNING' : 'READY' }}</span>
           </div>
+          <div class="console-row">
+            <span class="label">No usage</span>
+            <span class="value orange">{{ store.statusCounts.missing }}</span>
+          </div>
+          <div class="console-row">
+            <span class="label">Removed</span>
+            <span class="value rose">{{ store.statusCounts.gone }}</span>
+          </div>
           <div class="note">
             目录来自 usage.fb{{ store.catalogSource ? ` · ${store.catalogSource}` : '' }}
-            · 点击卡片进入详情
+            · 橙：尚未 AI 生成使用方法 · 玫红：源码里已经删掉
           </div>
         </div>
       </div>
@@ -190,7 +225,16 @@ function typeClass(type) {
           {{ c }}
         </button>
       </div>
-      <button v-if="store.category || store.query" class="filter-clear" @click="resetFilters">
+      <div class="segmented status-seg" role="tablist" aria-label="条目状态">
+        <button :class="{ active: !store.status }" @click="store.status = ''">全部</button>
+        <button :class="{ active: store.status === 'missing' }" @click="store.status = 'missing'">
+          未生成 {{ store.statusCounts.missing }}
+        </button>
+        <button :class="{ active: store.status === 'gone' }" @click="store.status = 'gone'">
+          源码已删 {{ store.statusCounts.gone }}
+        </button>
+      </div>
+      <button v-if="store.category || store.query || store.status" class="filter-clear" @click="resetFilters">
         重置 ⟲
       </button>
     </div>
@@ -206,14 +250,14 @@ function typeClass(type) {
         v-for="(p, i) in visiblePlugins"
         :key="p.slug"
         class="plugin-card"
-        :class="{ 'span-2': isWide(i) }"
+        :class="cardClass(p, i)"
         :to="{ name: 'plugin', params: { slug: p.slug } }"
       >
         <div class="plugin-card-top">
           <div class="plugin-badge">{{ initial(p.name) }}</div>
           <div class="plugin-meta">
             <span class="card-no">No.{{ cardNo(i) }}</span>
-            <span v-if="p.usage_doc" class="doc-badge">FB</span>
+            <span class="doc-badge" :class="'is-' + itemStatus(p)">{{ statusLabel(p) }}</span>
           </div>
         </div>
 
@@ -248,6 +292,18 @@ function typeClass(type) {
       <span class="count-pill">{{ visibleModules.length }} / {{ store.filteredModules.length }} Items</span>
     </div>
 
+    <div class="filter-bar">
+      <div class="segmented status-seg" role="tablist" aria-label="模块状态">
+        <button :class="{ active: !store.status }" @click="store.status = ''">全部</button>
+        <button :class="{ active: store.status === 'missing' }" @click="store.status = 'missing'">
+          未生成 {{ store.statusCounts.missing }}
+        </button>
+        <button :class="{ active: store.status === 'gone' }" @click="store.status = 'gone'">
+          源码已删 {{ store.statusCounts.gone }}
+        </button>
+      </div>
+    </div>
+
     <div v-if="!store.filteredModules.length" class="empty-card">
       <span class="empty-glyph">[ — ]</span>
       <p class="empty-text">没有匹配的模块。试试清空搜索，或到设置里重新扫描 Engine/Source。</p>
@@ -257,7 +313,7 @@ function typeClass(type) {
         v-for="(m, i) in visibleModules"
         :key="m.slug"
         class="module-card"
-        :class="{ editor: m.type === 'Editor' }"
+        :class="moduleCardClass(m)"
         :to="{ name: 'module', params: { slug: m.slug } }"
       >
         <div class="module-card-head">
@@ -267,7 +323,7 @@ function typeClass(type) {
         <div class="module-path" :title="m.path">{{ m.path }}</div>
         <div class="module-card-foot">
           <span class="tag" :class="typeClass(m.type)">{{ m.type }}</span>
-          <span class="module-index">M.{{ String(i + 1).padStart(3, '0') }}</span>
+          <span class="doc-badge compact" :class="'is-' + itemStatus(m)">{{ statusLabel(m) }}</span>
         </div>
       </router-link>
     </div>

@@ -4,28 +4,48 @@ import {
   catalogFromUsageFb,
   ensureUsageFb,
   getUsageDoc,
+  hasAiUsage,
+  itemStatus,
 } from '../api/usageFb.js'
 
-function mergeLists(fbList, apiList, kind) {
+function hasUsage(kind, slug, fallback = false) {
+  return Boolean(fallback) || hasAiUsage(getUsageDoc(kind, slug))
+}
+
+function mergeLists(fbList, apiList, kind, liveScan) {
   const apiBySlug = new Map((apiList || []).map((item) => [item.slug, item]))
   const seen = new Set()
   const out = []
   for (const fb of fbList) {
     seen.add(fb.slug)
+    const api = apiBySlug.get(fb.slug)
     out.push({
       ...fb,
-      ...(apiBySlug.get(fb.slug) || {}),
-      usage_doc: true,
+      ...(api || {}),
+      usage_doc: hasUsage(kind, fb.slug, fb.usage_doc),
+      in_source: liveScan ? Boolean(api) : fb.in_source !== false,
     })
   }
   for (const item of apiList || []) {
     if (seen.has(item.slug)) continue
     out.push({
       ...item,
-      usage_doc: Boolean(getUsageDoc(kind, item.slug)),
+      usage_doc: hasUsage(kind, item.slug, item.usage_doc),
+      in_source: true,
     })
   }
   return out
+}
+
+function matchesQuery(item, q) {
+  if (!q) return true
+  return [item.name, item.description, item.category, item.path]
+    .some((v) => (v || '').toLowerCase().includes(q))
+}
+
+function matchesStatus(item, status) {
+  if (!status) return true
+  return itemStatus(item) === status
 }
 
 export const useItemsStore = defineStore('items', {
@@ -38,8 +58,10 @@ export const useItemsStore = defineStore('items', {
     error: '',
     query: '',
     category: '',
+    status: '',
     recent: [],
     catalogSource: '',
+    liveScan: false,
   }),
 
   getters: {
@@ -51,16 +73,17 @@ export const useItemsStore = defineStore('items', {
       const q = state.query.trim().toLowerCase()
       return state.plugins.filter(p => {
         if (state.category && p.category !== state.category) return false
-        if (!q) return true
-        return [p.name, p.description, p.category].some(v => (v || '').toLowerCase().includes(q))
+        if (!matchesStatus(p, state.status)) return false
+        return matchesQuery(p, q)
       })
     },
 
     filteredModules(state) {
       const q = state.query.trim().toLowerCase()
-      if (!q) return state.modules
-      return state.modules.filter(m =>
-        m.name.toLowerCase().includes(q) || m.path.toLowerCase().includes(q))
+      return state.modules.filter(m => {
+        if (!matchesStatus(m, state.status)) return false
+        return matchesQuery(m, q)
+      })
     },
 
     usageCoverage(state) {
@@ -69,6 +92,18 @@ export const useItemsStore = defineStore('items', {
         state.plugins.filter(p => p.usage_doc).length +
         state.modules.filter(m => m.usage_doc).length
       return { have, total, pct: total ? Math.round((have / total) * 100) : 0 }
+    },
+
+    statusCounts(state) {
+      const all = [...state.plugins, ...state.modules]
+      let missing = 0
+      let gone = 0
+      for (const item of all) {
+        const st = itemStatus(item)
+        if (st === 'missing') missing += 1
+        else if (st === 'gone') gone += 1
+      }
+      return { missing, gone, total: all.length }
     },
   },
 
@@ -84,6 +119,7 @@ export const useItemsStore = defineStore('items', {
         let apiPlugins = []
         let apiModules = []
         let apiStats = null
+        let liveScan = false
         try {
           const [stats, plugins, modules] = await Promise.all([
             ItemsAPI.getStats(),
@@ -93,15 +129,17 @@ export const useItemsStore = defineStore('items', {
           apiStats = stats
           apiPlugins = plugins
           apiModules = modules
+          liveScan = apiPlugins.length + apiModules.length > 0
         } catch (err) {
           if (!fb.plugins.length && !fb.modules.length) {
             this.error = errMsg(err)
           }
         }
 
+        this.liveScan = liveScan
         if (fb.plugins.length || fb.modules.length) {
-          this.plugins = mergeLists(fb.plugins, apiPlugins, 'plugin')
-          this.modules = mergeLists(fb.modules, apiModules, 'module')
+          this.plugins = mergeLists(fb.plugins, apiPlugins, 'plugin', liveScan)
+          this.modules = mergeLists(fb.modules, apiModules, 'module', liveScan)
           this.stats = {
             total_plugins: this.plugins.length,
             total_modules: this.modules.length,
@@ -112,11 +150,13 @@ export const useItemsStore = defineStore('items', {
         } else {
           this.plugins = apiPlugins.map((p) => ({
             ...p,
-            usage_doc: Boolean(getUsageDoc('plugin', p.slug)),
+            usage_doc: hasUsage('plugin', p.slug, p.usage_doc),
+            in_source: true,
           }))
           this.modules = apiModules.map((m) => ({
             ...m,
-            usage_doc: Boolean(getUsageDoc('module', m.slug)),
+            usage_doc: hasUsage('module', m.slug, m.usage_doc),
+            in_source: true,
           }))
           this.stats = apiStats
           this.catalogSource = 'api'
