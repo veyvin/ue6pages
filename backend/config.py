@@ -27,6 +27,8 @@ class ScanConfig(BaseModel):
 
 class SiteConfig(BaseModel):
     usage_docs_root: str = "usage_docs"  # AI 生成的《使用方法》文档目录（相对 backend/ 或绝对路径）
+    usage_fb_root: str = "static/assets" # usage.fb / usage.bin，由 /assets 静态托管
+    frontend_dist: str = "../frontend/dist"  # 前端构建产物目录，存在即由后端托管
 
 
 class CorsConfig(BaseModel):

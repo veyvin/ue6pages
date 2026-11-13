@@ -3,3 +3,6 @@ __pycache__/
 node_modules/
 frontend/dist/
 pnpm-store/
+backend/static/
+frontend/public/assets/usage.fb
+frontend/public/assets/usage.bin

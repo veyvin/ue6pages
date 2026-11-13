@@ -2,6 +2,7 @@
 import { onMounted, reactive, ref } from 'vue'
 import { ConfigAPI, UsageDocAPI, errMsg } from '../api/client.js'
 import { streamUsageBatch } from '../api/ai.js'
+import { rebuildUsageFb, usageFbState } from '../api/usageFb.js'
 import { useItemsStore } from '../stores/items.js'
 
 const store = useItemsStore()
@@ -28,6 +29,8 @@ const batchSummary = ref(null) // { total, seconds, ok, skip, fail }
 const batchErrors = ref([])    // ['插件 · Foo：HTTP 401 ...', ...]
 const batchProgress = reactive({ total: 0, ok: 0, skip: 0, fail: 0, current: '' })
 const configStats = ref(null) // {root, plugins:{total,have}, modules:{total,have}}
+const fbBusy = ref(false)
+const fbStatus = ref(null)
 let batchAbort = null
 
 async function load() {
@@ -120,9 +123,15 @@ function startBatch() {
       },
     },
     { signal: batchAbort.signal },
-  ).finally(() => {
+  ).finally(async () => {
     batchRunning.value = false
     batchProgress.current = ''
+    try {
+      await rebuildUsageFb()
+      await store.loadAll(true)
+    } catch {
+      /* 后端未启动时详情仍可读 gh-pages 的 usage.fb */
+    }
   })
   UsageDocAPI.stats().then((s) => {
     configStats.value = s
@@ -132,6 +141,23 @@ function startBatch() {
 function stopBatch() {
   batchAbort?.abort()
   batchRunning.value = false
+}
+
+async function deployUsageFb() {
+  fbBusy.value = true
+  fbStatus.value = null
+  try {
+    const info = await rebuildUsageFb()
+    await store.loadAll(true)
+    fbStatus.value = {
+      type: 'ok',
+      text: `已写入 ${info.path || '/assets/usage.fb'}（${info.docs} 条，${info.bytes} 字节）`,
+    }
+  } catch (err) {
+    fbStatus.value = { type: 'error', text: errMsg(err) }
+  } finally {
+    fbBusy.value = false
+  }
 }
 
 onMounted(load)
@@ -323,6 +349,20 @@ onMounted(load)
           </div>
 
           <div v-if="batchErrors.length" class="batch-log">{{ batchErrors.join('\n') }}</div>
+
+          <div class="form-actions" style="margin-top: var(--space-4);">
+            <button class="btn" :disabled="fbBusy" @click="deployUsageFb">
+              {{ fbBusy ? '打包中…' : '部署 usage.fb' }}
+            </button>
+            <span class="field-hint">
+              写入 <span class="mono">/assets/usage.fb</span>，前端与 gh-pages 走同一路径。
+              当前：{{ usageFbState().docs || 0 }} 条
+              <template v-if="usageFbState().source"> · {{ usageFbState().source }}</template>
+            </span>
+          </div>
+          <div v-if="fbStatus" class="banner" :class="fbStatus.type === 'ok' ? 'banner-ok' : 'banner-error'" style="margin-top: var(--space-3);">
+            {{ fbStatus.text }}
+          </div>
         </section>
       </div>
 

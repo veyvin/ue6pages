@@ -3,6 +3,7 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ItemsAPI, UsageDocAPI, errMsg } from '../api/client.js'
 import { streamAiChat, streamUsageBatch } from '../api/ai.js'
+import { ensureUsageFb, getUsageDoc, itemFromUsageFb, toUsageDoc } from '../api/usageFb.js'
 import { renderMarkdown } from '../utils/markdown.js'
 import { useItemsStore } from '../stores/items.js'
 
@@ -56,6 +57,12 @@ const usageMtime = computed(() => (
 async function loadUsage() {
   usageError.value = ''
   try {
+    await ensureUsageFb()
+    const fromFb = toUsageDoc(getUsageDoc(props.kind, props.slug))
+    if (fromFb?.found) {
+      usage.value = fromFb
+      return
+    }
     usage.value = await UsageDocAPI.get(props.kind, props.slug)
   } catch (err) {
     usageError.value = errMsg(err)
@@ -71,8 +78,11 @@ async function generateUsage() {
     {
       onFrame: (frame) => {
         if (frame.type !== 'item') return
-        if (frame.status === 'ok') loadUsage()
-        else usageError.value = frame.error || '生成失败'
+        if (frame.status === 'ok') {
+          UsageDocAPI.get(props.kind, props.slug)
+            .then((doc) => { usage.value = doc })
+            .catch(() => loadUsage())
+        } else usageError.value = frame.error || '生成失败'
       },
       onError: (err) => {
         usageError.value = '连接中断：' + errMsg(err)
@@ -92,10 +102,25 @@ async function load() {
   usageBusy.value = false
   usageError.value = ''
   try {
+    await ensureUsageFb()
+    const fromFb = itemFromUsageFb(props.kind, props.slug)
+    if (fromFb && id === requestId) {
+      item.value = fromFb
+      loadUsage()
+      const overlay = isPlugin.value
+        ? ItemsAPI.getPlugin(props.slug)
+        : ItemsAPI.getModule(props.slug)
+      overlay.then((apiItem) => {
+        if (id !== requestId) return
+        item.value = { ...fromFb, ...apiItem, usage_doc: true }
+      }).catch(() => {})
+      return
+    }
     const data = isPlugin.value
       ? await ItemsAPI.getPlugin(props.slug)
       : await ItemsAPI.getModule(props.slug)
     if (id === requestId) {
+      if (!data) throw new Error('未找到该条目')
       item.value = data
       loadUsage()
     }
@@ -159,16 +184,13 @@ function clearChat() {
   messages.value = []
 }
 
-function openRelated(depName) {
-  const slug = (depName || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-  if (!slug || slug === props.slug) return
-  const candidates = [slug, 'dep-' + slug, 'ue-' + slug]
-  const hit = candidates.find(s => known.modules.some(m => m.slug === s) || known.plugins.some(p => p.slug === s))
-  if (hit) {
-    router.push({ name: known.modules.some(m => m.slug === hit) ? 'module' : 'plugin', params: { slug: hit } })
-  } else {
-    router.push({ name: 'module', params: { slug } })
-  }
+function goRelated(kind, slug) {
+  if (!slug) return
+  router.push({ name: kind === 'module' ? 'module' : 'plugin', params: { slug } })
+}
+
+function slugTitle(s) {
+  return (s || '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 }
 
 function tagClass(type) {

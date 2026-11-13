@@ -141,7 +141,10 @@ function typeClass(type) {
             <span class="label">Index status</span>
             <span class="value lime">{{ store.loading ? 'SCANNING' : 'READY' }}</span>
           </div>
-          <div class="note">数据实时来自 FastAPI 扫描结果 · 点击卡片进入详情</div>
+          <div class="note">
+            目录来自 usage.fb{{ store.catalogSource ? ` · ${store.catalogSource}` : '' }}
+            · 点击卡片进入详情
+          </div>
         </div>
       </div>
 
@@ -210,7 +213,7 @@ function typeClass(type) {
           <div class="plugin-badge">{{ initial(p.name) }}</div>
           <div class="plugin-meta">
             <span class="card-no">No.{{ cardNo(i) }}</span>
-            <span v-if="p.usage_doc" class="doc-badge">MD</span>
+            <span v-if="p.usage_doc" class="doc-badge">FB</span>
           </div>
         </div>
 
