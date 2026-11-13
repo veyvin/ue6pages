@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted } from 'vue'
-import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
 import { useItemsStore } from './stores/items.js'
 
@@ -11,25 +10,30 @@ onMounted(() => store.loadAll())
 
 <template>
   <div class="app">
-    <Sidebar />
-    <div class="main-wrap">
-      <Topbar />
-      <main class="content">
+    <Topbar />
+    <main class="main">
+      <div class="shell">
         <router-view v-slot="{ Component, route }">
           <transition name="page" mode="out-in">
-            <div :key="route.fullPath" class="route-view">
+            <div :key="route.path" class="route-view">
               <component :is="Component" />
             </div>
           </transition>
         </router-view>
-      </main>
-    </div>
+      </div>
+    </main>
   </div>
 </template>
 
 <style>
-.page-enter-active, .page-leave-active {
-  transition: opacity var(--dur-base) var(--ease-spring);
+.page-enter-active,
+.page-leave-active {
+  transition: opacity var(--dur-base) var(--ease-spring),
+              transform var(--dur-base) var(--ease-spring);
 }
-.page-enter-from, .page-leave-to { opacity: 0; }
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
 </style>
