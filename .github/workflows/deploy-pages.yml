@@ -54,7 +54,7 @@ jobs:
         env:
           BASE_PATH: /
         run: |
-          npm ci
+          npm install --no-audit --no-fund
           npm run build
 
       - name: Attach usage.fb, CNAME, SPA fallback
