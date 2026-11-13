@@ -1,13 +1,18 @@
 <script setup>
 import { computed, nextTick, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { ItemsAPI, UsageDocAPI, errMsg } from '../api/client.js'
 import { streamAiChat, streamUsageBatch } from '../api/ai.js'
 import { renderMarkdown } from '../utils/markdown.js'
+import { useItemsStore } from '../stores/items.js'
 
 const props = defineProps({
   kind: { type: String, required: true },
   slug: { type: String, required: true },
 })
+
+const router = useRouter()
+const known = useItemsStore()
 
 const item = ref(null)
 const loading = ref(false)
@@ -154,6 +159,18 @@ function clearChat() {
   messages.value = []
 }
 
+function openRelated(depName) {
+  const slug = (depName || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  if (!slug || slug === props.slug) return
+  const candidates = [slug, 'dep-' + slug, 'ue-' + slug]
+  const hit = candidates.find(s => known.modules.some(m => m.slug === s) || known.plugins.some(p => p.slug === s))
+  if (hit) {
+    router.push({ name: known.modules.some(m => m.slug === hit) ? 'module' : 'plugin', params: { slug: hit } })
+  } else {
+    router.push({ name: 'module', params: { slug } })
+  }
+}
+
 function tagClass(type) {
   if (type === 'Editor') return 'editor'
   if (type === 'Runtime') return 'runtime'
@@ -170,7 +187,7 @@ function tagClass(type) {
     <nav class="crumb">
       <router-link :to="{ name: 'home' }">Index</router-link>
       <span class="sep">//</span>
-      <router-link :to="{ name: 'home', hash: isPlugin ? '#plugins' : '#modules' }">
+      <router-link class="crumb-kind" :to="{ name: 'home', hash: isPlugin ? '#plugins' : '#modules' }">
         {{ isPlugin ? 'Plugins' : 'Modules' }}
       </router-link>
       <span class="sep">//</span>
@@ -189,25 +206,32 @@ function tagClass(type) {
 
         <div class="hero-tags">
           <span v-if="item.category" class="chip chip-light chip-lime">{{ item.category }}</span>
-          <span v-if="!isPlugin" class="chip chip-light">{{ item.type }}</span>
+          <span v-if="!isPlugin" class="chip chip-light">
+            <span class="module-type-dot" :class="{ editor: item.type === 'Editor' }" style="margin-right: 6px;"></span>
+            {{ item.type }}
+          </span>
           <span v-if="isPlugin && item.version_name" class="chip chip-light mono">v{{ item.version_name }}</span>
           <span v-if="isPlugin && item.author" class="chip chip-light">{{ item.author }}</span>
           <span v-if="!isPlugin && item.platform" class="chip chip-light">{{ item.platform }}</span>
-          <span class="chip chip-light">SLUG / {{ props.slug }}</span>
+          <span class="chip chip-light mono">SLUG / {{ props.slug }}</span>
         </div>
       </div>
 
-      <div class="detail-actions">
-        <button class="btn" :disabled="usageBusy" @click="generateUsage">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
-          </svg>
-          {{ usageBusy ? '生成中…' : (usage.found ? '重新生成使用方法' : 'AI 生成使用方法') }}
-        </button>
-        <button class="btn btn-lime" @click="openAi(quickPrompts[0])">
-          ✦ AI 讲解用法
-        </button>
-      </div>
+        <div class="detail-actions">
+          <button class="btn" :disabled="usageBusy" @click="generateUsage">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
+            </svg>
+            {{ usageBusy ? '生成中…' : (usage.found ? '重新生成用法' : 'AI 生成用法') }}
+          </button>
+          <button class="btn btn-lime" @click="openAi(quickPrompts[0])">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
+              <path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z" />
+            </svg>
+            AI 讲解用法
+          </button>
+        </div>
     </section>
 
     <section class="meta-console" aria-label="元数据">
@@ -283,11 +307,15 @@ function tagClass(type) {
             {{ usageError }}
           </div>
           <div v-else-if="usage.found" class="md usage-body" v-html="renderMarkdown(usage.content)"></div>
-          <div v-else class="desc-body">
+          <div v-else class="desc-body usage-empty">
             <p class="muted">
-              还没有《使用方法》文档。点击右上角「AI 生成使用方法」，文档会写入后端
-              <span class="mono">usage_docs_root</span> 目录（<span class="mono">{{ isPlugin ? 'plugins' : 'modules' }}/{{ props.slug }}.md</span>）。
+              还没有《使用方法》文档。点击下方按钮，AI 会结合源码元数据写一份可直接上手的说明，
+              并写入后端 <span class="mono">usage_docs_root</span> 目录（
+              <span class="mono">{{ isPlugin ? 'plugins' : 'modules' }}/{{ props.slug }}.md</span>）。
             </p>
+            <button class="btn btn-lime" :disabled="usageBusy" @click="generateUsage">
+              {{ usageBusy ? '生成中…' : 'AI 生成使用方法' }}
+            </button>
           </div>
         </section>
 
@@ -298,14 +326,35 @@ function tagClass(type) {
             <span class="card-title-cn" style="margin-left: auto;">由 AI 生成，请以官方文档为准</span>
           </div>
           <div class="ai-quick-list">
+            <span class="quick-label">Suggested</span>
             <button v-for="q in quickPrompts" :key="q" class="prompt-btn" @click="openAi(q)">
-              {{ q }}
+              <span class="prompt-text">{{ q }}</span>
             </button>
           </div>
         </section>
       </div>
 
       <aside class="detail-side">
+        <div class="side-console usage-console">
+          <div class="side-title">
+            <span>Usage doc</span>
+            <span class="count">{{ usage.found ? 'READY' : 'EMPTY' }}</span>
+          </div>
+          <div class="side-deps">
+            <span class="usage-chip" :class="{ 'is-missing': !usage.found }">
+              {{ usage.found ? '已生成使用方法' : '尚未生成' }}
+            </span>
+          </div>
+          <div class="side-usage-meta">
+            <span>{{ usage.found ? '最后更新' : '建议操作' }}</span>
+            <b>{{ usage.found ? usageMtime : 'AI 生成' }}</b>
+          </div>
+          <div v-if="!usage.found" class="side-note" style="margin-top: 10px;">
+            点击下方按钮，AI 会结合源码元数据写一份可直接上手的说明，并保存到
+            <span class="mono">{{ isPlugin ? 'plugins' : 'modules' }}/{{ props.slug }}.md</span>。
+          </div>
+        </div>
+
         <div v-if="isPlugin" class="side-console">
           <div class="side-title">
             <span>Modules</span>
@@ -325,9 +374,18 @@ function tagClass(type) {
               <span>Public deps</span>
               <span class="count">{{ item.public_deps.length }}</span>
             </div>
-            <div v-if="!item.public_deps.length" class="side-empty">无</div>
-            <div v-else class="dep-list">
-              <span v-for="d in item.public_deps" :key="d" class="chip chip-lime mono">{{ d }}</span>
+            <div class="side-deps">
+              <span
+                v-for="d in item.public_deps"
+                :key="d"
+                class="chip chip-lime mono is-link"
+                role="link"
+                tabindex="0"
+                :title="`打开模块 ${d}`"
+                @click="openRelated(d)"
+                @keydown.enter="openRelated(d)"
+              >{{ d }}</span>
+              <span v-if="!item.public_deps.length" class="chip is-empty">无</span>
             </div>
           </div>
           <div class="side-console">
@@ -335,9 +393,18 @@ function tagClass(type) {
               <span>Private deps</span>
               <span class="count">{{ item.private_deps.length }}</span>
             </div>
-            <div v-if="!item.private_deps.length" class="side-empty">无</div>
-            <div v-else class="dep-list">
-              <span v-for="d in item.private_deps" :key="d" class="chip chip-lime mono">{{ d }}</span>
+            <div class="side-deps">
+              <span
+                v-for="d in item.private_deps"
+                :key="d"
+                class="chip chip-lime mono is-link"
+                role="link"
+                tabindex="0"
+                :title="`打开模块 ${d}`"
+                @click="openRelated(d)"
+                @keydown.enter="openRelated(d)"
+              >{{ d }}</span>
+              <span v-if="!item.private_deps.length" class="chip is-empty">无</span>
             </div>
           </div>
         </template>
@@ -390,7 +457,7 @@ function tagClass(type) {
         :class="[m.role, { md: m.role === 'assistant', 'ai-typing': m.streaming && m.content }]"
       >
         <template v-if="m.role === 'assistant'">
-          <span v-if="!m.content && m.streaming">正在思考…</span>
+          <span v-if="!m.content && m.streaming" class="ai-thinking"><span></span><span></span><span></span></span>
           <div v-else v-html="renderMarkdown(m.content)"></div>
         </template>
         <template v-else>{{ m.content }}</template>

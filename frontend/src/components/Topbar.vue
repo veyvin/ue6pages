@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTheme } from '../composables/useTheme.js'
 import { useItemsStore } from '../stores/items.js'
@@ -9,6 +9,26 @@ const route = useRoute()
 const router = useRouter()
 const store = useItemsStore()
 const { theme, toggle } = useTheme()
+
+const searchInput = ref(null)
+const toast = ref('')
+let toastTimer = null
+function flashToast(text) {
+  toast.value = text
+  clearTimeout(toastTimer)
+  toastTimer = setTimeout(() => { toast.value = '' }, 2600)
+}
+
+function onGlobalKey(e) {
+  if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return
+  const tag = (e.target?.tagName || '').toLowerCase()
+  if (tag === 'input' || tag === 'textarea' || e.target?.isContentEditable) return
+  e.preventDefault()
+  searchInput.value?.focus()
+}
+
+onMounted(() => window.addEventListener('keydown', onGlobalKey))
+onUnmounted(() => window.removeEventListener('keydown', onGlobalKey))
 
 const active = computed(() => {
   if (route.name === 'settings') return 'settings'
@@ -31,9 +51,9 @@ function onSearch(e) {
 async function onRescan() {
   try {
     const r = await store.reload()
-    alert(`✅ 已重扫：${r.plugins} 插件，${r.modules} 模块`)
+    flashToast(`已重扫：${r.plugins} 个插件 / ${r.modules} 个模块`)
   } catch (err) {
-    alert('❌ 重扫失败：' + errMsg(err))
+    flashToast('重扫失败：' + errMsg(err))
   }
 }
 </script>
@@ -42,7 +62,7 @@ async function onRescan() {
   <header class="topbar">
     <router-link to="/" class="brand" aria-label="UE Docs Lab 首页">
       <span class="brand-dot" aria-hidden="true"></span>
-      <span class="brand-pill">UE Docs Lab</span>
+      <span class="brand-pill">UE Docs Lab<span class="brand-pill-sub" v-if="store.stats?.engine_version">{{ store.stats.engine_version }}</span></span>
     </router-link>
 
     <nav class="topnav" aria-label="主导航">
@@ -59,20 +79,29 @@ async function onRescan() {
       </button>
     </nav>
 
-    <div class="top-actions">
-      <label class="search">
+    <div class="nav-status" aria-live="polite">
+      <i></i>
+      {{ store.loading ? 'Scanning' : (store.error ? 'Offline' : 'Index Ready') }}
+    </div>
+
+    <div class="top-actions">      <label class="search">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.3-4.3" />
         </svg>
         <input
+          ref="searchInput"
           :value="store.query"
           type="text"
           placeholder="Search plugins or modules…"
           aria-label="搜索插件或模块"
           @input="onSearch"
         />
+        <span class="kbd" aria-hidden="true">/</span>
       </label>
+      <transition name="toast-pop">
+        <span v-if="toast" class="topbar-toast" role="status">{{ toast }}</span>
+      </transition>
 
       <button class="keycap-btn" title="重新扫描 UE 源码" aria-label="重新扫描 UE 源码" @click="onRescan">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
