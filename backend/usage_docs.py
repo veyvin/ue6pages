@@ -9,6 +9,7 @@ CI（generate-ue-docs.yml）不再调用 AI，只输出静态目录；这些文�
 """
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from .config import CONFIG
@@ -55,3 +56,20 @@ def existing_slugs() -> dict[str, set[str]]:
         d = usage_root() / dirname
         out[dirname] = {f.stem for f in d.glob("*.md")} if d.is_dir() else set()
     return out
+
+
+def structured_path(kind: str, slug: str) -> Path:
+    """与 .md 同名的 JSON 侧车文件，保存 cn_steps / en_steps / note_cn / note_en。"""
+    return doc_path(kind, slug).with_suffix(".json")
+
+
+def read_structured(kind: str, slug: str) -> dict | None:
+    """读取结构化要点；不存在或损坏时返回 None（由调用方回退到 Markdown 推导）。"""
+    p = structured_path(kind, slug)
+    if not p.is_file():
+        return None
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return None
+    return data if isinstance(data, dict) else None

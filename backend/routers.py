@@ -8,14 +8,14 @@ import time
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import Response, StreamingResponse
 from pydantic import ValidationError
 
 from .ai_service import generate_usage_doc, stream_chat, test_connection
 from .config import CONFIG, config_path, public_config, save_config
 from .scanner import scan_all, invalidate_cache
-from . import usage_docs
+from . import usage_docs, usage_fb
 from .schemas import (
     PluginInfo, PluginSummary, ModuleInfo, ModuleSummary,
     Stats, AiBatchRequest, AiChatRequest,
@@ -193,6 +193,46 @@ def read_usage_doc(kind: str, slug: str) -> dict:
     return usage_docs.read_doc(kind, slug)
 
 
+# ---------- usage.fb（FlatBuffers，前端直接解析） ----------
+@router.get("/usage-fb/meta")
+def usage_fb_meta() -> dict:
+    """二进制与文档覆盖率概况：设置页展示用，不触发打包。"""
+    payload = usage_fb.get_payload()
+    return {
+        "docs": payload["docs"],
+        "bytes": len(payload["payload"]),
+        "generated_at": payload["generated_at"],
+        "disk": usage_fb.disk_status(),
+        **usage_docs_stats(),
+    }
+
+
+@router.get("/usage-fb")
+def usage_fb_download(request: Request) -> Response:
+    """完整 usage.fb 二进制。带 ETag，前端与 CDN 可复用缓存。"""
+    info = usage_fb.get_payload()
+    etag = info["etag"]
+    if request.headers.get("if-none-match") == etag:
+        return Response(status_code=304, headers={"ETag": etag})
+    return Response(
+        content=info["payload"],
+        media_type="application/octet-stream",
+        headers={
+            "ETag": etag,
+            "X-Usage-Docs": str(info["docs"]),
+            "X-Usage-Generated-At": info["generated_at"],
+            "Cache-Control": "public, max-age=60",
+        },
+    )
+
+
+@router.post("/usage-fb/rebuild")
+def usage_fb_rebuild() -> dict:
+    """强制重建一次二进制，并落盘到 usage_fb_root（部署时也走这里）。"""
+    usage_fb.invalidate()
+    return usage_fb.write_files(force=True)
+
+
 @router.post("/ai/batch")
 async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
     """批量生成《使用方法》文档，SSE 进度流。
@@ -255,6 +295,7 @@ async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
                     try:
                         content = await generate_usage_doc(kind, item)
                         usage_docs.write_doc(kind, item.slug, content)
+                        usage_fb.invalidate()
                         payload.update(status="ok", file=str(target))
                     except Exception as exc:  # noqa: BLE001
                         payload.update(status="fail", error=str(exc)[:400])
@@ -275,6 +316,10 @@ async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
                 "seconds": round(time.monotonic() - started, 1),
                 **counters,
             })
+            try:
+                usage_fb.write_files(force=True)
+            except Exception:  # noqa: BLE001
+                pass
             yield "data: [DONE]\n\n"
         finally:
             # 客户端断开 / 生成器取消时，停掉还没跑完的任务

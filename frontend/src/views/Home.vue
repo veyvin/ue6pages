@@ -37,6 +37,11 @@ function isWide(index) {
   return index === 0 || index % 7 === 3
 }
 
+function resetFilters() {
+  store.query = ''
+  store.category = ''
+}
+
 function typeClass(type) {
   if (type === 'Editor') return 'editor'
   if (type === 'Runtime') return 'runtime'
@@ -59,22 +64,25 @@ function typeClass(type) {
       </h1>
 
       <p class="hero-lede">
-        从 <span class="mono">.uplugin</span> 到 <span class="mono">*.Build.cs</span>，
-        把引擎源码里的每一个插件与模块，整理成可检索、可讲解的说明书。
+        从 <span class="hl mono">.uplugin</span> 到 <span class="hl mono">*.Build.cs</span>，
+        把引擎源码里的每一个插件与模块，整理成<span class="hl-lime">可检索、可讲解</span>的说明书。
         <em>Read it. Use it. Ship it.</em>
       </p>
 
       <div class="hero-annot">About / UE Docs</div>
+
+      <div class="hero-actions">
+        <a class="pill-play" href="#plugins">
+          <span class="play" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          </span>
+          <span>浏览插件索引</span>
+        </a>
+        <router-link class="btn btn-dark" :to="{ name: 'settings' }">设置引擎路径</router-link>
+      </div>
     </div>
 
     <div class="hero-object">
-      <a class="pill-play" href="#plugins">
-        <span class="play" aria-hidden="true">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-        </span>
-        <span>Browse Index</span>
-      </a>
-
       <div class="keycap-scene" aria-hidden="true">
         <div class="keycap-aura"></div>
         <div class="keycap">
@@ -90,20 +98,31 @@ function typeClass(type) {
   <section aria-label="扫描统计">
     <div v-if="store.error" class="banner banner-error" style="margin-bottom: 18px;">
       无法连接后端：{{ store.error }}。请确认后端已启动（backend 目录下
-      uvicorn backend.app:app --port 8001），或到
+      <span class="mono">uvicorn backend.app:app --port 8001</span>），或到
       <router-link to="/settings">设置</router-link> 检查引擎路径。
     </div>
 
-    <div class="console-card">
-      <div class="console-top">
+    <div v-if="!store.stats && store.loading" class="console-card console-skeleton" aria-busy="true">
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line short"></div>
+      <div class="skeleton-line"></div>
+    </div>
+
+    <div class="console-card">      <div class="console-top">
         <div class="stat-block">
-          <div class="console-label"><span class="lb">01</span> Plugins / .uplugin</div>
+          <div class="console-label">
+            <span class="lb">01</span> Plugins / .uplugin
+            <span class="live"><i></i>live</span>
+          </div>
           <div class="stat-value">{{ store.stats?.total_plugins ?? '—' }}</div>
           <div class="stat-sub">已扫描的插件条目</div>
         </div>
 
         <div class="stat-block">
-          <div class="console-label"><span class="lb">02</span> Modules / .Build.cs</div>
+          <div class="console-label">
+            <span class="lb">02</span> Modules / .Build.cs
+            <span class="live"><i></i>live</span>
+          </div>
           <div class="stat-value">{{ store.stats?.total_modules ?? '—' }}</div>
           <div class="stat-sub">已扫描的模块构建文件</div>
         </div>
@@ -122,7 +141,10 @@ function typeClass(type) {
             <span class="label">Index status</span>
             <span class="value lime">{{ store.loading ? 'SCANNING' : 'READY' }}</span>
           </div>
-          <div class="note">数据实时来自 FastAPI 扫描结果 · 点击卡片进入详情</div>
+          <div class="note">
+            目录来自 usage.fb{{ store.catalogSource ? ` · ${store.catalogSource}` : '' }}
+            · 点击卡片进入详情
+          </div>
         </div>
       </div>
 
@@ -138,7 +160,7 @@ function typeClass(type) {
         </div>
         <div class="console-ratio">
           <b>{{ totalItems }} Items</b>
-          Source index
+          <span>P {{ store.stats?.total_plugins ?? 0 }} · M {{ store.stats?.total_modules ?? 0 }}</span>
         </div>
       </div>
     </div>
@@ -147,7 +169,7 @@ function typeClass(type) {
   <section id="plugins">
     <div class="section-head">
       <div class="section-head-main">
-        <div class="section-kicker">02 / Plugin Index</div>
+        <div class="section-kicker"><span class="sk-num">02</span> <span class="sk-slash">/</span> Plugin Index</div>
         <h2 class="section-title">
           插件 <span class="serif">Plugins</span>
           <span class="title-cn-sub">{{ store.filteredPlugins.length }} 个</span>
@@ -168,10 +190,17 @@ function typeClass(type) {
           {{ c }}
         </button>
       </div>
+      <button v-if="store.category || store.query" class="filter-clear" @click="resetFilters">
+        重置 ⟲
+      </button>
     </div>
 
     <div v-if="store.loading && !store.plugins.length" class="empty">加载中…</div>
-    <div v-else-if="!store.filteredPlugins.length" class="empty">没有匹配的插件</div>
+    <div v-else-if="!store.filteredPlugins.length" class="empty-card">
+      <span class="empty-glyph">[ ∅ ]</span>
+      <p class="empty-text">没有匹配的插件。清空搜索或切换分类，也可以到设置里更换 engine_root。</p>
+      <button class="btn btn-dark" @click="resetFilters">重置检索条件</button>
+    </div>
     <div v-else class="bento-grid">
       <router-link
         v-for="(p, i) in visiblePlugins"
@@ -184,7 +213,7 @@ function typeClass(type) {
           <div class="plugin-badge">{{ initial(p.name) }}</div>
           <div class="plugin-meta">
             <span class="card-no">No.{{ cardNo(i) }}</span>
-            <span v-if="p.usage_doc" class="doc-badge">MD</span>
+            <span v-if="p.usage_doc" class="doc-badge">FB</span>
           </div>
         </div>
 
@@ -210,7 +239,7 @@ function typeClass(type) {
   <section id="modules">
     <div class="section-head">
       <div class="section-head-main">
-        <div class="section-kicker">03 / Module Index</div>
+        <div class="section-kicker"><span class="sk-num">03</span> <span class="sk-slash">/</span> Module Index</div>
         <h2 class="section-title">
           模块 <span class="serif">Modules</span>
           <span class="title-cn-sub">{{ store.filteredModules.length }} 个</span>
@@ -219,7 +248,10 @@ function typeClass(type) {
       <span class="count-pill">{{ visibleModules.length }} / {{ store.filteredModules.length }} Items</span>
     </div>
 
-    <div v-if="!store.filteredModules.length" class="empty">没有匹配的模块</div>
+    <div v-if="!store.filteredModules.length" class="empty-card">
+      <span class="empty-glyph">[ — ]</span>
+      <p class="empty-text">没有匹配的模块。试试清空搜索，或到设置里重新扫描 Engine/Source。</p>
+    </div>
     <div v-else class="module-grid">
       <router-link
         v-for="(m, i) in visibleModules"
@@ -229,7 +261,7 @@ function typeClass(type) {
         :to="{ name: 'module', params: { slug: m.slug } }"
       >
         <div class="module-card-head">
-          <span class="module-dot"></span>
+          <span class="module-type-dot" :class="{ editor: m.type === 'Editor' }"></span>
           <span class="module-name" :title="m.name">{{ m.name }}</span>
         </div>
         <div class="module-path" :title="m.path">{{ m.path }}</div>
@@ -254,6 +286,13 @@ function typeClass(type) {
         <div class="outro-text">
           <span class="outro-cn">源码即说明书</span>
           <span class="outro-en">Read the source. Know the engine.</span>
+          <div class="outro-meta">
+            <em>{{ store.stats?.total_plugins ?? 0 }} Plugins</em>
+            <i></i>
+            <em>{{ store.stats?.total_modules ?? 0 }} Modules</em>
+            <i></i>
+            <span>{{ store.stats?.engine_version || 'UE5' }}</span>
+          </div>
         </div>
         <span class="outro-paren" aria-hidden="true">)</span>
       </div>
@@ -264,6 +303,11 @@ function typeClass(type) {
 
     <div class="site-foot">
       <span>UE Docs Lab — Generated from Unreal Engine source</span>
+      <span class="site-foot-links">
+        <router-link :to="{ name: 'home', hash: '#plugins' }">Plugins</router-link>
+        <router-link :to="{ name: 'home', hash: '#modules' }">Modules</router-link>
+        <router-link :to="{ name: 'settings' }">Settings</router-link>
+      </span>
       <span>FastAPI · Vue · {{ store.stats?.engine_version || 'UE5' }}</span>
     </div>
   </footer>

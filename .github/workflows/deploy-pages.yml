@@ -1,13 +1,18 @@
 name: Deploy GitHub Pages
 
-# git push to gh-pages does not update ue.veyvin.com unless Pages is
-# rebuilt. This repo's Pages source is GitHub Actions, so deploy on every
-# gh-pages push (and allow manual re-run).
+# 线上站点是 Vue SPA（frontend/dist），不是 Jekyll。
+# gh-pages 分支只保存生成的 markdown / usage.fb，不再直接发布。
+#
+# 触发：
+#   - push 到 main（前端源码更新）
+#   - Generate & Deploy UE Docs 成功后 workflow_call
+#   - 手动 Run workflow
 
 on:
   push:
-    branches: [gh-pages]
+    branches: [main]
   workflow_dispatch:
+  workflow_call:
 
 concurrency:
   group: github-pages
@@ -20,33 +25,76 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy to GitHub Pages
+    name: Build Vue site and deploy
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout gh-pages branch
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+
+      - name: Checkout gh-pages assets
         uses: actions/checkout@v5
         with:
           ref: gh-pages
+          path: gh-pages-src
           fetch-depth: 1
+        continue-on-error: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Build frontend
+        working-directory: frontend
+        env:
+          BASE_PATH: /
+        run: |
+          npm ci
+          npm run build
+
+      - name: Attach usage.fb, CNAME, SPA fallback
+        run: |
+          set -euo pipefail
+          DIST=frontend/dist
+          mkdir -p "$DIST/assets"
+          if [ -f gh-pages-src/assets/usage.fb ]; then
+            cp gh-pages-src/assets/usage.fb "$DIST/assets/usage.fb"
+            cp gh-pages-src/assets/usage.fb "$DIST/assets/usage.bin"
+            echo "Copied usage.fb ($(wc -c < gh-pages-src/assets/usage.fb) bytes)"
+          else
+            echo "gh-pages usage.fb not found; site will fall back to the published raw file."
+          fi
+          if [ -f gh-pages-src/CNAME ]; then
+            cp gh-pages-src/CNAME "$DIST/CNAME"
+          else
+            echo 'ue.veyvin.com' > "$DIST/CNAME"
+          fi
+          touch "$DIST/.nojekyll"
+          cp "$DIST/index.html" "$DIST/404.html"
 
       - name: Setup Pages
-        id: pages
         uses: actions/configure-pages@v5
-
-      - name: Build site with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: './'
-          destination: './_site'
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './_site'
+          path: frontend/dist
 
       - name: Deploy
         id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Wait for artifact metadata
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 15
+
+      - name: Deploy (retry)
+        id: deployment-retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
