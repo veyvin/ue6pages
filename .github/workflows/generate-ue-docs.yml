@@ -2,11 +2,11 @@ name: Generate & Deploy UE Docs
 
 # 在公有仓库 ue6pages 中运行：
 #   1. 从私有仓库 veyvin/UnrealEngine 拉取 UE 源码（sparse checkout）
-#   2. 静态生成插件/模块目录页（不调用任何 AI —— CI 只做发现与描述）
-#   3. 部署到本仓库的 GitHub Pages
+#   2. 静态生成插件/模块目录（markdown + usage.fb 写入 gh-pages 分支）
+#   3. 再调用 Deploy GitHub Pages，把 Vue 前端发到线上
 #
-# 《使用方法》等 AI 文档由本地后端（backend/，设置页配置 OpenAI-compatible
-# API）批量生成，见 README 与 backend/usage_docs.py。
+# 线上站点是 Vue SPA，不是 Jekyll。gh-pages 只当数据分支。
+# 《使用方法》等 AI 文档由本地后端批量生成，见 README 与 backend/usage_docs.py。
 
 on:
   schedule:
@@ -134,7 +134,9 @@ jobs:
           cd /tmp/ghpages
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- ':!.github/'
+          # 清掉 gh-pages 上残留的 Actions，避免旧的 Jekyll Deploy 被 push 触发、盖掉 Vue 站。
+          rm -rf .github
+          git add -A
           if git diff --cached --quiet; then
             echo "No new docs to publish."
             echo "### Docs generation" >> "$GITHUB_STEP_SUMMARY"
@@ -151,52 +153,11 @@ jobs:
           echo "- updated files: ${MODS}" >> "$GITHUB_STEP_SUMMARY"
 
   deploy-pages:
-    name: Deploy to GitHub Pages
+    name: Deploy Vue site to GitHub Pages
     needs: generate-docs
-    if: always() && needs.generate-docs.result == 'success'
-    runs-on: ubuntu-latest
+    if: success()
+    uses: ./.github/workflows/deploy-pages.yml
     permissions:
       contents: read
       pages: write
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url || steps.deployment-retry.outputs.page_url }}
-    steps:
-      - name: Checkout gh-pages branch
-        uses: actions/checkout@v5
-        with:
-          ref: gh-pages
-          fetch-depth: 1
-
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
-
-      - name: Build site with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: './'
-          destination: './_site'
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './_site'
-
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
-        # Actions 的 artifact 列表接口在上传完成后有数秒延迟，偶发
-        # "Found 0 artifact(s)"（artifact 实际已上传成功）。失败后等待
-        # 再重试一次，避免因这个瞬时问题让整个发布会话失败。
-        continue-on-error: true
-
-      - name: Wait for artifact metadata
-        if: steps.deployment.outcome == 'failure'
-        run: sleep 15
-
-      - name: Deploy (retry)
-        id: deployment-retry
-        if: steps.deployment.outcome == 'failure'
-        uses: actions/deploy-pages@v4

@@ -14,9 +14,14 @@ const IDENT = 'UEUG'
 const SESSION_KEY = 'ue-usage-fb-etag'
 const SESSION_URL = 'ue-usage-fb-url'
 
+function withBase(path) {
+  const root = import.meta.env.BASE_URL || '/'
+  return `${root}${String(path).replace(/^\//, '')}`
+}
+
 const LOCAL_CANDIDATES = [
-  '/assets/usage.fb',
-  '/assets/usage.bin',
+  withBase('assets/usage.fb'),
+  withBase('assets/usage.bin'),
 ]
 const PUBLISHED_CANDIDATES = [
   'https://cdn.jsdelivr.net/gh/veyvin/ue6pages@gh-pages/assets/usage.fb',
