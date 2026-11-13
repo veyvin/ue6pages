@@ -923,11 +923,63 @@ img, svg { display: block; }
 
 .filter-bar {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin-bottom: 28px;
+  min-width: 0;
+}
+.filter-bar-meta {
+  display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 28px;
   min-width: 0;
+}
+.filter-scroll {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(17, 17, 19, 0.28) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+.filter-scroll.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+.filter-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.filter-scroll::-webkit-scrollbar-thumb {
+  border-radius: 99px;
+  background: rgba(17, 17, 19, 0.22);
+}
+[data-theme="dark"] .filter-scroll {
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+[data-theme="dark"] .filter-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+}
+.filter-scroll.has-end {
+  mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 36px), transparent);
+}
+.filter-scroll.has-start {
+  mask-image: linear-gradient(to right, transparent, #000 36px, #000 100%);
+}
+.filter-scroll.has-start.has-end {
+  mask-image: linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent);
+}
+.filter-scroll .segmented {
+  display: inline-flex;
+  width: max-content;
+  max-width: none;
+  overflow: visible;
 }
 .filter-count {
   overflow: hidden;
@@ -958,10 +1010,7 @@ img, svg { display: block; }
   border-radius: var(--r-pill);
   background: var(--bg);
   box-shadow: var(--shadow-neu-in);
-  overflow-x: auto;
-  scrollbar-width: none;
 }
-.segmented::-webkit-scrollbar { display: none; }
 .segmented button {
   flex-shrink: 0;
   padding: 11px 18px;
@@ -1961,7 +2010,8 @@ img, svg { display: block; }
   .stat-block + .stat-block { border-left: 0; border-top: 1px solid var(--line-card); padding-left: 0; padding-top: 20px; }
   .stat-value { font-size: 58px; }
   .console-card { border-radius: 28px; }
-  .segmented { width: 100%; }
+  .filter-scroll .segmented { width: max-content; }
+  .status-seg { width: 100%; }
   .outro-paren { font-size: 64px; }
   .site-foot { flex-direction: column; align-items: flex-start; gap: 10px; }
   .site-foot-links { flex-wrap: wrap; gap: 10px; }

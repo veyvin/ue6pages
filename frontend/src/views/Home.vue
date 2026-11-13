@@ -2,9 +2,22 @@
 import { computed, ref, watch } from 'vue'
 import { useItemsStore } from '../stores/items.js'
 import { itemStatus } from '../api/usageFb.js'
+import { useDragScroll } from '../composables/useDragScroll.js'
 
 const PAGE_SIZE = 60
 const store = useItemsStore()
+const {
+  el: catScroll,
+  canStart: catCanStart,
+  canEnd: catCanEnd,
+  updateEdges: updateCatEdges,
+  onPointerDown: onCatPointerDown,
+  onPointerMove: onCatPointerMove,
+  onPointerUp: onCatPointerUp,
+  onPointerCancel: onCatPointerCancel,
+  onClickCapture: onCatClickCapture,
+  onScroll: onCatScroll,
+} = useDragScroll()
 
 const pluginLimit = ref(PAGE_SIZE)
 const moduleLimit = ref(PAGE_SIZE)
@@ -16,6 +29,8 @@ watch(() => [store.query, store.category, store.status], () => {
   pluginLimit.value = PAGE_SIZE
   moduleLimit.value = PAGE_SIZE
 })
+
+watch(() => store.categories.length, () => updateCatEdges())
 
 const totalItems = computed(() =>
   (store.stats?.total_plugins ?? 0) + (store.stats?.total_modules ?? 0))
@@ -214,29 +229,43 @@ function typeClass(type) {
     </div>
 
     <div class="filter-bar">
-      <div class="segmented" role="tablist" aria-label="插件分类">
-        <button :class="{ active: !store.category }" @click="store.category = ''">全部</button>
-        <button
-          v-for="c in store.categories"
-          :key="c"
-          :class="{ active: store.category === c }"
-          @click="store.category = c"
-        >
-          {{ c }}
+      <div
+        ref="catScroll"
+        class="filter-scroll"
+        :class="{ 'has-start': catCanStart, 'has-end': catCanEnd }"
+        @pointerdown="onCatPointerDown"
+        @pointermove="onCatPointerMove"
+        @pointerup="onCatPointerUp"
+        @pointercancel="onCatPointerCancel"
+        @click.capture="onCatClickCapture"
+        @scroll="onCatScroll"
+      >
+        <div class="segmented" role="tablist" aria-label="插件分类">
+          <button :class="{ active: !store.category }" @click="store.category = ''">全部</button>
+          <button
+            v-for="c in store.categories"
+            :key="c"
+            :class="{ active: store.category === c }"
+            @click="store.category = c"
+          >
+            {{ c }}
+          </button>
+        </div>
+      </div>
+      <div class="filter-bar-meta">
+        <div class="segmented status-seg" role="tablist" aria-label="条目状态">
+          <button :class="{ active: !store.status }" @click="store.status = ''">全部</button>
+          <button :class="{ active: store.status === 'missing' }" @click="store.status = 'missing'">
+            未生成 {{ store.statusCounts.missing }}
+          </button>
+          <button :class="{ active: store.status === 'gone' }" @click="store.status = 'gone'">
+            源码已删 {{ store.statusCounts.gone }}
+          </button>
+        </div>
+        <button v-if="store.category || store.query || store.status" class="filter-clear" @click="resetFilters">
+          重置 ⟲
         </button>
       </div>
-      <div class="segmented status-seg" role="tablist" aria-label="条目状态">
-        <button :class="{ active: !store.status }" @click="store.status = ''">全部</button>
-        <button :class="{ active: store.status === 'missing' }" @click="store.status = 'missing'">
-          未生成 {{ store.statusCounts.missing }}
-        </button>
-        <button :class="{ active: store.status === 'gone' }" @click="store.status = 'gone'">
-          源码已删 {{ store.statusCounts.gone }}
-        </button>
-      </div>
-      <button v-if="store.category || store.query || store.status" class="filter-clear" @click="resetFilters">
-        重置 ⟲
-      </button>
     </div>
 
     <div v-if="store.loading && !store.plugins.length" class="empty">加载中…</div>
