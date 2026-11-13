@@ -1,6 +1,8 @@
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 
-/** 横向溢出容器：拖动平移、滚轮改横滚、左右边缘提示。 */
+const DRAG_PX = 8
+
+/** 横向溢出容器：拖动平移、滚轮改横滚、左右边缘提示。点击子按钮不拦截。 */
 export function useDragScroll() {
   const el = ref(null)
   const canStart = ref(false)
@@ -9,7 +11,8 @@ export function useDragScroll() {
   let pointerId = null
   let originX = 0
   let originScroll = 0
-  let dragged = false
+  let dragging = false
+  let suppressClick = false
   let observer = null
 
   function updateEdges() {
@@ -30,35 +33,39 @@ export function useDragScroll() {
     pointerId = e.pointerId
     originX = e.clientX
     originScroll = node.scrollLeft
-    dragged = false
-    node.classList.add('is-dragging')
-    node.setPointerCapture?.(e.pointerId)
+    dragging = false
+    suppressClick = false
   }
 
   function onPointerMove(e) {
     const node = el.value
     if (!node || pointerId !== e.pointerId) return
     const dx = e.clientX - originX
-    if (Math.abs(dx) > 4) dragged = true
-    if (dragged) {
-      node.scrollLeft = originScroll - dx
-      e.preventDefault()
+    if (!dragging && Math.abs(dx) >= DRAG_PX) {
+      dragging = true
+      suppressClick = true
+      node.classList.add('is-dragging')
+      node.setPointerCapture?.(e.pointerId)
     }
+    if (dragging) node.scrollLeft = originScroll - dx
   }
 
   function endDrag(e) {
-    const node = el.value
     if (pointerId !== e.pointerId) return
+    const node = el.value
     pointerId = null
+    dragging = false
     node?.classList.remove('is-dragging')
-    node?.releasePointerCapture?.(e.pointerId)
+    if (node?.hasPointerCapture?.(e.pointerId)) {
+      node.releasePointerCapture(e.pointerId)
+    }
   }
 
   function onClickCapture(e) {
-    if (!dragged) return
+    if (!suppressClick) return
     e.preventDefault()
     e.stopPropagation()
-    dragged = false
+    suppressClick = false
   }
 
   function onWheel(e) {
