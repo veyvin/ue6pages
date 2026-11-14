@@ -1,7 +1,7 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useItemsStore } from '../stores/items.js'
-import { itemStatus } from '../api/usageFb.js'
+import { itemStatus, onUsageFbProgress } from '../api/usageFb.js'
 import { useDragScroll } from '../composables/useDragScroll.js'
 
 const PAGE_SIZE = 60
@@ -21,6 +21,62 @@ const {
 
 const pluginLimit = ref(PAGE_SIZE)
 const moduleLimit = ref(PAGE_SIZE)
+
+const progress = ref({ phase: 'idle', received: 0, total: 0, ratio: null, rate: 0, url: '' })
+let stopProgress = null
+onMounted(() => { stopProgress = onUsageFbProgress((p) => { progress.value = p }) })
+onBeforeUnmount(() => { stopProgress?.() })
+
+const phaseMap = {
+  idle: { title: '准备加载数据包', sub: 'connecting to usage.fb index' },
+  connecting: { title: '正在连接数据源', sub: 'handshake · usage.fb' },
+  downloading: { title: '正在下载 usage.fb', sub: 'streaming flatbuffer bundle' },
+  parsing: { title: '正在解析索引', sub: 'decoding flatbuffers tables' },
+  done: { title: '索引就绪', sub: 'index ready' },
+  error: { title: '数据包加载失败', sub: 'fallback to backend api' },
+}
+const phaseTitle = computed(() => phaseMap[progress.value.phase]?.title || '加载中')
+const phaseSub = computed(() => phaseMap[progress.value.phase]?.sub || '')
+
+const percentLabel = computed(() => {
+  if (progress.value.phase === 'parsing' || progress.value.phase === 'done') return '100%'
+  if (progress.value.ratio == null) return ''
+  return `${Math.round(progress.value.ratio * 100)}%`
+})
+
+const stepOrder = ['connect', 'download', 'parse', 'ready']
+const currentStep = computed(() => {
+  switch (progress.value.phase) {
+    case 'connecting': return 'connect'
+    case 'downloading': return 'download'
+    case 'parsing': return 'parse'
+    case 'done': return 'ready'
+    default: return 'connect'
+  }
+})
+function stepClass(step) {
+  const cur = currentStep.value
+  if (step === cur) return 'is-active'
+  return stepOrder.indexOf(step) < stepOrder.indexOf(cur) ? 'is-done' : ''
+}
+
+function byteLabel(n) {
+  if (!n) return '0 B'
+  const units = ['B', 'KB', 'MB', 'GB']
+  let i = 0
+  let v = n
+  while (v >= 1024 && i < units.length - 1) { v /= 1024; i += 1 }
+  return `${v.toFixed(v >= 100 || i === 0 ? 0 : 1)} ${units[i]}`
+}
+function shortHost(url) {
+  try {
+    const u = new URL(url, location.origin)
+    const path = u.pathname.split('/').filter(Boolean).pop() || ''
+    return `${u.host}${path ? ' / ' + path : ''}`
+  } catch {
+    return url
+  }
+}
 
 const visiblePlugins = computed(() => store.filteredPlugins.slice(0, pluginLimit.value))
 const visibleModules = computed(() => store.filteredModules.slice(0, moduleLimit.value))
@@ -144,10 +200,39 @@ function typeClass(type) {
       <router-link to="/settings">设置</router-link> 检查引擎路径。
     </div>
 
-    <div v-if="!store.stats && store.loading" class="console-card console-skeleton" aria-busy="true">
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line short"></div>
-      <div class="skeleton-line"></div>
+    <div
+      v-if="!store.stats && store.loading"
+      class="console-card load-card is-compact"
+      :data-phase="progress.phase"
+      aria-busy="true"
+      aria-live="polite"
+    >
+      <div class="load-head">
+        <span class="load-spinner" aria-hidden="true"></span>
+        <div class="load-text">
+          <div class="load-title">{{ phaseTitle }}</div>
+          <div class="load-sub">{{ phaseSub }}</div>
+        </div>
+        <span v-if="percentLabel" class="load-pct">{{ percentLabel }}</span>
+      </div>
+      <div class="load-track">
+        <div
+          class="load-fill"
+          :class="{ indeterminate: progress.ratio == null }"
+          :style="{ width: progress.ratio != null ? (progress.ratio * 100).toFixed(1) + '%' : '' }"
+        ></div>
+      </div>
+      <div class="load-meta">
+        <span>已接收 <b>{{ byteLabel(progress.received) }}</b><template v-if="progress.total"> / {{ byteLabel(progress.total) }}</template></span>
+        <span v-if="progress.rate">速率 <b>{{ byteLabel(progress.rate) }}/s</b></span>
+        <span v-if="progress.url"><b>{{ shortHost(progress.url) }}</b></span>
+      </div>
+      <div class="load-steps">
+        <span class="load-step" :class="stepClass('connect')">连接</span>
+        <span class="load-step" :class="stepClass('download')">下载 usage.fb</span>
+        <span class="load-step" :class="stepClass('parse')">解析索引</span>
+        <span class="load-step" :class="stepClass('ready')">合并数据</span>
+      </div>
     </div>
 
     <div class="console-card">      <div class="console-top">
@@ -268,7 +353,14 @@ function typeClass(type) {
       </div>
     </div>
 
-    <div v-if="store.loading && !store.plugins.length" class="empty">加载中…</div>
+    <div v-if="store.loading && !store.plugins.length" class="list-skeleton" aria-hidden="true">
+      <div v-for="n in 4" :key="n" class="list-skeleton-card">
+        <div class="sk-row sk-dot"></div>
+        <div class="sk-row sk-name"></div>
+        <div class="sk-row sk-desc"></div>
+        <div class="sk-row sk-tags"></div>
+      </div>
+    </div>
     <div v-else-if="!store.filteredPlugins.length" class="empty-card">
       <span class="empty-glyph">[ ∅ ]</span>
       <p class="empty-text">没有匹配的插件。清空搜索或切换分类，也可以到设置里更换 engine_root。</p>

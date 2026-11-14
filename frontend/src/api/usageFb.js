@@ -45,6 +45,31 @@ const state = {
   error: '',
   source: '',
   index: null,
+  progress: {
+    phase: 'idle',
+    received: 0,
+    total: 0,
+    ratio: null,
+    rate: 0,
+    url: '',
+  },
+}
+
+const progressListeners = new Set()
+
+function emitProgress() {
+  for (const fn of progressListeners) {
+    try {
+      fn({ ...state.progress })
+    } catch (e) {
+      /* 监听器异常不影响主流程 */
+    }
+  }
+}
+
+function setProgress(patch) {
+  Object.assign(state.progress, patch)
+  emitProgress()
 }
 
 function view(arrayBuffer) {
@@ -162,17 +187,83 @@ async function fetchOne(url, { force = false } = {}) {
     const etag = sessionStorage.getItem(SESSION_KEY)
     if (etag) headers['If-None-Match'] = etag
   }
-  const resp = await fetch(url, { headers })
-  if (resp.status === 304 && state.index) return { kind: 'not-modified', url }
-  if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
-  const buf = await resp.arrayBuffer()
-  if (buf.byteLength < 12) throw new Error('usage.fb 太短')
+  const result = await loadWithProgress(url, headers)
+  if (result.status === 304 && state.index) return { kind: 'not-modified', url }
+  const buf = result.buffer
+  if (!buf || buf.byteLength < 12) throw new Error('usage.fb 太短')
+  setProgress({ phase: 'parsing', received: buf.byteLength, total: buf.byteLength, ratio: 1 })
   return {
     kind: 'ok',
     url,
     parsed: parse(buf),
-    etag: resp.headers.get('ETag') || '',
+    etag: result.etag || '',
   }
+}
+
+/**
+ * 用 XHR 拉二进制以获取真实下载进度（fetch 无法读取 progress）。
+ * onProgress 回调里给出已接收字节、总字节与速率估算。
+ */
+function loadWithProgress(url, headers = {}) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
+    xhr.responseType = 'arraybuffer'
+    Object.entries(headers).forEach(([k, v]) => xhr.setRequestHeader(k, v))
+
+    let startedAt = 0
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 2) {
+        startedAt = performance.now()
+        setProgress({
+          phase: 'downloading',
+          url,
+          received: 0,
+          total: Number(xhr.getResponseHeader('Content-Length')) || 0,
+          ratio: 0,
+          rate: 0,
+        })
+      }
+    }
+
+    xhr.onprogress = (event) => {
+      const received = event.loaded
+      const total = event.lengthComputable ? event.total : state.progress.total
+      const elapsed = Math.max((performance.now() - startedAt) / 1000, 0.001)
+      setProgress({
+        phase: 'downloading',
+        received,
+        total,
+        ratio: total ? Math.min(received / total, 1) : null,
+        rate: received / elapsed,
+      })
+    }
+
+    xhr.onload = () => {
+      const etag = xhr.getResponseHeader('ETag') || ''
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve({ status: xhr.status, buffer: xhr.response, etag })
+      } else if (xhr.status === 304) {
+        resolve({ status: 304, buffer: null, etag })
+      } else {
+        reject(new Error(`HTTP ${xhr.status}`))
+      }
+    }
+    xhr.onerror = () => reject(new Error('网络错误'))
+    xhr.ontimeout = () => reject(new Error('请求超时'))
+    xhr.send()
+  })
+}
+
+/** 订阅下载/解析进度，返回取消订阅函数。 */
+export function onUsageFbProgress(fn) {
+  progressListeners.add(fn)
+  fn({ ...state.progress })
+  return () => progressListeners.delete(fn)
+}
+
+export function usageFbProgress() {
+  return { ...state.progress }
 }
 
 export function usageFbState() {
@@ -183,6 +274,7 @@ export function usageFbState() {
     generatedAt: state.generatedAt,
     error: state.error,
     source: state.source,
+    progress: { ...state.progress },
   }
 }
 
@@ -195,13 +287,16 @@ export function ensureUsageFb({ force = false } = {}) {
     const errors = []
 
     async function tryUrl(url) {
+      setProgress({ phase: 'connecting', url, received: 0, total: 0, ratio: null, rate: 0 })
       const result = await fetchOne(url, { force })
       if (result.kind === 'not-modified') {
         state.loaded = true
         state.source = url
+        setProgress({ phase: 'done', ratio: 1 })
         return state
       }
       applyParsed(result.parsed, result.url, result.etag)
+      setProgress({ phase: 'done', ratio: 1 })
       return state
     }
 
@@ -231,7 +326,10 @@ export function ensureUsageFb({ force = false } = {}) {
       await tryGroup(LOCAL_CANDIDATES)
       || await tryGroup(PUBLISHED_CANDIDATES, { parallel: true })
       || await tryGroup(API_CANDIDATES)
-      || ((state.loaded = false), (state.error = errors.join(' · ') || 'usage.fb 读取失败'), state)
+      || ((state.loaded = false),
+        (state.error = errors.join(' · ') || 'usage.fb 读取失败'),
+        setProgress({ phase: 'error' }),
+        state)
     )
   })().finally(() => {
     state.loading = null

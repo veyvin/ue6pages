@@ -1,9 +1,9 @@
 <script setup>
-import { computed, nextTick, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ItemsAPI, UsageDocAPI, errMsg } from '../api/client.js'
 import { streamAiChat, streamUsageBatch } from '../api/ai.js'
-import { ensureUsageFb, getUsageDoc, itemFromUsageFb, itemStatus, toUsageDoc } from '../api/usageFb.js'
+import { ensureUsageFb, getUsageDoc, itemFromUsageFb, itemStatus, onUsageFbProgress, toUsageDoc } from '../api/usageFb.js'
 import { renderMarkdown } from '../utils/markdown.js'
 import { useItemsStore } from '../stores/items.js'
 
@@ -20,6 +20,35 @@ const loading = ref(false)
 const error = ref('')
 let requestId = 0
 
+const progress = ref({ phase: 'idle', received: 0, total: 0, ratio: null, rate: 0, url: '' })
+let stopProgress = null
+onMounted(() => { stopProgress = onUsageFbProgress((p) => { progress.value = p }) })
+onBeforeUnmount(() => { stopProgress?.() })
+
+const phaseMap = {
+  idle: { title: '准备打开条目', sub: 'resolving entry' },
+  connecting: { title: '正在连接数据源', sub: 'handshake · usage.fb' },
+  downloading: { title: '正在下载 usage.fb', sub: 'streaming flatbuffer bundle' },
+  parsing: { title: '正在解析索引', sub: 'decoding flatbuffers tables' },
+  done: { title: '索引就绪', sub: 'index ready' },
+  error: { title: '数据包加载失败', sub: 'fallback to backend api' },
+}
+const phaseTitle = computed(() => phaseMap[progress.value.phase]?.title || '加载中')
+const phaseSub = computed(() => phaseMap[progress.value.phase]?.sub || '')
+const percentLabel = computed(() => {
+  if (progress.value.phase === 'parsing' || progress.value.phase === 'done') return '100%'
+  if (progress.value.ratio == null) return ''
+  return `${Math.round(progress.value.ratio * 100)}%`
+})
+function byteLabel(n) {
+  if (!n) return '0 B'
+  const units = ['B', 'KB', 'MB', 'GB']
+  let i = 0
+  let v = n
+  while (v >= 1024 && i < units.length - 1) { v /= 1024; i += 1 }
+  return `${v.toFixed(v >= 100 || i === 0 ? 0 : 1)} ${units[i]}`
+}
+
 const aiOpen = ref(false)
 const messages = ref([])
 const input = ref('')
@@ -28,6 +57,7 @@ const messagesEl = ref(null)
 
 const usage = ref({ found: false, content: '', mtime: 0 })
 const usageBusy = ref(false)
+const usageLoading = ref(false)
 const usageError = ref('')
 
 const isPlugin = computed(() => props.kind === 'plugin')
@@ -57,6 +87,7 @@ const usageMtime = computed(() => (
 
 async function loadUsage() {
   usageError.value = ''
+  usageLoading.value = true
   try {
     await ensureUsageFb()
     const fromFb = toUsageDoc(getUsageDoc(props.kind, props.slug))
@@ -67,6 +98,8 @@ async function loadUsage() {
     usage.value = await UsageDocAPI.get(props.kind, props.slug)
   } catch (err) {
     usageError.value = errMsg(err)
+  } finally {
+    usageLoading.value = false
   }
 }
 
@@ -101,6 +134,7 @@ async function load() {
   messages.value = []
   aiOpen.value = false
   usageBusy.value = false
+  usageLoading.value = true
   usageError.value = ''
   try {
     await ensureUsageFb()
@@ -207,7 +241,32 @@ function tagClass(type) {
 </script>
 
 <template>
-  <div v-if="loading" class="empty">加载中…</div>
+  <div v-if="loading" class="detail-skeleton" aria-busy="true" aria-live="polite">
+    <div class="load-card is-compact" :data-phase="progress.phase">
+      <div class="load-head">
+        <span class="load-spinner" aria-hidden="true"></span>
+        <div class="load-text">
+          <div class="load-title">{{ phaseTitle }}</div>
+          <div class="load-sub">{{ phaseSub }}</div>
+        </div>
+        <span v-if="percentLabel" class="load-pct">{{ percentLabel }}</span>
+      </div>
+      <div class="load-track">
+        <div
+          class="load-fill"
+          :class="{ indeterminate: progress.ratio == null }"
+          :style="{ width: progress.ratio != null ? (progress.ratio * 100).toFixed(1) + '%' : '' }"
+        ></div>
+      </div>
+      <div class="load-meta">
+        <span>已接收 <b>{{ byteLabel(progress.received) }}</b><template v-if="progress.total"> / {{ byteLabel(progress.total) }}</template></span>
+        <span v-if="progress.rate">速率 <b>{{ byteLabel(progress.rate) }}/s</b></span>
+      </div>
+    </div>
+    <div class="sk-block sk-title"></div>
+    <div class="sk-block sk-meta"></div>
+    <div class="sk-block sk-body"></div>
+  </div>
 
   <div v-else-if="error" class="banner banner-error">加载失败：{{ error }}</div>
 
@@ -347,7 +406,15 @@ function tagClass(type) {
               未生成用法
             </span>
           </div>
-          <div v-if="usageError" class="banner banner-error" style="margin-top: var(--space-3);">
+          <div v-if="usageLoading && !usage.found" class="usage-loading" aria-busy="true">
+            <div class="load-track"><div class="load-fill indeterminate"></div></div>
+            <p class="muted" style="margin-top: 10px;">正在从 usage.fb 载入该条目的用法…</p>
+          </div>
+          <div v-else-if="usageBusy && !usage.found" class="usage-loading" aria-busy="true">
+            <div class="load-track"><div class="load-fill indeterminate"></div></div>
+            <p class="muted" style="margin-top: 10px;">AI 正在撰写《使用方法》… 生成完成后会自动刷新。</p>
+          </div>
+          <div v-else-if="usageError" class="banner banner-error" style="margin-top: var(--space-3);">
             {{ usageError }}
           </div>
           <div v-else-if="usage.found" class="md usage-body" v-html="renderMarkdown(usage.content)"></div>
