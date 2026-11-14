@@ -661,3 +661,54 @@ def disk_status() -> dict[str, Any]:
         "bytes": main.stat().st_size if exists else 0,
         "docs": len(_source_files()),
     }
+
+
+# ---------- 分片（首屏先出前 N 条，其余后台逐片补） ----------
+CHUNK_SIZE = 100
+
+
+def _all_records(force: bool = False) -> list[dict[str, Any]]:
+    """当前全部记录（已含 in_source / ai_usage 标记），按 kind+slug 排序保证分片稳定。"""
+    info = get_payload(force=force)
+    records = parse_bundle(info["payload"])
+    records.sort(key=lambda r: (r["kind"], r["slug"]))
+    return records
+
+
+def chunk_count(records: list[dict[str, Any]] | None = None) -> int:
+    recs = records if records is not None else _all_records()
+    return (len(recs) + CHUNK_SIZE - 1) // CHUNK_SIZE
+
+
+def build_manifest(force: bool = False) -> dict[str, Any]:
+    """分片清单：总条数、分片大小、分片数，以及每片的条数与字节数（前端据此排进度）。"""
+    info = get_payload(force=force)
+    records = _all_records(force=False)
+    chunks: list[dict[str, Any]] = []
+    for i in range(0, len(records), CHUNK_SIZE):
+        part = records[i : i + CHUNK_SIZE]
+        payload, _, _ = _serialize(part)
+        chunks.append({
+            "index": len(chunks),
+            "docs": len(part),
+            "bytes": len(payload),
+            "etag": f'W/"{len(part)}-{hash(tuple((r["kind"], r["slug"]) for r in part)) & 0xFFFFFFFF:x}"',
+        })
+    return {
+        "version": SCHEMA_VERSION,
+        "generated_at": info["generated_at"],
+        "total_docs": len(records),
+        "chunk_size": CHUNK_SIZE,
+        "chunk_count": len(chunks),
+        "total_bytes": sum(c["bytes"] for c in chunks),
+        "chunks": chunks,
+    }
+
+
+def build_chunk(index: int, force: bool = False) -> tuple[bytes, int, str] | None:
+    """返回第 index 片 (bytes, docs, generated_at)；越界返回 None。"""
+    records = _all_records(force=force)
+    start = index * CHUNK_SIZE
+    if index < 0 or start >= len(records):
+        return None
+    return _serialize(records[start : start + CHUNK_SIZE])

@@ -3,7 +3,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ItemsAPI, UsageDocAPI, errMsg } from '../api/client.js'
 import { streamAiChat, streamUsageBatch } from '../api/ai.js'
-import { ensureUsageFb, getUsageDoc, itemFromUsageFb, itemStatus, onUsageFbProgress, toUsageDoc } from '../api/usageFb.js'
+import { ensureUsageFb, getUsageDoc, itemFromUsageFb, itemStatus, onUsageFbProgress, estimateHint, toUsageDoc } from '../api/usageFb.js'
 import { renderMarkdown } from '../utils/markdown.js'
 import { useItemsStore } from '../stores/items.js'
 
@@ -262,6 +262,7 @@ function tagClass(type) {
         <span>已接收 <b>{{ byteLabel(progress.received) }}</b><template v-if="progress.total"> / {{ byteLabel(progress.total) }}</template></span>
         <span v-if="progress.rate">速率 <b>{{ byteLabel(progress.rate) }}/s</b></span>
       </div>
+      <p class="load-hint">{{ estimateHint() }}</p>
     </div>
     <div class="sk-block sk-title"></div>
     <div class="sk-block sk-meta"></div>

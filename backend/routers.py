@@ -233,6 +233,45 @@ def usage_fb_rebuild() -> dict:
     return usage_fb.write_files(force=True)
 
 
+# ---------- usage.fb 分片（首屏先拿 manifest + 前几片） ----------
+@router.get("/usage-fb/manifest")
+def usage_fb_manifest(request: Request) -> Response:
+    """分片清单。前端据此显示总大小、分片进度，再并行拉各片。"""
+    manifest = usage_fb.build_manifest()
+    etag = f'W/"m{manifest["total_docs"]}-{manifest["chunk_count"]}"'
+    if request.headers.get("if-none-match") == etag:
+        return Response(status_code=304, headers={"ETag": etag})
+    body = json.dumps(manifest, ensure_ascii=False).encode("utf-8")
+    return Response(
+        content=body,
+        media_type="application/json",
+        headers={"ETag": etag, "Cache-Control": "public, max-age=60"},
+    )
+
+
+@router.get("/usage-fb/chunk/{index}")
+def usage_fb_chunk(index: int, request: Request) -> Response:
+    """第 index 个分片（每个分片是一份独立的 usage.fb 二进制，前端逐片解析合并）。"""
+    result = usage_fb.build_chunk(index)
+    if result is None:
+        raise HTTPException(404, f"chunk {index} 越界")
+    payload, docs, generated_at = result
+    etag = f'W/"{docs}-{len(payload)}-{index}"'
+    if request.headers.get("if-none-match") == etag:
+        return Response(status_code=304, headers={"ETag": etag})
+    return Response(
+        content=payload,
+        media_type="application/octet-stream",
+        headers={
+            "ETag": etag,
+            "X-Chunk-Index": str(index),
+            "X-Chunk-Docs": str(docs),
+            "X-Usage-Generated-At": generated_at,
+            "Cache-Control": "public, max-age=60",
+        },
+    )
+
+
 @router.post("/ai/batch")
 async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
     """批量生成《使用方法》文档，SSE 进度流。

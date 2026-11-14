@@ -53,6 +53,22 @@ const state = {
     rate: 0,
     url: '',
   },
+  cached: false,
+  everLoaded: false,
+}
+
+/**
+ * 首访体积预估：优先用响应头 Content-Length 的真实值；拿不到时按当前已知 docs 数
+ * 线性外推（单条约 x KB），再退回全局默认值。实测全量 ≈1000 条约 3.6 MB，约 3.6 KB/条。
+ */
+const BYTES_PER_DOC = 3.6 * 1024 // ≈ 3.6 KB/条（含步骤文本）
+export const ESTIMATED_BYTES = 3.6 * 1024 * 1024
+export const ESTIMATED_BYTES_GZIP = 720 * 1024
+
+/** 由已知 docs 数线性外推全量体积；docs 为 0 时返回全局默认估算。 */
+export function estimateTotalBytes(docs = state.docs) {
+  if (docs > 0) return Math.round(docs * BYTES_PER_DOC)
+  return ESTIMATED_BYTES
 }
 
 const progressListeners = new Set()
@@ -136,7 +152,7 @@ function view(arrayBuffer) {
   return { ident: bytesToString(4, 4), u32, i32, fieldOffset, readString, readStringVec, readTableVec, readBool }
 }
 
-function parse(arrayBuffer) {
+function parseToDocs(arrayBuffer) {
   const r = view(arrayBuffer)
   if (r.ident !== IDENT) throw new Error(`usage.fb 标识符异常：${r.ident || '(空)'}`)
 
@@ -145,8 +161,7 @@ function parse(arrayBuffer) {
   const version = versionOff ? r.i32(root + versionOff) : 0
   const generatedAt = r.readString(root, 1)
 
-  const index = new Map()
-  let count = 0
+  const docs = []
   for (const tbl of r.readTableVec(root, 2)) {
     const doc = {
       kind: r.readString(tbl, 0),
@@ -163,11 +178,16 @@ function parse(arrayBuffer) {
     doc.aiUsage = r.readBool(tbl, 8) || doc.cnSteps.length > 0 || doc.enSteps.length > 0
     doc.inSource = r.readBool(tbl, 9, true)
     if (!doc.slug) continue
-    index.set(`${doc.kind}:${doc.slug}`, doc)
-    count += 1
+    docs.push(doc)
   }
+  return { version, generatedAt, docs }
+}
 
-  return { version, generatedAt, index, count }
+function parse(arrayBuffer) {
+  const { version, generatedAt, docs } = parseToDocs(arrayBuffer)
+  const index = new Map()
+  for (const doc of docs) index.set(`${doc.kind}:${doc.slug}`, doc)
+  return { version, generatedAt, index, count: docs.length }
 }
 
 function applyParsed(parsed, source, etag) {
@@ -177,6 +197,8 @@ function applyParsed(parsed, source, etag) {
   state.loaded = true
   state.error = ''
   state.source = source
+  state.cached = false
+  state.everLoaded = true
   if (etag) sessionStorage.setItem(SESSION_KEY, etag)
   sessionStorage.setItem(SESSION_URL, source)
 }
@@ -201,58 +223,88 @@ async function fetchOne(url, { force = false } = {}) {
 }
 
 /**
- * 用 XHR 拉二进制以获取真实下载进度（fetch 无法读取 progress）。
- * onProgress 回调里给出已接收字节、总字节与速率估算。
+ * 流式下载 usage.fb：用 fetch + ReadableStream 边读边拼进度（比 XHR 更细、首字节更早、
+ * 支持 AbortController 中止）。FlatBuffers 必须收齐完整 buffer 才能解析，所以这里只做
+ * 下载阶段的流式进度；收满后再进入 parsing 阶段。
  */
-function loadWithProgress(url, headers = {}) {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest()
-    xhr.open('GET', url, true)
-    xhr.responseType = 'arraybuffer'
-    Object.entries(headers).forEach(([k, v]) => xhr.setRequestHeader(k, v))
+async function loadWithProgress(url, headers = {}, { signal } = {}) {
+  let controller = signal ? null : new AbortController()
+  const abortSignal = signal || controller.signal
+  const startedAt = performance.now()
 
-    let startedAt = 0
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 2) {
-        startedAt = performance.now()
-        setProgress({
-          phase: 'downloading',
-          url,
-          received: 0,
-          total: Number(xhr.getResponseHeader('Content-Length')) || 0,
-          ratio: 0,
-          rate: 0,
-        })
-      }
-    }
-
-    xhr.onprogress = (event) => {
-      const received = event.loaded
-      const total = event.lengthComputable ? event.total : state.progress.total
-      const elapsed = Math.max((performance.now() - startedAt) / 1000, 0.001)
-      setProgress({
-        phase: 'downloading',
-        received,
-        total,
-        ratio: total ? Math.min(received / total, 1) : null,
-        rate: received / elapsed,
-      })
-    }
-
-    xhr.onload = () => {
-      const etag = xhr.getResponseHeader('ETag') || ''
-      if (xhr.status >= 200 && xhr.status < 300) {
-        resolve({ status: xhr.status, buffer: xhr.response, etag })
-      } else if (xhr.status === 304) {
-        resolve({ status: 304, buffer: null, etag })
-      } else {
-        reject(new Error(`HTTP ${xhr.status}`))
-      }
-    }
-    xhr.onerror = () => reject(new Error('网络错误'))
-    xhr.ontimeout = () => reject(new Error('请求超时'))
-    xhr.send()
+  const resp = await fetch(url, {
+    headers,
+    signal: abortSignal,
+    // 让 CDN / 代理返回压缩后的传输体积，进度更接近真实网络耗时
+    cache: 'default',
   })
+
+  if (resp.status === 304) {
+    return { status: 304, buffer: null, etag: resp.headers.get('ETag') || '' }
+  }
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+
+  const etag = resp.headers.get('ETag') || ''
+  const total = Number(resp.headers.get('Content-Length')) || 0
+  setProgress({ phase: 'downloading', url, received: 0, total, ratio: total ? 0 : null, rate: 0 })
+
+  // 没有可读流（老浏览器 / 已被消费）：退化为一次性 arrayBuffer
+  if (!resp.body || !resp.body.getReader) {
+    const buffer = await resp.arrayBuffer()
+    setProgress({ phase: 'downloading', received: buffer.byteLength, total: buffer.byteLength, ratio: 1, rate: buffer.byteLength / ((performance.now() - startedAt) / 1000 || 1) })
+    return { status: resp.status, buffer, etag }
+  }
+
+  const reader = resp.body.getReader()
+  const chunks = []
+  let received = 0
+  let lastEmit = 0
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      if (value) {
+        chunks.push(value)
+        received += value.byteLength
+        const now = performance.now()
+        // 节流到 ~50ms 一次，避免高频 setProgress 触发过多渲染
+        if (now - lastEmit > 50 || (total && received >= total)) {
+          lastEmit = now
+          const elapsed = Math.max((now - startedAt) / 1000, 0.001)
+          setProgress({
+            phase: 'downloading',
+            received,
+            total: total || received,
+            ratio: total ? Math.min(received / total, 1) : null,
+            rate: received / elapsed,
+          })
+        }
+      }
+    }
+  } finally {
+    reader.releaseLock?.()
+  }
+
+  const buffer = concatChunks(chunks, received)
+  setProgress({ phase: 'downloading', received, total: total || received, ratio: 1, rate: received / Math.max((performance.now() - startedAt) / 1000, 0.001) })
+  return { status: resp.status, buffer, etag }
+}
+
+function concatChunks(chunks, totalLen) {
+  if (chunks.length === 1) {
+    const only = chunks[0]
+    return only.byteOffset === 0 && only.byteLength === only.buffer.byteLength
+      ? only.buffer
+      : only.buffer.slice(only.byteOffset, only.byteOffset + only.byteLength)
+  }
+  const out = new Uint8Array(totalLen)
+  let offset = 0
+  for (const c of chunks) {
+    out.set(c, offset)
+    offset += c.byteLength
+  }
+  return out.buffer
 }
 
 /** 订阅下载/解析进度，返回取消订阅函数。 */
@@ -274,8 +326,35 @@ export function usageFbState() {
     generatedAt: state.generatedAt,
     error: state.error,
     source: state.source,
+    cached: state.cached,
+    everLoaded: state.everLoaded,
     progress: { ...state.progress },
   }
+}
+
+/**
+ * 首屏预估提示文案：
+ * - 已加载且走缓存命中 → “已走缓存，秒开”
+ * - 正在下载且已知总大小 → 显示估算体积
+ * - 默认首访 → 用常量估算“首次约 X，之后走缓存秒开”
+ */
+export function estimateHint() {
+  const total = state.progress.total || 0
+  // 已知真实总大小优先；否则按当前 docs 数线性外推；再退回全局默认
+  const bytes = total > 0 ? total : estimateTotalBytes()
+  const size = formatBytes(bytes)
+  if (state.loaded && state.cached) return '已走缓存，秒开'
+  if (state.loaded) return `本次约 ${size}，之后走缓存秒开`
+  return `首次约 ${size}，之后走缓存秒开`
+}
+
+export function formatBytes(n) {
+  if (!n) return '0 B'
+  const units = ['B', 'KB', 'MB', 'GB']
+  let i = 0
+  let v = n
+  while (v >= 1024 && i < units.length - 1) { v /= 1024; i += 1 }
+  return `${v.toFixed(v >= 100 || i === 0 ? 0 : 1)} ${units[i]}`
 }
 
 /** 拉取并解析 usage.fb；并发调用共享同一个请求。失败时返回 null，不影响 Markdown 回退。 */
@@ -292,6 +371,8 @@ export function ensureUsageFb({ force = false } = {}) {
       if (result.kind === 'not-modified') {
         state.loaded = true
         state.source = url
+        state.cached = true
+        state.everLoaded = true
         setProgress({ phase: 'done', ratio: 1 })
         return state
       }

@@ -786,6 +786,19 @@ img, svg { display: block; }
 .load-step.is-done { color: var(--on-card-2); }
 .load-step.is-done::before { opacity: 1; background: var(--lime-1); }
 
+.load-hint {
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  color: var(--on-card-dim);
+}
+.load-hint::before {
+  content: '› ';
+  color: var(--lime-1);
+}
+
 /* 顶栏下方的全局细进度条 */
 .top-progress {
   position: fixed;

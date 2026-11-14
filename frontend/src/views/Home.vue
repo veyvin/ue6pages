@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useItemsStore } from '../stores/items.js'
-import { itemStatus, onUsageFbProgress } from '../api/usageFb.js'
+import { itemStatus, onUsageFbProgress, estimateHint } from '../api/usageFb.js'
 import { useDragScroll } from '../composables/useDragScroll.js'
 
 const PAGE_SIZE = 60
@@ -227,6 +227,7 @@ function typeClass(type) {
         <span v-if="progress.rate">速率 <b>{{ byteLabel(progress.rate) }}/s</b></span>
         <span v-if="progress.url"><b>{{ shortHost(progress.url) }}</b></span>
       </div>
+      <p class="load-hint">{{ estimateHint() }}</p>
       <div class="load-steps">
         <span class="load-step" :class="stepClass('connect')">连接</span>
         <span class="load-step" :class="stepClass('download')">下载 usage.fb</span>
