@@ -1,5 +1,9 @@
 name: Sync Fork & Deploy Pages
 
+# 历史参考：这是私有仓库 veyvin/UnrealEngine 使用的旧流程。
+# 公有仓库 ue6pages 的线上站点已经是 Vue artifact 部署（deploy-pages.yml），
+# 下面的 jekyll-build-pages 只适用于仍把 gh-pages 当 Jekyll 站点渲染的仓库。
+
 # 精简版：只保留 sync-fork 和 deploy-pages。
 # generate-docs 已移到公有仓库 ue6pages 中运行。
 
