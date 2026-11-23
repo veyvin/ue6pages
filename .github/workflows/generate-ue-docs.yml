@@ -35,6 +35,9 @@ concurrency:
 
 env:
   TRANSLATE_ENABLED: ${{ vars.TRANSLATE_ENABLED || 'true' }}
+  # gh-pages 上的 scripts/*.py 会被反复执行；不写 .pyc，避免每天提交一批
+  # 只有 mtime 不同的 scripts/__pycache__/*.pyc。
+  PYTHONDONTWRITEBYTECODE: '1'
 
 jobs:
   generate-docs:
@@ -98,6 +101,7 @@ jobs:
           cd /tmp/ghpages
           rm -rf .github frontend backend _layouts _config.yml usage-demo.html
           rm -f assets/main.js assets/style.css assets/usage-fb.js assets/usage-runtime.js
+          find . -type d -name __pycache__ -prune -exec rm -rf {} +
           echo "Remaining top-level entries:"
           ls -A
 
