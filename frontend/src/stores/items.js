@@ -6,6 +6,7 @@ import {
   getUsageDoc,
   hasAiUsage,
   itemStatus,
+  onUsageFbIndex,
 } from '../api/usageFb.js'
 
 function hasUsage(kind, slug, fallback = false) {
@@ -62,6 +63,10 @@ export const useItemsStore = defineStore('items', {
     recent: [],
     catalogSource: '',
     liveScan: false,
+    _apiPlugins: [],
+    _apiModules: [],
+    _apiStats: null,
+    _indexSubscribed: false,
   }),
 
   getters: {
@@ -108,10 +113,30 @@ export const useItemsStore = defineStore('items', {
   },
 
   actions: {
+    _rebuildFromFb(source = '') {
+      const fb = catalogFromUsageFb()
+      if (!fb.plugins.length && !fb.modules.length) return
+      this.plugins = mergeLists(fb.plugins, this._apiPlugins, 'plugin', this.liveScan)
+      this.modules = mergeLists(fb.modules, this._apiModules, 'module', this.liveScan)
+      this.stats = {
+        total_plugins: this.plugins.length,
+        total_modules: this.modules.length,
+        categories: [...new Set(this.plugins.map((p) => p.category).filter(Boolean))].sort(),
+        engine_version: this._apiStats?.engine_version || '',
+      }
+      this.catalogSource = source || this.catalogSource || 'usage.fb'
+    },
+
     async loadAll(force = false) {
       if (this.loaded && !force) return
       this.loading = true
       this.error = ''
+      if (!this._indexSubscribed) {
+        onUsageFbIndex(({ source }) => {
+          this._rebuildFromFb(source)
+        })
+        this._indexSubscribed = true
+      }
       try {
         const fbState = await ensureUsageFb({ force })
         const fb = catalogFromUsageFb()
@@ -129,6 +154,9 @@ export const useItemsStore = defineStore('items', {
           apiStats = stats
           apiPlugins = plugins
           apiModules = modules
+          this._apiPlugins = apiPlugins
+          this._apiModules = apiModules
+          this._apiStats = apiStats
           liveScan = apiPlugins.length + apiModules.length > 0
         } catch (err) {
           if (!fb.plugins.length && !fb.modules.length) {
@@ -138,15 +166,7 @@ export const useItemsStore = defineStore('items', {
 
         this.liveScan = liveScan
         if (fb.plugins.length || fb.modules.length) {
-          this.plugins = mergeLists(fb.plugins, apiPlugins, 'plugin', liveScan)
-          this.modules = mergeLists(fb.modules, apiModules, 'module', liveScan)
-          this.stats = {
-            total_plugins: this.plugins.length,
-            total_modules: this.modules.length,
-            categories: [...new Set(this.plugins.map((p) => p.category).filter(Boolean))].sort(),
-            engine_version: apiStats?.engine_version || '',
-          }
-          this.catalogSource = fbState.source || 'usage.fb'
+          this._rebuildFromFb(fbState.source || 'usage.fb')
         } else {
           this.plugins = apiPlugins.map((p) => ({
             ...p,

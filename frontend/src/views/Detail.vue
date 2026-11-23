@@ -3,7 +3,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ItemsAPI, UsageDocAPI, errMsg } from '../api/client.js'
 import { streamAiChat, streamUsageBatch } from '../api/ai.js'
-import { ensureUsageFb, getUsageDoc, itemFromUsageFb, itemStatus, onUsageFbProgress, estimateHint, toUsageDoc } from '../api/usageFb.js'
+import { ensureUsageFb, getUsageDocWhenReady, itemFromUsageFb, itemStatus, onUsageFbProgress, estimateHint, toUsageDoc, waitForUsageFb } from '../api/usageFb.js'
 import { renderMarkdown } from '../utils/markdown.js'
 import { useItemsStore } from '../stores/items.js'
 
@@ -90,7 +90,7 @@ async function loadUsage() {
   usageLoading.value = true
   try {
     await ensureUsageFb()
-    const fromFb = toUsageDoc(getUsageDoc(props.kind, props.slug))
+    const fromFb = toUsageDoc(await getUsageDocWhenReady(props.kind, props.slug))
     if (fromFb?.found) {
       usage.value = fromFb
       return
@@ -138,7 +138,11 @@ async function load() {
   usageError.value = ''
   try {
     await ensureUsageFb()
-    const fromFb = itemFromUsageFb(props.kind, props.slug)
+    let fromFb = itemFromUsageFb(props.kind, props.slug)
+    if (!fromFb) {
+      await waitForUsageFb()
+      fromFb = itemFromUsageFb(props.kind, props.slug)
+    }
     if (fromFb && id === requestId) {
       item.value = fromFb
       loadUsage()

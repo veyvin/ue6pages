@@ -683,7 +683,7 @@ def chunk_count(records: list[dict[str, Any]] | None = None) -> int:
 def build_manifest(force: bool = False) -> dict[str, Any]:
     """分片清单：总条数、分片大小、分片数，以及每片的条数与字节数（前端据此排进度）。"""
     info = get_payload(force=force)
-    records = _all_records(force=False)
+    records = _all_records(force=force)
     chunks: list[dict[str, Any]] = []
     for i in range(0, len(records), CHUNK_SIZE):
         part = records[i : i + CHUNK_SIZE]
@@ -692,7 +692,7 @@ def build_manifest(force: bool = False) -> dict[str, Any]:
             "index": len(chunks),
             "docs": len(part),
             "bytes": len(payload),
-            "etag": f'W/"{len(part)}-{hash(tuple((r["kind"], r["slug"]) for r in part)) & 0xFFFFFFFF:x}"',
+            "etag": f'W/"{len(part)}-{info["generated_at"]}-{i}"',
         })
     return {
         "version": SCHEMA_VERSION,

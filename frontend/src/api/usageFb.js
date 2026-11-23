@@ -30,6 +30,10 @@ const PUBLISHED_CANDIDATES = [
   'https://raw.githubusercontent.com/veyvin/ue6pages/gh-pages/assets/usage.fb',
 ]
 const API_CANDIDATES = ['/api/usage-fb']
+const MANIFEST_URL = '/api/usage-fb/manifest'
+const CHUNK_URL = (i) => `/api/usage-fb/chunk/${i}`
+const MANIFEST_ETAG_KEY = 'ue-usage-fb-manifest-etag'
+const chunkCache = new Map()
 
 export const USAGE_FB_CANDIDATES = [
   ...LOCAL_CANDIDATES,
@@ -55,6 +59,7 @@ const state = {
   },
   cached: false,
   everLoaded: false,
+  backgroundLoading: null,
 }
 
 /**
@@ -190,17 +195,158 @@ function parse(arrayBuffer) {
   return { version, generatedAt, index, count: docs.length }
 }
 
-function applyParsed(parsed, source, etag) {
-  state.index = parsed.index
-  state.docs = parsed.count
-  state.generatedAt = parsed.generatedAt
+/** 订阅索引内容变化（每次 commit 一片触发一次），供 store 做增量重合并。 */
+const indexListeners = new Set()
+export function onUsageFbIndex(fn) {
+  indexListeners.add(fn)
+  fn({ docs: state.docs, source: state.source })
+  return () => indexListeners.delete(fn)
+}
+
+function applyDocs(docs, source, generatedAt = '') {
+  const index = new Map()
+  for (const doc of docs) index.set(`${doc.kind}:${doc.slug}`, doc)
+  state.index = index
+  state.docs = docs.length
+  state.generatedAt = generatedAt || state.generatedAt
   state.loaded = true
   state.error = ''
   state.source = source
   state.cached = false
   state.everLoaded = true
+  for (const fn of indexListeners) {
+    try { fn({ docs: state.docs, source: state.source }) } catch (e) { /* noop */ }
+  }
+}
+
+function applyParsed(parsed, source, etag) {
+  applyDocs([...parsed.index.values()], source, parsed.generatedAt)
   if (etag) sessionStorage.setItem(SESSION_KEY, etag)
   sessionStorage.setItem(SESSION_URL, source)
+}
+
+async function fetchJson(url, { force = false } = {}) {
+  const headers = {}
+  if (!force) {
+    const etag = sessionStorage.getItem(MANIFEST_ETAG_KEY)
+    if (etag) headers['If-None-Match'] = etag
+  }
+  const resp = await fetch(url, { headers })
+  if (resp.status === 304) return { notModified: true }
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+  const etag = resp.headers.get('ETag') || ''
+  if (etag) sessionStorage.setItem(MANIFEST_ETAG_KEY, etag)
+  return { data: await resp.json(), etag }
+}
+
+/** 拉取单个分片（不驱动全局进度，进度由 loadChunked 统一汇总）。 */
+async function fetchChunk(index, { force = false } = {}) {
+  const url = CHUNK_URL(index)
+  const headers = {}
+  if (!force) {
+    const etag = chunkCache.get(index)?.etag
+    if (etag) headers['If-None-Match'] = etag
+  }
+  const resp = await fetch(url, { headers })
+  if (resp.status === 304) {
+    const cached = chunkCache.get(index)
+    return { docs: cached?.docs || [], bytes: cached?.bytes || 0, cached: true }
+  }
+  if (!resp.ok) throw new Error(`chunk ${index}: HTTP ${resp.status}`)
+  const etag = resp.headers.get('ETag') || ''
+  const buffer = await resp.arrayBuffer()
+  const parsed = parseToDocs(buffer)
+  chunkCache.set(index, { etag, docs: parsed.docs, bytes: buffer.byteLength })
+  return { docs: parsed.docs, bytes: buffer.byteLength, cached: false }
+}
+
+/**
+ * 分片加载：先取 manifest，再优先下载首片并挂载（首屏快速出内容），
+ * 其余分片按并发数拉取并逐步合并。首片失败才抛错并回退整包；后续分片失败只告警，保留已有索引。
+ */
+async function loadChunked({ force = false, earlyResolve = false } = {}) {
+  setProgress({ phase: 'connecting', url: MANIFEST_URL, received: 0, total: 0, ratio: null, rate: 0 })
+  let manifestResp = await fetchJson(MANIFEST_URL, { force })
+  if (manifestResp?.notModified) {
+    if (state.index && state.loaded) {
+      state.source = MANIFEST_URL
+      state.cached = true
+      setProgress({ phase: 'done', ratio: 1 })
+      return state
+    }
+    // 刷新后内存索引没了，etag 还在 sessionStorage：去掉 If-None-Match 再拉一次
+    manifestResp = await fetchJson(MANIFEST_URL, { force: true })
+  }
+  if (!manifestResp?.data) throw new Error('manifest 读取失败')
+  const manifest = manifestResp.data
+  const count = Number(manifest?.chunk_count) || 0
+  if (!count || !Array.isArray(manifest.chunks)) throw new Error('manifest 无分片')
+  const startedAt = performance.now()
+  const totalBytes = Number(manifest.total_bytes) || 0
+  const docs = new Map()
+  let loadedBytes = 0
+  let loadedChunks = 0
+
+  const update = (bytesAdded, chunkIndex) => {
+    loadedBytes += bytesAdded
+    loadedChunks += 1
+    const elapsed = Math.max((performance.now() - startedAt) / 1000, 0.001)
+    setProgress({
+      phase: 'downloading',
+      url: CHUNK_URL(chunkIndex),
+      received: loadedBytes,
+      total: totalBytes || manifest.total_docs * BYTES_PER_DOC,
+      ratio: totalBytes ? Math.min(loadedBytes / totalBytes, 1) : loadedChunks / count,
+      rate: loadedBytes / elapsed,
+    })
+  }
+
+  const commit = (source) => {
+    applyDocs([...docs.values()], source, manifest.generated_at || '')
+    setProgress({ phase: 'downloading', received: loadedBytes, total: totalBytes, ratio: totalBytes ? Math.min(loadedBytes / totalBytes, 1) : loadedChunks / count })
+  }
+
+  const first = await fetchChunk(0, { force })
+  for (const d of first.docs) docs.set(`${d.kind}:${d.slug}`, d)
+  update(first.bytes, 0)
+  setProgress({ phase: 'parsing' })
+  commit(MANIFEST_URL)
+  if (count === 1) {
+    setProgress({ phase: 'done', ratio: 1 })
+    return state
+  }
+
+  const finishRest = async () => {
+    const rest = Array.from({ length: count - 1 }, (_, i) => i + 1)
+    const concurrency = 4
+    let cursor = 0
+    async function worker() {
+      while (true) {
+        const i = rest[cursor++]
+        if (i === undefined) return
+        try {
+          const chunk = await fetchChunk(i, { force })
+          for (const d of chunk.docs) docs.set(`${d.kind}:${d.slug}`, d)
+          update(chunk.bytes, i)
+          commit(MANIFEST_URL)
+        } catch (err) {
+          // 后台补片失败保留已有数据，静默降级为不完整索引
+          console.warn('[usageFb] chunk load failed', err)
+        }
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(concurrency, rest.length) }, () => worker()))
+    setProgress({ phase: 'done', ratio: 1 })
+  }
+
+  if (earlyResolve && count > 1) {
+    state.backgroundLoading = finishRest()
+      .catch((err) => console.warn('[usageFb] background chunks failed', err))
+      .finally(() => { state.backgroundLoading = null })
+    return state
+  }
+  await finishRest()
+  return state
 }
 
 async function fetchOne(url, { force = false } = {}) {
@@ -209,8 +355,11 @@ async function fetchOne(url, { force = false } = {}) {
     const etag = sessionStorage.getItem(SESSION_KEY)
     if (etag) headers['If-None-Match'] = etag
   }
-  const result = await loadWithProgress(url, headers)
-  if (result.status === 304 && state.index) return { kind: 'not-modified', url }
+  let result = await loadWithProgress(url, headers)
+  if (result.status === 304) {
+    if (state.index) return { kind: 'not-modified', url }
+    result = await loadWithProgress(url, {})
+  }
   const buf = result.buffer
   if (!buf || buf.byteLength < 12) throw new Error('usage.fb 太短')
   setProgress({ phase: 'parsing', received: buf.byteLength, total: buf.byteLength, ratio: 1 })
@@ -321,7 +470,7 @@ export function usageFbProgress() {
 export function usageFbState() {
   return {
     loaded: state.loaded,
-    loading: Boolean(state.loading),
+    loading: Boolean(state.loading || state.backgroundLoading),
     docs: state.docs,
     generatedAt: state.generatedAt,
     error: state.error,
@@ -357,10 +506,23 @@ export function formatBytes(n) {
   return `${v.toFixed(v >= 100 || i === 0 ? 0 : 1)} ${units[i]}`
 }
 
+export function waitForUsageFb() {
+  if (state.backgroundLoading) return state.backgroundLoading.then(() => state)
+  if (state.loading) return state.loading
+  return Promise.resolve(state)
+}
+
 /** 拉取并解析 usage.fb；并发调用共享同一个请求。失败时返回 null，不影响 Markdown 回退。 */
-export function ensureUsageFb({ force = false } = {}) {
-  if (state.loaded && !force) return Promise.resolve(state)
-  if (state.loading && !force) return state.loading
+export function ensureUsageFb({ force = false, waitBackground = false } = {}) {
+  if (state.loaded && !force) {
+    if (waitBackground && state.backgroundLoading) return waitForUsageFb()
+    return Promise.resolve(state)
+  }
+  if (state.loading && !force) {
+    return waitBackground
+      ? state.loading.then(() => waitForUsageFb())
+      : state.loading
+  }
 
   state.loading = (async () => {
     const errors = []
@@ -405,8 +567,16 @@ export function ensureUsageFb({ force = false } = {}) {
 
     return (
       await tryGroup(LOCAL_CANDIDATES)
-      || await tryGroup(PUBLISHED_CANDIDATES, { parallel: true })
+      || (await (async () => {
+        try {
+          return await loadChunked({ force, earlyResolve: true })
+        } catch (err) {
+          errors.push(`${MANIFEST_URL}: ${err?.message || err}`)
+          return null
+        }
+      })())
       || await tryGroup(API_CANDIDATES)
+      || await tryGroup(PUBLISHED_CANDIDATES, { parallel: true })
       || ((state.loaded = false),
         (state.error = errors.join(' · ') || 'usage.fb 读取失败'),
         setProgress({ phase: 'error' }),
@@ -416,7 +586,9 @@ export function ensureUsageFb({ force = false } = {}) {
     state.loading = null
   })
 
-  return state.loading
+  return waitBackground
+    ? state.loading.then(() => waitForUsageFb())
+    : state.loading
 }
 
 export function listUsageDocs() {
@@ -440,6 +612,14 @@ export function itemStatus(item) {
 export function getUsageDoc(kind, slug) {
   if (!state.index) return null
   return state.index.get(`${kind}:${slug}`) || null
+}
+
+/** 首片没有该条目时，等后台补片再查一次。 */
+export async function getUsageDocWhenReady(kind, slug) {
+  const hit = getUsageDoc(kind, slug)
+  if (hit) return hit
+  await waitForUsageFb()
+  return getUsageDoc(kind, slug)
 }
 
 export function getUsageDocBySlug(slug) {
@@ -553,8 +733,11 @@ export function resetUsageFb() {
   state.generatedAt = ''
   state.error = ''
   state.source = ''
+  state.cached = false
+  chunkCache.clear()
   sessionStorage.removeItem(SESSION_KEY)
   sessionStorage.removeItem(SESSION_URL)
+  sessionStorage.removeItem(MANIFEST_ETAG_KEY)
 }
 
 export async function rebuildUsageFb() {
