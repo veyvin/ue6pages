@@ -88,6 +88,19 @@ jobs:
           rsync -a --delete --exclude='.git' /tmp/private-ghpages/ /tmp/ghpages/
           echo "Seed complete."
 
+      - name: Purge legacy site artifacts from gh-pages
+        run: |
+          set -euo pipefail
+          # gh-pages 现在只是数据分支（plugins/ modules/ assets/usage.fb scripts/），
+          # Vue 站点由 deploy-pages.yml 从 main 构建。旧的 Jekyll 站点文件只会
+          # 让每次 clone 白白多拉几十 MB（frontend/node_modules 约 64MB），这里显式清掉。
+          # 同时删掉 .github/，避免 gh-pages 上的残留 Actions 被 push 触发。
+          cd /tmp/ghpages
+          rm -rf .github frontend backend _layouts _config.yml usage-demo.html
+          rm -f assets/main.js assets/style.css assets/usage-fb.js assets/usage-runtime.js
+          echo "Remaining top-level entries:"
+          ls -A
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -144,8 +157,8 @@ jobs:
           cd /tmp/ghpages
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # 清掉 gh-pages 上残留的 Actions，避免旧的 Jekyll Deploy 被 push 触发、盖掉 Vue 站。
-          rm -rf .github
+          # 旧站点文件与 .github/ 已在 “Purge legacy site artifacts” 步骤中清理。
+          # 删除同样会产生 staged 变更，所以只有清理时也会照常提交。
           git add -A
           if git diff --cached --quiet; then
             echo "No new docs to publish."
