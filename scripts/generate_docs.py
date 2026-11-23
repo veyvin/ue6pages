@@ -127,7 +127,9 @@ def assign_slugs(items: list[dict], name_key: str, path_key: str) -> dict:
         if counts[s] > 1:
             # Deterministic short hash so the same plugin always maps to the
             # same slug across runs (PYTHONHASHSEED would break that).
-            h = hashlib.sha1(items[i][path_key].encode("utf-8")).hexdigest()[:6]
+            h = hashlib.sha1(
+                str(items[i][path_key]).replace("\\", "/").encode("utf-8")
+            ).hexdigest()[:6]
             out[i] = f"{s}-{h}"
         else:
             out[i] = s
