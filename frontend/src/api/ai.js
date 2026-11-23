@@ -2,7 +2,7 @@
  * SSE 流式调用 AI —— Fetch + ReadableStream，事件回调驱动。
  * 后端每帧为 `data: <JSON 字符串>`，结束帧为 `data: [DONE]`。
  */
-export async function streamAiChat({ kind, slug, message, history = [] }, callbacks = {}) {
+export async function streamAiChat({ kind, slug, message, history = [] }, callbacks = {}, fetchOptions = {}) {
   const { onChunk, onDone, onError } = callbacks
 
   try {
@@ -10,6 +10,7 @@ export async function streamAiChat({ kind, slug, message, history = [] }, callba
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ kind, slug, message, history }),
+      ...fetchOptions,
     })
 
     if (!resp.ok || !resp.body) {
@@ -44,6 +45,7 @@ export async function streamAiChat({ kind, slug, message, history = [] }, callba
     }
     onDone?.()
   } catch (err) {
+    if (err?.name === 'AbortError') { onDone?.(); return }
     onError?.(err)
   }
 }
@@ -96,6 +98,7 @@ export async function streamUsageBatch(payload, callbacks = {}, fetchOptions = {
     }
     onDone?.()
   } catch (err) {
+    if (err?.name === 'AbortError') { onDone?.(); return }
     onError?.(err)
   }
 }

@@ -22,8 +22,9 @@ let requestId = 0
 
 const progress = ref({ phase: 'idle', received: 0, total: 0, ratio: null, rate: 0, url: '' })
 let stopProgress = null
+let aiAbort = null
 onMounted(() => { stopProgress = onUsageFbProgress((p) => { progress.value = p }) })
-onBeforeUnmount(() => { stopProgress?.() })
+onBeforeUnmount(() => { stopProgress?.(); cancelAi() })
 
 const phaseMap = {
   idle: { title: '准备打开条目', sub: 'resolving entry' },
@@ -86,20 +87,24 @@ const usageMtime = computed(() => (
 ))
 
 async function loadUsage() {
+  const id = requestId
   usageError.value = ''
   usageLoading.value = true
+  usage.value = { found: false, content: '', mtime: 0 }
   try {
     await ensureUsageFb()
     const fromFb = toUsageDoc(await getUsageDocWhenReady(props.kind, props.slug))
+    if (id !== requestId) return
     if (fromFb?.found) {
       usage.value = fromFb
       return
     }
-    usage.value = await UsageDocAPI.get(props.kind, props.slug)
+    const fromApi = await UsageDocAPI.get(props.kind, props.slug)
+    if (id === requestId) usage.value = fromApi
   } catch (err) {
-    usageError.value = errMsg(err)
+    if (id === requestId) usageError.value = errMsg(err)
   } finally {
-    usageLoading.value = false
+    if (id === requestId) usageLoading.value = false
   }
 }
 
@@ -131,6 +136,7 @@ async function load() {
   loading.value = true
   error.value = ''
   item.value = null
+  cancelAi()
   messages.value = []
   aiOpen.value = false
   usageBusy.value = false
@@ -183,6 +189,12 @@ function scrollToBottom() {
   })
 }
 
+function cancelAi() {
+  aiAbort?.abort()
+  aiAbort = null
+  sending.value = false
+}
+
 async function send(text) {
   const message = (text ?? input.value).trim()
   if (!message || sending.value || !item.value) return
@@ -195,24 +207,32 @@ async function send(text) {
   messages.value.push({ role: 'user', content: message })
   const index = messages.value.push({ role: 'assistant', content: '', streaming: true }) - 1
   sending.value = true
+  aiAbort = new AbortController()
+  const target = () => messages.value[index]
   scrollToBottom()
 
   await streamAiChat(
     { kind: props.kind, slug: props.slug, message, history },
     {
       onChunk: (piece) => {
-        messages.value[index].content += piece
+        const msg = target()
+        if (!msg) return
+        msg.content += piece
         scrollToBottom()
       },
       onError: (err) => {
-        messages.value[index].content += `\n\n⚠ ${err.message}`
+        const msg = target()
+        if (msg) msg.content += `\n\n⚠ ${err.message}`
       },
     },
+    { signal: aiAbort.signal },
   )
 
-  messages.value[index].streaming = false
-  if (!messages.value[index].content) {
-    messages.value[index].content = '（没有收到回复）'
+  aiAbort = null
+  const msg = target()
+  if (msg) {
+    msg.streaming = false
+    if (!msg.content) msg.content = '（没有收到回复）'
   }
   sending.value = false
   scrollToBottom()
@@ -405,7 +425,7 @@ function tagClass(type) {
               源码已删
             </span>
             <span v-else-if="usage.found" class="chip chip-light chip-success" style="margin-left: auto;">
-              已生成 · {{ usageMtime }}
+              {{ usageMtime ? `已生成 · ${usageMtime}` : '已生成' }}
             </span>
             <span v-else class="chip chip-light chip-warning" style="margin-left: auto;">
               未生成用法
@@ -498,8 +518,8 @@ function tagClass(type) {
                 role="link"
                 tabindex="0"
                 :title="`打开模块 ${d}`"
-                @click="openRelated(d)"
-                @keydown.enter="openRelated(d)"
+                @click="goRelated('module', d)"
+                @keydown.enter="goRelated('module', d)"
               >{{ d }}</span>
               <span v-if="!item.public_deps.length" class="chip is-empty">无</span>
             </div>
@@ -517,8 +537,8 @@ function tagClass(type) {
                 role="link"
                 tabindex="0"
                 :title="`打开模块 ${d}`"
-                @click="openRelated(d)"
-                @keydown.enter="openRelated(d)"
+                @click="goRelated('module', d)"
+                @keydown.enter="goRelated('module', d)"
               >{{ d }}</span>
               <span v-if="!item.private_deps.length" class="chip is-empty">无</span>
             </div>

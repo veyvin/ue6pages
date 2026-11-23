@@ -35,6 +35,18 @@ const CHUNK_URL = (i) => `/api/usage-fb/chunk/${i}`
 const MANIFEST_ETAG_KEY = 'ue-usage-fb-manifest-etag'
 const chunkCache = new Map()
 
+const FETCH_TIMEOUT_MS = 20000
+
+/** 带超时的 AbortSignal；老浏览器没有 AbortSignal.timeout 时手动兜底。 */
+function timeoutSignal(ms = FETCH_TIMEOUT_MS) {
+  if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
+    return AbortSignal.timeout(ms)
+  }
+  const controller = new AbortController()
+  setTimeout(() => controller.abort(), ms)
+  return controller.signal
+}
+
 export const USAGE_FB_CANDIDATES = [
   ...LOCAL_CANDIDATES,
   ...PUBLISHED_CANDIDATES,
@@ -231,7 +243,7 @@ async function fetchJson(url, { force = false } = {}) {
     const etag = sessionStorage.getItem(MANIFEST_ETAG_KEY)
     if (etag) headers['If-None-Match'] = etag
   }
-  const resp = await fetch(url, { headers })
+  const resp = await fetch(url, { headers, signal: timeoutSignal() })
   if (resp.status === 304) return { notModified: true }
   if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
   const etag = resp.headers.get('ETag') || ''
@@ -247,7 +259,7 @@ async function fetchChunk(index, { force = false } = {}) {
     const etag = chunkCache.get(index)?.etag
     if (etag) headers['If-None-Match'] = etag
   }
-  const resp = await fetch(url, { headers })
+  const resp = await fetch(url, { headers, signal: timeoutSignal() })
   if (resp.status === 304) {
     const cached = chunkCache.get(index)
     return { docs: cached?.docs || [], bytes: cached?.bytes || 0, cached: true }
@@ -376,9 +388,8 @@ async function fetchOne(url, { force = false } = {}) {
  * 支持 AbortController 中止）。FlatBuffers 必须收齐完整 buffer 才能解析，所以这里只做
  * 下载阶段的流式进度；收满后再进入 parsing 阶段。
  */
-async function loadWithProgress(url, headers = {}, { signal } = {}) {
-  let controller = signal ? null : new AbortController()
-  const abortSignal = signal || controller.signal
+async function loadWithProgress(url, headers = {}, { signal, timeoutMs = 120000 } = {}) {
+  const abortSignal = signal || timeoutSignal(timeoutMs)
   const startedAt = performance.now()
 
   const resp = await fetch(url, {

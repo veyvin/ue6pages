@@ -15,6 +15,7 @@ const routes = [
     props: route => ({ kind: 'module', slug: route.params.slug }),
   },
   { path: '/settings', name: 'settings', component: () => import('./views/Settings.vue') },
+  { path: '/:pathMatch(.*)*', name: 'not-found', redirect: '/' },
 ]
 
 export const router = createRouter({
