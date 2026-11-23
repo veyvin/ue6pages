@@ -1,0 +1,32 @@
+# 复制为 backend/config.yaml 后按需修改（config.yaml 已被 .gitignore 忽略，不会提交）。
+# 也可以全部留空，直接用环境变量 / 设置页覆盖。
+
+# Unreal Engine 源码根目录（包含 Engine/ 的目录）
+engine_root: "D:/UnrealEngine"
+
+# AI：任何 OpenAI-compatible 端点
+ai:
+  enabled: true
+  model: "gpt-4o-mini"
+  endpoint: "https://api.openai.com/v1"
+  api_key: ""            # 建议改用环境变量 UE_AI_API_KEY，避免明文落盘
+  timeout: 60            # 秒
+  stream_chunk_size: 128
+  workers: 4             # 批量生成《使用方法》时的并发数，1-32
+
+# 扫描策略
+scan:
+  plugins_dir: "Engine/Plugins"
+  source_dir: "Engine/Source"
+  parallel: true
+
+# 静态资源与构建产物
+site:
+  usage_docs_root: "usage_docs"   # AI 生成的《使用方法》目录（相对 backend/ 或绝对路径）
+  usage_fb_root: "static/assets"  # usage.fb / usage.bin 输出目录，由 /assets 托管
+  frontend_dist: "../frontend/dist"  # 存在时后端直接托管构建产物
+
+# CORS：开发时放开，生产收紧
+cors:
+  origins:
+    - "http://localhost:5173"

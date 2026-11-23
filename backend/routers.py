@@ -295,7 +295,9 @@ async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
     skipped_existing = 0
     if not req.overwrite:
         have_md = usage_docs.existing_slugs()
-        have_fb = usage_fb.load_ai_usage_keys()
+        # load_ai_usage_keys 在本地没有 bundle 时会走网络（最长 60s），放到线程里，
+        # 避免阻塞事件循环导致整站请求卡住。
+        have_fb = await asyncio.to_thread(usage_fb.load_ai_usage_keys)
         kept: list[tuple[str, Any]] = []
         for kind, item in tasks:
             folder = "plugins" if kind == "plugin" else "modules"
@@ -366,7 +368,7 @@ async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
                 **{**counters, "skip": counters["skip"] + skipped_existing},
             })
             try:
-                usage_fb.write_files(force=True)
+                await asyncio.to_thread(usage_fb.write_files, True)
             except Exception:  # noqa: BLE001
                 pass
             yield "data: [DONE]\n\n"
@@ -374,6 +376,8 @@ async def ai_batch(req: AiBatchRequest) -> StreamingResponse:
             # 客户端断开 / 生成器取消时，停掉还没跑完的任务
             for t in pending:
                 t.cancel()
+            if pending:
+                await asyncio.gather(*pending, return_exceptions=True)
 
     return StreamingResponse(
         sse_body(),

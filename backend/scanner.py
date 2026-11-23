@@ -5,6 +5,7 @@
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -16,21 +17,24 @@ from .schemas import PluginInfo, PluginModule, ModuleInfo
 
 # ---------- 工具 ----------
 def slugify(name: str) -> str:
-    name = re.sub(r"[^\w\- ]+", "", name)
-    name = re.sub(r"\s+", "-", name.strip().lower())
-    return name or "item"
+    """与 scripts/generate_docs.py 保持完全一致，否则后端与 gh-pages 目录对不上。"""
+    s = re.sub(r"[^A-Za-z0-9._-]+", "-", (name or "").strip()).strip("-").lower()
+    return s or "unknown"
 
 
-def assign_slugs(items: list[dict], name_key: str = "name") -> None:
-    seen: dict[str, int] = {}
-    for it in items:
-        base = slugify(it.get(name_key, ""))
-        if base in seen:
-            seen[base] += 1
-            it["slug"] = f"{base}-{seen[base]}"
+def assign_slugs(items: list[dict], name_key: str = "name", path_key: str = "path") -> None:
+    """重名条目用路径 hash 后缀，与 generate_docs.assign_slugs 规则相同。"""
+    base = {i: slugify(str(it.get(name_key, ""))) for i, it in enumerate(items)}
+    counts: dict[str, int] = {}
+    for s in base.values():
+        counts[s] = counts.get(s, 0) + 1
+    for i, s in base.items():
+        if counts[s] > 1:
+            raw = str(items[i].get(path_key, "")).replace("\\", "/")
+            h = hashlib.sha1(raw.encode("utf-8")).hexdigest()[:6]
+            items[i]["slug"] = f"{s}-{h}"
         else:
-            seen[base] = 0
-            it["slug"] = base
+            items[i]["slug"] = s
 
 
 # ---------- 插件 ----------
@@ -63,7 +67,7 @@ def discover_uplugins(engine_root: Path) -> list[PluginInfo]:
             "author": data.get("CreatedBy", ""),
             "engine_version": data.get("EngineVersion", ""),
             "description": data.get("Description", ""),
-            "path": str(uplugin.relative_to(engine_root)),
+            "path": uplugin.relative_to(engine_root).as_posix(),
             "modules": [m.model_dump() for m in modules],
         }
         results.append(info)
@@ -90,20 +94,24 @@ def parse_build_cs(path: Path) -> dict:
 
     mtype = _parse_module_type(text)
 
-    # public deps
-    deps: list[str] = []
-    for m in re.finditer(
-        r'PublicDependencyModuleNames\s*(?:\.Add|\.AddRange\s*\(\s*new\s+string\[\]\s*\{)([^}]*)\}',
-        text, re.DOTALL,
-    ):
-        deps.extend(re.findall(r'"([^"]+)"', m.group(1)))
-    # private deps
-    priv_deps: list[str] = []
-    for m in re.finditer(
-        r'PrivateDependencyModuleNames\s*(?:\.Add|\.AddRange\s*\(\s*new\s+string\[\]\s*\{)([^}]*)\}',
-        text, re.DOTALL,
-    ):
-        priv_deps.extend(re.findall(r'"([^"]+)"', m.group(1)))
+    # public / private deps：AddRange(new[]{...}) 与逐个 Add("X") 两种写法都要覆盖
+    def _deps(prefix: str) -> list[str]:
+        out: list[str] = []
+        pat_range = re.compile(
+            rf"{prefix}DependencyModuleNames\.AddRange\s*\(\s*new\s*(?:string)?\[\]\s*\{{([^}}]*)\}}",
+            re.DOTALL,
+        )
+        pat_add = re.compile(
+            rf'{prefix}DependencyModuleNames\.Add\s*\(\s*"([A-Za-z0-9_.]+)"\s*\)'
+        )
+        for m in pat_range.finditer(text):
+            out.extend(re.findall(r'"([A-Za-z0-9_.]+)"', m.group(1)))
+        for m in pat_add.finditer(text):
+            out.append(m.group(1))
+        return list(dict.fromkeys(out))
+
+    deps = _deps("Public")
+    priv_deps = _deps("Private")
 
     base_match = re.search(r'\b(\w+)\s*\(\s*ReadOnlyTargetRules', text)
     base = base_match.group(1) if base_match else "ModuleRules"
@@ -135,7 +143,7 @@ def discover_build_cs(engine_root: Path) -> list[ModuleInfo]:
         info["slug"] = ""
         # 归一化 path 为相对
         try:
-            info["path"] = str(cs.relative_to(engine_root))
+            info["path"] = cs.relative_to(engine_root).as_posix()
         except ValueError:
             pass
         results.append(info)

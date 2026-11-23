@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -62,12 +63,27 @@ def config_path() -> Path:
     return _CONFIG_PATH
 
 
+def _warn_unknown(data: dict, model: type[BaseModel], prefix: str = "") -> None:
+    """pydantic 默认忽略未知字段；这里提示一下，避免旧 schema 的键静默失效。"""
+    for key, value in (data or {}).items():
+        if key not in model.model_fields:
+            print(
+                f"[config] 未知配置项被忽略: {prefix}{key}（对照 backend/config.example.yaml）",
+                file=sys.stderr,
+            )
+            continue
+        annotation = model.model_fields[key].annotation
+        if isinstance(value, dict) and isinstance(annotation, type) and issubclass(annotation, BaseModel):
+            _warn_unknown(value, annotation, f"{prefix}{key}.")
+
+
 def load_config(path: Path | str | None = None) -> AppConfig:
     p = Path(path) if path else _CONFIG_PATH
     data: dict = {}
     if p.exists():
         with open(p, encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
+    _warn_unknown(data, AppConfig)
     return AppConfig(**data)
 
 

@@ -15,6 +15,7 @@ Wire 布局（见 scripts/usage.fbs，file identifier "UEUG"）：
 from __future__ import annotations
 
 import datetime as _dt
+import hashlib
 import json
 import re
 import struct
@@ -524,8 +525,19 @@ def _source_files() -> list[Path]:
     return out
 
 
+def _signature_files() -> list[Path]:
+    """参与签名/陈旧判断的文件：Markdown 正文 + 同名 JSON 侧车。"""
+    root = usage_docs.usage_root()
+    out = _source_files()
+    for dirname in ("plugins", "modules"):
+        d = root / dirname
+        if d.is_dir():
+            out.extend(sorted(d.glob("*.json")))
+    return out
+
+
 def _signature() -> tuple[int, float]:
-    files = _source_files()
+    files = _signature_files()
     return len(files), max((f.stat().st_mtime for f in files), default=0.0)
 
 
@@ -556,11 +568,28 @@ def _frontend_assets() -> Path | None:
     return None
 
 
-def _flag_sig(records: list[dict[str, Any]]) -> set[tuple[str, str, bool, bool]]:
-    return {
-        (r.get("kind") or "", r.get("slug") or "", has_ai_usage(r), bool(r.get("in_source", True)))
-        for r in records
-    }
+def _content_sig(records: list[dict[str, Any]]) -> str:
+    """忽略 generated_at 的内容指纹。
+
+    只比较 (kind, slug, ai_usage, in_source) 会漏掉 steps/note/name/category 的
+    修改，导致 pack_usage_fb 判定 unchanged、usage.fb 永远不更新，所以这里对
+    每条记录的全部可见字段做哈希。
+    """
+    rows: list[str] = []
+    for rec in sorted(records, key=lambda r: (r.get("kind") or "", r.get("slug") or "")):
+        rows.append(json.dumps({
+            "kind": rec.get("kind") or "",
+            "slug": rec.get("slug") or "",
+            "name": rec.get("name") or "",
+            "category": rec.get("category") or "",
+            "cn_steps": rec.get("cn_steps") or [],
+            "en_steps": rec.get("en_steps") or [],
+            "note_cn": rec.get("note_cn") or "",
+            "note_en": rec.get("note_en") or "",
+            "ai_usage": has_ai_usage(rec),
+            "in_source": bool(rec.get("in_source", True)),
+        }, ensure_ascii=False, sort_keys=True))
+    return hashlib.sha1("\n".join(rows).encode("utf-8")).hexdigest()
 
 
 def write_docs_tree(
@@ -592,7 +621,7 @@ def write_docs_tree(
     merged = stamp_in_source(merge_with_existing(records, old), live_keys)
     old_keys = {(r["kind"], r["slug"]) for r in old}
     new_keys = {(r["kind"], r["slug"]) for r in merged}
-    if fb_path.is_file() and _flag_sig(old) == _flag_sig(merged):
+    if fb_path.is_file() and _content_sig(old) == _content_sig(merged):
         return {
             "path": str(main),
             "docs": len(old),
@@ -651,7 +680,7 @@ def disk_status() -> dict[str, Any]:
     root = output_root()
     main = root / "usage.fb"
     exists = main.is_file()
-    stale = exists and any(f.stat().st_mtime > main.stat().st_mtime for f in _source_files())
+    stale = exists and any(f.stat().st_mtime > main.stat().st_mtime for f in _signature_files())
     return {
         "root": str(root),
         "path": str(main),
