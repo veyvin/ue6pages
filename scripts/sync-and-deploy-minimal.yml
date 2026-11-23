@@ -47,7 +47,7 @@ jobs:
             || echo "merge-upstream failed (non-fork or rate-limited); continuing"
 
           AFTER=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${GITHUB_REF_NAME}" --jq .object.sha)
-          echo "before_sha=$BEFORE"  >> "$GITHUB_OUTPUT"
+          echo "before_sha=$BEFORE" >> "$GITHUB_OUTPUT"
           echo "sync_sha=$AFTER"     >> "$GITHUB_OUTPUT"
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "new_commits=true"  >> "$GITHUB_OUTPUT"

@@ -77,6 +77,15 @@ jobs:
           fi
           mkdir -p /tmp/ghpages/plugins /tmp/ghpages/modules
 
+      - name: Warn if gh-pages generator drifted from main
+        run: |
+          set -euo pipefail
+          LOCAL=public-repo/scripts/generate_docs.py
+          REMOTE=/tmp/ghpages/scripts/generate_docs.py
+          if [ -f "$REMOTE" ] && ! cmp -s "$LOCAL" "$REMOTE"; then
+            echo "::warning file=scripts/generate_docs.py::gh-pages 上的 generate_docs.py 与 main 不一致；CI 实际运行 gh-pages 版本，请同步两边。"
+          fi
+
       - name: Seed from private repo gh-pages (optional)
         if: github.event.inputs.seed_from_private == 'true'
         run: |

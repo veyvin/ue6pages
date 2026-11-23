@@ -32,12 +32,17 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import sys
 import urllib.error
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+
+from inject_usage import load_ai_usage, usage_card_html
+
+AI_USAGE = load_ai_usage()
 
 DEFAULT_MODEL = "openai/gpt-4o-mini"
 AI_URL = "https://models.github.ai/inference/chat/completions"
@@ -122,7 +127,9 @@ def assign_slugs(items: list[dict], name_key: str, path_key: str) -> dict:
         if counts[s] > 1:
             # Deterministic short hash so the same plugin always maps to the
             # same slug across runs (PYTHONHASHSEED would break that).
-            h = hashlib.sha1(items[i][path_key].encode("utf-8")).hexdigest()[:6]
+            h = hashlib.sha1(
+                str(items[i][path_key]).replace("\\", "/").encode("utf-8")
+            ).hexdigest()[:6]
             out[i] = f"{s}-{h}"
         else:
             out[i] = s
@@ -439,6 +446,16 @@ def write_plugin_doc(doc_path: Path, info: dict, body: str,
     if author:
         cat_chip += f'<span class="chip">{author}</span>'
 
+    usage_html = usage_card_html({
+        "kind": "plugin",
+        "name": info["name"],
+        "desc_cn": desc_zh,
+        "desc_en": desc,
+        "category": category,
+        "file_path": show_path,
+        "modules": info.get("modules", []),
+    }, AI_USAGE.get(("plugin", doc_path.stem)))
+
     html_content = f"""---
 layout: default
 title: {title_attr}
@@ -467,6 +484,7 @@ title: {title_attr}
       <div class="card-title"><span class="card-title-sep"></span>Description<span class="card-title-cn">描述</span></div>
       <div class="desc-body">{desc_html}</div>
     </div>
+{usage_html}
     {f'<div class="card"><div class="card-title"><span class="card-title-sep"></span>Notes<span class="card-title-cn">补充说明</span></div>{body_html}</div>' if body_html else ''}
   </div>
   <aside class="detail-sidebar">
@@ -511,6 +529,16 @@ def write_module_doc(doc_path: Path, info: dict, body: str,
 
     title_attr = cls_name
 
+    usage_html = usage_card_html({
+        "kind": "module",
+        "name": cls_name,
+        "desc_cn": body_zh,
+        "desc_en": body,
+        "category": mod_type,
+        "file_path": show_path,
+        "modules": deps,
+    }, AI_USAGE.get(("module", doc_path.stem)))
+
     html_content = f"""---
 layout: default
 title: {title_attr}
@@ -552,6 +580,7 @@ title: {title_attr}
 {f'<div class="bilingual-block"><div class="lang-tabs"><button class="lang-tab active" onclick="switchLang(this)">中文</button><button class="lang-tab" onclick="switchLang(this)">English</button></div><div class="lang-content active">{body_zh}</div><div class="lang-content">{body}</div></div>' if body and translate and body_zh and body_zh != body else f'<p>{body}</p>' if body else ''}
       </div>
     </div>
+{usage_html}
   </div>
   <aside class="detail-sidebar">
     <div class="sidebar-card">
@@ -599,14 +628,40 @@ def update_index(docs_root: Path,
         "title: Unreal Engine 插件与模块文档\n"
         "description: 虚幻引擎插件和模块的自动生成参考文档（中英文对照）\n"
         "baseurl: \n"
-        "url: https://ue.veyvin.com\n",
+        "url: https://ue.veyvin.com\n"
+        "include:\n"
+        "  - assets/usage.bin\n"
+        "  - assets/usage.fb\n",
         encoding="utf-8",
     )
 
-    # --- default layout (FlClash-inspired: sidebar + topbar) ---
+    # --- default layout (hand-authored chrome; do not overwrite existing files) ---
     layout_dir = docs_root / "_layouts"
     layout_dir.mkdir(parents=True, exist_ok=True)
-    (layout_dir / "default.html").write_text(
+    chrome_root = Path(__file__).resolve().parents[1]
+
+    def _copy_chrome(rel: str) -> None:
+        src = chrome_root / rel
+        dst = docs_root / rel
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        if src.exists() and src.resolve() != dst.resolve():
+            shutil.copy2(src, dst)
+
+    _copy_chrome("_layouts/default.html")
+    _copy_chrome("assets/style.css")
+    _copy_chrome("assets/main.js")
+    _copy_chrome("assets/usage-fb.js")
+    _copy_chrome("assets/usage-runtime.js")
+    _copy_chrome("assets/usage.bin")
+    _copy_chrome("assets/usage.fb")
+
+    def _keep_chrome(_path):
+        class _W:
+            def write_text(self, *args, **kwargs):
+                return None
+        return _W()
+
+    _keep_chrome(layout_dir / "default.html").write_text(
         "<!DOCTYPE html>\n"
         '<html lang="zh-CN" data-theme="light">\n'
         "<head>\n"
@@ -1112,6 +1167,26 @@ pre code {{ background: none; padding: 0; font-size: 13px; }}
 .desc-body p {{ margin-bottom: 14px; line-height: 1.75; }}
 .desc-body p:last-child {{ margin-bottom: 0; }}
 
+.usage-card .desc-body .bilingual-block {{ margin-bottom: 0; }}
+.usage-steps {{ margin: 0; padding-left: 22px; }}
+.usage-steps li {{ margin-bottom: 12px; line-height: 1.7; }}
+.usage-steps li:last-child {{ margin-bottom: 0; }}
+.usage-code {{
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  background: var(--surface-container-highest);
+  padding: 1px 7px;
+  border-radius: 8px;
+  color: var(--on-surface);
+  word-break: break-all;
+}}
+.usage-note {{
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  line-height: 1.6;
+}}
+
 .detail-sidebar {{ display: flex; flex-direction: column; gap: 16px; align-self: start; }}
 
 .sidebar-card {{
@@ -1200,7 +1275,7 @@ pre code {{ background: none; padding: 0; font-size: 13px; }}
   * {{ transition: none !important; animation: none !important; }}
 }}
 """
-    (assets_dir / "style.css").write_text(style_css, encoding="utf-8")
+    _keep_chrome(assets_dir / "style.css").write_text(style_css, encoding="utf-8")
 
     # --- JavaScript: theme, language, search, sidebar toggle ---
     main_js = """
@@ -1308,7 +1383,7 @@ window.toggleTheme = window.toggleTheme || function() {};
 
 document.addEventListener('DOMContentLoaded', function() { filterItems(); });
 """
-    (assets_dir / "main.js").write_text(main_js, encoding="utf-8")
+    _keep_chrome(assets_dir / "main.js").write_text(main_js, encoding="utf-8")
 
     # --- Index page: stat cards + grid with filters (FlClash-inspired) ---
     # Category stats
@@ -1387,9 +1462,10 @@ layout: default
 title: Unreal Engine Plugin Docs / 插件与模块
 ---
 
-<div class="page-title-wrap" style="margin-bottom:24px;">
-  <h1 style="font-size:28px;letter-spacing:-0.02em;margin-bottom:4px;">Unreal Engine 插件与模块</h1>
-  <p style="color:var(--on-surface-variant);font-size:14px;">自动生成的虚幻引擎 <span class="mono">{len(plugins)}</span> 个插件 · <span class="mono">{len(modules)}</span> 个模块，按源码每日更新</p>
+<div class="page-title-wrap">
+  <p class="page-kicker">Unreal Engine · Source catalog</p>
+  <h1>插件与模块</h1>
+  <p class="page-lede">从引擎源码同步的 <span class="mono">{len(plugins)}</span> 个插件 · <span class="mono">{len(modules)}</span> 个模块，按路径与类别检索。</p>
 </div>
 
 <!-- Stat cards row (4 columns) -->
