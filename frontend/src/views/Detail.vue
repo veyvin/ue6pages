@@ -24,7 +24,7 @@ const progress = ref({ phase: 'idle', received: 0, total: 0, ratio: null, rate: 
 let stopProgress = null
 let aiAbort = null
 onMounted(() => { stopProgress = onUsageFbProgress((p) => { progress.value = p }) })
-onBeforeUnmount(() => { stopProgress?.(); cancelAi() })
+onBeforeUnmount(() => { stopProgress?.(); cancelAi(); clearTimeout(copyTimer) })
 
 const phaseMap = {
   idle: { title: '准备打开条目', sub: 'resolving entry' },
@@ -60,6 +60,8 @@ const usage = ref({ found: false, content: '', mtime: 0 })
 const usageBusy = ref(false)
 const usageLoading = ref(false)
 const usageError = ref('')
+const copyState = ref('idle') // idle | ok | fail
+let copyTimer = null
 
 const isPlugin = computed(() => props.kind === 'plugin')
 const kindLabel = computed(() => (isPlugin.value ? '插件' : '模块'))
@@ -129,6 +131,37 @@ async function generateUsage() {
     },
   )
   usageBusy.value = false
+}
+
+function setCopyState(state) {
+  copyState.value = state
+  clearTimeout(copyTimer)
+  copyTimer = setTimeout(() => { copyState.value = 'idle' }, 1800)
+}
+
+async function copyUsage() {
+  const text = usage.value?.content || ''
+  if (!text) return
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('clipboard unavailable')
+    await navigator.clipboard.writeText(text)
+    setCopyState('ok')
+  } catch {
+    // 非安全上下文（http / 内网 IP）下的兜底
+    try {
+      const ta = document.createElement('textarea')
+      ta.value = text
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.appendChild(ta)
+      ta.select()
+      const ok = document.execCommand('copy')
+      ta.remove()
+      setCopyState(ok ? 'ok' : 'fail')
+    } catch {
+      setCopyState('fail')
+    }
+  }
 }
 
 async function load() {
@@ -421,37 +454,70 @@ function tagClass(type) {
           <div class="card-title">
             <span class="card-title-sep">02</span>
             使用方法 <span class="serif">Usage</span>
-            <span v-if="status === 'gone'" class="chip chip-light chip-rose" style="margin-left: auto;">
-              源码已删
-            </span>
-            <span v-else-if="usage.found" class="chip chip-light chip-success" style="margin-left: auto;">
-              {{ usageMtime ? `已生成 · ${usageMtime}` : '已生成' }}
-            </span>
-            <span v-else class="chip chip-light chip-warning" style="margin-left: auto;">
-              未生成用法
-            </span>
+            <span class="card-title-cn">AI generated · markdown</span>
+            <div class="card-title-actions">
+              <button
+                v-if="usage.found"
+                class="btn-quiet"
+                :disabled="copyState === 'ok'"
+                title="复制 Markdown 原文"
+                @click="copyUsage"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                {{ copyState === 'ok' ? '已复制' : copyState === 'fail' ? '复制失败' : '复制' }}
+              </button>
+              <span v-if="status === 'gone'" class="chip chip-light chip-rose">源码已删</span>
+              <span
+                v-else-if="usage.found"
+                class="chip chip-light chip-success"
+                :title="usageMtime ? `最后更新 ${usageMtime}` : ''"
+              >已生成</span>
+              <span v-else class="chip chip-light chip-warning">未生成</span>
+            </div>
           </div>
-          <div v-if="usageLoading && !usage.found" class="usage-loading" aria-busy="true">
-            <div class="load-track"><div class="load-fill indeterminate"></div></div>
-            <p class="muted" style="margin-top: 10px;">正在从 usage.fb 载入该条目的用法…</p>
+
+          <div v-if="usageLoading && !usage.found" class="usage-skel" aria-busy="true">
+            <div class="usage-skel-head"><span class="usage-skel-pulse"></span>正在载入用法文档…</div>
+            <div class="sk-line" style="width: 56%"></div>
+            <div class="sk-line" style="width: 94%"></div>
+            <div class="sk-line" style="width: 88%"></div>
+            <div class="sk-line" style="width: 46%"></div>
           </div>
-          <div v-else-if="usageBusy && !usage.found" class="usage-loading" aria-busy="true">
-            <div class="load-track"><div class="load-fill indeterminate"></div></div>
-            <p class="muted" style="margin-top: 10px;">AI 正在撰写《使用方法》… 生成完成后会自动刷新。</p>
+
+          <div v-else-if="usageBusy && !usage.found" class="usage-busy" aria-busy="true">
+            <span class="usage-busy-spark">✦</span>
+            <div class="usage-busy-copy">
+              <b>AI 正在撰写《使用方法》</b>
+              <p>生成完成后会自动刷新，无需离开本页。</p>
+            </div>
+            <span class="usage-busy-bar"><i></i></span>
           </div>
+
           <div v-else-if="usageError" class="banner banner-error" style="margin-top: var(--space-3);">
             {{ usageError }}
           </div>
+
           <div v-else-if="usage.found" class="md usage-body" v-html="renderMarkdown(usage.content)"></div>
-          <div v-else class="desc-body usage-empty">
-            <p class="muted">
-              还没有《使用方法》文档。点击下方按钮，AI 会结合源码元数据写一份可直接上手的说明，
-              并写入后端 <span class="mono">usage_docs_root</span> 目录（
-              <span class="mono">{{ isPlugin ? 'plugins' : 'modules' }}/{{ props.slug }}.md</span>）。
-            </p>
-            <button class="btn btn-lime" :disabled="usageBusy" @click="generateUsage">
-              {{ usageBusy ? '生成中…' : 'AI 生成使用方法' }}
-            </button>
+
+          <div v-else class="usage-empty">
+            <span class="usage-empty-badge">✦</span>
+            <div class="usage-empty-body">
+              <h3>还没有《使用方法》</h3>
+              <p>
+                AI 会结合源码元数据写一份可直接上手的说明，并保存到
+                <code>{{ isPlugin ? 'plugins' : 'modules' }}/{{ props.slug }}.md</code>。
+                也可以在设置页一次批量生成全部条目。
+              </p>
+            </div>
+            <div class="usage-empty-actions">
+              <button class="btn btn-lime" :disabled="usageBusy" @click="generateUsage">
+                {{ usageBusy ? '生成中…' : 'AI 生成使用方法' }}
+              </button>
+              <router-link class="btn btn-quiet" :to="{ name: 'settings' }">去设置批量生成</router-link>
+            </div>
           </div>
         </section>
 
